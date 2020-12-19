@@ -1,0 +1,43 @@
+    <!-- BUGS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <A NAME="faq"></A>
+    <A NAME="bugs"></A><HR>
+    <H1 ALIGN="CENTER">Reporting bugs and FAQ</H1>
+
+    <HR WIDTH="70%">
+     <p>
+      There are various sources of information you could check before
+      reporting a bug. Please read the <A HREF="http://www.lirc.org/">
+      LIRC homepage</A> carefully, have a look at the
+      <a HREF="../faq.html">FAQ</a>, check the
+      <a href="https://sourceforge.net/p/lirc/tickets"> issue tracker</a>
+      and search the
+      <A HREF="https://sourceforge.net/p/lirc/mailman/lirc-list/">
+      mail archives</a>.</p>
+
+    <P>
+      If you believe that you have found a bug in LIRC please report it on
+      the  <A HREF="http://lists.sourceforge.net/mailman/listinfo/lirc-list">
+      LIRC mailing list</A> or the
+      <a href="https://sourceforge.net/p/lirc/tickets">issue tracker</a>.
+      Information which is valuable in this context includes:
+    </P>
+    <UL>
+      <LI>LIRC version, versions of all other packages involved</LI>
+      <LI>Description of the IR hardware you are using</LI>
+      <LI>Output of <em>ls -l /dev/lirc*</em></LI>
+      <LI>Output of <em>lsmod</em></LI>
+      <LI>Relevant passages from <em>/var/log/messages</em> or journalctl(1)
+           </LI>
+      <LI>Contents of lircd's logfile if you are using a file (otherwise
+         the logs are  in syslog/journalctl). Use a high log level, at least
+         <em>--loglevel debug</em> </li>
+      <LI>A description of the problem so it's possible to reproduce it</LI>
+      <LI>A patch that solves the problem (this one is optional)</LI>
+      <LI>The config files you are using (<em>lircd.conf</em>,
+         <em>lircmd.conf</em>, <em>lircrc</em>,  <em>lirc_options.conf</em>)
+         </LI>
+      <LI>If you have problems with a config file try to find the
+        shortest example that does not work as one would expect and
+        include it.</LI>
+    </UL>

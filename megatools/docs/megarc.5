@@ -1,0 +1,181 @@
+'\" t
+.\"     Title: megarc
+.\"    Author: [see the "AUTHOR" section]
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 04/15/2020
+.\"    Manual: Megatools Manual
+.\"    Source: megatools 1.10.2
+.\"  Language: English
+.\"
+.TH "MEGARC" "5" "04/15/2020" "megatools 1.10.2" "Megatools Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+megarc \- Configuration file for megatools
+.SH "SYNOPSIS"
+.sp
+.nf
+\fI~/\&.megarc\fR
+\fI\&./\&.megarc\fR
+.fi
+.SH "DESCRIPTION"
+.sp
+Megatools use INI configuration file to store commonly used login credentials\&. This makes it less bothersome to use the tools, as you can simply write
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ megadf
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+instead of
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ megadf \-\-username my@email\&.com \-\-password mypass
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+when using the tools\&.
+.sp
+Configuration file is read either from the current directory or user\(cqs home directory\&. Exceptions are when \-\-ignore\-config\-file was passed to the tool, or when explicit path to the config file was given via \-\-config <path>\&.
+.SH "CONFIG FILE SECTIONS"
+.sp
+All sections are optional\&. All names are case sensitive, thus you must write [Login], and not [login], and so on\&.
+.SS "[Login] Section"
+.PP
+Username
+.RS 4
+Your username\&.
+.RE
+.PP
+Password
+.RS 4
+Your password\&. Be aware that back slashes have special meaning\&. If you have back slash in your password, you must escape it with another backslash\&. For example: my\enice\epassword would be written as my\e\enice\e\epassword in the config file\&.
+.RE
+.SS "[Cache] Section"
+.PP
+Timeout
+.RS 4
+Cache timeout in seconds (default is 10 minutes)\&.
+.RE
+.SS "[Network] Section"
+.PP
+DownloadSpeedLimit
+.RS 4
+Set maximum allowed download speed in KiB/s\&. 0 means no limit\&. Overrides SpeedLimit setting\&.
+.RE
+.PP
+UploadSpeedLimit
+.RS 4
+Set maximum allowed upload speed in KiB/s\&. 0 means no limit\&. Overrides SpeedLimit setting\&. When using ParallelTransfers > 1, upload speed limit is applied to each transfer individually\&.
+.RE
+.PP
+SpeedLimit
+.RS 4
+Set maximum allowed upload and download speed in KiB/s\&. 0 means no limit\&.
+.RE
+.PP
+ParallelTransfers
+.RS 4
+Set maximum allowed number of parallel connections when upload or downloading a file\&. The file is split into chunks of a size between 128 kiB and 1 MiB, and these chunks are uploaded in parallel\&. The number must be between 1 and 16\&. Default is 5\&.
+.RE
+.PP
+Proxy
+.RS 4
+Use proxy server to connect to mega\&.nz\&. More information can be found in libcurl documentation at
+https://curl\&.haxx\&.se/libcurl/c/CURLOPT_PROXY\&.html\&. Some acceptable values are:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+socks5://localhost:9050
+: Local SOCKSv5 proxy server
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+socks5h://localhost:9050
+: Local SOCKSv5 proxy server with DNS handled by the proxy
+.RE
+.RE
+.SS "[Upload] Section"
+.PP
+CreatePreviews
+.RS 4
+Create Previews (see \-\-enable\-previews option)\&.
+.RE
+.SH "EXAMPLE"
+.sp
+Create ~/\&.megarc (on linux) or mega\&.ini file containing these 3 lines:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[Login]
+Username = your@email
+Password = yourpassword
+
+[Network]
+# 1MiB/s
+SpeedLimit = 1024
+# Use over TOR
+Proxy = socks5://127\&.0\&.0\&.1:9050
+ParallelTransfers = 2
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Run \fBmegadf\fR(1) to check that megatools are able to login to your account\&.
+.SH "SEE ALSO"
+.sp
+\fBmegatools\fR(7), \fBmegarc\fR(5), \fBmegadf\fR(1), \fBmegadl\fR(1), \fBmegaget\fR(1), \fBmegals\fR(1), \fBmegamkdir\fR(1), \fBmegaput\fR(1), \fBmegareg\fR(1), \fBmegarm\fR(1), \fBmegacopy\fR(1)\&.
+.SH "MEGATOOLS"
+.sp
+Part of the \fBmegatools\fR(7) suite\&.
+.SH "BUGS"
+.sp
+Report bugs at https://github\&.com/megous/megatools or megous@megous\&.com\&.
+.SH "AUTHOR"
+.sp
+Megatools was written by Ondrej Jirman <megous@megous\&.com>, 2013\-2016\&.
+.sp
+Official website is http://megatools\&.megous\&.com\&.

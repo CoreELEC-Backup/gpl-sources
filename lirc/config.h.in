@@ -1,0 +1,314 @@
+/* config.h.in.  Generated from configure.ac by autoheader.  */
+
+
+#ifndef ROOT_CONFIG_H
+#define ROOT_CONFIG_H
+#include     "paths.h"
+
+
+/* type of argument 3 in getgrouplist() */
+#undef GETGROUPS_T
+
+/* Define to 1 if `TIOCGWINSZ' requires <sys/ioctl.h>. */
+#undef GWINSZ_IN_SYS_IOCTL
+
+/* Define to 1 if you have the <alsa/asoundlib.h> header file. */
+#undef HAVE_ALSA_ASOUNDLIB_H
+
+/* Define if the ALSA library with SB RC support is installed */
+#undef HAVE_ALSA_SB_RC
+
+/* Define to 1 if you have the `clock_gettime' function. */
+#undef HAVE_CLOCK_GETTIME
+
+/* Define to 1 if you have the `daemon' function. */
+#undef HAVE_DAEMON
+
+/* Define if the Linux input framwework is available */
+#undef HAVE_DEVINPUT
+
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define to 1 if you have the <fcntl.h> header file. */
+#undef HAVE_FCNTL_H
+
+/* Define if forkpty is available */
+#undef HAVE_FORKPTY
+
+/* Define if the libftdi library is installed */
+#undef HAVE_FTDI
+
+/* Define to 1 if you have the `gethostname' function. */
+#undef HAVE_GETHOSTNAME
+
+/* Define to 1 if you have the `gettimeofday' function. */
+#undef HAVE_GETTIMEOFDAY
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the <IOKit/IOCFPlugIn.h> header file. */
+#undef HAVE_IOKIT_IOCFPLUGIN_H
+
+/* define if kernel-headers contains lirc.h */
+#undef HAVE_KERNEL_LIRC_H
+
+/* Define if the ALSA library is installed */
+#undef HAVE_LIBALSA
+
+/* Define if the portaudio library is installed */
+#undef HAVE_LIBPORTAUDIO
+
+/* Define to 1 if you have the <libudev.h> header file. */
+#undef HAVE_LIBUDEV_H
+
+/* Define if libusb is installed */
+#undef HAVE_LIBUSB
+
+/* Define to 1 if you have the <libusb-1.0/libusb.h> header file. */
+#undef HAVE_LIBUSB_1_0_LIBUSB_H
+
+/* Define to 1 if you have the <libusb.h> header file. */
+#undef HAVE_LIBUSB_H
+
+/* Define to 1 if you have the <libutil.h> header file. */
+#undef HAVE_LIBUTIL_H
+
+/* Define to 1 if you have the <limits.h> header file. */
+#undef HAVE_LIMITS_H
+
+/* defined if Linux input interface is available */
+#undef HAVE_LINUX_DEVINPUT
+
+/* defined if Linux hiddev HIDDEV_FLAG_UREF flag is available */
+#undef HAVE_LINUX_HIDDEV_FLAG_UREF
+
+/* Define to 1 if you have the <linux/hiddev.h> header file. */
+#undef HAVE_LINUX_HIDDEV_H
+
+/* Define to 1 if you have the <linux/i2c-dev.h> header file. */
+#undef HAVE_LINUX_I2C_DEV_H
+
+/* Define to 1 if you have the <linux/input.h> header file. */
+#undef HAVE_LINUX_INPUT_H
+
+/* Define to 1 if you have the <linux/ioctl.h> header file. */
+#undef HAVE_LINUX_IOCTL_H
+
+/* Define to 1 if you have the <linux/lirc.h> header file. */
+#undef HAVE_LINUX_LIRC_H
+
+/* defined if linux/sched.h is available */
+#undef HAVE_LINUX_SCHED_H
+
+/* Define to 1 if you have the <linux/types.h> header file. */
+#undef HAVE_LINUX_TYPES_H
+
+/* Define to 1 if you have the <mach/mach_time.h> header file. */
+#undef HAVE_MACH_MACH_TIME_H
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the `mkfifo' function. */
+#undef HAVE_MKFIFO
+
+/* defined if poll() is available and seemingly without bugs */
+#undef HAVE_POLL_FINE
+
+/* defined if poll.h is available */
+#undef HAVE_POLL_H
+
+/* defined if pty.h is available */
+#undef HAVE_PTY_H
+
+/* defined if SCSI API is available */
+#undef HAVE_SCSI
+
+/* Define to 1 if you have the <scsi/sg.h> header file. */
+#undef HAVE_SCSI_SG_H
+
+/* defined if select(2) is available */
+#undef HAVE_SELECT
+
+/* Define to 1 if you have the `snprintf' function. */
+#undef HAVE_SNPRINTF
+
+/* Define to 1 if you have the `socket' function. */
+#undef HAVE_SOCKET
+
+/* defined if soundcard API is available */
+#undef HAVE_SOUNDCARD
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the `strdup' function. */
+#undef HAVE_STRDUP
+
+/* Define to 1 if you have the `strerror' function. */
+#undef HAVE_STRERROR
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the `strsep' function. */
+#undef HAVE_STRSEP
+
+/* Define to 1 if you have the `strtoul' function. */
+#undef HAVE_STRTOUL
+
+/* Define to 1 if you have the <syslog.h> header file. */
+#undef HAVE_SYSLOG_H
+
+/* defined if systemd API is available */
+#undef HAVE_SYSTEMD
+
+/* Define to 1 if you have the <sys/ioctl.h> header file. */
+#undef HAVE_SYS_IOCTL_H
+
+/* defined if sys/poll.h is available */
+#undef HAVE_SYS_POLL_H
+
+/* Define to 1 if you have the <sys/soundcard.h> header file. */
+#undef HAVE_SYS_SOUNDCARD_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if you have the <usb.h> header file. */
+#undef HAVE_USB_H
+
+/* Define if util.h is installed */
+#undef HAVE_UTIL_H
+
+/* Define to 1 if you have the `vsyslog' function. */
+#undef HAVE_VSYSLOG
+
+/* Directory for device locks (usually /var/lock or /var/lock/lockdev) */
+#undef LIRC_LOCKDIR
+
+/* Environment variable overriding options file path */
+#undef LIRC_OPTIONS_VAR
+
+/* Define to the sub-directory where libtool stores uninstalled libraries. */
+#undef LT_OBJDIR
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Path to shell, usually /bin/sh or /usr/bin/sh */
+#undef SH_PATH
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
+#undef TIME_WITH_SYS_TIME
+
+/* Version number of package */
+#undef VERSION
+
+/* Numeric version, m.v.r => 10000 * m + 100 * v + r */
+#undef VERSION_NODOTS
+
+/* Define to 1 if the X Window System is missing or not being used. */
+#undef X_DISPLAY_MISSING
+
+/* Define for Solaris 2.5.1 so the uint32_t typedef from <sys/synch.h>,
+   <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
+   #define below would cause a syntax error. */
+#undef _UINT32_T
+
+/* Define for Solaris 2.5.1 so the uint64_t typedef from <sys/synch.h>,
+   <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
+   #define below would cause a syntax error. */
+#undef _UINT64_T
+
+/* Define for Solaris 2.5.1 so the uint8_t typedef from <sys/synch.h>,
+   <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
+   #define below would cause a syntax error. */
+#undef _UINT8_T
+
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name.  */
+#ifndef __cplusplus
+#undef inline
+#endif
+
+/* Define to the type of a signed integer type of width exactly 16 bits if
+   such a type exists and the standard includes do not define it. */
+#undef int16_t
+
+/* Define to the type of a signed integer type of width exactly 32 bits if
+   such a type exists and the standard includes do not define it. */
+#undef int32_t
+
+/* Define to the type of a signed integer type of width exactly 64 bits if
+   such a type exists and the standard includes do not define it. */
+#undef int64_t
+
+/* Define to the type of a signed integer type of width exactly 8 bits if such
+   a type exists and the standard includes do not define it. */
+#undef int8_t
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef pid_t
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#undef size_t
+
+/* Define to the type of an unsigned integer type of width exactly 16 bits if
+   such a type exists and the standard includes do not define it. */
+#undef uint16_t
+
+/* Define to the type of an unsigned integer type of width exactly 32 bits if
+   such a type exists and the standard includes do not define it. */
+#undef uint32_t
+
+/* Define to the type of an unsigned integer type of width exactly 64 bits if
+   such a type exists and the standard includes do not define it. */
+#undef uint64_t
+
+/* Define to the type of an unsigned integer type of width exactly 8 bits if
+   such a type exists and the standard includes do not define it. */
+#undef uint8_t
+
+
+#include     "lirc/lirc_config.h"
+#endif // ROOT_CONFIG_H
+

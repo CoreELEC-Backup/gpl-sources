@@ -1,0 +1,1131 @@
+# Kodi Media Center language file
+# Addon Name: @DISTRONAME@ Configuration
+# Addon id: service.coreelec.settings
+# Addon Provider: CoreELEC
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv_LV\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+
+msgctxt "#600"
+msgid "@DISTRONAME@ Settings"
+msgstr "@DISTRONAME@ iestatījumi"
+
+msgctxt "#601"
+msgid "Interface"
+msgstr "Adapteris"
+
+msgctxt "#602"
+msgid "Address"
+msgstr "Adrese"
+
+msgctxt "#603"
+msgid "Type"
+msgstr "Veids"
+
+msgctxt "#604"
+msgid "State"
+msgstr "Statuss"
+
+msgctxt "#605"
+msgid "Address"
+msgstr "Adrese"
+
+msgctxt "#606"
+msgid "Distribution: "
+msgstr "Distributīvs: "
+
+msgctxt "#607"
+msgid "Version: "
+msgstr "Versija: "
+
+msgctxt "#608"
+msgid "Architecture: "
+msgstr "Arhitektūra: "
+
+msgctxt "#700"
+msgid ""
+"Configure a hostname, keyboard type, perform a reset, update, or backups and"
+" restores"
+msgstr "Resursdatora nosaukuma, tastatūras veida konfigurēšana, atiestatīšanas, atjaunināšanas vai dublēšanas un atjaunošanas veikšana"
+
+msgctxt "#701"
+msgid "Configure network startup options, NTP and VPNs"
+msgstr "Tīkla startēšanas opciju, NTP un VPN konfigurēšana"
+
+msgctxt "#702"
+msgid ""
+"Manage the Ethernet, Wireless and VPN connections available to the system"
+msgstr "Sistēmā pieejamo vadu tīkla, bezvadu un VPN savienojumu pārvaldīšana"
+
+msgctxt "#703"
+msgid "Configure system services like Samba, SSH, Cron, Avahi and Syslog"
+msgstr "Samba, SSH, Cron, Avahi un Syslog servisu konfigurēšana"
+
+msgctxt "#704"
+msgid "Configure and pair Bluetooth devices"
+msgstr "Bluetooth ierīču konfigurēšana un pārošana"
+
+msgctxt "#707"
+msgid "Configure updates"
+msgstr "Atjauninājumu konfigurēšana"
+
+msgctxt "#710"
+msgid ""
+"Configure the Hostname of your @DISTRONAME@ system. This will be used for "
+"the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+msgstr "@DISTRONAME@ sistēmas resursdatora nosaukuma konfigurēšana. Tas tiks izmantots Windows HTPC \\\\hostname un Mac OS Finder SMB servera nosaukumā"
+
+msgctxt "#711"
+msgid "Configure the 1st keyboard software layout"
+msgstr "1. tastatūras programmiskā izkārtojuma konfigurēšana"
+
+msgctxt "#712"
+msgid "Configure the 2nd keyboard software layout"
+msgstr "2. tastatūras programmiskā izkārtojuma konfigurēšana"
+
+msgctxt "#713"
+msgid "Configure the physical keyboard type"
+msgstr "Fiziskās tastatūras veida konfigurēšana"
+
+msgctxt "#714"
+msgid ""
+"@DISTRONAME@ can be configured for automatic or manual updates. Automatic "
+"updates are available on stable releases and stable release candidates. "
+"Automatic update self-disables on beta and development builds"
+msgstr "@DISTRONAME@ automātisko vai manuālo atjauninājumu konfigurēšana. Automātiskie atjauninājumi ir pieejami stabilās versijās un stabilos izlaiduma kandidātos. Automātiskās atjaunināšana nenotiek beta un pamata izstrādēs"
+
+msgctxt "#715"
+msgid ""
+"Set to ON and an on-screen notification will be displayed when a new update "
+"is available"
+msgstr "Ieslēdziet atjauninājuma pieejamības paziņojumu"
+
+msgctxt "#718"
+msgid ""
+"Send boot config files from /flash, kodi.log, kernel log and Samba configs "
+"to http://ix.io, and display the short URL"
+msgstr "/flash boot konfigurācijas faila, kodi.log, kodola žurnāla un Samba konfigurācijas nosūtīšana uz http://ix.io un īsā URL attēlošana"
+
+msgctxt "#719"
+msgid ""
+"Send boot config files from /flash, kodi_crash.log, kernel log and Samba "
+"configs to http://ix.io, and display the short URL"
+msgstr "/flash boot konfigurācijas faila, kodi_crash.log, kodola žurnāla un Samba konfigurācijas nosūtīšana uz http://ix.io un īsā URL attēlošana"
+
+msgctxt "#720"
+msgid "Set to ON to enable the Bluetooth service"
+msgstr ""
+
+msgctxt "#721"
+msgid "Send CoreELEC debug info without logs to http://ix.io, and display the short URL"
+msgstr ""
+
+msgctxt "#722"
+msgid ""
+"Create a tar archive containing all @DISTRONAME@ and Kodi configuration "
+"settings, databases and thumbnail content. Backup files will be stored in "
+"/storage/backup/"
+msgstr "Izveidojiet visu @DISTRONAME@ un Kodi konfigurācijas iestatījumu, datu bāzu un satura sīktēlu tar arhīvu. Rezerves faili tiks saglabāti /storage/backup/"
+
+msgctxt "#723"
+msgid ""
+"Restore a tar archive backup previously created using the backup option "
+"above"
+msgstr "Atjaunojiet sistēmu no iepriekš izveidotā tar arhīva dublējuma"
+
+msgctxt "#724"
+msgid ""
+"[COLOR FF00FF00]SOFT RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
+msgstr "[COLOR FF00FF00]SOFT RESET[/COLOR]\n@DISTRONAME@ konfigurācijas atiestatīšana uz noklusējuma iestatījumiem (atiestata arī Kodi uz noklusējumu, ieskaitot jūsu bibliotēku. Jūsu dati - mūzika/video/utt. netiek dzēsti)"
+
+msgctxt "#725"
+msgid ""
+"[COLOR FFFF0000]HARD RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ and Kodi configuration to defaults (everything in your storage partition will be deleted)"
+msgstr "[COLOR FFFF0000]HARD RESET[/COLOR]\nPilna @DISTRONAME@ un Kodi konfigurācijas atiestatīšana uz noklusējuma iestatījumiem (viss atmiņas nodalījums tiks dzēsts)"
+
+msgctxt "#726"
+msgid "Enable or disable support for Wireless (WLAN) networks"
+msgstr "Bezvadu (WLAN) tīklu atbalsta ieslēgšana vai izslēgšana"
+
+msgctxt "#727"
+msgid ""
+"Enable a 'tethered' Wireless Access Point. This requires your wireless card "
+"(and driver) to support bridging and access point mode. Not all cards are "
+"capable."
+msgstr "Piesaistītā bezvadu tīkla piekļuves punkta iespējošana. Nepieciešama bezvadu tīkla karte (un draiveris), kas atbalsta tilta un piekļuves punkta režīmus. Ne visas tīkla kartes to atbalsta."
+
+msgctxt "#728"
+msgid "Configure the Access Point SSID"
+msgstr "Piekļuves punkta SSID konfigurēšana"
+
+msgctxt "#729"
+msgid "Configure the Access Point Passphrase"
+msgstr "Piekļuves punkta paroles konfigurēšana"
+
+msgctxt "#730"
+msgid "Enable or disable support for Wired (Ethernet) networks"
+msgstr "Vadu (Ethernet) tīklu atbalsta ieslēgšana vai izslēgšana"
+
+msgctxt "#732"
+msgid "Configure the 1st time (NTP) server"
+msgstr "1. laika servera (NTP) konfigurēšana"
+
+msgctxt "#733"
+msgid "Configure the 2nd time (NTP) server"
+msgstr "2. laika servera (NTP) konfigurēšana"
+
+msgctxt "#734"
+msgid "Configure the 3rd time (NTP) server"
+msgstr "3. laika servera (NTP) konfigurēšana"
+
+msgctxt "#736"
+msgid ""
+"Set to ON to delay Kodi startup until the network is available. Use this if "
+"the OS is booting into Kodi before the network is up and central MySQL "
+"databases are accessible."
+msgstr "Ieslēdziet, lai līdz tīkla savienojuma nodibināšanai aizkavētu Kodi startēšanu. Izmantojiet , ja operētājsistēma startē Kodi pirms tīkla savienojuma nodibināšanas un piekļuves centrālajām MySQL datu bāzēm."
+
+msgctxt "#737"
+msgid "Time in seconds to wait for an established network connection."
+msgstr "Tīkla savienojuma nodibināšanas gaidīšanas laiks sekundēs."
+
+msgctxt "#738"
+msgid "Set to ON to enable the embedded Samba (SMB) filesharing service"
+msgstr "Ieslēdziet Samba (SMB) failu koplietošanas pakalpojumu"
+
+msgctxt "#739"
+msgid ""
+"Set to ON to require username/password access to local Samba fileshares"
+msgstr "Ieslēdziet piekļuvi lokālajiem Samba koplietojumiem ar lietotājvārdu/paroli"
+
+msgctxt "#740"
+msgid "Set the username for Samba sharing"
+msgstr "Samba koplietojumu lietotājvārda iestatīšana"
+
+msgctxt "#741"
+msgid "Set the password for Samba sharing"
+msgstr "Samba koplietojumu paroles iestatīšana"
+
+msgctxt "#742"
+msgid ""
+"Set to ON to enable the embedded SSH server. The SSH console can be accessed"
+" with username 'root' and password '@ROOT_PASSWORD@'."
+msgstr "Ieslēdziet SSH serveri. SSH konsolei var piekļūt ar lietotājvārdu 'root' un paroli '@ROOT_PASSWORD@'."
+
+msgctxt "#743"
+msgid ""
+"Set to ON if you have copied private SSH keys to your HTPC and would like to"
+" improve security by disabling SSH username and password authentication."
+msgstr "Ieslēdziet, ja esat nokopējis privātās SSH atslēgas savā HTPC un vēlaties uzlabot drošību, atspējojot SSH lietotājvārdu un paroli."
+
+msgctxt "#744"
+msgid ""
+"Set to ON to enable the Avahi (Zeroconf/Bonjour) network discovery service"
+msgstr "Ieslēdziet Avahi (Zeroconf / Bonjour) tīkla meklēšanas pakalpojumu"
+
+msgctxt "#745"
+msgid "Set to ON to enable the cron daemon"
+msgstr "Cron dēmona iespējošana"
+
+msgctxt "#746"
+msgid "Set the password for SSH"
+msgstr "SSH paroles iestatīšana"
+
+msgctxt "#747"
+msgid "Enable a PIN for @DISTRONAME@ Settings access"
+msgstr "Iespējot @DISTRONAME@ iestatījumu piekļuves PIN kodu"
+
+msgctxt "#748"
+msgid "Change the PIN Lock for @DISTRONAME@ Settings access"
+msgstr "Mainīt @DISTRONAME@ iestatījumu piekļuves PIN kodu"
+
+msgctxt "#749"
+msgid ""
+"Overrride the Wireless Regulatory Domain so radio properties (channels and "
+"transmit power) comply with local laws or match the country configuration of"
+" your router."
+msgstr ""
+
+msgctxt "#750"
+msgid "750"
+msgstr "750"
+
+msgctxt "#751"
+msgid ""
+"With OBEX filetransfer you can send files, for example movies or pictures "
+"over bluetooth to @DISTRONAME@."
+msgstr "Izmantojot OBEX failu pārsūtīšanu, varat nosūtīt failus, piemēram, filmas vai attēlus uz @DISTRONAME@, izmantojot Bluetooth."
+
+msgctxt "#752"
+msgid ""
+"Here you can set the folder location where OBEX file transfer should store "
+"incoming files"
+msgstr "Šeit jūs varat iestatīt mapes atrašanās vietu, kur OBEX failu pārsūtīšanai jāglabā ienākošie faili"
+
+msgctxt "#753"
+msgid "Configure the 1st keyboard software Variant"
+msgstr "1. tastatūras programmiskā varianta konfigurēšana"
+
+msgctxt "#754"
+msgid "Configure the 2nd keyboard software Variant"
+msgstr "2. tastatūras programmiskā varianta konfigurēšana"
+
+msgctxt "#755"
+msgid "Auto share external drives / partitions"
+msgstr "Automātiska ārējo datu nesēju / partīciju koplietošana"
+
+msgctxt "#756"
+msgid ""
+"Disable older SMB protocols by specifying the minimum supported protocol."
+msgstr "Vecāku SMB protokolu izslēgšana, norādot minimālo atbalstīto protokolu."
+
+msgctxt "#757"
+msgid ""
+"Disable more recent SMB protocols for backward compatability with legacy "
+"clients."
+msgstr "Jaunāko SMB protokolu izslēgšana atgriezeniskās savietojamības nodrošināšanai ar vecākiem klientiem."
+
+msgctxt "#758"
+msgid "NetBIOS group to which the server belongs. Default is WORKGROUP."
+msgstr "Serverim piederošā NetBIOS grupa. Noklusējums ir WORKGROUP."
+
+msgctxt "#760"
+msgid "Select an update channel"
+msgstr "Atjauninājumu kanāla izvēle"
+
+msgctxt "#761"
+msgid "Enable to allow entering a custom update url"
+msgstr "Pielāgota atjauninājumu URL ievadīšanas iespējošana"
+
+msgctxt "#762"
+msgid "Enter a custom update url (url should be the root of the update files)"
+msgstr "Pielāgota atjauninājuma URL ievadīšana (URL jābūt atjaunināšanas failu saknē)"
+
+msgctxt "#770"
+msgid "Select an available version"
+msgstr "Pieejamās versijas izvēle"
+
+msgctxt "#771"
+msgid ""
+"The firewall blocks unwanted network traffic. Home (default) allows traffic "
+"from private network ranges (192.168.x.x, 172.16.x.x and 10.x.x.x) only. "
+"Public blocks all traffic from all networks. Custom uses rules in "
+"/storage/.config/iptables. Off disables the firewall."
+msgstr "Ugunsmūris bloķē nevēlamu tīkla trafiku. Mājas (noklusējums) atļauj piekļuvi tikai no privātā tīkla diapazona (192.168.x.x, 172.16.x.x un 10.x.x.x). Publisks bloķē visu datplūsmu no visiem tīkliem. Pielāgots lieto /storage/.config/iptables nosacījumus. Izslēgts atspējo ugunsmūri."
+
+msgctxt "#772"
+msgid ""
+"Checking for a new version will submit the installed Distribution, Project, "
+"CPU Arch and Version to the update server. This data is also used to report "
+"basic statistics for the project. To continue checking for updates while "
+"opting-out of stats reporting, disable this option."
+msgstr "Jaunās versijas pārbaude atjauninājumu serverim iesniegs informāciju par instalēto distributīvu, projekta versiju, CPU arhitektūru un versiju. Šie dati arī tiek izmantoti projekta pamata statistikai. Lai turpinātu pārbaudīt atjauninājumus, atsakoties no statistikas ziņojumiem, atspējojiet šo opciju."
+
+msgctxt "#773"
+msgid ""
+"Set the idle timeout (in minutes) before devices will be disconnected "
+"(defaults to 0 for no timeout). Applies to devices where \"Enable Standby\" "
+"has been activated in the LibreELEC device connection context menu."
+msgstr ""
+
+msgctxt "#32001"
+msgid "Services"
+msgstr "Servisi"
+
+msgctxt "#32002"
+msgid "System"
+msgstr "Sistēma"
+
+msgctxt "#32003"
+msgid "Interface"
+msgstr "Adapteris"
+
+msgctxt "#32005"
+msgid "Updates"
+msgstr "Atjauninājumi"
+
+msgctxt "#32009"
+msgid "Keyboard"
+msgstr "Klaviatūra"
+
+msgctxt "#32010"
+msgid "Keyboard Layout"
+msgstr "Klaviatūras izkārtojums"
+
+msgctxt "#32012"
+msgid "Select Action"
+msgstr "Darbības izvēle"
+
+msgctxt "#32013"
+msgid "OS Updates"
+msgstr ""
+
+msgctxt "#32014"
+msgid "Automatic Updates"
+msgstr "Automātiskie atjauninājumi"
+
+msgctxt "#32015"
+msgid "Update Channel"
+msgstr "Atjauninājumu kanāls"
+
+msgctxt "#32016"
+msgid "Show Custom Channels"
+msgstr "Rādīt pielāgotos kanālus"
+
+msgctxt "#32017"
+msgid "  - Custom Channel 1"
+msgstr " - 1. pielāgotais kanāls"
+
+msgctxt "#32018"
+msgid "  - Custom Channel 2"
+msgstr " - 2. pielāgotais kanāls"
+
+msgctxt "#32019"
+msgid "  - Custom Channel 3"
+msgstr " - 3. pielāgotais kanāls"
+
+msgctxt "#32020"
+msgid "Available Versions"
+msgstr "Pieejamās versijas"
+
+msgctxt "#32021"
+msgid "Submit Statistics"
+msgstr "Statistikas nosūtīšana"
+
+msgctxt "#32022"
+msgid "Firmware Updates"
+msgstr ""
+
+msgctxt "#32023"
+msgid "Updating will occur once the system is rebooted."
+msgstr ""
+
+msgctxt "#32024"
+msgid "Bootloader EEPROM"
+msgstr ""
+
+msgctxt "#32025"
+msgid ""
+"Update the Raspberry Pi Bootloader EEPROM to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr ""
+
+msgctxt "#32026"
+msgid "VIA USB3 Firmware"
+msgstr ""
+
+msgctxt "#32027"
+msgid ""
+"Update the Raspberry Pi VIA USB3 firmware to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr ""
+
+msgctxt "#32028"
+msgid "update from %s to %s"
+msgstr ""
+
+msgctxt "#32029"
+msgid "up to date: %s"
+msgstr ""
+
+msgctxt "#32100"
+msgid "Connections"
+msgstr "Savienojumi"
+
+msgctxt "#32101"
+msgid "Network"
+msgstr "Tīkls"
+
+msgctxt "#32102"
+msgid "Wireless Networks"
+msgstr "Bezvadu tīkls"
+
+msgctxt "#32103"
+msgid "Wired Networks"
+msgstr "Vadu tīkls"
+
+msgctxt "#32105"
+msgid "Active"
+msgstr "Aktīvs"
+
+msgctxt "#32106"
+msgid "Username"
+msgstr "Lietotājvārds"
+
+msgctxt "#32107"
+msgid "Passphrase"
+msgstr "Parole"
+
+msgctxt "#32108"
+msgid "Enable 'tethered' Wireless Access Point"
+msgstr "Ieslēgt piesaistīto bezvadu piekļuves punktu"
+
+msgctxt "#32109"
+msgid "Connect Automatically"
+msgstr "Automātisks savienojums"
+
+msgctxt "#32110"
+msgid "Connection"
+msgstr "Savienojums"
+
+msgctxt "#32111"
+msgid "IPv4"
+msgstr "IPv4"
+
+msgctxt "#32112"
+msgid "IPv6"
+msgstr "IPv6"
+
+msgctxt "#32113"
+msgid "IP Address Method"
+msgstr "IP adreses veids"
+
+msgctxt "#32114"
+msgid "IP Address"
+msgstr "IP adrese"
+
+msgctxt "#32115"
+msgid "Subnet Mask"
+msgstr "Apakštīkla maska"
+
+msgctxt "#32116"
+msgid "Default Gateway"
+msgstr "Noklusējuma vārteja"
+
+msgctxt "#32117"
+msgid "Prefix Length"
+msgstr "Prefiksa garums"
+
+msgctxt "#32118"
+msgid "Privacy"
+msgstr "Privātums"
+
+msgctxt "#32119"
+msgid "DNS Servers"
+msgstr "DNS serveri"
+
+msgctxt "#32120"
+msgid "Nameserver #1"
+msgstr "1. serveris"
+
+msgctxt "#32121"
+msgid "Nameserver #2"
+msgstr "2. serveris"
+
+msgctxt "#32122"
+msgid "Nameserver #3"
+msgstr "3. serveris"
+
+msgctxt "#32123"
+msgid "NTP Servers"
+msgstr "NTP serveri"
+
+msgctxt "#32124"
+msgid "Timeserver #1"
+msgstr "1. laika serveris"
+
+msgctxt "#32125"
+msgid "Timeserver #2"
+msgstr "2. laika serveris"
+
+msgctxt "#32126"
+msgid "Timeserver #3"
+msgstr "3. laika serveris"
+
+msgctxt "#32127"
+msgid "DNS Domains"
+msgstr "DNS adreses"
+
+msgctxt "#32128"
+msgid "Domain #1"
+msgstr "1. adrese"
+
+msgctxt "#32129"
+msgid "Domain #2"
+msgstr "2. adrese"
+
+msgctxt "#32130"
+msgid "Domain #3"
+msgstr "3. adrese"
+
+msgctxt "#32140"
+msgid "Save"
+msgstr "Saglabāt"
+
+msgctxt "#32141"
+msgid "Delete"
+msgstr "Dzēst"
+
+msgctxt "#32142"
+msgid "Refresh"
+msgstr "Atsvaidzināt"
+
+msgctxt "#32143"
+msgid "Disconnect"
+msgstr "Atvienot"
+
+msgctxt "#32144"
+msgid "Connect"
+msgstr "Savienot"
+
+msgctxt "#32145"
+msgid "Pair"
+msgstr "Pārot"
+
+msgctxt "#32146"
+msgid "Hidden Network Name"
+msgstr "Slēptā tīkla nosaukums"
+
+msgctxt "#32147"
+msgid "Wireless Network Passphrase"
+msgstr "Bezvadu tīkla parole"
+
+msgctxt "#32148"
+msgid "Wireless Network Username"
+msgstr "Bezvadu tīkla lietotājvārds"
+
+msgctxt "#32150"
+msgid "Edit"
+msgstr "Labot"
+
+msgctxt "#32180"
+msgid "Would you like to update @DISTRONAME@ now?"
+msgstr "Vai vēlaties atjaunināt @DISTRONAME@ tagad?"
+
+msgctxt "#32181"
+msgid "Filename"
+msgstr "Faila nosaukums"
+
+msgctxt "#32182"
+msgid "Download speed"
+msgstr "Lejupielādes ātrums"
+
+msgctxt "#32183"
+msgid "Time remaining"
+msgstr "Atlikušais laiks"
+
+msgctxt "#32184"
+msgid "Extract file"
+msgstr "Faila atpakošana"
+
+msgctxt "#32185"
+msgid "Extract speed"
+msgstr "Atpakošanas ātrums"
+
+msgctxt "#32186"
+msgid "Initialize Archive File"
+msgstr "Arhīva faila inicializācija"
+
+msgctxt "#32187"
+msgid "New Version"
+msgstr "Jaunā versija"
+
+msgctxt "#32188"
+msgid "Current Version"
+msgstr "Pašreizējā versija"
+
+msgctxt "#32189"
+msgid "Identification"
+msgstr "Identifikācija"
+
+msgctxt "#32190"
+msgid "System Name"
+msgstr "Sistēmas nosaukums"
+
+msgctxt "#32191"
+msgid "Invalid URL"
+msgstr "Nederīgs URL"
+
+msgctxt "#32192"
+msgid "PIN lock"
+msgstr "PIN bloķēšana"
+
+msgctxt "#32193"
+msgid "Enable @DISTRONAME@ Settings PIN Lock"
+msgstr "Iespējot @DISTRONAME@ iestatījumu PIN bloķēšanu"
+
+msgctxt "#32194"
+msgid "Change @DISTRONAME@ Settings PIN Lock"
+msgstr "Mainīt @DISTRONAME@ iestatījumu PIN bloķēšanu"
+
+msgctxt "#32196"
+msgid "About"
+msgstr "Par"
+
+msgctxt "#32198"
+msgid "SSID"
+msgstr "SSID"
+
+msgctxt "#32200"
+msgid "Samba"
+msgstr "Samba"
+
+msgctxt "#32201"
+msgid "SSH"
+msgstr "SSH"
+
+msgctxt "#32202"
+msgid "Use Samba Password Authentication"
+msgstr "Lietot Samba paroles autentifikāciju"
+
+msgctxt "#32203"
+msgid "Disable SSH Password"
+msgstr "Izslēgt SSH paroli"
+
+msgctxt "#32204"
+msgid "Enable Samba"
+msgstr "Ieslēgt Samba"
+
+msgctxt "#32205"
+msgid "Enable SSH"
+msgstr "Ieslēgt SSH"
+
+msgctxt "#32206"
+msgid "Enable Avahi (Zeroconf)"
+msgstr "Ieslēgt Avahi (Zeroconf)"
+
+msgctxt "#32207"
+msgid "Avahi"
+msgstr "Avahi"
+
+msgctxt "#32208"
+msgid "Hidden Wlan"
+msgstr "Slēpts Wlan"
+
+msgctxt "#32209"
+msgid "SSH Password"
+msgstr "SSH parole"
+
+msgctxt "#32210"
+msgid ""
+"The default SSH password is widely known and considered "
+"insecure.[CR][CR]Setting a personal password is recommended."
+msgstr "Noklusējuma SSH parole ir zināma un uzskatāma par nedrošu.[CR][CR]Ieteicams iestatīt personālo paroli."
+
+msgctxt "#32212"
+msgid "Cancel"
+msgstr "Atcelt"
+
+msgctxt "#32213"
+msgid "Keep Existing"
+msgstr "Paturēt esošo"
+
+msgctxt "#32214"
+msgid "Set Password"
+msgstr "Iestatīt paroli"
+
+msgctxt "#32215"
+msgid "Workgroup name"
+msgstr "Darba grupas nosaukums"
+
+msgctxt "#32216"
+msgid "Auto-Share External Drives"
+msgstr "Ārējo datu nesēju automātiska koplietošana"
+
+msgctxt "#32217"
+msgid "Minimum supported protocol"
+msgstr "Minimālais atbalstītais protokols"
+
+msgctxt "#32218"
+msgid "Maximum supported protocol"
+msgstr "Maksimālais atbalstītais protokols"
+
+msgctxt "#32220"
+msgid "Bad password!"
+msgstr "Slikta parole!"
+
+msgctxt "#32221"
+msgid "The entered password is too weak.[CR]SSH password is unchanged."
+msgstr "Ievadītā parole ir pārāk nedroša.[CR]SSH parole nav nomainīta."
+
+msgctxt "#32222"
+msgid "Password changed!"
+msgstr "Parole nomainīta!"
+
+msgctxt "#32223"
+msgid "The SSH password has been successfully changed."
+msgstr "SSH parole veiksmīgi nomainīta."
+
+msgctxt "#32224"
+msgid "Unknown error!"
+msgstr "Nezināma kļūda!"
+
+msgctxt "#32225"
+msgid "There was an error during the process.[CR]SSH password is unchanged."
+msgstr "Procesa laikā radās kļūda.[CR]SSH parole nav nomainīta."
+
+msgctxt "#32226"
+msgid "Enter new 4 digit PIN"
+msgstr "Ievadiet jaunu 4 ciparu PIN kodu"
+
+msgctxt "#32227"
+msgid "Re-enter PIN"
+msgstr "Atkārtoti ievadiet PIN kodu"
+
+msgctxt "#32228"
+msgid "Error - PIN codes did not match!"
+msgstr "Kļūda - PIN kodi nesakrīt!"
+
+msgctxt "#32229"
+msgid "@DISTRONAME@ Settings PIN lock not set.[CR][CR]Please try again."
+msgstr "@DISTRONAME@ iestatījumu PIN bloķēšana nav iestatīta.[CR][CR]Lūdzu, mēģiniet vēlreiz."
+
+msgctxt "#32230"
+msgid "@DISTRONAME@ Settings PIN lock set."
+msgstr "@DISTRONAME@ iestatījumu PIN bloķēšana iestatīta."
+
+msgctxt "#32231"
+msgid "Your @DISTRONAME@ Settings PIN lock has been set to:"
+msgstr ""
+
+msgctxt "#32232"
+msgid "Error - PIN code not 4 digits!"
+msgstr "Kļūda - PIN kods nav 4 cipari!"
+
+msgctxt "#32233"
+msgid "@DISTRONAME@ Settings Locked[CR]Enter 4 digit PIN"
+msgstr ""
+
+msgctxt "#32234"
+msgid "Incorrect PIN!"
+msgstr "Nepareizs PIN!"
+
+msgctxt "#32235"
+msgid " attempts remaining."
+msgstr " mēģinājumi atlikuši."
+
+msgctxt "#32236"
+msgid ""
+"You have entered an incorrect PIN too many times.[CR][CR]You will need to "
+"wait 5 minutes before trying again."
+msgstr "Pārāk daudz reižu ir ievadīts nepareizs PIN kods.[CR][CR]Pagaidiet 5 minūtes un mēģiniet vēlreiz."
+
+msgctxt "#32237"
+msgid "@DISTRONAME@ Settings Locked!"
+msgstr "@DISTRONAME@ iestatījumi bloķēti!"
+
+msgctxt "#32238"
+msgid ""
+"Time remaining before PIN can be entered: %02d:%02d[CR][CR]Too many previous"
+" failed attempts."
+msgstr ""
+
+msgctxt "#32240"
+msgid "Wireless Regulatory Domain"
+msgstr ""
+
+msgctxt "#32300"
+msgid "Welcome to @DISTRONAME@"
+msgstr "Sveicināti @DISTRONAME@"
+
+msgctxt "#32301"
+msgid "Welcome"
+msgstr "Sveicināti"
+
+msgctxt "#32302"
+msgid ""
+"This wizard will guide you through the process of setting up your new "
+"@DISTRONAME@ installation - setting your location, timezone and connecting "
+"you to the internet.[CR][CR]These settings can be changed later by "
+"navigating to Programs > @DISTRONAME@ Settings."
+msgstr "Šis vednis jums palīdzēs konfigurēt jauno @DISTRONAME@ instalāciju - iestatīt atrašanās vietu, laika joslu un savienojumu ar internetu.[CR][CR]Šie iestatījumi var tikt vēlāk mainīti izvēlnē Programmas > @DISTRONAME@ Iestatījumi."
+
+msgctxt "#32303"
+msgid "Next"
+msgstr "Nākamais"
+
+msgctxt "#32304"
+msgid ""
+"To be identified easily on the network, your new @DISTRONAME@ machine needs "
+"a name.[CR][CR]Try to choose something meaningful - like the room it's in - "
+"so you'll know what it is when you see it on the network.[CR][CR]This name "
+"is used when configuring network services, like file sharing using samba."
+msgstr "Lai jaunā @DISTRONAME@ iekārta būtu viegli identificējama tīklā, tai ir nepieciešams nosaukums.[CR][CR]Mēģiniet izvēlēties kaut ko nozīmīgu - telpu, kurā tā atrodas - lai jūs zinātu, kas tas ir, kad to ieraugāt tīklā.[CR][CR]Šis nosaukums tiks izmantots, konfigurējot tīkla pakalpojumus, piemēram, failu koplietošanu, izmantojot samba."
+
+msgctxt "#32305"
+msgid "Networking"
+msgstr "Tīklošana"
+
+msgctxt "#32306"
+msgid ""
+"In order to download backdrops, banners and thumbnails for your movies and "
+"TV shows and to stream online content from sites like YouTube, @DISTRONAME@ "
+"needs to be connected the Internet.[CR][CR]An Internet connection is also "
+"required for @DISTRONAME@ to automatically update itself."
+msgstr "Lai lejupielādētu filmu un seriālu fonus, banerus, sīktēlus un straumētu tiešsaistes saturu no tādām vietnēm kā YouTube, @DISTRONAME@ ir jāpievieno internetam.[CR][CR]Tāpat interneta savienojums nepieciešams  @DISTRONAME@ automātiskajai atjaunināšanai."
+
+msgctxt "#32307"
+msgid "Previous"
+msgstr "Iepriekšējais"
+
+msgctxt "#32308"
+msgid "Hostname:"
+msgstr "Resursdatora nosaukums:"
+
+msgctxt "#32309"
+msgid "The following Networks are currently available:"
+msgstr "Pašlaik ir pieejami šādi tīkli:"
+
+msgctxt "#32310"
+msgid "Language:"
+msgstr "Valoda:"
+
+msgctxt "#32311"
+msgid "Sharing and Remote Access"
+msgstr "Koplietošana un attālinātā piekļuve"
+
+msgctxt "#32312"
+msgid ""
+"@DISTRONAME@ also supports SSH for remote access. This is for advanced users"
+" who wish to interact with @DISTRONAME@'s underlying operating system. The "
+"default user is [COLOR blue]root[/COLOR] and the default password is [COLOR "
+"blue]@ROOT_PASSWORD@[/COLOR]."
+msgstr "@DISTRONAME@ atbalsta SSH attālināto piekļuvi. Tas attiecas uz pieredzējušiem lietotājiem, kuri vēlas konfigurēt @DISTRONAME@ operētājsistēmu. Noklusējuma lietotājs ir [COLOR blue] root [/ COLOR] un noklusējuma parole ir [COLOR blue]@ROOT_PASSWORD@[/ COLOR]."
+
+msgctxt "#32313"
+msgid ""
+"In order to share your files between your computers @DISTRONAME@ has "
+"incorporated a samba server. This samba server can be integrated into your "
+"local network by accessing it in a familiar way with Finder or Windows "
+"Explorer."
+msgstr "@DISTRONAME@ ir iekļauts samba serveris failu koplietošanai starp datoriem. Šo samba serveri var integrēt jūsu lokālajā tīklā, piekļūstot tam ar Finder vai Windows Explorer."
+
+msgctxt "#32316"
+msgid "Configure Services:"
+msgstr "Servisu konfigurēšana:"
+
+msgctxt "#32317"
+msgid "Thank you"
+msgstr "Paldies"
+
+msgctxt "#32319"
+msgid "Cron"
+msgstr "Cron"
+
+msgctxt "#32320"
+msgid "Enable Cron"
+msgstr "Ieslēgt Cron"
+
+msgctxt "#32323"
+msgid "Reset to Defaults"
+msgstr "Atiestatīt uz noklusējumu"
+
+msgctxt "#32324"
+msgid "Reset System Settings to defaults"
+msgstr "Sistēmas iestatījumu atiestatīšana uz noklusējumu"
+
+msgctxt "#32325"
+msgid "Reset @DISTRONAME@ to defaults"
+msgstr "Atiestatīt @DISTRONAME@ uz noklusējumu"
+
+msgctxt "#32326"
+msgid "Are you sure?"
+msgstr "Vai esat pārliecināts?"
+
+msgctxt "#32328"
+msgid "The system must reboot."
+msgstr "Sistēmai nepieciešams restarts."
+
+msgctxt "#32329"
+msgid "Rebooting in %d seconds"
+msgstr "Restartēšana pēc %d sekundēm"
+
+msgctxt "#32330"
+msgid "Keyboard Type"
+msgstr "Klaviatūras veids"
+
+msgctxt "#32331"
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+msgctxt "#32333"
+msgid "Connected: "
+msgstr "Savienots:"
+
+msgctxt "#32334"
+msgid "Yes"
+msgstr "Jā"
+
+msgctxt "#32335"
+msgid "No"
+msgstr "Nē"
+
+msgctxt "#32338"
+msgid "No Bluetooth adapter found."
+msgstr "Bluetooth adapteris nav atrasts."
+
+msgctxt "#32339"
+msgid ""
+"No Bluetooth device found. Please put your Bluetooth device into discovery "
+"mode[CR]and start the scan"
+msgstr "Nav atrasta neviena Bluetooth ierīce. Lūdzu, ieslēdziet Bluetooth ierīci[CR]atklāšanas režīmā un sāciet skenēšanu"
+
+msgctxt "#32343"
+msgid "Enter the following Key on your Device."
+msgstr "Dotās atslēgas ievadšana ierīcē."
+
+msgctxt "#32344"
+msgid "Enable Bluetooth"
+msgstr "Ieslēgt Bluetooth"
+
+msgctxt "#32346"
+msgid "Bluetooth is disabled"
+msgstr "Bluetooth izslēgts"
+
+msgctxt "#32358"
+msgid "Trust and Connect"
+msgstr "Uzticēties un pieslēgties"
+
+msgctxt "#32362"
+msgid "Check for updates now:"
+msgstr "Atjauninājumu pārbaude:"
+
+msgctxt "#32363"
+msgid "@DISTRONAME@"
+msgstr "@DISTRONAME@"
+
+msgctxt "#32364"
+msgid "Update available"
+msgstr "Pieejams atjauninājums"
+
+msgctxt "#32365"
+msgid "Show Update Notifications"
+msgstr "Rādīt atjaunināšanas paziņojumus"
+
+msgctxt "#32366"
+msgid "Update Download Completed"
+msgstr "Atjauninājuma lejupielāde pabeigta"
+
+msgctxt "#32367"
+msgid "Update Extract Complete"
+msgstr "Atjauninājuma atpakošana pabeigta"
+
+msgctxt "#32368"
+msgid "Advanced Network Settings"
+msgstr "Papildu tīkla iestatījumi"
+
+msgctxt "#32369"
+msgid "Wait for network before starting Kodi"
+msgstr "Pirms Kodi palaišanas gaidīt tīkla pieslēgšanos"
+
+msgctxt "#32370"
+msgid "Maximum Wait Time (Sec.)"
+msgstr "Maksimālais gaidīšanas laiks (sek.)"
+
+msgctxt "#32371"
+msgid "Backup"
+msgstr "Dublēšana"
+
+msgctxt "#32372"
+msgid "Create System and Kodi Backup"
+msgstr "Izveidot sistēmas un Kodi dublējumkopiju"
+
+msgctxt "#32373"
+msgid "Restore Backup"
+msgstr "Atjaunot no dublējumkopijas"
+
+msgctxt "#32375"
+msgid "Backup Progress"
+msgstr "Dublējumkopijas izveides norise"
+
+msgctxt "#32376"
+msgid "Submit Log"
+msgstr "Žurnāla nosūtīšana"
+
+msgctxt "#32377"
+msgid "Upload latest Kodi log and configs, and view the short URL"
+msgstr "Jaunākā Kodi kļūdu žurnāla un konfigurācijas augšupielāde"
+
+msgctxt "#32378"
+msgid "Upload latest Kodi crash log and configs, and view the short URL"
+msgstr "Jaunākā Kodi avārijas žurnāla un konfigurācijas augšupielāde"
+
+msgctxt "#32379"
+msgid "There is not enough free storage space to continue!"
+msgstr "Lai turpinātu, datu nesējā nav pietiekami daudz brīvas vietas!"
+
+msgctxt "#32380"
+msgid ""
+"Restoring system settings requires a reboot. Are you sure you want to "
+"restore?"
+msgstr "Lai atjaunotu sistēmas iestatījumus, nepieciešams restarts. Vai tiešām vēlaties atjaunot?"
+
+msgctxt "#32381"
+msgid "Accept incoming Bluetooth Filetransfer ?"
+msgstr "Akceptēt ienākošo Bluetooth failu pārsūtīšanu?"
+
+msgctxt "#32382"
+msgid "Speed"
+msgstr "Ātrums"
+
+msgctxt "#32383"
+msgid "Play Files ?"
+msgstr "Atskaņot failus?"
+
+msgctxt "#32384"
+msgid "OBEX Enabled"
+msgstr "Ieslēgt OBEX"
+
+msgctxt "#32385"
+msgid "OBEX Upload Folder"
+msgstr "OBEX augšupielādes mape"
+
+msgctxt "#32386"
+msgid "Keyboard Layout Variant #1"
+msgstr "1. klaviatūras izkārtojuma variants"
+
+msgctxt "#32387"
+msgid "Keyboard Layout Variant #2"
+msgstr "2. klaviatūras izkārtojuma variants"
+
+msgctxt "#32388"
+msgid "Enable Standby"
+msgstr "Ieslēgt gaidstāvi"
+
+msgctxt "#32389"
+msgid "Disable Standby"
+msgstr "Izslēgt gaidstāvi"
+
+msgctxt "#32390"
+msgid "Settings addon is not yet ready, please try again later."
+msgstr "Iestatījumu pielikums nestrādā, lūdzu, mēģiniet vēlāk vēlreiz."
+
+msgctxt "#32391"
+msgid "Upload configs and other debug info without logs, and view the short URL"
+msgstr ""
+
+msgctxt "#32393"
+msgid "** SAFE MODE! ** SAFE MODE! ** SAFE MODE! **"
+msgstr "** DROŠAIS REŽĪMS! ** DROŠAIS REŽĪMS! ** DROŠAIS REŽĪMS! **"
+
+msgctxt "#32395"
+msgid "Firewall"
+msgstr "Ugunsmūris"
+
+msgctxt "#32396"
+msgid "Custom"
+msgstr "Pielāgots"
+
+msgctxt "#32397"
+msgid "Off"
+msgstr "Izslēgts"
+
+msgctxt "#32398"
+msgid "Home"
+msgstr "Mājas"
+
+msgctxt "#32399"
+msgid "Public"
+msgstr "Publisks"
+
+msgctxt "#32400"
+msgid "Idle Timeout"
+msgstr ""

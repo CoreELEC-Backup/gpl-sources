@@ -1,0 +1,151 @@
+.\" Copyright (C) 2009-2010 Paul Bender.
+.\"
+.\" This file is part of eventlircd.
+.\"
+.\" eventlircd is free software: you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation, either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" eventlircd is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with eventlircd.  If not, see <http://www.gnu.org/licenses/>.
+.\"
+.TH eventlircd 8 "DECEMBER 31, 2010"
+.SH NAME
+eventlircd \- an LIRC daemon with integrated udev support.
+.SH SYNOPSIS
+.LP
+.B eventlircd
+.IR [ OPTION ]
+.SH AVAILABILITY
+Any GNU/Linux system with udev (at least version 136) and uinput (at least driver version 0.3) support.
+.SH DESCRIPTION
+.LP
+\fBeventlircd\fR is an LIRC daemon for input devices that
+supports multiple input devices at the same time,
+discovers the input devices to be handled using udev,
+maps keyboard shortcuts to single keys (e.g. ctrl+shift+KEY_B to KEY_REWIND), and
+passes through mouse/joystick events.
+.LP
+A keyboard shortcut consists of
+zero or more lock keys (capslock, numlock and scrolllock)
+zero or more modifier keys (ctrl, shift, alt and meta) and
+one base key (non-lock and non-modifier key).
+.SH OPTIONS
+.TP
+\fB\-h\fR \fB\-\-help\fR
+Print the help message and exit.
+.TP
+\fB\-V\fR \fB\-\-version\fR
+Display the program version and exit.
+.TP
+\fB\-v\fR \fB\-\-verbose\fR
+Increase the output message verbosity.
+This option can appear up to three times.
+The more often it appears, the more verbose the message output.
+.TP
+\fB\-f\fR \fB\-\-foreground\fR
+Run \fBeventlircd\fR in the foreground rather than in the background.
+.TP
+\fB\-k\fR \fB\-\-map=dir\fR
+Look for device map files in directory \fBdirectory\fR rather than directory @EVMAP_DIR@.
+.TP
+\fB\-s\fR \fB\-\-socket=socket\fR
+Create the lircd socket \fBsocket\fR rather than lircd socket @LIRCD_SOCKET@.
+.TP
+\fB\-m\fR \fB\-\-mode=mode\fR
+Create the lircd socket with mode \fBmode\fR rather than with mode 0666.
+.TP
+\fB\-R\fR \fB\-\-repeat-filter\fR
+Filter input event repeats.
+.IP
+Because \fBeventlircd\fR can receive input from different input sources with different methods for limiting repeats,
+the input event repeat rate may differ between inputs.
+Therefore, in order to normalize the output repeat rate,
+\fBeventlircd\fR uses time rather than count to filter the input event repeats.
+.IP
+Because users often want to use repeats to scroll both short and long on-screen lists,
+the filtered repeat rate start slow and increases.
+.IP
+The time based repeat filtering provided by \fBeventlircd\fR replaces
+the count based repeat filtering configured in the \fB.lircrc\fR file.
+Therefore,
+if you enable \fBeventlircd\fR's time based repeat filtering,
+then you should disable \fB.lircrc\fR's count based repeat filtering.
+That is, in the \fB.lircrc\fR file,
+the value of \fBdelay\fR should be '0'
+and the value of \fBrepeat\fR should be either '0' (ignore repeats) or '1' (allow repeats).
+.TP
+\fB\-r\fR \fB\-\-release=suffix\fR
+Generate key release events with \fBsuffix\fR appended to the key name.
+.SH UDEV DEVICE PROPERTIES
+.LP
+Udev communicates with eventlircd using udev device properties.
+The following are the eventlircd specific udev device properties that can be set using ENV{} in udev rules.
+.TP
+\fBeventlircd_enable\fR
+Used to ask \fBeventlircd\fR to handle the device.
+If the value is "true", then \fBeventlircd\fR will attempt to handle the device.
+.TP
+\fBeventlircd_evmap\fR
+Used to tell \fBeventlircd\fR the name of the map file to be used with this device.
+If it is not set, then \fBeventlircd\fR will not perform any key mapping.
+\fBeventlircd\fR assumes that the map file is located in the map directory. 
+.TP
+\fBeventlircd_remote\fR
+Used to tell \fBeventlircd\fR the remote control name to use in the output \fBeventlircd\fR sends to the lircd socket.
+If it is not set, then \fBeventlircd\fR will use "devinput" for the remote control name.
+.SH FILES
+.I @EVMAP_DIR@/*.evmap
+.RS
+The per-device key map files.
+See \fBeventlircd.evmap (5)\fR for further details.
+.RE
+.I @includedir@/linux/input.h
+.RS
+The Linux input event device header file in which the key and button codes associated with the key event type are define.
+.RE
+.I @UDEV_DIR@/rules.d/98-eventlircd.rules.disabled
+.RS
+An example udev rules file for eventlircd.
+.RE
+.I @UDEV_DIR@/rules.d/98-lircd.rules.disabled
+.RS
+An example udev rules file for using lircd in conjuction with eventlircd.
+.SH ENVIRONMENT
+.SH DIAGNOSTICS
+.SH BUGS
+.SH CAVEATS
+.LP
+\fBeventlircd\fR 
+consumes all keys that it associates with
+either a lock or modifier key token.
+Therefore, when a key associated with
+either a lock or modifier key token is received,
+it is not forwarded to either the lircd socket or the mouse/joystick output device.
+.LP
+When a key press event is mapped to a value,
+any intermediate key repeat events and the final key release event associated with the key press event
+are mapped to the same value.
+.LP
+\fBeventlircd\fR 
+supports a subset of the Linux input event types and event codes,
+and silently discards the event types and codes that it does not support.
+It supports 
+It has complete support for
+synchronization events (EV_SYN),
+key/button events (EV_KEY),
+relative axes events (EV_REL),
+absolute axes events (EV_ABS)
+It has partial support for LED events (EV_LED),
+supporting the codes for capslock (LED_CAPSL), numlock (LED_NUML) and scrolllock (LED_SCROLLL).
+All other Linux input event types and event codes are not supported.
+.SH AUTHOR
+Paul Bender
+.SH "SEE ALSO"
+.BR eventlircd.evmap (5)

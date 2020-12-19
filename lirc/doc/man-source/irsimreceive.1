@@ -1,0 +1,41 @@
+.TH irsimreceive "1" "Last change: Oct 2015" "irsimreceive @version@" "User Commands"
+.SH NAME
+.P
+\fBirsimreceive\fR - Decode IR durations data.
+.SH SYNOPSIS
+.P
+\fBirsimreceive\fR [\fIoptions\fR]  <\fIconfigfile\fR>  <\fIdatafile\fR>
+
+.SH DESCRIPTION
+.P
+This is a simple test tool which decodes duration data in \fIdatafile\fR
+using an lircd.conf type \fIconfigfile\fR. The outputted data is
+in the same format as on the lircd output socket.
+
+.SH OPTIONS
+.TP 4
+.B -U, --plugindir <\fIdir\fR>
+Load drivers from <\fIdir\fR>.
+
+.TP 4
+.B -v , --version
+Print version and exit.
+
+.TP 4
+.B -h , --help
+Print help message.
+
+.SH FILES
+.TP 4
+.B ~/.cache/irsimreceive.log
+Debug log. Setting the XDG_CACHE_HOME environment variable relocates this
+file to $XDG_CACHE_HOME/irsimreceive.log. The amount of logging respects the
+LIRC_LOGLEVEL environment variable, defaulting to the \fidebug\fR value
+in the \fi[lircd]\fR  section of lirc_options.conf.
+
+
+.SH "SEE ALSO"
+.P
+The documentation for \fBlirc\fR
+is maintained as html pages. They are located under html/ in the
+documentation directory.

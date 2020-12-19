@@ -1,0 +1,88 @@
+/*
+ * fstrcmp - fuzzy string compare library
+ * Copyright (C) 2009, 2011 Peter Miller
+ * Written by Peter Miller <pmiller@opensource.org.au>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * The new file templates are very handy.  They allow all sorts of things
+ * to be set automatically.  You need to edit them to add your own name,
+ * and copyright conditions.
+ */
+
+file_template =
+[
+    {
+        pattern = [ "etc/new.*.so" ];
+        body = "${read_file ${source etc/template/etc_new_so abs}}";
+    },
+    {
+        pattern = [ "lib*/*.c" ];
+        body = "${read_file ${source etc/template/lib_c abs}}";
+    },
+    {
+        pattern = [ "*/main.c" ];
+        body = "${read_file ${source etc/template/main_c abs}}";
+    },
+    {
+        pattern = [ "*.[cyl]" ];
+        body = "${read_file ${source etc/template/c abs}}";
+    },
+    {
+        pattern = [ "lib/ac/*.h" ];
+        body = "${read_file ${source etc/template/lib_ac_h abs}}";
+    },
+    {
+        pattern = [ "lib*/*.h" ];
+        body = "${read_file ${source etc/template/lib_h abs}}";
+    },
+    {
+        pattern = [ "*.h" ];
+        body = "${read_file ${source etc/template/h abs}}";
+    },
+    {
+        pattern = [ "test/*/*.sh" ];
+        body = "${read_file ${source etc/template/test abs}}";
+    },
+    {
+        pattern = [ "*.sh" ];
+        body = "${read_file ${source etc/template/sh abs}}";
+    },
+    {
+        pattern = [ "*.3" ];
+        body = "${read_file ${source etc/template/man3 abs}}";
+    },
+    {
+        pattern = [ "*.man", "*.[12345678]" ];
+        body = "${read_file ${source etc/template/man abs}}";
+    },
+    {
+        pattern = [ "*.so", "*.ms", "*.me" ];
+        body = "${read_file ${source etc/template/ms abs}}";
+    },
+    {
+        pattern = [ "*" ];
+        body = "${read_file ${source etc/template/generic abs}}";
+    }
+];
+
+filename_pattern_reject =
+[
+    "*[A-Z]*",
+    "*.cc",
+    "*.cxx",
+    "*.c++"
+];

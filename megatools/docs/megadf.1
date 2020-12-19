@@ -1,0 +1,281 @@
+'\" t
+.\"     Title: megadf
+.\"    Author: [see the "AUTHOR" section]
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 04/15/2020
+.\"    Manual: Megatools Manual
+.\"    Source: megatools 1.10.2
+.\"  Language: English
+.\"
+.TH "MEGADF" "1" "04/15/2020" "megatools 1.10.2" "Megatools Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+megadf \- Show total available, used, or free space in the cloud
+.SH "SYNOPSIS"
+.sp
+.nf
+\fImegadf\fR [\-\-free|\-\-total|\-\-used] [\-\-mb|\-\-gb|\-h]
+.fi
+.SH "DESCRIPTION"
+.sp
+Shows available, used and free space in the cloud in machine or human readable formats\&.
+.SH "OPTIONS"
+.PP
+\-\-total
+.RS 4
+Show only total available space (free + used)\&.
+.RE
+.PP
+\-\-free
+.RS 4
+Show only free space\&.
+.RE
+.PP
+\-\-used
+.RS 4
+Show only used space\&.
+.RE
+.PP
+\-\-human, \-h
+.RS 4
+Display file sizes in a human readable format\&.
+.RE
+.PP
+\-\-mb
+.RS 4
+Show in MiB units\&.
+.RE
+.PP
+\-\-gb
+.RS 4
+Show in GiB units\&.
+.RE
+.PP
+\-u <email>, \-\-username <email>
+.RS 4
+Account username (email)
+.RE
+.PP
+\-p <password>, \-\-password <password>
+.RS 4
+Account password
+.RE
+.PP
+\-\-no\-ask\-password
+.RS 4
+Never ask interactively for a password
+.RE
+.PP
+\-\-reload
+.RS 4
+Reload filesystem cache
+.RE
+.PP
+\-\-limit\-speed <speed>
+.RS 4
+Set maximum allowed upload and download speed in KiB/s\&. This option overrides config file settings\&. 0 means no limit\&. When using ParallelTransfers > 1, upload speed limit is applied to each transfer individually\&.
+.RE
+.PP
+\-\-proxy <proxy>
+.RS 4
+Use proxy server to connect to mega\&.nz\&. This option overrides config file settings\&. More information can be found in libcurl documentation at
+https://curl\&.haxx\&.se/libcurl/c/CURLOPT_PROXY\&.html\&. Some acceptable values are:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+none
+: Disable proxy if it was enabled in the config file\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+socks5://localhost:9050
+: Local SOCKSv5 proxy server
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+socks5h://localhost:9050
+: Local SOCKSv5 proxy server with DNS handled by the proxy
+.RE
+.RE
+.PP
+\-\-config <path>
+.RS 4
+Load configuration from a file
+.RE
+.PP
+\-\-ignore\-config\-file
+.RS 4
+Disable loading \&.megarc
+.RE
+.PP
+\-\-debug [<options>]
+.RS 4
+Enable debugging of various aspects of the megatools operation\&. You may enable multiple debugging options separated by commas\&. (eg\&.
+\-\-debug api,fs)
+.sp
+Available options are:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+http: Dump HTTP request/response details (can be used to debug connection/proxy issues)
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+api: Dump Mega\&.nz API calls
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+fs: Dump Mega\&.nz filesystem (may require
+\-\-reload
+to actually print something)
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+cache: Dump cache contents
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+tman: Dump transfer manager events
+.RE
+.RE
+.PP
+\-\-version
+.RS 4
+Show version information
+.RE
+.SH "EXAMPLES"
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Show overall human readable space usage information:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ megadf \-h
+Total: 50\&.0 GiB
+Used:  6\&.4 GiB
+Free:  43\&.6 GiB
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Check free space from a script:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ test `megadf \-\-free \-\-gb` \-lt 1 && \e
+  echo "You have less than 1 GiB of available free space"
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.SH "KNOWN BUGS"
+.sp
+Megadf can\(cqt determine available space for premium accounts\&.
+.SH "SEE ALSO"
+.sp
+\fBmegatools\fR(7), \fBmegarc\fR(5), \fBmegadf\fR(1), \fBmegadl\fR(1), \fBmegaget\fR(1), \fBmegals\fR(1), \fBmegamkdir\fR(1), \fBmegaput\fR(1), \fBmegareg\fR(1), \fBmegarm\fR(1), \fBmegacopy\fR(1)\&.
+.SH "MEGATOOLS"
+.sp
+Part of the \fBmegatools\fR(7) suite\&.
+.SH "BUGS"
+.sp
+Report bugs at https://github\&.com/megous/megatools or megous@megous\&.com\&.
+.SH "AUTHOR"
+.sp
+Megatools was written by Ondrej Jirman <megous@megous\&.com>, 2013\-2016\&.
+.sp
+Official website is http://megatools\&.megous\&.com\&.

@@ -1,0 +1,1132 @@
+diff --git a/drivers/media/common/saa7146/saa7146_core.c b/drivers/media/common/saa7146/saa7146_core.c
+index 9f7c5b0a6b45..03b3af5d8495 100644
+--- a/drivers/media/common/saa7146/saa7146_core.c
++++ b/drivers/media/common/saa7146/saa7146_core.c
+@@ -20,2 +20,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/common/saa7146/saa7146_fops.c b/drivers/media/common/saa7146/saa7146_fops.c
+index d4987fd05d05..d139750acea9 100644
+--- a/drivers/media/common/saa7146/saa7146_fops.c
++++ b/drivers/media/common/saa7146/saa7146_fops.c
+@@ -1 +1,2 @@
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/common/saa7146/saa7146_hlp.c b/drivers/media/common/saa7146/saa7146_hlp.c
+index 6ebcbc6450f5..a06dc4d69a37 100644
+--- a/drivers/media/common/saa7146/saa7146_hlp.c
++++ b/drivers/media/common/saa7146/saa7146_hlp.c
+@@ -1 +1,2 @@
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/common/saa7146/saa7146_i2c.c b/drivers/media/common/saa7146/saa7146_i2c.c
+index 3feddc52c446..b607c08f2b83 100644
+--- a/drivers/media/common/saa7146/saa7146_i2c.c
++++ b/drivers/media/common/saa7146/saa7146_i2c.c
+@@ -1,2 +1,3 @@
+ // SPDX-License-Identifier: GPL-2.0
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/common/saa7146/saa7146_video.c b/drivers/media/common/saa7146/saa7146_video.c
+index 0dfa0c09d646..76a0f55c84a4 100644
+--- a/drivers/media/common/saa7146/saa7146_video.c
++++ b/drivers/media/common/saa7146/saa7146_video.c
+@@ -1 +1,2 @@
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/common/siano/smscoreapi.h b/drivers/media/common/siano/smscoreapi.h
+index eb58853008c9..afde66b96dcc 100644
+--- a/drivers/media/common/siano/smscoreapi.h
++++ b/drivers/media/common/siano/smscoreapi.h
+@@ -24,2 +24,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) "%s:%s: " fmt, KBUILD_MODNAME, __func__
+diff --git a/drivers/media/common/tveeprom.c b/drivers/media/common/tveeprom.c
+index ccf2d3b12aec..f684cf3bded7 100644
+--- a/drivers/media/common/tveeprom.c
++++ b/drivers/media/common/tveeprom.c
+@@ -26,2 +26,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+index 5653e8eebe2b..105340ed7b51 100644
+--- a/drivers/media/common/videobuf2/videobuf2-core.c
++++ b/drivers/media/common/videobuf2/videobuf2-core.c
+@@ -16,2 +16,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
+index d548f98c7a67..5ed65b823845 100644
+--- a/drivers/media/dvb-core/dmxdev.c
++++ b/drivers/media/dvb-core/dmxdev.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) "dmxdev: " fmt
+diff --git a/drivers/media/dvb-core/dvb_ca_en50221.c b/drivers/media/dvb-core/dvb_ca_en50221.c
+index 4d371cea0d5d..ae56af776dec 100644
+--- a/drivers/media/dvb-core/dvb_ca_en50221.c
++++ b/drivers/media/dvb-core/dvb_ca_en50221.c
+@@ -27,2 +27,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) "dvb_ca_en50221: " fmt
+diff --git a/drivers/media/dvb-core/dvb_demux.c b/drivers/media/dvb-core/dvb_demux.c
+index 39a2c6ccf31d..6c7b5689b191 100644
+--- a/drivers/media/dvb-core/dvb_demux.c
++++ b/drivers/media/dvb-core/dvb_demux.c
+@@ -19,2 +19,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) "dvb_demux: " fmt
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index c4e7ebfe4d29..8b39dc843d7a 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -27,2 +27,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) "dvb_frontend: " fmt
+diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
+index 10f78109bb3f..149a2f7e4323 100644
+--- a/drivers/media/dvb-core/dvb_net.c
++++ b/drivers/media/dvb-core/dvb_net.c
+@@ -53,2 +53,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) "dvb_net: " fmt
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index 3c8778570331..5468b0fd22b0 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -19,2 +19,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) "dvbdev: " fmt
+diff --git a/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c b/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c
+index f87e27481ea7..4d979dc7c5a9 100644
+--- a/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c
++++ b/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c
+@@ -8,2 +8,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": %s: " fmt, __func__
+diff --git a/drivers/media/dvb-frontends/dib0070.c b/drivers/media/dvb-frontends/dib0070.c
+index 37ebd5af8fd4..adc2ae04f23a 100644
+--- a/drivers/media/dvb-frontends/dib0070.c
++++ b/drivers/media/dvb-frontends/dib0070.c
+@@ -22,2 +22,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/dib0090.c b/drivers/media/dvb-frontends/dib0090.c
+index 44a074261e69..60f531634215 100644
+--- a/drivers/media/dvb-frontends/dib0090.c
++++ b/drivers/media/dvb-frontends/dib0090.c
+@@ -22,2 +22,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/dib3000mb.c b/drivers/media/dvb-frontends/dib3000mb.c
+index bbbd53280477..f72ec9ef9220 100644
+--- a/drivers/media/dvb-frontends/dib3000mb.c
++++ b/drivers/media/dvb-frontends/dib3000mb.c
+@@ -23,2 +23,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/dib3000mc.c b/drivers/media/dvb-frontends/dib3000mc.c
+index c9e1db251723..68c7d9997a43 100644
+--- a/drivers/media/dvb-frontends/dib3000mc.c
++++ b/drivers/media/dvb-frontends/dib3000mc.c
+@@ -13,2 +13,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/dib7000m.c b/drivers/media/dvb-frontends/dib7000m.c
+index b79358d09de6..b6dc3d5a994d 100644
+--- a/drivers/media/dvb-frontends/dib7000m.c
++++ b/drivers/media/dvb-frontends/dib7000m.c
+@@ -11,2 +11,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/dib7000p.c b/drivers/media/dvb-frontends/dib7000p.c
+index 58387860b62d..9ddf74254ef8 100644
+--- a/drivers/media/dvb-frontends/dib7000p.c
++++ b/drivers/media/dvb-frontends/dib7000p.c
+@@ -10,2 +10,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/dib8000.c b/drivers/media/dvb-frontends/dib8000.c
+index 3c3f8cb14845..1dc9c73ad16f 100644
+--- a/drivers/media/dvb-frontends/dib8000.c
++++ b/drivers/media/dvb-frontends/dib8000.c
+@@ -10,2 +10,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/dib9000.c b/drivers/media/dvb-frontends/dib9000.c
+index 0183fb1346ef..e5811c1a6da7 100644
+--- a/drivers/media/dvb-frontends/dib9000.c
++++ b/drivers/media/dvb-frontends/dib9000.c
+@@ -10,2 +10,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/dibx000_common.c b/drivers/media/dvb-frontends/dibx000_common.c
+index 70119c79ac2b..18224c9f846a 100644
+--- a/drivers/media/dvb-frontends/dibx000_common.c
++++ b/drivers/media/dvb-frontends/dibx000_common.c
+@@ -1 +1,2 @@
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/drx39xyj/drxj.c b/drivers/media/dvb-frontends/drx39xyj/drxj.c
+index 9628d4067fe1..37396c58033a 100644
+--- a/drivers/media/dvb-frontends/drx39xyj/drxj.c
++++ b/drivers/media/dvb-frontends/drx39xyj/drxj.c
+@@ -55,2 +55,3 @@ INCLUDE FILES
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ":%s: " fmt, __func__
+diff --git a/drivers/media/dvb-frontends/drxk_hard.c b/drivers/media/dvb-frontends/drxk_hard.c
+index 84ac3f73f8fe..7ec20b0314dc 100644
+--- a/drivers/media/dvb-frontends/drxk_hard.c
++++ b/drivers/media/dvb-frontends/drxk_hard.c
+@@ -19,2 +19,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/dvb-pll.c b/drivers/media/dvb-frontends/dvb-pll.c
+index 6d4b2eec67b4..116346e73601 100644
+--- a/drivers/media/dvb-frontends/dvb-pll.c
++++ b/drivers/media/dvb-frontends/dvb-pll.c
+@@ -16,2 +16,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/gp8psk-fe.c b/drivers/media/dvb-frontends/gp8psk-fe.c
+index 238f09aa72f2..526ea7ef8f0a 100644
+--- a/drivers/media/dvb-frontends/gp8psk-fe.c
++++ b/drivers/media/dvb-frontends/gp8psk-fe.c
+@@ -15,2 +15,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/lgdt3306a.c b/drivers/media/dvb-frontends/lgdt3306a.c
+index 0e1f5daaf20c..3a0ea52be0d0 100644
+--- a/drivers/media/dvb-frontends/lgdt3306a.c
++++ b/drivers/media/dvb-frontends/lgdt3306a.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/nxt200x.c b/drivers/media/dvb-frontends/nxt200x.c
+index 0961e686ff68..2c84e4765fbe 100644
+--- a/drivers/media/dvb-frontends/nxt200x.c
++++ b/drivers/media/dvb-frontends/nxt200x.c
+@@ -35,2 +35,3 @@
+  */
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/nxt6000.c b/drivers/media/dvb-frontends/nxt6000.c
+index 72e447e8ba64..16ad731d8942 100644
+--- a/drivers/media/dvb-frontends/nxt6000.c
++++ b/drivers/media/dvb-frontends/nxt6000.c
+@@ -21,2 +21,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/dvb-frontends/or51211.c b/drivers/media/dvb-frontends/or51211.c
+index a39bbd8ff1f0..b516625205ff 100644
+--- a/drivers/media/dvb-frontends/or51211.c
++++ b/drivers/media/dvb-frontends/or51211.c
+@@ -20,2 +20,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt)	KBUILD_MODNAME ": %s: " fmt, __func__
+diff --git a/drivers/media/mc/mc-devnode.c b/drivers/media/mc/mc-devnode.c
+index 6b87a721dc49..77dac01e7705 100644
+--- a/drivers/media/mc/mc-devnode.c
++++ b/drivers/media/mc/mc-devnode.c
+@@ -28,2 +28,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/bt8xx/btcx-risc.c b/drivers/media/pci/bt8xx/btcx-risc.c
+index 70bdf93fc020..1f12fc4f32e2 100644
+--- a/drivers/media/pci/bt8xx/btcx-risc.c
++++ b/drivers/media/pci/bt8xx/btcx-risc.c
+@@ -24,2 +24,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/bt8xx/bttv-cards.c b/drivers/media/pci/bt8xx/bttv-cards.c
+index 2616243b2c49..977077073e2c 100644
+--- a/drivers/media/pci/bt8xx/bttv-cards.c
++++ b/drivers/media/pci/bt8xx/bttv-cards.c
+@@ -27,2 +27,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/bt8xx/bttv-driver.c b/drivers/media/pci/bt8xx/bttv-driver.c
+index cf05e11da01b..575e3e088194 100644
+--- a/drivers/media/pci/bt8xx/bttv-driver.c
++++ b/drivers/media/pci/bt8xx/bttv-driver.c
+@@ -36,2 +36,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/bt8xx/bttv-gpio.c b/drivers/media/pci/bt8xx/bttv-gpio.c
+index 25b9916906d5..654001e019b7 100644
+--- a/drivers/media/pci/bt8xx/bttv-gpio.c
++++ b/drivers/media/pci/bt8xx/bttv-gpio.c
+@@ -28,2 +28,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/bt8xx/bttv-i2c.c b/drivers/media/pci/bt8xx/bttv-i2c.c
+index c76823eb399d..bba02d20b458 100644
+--- a/drivers/media/pci/bt8xx/bttv-i2c.c
++++ b/drivers/media/pci/bt8xx/bttv-i2c.c
+@@ -29,2 +29,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/bt8xx/bttv-input.c b/drivers/media/pci/bt8xx/bttv-input.c
+index 08266b23826e..0552001cc38e 100644
+--- a/drivers/media/pci/bt8xx/bttv-input.c
++++ b/drivers/media/pci/bt8xx/bttv-input.c
+@@ -16,2 +16,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/bt8xx/bttv-risc.c b/drivers/media/pci/bt8xx/bttv-risc.c
+index 74aff6877d9c..3d67660d1be3 100644
+--- a/drivers/media/pci/bt8xx/bttv-risc.c
++++ b/drivers/media/pci/bt8xx/bttv-risc.c
+@@ -26,2 +26,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/bt8xx/bttv-vbi.c b/drivers/media/pci/bt8xx/bttv-vbi.c
+index 67c6583f1d79..abeaeb6656de 100644
+--- a/drivers/media/pci/bt8xx/bttv-vbi.c
++++ b/drivers/media/pci/bt8xx/bttv-vbi.c
+@@ -25,2 +25,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/bt8xx/dst.c b/drivers/media/pci/bt8xx/dst.c
+index b98de2a22f78..111997beb8df 100644
+--- a/drivers/media/pci/bt8xx/dst.c
++++ b/drivers/media/pci/bt8xx/dst.c
+@@ -20,2 +20,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/bt8xx/dvb-bt8xx.c b/drivers/media/pci/bt8xx/dvb-bt8xx.c
+index 2f810b7130e6..31530c582e65 100644
+--- a/drivers/media/pci/bt8xx/dvb-bt8xx.c
++++ b/drivers/media/pci/bt8xx/dvb-bt8xx.c
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/cx23885/altera-ci.c b/drivers/media/pci/cx23885/altera-ci.c
+index 62bc8049b320..18de58b960c9 100644
+--- a/drivers/media/pci/cx23885/altera-ci.c
++++ b/drivers/media/pci/cx23885/altera-ci.c
+@@ -51,2 +51,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/cx23885/cx23885.h b/drivers/media/pci/cx23885/cx23885.h
+index d54c7ee1ab21..b54e20c09b14 100644
+--- a/drivers/media/pci/cx23885/cx23885.h
++++ b/drivers/media/pci/cx23885/cx23885.h
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/cx25821/cx25821-alsa.c b/drivers/media/pci/cx25821/cx25821-alsa.c
+index ef6380651c10..f775c083312d 100644
+--- a/drivers/media/pci/cx25821/cx25821-alsa.c
++++ b/drivers/media/pci/cx25821/cx25821-alsa.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/cx25821/cx25821-cards.c b/drivers/media/pci/cx25821/cx25821-cards.c
+index f3b4d89d90c8..96beae119691 100644
+--- a/drivers/media/pci/cx25821/cx25821-cards.c
++++ b/drivers/media/pci/cx25821/cx25821-cards.c
+@@ -19,2 +19,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/cx25821/cx25821-core.c b/drivers/media/pci/cx25821/cx25821-core.c
+index 2f0171134f7e..0b3077b915c9 100644
+--- a/drivers/media/pci/cx25821/cx25821-core.c
++++ b/drivers/media/pci/cx25821/cx25821-core.c
+@@ -19,2 +19,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/cx25821/cx25821-i2c.c b/drivers/media/pci/cx25821/cx25821-i2c.c
+index 31479a41f359..dacef76ad4ea 100644
+--- a/drivers/media/pci/cx25821/cx25821-i2c.c
++++ b/drivers/media/pci/cx25821/cx25821-i2c.c
+@@ -19,2 +19,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/cx25821/cx25821-medusa-video.c b/drivers/media/pci/cx25821/cx25821-medusa-video.c
+index 0a9db050b175..ff7a29325977 100644
+--- a/drivers/media/pci/cx25821/cx25821-medusa-video.c
++++ b/drivers/media/pci/cx25821/cx25821-medusa-video.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/cx25821/cx25821-video.c b/drivers/media/pci/cx25821/cx25821-video.c
+index dbaf42ec26cd..8f2845672f9a 100644
+--- a/drivers/media/pci/cx25821/cx25821-video.c
++++ b/drivers/media/pci/cx25821/cx25821-video.c
+@@ -22,2 +22,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/cx88/cx88.h b/drivers/media/pci/cx88/cx88.h
+index 07a33f02fef4..db40b90a860c 100644
+--- a/drivers/media/pci/cx88/cx88.h
++++ b/drivers/media/pci/cx88/cx88.h
+@@ -19,2 +19,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/ddbridge/ddbridge-main.c b/drivers/media/pci/ddbridge/ddbridge-main.c
+index f4748cfd904b..21cce8cdc966 100644
+--- a/drivers/media/pci/ddbridge/ddbridge-main.c
++++ b/drivers/media/pci/ddbridge/ddbridge-main.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/ivtv/ivtv-driver.h b/drivers/media/pci/ivtv/ivtv-driver.h
+index cafba6b1055d..6b099da5a1f6 100644
+--- a/drivers/media/pci/ivtv/ivtv-driver.h
++++ b/drivers/media/pci/ivtv/ivtv-driver.h
+@@ -24,2 +24,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/ngene/ngene-cards.c b/drivers/media/pci/ngene/ngene-cards.c
+index 7a106bc11a2b..f68a50ffafbd 100644
+--- a/drivers/media/pci/ngene/ngene-cards.c
++++ b/drivers/media/pci/ngene/ngene-cards.c
+@@ -25,2 +25,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/saa7134/saa7134.h b/drivers/media/pci/saa7134/saa7134.h
+index d99e937a98c1..6bf824e98e35 100644
+--- a/drivers/media/pci/saa7134/saa7134.h
++++ b/drivers/media/pci/saa7134/saa7134.h
+@@ -19,2 +19,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/saa7146/hexium_gemini.c b/drivers/media/pci/saa7146/hexium_gemini.c
+index 5817d9cde4d0..58803dd87a95 100644
+--- a/drivers/media/pci/saa7146/hexium_gemini.c
++++ b/drivers/media/pci/saa7146/hexium_gemini.c
+@@ -23,2 +23,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/saa7146/hexium_orion.c b/drivers/media/pci/saa7146/hexium_orion.c
+index 0a05176c18ab..15aa6a435bbc 100644
+--- a/drivers/media/pci/saa7146/hexium_orion.c
++++ b/drivers/media/pci/saa7146/hexium_orion.c
+@@ -23,2 +23,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/saa7146/mxb.c b/drivers/media/pci/saa7146/mxb.c
+index 6b5582b7c595..61da0975028b 100644
+--- a/drivers/media/pci/saa7146/mxb.c
++++ b/drivers/media/pci/saa7146/mxb.c
+@@ -23,2 +23,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/ttpci/av7110_v4l.c b/drivers/media/pci/ttpci/av7110_v4l.c
+index e4cf42c32284..540102811bb5 100644
+--- a/drivers/media/pci/ttpci/av7110_v4l.c
++++ b/drivers/media/pci/ttpci/av7110_v4l.c
+@@ -24,2 +24,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/pci/ttpci/budget-av.c b/drivers/media/pci/ttpci/budget-av.c
+index abc98f1ad26c..6b99e4e9c61d 100644
+--- a/drivers/media/pci/ttpci/budget-av.c
++++ b/drivers/media/pci/ttpci/budget-av.c
+@@ -32,2 +32,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/platform/exynos4-is/fimc-is-param.c b/drivers/media/platform/exynos4-is/fimc-is-param.c
+index 72b9b436c5c0..e08e90046f16 100644
+--- a/drivers/media/platform/exynos4-is/fimc-is-param.c
++++ b/drivers/media/platform/exynos4-is/fimc-is-param.c
+@@ -12,2 +12,3 @@
+  */
++#undef pr_fmt
+ #define pr_fmt(fmt) "%s:%d " fmt, __func__, __LINE__
+diff --git a/drivers/media/platform/exynos4-is/fimc-is.c b/drivers/media/platform/exynos4-is/fimc-is.c
+index 5ddb2321e9e4..045d7af5cede 100644
+--- a/drivers/media/platform/exynos4-is/fimc-is.c
++++ b/drivers/media/platform/exynos4-is/fimc-is.c
+@@ -12,2 +12,3 @@
+  */
++#undef pr_fmt
+ #define pr_fmt(fmt) "%s:%d " fmt, __func__, __LINE__
+diff --git a/drivers/media/platform/exynos4-is/fimc-isp.c b/drivers/media/platform/exynos4-is/fimc-isp.c
+index 9a48c0f69320..e1f42e0882d3 100644
+--- a/drivers/media/platform/exynos4-is/fimc-isp.c
++++ b/drivers/media/platform/exynos4-is/fimc-isp.c
+@@ -12,2 +12,3 @@
+  */
++#undef pr_fmt
+ #define pr_fmt(fmt) "%s:%d " fmt, __func__, __LINE__
+diff --git a/drivers/media/platform/s3c-camif/camif-capture.c b/drivers/media/platform/s3c-camif/camif-capture.c
+index c02dce8b4c6c..9a1c6a23c196 100644
+--- a/drivers/media/platform/s3c-camif/camif-capture.c
++++ b/drivers/media/platform/s3c-camif/camif-capture.c
+@@ -13,2 +13,3 @@
+ */
++#undef pr_fmt
+ #define pr_fmt(fmt) "%s:%d " fmt, __func__, __LINE__
+diff --git a/drivers/media/platform/s3c-camif/camif-core.c b/drivers/media/platform/s3c-camif/camif-core.c
+index 79bc0ef6bb41..8b6d6f047ac4 100644
+--- a/drivers/media/platform/s3c-camif/camif-core.c
++++ b/drivers/media/platform/s3c-camif/camif-core.c
+@@ -11,2 +11,3 @@
+  */
++#undef pr_fmt
+ #define pr_fmt(fmt) "%s:%d " fmt, __func__, __LINE__
+diff --git a/drivers/media/platform/s3c-camif/camif-regs.c b/drivers/media/platform/s3c-camif/camif-regs.c
+index 812fb3a7c4e3..8241eb481845 100644
+--- a/drivers/media/platform/s3c-camif/camif-regs.c
++++ b/drivers/media/platform/s3c-camif/camif-regs.c
+@@ -10,2 +10,3 @@
+ */
++#undef pr_fmt
+ #define pr_fmt(fmt) "%s:%d " fmt, __func__, __LINE__
+diff --git a/drivers/media/rc/ene_ir.c b/drivers/media/rc/ene_ir.c
+index 71b8c9bbf6c4..1c9e129f5694 100644
+--- a/drivers/media/rc/ene_ir.c
++++ b/drivers/media/rc/ene_ir.c
+@@ -27,2 +27,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/rc/fintek-cir.c b/drivers/media/rc/fintek-cir.c
+index f2639d0c2fca..1040fa1794f5 100644
+--- a/drivers/media/rc/fintek-cir.c
++++ b/drivers/media/rc/fintek-cir.c
+@@ -20,2 +20,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
+index 1041c056854d..619498366d55 100644
+--- a/drivers/media/rc/imon.c
++++ b/drivers/media/rc/imon.c
+@@ -24,2 +24,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ":%s: " fmt, __func__
+diff --git a/drivers/media/rc/ir-imon-decoder.c b/drivers/media/rc/ir-imon-decoder.c
+index 67c1b0c15aae..8395ca753403 100644
+--- a/drivers/media/rc/ir-imon-decoder.c
++++ b/drivers/media/rc/ir-imon-decoder.c
+@@ -5,2 +5,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/rc/lirc_dev.c b/drivers/media/rc/lirc_dev.c
+index f862f1b7f996..5387be0b9bd7 100644
+--- a/drivers/media/rc/lirc_dev.c
++++ b/drivers/media/rc/lirc_dev.c
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/rc/nuvoton-cir.c b/drivers/media/rc/nuvoton-cir.c
+index b8299c9a9744..6a777feddf81 100644
+--- a/drivers/media/rc/nuvoton-cir.c
++++ b/drivers/media/rc/nuvoton-cir.c
+@@ -22,2 +22,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index ca68e1d2b2f9..d082d86f8a52 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -5,2 +5,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/rc/serial_ir.c b/drivers/media/rc/serial_ir.c
+index 8bf5637b3a69..90c7f8e69c5d 100644
+--- a/drivers/media/rc/serial_ir.c
++++ b/drivers/media/rc/serial_ir.c
+@@ -23,2 +23,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/rc/sir_ir.c b/drivers/media/rc/sir_ir.c
+index 9ee2c9196b4d..511e7d874ad0 100644
+--- a/drivers/media/rc/sir_ir.c
++++ b/drivers/media/rc/sir_ir.c
+@@ -12,2 +12,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/rc/winbond-cir.c b/drivers/media/rc/winbond-cir.c
+index 851acba9b436..db1b9de8860b 100644
+--- a/drivers/media/rc/winbond-cir.c
++++ b/drivers/media/rc/winbond-cir.c
+@@ -38,2 +38,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/spi/cxd2880-spi.c b/drivers/media/spi/cxd2880-spi.c
+index 11ce5101e19f..a6e3d32197fa 100644
+--- a/drivers/media/spi/cxd2880-spi.c
++++ b/drivers/media/spi/cxd2880-spi.c
+@@ -9,2 +9,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": %s: " fmt, __func__
+diff --git a/drivers/media/tuners/r820t.c b/drivers/media/tuners/r820t.c
+index ba4be08a8551..9a35f33045f9 100644
+--- a/drivers/media/tuners/r820t.c
++++ b/drivers/media/tuners/r820t.c
+@@ -22,2 +22,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/tuners/tda18271-priv.h b/drivers/media/tuners/tda18271-priv.h
+index 0bcc735a0427..b9f0963febf1 100644
+--- a/drivers/media/tuners/tda18271-priv.h
++++ b/drivers/media/tuners/tda18271-priv.h
+@@ -23,2 +23,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/tuners/tea5767.c b/drivers/media/tuners/tea5767.c
+index 016d0d5ec50b..63468acb0dee 100644
+--- a/drivers/media/tuners/tea5767.c
++++ b/drivers/media/tuners/tea5767.c
+@@ -9,2 +9,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/au0828/au0828.h b/drivers/media/usb/au0828/au0828.h
+index 004eadef55c7..873fca4875d8 100644
+--- a/drivers/media/usb/au0828/au0828.h
++++ b/drivers/media/usb/au0828/au0828.h
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/go7007/go7007-usb.c b/drivers/media/usb/go7007/go7007-usb.c
+index 19c6a0354ce0..1f9706dee7b2 100644
+--- a/drivers/media/usb/go7007/go7007-usb.c
++++ b/drivers/media/usb/go7007/go7007-usb.c
+@@ -13,2 +13,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/benq.c b/drivers/media/usb/gspca/benq.c
+index 8a8db5eb6d5f..25ecb825bf38 100644
+--- a/drivers/media/usb/gspca/benq.c
++++ b/drivers/media/usb/gspca/benq.c
+@@ -16,2 +16,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/conex.c b/drivers/media/usb/gspca/conex.c
+index 6df4e204e291..fa68a71cd249 100644
+--- a/drivers/media/usb/gspca/conex.c
++++ b/drivers/media/usb/gspca/conex.c
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/cpia1.c b/drivers/media/usb/gspca/cpia1.c
+index 2b09af8865f4..67afabf5e4a9 100644
+--- a/drivers/media/usb/gspca/cpia1.c
++++ b/drivers/media/usb/gspca/cpia1.c
+@@ -24,2 +24,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/dtcs033.c b/drivers/media/usb/gspca/dtcs033.c
+index 7654c8c08eda..0d0cb5d70886 100644
+--- a/drivers/media/usb/gspca/dtcs033.c
++++ b/drivers/media/usb/gspca/dtcs033.c
+@@ -16,2 +16,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/etoms.c b/drivers/media/usb/gspca/etoms.c
+index 48b28897051f..0a64ab5a793c 100644
+--- a/drivers/media/usb/gspca/etoms.c
++++ b/drivers/media/usb/gspca/etoms.c
+@@ -16,2 +16,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/finepix.c b/drivers/media/usb/gspca/finepix.c
+index 1ef1239eb3db..89df74f0fcc8 100644
+--- a/drivers/media/usb/gspca/finepix.c
++++ b/drivers/media/usb/gspca/finepix.c
+@@ -16,2 +16,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/gl860/gl860.c b/drivers/media/usb/gspca/gl860/gl860.c
+index 262200af76a3..c4403a8e83f3 100644
+--- a/drivers/media/usb/gspca/gl860/gl860.c
++++ b/drivers/media/usb/gspca/gl860/gl860.c
+@@ -21,2 +21,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
+index 57aa521e16b1..7d7ec48b7bbc 100644
+--- a/drivers/media/usb/gspca/gspca.c
++++ b/drivers/media/usb/gspca/gspca.c
+@@ -19,2 +19,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/jeilinj.c b/drivers/media/usb/gspca/jeilinj.c
+index 86d0a0a45631..fbc965c4e82b 100644
+--- a/drivers/media/usb/gspca/jeilinj.c
++++ b/drivers/media/usb/gspca/jeilinj.c
+@@ -22,2 +22,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/kinect.c b/drivers/media/usb/gspca/kinect.c
+index f993f6280c56..44ca308b7d59 100644
+--- a/drivers/media/usb/gspca/kinect.c
++++ b/drivers/media/usb/gspca/kinect.c
+@@ -22,2 +22,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/konica.c b/drivers/media/usb/gspca/konica.c
+index 989ae997f66d..21fc502c67e5 100644
+--- a/drivers/media/usb/gspca/konica.c
++++ b/drivers/media/usb/gspca/konica.c
+@@ -26,2 +26,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/m5602/m5602_core.c b/drivers/media/usb/gspca/m5602/m5602_core.c
+index 30b7cf1feedd..98e24ccade6a 100644
+--- a/drivers/media/usb/gspca/m5602/m5602_core.c
++++ b/drivers/media/usb/gspca/m5602/m5602_core.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/m5602/m5602_mt9m111.c b/drivers/media/usb/gspca/m5602/m5602_mt9m111.c
+index c9947c4a0f63..3bfa8ab6ac3b 100644
+--- a/drivers/media/usb/gspca/m5602/m5602_mt9m111.c
++++ b/drivers/media/usb/gspca/m5602/m5602_mt9m111.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/m5602/m5602_ov7660.c b/drivers/media/usb/gspca/m5602/m5602_ov7660.c
+index aa1f569c82fd..d8ee60ad3e84 100644
+--- a/drivers/media/usb/gspca/m5602/m5602_ov7660.c
++++ b/drivers/media/usb/gspca/m5602/m5602_ov7660.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/m5602/m5602_ov9650.c b/drivers/media/usb/gspca/m5602/m5602_ov9650.c
+index 2ffbb54e89f9..467f6e088fc3 100644
+--- a/drivers/media/usb/gspca/m5602/m5602_ov9650.c
++++ b/drivers/media/usb/gspca/m5602/m5602_ov9650.c
+@@ -19,2 +19,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/m5602/m5602_po1030.c b/drivers/media/usb/gspca/m5602/m5602_po1030.c
+index 37d2891e5f5b..9cddb3b1bb96 100644
+--- a/drivers/media/usb/gspca/m5602/m5602_po1030.c
++++ b/drivers/media/usb/gspca/m5602/m5602_po1030.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/m5602/m5602_s5k4aa.c b/drivers/media/usb/gspca/m5602/m5602_s5k4aa.c
+index cec4a5838aec..0f60b5929e7e 100644
+--- a/drivers/media/usb/gspca/m5602/m5602_s5k4aa.c
++++ b/drivers/media/usb/gspca/m5602/m5602_s5k4aa.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/m5602/m5602_s5k83a.c b/drivers/media/usb/gspca/m5602/m5602_s5k83a.c
+index 3d8ab18138aa..78aa206070e4 100644
+--- a/drivers/media/usb/gspca/m5602/m5602_s5k83a.c
++++ b/drivers/media/usb/gspca/m5602/m5602_s5k83a.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/mars.c b/drivers/media/usb/gspca/mars.c
+index a537cb195c46..e40f485d3f0d 100644
+--- a/drivers/media/usb/gspca/mars.c
++++ b/drivers/media/usb/gspca/mars.c
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/mr97310a.c b/drivers/media/usb/gspca/mr97310a.c
+index bea196361215..deb34c273cdb 100644
+--- a/drivers/media/usb/gspca/mr97310a.c
++++ b/drivers/media/usb/gspca/mr97310a.c
+@@ -38,2 +38,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/nw80x.c b/drivers/media/usb/gspca/nw80x.c
+index bedc04a72e97..3d61f3a10157 100644
+--- a/drivers/media/usb/gspca/nw80x.c
++++ b/drivers/media/usb/gspca/nw80x.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/ov519.c b/drivers/media/usb/gspca/ov519.c
+index 10fcbe9e8614..7ad55aa1132f 100644
+--- a/drivers/media/usb/gspca/ov519.c
++++ b/drivers/media/usb/gspca/ov519.c
+@@ -35,2 +35,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/ov534.c b/drivers/media/usb/gspca/ov534.c
+index d06dc0755b9a..f740eb308dab 100644
+--- a/drivers/media/usb/gspca/ov534.c
++++ b/drivers/media/usb/gspca/ov534.c
+@@ -28,2 +28,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/ov534_9.c b/drivers/media/usb/gspca/ov534_9.c
+index 3d1364d2f83e..344c85ab7bf0 100644
+--- a/drivers/media/usb/gspca/ov534_9.c
++++ b/drivers/media/usb/gspca/ov534_9.c
+@@ -22,2 +22,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/pac207.c b/drivers/media/usb/gspca/pac207.c
+index a1df7af8fef5..d4e5db18ba0e 100644
+--- a/drivers/media/usb/gspca/pac207.c
++++ b/drivers/media/usb/gspca/pac207.c
+@@ -21,2 +21,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/pac7302.c b/drivers/media/usb/gspca/pac7302.c
+index b8ff201c7bb9..05a5027cb4cd 100644
+--- a/drivers/media/usb/gspca/pac7302.c
++++ b/drivers/media/usb/gspca/pac7302.c
+@@ -88,2 +88,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/pac7311.c b/drivers/media/usb/gspca/pac7311.c
+index 44db4f4afa22..2b6bacb82ddf 100644
+--- a/drivers/media/usb/gspca/pac7311.c
++++ b/drivers/media/usb/gspca/pac7311.c
+@@ -55,2 +55,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/se401.c b/drivers/media/usb/gspca/se401.c
+index 477da0664b7d..fb7cc415c37b 100644
+--- a/drivers/media/usb/gspca/se401.c
++++ b/drivers/media/usb/gspca/se401.c
+@@ -21,2 +21,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/sn9c2028.c b/drivers/media/usb/gspca/sn9c2028.c
+index a1f7189545e1..2a003cc6da4c 100644
+--- a/drivers/media/usb/gspca/sn9c2028.c
++++ b/drivers/media/usb/gspca/sn9c2028.c
+@@ -16,2 +16,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/sn9c20x.c b/drivers/media/usb/gspca/sn9c20x.c
+index cfa2a04d9f3f..3d5e61b7a8aa 100644
+--- a/drivers/media/usb/gspca/sn9c20x.c
++++ b/drivers/media/usb/gspca/sn9c20x.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/sonixj.c b/drivers/media/usb/gspca/sonixj.c
+index df8d8482b795..da017d2f4fdb 100644
+--- a/drivers/media/usb/gspca/sonixj.c
++++ b/drivers/media/usb/gspca/sonixj.c
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/spca1528.c b/drivers/media/usb/gspca/spca1528.c
+index d25924e430f3..abd8d99d9105 100644
+--- a/drivers/media/usb/gspca/spca1528.c
++++ b/drivers/media/usb/gspca/spca1528.c
+@@ -16,2 +16,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/spca500.c b/drivers/media/usb/gspca/spca500.c
+index e90d2f3b4a67..fa706a187db0 100644
+--- a/drivers/media/usb/gspca/spca500.c
++++ b/drivers/media/usb/gspca/spca500.c
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/spca501.c b/drivers/media/usb/gspca/spca501.c
+index 2cce74b166d8..238bae9932b7 100644
+--- a/drivers/media/usb/gspca/spca501.c
++++ b/drivers/media/usb/gspca/spca501.c
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/spca505.c b/drivers/media/usb/gspca/spca505.c
+index 07aae9cd5a30..8f5ca2eba779 100644
+--- a/drivers/media/usb/gspca/spca505.c
++++ b/drivers/media/usb/gspca/spca505.c
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/spca508.c b/drivers/media/usb/gspca/spca508.c
+index d80fd397eaf2..329f23acff04 100644
+--- a/drivers/media/usb/gspca/spca508.c
++++ b/drivers/media/usb/gspca/spca508.c
+@@ -16,2 +16,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/spca561.c b/drivers/media/usb/gspca/spca561.c
+index f389a8d0937d..8fdbe7857541 100644
+--- a/drivers/media/usb/gspca/spca561.c
++++ b/drivers/media/usb/gspca/spca561.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/sq905.c b/drivers/media/usb/gspca/sq905.c
+index ffea9c35b0a0..3afd53540efd 100644
+--- a/drivers/media/usb/gspca/sq905.c
++++ b/drivers/media/usb/gspca/sq905.c
+@@ -31,2 +31,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/sq905c.c b/drivers/media/usb/gspca/sq905c.c
+index 274921c0bb46..187c673edd53 100644
+--- a/drivers/media/usb/gspca/sq905c.c
++++ b/drivers/media/usb/gspca/sq905c.c
+@@ -25,2 +25,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/sq930x.c b/drivers/media/usb/gspca/sq930x.c
+index d7cbcf2b3947..b4194d4a436f 100644
+--- a/drivers/media/usb/gspca/sq930x.c
++++ b/drivers/media/usb/gspca/sq930x.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/stk014.c b/drivers/media/usb/gspca/stk014.c
+index 0d8f489ddef2..e009b4ea02b0 100644
+--- a/drivers/media/usb/gspca/stk014.c
++++ b/drivers/media/usb/gspca/stk014.c
+@@ -16,2 +16,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/stk1135.c b/drivers/media/usb/gspca/stk1135.c
+index 6f52a480c2d8..13867b7e088c 100644
+--- a/drivers/media/usb/gspca/stk1135.c
++++ b/drivers/media/usb/gspca/stk1135.c
+@@ -19,2 +19,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/stv0680.c b/drivers/media/usb/gspca/stv0680.c
+index 3ff5ed74bd9f..1223fe904715 100644
+--- a/drivers/media/usb/gspca/stv0680.c
++++ b/drivers/media/usb/gspca/stv0680.c
+@@ -25,2 +25,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx.c b/drivers/media/usb/gspca/stv06xx/stv06xx.c
+index 6080a35310ca..0c72953f29ac 100644
+--- a/drivers/media/usb/gspca/stv06xx/stv06xx.c
++++ b/drivers/media/usb/gspca/stv06xx/stv06xx.c
+@@ -25,2 +25,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_hdcs.c b/drivers/media/usb/gspca/stv06xx/stv06xx_hdcs.c
+index d8db2c89718f..fb221d882643 100644
+--- a/drivers/media/usb/gspca/stv06xx/stv06xx_hdcs.c
++++ b/drivers/media/usb/gspca/stv06xx/stv06xx_hdcs.c
+@@ -26,2 +26,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_pb0100.c b/drivers/media/usb/gspca/stv06xx/stv06xx_pb0100.c
+index 7374aeb0a67a..85c37d7231e1 100644
+--- a/drivers/media/usb/gspca/stv06xx/stv06xx_pb0100.c
++++ b/drivers/media/usb/gspca/stv06xx/stv06xx_pb0100.c
+@@ -42,2 +42,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_st6422.c b/drivers/media/usb/gspca/stv06xx/stv06xx_st6422.c
+index 51a135c2f9f7..9577ac5580d5 100644
+--- a/drivers/media/usb/gspca/stv06xx/stv06xx_st6422.c
++++ b/drivers/media/usb/gspca/stv06xx/stv06xx_st6422.c
+@@ -24,2 +24,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/stv06xx/stv06xx_vv6410.c b/drivers/media/usb/gspca/stv06xx/stv06xx_vv6410.c
+index b2f16c2754fb..a9952fe6b192 100644
+--- a/drivers/media/usb/gspca/stv06xx/stv06xx_vv6410.c
++++ b/drivers/media/usb/gspca/stv06xx/stv06xx_vv6410.c
+@@ -25,2 +25,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/sunplus.c b/drivers/media/usb/gspca/sunplus.c
+index 437a3367ab97..5258a00f4e69 100644
+--- a/drivers/media/usb/gspca/sunplus.c
++++ b/drivers/media/usb/gspca/sunplus.c
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/t613.c b/drivers/media/usb/gspca/t613.c
+index 445782919446..9a1a36659929 100644
+--- a/drivers/media/usb/gspca/t613.c
++++ b/drivers/media/usb/gspca/t613.c
+@@ -24,2 +24,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/topro.c b/drivers/media/usb/gspca/topro.c
+index 6f3ec0366a2f..9b3d36cfe779 100644
+--- a/drivers/media/usb/gspca/topro.c
++++ b/drivers/media/usb/gspca/topro.c
+@@ -21,2 +21,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/vc032x.c b/drivers/media/usb/gspca/vc032x.c
+index 52d071659634..f4db6e275838 100644
+--- a/drivers/media/usb/gspca/vc032x.c
++++ b/drivers/media/usb/gspca/vc032x.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/vicam.c b/drivers/media/usb/gspca/vicam.c
+index 8562bda0ef88..8d4c3de14bcf 100644
+--- a/drivers/media/usb/gspca/vicam.c
++++ b/drivers/media/usb/gspca/vicam.c
+@@ -24,2 +24,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/w996Xcf.c b/drivers/media/usb/gspca/w996Xcf.c
+index abfab3de1866..1a5ab8712d2d 100644
+--- a/drivers/media/usb/gspca/w996Xcf.c
++++ b/drivers/media/usb/gspca/w996Xcf.c
+@@ -29,2 +29,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/xirlink_cit.c b/drivers/media/usb/gspca/xirlink_cit.c
+index 58deb0c38826..1a816918aa7c 100644
+--- a/drivers/media/usb/gspca/xirlink_cit.c
++++ b/drivers/media/usb/gspca/xirlink_cit.c
+@@ -25,2 +25,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/gspca/zc3xx.c b/drivers/media/usb/gspca/zc3xx.c
+index cf21991e3d99..1073741a0473 100644
+--- a/drivers/media/usb/gspca/zc3xx.c
++++ b/drivers/media/usb/gspca/zc3xx.c
+@@ -17,2 +17,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/stkwebcam/stk-sensor.c b/drivers/media/usb/stkwebcam/stk-sensor.c
+index 9a7dbeff1337..497fb981f103 100644
+--- a/drivers/media/usb/stkwebcam/stk-sensor.c
++++ b/drivers/media/usb/stkwebcam/stk-sensor.c
+@@ -43,2 +43,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/usb/stkwebcam/stk-webcam.c b/drivers/media/usb/stkwebcam/stk-webcam.c
+index 5accb5241072..d55fb85ccbb9 100644
+--- a/drivers/media/usb/stkwebcam/stk-webcam.c
++++ b/drivers/media/usb/stkwebcam/stk-webcam.c
+@@ -20,2 +20,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
+index 69e775930fc4..aed971f18fb0 100644
+--- a/drivers/media/v4l2-core/v4l2-dev.c
++++ b/drivers/media/v4l2-core/v4l2-dev.c
+@@ -18,2 +18,3 @@
+ 
++#undef pr_fmt
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt

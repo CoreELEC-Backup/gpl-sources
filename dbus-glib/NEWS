@@ -1,0 +1,633 @@
+dbus-glib is deprecated, please use GDBus in new GLib-based projects.
+
+dbus-glib 0.110 (2018-01-29)
+============================
+
+The “sphere tank” release.
+
+Dependencies:
+
+• GLib 2.40 is required
+
+Enhancements:
+
+• The GLib main-loop glue, "dbus-gmain", is now available as a separate
+  subproject (the dbus-gmain branch in dbus-glib's git repository) for
+  embedding in larger projects like dbus-glib and dbus-python via the
+  `git subtree` or `git submodule` commands. This removes dbus-python's
+  dependency on the rest of dbus-glib.
+
+Fixes:
+
+• autogen.sh can now detect gtk-doc >= 1.26.
+
+• More files have per-file copyright information.
+
+dbus-glib 0.108 (2016-09-09)
+============================
+
+The “toxic chair” release.
+
+Fixes:
+
+• Use dbus-run-session instead of dbus-launch for tests.
+
+dbus-glib 0.106 (2016-01-14)
+============================
+
+The “crumbling vestige” release.
+
+Fixes:
+
+• Stop testing G_HAVE_INLINE, which ceased to work in GLib 2.47.2 and
+  wasn't meant to be API anyway. Instead, rely on "static inline" doing
+  the right thing. On pre-C99 compilers, this relies on <glib.h> defining
+  inline to __inline, __inline__ or the empty string if the compiler
+  requires it, which it has done since 2000. (fd.o #93513, Colin Watson)
+
+• Stop calling g_mem_profile() in the tests, which no longer does anything
+  and caused the tests to fail by issuing a warning (Simon McVittie)
+
+• Slightly modernize build system, and remove a weird cross-directory
+  dependency which was breaking distcheck (Simon McVittie)
+
+• Stop distributing generated marshallers in the tarball (Simon McVittie)
+
+dbus-glib 0.104 (2015-02-09)
+============================
+
+The “smoke and ashes” release.
+
+Deprecations:
+
+• Document the entire library as deprecated (Simon McVittie, Philip Withnall)
+
+Dependencies:
+
+• libdbus 1.8 is required
+• GLib 2.32 is required
+
+Enhancements:
+
+• The libdbus 1.8 dependency means we can now document that
+  dbus_g_thread_init() is idempotent and thread-safe
+  (fd.o #54770, Simon McVittie)
+
+• Use g_cclosure_marshal_generic for all marshalling (fd.o #64214,
+  Simon McVittie)
+
+Fixes:
+
+• Allow timeouts to be migrated from one main context to another
+  without an assertion failure (fd.o #30574, Mike Gorse)
+
+• Don't trip a libdbus fatal warning if a Unix fd or other unsupported type
+  is encountered in a message (fd.o #80557, Alban Crequy)
+
+• Make the tests pass with newer GLib by not removing removed sources
+  (fd.o #83530, Simon McVittie)
+
+• Fix some typos in the documentation (fd.o #45686, Jiří Klimeš)
+
+• Make the Autotools setup less awful (fd.o #58698;
+  Rafał Mużyło, Simon McVittie)
+
+dbus-glib 0.102 (2014-02-12)
+============================
+
+The “I've come to the conclusion that Debian should choose Russ Allbery
+to be its new init system” release. [1]
+
+Enhancements:
+
+• Add dbus_g_method_invocation_get_connection (fd.o #55729, Dan Williams)
+
+• Add dbus_g_connection_open_private (fd.o #55730, Dan Williams)
+
+• Better regression tests (fd.o #23633, fd.o #40711, fd.o #41129, fd.o #51511,
+  fd.o #68603; Simon McVittie, Dan Williams)
+
+• Get rid of more dead code (fd.o #40711, Simon McVittie)
+
+• dbus-binding-tool: check validity of names (fd.o #7909, Simon McVittie)
+
+Fixes:
+
+• dbus_g_value_build_g_variant: treat GValues containing (G_TYPE_STRING, NULL)
+  or (G_TYPE_STRV, NULL) as empty string or empty array instead of asserting
+  (fd.o #71811, Xavier Claessens)
+
+• Upload documentation correctly (Simon McVittie)
+
+• Fix under-linking (fd.o #68601, Simon McVittie)
+
+[1] credit: https://twitter.com/keybuk/status/433058371290157056
+
+dbus-glib 0.100.2 (2013-02-25)
+==============================
+
+The "I would prefer lengthier studies, and fewer explosions" release.
+
+This release is a respin of the 0.100.1 tarball to drop some old,
+broken versions of generated documentation files (fd.o #55830). There
+are no source changes.
+
+dbus-glib 0.100.1 (2013-02-15)
+==============================
+
+Security:
+
+• Sebastian Krahmer discovered and published an authentication bypass
+  vulnerability in pam_fprintd, caused by a bug in dbus-glib. It is
+  possible that other users of dbus-glib can be exploited in the same
+  way. CVE-2013-0292 has been allocated for this vulnerability.
+
+  This vulnerability is fixed in dbus-glib version 0.100.1 by git commit
+  166978a. All users of dbus-glib should upgrade.
+
+  (fd.o #60916; Colin Walters, Simon McVittie)
+
+dbus-glib 0.100 (2012-06-25)
+============================
+
+The "Flabbergasted Jerome" release.
+
+Enhancements:
+
+• Support building on Android with androgenizer
+  (fd.o #42532, Derek Foreman)
+
+• Respect NOCONFIGURE=1 in autogen.sh (Colin Walters)
+
+Fixes:
+
+• Fix several GVariant reference leaks in dbus_g_value_parse_variant
+  (fd.o #41125, Simon McVittie)
+
+• Don't crash if an error code is out of range for its domain or
+  has a negative code (fd.o #40151; David Woodhouse, Simon McVittie)
+
+• Fix compilation with -Werror=format-security (Matthias Klose)
+
+• Don't crash if dbus_g_proxy_new_for_peer() is used to talk to
+  the dbus-daemon (fd.o #41126, Simon McVittie)
+
+dbus-glib 0.98 (2011-09-30)
+===========================
+
+The "undocumented feature" release.
+
+• Fix the documentation, a lot. We have nearly 100% coverage now.
+  (fd.o #37793, smcv)
+
+• In specialized collection iterators, check that the type is correct;
+  g_critical and return harmlessly, rather than crashing, if not (smcv)
+
+• If library users register specialized GTypes, warn if their vtables have
+  missing callbacks which would cause accessors to crash (smcv)
+
+• Fix production of documentation out-of-tree with newer gtk-doc (smcv)
+
+• Simplify invoke_object_method() and OOM handling in dbus-gobject
+  (fd.o #35767, smcv)
+
+dbus-glib 0.96 (2011-09-21)
+===========================
+
+The "terminating at New Cross Gate" release.
+
+• Fix a regression in marshalling GObject instances as object paths,
+  which broke NetworkManager (fd.o #37852, Debian #628890; Simon McVittie)
+
+• Fix crashes when sending a message when disconnected from D-Bus but still
+  working through our backlog of incoming messages, similar to fd.o #12675
+  (fd.o #38406, Simon McVittie)
+
+• Cope more gracefully, with a critical warning instead of a memory leak,
+  if programmer error causes G_VALUE_COLLECT to fail
+  (fd.o #38406, NB#86280, NB#180486; Kimmo Hämäläinen, Christian Dywan,
+   Simon McVittie)
+
+• Avoid an assertion failure when unregistering a proxy if GetNameOwner failed
+  (fd.o #38408, NB#116862; Janne Karhunen, Simon McVittie)
+
+• Don't report various programmer errors as "out of memory"; raise suitable
+  critical warnings instead, and don't leak memory (fd.o #35767, fd.o #35766;
+  Simon McVittie)
+
+• If a remote process sends a wrong method call on the Properties interface,
+  send back an error reply, instead of warning on stderr and not replying
+  (fd.o #35766, Simon McVittie)
+
+• Show a warning if dbus_g_method_return fails to marshal something
+  (fd.o #29884, NB#180486; Christian Dywan, Simon McVittie)
+
+• Remove remnants of i18n (fd.o #36428, Simon McVittie)
+
+• Remove dead code (NB#180486; Christian Dywan)
+
+dbus-glib 0.94 (2011-06-01)
+===========================
+
+The "Norwegian Blue" release.
+
+Dependencies:
+
+* dbus 1.2.16 is required (dbus 1.4 is recommended)
+
+* GIO 2.26 (packaged with GLib) is required
+
+Fixes:
+
+* fd.o #10890: remove Doxygen support, to clarify that gtk-doc
+  is the way to get dbus-glib documentation (Simon McVittie)
+
+* fd.o #22667: improve documentation (Will Thompson)
+
+* fd.o #22854: update libtool versioning (Simon McVittie)
+
+* fd.o #23616: document which DBusGProxy methods stop working on ::destroy,
+  and improve precondition checks (Simon McVittie)
+
+* fd.o #26952: add infrastructure to upload tarballs and documentation
+  (Simon McVittie)
+
+* fd.o #27193, Gentoo #254192: don't use ${SHELL} to run shell scripts
+  (Simon McVittie)
+
+* fd.o #27598: allow signals and properties to be annotated
+  (Christian Dywan, Simon McVittie)
+
+* fd.o #29884: improve error handling in various places
+  (Christian Dywan)
+
+* fd.o #30171: check validity of more arguments, don't report
+  "out of memory" or "should not have been reached" if an invalid string or
+  boolean is given, and abandon broken containers more gracefully
+  (Simon McVittie)
+
+* fd.o #30274: allow underscores in error names (Christian Dywan)
+
+* fd.o #32087: if an object is on more than one connection, emit signals
+  on all of them; if it's unregistered, only unregister it from the
+  requested connection (Simon McVittie)
+
+* fd.o #32351: fix memory leaks in dbus-binding-tool (Christian Dywan)
+
+* fd.o #33145, fd.o #37789: improve error output if dependencies are too old
+  (Simon McVittie)
+
+* fd.o #33646: don't duplicate match rules (Alban Crequy)
+
+* fd.o #34282: fix linking order for modern ld (Robert Ancell)
+
+* fd.o #35115: fix ability to switch a DBusConnection from one GMainContext
+  to another (Mike Gorse)
+
+* fd.o #35952: forbid a ReturnVal annotation after the first OUT <arg>,
+  which had never worked correctly anyway (Simon McVittie)
+
+* fd.o #36216: remove false claim that we use Introspect() at runtime,
+  and document more error cases (Simon McVittie)
+
+* fd.o #36428: remove unused support for translated messages
+  (Simon McVittie)
+
+* fd.o #36793: don't corrupt internal data if a GObject is registered
+  twice on the same (connection, path) tuple, and fix out-of-bounds reading
+  (Simon McVittie)
+
+* fd.o #36811: fix multiple signal emissions if an object is removed from
+  all of its locations then re-exported, and a memory leak if an exported
+  object is disposed (Simon McVittie)
+
+* fd.o #37060: rebuild everything if gcov is enabled/disabled, or if gcc
+  is upgraded while gcov is enabled (Simon McVittie)
+
+* fd.o #37062: fail to build if our assumptions about int sizes are not
+  met, and remove useless variables detected by gcc 4.6 (Simon McVittie)
+
+* fd.o #37790: remove empty "tests" which don't test anything
+  (Simon McVittie)
+
+* fd.o #37795: log the error message if object registration fails
+  (Dan Williams)
+
+* fd.o #37812: delete temporary file if dbus-binding-tool fails
+  (Simon McVittie)
+
+dbus-glib 0.92 (2010-11-10)
+===========================
+
+Fixes:
+
+* check for GLib 2.26 correctly
+
+dbus-glib 0.90 (2010-11-07)
+===========================
+
+Dependencies:
+
+* GLib 2.26 is required
+
+Enhancements:
+
+* Add DBusGObjectPath, DBusGSignature typedefs
+* Give specialized GArrays iteration/appending support
+* Test dbus_g_value_build_g_variant for various fixed arrays
+* Remove gcov decoder, which hasn't worked since dbus-glib left libdbus
+* replace remnants of gcov support with lcov.am from telepathy-glib
+* fd.o #30428: add dbus_g_value_parse_g_variant
+* dbus_g_type_specialized_map_append: document that the value contents are
+  stolen
+
+Fixes:
+
+* Remove unused method attribute variables in introspect_interfaces
+* Dereference main loop once variant recursion test is done
+* Plug leak of expected_str in threaded server test
+* Free path string after emission in in statemachine server example
+* Always free method_c_name in dbus binding tool
+* Free looked up function name in dbus binding tool
+* Fix switching a connection's GMainContext
+* dbus_g_value_build_g_variant: cope with empty arrays, maps
+* Build test/ before its subdirs
+
+dbus-glib 0.88 (2010-08-12)
+===========================
+
+First note, and most importantly, this fixes a security issue:
+https://bugzilla.redhat.com/show_bug.cgi?id=585394
+Note that affected system services will need to be rebuilt (but not
+necessarily patched).
+
+Dependencies:
+
+* GLib 2.24 is required
+
+Security:
+
+* CVE-2010-1172: Respect property access flags for writing, allow disabling
+  for reads
+
+Enhancements:
+
+* Allow duplicate object path registrations for different connections
+* fd.o #28715: Add dbus_g_value_build_g_variant()
+* Support DBUS_TYPE_G_SIGNATURE
+* fd.o #27958: dbus_g_error_domain_register: rewrite the documentation
+
+Other fixes:
+
+* Refer to dbus_g_connection_flush rather than the plain dbus call
+* core: don't pass malformed error interface to dbus (rh#581794)
+* Fix lookup of regular properties when shadow properties are used
+* Don't use the identifier "interface" in public headers
+* Use AC_CANONICAL_HOST, not _TARGET
+* Use EXEEXT so that we satisfy dependencies when cross-compiling
+* Fix linking of tests on Windows
+* Put the G_OS_WIN32 check where it can be defined.
+* add mising DBUS_TYPE_G_* to the doc
+* Bug 14579: remove pending call from hash table before cancelling it
+* Add various tests etc. to .gitignore
+
+dbus-glib 0.86 (2010-03-24)
+===========================
+
+Enhancements:
+
+* [configure.ac] Use AM_SILENT_RULES if available
+* core: allow duplicate property names on GInterfaces
+* core: performance optimization for object info lookup
+* turn the gtk-doc documentation into buildable shape
+
+Fixes:
+
+* Fix hyphenated error codes
+* [dbus-gobject.c] Trivial compiler warning fixes
+* Free errors returned by method implementations
+
+dbus-glib 0.84 (2010-01-27)
+===========================
+
+Enhancements:
+
+* Import dbus-bus-introspect.xml upstream
+* Bug 19623 - Add dbus_g_bus_get_private
+* Support duplicate object registrations
+* fd.o #20936: Update FSF address
+
+Fixes:
+
+* dbus-gvalue: set an error when demarshal_basic doesn't recognize type
+* Fix bad NAME in dbus-binding-tool man page
+* fd.o #25119: Don't leak DBusGMethodInvocation for no-reply calls
+
+dbus-glib 0.82 (2009-07-16)
+===========================
+
+Enhancements:
+
+* Bug 20343 - Add a man page for dbus-binding-tool
+* Bug 14183 - Listen to NameOwnerChanged using arg0 matching
+* Bug 19927 - Use const for GError * param we're not modifying
+* Clean up some compilation warnings
+* Bug 21362 - Remove use of deprecated symbols
+* Bug 13908: make dbus_g_type_specialized_init() safe for library users to call
+* add --with-dbus-binding-tool option to use an external dbus-binding-tool
+* Bug 16776: teach dbus_g_method_return_error about DBUS_GERROR
+* Remove all sorts of libdbus cruft from configure.ac
+* dbus_g_type_specialized_init: make some effort at being thread-safe
+* fd.o #21219: implement unregistration of objects
+* fd.o #13908: silently initialize specialized types whenever required
+
+Fixes:
+
+* Bug 18294 - Be defensive about a possibly NULL property string
+* Bug 21753 - Correctly initialize GValues in dbus-binding-tool
+  generated code
+* Use -fno-strict-aliasing by default
+* Add missing prototype for dbus_g_connection_unregister_g_object
+* Fix format-security warning
+* Bug 22244 - Only include <glib.h>, not individual headers
+* build: fix undefined macro: AM_PROG_LIBTOOL with recent libtool
+* fd.o#20884: dbus_g_proxy_manager_replace_name_owner: don't leave
+  freed memory in the hash table if the name was the owner's first
+* fd.o #5688: don't assert when exported object is destroyed
+  after D-Bus connection closes
+* Use g_strdup instead of strdup in dbus_g_method_get_sender
+* Bug 20879 - Use --skip-source argument for glib-genmarshal 
+
+dbus-glib 0.80 (2009-02-02)
+===========================
+
+Fixes:
+
+* Bug 19441: Don't send replies for messages explicitly not requesting one
+* Bug 19065 - handle nested nodes in dbus-binding-tool
+* Bug 19325 - parallel build fix
+* Bug 19259: Always use /etc/bash_completion.d
+* Bug 19647: Move test-types inside run-test to avoid dep on
+  existing session bus
+* Fix linking order so -Wl,--as-needed works
+* Use the provided interface for org.freedesktop.DBus.Properties.GetAll call.
+
+D-Bus GLib Bindings 0.78 (04 Dec 2008)
+
+Thanks to Robert McQueen, Philip Van Hoof, David Zeuthen,
+Colin Walters, Dan Williams, Nick Welch, Tomas Pelka and
+others for their contributions.
+
+Reliability fixes:
+
+ - #16114 [patch] wincaps-to-uscore property names for GetAll()
+ - #16419: recursive variants demarshaling limits
+ - #18573: service tracker race
+
+Other notable fixes and enhancements:
+
+ - #17329: allow hash tables to contain complex types
+ - #17798: add support for 'o', 'g' and 'as' in dictionaries
+ - #16925: bash completion for dbus-send
+
+D-Bus GLib Bindings 0.75 (05 Jun 2008)
+==
+
+Thanks to Dan Williams, David Zeuthen, Kimmo Hämäläinen,
+Ross Burton, William Jon McCann, Colin Walters, Brian Cameron,
+Peter O'Gorman, Peter Kjellerstedt, Christian Persch,
+Rob Taylor and others for their contributions in this release.
+
+Critical fixes:
+
+ - #15430: ABI now guaranteed frozen
+ - #8607: Fix broken introspection XML
+ - #16079: Return an error on unknown property Get
+ - #10834: Fix error handling in dbus_g_proxy_end_call_internal
+
+Other notable fixes:
+
+ - #11672: Fixes for /bin/sh as dash
+ - #11675: Fixes for non-gcc compilers
+ - #10668: Correctly detect path to dbus-daemon
+ - #12849, #12857: Memory leak fixes
+ - New function to specify default timeout for calls on proxy
+ - Implement org.freedesktop.DBus.Properties.GetAll
+ - Require DBus 1.1
+
+D-Bus GLib Bindings 0.74 (27 Jun 2007)
+==
+
+ - Init threading first to stop a warning from new GLib.
+ - Remove the XML documentation support in configure
+ - Fix typo in _dbus_gvalue_signals_error (#10837) (Thanks to Peter Kjellerstedt)
+ - Update GLib requirement (Closes #10889).
+ - Document dbus-gtype-specialized
+ - Add simple test suite for peer objects.
+ - Support peer-to-peer proxies. (Closes #10233).
+ - Add dbus_connection_get_g_connection.
+ - Stop compiler warnings (Closes #10374).
+ - Handle dbus errors which are not name has no owner
+ - Update abstract socket test from DBus, which now cross-compiles
+ - Rename the error quark to be unique
+ - Update AUTHORS
+
+D-Bus GLib Bindings 0.73 (13 Feb 2007)
+==
+
+ - Allow passing of NULL to strv out arguments.
+   (Patch due to Luiz Augusto von Dentz <luiz.dentz@gmail.com>.
+    Fixes bug #8795.)
+ - Make uscore_to_wincaps return NULL when passed NULL. (Fixes bug #8318.)
+ - Only respond to NameOwnerChanged if its one of our names.
+   (Patch by Kimmo Hämäläinen <kimmo.hamalainen@nokia.com>. Fixes bug #8235.)
+ - Fix dbus-binding-tool to generate headers usable from C++.
+   (Thanks to Christian Persch <chpe@gnome.org>. Fixes bug #6358.)
+ - Only require --prefix for server side binding generation.
+   (Fixes reopened bug #4185.)
+ - Clarify documentation for dbus_g_method_get_sender.
+   (Fixes #8832.)
+ - Add new API for specifying the timeout in DBusGProxy calls.
+   (Patch due to S. Nalliami <snallammai@novell.com>. Fixes  bug #9832.)
+ - Don't check for libxml2 when expat not found. (Fixes bugs #9894 and #9000.)
+ - Add configure flags --with-introspect-xml. (Fixes bug #9105)
+ - Use dbus_threads_init_default() rather than using own threading primitives.
+   (Fixes bug #9259.)
+ - Reduce dependency to dbus version 0.93, error out if correct version
+   not found. (Patch due to Luiz Augusto von Dentz <luiz.dentz@gmail.com>.
+   Fixes bug #8793.)
+ - Allow dbus and dbus-glib to live in different prefixes. (Fixes bug #9384.)
+ - Add pkg-config support for uninstalled use.
+   (Fix due to Damien Carbery <damien.carbery@sun.com>.  Fixes bug #9769.)
+
+D-Bus GLib Bindings 0.72 (26 Oct 2006)
+==
+ - Only use -Wfloat-equal if compiler supports it (Closes #7658. Thanks
+to Jens Granseuer <jensgr@gmx.net> for the patch).
+ - Return NULL from g_return_val_if_fail in dbus_g_proxy_begin_call
+(Closes #4159.)
+ - Add dbus-gidl.h to IGNORE_HFILES for doxygen docs
+ - Update tools/Makefile.am for new dbus-binding-tool behaviour
+ - Remove bashism in make-dbus-glib-error-enum.sh (Closes #6700).
+ - Fix introspection when object has exported properties.
+(dbus-gobject:write_interface was completely broken)
+ - Fix thanks to mccann@jhu.edu. (Closes #8607).
+ - Require --prefix in dbus-binding-tool (Closes #4185).
+ - Don't shadow index. Rename usage of index to index_. Thanks stdlib...
+(Closes #8353).
+ - Fix small leak when marshal_table is destroyed (Closes #6870 with
+patch from Richard Hult <richard@imendio.com>).
+ - Fixes crash if disposing one DBusGProxy causes another for the same
+service to be unrefed in a destroyed callback.
+ - Use modern AC_INIT, AM_INIT_AUTOMAKE
+ - Clean generated run-with-tmp-session-bus.conf on make clean
+ - Actually run unit tests and checks when doing make distcheck
+ - Use TEST_CORE_SERVICE_BINARY path for core test service file
+ - Use dbus-daemon --introspect to generate DBus service introspect xml
+ - Add tests for new interfaces functionaility
+ - Bump GLib dependency to 2.6 (Closes #4390).
+ - Add gobject-2.0 to dbus-glib-1.pc.in
+ - Puts all exposed services in the org.freedesktop.DBus.GLib namespace
+ - Update COPYING and HACKING to be correct for dbus-glib
+ - Move tests/glib to test/core
+ - Rename configure.in to configure.ac for modernity
+ - Fix memleak in lookup_or_register_specialized (Applies fix from
+Daniel d'Andrada Tenório de Carvalho, closing bug #7352).
+ - Add an m4 directory and add gtk-doc.m4, which is installed in the
+tree by gtkdocize.
+ - tools/Makefile.am: Add tools/session.conf to EXTRA_DIST so make check
+works from tarballs
+ - Fix compilation with -Werror
+ - Make test scripts run during out-of-tree compilation
+ - Fix out-of-tree compilation
+ - Replace doxygen with gtk-doc in INSTALL
+ - Commit patch to switch to gtk-doc with gtype-specialized doc and
+ - Updates from Marc-Andre Lureau <marcandre.lureau@gmail.com>, with
+minor cleanup. (Closes #7726.)
+
+D-Bus GLib Bindings 0.71 (24 July 2006)
+==
+- Correctly installs a few missing headers
+- Build was cleaned up a bit
+
+D-Bus GLib Bindings 0.70 (17 July 2006)
+==
+- First release after bindings split
+- dbus-binding-tool heeds org.freedesktop.DBus.GLib.ClientCSymbol C symbol
+  name annotations when generating glib client bindings
+- DBusGProxy can now be inherited from
+- Support added for generating bindings to arrays that are represented as 
+  GPtrArrays rather than GArrays (ie size-variable things, such as strings, 
+  objects, structs, etc).
+- Modification of the existing specialised types to have N type parameters 
+  (rather than the current 1 or 2 for arrays and dictionaries respectively).
+  You can then use this to get a glib type to represent any arbitrary
+  D-Bus struct type using dbus_g_type_get_struct. The only implementation of 
+  these types is with GValueArrays as before, but it's now possible to store 
+  these in arrays, emit them in signals, etc.
+- New methodbus_g_connection_open provides a way to open connections to an 
+  arbitrary address
+- Various bugs and memory leaks fixed
+Sleep after starting the peer server, before starting the peer client.
+This fixes random failures due to the race.
+

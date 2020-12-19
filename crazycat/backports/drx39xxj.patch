@@ -1,0 +1,13 @@
+diff --git a/drivers/media/usb/em28xx/em28xx-dvb.c b/drivers/media/usb/em28xx/em28xx-dvb.c
+index d4986bd..16d8565 100644
+--- a/drivers/media/usb/em28xx/em28xx-dvb.c
++++ b/drivers/media/usb/em28xx/em28xx-dvb.c
+@@ -41,7 +41,7 @@
+ #include "mt352.h"
+ #include "mt352_priv.h" /* FIXME */
+ #include "tda1002x.h"
+-#include "drx39xyj/drx39xxj.h"
++#include "drx39xxj.h"
+ #include "tda18271.h"
+ #include "s921.h"
+ #include "drxd.h"

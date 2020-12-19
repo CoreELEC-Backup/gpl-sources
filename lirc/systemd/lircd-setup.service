@@ -1,0 +1,10 @@
+[Unit]
+Documentation=man:lircd-setup(8)
+Description=lircd(8) initialization helper tool
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/lircd-setup
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,101 @@
+#
+# fstrcmp - fuzzy string compare library
+# Copyright (C) 2009, 2011, 2012, 2014 Peter Miller
+# Written by Peter Miller <pmiller@opensource.org.au>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
+project_specific =
+[
+    {
+        name = "aede-policy:version-info:library";
+        value = "lib/libfstrcmp.a";
+    },
+    {
+        name = "aemakegen:version-info";
+        value = "6:0:6";
+    },
+    {
+        name = "aemakegen:debian:copyright";
+        value = "false";
+    },
+    {
+        name = "aemakegen:debian:homepage";
+        value = "http://fstrcmp.sourceforge.net/";
+    },
+    {
+        name = "aemakegen:debian:maintainer";
+        value = "Peter Miller <pmiller@opensource.org.au>";
+    },
+    {
+        name = "aemakegen:debian:priority";
+        value = "optional";
+    },
+    {
+        name = "aemakegen:debian:section";
+        value = "devel";
+    },
+    {
+        name = "aemakegen:debian:breaks:fstrcmp";
+        value = "libfstrcmp-dev (<< 0.5)";
+    },
+    {
+        name = "aemakegen:debian:replaces:fstrcmp";
+        value = "libfstrcmp-dev (<< 0.5)";
+    },
+    {
+        name = "aemakegen:debian:breaks:libfstrcmp-dev";
+        value = "fstrcmp (<< 0.5)";
+    },
+    {
+        name = "aemakegen:debian:replaces:libfstrcmp-dev";
+        value = "fstrcmp (<< 0.5)";
+    },
+    {
+        name = "aemakegen:debian:description:fstrcmp";
+        value = "fuzzy comparison of strings";
+    },
+    {
+        name = "aemakegen:debian:extended-description:fstrcmp";
+        value =
+            "This package provides a command to make fuzzy string comparisons."
+            ;
+    },
+    {
+        name = "aemakegen:debian:description:libfstrcmp";
+        value = "library of fuzzy string comparison functions";
+    },
+    {
+        name = "aemakegen:debian:extended-description:libfstrcmp-dev";
+        value =
+            "This package provides a library which may be used to make a "
+            "variety fuzzy comparisons, on strings and arrays of bytes, "
+            "including wide character strings and multi-byte character "
+            "strings."
+            ;
+    },
+    {
+        name = "aemakegen:libtool";
+        value = "true";
+    },
+    {
+        name = "aemakegen:debian:build-depends";
+        value = "groff, libtool";
+    },
+    {
+        name = "aemakegen:debian:dm-upload-allowed";
+        value = "true";
+    },
+];

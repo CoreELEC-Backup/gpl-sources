@@ -1,0 +1,175 @@
+'\" t
+.\"     Title: megatools
+.\"    Author: [see the "AUTHOR" section]
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 04/15/2020
+.\"    Manual: Megatools Manual
+.\"    Source: megatools 1.10.2
+.\"  Language: English
+.\"
+.TH "MEGATOOLS" "7" "04/15/2020" "megatools 1.10.2" "Megatools Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+megatools \- Mega\&.nz command line tools
+.SH "SYNOPSIS"
+.sp
+.nf
+\fImegadf\fR [\-\-free|\-\-total|\-\-used] [\-\-mb|\-\-gb|\-h]
+\fImegals\fR [\-e] [\-h] [\-\-header] [\-l] [\-R] [\-n] [<remotepaths>\&...]
+\fImegaput\fR [\-\-no\-progress] [\-\-path <remotepath>] <paths>\&...
+\fImegamkdir\fR <remotepaths>\&...
+\fImegamkdir\fR /Contacts/<contactemail>
+\fImegaget\fR [\-\-no\-progress] [\-\-path <path>] <remotepaths>\&...
+\fImegaget\fR \-\-path \- <remotefile>
+\fImegarm\fR <remotepaths>\&...
+\fImegarm\fR /Contacts/<contactemail>
+\fImegadl\fR [\-\-no\-progress] [\-\-path <path>] <links>\&...
+\fImegadl\fR \-\-path \- <filelink>
+\fImegareg\fR [\-\-scripted] \-\-register \-\-email <email> \-\-name <realname> \-\-password <password>
+\fImegareg\fR [\-\-scripted] \-\-verify <state> <link>
+.fi
+.SH "DESCRIPTION"
+.sp
+Megatools is a collection of programs for accessing Mega service from a command line of your desktop or server\&.
+.sp
+Megatools allow you to copy individual files as well as entire directory trees to and from the cloud\&. You can also perform streaming downloads for example to preview videos and audio files, without needing to download the entire file\&.
+.sp
+Megatools are robust and optimized for fast operation \- as fast as Mega servers allow\&. Memory requirements and CPU utilization are kept at minimum\&.
+.sp
+You can register account using a \fBmegareg\fR(1) tool, with the benefit of having true control of your encryption keys\&.
+.sp
+Mega website can be found at http://mega\&.nz\&.
+.sp
+Megatools can be downloaded at http://megatools\&.megous\&.com
+.SH "TOOLS OVERVIEW"
+.PP
+\fBmegareg\fR(1)
+.RS 4
+Register and verify a new mega account
+.RE
+.PP
+\fBmegadf\fR(1)
+.RS 4
+Show your cloud storage space usage/quota
+.RE
+.PP
+\fBmegals\fR(1)
+.RS 4
+List all remote files
+.RE
+.PP
+\fBmegamkdir\fR(1)
+.RS 4
+Create remote directory
+.RE
+.PP
+\fBmegarm\fR(1)
+.RS 4
+Remove remote file or directory
+.RE
+.PP
+\fBmegaput\fR(1)
+.RS 4
+Upload individual files
+.RE
+.PP
+\fBmegaget\fR(1)
+.RS 4
+Download individual files
+.RE
+.PP
+\fBmegadl\fR(1)
+.RS 4
+Download file from a "public" Mega link (doesn\(cqt require login)
+.RE
+.PP
+\fBmegacopy\fR(1)
+.RS 4
+Upload or download a directory tree
+.RE
+.SH "CONFIGURATION FILES"
+.sp
+See \fBmegarc\fR(5) for information about mega configuration file\&.
+.sp
+Each of the individual tools have help that can be accessed using \-\-help parameter\&.
+.SH "SESSION CACHE"
+.sp
+If you modify cloud filesystem from the Mega\&.nz website or from another computer, you\(cqll need to refresh your session cache\&. This can be done by using the \-\-reload option to any tool, or by waiting for a cache timeout (default timeout is set to 10 minutes)\&.
+.SH "REMOTE FILESYSTEM"
+.sp
+Mega\&.nz filesystem is represented as a tree of nodes of various types\&. Nodes are identified by a 8 character node handles (eg\&. 7Fdi3ZjC)\&. Structure of the filesystem is not encrypted\&.
+.sp
+Megatools maps node tree structure to a traditional filesystem paths (eg\&. /Root/SomeFile\&.DAT)\&.
+.sp
+\fBNOTE\fR: By the nature of Mega\&.nz storage, several files in the directory can have the same name\&. To allow access to such files, the names of conflicting files are extended by appending dot and their node handle like this:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+/Root/conflictingfile
+/Root/conflictingfile\&.7Fdi3ZjC
+/Root/conflictingfile\&.mEU23aSD
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+You need to be aware of several special folders:
+.PP
+/Root
+.RS 4
+Writable directory representing the root of the filesystem\&.
+.RE
+.PP
+/Trash
+.RS 4
+Trash directory where Mega\&.nz web client moves deleted files\&. This directory is not used by megatools when removing files\&.
+.RE
+.PP
+/Inbox
+.RS 4
+Not sure\&.
+.RE
+.PP
+/Contacts
+.RS 4
+Directory containing subdirectories representing your contacts list\&. If you want to add contacts to the list, simply create subdirectory named after the contact you want to add\&.
+.RE
+.PP
+/Contacts/<email>
+.RS 4
+Directories representing individual contacts in your contacts list\&. These directories contain folders that others shared with you\&. All shared files are read\-only, at the moment\&.
+.RE
+.SH "SEE ALSO"
+.sp
+\fBmegatools\fR(7), \fBmegarc\fR(5), \fBmegadf\fR(1), \fBmegadl\fR(1), \fBmegaget\fR(1), \fBmegals\fR(1), \fBmegamkdir\fR(1), \fBmegaput\fR(1), \fBmegareg\fR(1), \fBmegarm\fR(1), \fBmegacopy\fR(1)\&.
+.SH "MEGATOOLS"
+.sp
+Part of the \fBmegatools\fR(7) suite\&.
+.SH "BUGS"
+.sp
+Report bugs at https://github\&.com/megous/megatools or megous@megous\&.com\&.
+.SH "AUTHOR"
+.sp
+Megatools was written by Ondrej Jirman <megous@megous\&.com>, 2013\-2016\&.
+.sp
+Official website is http://megatools\&.megous\&.com\&.

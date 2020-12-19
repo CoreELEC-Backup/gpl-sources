@@ -1,0 +1,14 @@
+*.pyc
+*.cover
+*.lo
+*.la
+*.so
+*.gir
+*.typelib
+*.o
+.libs
+docs/_html
+MANIFEST
+coverage/
+build/
+dist/

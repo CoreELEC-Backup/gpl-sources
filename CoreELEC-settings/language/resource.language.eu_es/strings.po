@@ -1,0 +1,1131 @@
+# Kodi Media Center language file
+# Addon Name: @DISTRONAME@ Configuration
+# Addon id: service.coreelec.settings
+# Addon Provider: CoreELEC
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: eu_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#600"
+msgid "@DISTRONAME@ Settings"
+msgstr "@DISTRONAME@ Ezarpenak"
+
+msgctxt "#601"
+msgid "Interface"
+msgstr "Interfazea"
+
+msgctxt "#602"
+msgid "Address"
+msgstr "Helbidea"
+
+msgctxt "#603"
+msgid "Type"
+msgstr "Mota"
+
+msgctxt "#604"
+msgid "State"
+msgstr "Egoera"
+
+msgctxt "#605"
+msgid "Address"
+msgstr "Helbidea"
+
+msgctxt "#606"
+msgid "Distribution: "
+msgstr "Banaketa"
+
+msgctxt "#607"
+msgid "Version: "
+msgstr "Bertsioa"
+
+msgctxt "#608"
+msgid "Architecture: "
+msgstr "Arkitektura"
+
+msgctxt "#700"
+msgid ""
+"Configure a hostname, keyboard type, perform a reset, update, or backups and"
+" restores"
+msgstr "Konfiguratu ostalari-izena, teklatu-mota, berrezarri jatorrizko balioak, eguneratu edota segurtasun-kopiak egin eta berreskuratu"
+
+msgctxt "#701"
+msgid "Configure network startup options, NTP and VPNs"
+msgstr "Konfiguratu hasierako sare-ezarpenak, NTP eta VPNak"
+
+msgctxt "#702"
+msgid ""
+"Manage the Ethernet, Wireless and VPN connections available to the system"
+msgstr "Kudeatu sisteman eskuragarri dauden Ethernet, WiFi eta VPN konexioak"
+
+msgctxt "#703"
+msgid "Configure system services like Samba, SSH, Cron, Avahi and Syslog"
+msgstr "Konfiguratu sistemako zerbitzuak, hala nola Samba, SSH, Cron, Avahi eta Syslog"
+
+msgctxt "#704"
+msgid "Configure and pair Bluetooth devices"
+msgstr "Konfiguratu eta batu Bluetooth gailuak"
+
+msgctxt "#707"
+msgid "Configure updates"
+msgstr ""
+
+msgctxt "#710"
+msgid ""
+"Configure the Hostname of your @DISTRONAME@ system. This will be used for "
+"the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+msgstr "Konfiguratu Ostalari-izena zure @DISTRONAME@ sisteman. Ezarpen hau izango da zure HTPCaren \\\\ostalariizena Windows-en eta zerbitzariaren izena SMB eta Mac OS Finder-en."
+
+msgctxt "#711"
+msgid "Configure the 1st keyboard software layout"
+msgstr "Konfiguratu software bidezko 1. teklatuaren diseinua"
+
+msgctxt "#712"
+msgid "Configure the 2nd keyboard software layout"
+msgstr "Konfiguratu software bidezko 2. teklatuaren diseinua"
+
+msgctxt "#713"
+msgid "Configure the physical keyboard type"
+msgstr "Konfiguratu teklatu fisikoaren diseinua"
+
+msgctxt "#714"
+msgid ""
+"@DISTRONAME@ can be configured for automatic or manual updates. Automatic "
+"updates are available on stable releases and stable release candidates. "
+"Automatic update self-disables on beta and development builds"
+msgstr "@DISTRONAME@ konfiguratu daiteke eskuz edo modu automatikoan eguneratzeko. Eguneratze automatikoak bertsio egonkorretan (stable) eta bertsio egonkorren hautagaietan (release candidate) daude eskuragarri. Beta bertsioetan eta garapenerako bertsioetan eguneratze automatikoa desgaituta dago."
+
+msgctxt "#715"
+msgid ""
+"Set to ON and an on-screen notification will be displayed when a new update "
+"is available"
+msgstr "Aukeratu ON pantailan jakinarazpen bat erakusteko bertsio berri bat eskuragarri dagoenean"
+
+msgctxt "#718"
+msgid ""
+"Send boot config files from /flash, kodi.log, kernel log and Samba configs "
+"to http://ix.io, and display the short URL"
+msgstr "Bidali /flash, kodi.log eta kernel log-eko abioko konfigurazio-fitxategiak eta Samba-ko konfigurazioak http://ix.io helbidera, eta ondoren erakutsi URL laburra."
+
+msgctxt "#719"
+msgid ""
+"Send boot config files from /flash, kodi_crash.log, kernel log and Samba "
+"configs to http://ix.io, and display the short URL"
+msgstr "Bidali /flash, kodi_crash.log, kernel log-eko abioko konfigurazio-fitxategiak eta Samba-ko konfigurazioak http://ix.io helbidera, eta ondoren erakutsi URL laburra."
+
+msgctxt "#720"
+msgid "Set to ON to enable the Bluetooth service"
+msgstr ""
+
+msgctxt "#721"
+msgid "Send CoreELEC debug info without logs to http://ix.io, and display the short URL"
+msgstr ""
+
+msgctxt "#722"
+msgid ""
+"Create a tar archive containing all @DISTRONAME@ and Kodi configuration "
+"settings, databases and thumbnail content. Backup files will be stored in "
+"/storage/backup/"
+msgstr "Sortu tar fitxategi bat @DISTRONAME@ eta Kodiren konfigurazio fitxategi, datu-base eta edukien miniaturekin. Segurtasun-kopiak /storage/backup/ karpetan gordeko dira"
+
+msgctxt "#723"
+msgid ""
+"Restore a tar archive backup previously created using the backup option "
+"above"
+msgstr "Berreskuratu segurtasun-kopia bat, aurretik goiko aukeraren bidez sortutako tar fitxategi batetik."
+
+msgctxt "#724"
+msgid ""
+"[COLOR FF00FF00]SOFT RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
+msgstr "[COLOR FF00FF00]BERREZARRI BIGUNA[/COLOR]\nBerrezarri @DISTRONAME@ modu iraunkorrean berezko balioetara (Kodi ere berezko balioetara berrezartzen du, zure liburutegia barne. Zure media, - musika/bideoak/... ez dira ukituko)"
+
+msgctxt "#725"
+msgid ""
+"[COLOR FFFF0000]HARD RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ and Kodi configuration to defaults (everything in your storage partition will be deleted)"
+msgstr "[COLOR FFFF0000]BERREZARRI BORTITZA/COLOR]\nBerrezarri @DISTRONAME@ eta Kodi modu iraunkorrean berezko balioetara (zure biltegi-partizioan dagoen guztia ezabatuko da)"
+
+msgctxt "#726"
+msgid "Enable or disable support for Wireless (WLAN) networks"
+msgstr "Gaitu edo desgaitu WiFi sareen (WLAN) onarpena"
+
+msgctxt "#727"
+msgid ""
+"Enable a 'tethered' Wireless Access Point. This requires your wireless card "
+"(and driver) to support bridging and access point mode. Not all cards are "
+"capable."
+msgstr "Gaitu partekatutako (tethered) WiFi Sarrera Puntua. Honek zure WiFI txartelak (eta driver-ak) zubikatzea (bridging) eta Sarrera Puntu-modua onartzea behar du. Txartel guztiek ezin dute horrelakorik egin."
+
+msgctxt "#728"
+msgid "Configure the Access Point SSID"
+msgstr "Konfiguratu Sarrera Puntuaren SSIDa"
+
+msgctxt "#729"
+msgid "Configure the Access Point Passphrase"
+msgstr "Konfiguratu Sarrera Puntuaren Pasahitza"
+
+msgctxt "#730"
+msgid "Enable or disable support for Wired (Ethernet) networks"
+msgstr "Gaitu edo desgaitu kable bidezko (Ethernet) sarerako sostengua"
+
+msgctxt "#732"
+msgid "Configure the 1st time (NTP) server"
+msgstr "Konfiguratu 1. denbora (NTP) zerbitzaria"
+
+msgctxt "#733"
+msgid "Configure the 2nd time (NTP) server"
+msgstr "Konfiguratu 2. denbora (NTP) zerbitzaria"
+
+msgctxt "#734"
+msgid "Configure the 3rd time (NTP) server"
+msgstr "Konfiguratu 3. denbora (NTP) zerbitzaria"
+
+msgctxt "#736"
+msgid ""
+"Set to ON to delay Kodi startup until the network is available. Use this if "
+"the OS is booting into Kodi before the network is up and central MySQL "
+"databases are accessible."
+msgstr "Aukeratu ON Kodiren abioa sarea eskuragarri egon arte atzeratzeko. Aukera hau erabili SEa abiatu eta Kodi martxan jartzen bada MySQL datu-base nagusia eskuragarri egon baino lehen."
+
+msgctxt "#737"
+msgid "Time in seconds to wait for an established network connection."
+msgstr ""
+
+msgctxt "#738"
+msgid "Set to ON to enable the embedded Samba (SMB) filesharing service"
+msgstr "Aukeratu ON txertatutako Samba (SMB) fitxategi-partekatze zerbitzua gaitzeko"
+
+msgctxt "#739"
+msgid ""
+"Set to ON to require username/password access to local Samba fileshares"
+msgstr "Aukeratu ON Samba fitxategi-partekatzera sartu ahal izateko erabiltzaile/pasahitza eskatzeko"
+
+msgctxt "#740"
+msgid "Set the username for Samba sharing"
+msgstr "Zehaztu Samba bidezko partekatzerako erabiltzailea"
+
+msgctxt "#741"
+msgid "Set the password for Samba sharing"
+msgstr "Zehaztu Samba bidezko partekatzerako pasahitza"
+
+msgctxt "#742"
+msgid ""
+"Set to ON to enable the embedded SSH server. The SSH console can be accessed"
+" with username 'root' and password '@ROOT_PASSWORD@'."
+msgstr "Aukeratu ON txertatutako SSH zerbitzaria gaitzeko. SSH kontsola batera sartu zaitezke 'root' erabiltzailea eta '@ROOT_PASSWORD@' pasahitza erabilita."
+
+msgctxt "#743"
+msgid ""
+"Set to ON if you have copied private SSH keys to your HTPC and would like to"
+" improve security by disabling SSH username and password authentication."
+msgstr "Aukeratu ON SSH gako pribatuak zure HTPCra kopiatu badituzu eta segurtasuna hobetu nahi baduzu SSH zerbitzuaren erabiltzaile eta pasahitzaren autentifikazioan."
+
+msgctxt "#744"
+msgid ""
+"Set to ON to enable the Avahi (Zeroconf/Bonjour) network discovery service"
+msgstr "Aukeratu ON Avahi (Zeroconf/Bonjour) sare-aurkikuntza zerbitzua gaitzeko"
+
+msgctxt "#745"
+msgid "Set to ON to enable the cron daemon"
+msgstr "Aukeratu ON cron deabrua gaitzeko"
+
+msgctxt "#746"
+msgid "Set the password for SSH"
+msgstr ""
+
+msgctxt "#747"
+msgid "Enable a PIN for @DISTRONAME@ Settings access"
+msgstr ""
+
+msgctxt "#748"
+msgid "Change the PIN Lock for @DISTRONAME@ Settings access"
+msgstr ""
+
+msgctxt "#749"
+msgid ""
+"Overrride the Wireless Regulatory Domain so radio properties (channels and "
+"transmit power) comply with local laws or match the country configuration of"
+" your router."
+msgstr ""
+
+msgctxt "#750"
+msgid "750"
+msgstr "750"
+
+msgctxt "#751"
+msgid ""
+"With OBEX filetransfer you can send files, for example movies or pictures "
+"over bluetooth to @DISTRONAME@."
+msgstr "OBEX fitxategi-transferentziaren bitartez fitxategiak bidali ditzakezu, esaterako filmeak edo irudiak Bluetooth bidez @DISTRONAME@-ra."
+
+msgctxt "#752"
+msgid ""
+"Here you can set the folder location where OBEX file transfer should store "
+"incoming files"
+msgstr "Hemen OBEX fitxategi-transferentziaren bidez jasotzen dituzun fitxategiak gordeko diren karpetaren kokapena zehaztu dezakezu"
+
+msgctxt "#753"
+msgid "Configure the 1st keyboard software Variant"
+msgstr "Konfiguratu software bidezko 1. teklatu-aldaera"
+
+msgctxt "#754"
+msgid "Configure the 2nd keyboard software Variant"
+msgstr "Konfiguratu software bidezko 2. teklatu-aldaera"
+
+msgctxt "#755"
+msgid "Auto share external drives / partitions"
+msgstr "Automatikoki partekatu kanpo-unitateak / partizioak"
+
+msgctxt "#756"
+msgid ""
+"Disable older SMB protocols by specifying the minimum supported protocol."
+msgstr "Desgaitu SMB protokolo zaharrenak onartutako gutxineneko protokoloa zehaztuta"
+
+msgctxt "#757"
+msgid ""
+"Disable more recent SMB protocols for backward compatability with legacy "
+"clients."
+msgstr "Desgaitu SMB protokolo berrienak kliente zaharrekiko bateragarritasuna mantentzeko"
+
+msgctxt "#758"
+msgid "NetBIOS group to which the server belongs. Default is WORKGROUP."
+msgstr "Zerbitzaria kidea den NetBIOS taldea. Berezko balioa WORKGROUP da"
+
+msgctxt "#760"
+msgid "Select an update channel"
+msgstr "Aukeratu eguneratze-kanala"
+
+msgctxt "#761"
+msgid "Enable to allow entering a custom update url"
+msgstr "Eman eguneratze URL pertsonalizatua sartzeko baimena"
+
+msgctxt "#762"
+msgid "Enter a custom update url (url should be the root of the update files)"
+msgstr "Sartu eguneratze URL pertsonalizatua (URLa eguneratze fitxategien jatorria izan behar da)"
+
+msgctxt "#770"
+msgid "Select an available version"
+msgstr "Aukeratu eskuragarri dagoen bertsio bat"
+
+msgctxt "#771"
+msgid ""
+"The firewall blocks unwanted network traffic. Home (default) allows traffic "
+"from private network ranges (192.168.x.x, 172.16.x.x and 10.x.x.x) only. "
+"Public blocks all traffic from all networks. Custom uses rules in "
+"/storage/.config/iptables. Off disables the firewall."
+msgstr "Firewall-ak nahi ez den sare-trafikoa blokeatzen du. Etxekoak (berezko aukera) soilik zure sare pribatuko tarteak baimentzen ditu (192.168.x.x, 172.16.x.x eta 10.x.x.x). Publikoak sare guztietako trafiko guztia blokeatzen du. Pertsonalizatuak /storage/.config/iptables kokapeneko arauak erabiliko ditu. Desgaitu funtzioak firewall-a desgaituko du."
+
+msgctxt "#772"
+msgid ""
+"Checking for a new version will submit the installed Distribution, Project, "
+"CPU Arch and Version to the update server. This data is also used to report "
+"basic statistics for the project. To continue checking for updates while "
+"opting-out of stats reporting, disable this option."
+msgstr "Bertsio berri bat dagoen egiaztatzeak instalatutako Distribuzioa, Proiektua, CPU arkitektura eta Bertsioa eguneraketa zerbitzarira bidaliko du. Datu hauek proiektuaren estatistiken oinarrizko txostenean ere erabiliko dira. Eguneraketak egiaztatzen jarraitu nahi baduzu estatistiken bidaltzea egin gabe, desgaitu ezazu aukera hau."
+
+msgctxt "#773"
+msgid ""
+"Set the idle timeout (in minutes) before devices will be disconnected "
+"(defaults to 0 for no timeout). Applies to devices where \"Enable Standby\" "
+"has been activated in the LibreELEC device connection context menu."
+msgstr ""
+
+msgctxt "#32001"
+msgid "Services"
+msgstr "Zerbitzuak"
+
+msgctxt "#32002"
+msgid "System"
+msgstr "Sistema"
+
+msgctxt "#32003"
+msgid "Interface"
+msgstr "Interfazea"
+
+msgctxt "#32005"
+msgid "Updates"
+msgstr ""
+
+msgctxt "#32009"
+msgid "Keyboard"
+msgstr "Teklatua"
+
+msgctxt "#32010"
+msgid "Keyboard Layout"
+msgstr "Teklatu-mota"
+
+msgctxt "#32012"
+msgid "Select Action"
+msgstr "Aukeratu ekintza"
+
+msgctxt "#32013"
+msgid "OS Updates"
+msgstr ""
+
+msgctxt "#32014"
+msgid "Automatic Updates"
+msgstr "Eguneratze automatikoak"
+
+msgctxt "#32015"
+msgid "Update Channel"
+msgstr "Eguneratze-kanala"
+
+msgctxt "#32016"
+msgid "Show Custom Channels"
+msgstr "Erakutsi kanal pertsonalizatuak"
+
+msgctxt "#32017"
+msgid "  - Custom Channel 1"
+msgstr "- 1. kanal pertsonalizatua"
+
+msgctxt "#32018"
+msgid "  - Custom Channel 2"
+msgstr "- 2. kanal pertsonalizatua"
+
+msgctxt "#32019"
+msgid "  - Custom Channel 3"
+msgstr "- 3. kanal pertsonalizatua"
+
+msgctxt "#32020"
+msgid "Available Versions"
+msgstr "Eskuragarri dauden bertsioak"
+
+msgctxt "#32021"
+msgid "Submit Statistics"
+msgstr "Bidali Estatistikak"
+
+msgctxt "#32022"
+msgid "Firmware Updates"
+msgstr ""
+
+msgctxt "#32023"
+msgid "Updating will occur once the system is rebooted."
+msgstr ""
+
+msgctxt "#32024"
+msgid "Bootloader EEPROM"
+msgstr ""
+
+msgctxt "#32025"
+msgid ""
+"Update the Raspberry Pi Bootloader EEPROM to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr ""
+
+msgctxt "#32026"
+msgid "VIA USB3 Firmware"
+msgstr ""
+
+msgctxt "#32027"
+msgid ""
+"Update the Raspberry Pi VIA USB3 firmware to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr ""
+
+msgctxt "#32028"
+msgid "update from %s to %s"
+msgstr ""
+
+msgctxt "#32029"
+msgid "up to date: %s"
+msgstr ""
+
+msgctxt "#32100"
+msgid "Connections"
+msgstr "Konexioak"
+
+msgctxt "#32101"
+msgid "Network"
+msgstr "Sarea"
+
+msgctxt "#32102"
+msgid "Wireless Networks"
+msgstr "WiFi sareak"
+
+msgctxt "#32103"
+msgid "Wired Networks"
+msgstr "Kable-bidezko sareak"
+
+msgctxt "#32105"
+msgid "Active"
+msgstr "Aktibo"
+
+msgctxt "#32106"
+msgid "Username"
+msgstr "Erabiltzailea"
+
+msgctxt "#32107"
+msgid "Passphrase"
+msgstr "Pasahitza"
+
+msgctxt "#32108"
+msgid "Enable 'tethered' Wireless Access Point"
+msgstr "Gaitu partekatutako (tethered) WiFi Sarrera Puntua"
+
+msgctxt "#32109"
+msgid "Connect Automatically"
+msgstr "Konektatu Automatikoki"
+
+msgctxt "#32110"
+msgid "Connection"
+msgstr "Konexioa"
+
+msgctxt "#32111"
+msgid "IPv4"
+msgstr "IPv4"
+
+msgctxt "#32112"
+msgid "IPv6"
+msgstr "IPv6"
+
+msgctxt "#32113"
+msgid "IP Address Method"
+msgstr "IP helbideen modua"
+
+msgctxt "#32114"
+msgid "IP Address"
+msgstr "IP helbidea"
+
+msgctxt "#32115"
+msgid "Subnet Mask"
+msgstr "Azpisare-maskara"
+
+msgctxt "#32116"
+msgid "Default Gateway"
+msgstr "Berezko pasagunea"
+
+msgctxt "#32117"
+msgid "Prefix Length"
+msgstr "Aurrizkiaren luzera"
+
+msgctxt "#32118"
+msgid "Privacy"
+msgstr "Pribatutasuna"
+
+msgctxt "#32119"
+msgid "DNS Servers"
+msgstr "DNS zerbitzariak"
+
+msgctxt "#32120"
+msgid "Nameserver #1"
+msgstr "1. DNS zerbitzaria"
+
+msgctxt "#32121"
+msgid "Nameserver #2"
+msgstr "2. DNS zerbitzaria"
+
+msgctxt "#32122"
+msgid "Nameserver #3"
+msgstr "3. DNS zerbitzaria"
+
+msgctxt "#32123"
+msgid "NTP Servers"
+msgstr "NTP zerbitzariak"
+
+msgctxt "#32124"
+msgid "Timeserver #1"
+msgstr "1. NTP zerbitzaria"
+
+msgctxt "#32125"
+msgid "Timeserver #2"
+msgstr "2. NTP zerbitzaria"
+
+msgctxt "#32126"
+msgid "Timeserver #3"
+msgstr "3. NTP zerbitzaria"
+
+msgctxt "#32127"
+msgid "DNS Domains"
+msgstr "DNS domeinuak"
+
+msgctxt "#32128"
+msgid "Domain #1"
+msgstr "1. DNS domeinua"
+
+msgctxt "#32129"
+msgid "Domain #2"
+msgstr "2. DNS domeinua"
+
+msgctxt "#32130"
+msgid "Domain #3"
+msgstr "3. DNS domeinua"
+
+msgctxt "#32140"
+msgid "Save"
+msgstr "Gorde"
+
+msgctxt "#32141"
+msgid "Delete"
+msgstr "Ezabatu"
+
+msgctxt "#32142"
+msgid "Refresh"
+msgstr "Freskatu"
+
+msgctxt "#32143"
+msgid "Disconnect"
+msgstr "Deskonektatu"
+
+msgctxt "#32144"
+msgid "Connect"
+msgstr "Konektatu"
+
+msgctxt "#32145"
+msgid "Pair"
+msgstr "Elkartu"
+
+msgctxt "#32146"
+msgid "Hidden Network Name"
+msgstr "Ezkutuzko Sare-Izena"
+
+msgctxt "#32147"
+msgid "Wireless Network Passphrase"
+msgstr "WiFi Sarearen Pasahitza"
+
+msgctxt "#32148"
+msgid "Wireless Network Username"
+msgstr "WiFi Sarearen Erabiltzailea"
+
+msgctxt "#32150"
+msgid "Edit"
+msgstr "Editatu"
+
+msgctxt "#32180"
+msgid "Would you like to update @DISTRONAME@ now?"
+msgstr "@DISTRONAME@ orain eguneratu nahi duzu?"
+
+msgctxt "#32181"
+msgid "Filename"
+msgstr "Fitxategi-izena"
+
+msgctxt "#32182"
+msgid "Download speed"
+msgstr "Deskarga-abiadura"
+
+msgctxt "#32183"
+msgid "Time remaining"
+msgstr "Falta den denbora"
+
+msgctxt "#32184"
+msgid "Extract file"
+msgstr "Erauzi fitxategia"
+
+msgctxt "#32185"
+msgid "Extract speed"
+msgstr "Erauzketa-abiadura"
+
+msgctxt "#32186"
+msgid "Initialize Archive File"
+msgstr "Hasieratu artxibo-fitxategia "
+
+msgctxt "#32187"
+msgid "New Version"
+msgstr "Bertsi berria"
+
+msgctxt "#32188"
+msgid "Current Version"
+msgstr "Oraingo bertsioa"
+
+msgctxt "#32189"
+msgid "Identification"
+msgstr "Identifikazioa"
+
+msgctxt "#32190"
+msgid "System Name"
+msgstr "Sistemaren Izena"
+
+msgctxt "#32191"
+msgid "Invalid URL"
+msgstr "URL baliogabea"
+
+msgctxt "#32192"
+msgid "PIN lock"
+msgstr ""
+
+msgctxt "#32193"
+msgid "Enable @DISTRONAME@ Settings PIN Lock"
+msgstr ""
+
+msgctxt "#32194"
+msgid "Change @DISTRONAME@ Settings PIN Lock"
+msgstr ""
+
+msgctxt "#32196"
+msgid "About"
+msgstr "Honi buruz"
+
+msgctxt "#32198"
+msgid "SSID"
+msgstr "SSID"
+
+msgctxt "#32200"
+msgid "Samba"
+msgstr "Samba"
+
+msgctxt "#32201"
+msgid "SSH"
+msgstr "SSH"
+
+msgctxt "#32202"
+msgid "Use Samba Password Authentication"
+msgstr "Erabili Samba-ren Pasahitz bidezko Autentifikazioa"
+
+msgctxt "#32203"
+msgid "Disable SSH Password"
+msgstr "Desgaitu SSH pasahitza"
+
+msgctxt "#32204"
+msgid "Enable Samba"
+msgstr "Gaitu Samba"
+
+msgctxt "#32205"
+msgid "Enable SSH"
+msgstr "Gaitu SSH"
+
+msgctxt "#32206"
+msgid "Enable Avahi (Zeroconf)"
+msgstr "Gaitu Avahi (Zeroconf)"
+
+msgctxt "#32207"
+msgid "Avahi"
+msgstr "Avahi"
+
+msgctxt "#32208"
+msgid "Hidden Wlan"
+msgstr "Ezkutuzko WLAN-a"
+
+msgctxt "#32209"
+msgid "SSH Password"
+msgstr ""
+
+msgctxt "#32210"
+msgid ""
+"The default SSH password is widely known and considered "
+"insecure.[CR][CR]Setting a personal password is recommended."
+msgstr ""
+
+msgctxt "#32212"
+msgid "Cancel"
+msgstr "Ezeztatu"
+
+msgctxt "#32213"
+msgid "Keep Existing"
+msgstr ""
+
+msgctxt "#32214"
+msgid "Set Password"
+msgstr ""
+
+msgctxt "#32215"
+msgid "Workgroup name"
+msgstr "Lantaldearen izena"
+
+msgctxt "#32216"
+msgid "Auto-Share External Drives"
+msgstr "Automatikoki partekatu kanpo-unitateak"
+
+msgctxt "#32217"
+msgid "Minimum supported protocol"
+msgstr "Onartutako gutxieneko protokoloa"
+
+msgctxt "#32218"
+msgid "Maximum supported protocol"
+msgstr "Onartutako gehienezko protokoloa"
+
+msgctxt "#32220"
+msgid "Bad password!"
+msgstr ""
+
+msgctxt "#32221"
+msgid "The entered password is too weak.[CR]SSH password is unchanged."
+msgstr ""
+
+msgctxt "#32222"
+msgid "Password changed!"
+msgstr ""
+
+msgctxt "#32223"
+msgid "The SSH password has been successfully changed."
+msgstr ""
+
+msgctxt "#32224"
+msgid "Unknown error!"
+msgstr ""
+
+msgctxt "#32225"
+msgid "There was an error during the process.[CR]SSH password is unchanged."
+msgstr ""
+
+msgctxt "#32226"
+msgid "Enter new 4 digit PIN"
+msgstr ""
+
+msgctxt "#32227"
+msgid "Re-enter PIN"
+msgstr ""
+
+msgctxt "#32228"
+msgid "Error - PIN codes did not match!"
+msgstr ""
+
+msgctxt "#32229"
+msgid "@DISTRONAME@ Settings PIN lock not set.[CR][CR]Please try again."
+msgstr ""
+
+msgctxt "#32230"
+msgid "@DISTRONAME@ Settings PIN lock set."
+msgstr ""
+
+msgctxt "#32231"
+msgid "Your @DISTRONAME@ Settings PIN lock has been set to:"
+msgstr ""
+
+msgctxt "#32232"
+msgid "Error - PIN code not 4 digits!"
+msgstr ""
+
+msgctxt "#32233"
+msgid "@DISTRONAME@ Settings Locked[CR]Enter 4 digit PIN"
+msgstr ""
+
+msgctxt "#32234"
+msgid "Incorrect PIN!"
+msgstr ""
+
+msgctxt "#32235"
+msgid " attempts remaining."
+msgstr ""
+
+msgctxt "#32236"
+msgid ""
+"You have entered an incorrect PIN too many times.[CR][CR]You will need to "
+"wait 5 minutes before trying again."
+msgstr ""
+
+msgctxt "#32237"
+msgid "@DISTRONAME@ Settings Locked!"
+msgstr ""
+
+msgctxt "#32238"
+msgid ""
+"Time remaining before PIN can be entered: %02d:%02d[CR][CR]Too many previous"
+" failed attempts."
+msgstr ""
+
+msgctxt "#32240"
+msgid "Wireless Regulatory Domain"
+msgstr ""
+
+msgctxt "#32300"
+msgid "Welcome to @DISTRONAME@"
+msgstr "Ongi etorria izan @DISTRONAME@-era"
+
+msgctxt "#32301"
+msgid "Welcome"
+msgstr "Ongi etorri"
+
+msgctxt "#32302"
+msgid ""
+"This wizard will guide you through the process of setting up your new "
+"@DISTRONAME@ installation - setting your location, timezone and connecting "
+"you to the internet.[CR][CR]These settings can be changed later by "
+"navigating to Programs > @DISTRONAME@ Settings."
+msgstr "Morroi honek zure @DISTRONAME@ berriaren instalazio-prozesuan zehar lagunduko dizu - zure kokapena zehaztu, ordutegi-eremua zehaztu eta Internet-erako konexioa egiten[CR][CR]Ezarpen hauek beranduago aldatu daitezke Programak > @DISTRONAME@ Ezarpenak atalera nabigatuta."
+
+msgctxt "#32303"
+msgid "Next"
+msgstr "Hurrengoa"
+
+msgctxt "#32304"
+msgid ""
+"To be identified easily on the network, your new @DISTRONAME@ machine needs "
+"a name.[CR][CR]Try to choose something meaningful - like the room it's in - "
+"so you'll know what it is when you see it on the network.[CR][CR]This name "
+"is used when configuring network services, like file sharing using samba."
+msgstr "Sarean modu errazean identifikatua izateko, zure @DISTRONAME@ makina berriak izen bat behar du.[CR][CR]Saiatu zerbait esanguratsua aukeratzen - dagoen gelarena adibidez - sarean ikusten duzunean zer den jakin dezazun.[CR][CR]Izen hau sare-zerbitzuak konfiguratzean erabiltzen da, samba bidez fitxategiak partekatzean adibidez."
+
+msgctxt "#32305"
+msgid "Networking"
+msgstr "Sarea"
+
+msgctxt "#32306"
+msgid ""
+"In order to download backdrops, banners and thumbnails for your movies and "
+"TV shows and to stream online content from sites like YouTube, @DISTRONAME@ "
+"needs to be connected the Internet.[CR][CR]An Internet connection is also "
+"required for @DISTRONAME@ to automatically update itself."
+msgstr "@DISTRONAME@ Internetera konektatu behar da zure filme eta TB saioentzako atzeko-irudiak, iragarkiak eta miniatura-irudiak deskargatzeko YouTube moduko guneetatik.[CR][CR]Interneterako konexioa eguneratze automatikoak egiteko ere beharrezkoa da."
+
+msgctxt "#32307"
+msgid "Previous"
+msgstr ""
+
+msgctxt "#32308"
+msgid "Hostname:"
+msgstr "Hostalari-izena:"
+
+msgctxt "#32309"
+msgid "The following Networks are currently available:"
+msgstr "Hurrengo sare hauek ez daude eskuragarri une honetan"
+
+msgctxt "#32310"
+msgid "Language:"
+msgstr ""
+
+msgctxt "#32311"
+msgid "Sharing and Remote Access"
+msgstr "Partekatzea eta Urritko Sarbidea"
+
+msgctxt "#32312"
+msgid ""
+"@DISTRONAME@ also supports SSH for remote access. This is for advanced users"
+" who wish to interact with @DISTRONAME@'s underlying operating system. The "
+"default user is [COLOR blue]root[/COLOR] and the default password is [COLOR "
+"blue]@ROOT_PASSWORD@[/COLOR]."
+msgstr "@DISTRONAME@-ek urrutiko sarbiderako SSH onartzen du. Hau @DISTRONAME@-eko sistema eragilearekin zuzenean elkarreragin nahi duten erabiltzaile aurreratuentzako da. Berezko erabiltzailea [COLOR blue]root[/COLOR] da, eta berezko pasahitza [COLOR blue]@ROOT_PASSWORD@[/COLOR] da."
+
+msgctxt "#32313"
+msgid ""
+"In order to share your files between your computers @DISTRONAME@ has "
+"incorporated a samba server. This samba server can be integrated into your "
+"local network by accessing it in a familiar way with Finder or Windows "
+"Explorer."
+msgstr "Gailuen artean fitxategiak partekatzeko zure @DISTRONAME@ gailuak Samba zerbitzari bat ere badu. Samba zerbitzari hau zure sare lokalean integratu daiteke gero zure Finder edo Windows-eko Arakatzailearen bidez modu errazean sartu ahal izateko."
+
+msgctxt "#32316"
+msgid "Configure Services:"
+msgstr "Konfiguratu zerbitzuak"
+
+msgctxt "#32317"
+msgid "Thank you"
+msgstr "Eskerrik asko"
+
+msgctxt "#32319"
+msgid "Cron"
+msgstr "Cron"
+
+msgctxt "#32320"
+msgid "Enable Cron"
+msgstr "Gaitu Cron"
+
+msgctxt "#32323"
+msgid "Reset to Defaults"
+msgstr "Berrabiarazi Berezko Balioetara"
+
+msgctxt "#32324"
+msgid "Reset System Settings to defaults"
+msgstr "Berrezarri sistemaren ezarpenak berezko balioetara"
+
+msgctxt "#32325"
+msgid "Reset @DISTRONAME@ to defaults"
+msgstr "Berrezarri @DISTRONAME@ berezko balioetara"
+
+msgctxt "#32326"
+msgid "Are you sure?"
+msgstr "Ziur zaude?"
+
+msgctxt "#32328"
+msgid "The system must reboot."
+msgstr "Sistema berrabiarazi behar da"
+
+msgctxt "#32329"
+msgid "Rebooting in %d seconds"
+msgstr "Berrabiarazten %d segunduan"
+
+msgctxt "#32330"
+msgid "Keyboard Type"
+msgstr "Teklatu-mota"
+
+msgctxt "#32331"
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+msgctxt "#32333"
+msgid "Connected: "
+msgstr "Konektatuta:"
+
+msgctxt "#32334"
+msgid "Yes"
+msgstr "Bai"
+
+msgctxt "#32335"
+msgid "No"
+msgstr "Ez"
+
+msgctxt "#32338"
+msgid "No Bluetooth adapter found."
+msgstr "Ez da Bluetooth amoldagailurik aurkitu"
+
+msgctxt "#32339"
+msgid ""
+"No Bluetooth device found. Please put your Bluetooth device into discovery "
+"mode[CR]and start the scan"
+msgstr "Ez da Bluetooth gailurik aurkitu. Mesedez jarri ezazu Bluetooth gailua aurkikuntza-moduan eta berriz hasi bilaketa"
+
+msgctxt "#32343"
+msgid "Enter the following Key on your Device."
+msgstr "Sartu hurrengo Gakoa zure Gailuan"
+
+msgctxt "#32344"
+msgid "Enable Bluetooth"
+msgstr "Gaitu Bluetooth-a"
+
+msgctxt "#32346"
+msgid "Bluetooth is disabled"
+msgstr "BLuetooth-a desgaituta dago"
+
+msgctxt "#32358"
+msgid "Trust and Connect"
+msgstr "Fidatu eta Konektatu"
+
+msgctxt "#32362"
+msgid "Check for updates now:"
+msgstr "Egiaztutatu eguneratzeak orain:"
+
+msgctxt "#32363"
+msgid "@DISTRONAME@"
+msgstr "@DISTRONAME@"
+
+msgctxt "#32364"
+msgid "Update available"
+msgstr "Eguneratzea eskuragarri"
+
+msgctxt "#32365"
+msgid "Show Update Notifications"
+msgstr "Erakutsi Eguneratze-Jakinarazpenak"
+
+msgctxt "#32366"
+msgid "Update Download Completed"
+msgstr "Eguneratze-Deskarga osatu da"
+
+msgctxt "#32367"
+msgid "Update Extract Complete"
+msgstr "Eguneratze-Erauzketa osatu da"
+
+msgctxt "#32368"
+msgid "Advanced Network Settings"
+msgstr "Sare-Ezarpen Aurreratuak"
+
+msgctxt "#32369"
+msgid "Wait for network before starting Kodi"
+msgstr "Itxaron sareari Kodi abiarazi baino lehen"
+
+msgctxt "#32370"
+msgid "Maximum Wait Time (Sec.)"
+msgstr "Gehienezko itxarote-denbora (Seg.)"
+
+msgctxt "#32371"
+msgid "Backup"
+msgstr "Segurtasun-kopia"
+
+msgctxt "#32372"
+msgid "Create System and Kodi Backup"
+msgstr "Sortu Sistemaren eta Kodiren Segurtasun-Kopia"
+
+msgctxt "#32373"
+msgid "Restore Backup"
+msgstr "Berreskuratu Segurtasun-Kopia"
+
+msgctxt "#32375"
+msgid "Backup Progress"
+msgstr "Segurtasun-Kopiaren Aurrerapena"
+
+msgctxt "#32376"
+msgid "Submit Log"
+msgstr "Bidali Log-a"
+
+msgctxt "#32377"
+msgid "Upload latest Kodi log and configs, and view the short URL"
+msgstr "Igo Kodi-ren azken log eta ezarpenak, eta ikusi URL motza"
+
+msgctxt "#32378"
+msgid "Upload latest Kodi crash log and configs, and view the short URL"
+msgstr "Igo Kodi-ren azken crash-log eta ezarpenak, eta ikusi URL motza"
+
+msgctxt "#32379"
+msgid "There is not enough free storage space to continue!"
+msgstr "Ez dago nahiko leku librerik jarraitzeko!"
+
+msgctxt "#32380"
+msgid ""
+"Restoring system settings requires a reboot. Are you sure you want to "
+"restore?"
+msgstr "Sistemaren ezarpenak berrezartzeak sistema berrabiaraztea behar du. Ziur zaude berrezarri nahi duzula?"
+
+msgctxt "#32381"
+msgid "Accept incoming Bluetooth Filetransfer ?"
+msgstr "Onartu sarrerako Bluetooth Fitxategi-transferentzia?"
+
+msgctxt "#32382"
+msgid "Speed"
+msgstr "Abiadura"
+
+msgctxt "#32383"
+msgid "Play Files ?"
+msgstr "Erreproduzitu fitxategiak?"
+
+msgctxt "#32384"
+msgid "OBEX Enabled"
+msgstr "OBEX gaitu da"
+
+msgctxt "#32385"
+msgid "OBEX Upload Folder"
+msgstr "OBEX Igoera Karpeta"
+
+msgctxt "#32386"
+msgid "Keyboard Layout Variant #1"
+msgstr "Teklatuaren 1. Aldaera"
+
+msgctxt "#32387"
+msgid "Keyboard Layout Variant #2"
+msgstr "Teklatuaren 2. Aldaera"
+
+msgctxt "#32388"
+msgid "Enable Standby"
+msgstr "Gaitu Standby modua"
+
+msgctxt "#32389"
+msgid "Disable Standby"
+msgstr "Desgaitu Standby modua"
+
+msgctxt "#32390"
+msgid "Settings addon is not yet ready, please try again later."
+msgstr "Ezarpenak gehigarria ez dago prest, mesedez saiatu zaitez berriz beranduago"
+
+msgctxt "#32391"
+msgid "Upload configs and other debug info without logs, and view the short URL"
+msgstr ""
+
+msgctxt "#32393"
+msgid "** SAFE MODE! ** SAFE MODE! ** SAFE MODE! **"
+msgstr "** MODU SEGURUA! ** MODU SEGURUA! ** MODU SEGURUA! **"
+
+msgctxt "#32395"
+msgid "Firewall"
+msgstr "Firewall-a"
+
+msgctxt "#32396"
+msgid "Custom"
+msgstr "Pertsonalizatua"
+
+msgctxt "#32397"
+msgid "Off"
+msgstr "Desgaitu"
+
+msgctxt "#32398"
+msgid "Home"
+msgstr "Etxekoa"
+
+msgctxt "#32399"
+msgid "Public"
+msgstr "Publikoa"
+
+msgctxt "#32400"
+msgid "Idle Timeout"
+msgstr ""

@@ -1,0 +1,279 @@
+'\" t
+.\"     Title: megareg
+.\"    Author: [see the "AUTHOR" section]
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 04/15/2020
+.\"    Manual: Megatools Manual
+.\"    Source: megatools 1.10.2
+.\"  Language: English
+.\"
+.TH "MEGAREG" "1" "04/15/2020" "megatools 1.10.2" "Megatools Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+megareg \- Register new Mega\&.nz account
+.SH "SYNOPSIS"
+.sp
+.nf
+\fImegareg\fR [\-\-scripted] \-\-register \-\-email <email> \-\-name <realname> \-\-password <password>
+\fImegareg\fR [\-\-scripted] \-\-verify <state> <link>
+.fi
+.SH "DESCRIPTION"
+.sp
+Registers new Mega\&.nz account\&. Registration is split into two steps:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+\-\-register: Creates a new non\-verified account
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+\-\-verify: Verifies account with the link that was sent to
+<email>
+.RE
+.sp
+See example of registration below\&.
+.SH "OPTIONS"
+.PP
+\-\-register
+.RS 4
+Create new non\-verified account\&.
+.RE
+.PP
+\-\-verify <state> <link>
+.RS 4
+Verify account previously created by
+megareg \-\-register\&. You need to pass
+<state>
+that was returned from
+megareg \-\-register
+and a verification link from the email that was sent to
+<email>\&.
+.RE
+.PP
+\-\-email <email>
+.RS 4
+Email serves as your new account username, that you\(cqll be using to sign in\&.
+.sp
+\fBNOTES\fR: Beware that ATM, email format is not validated by megatools\&.
+.RE
+.PP
+\-\-name <realname>
+.RS 4
+Your real (or fake) name\&.
+.RE
+.PP
+\-\-password <password>
+.RS 4
+Plaintext password\&. No strength checking is done, so make sure you pick a strong password yourself\&.
+.RE
+.PP
+\-\-scripted
+.RS 4
+After registration, print the command that can be used to finish the registration in a format suitable for scripting purposes\&.
+.RE
+.PP
+\-\-limit\-speed <speed>
+.RS 4
+Set maximum allowed upload and download speed in KiB/s\&. This option overrides config file settings\&. 0 means no limit\&. When using ParallelTransfers > 1, upload speed limit is applied to each transfer individually\&.
+.RE
+.PP
+\-\-proxy <proxy>
+.RS 4
+Use proxy server to connect to mega\&.nz\&. This option overrides config file settings\&. More information can be found in libcurl documentation at
+https://curl\&.haxx\&.se/libcurl/c/CURLOPT_PROXY\&.html\&. Some acceptable values are:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+none
+: Disable proxy if it was enabled in the config file\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+socks5://localhost:9050
+: Local SOCKSv5 proxy server
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+socks5h://localhost:9050
+: Local SOCKSv5 proxy server with DNS handled by the proxy
+.RE
+.RE
+.PP
+\-\-config <path>
+.RS 4
+Load configuration from a file
+.RE
+.PP
+\-\-ignore\-config\-file
+.RS 4
+Disable loading \&.megarc
+.RE
+.PP
+\-\-debug [<options>]
+.RS 4
+Enable debugging of various aspects of the megatools operation\&. You may enable multiple debugging options separated by commas\&. (eg\&.
+\-\-debug api,fs)
+.sp
+Available options are:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+http: Dump HTTP request/response details (can be used to debug connection/proxy issues)
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+api: Dump Mega\&.nz API calls
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+fs: Dump Mega\&.nz filesystem (may require
+\-\-reload
+to actually print something)
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+cache: Dump cache contents
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+tman: Dump transfer manager events
+.RE
+.RE
+.PP
+\-\-version
+.RS 4
+Show version information
+.RE
+.SH "EXAMPLE"
+.sp
+First create an non\-verified account:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ megareg \-\-register \-\-email your@email\&.com \-\-name "Your Name" \-\-password "Your Password"
+
+Registration email was sent to test@megous\&.com\&. To complete registration, you must run:
+
+  megareg \-\-verify vbFFFv7AFM25etzkFXLs9A==:Z7FFbgAAAAAAAAAArL33eA==:inEONh3tmwY @LINK@
+
+(Where @LINK@ is registration link from the \*(AqMEGA Signup\*(Aq email)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Now wait for a verification mail and run the command as asked:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ megareg \-\-verify vbFFFv7AFM25etzkFXLs9A==:Z7FFbgAAAAAAAAAArL33eA==:inEONh3tmwY \e
+    \*(Aqhttps://mega\&.nz/#confirmciyfWXRGFNcM\&.\&.\&.\*(Aq
+
+Account registered successfully!
+.fi
+.if n \{\
+.RE
+.\}
+.SH "SEE ALSO"
+.sp
+\fBmegatools\fR(7), \fBmegarc\fR(5), \fBmegadf\fR(1), \fBmegadl\fR(1), \fBmegaget\fR(1), \fBmegals\fR(1), \fBmegamkdir\fR(1), \fBmegaput\fR(1), \fBmegareg\fR(1), \fBmegarm\fR(1), \fBmegacopy\fR(1)\&.
+.SH "MEGATOOLS"
+.sp
+Part of the \fBmegatools\fR(7) suite\&.
+.SH "BUGS"
+.sp
+Report bugs at https://github\&.com/megous/megatools or megous@megous\&.com\&.
+.SH "AUTHOR"
+.sp
+Megatools was written by Ondrej Jirman <megous@megous\&.com>, 2013\-2016\&.
+.sp
+Official website is http://megatools\&.megous\&.com\&.

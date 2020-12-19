@@ -1,0 +1,1131 @@
+# Kodi Media Center language file
+# Addon Name: @DISTRONAME@ Configuration
+# Addon id: service.coreelec.settings
+# Addon Provider: CoreELEC
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko_KR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "#600"
+msgid "@DISTRONAME@ Settings"
+msgstr "@DISTRONAME@ 설정"
+
+msgctxt "#601"
+msgid "Interface"
+msgstr "인터페이스"
+
+msgctxt "#602"
+msgid "Address"
+msgstr "주소"
+
+msgctxt "#603"
+msgid "Type"
+msgstr "구분"
+
+msgctxt "#604"
+msgid "State"
+msgstr "상태"
+
+msgctxt "#605"
+msgid "Address"
+msgstr "주소"
+
+msgctxt "#606"
+msgid "Distribution: "
+msgstr "배포 : "
+
+msgctxt "#607"
+msgid "Version: "
+msgstr "버전 : "
+
+msgctxt "#608"
+msgid "Architecture: "
+msgstr "아키텍처 : "
+
+msgctxt "#700"
+msgid ""
+"Configure a hostname, keyboard type, perform a reset, update, or backups and"
+" restores"
+msgstr "호스트명과 키보드 종류를 설정하고 초기화, 업데이트나 백업과 복구를 합니다"
+
+msgctxt "#701"
+msgid "Configure network startup options, NTP and VPNs"
+msgstr "시작 네트워크, NTP, VPN 설정"
+
+msgctxt "#702"
+msgid ""
+"Manage the Ethernet, Wireless and VPN connections available to the system"
+msgstr "시스템에서 사용할 수 있는 이더넷, 무선과 VPN 연결을 관리합니다"
+
+msgctxt "#703"
+msgid "Configure system services like Samba, SSH, Cron, Avahi and Syslog"
+msgstr "Samba, SSH, Cron, Avahi, Syslog와 같은 시스템 서비스 설정"
+
+msgctxt "#704"
+msgid "Configure and pair Bluetooth devices"
+msgstr "블루투스 장치 연결 및 설정"
+
+msgctxt "#707"
+msgid "Configure updates"
+msgstr "업데이트 설정"
+
+msgctxt "#710"
+msgid ""
+"Configure the Hostname of your @DISTRONAME@ system. This will be used for "
+"the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+msgstr "@DISTRONAME@ 시스템의 호스트명을 설정합니다. 이것은 윈도의 HTPC \\\\호스트명과 맥 OS 파인더의 SMB 서버명에 쓰입니다."
+
+msgctxt "#711"
+msgid "Configure the 1st keyboard software layout"
+msgstr "키보드 소프트웨어 1번째 배열 설정"
+
+msgctxt "#712"
+msgid "Configure the 2nd keyboard software layout"
+msgstr "키보드 소프트웨어 2번째 배열 설정"
+
+msgctxt "#713"
+msgid "Configure the physical keyboard type"
+msgstr "물리 키보드 종류 설정"
+
+msgctxt "#714"
+msgid ""
+"@DISTRONAME@ can be configured for automatic or manual updates. Automatic "
+"updates are available on stable releases and stable release candidates. "
+"Automatic update self-disables on beta and development builds"
+msgstr "@DISTRONAME@은 자동이나 수동 업데이트로 설정할 수 있습니다. 자동 업데이트는 안정판이나 안정판 후보에서 가능합니다. 자동 업데이트는 베타나 개발 빌드에서는 가능하지 않습니다."
+
+msgctxt "#715"
+msgid ""
+"Set to ON and an on-screen notification will be displayed when a new update "
+"is available"
+msgstr "ON으로 설정하고 새로운 업데이트가 있으면 화면 알림이 표시됩니다"
+
+msgctxt "#718"
+msgid ""
+"Send boot config files from /flash, kodi.log, kernel log and Samba configs "
+"to http://ix.io, and display the short URL"
+msgstr "/flash, kodi.log, kernel.log, Samba 부트 설정 파일들을 http://ix.io 에 올리고 단축 URL을 표시합니다"
+
+msgctxt "#719"
+msgid ""
+"Send boot config files from /flash, kodi_crash.log, kernel log and Samba "
+"configs to http://ix.io, and display the short URL"
+msgstr "/flash, kodi_crash.log, kernel.log, Samba 부트 설정 파일들을 http://ix.io 에 올리고 단축 URL을 표시합니다"
+
+msgctxt "#720"
+msgid "Set to ON to enable the Bluetooth service"
+msgstr "블루투스 서비스를 사용하려면 ON으로 설정합니다"
+
+msgctxt "#721"
+msgid "Send CoreELEC debug info without logs to http://ix.io, and display the short URL"
+msgstr ""
+
+msgctxt "#722"
+msgid ""
+"Create a tar archive containing all @DISTRONAME@ and Kodi configuration "
+"settings, databases and thumbnail content. Backup files will be stored in "
+"/storage/backup/"
+msgstr "모든 Kodi와 @DISTRONAME@ 설정, 데이터베이스, 썸네일을 tar로 묶습니다. 백업 파일은 /storage/backup/에 저장됩니다"
+
+msgctxt "#723"
+msgid ""
+"Restore a tar archive backup previously created using the backup option "
+"above"
+msgstr "위 백업 옵션으로 만든 tar 백업 파일로 복구합니다"
+
+msgctxt "#724"
+msgid ""
+"[COLOR FF00FF00]SOFT RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
+msgstr "[COLOR FF00FF00]일부 초기화[/COLOR]\n@DISTRONAME@ 설정을 기본으로 초기화합니다 (Kodi도 라이브러리를 포함해서 초기화합니다. 미디어 - 음악/비디오/기타는 바뀌지 않습니다)"
+
+msgctxt "#725"
+msgid ""
+"[COLOR FFFF0000]HARD RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ and Kodi configuration to defaults (everything in your storage partition will be deleted)"
+msgstr "[COLOR FFFF0000]완전 초기화[/COLOR]\nKodi와 @DISTRONAME@ 설정을 기본으로 초기화합니다 (storage 파티션을 모두 지웁니다)"
+
+msgctxt "#726"
+msgid "Enable or disable support for Wireless (WLAN) networks"
+msgstr "무선 (WLAN) 네트워크 사용 선택"
+
+msgctxt "#727"
+msgid ""
+"Enable a 'tethered' Wireless Access Point. This requires your wireless card "
+"(and driver) to support bridging and access point mode. Not all cards are "
+"capable."
+msgstr "무선 액세스 포인트 '테더링'을 사용합니다. 브리지와 액세스 포인트 모드를 지원하는 무선 카드(와 드라이버)가 필요합니다. 모든 카드가 가능하지는 않습니다. "
+
+msgctxt "#728"
+msgid "Configure the Access Point SSID"
+msgstr "액세스 포인트 SSID 설정"
+
+msgctxt "#729"
+msgid "Configure the Access Point Passphrase"
+msgstr "액세스 포인트 비밀번호 설정"
+
+msgctxt "#730"
+msgid "Enable or disable support for Wired (Ethernet) networks"
+msgstr "유선 (이더넷) 네트워크 사용 선택"
+
+msgctxt "#732"
+msgid "Configure the 1st time (NTP) server"
+msgstr "1번째 타임(NTP) 서버 설정"
+
+msgctxt "#733"
+msgid "Configure the 2nd time (NTP) server"
+msgstr "2번째 타임(NTP) 서버 설정"
+
+msgctxt "#734"
+msgid "Configure the 3rd time (NTP) server"
+msgstr "3번째 타임(NTP) 서버 설정"
+
+msgctxt "#736"
+msgid ""
+"Set to ON to delay Kodi startup until the network is available. Use this if "
+"the OS is booting into Kodi before the network is up and central MySQL "
+"databases are accessible."
+msgstr "네트워크가 가능할 때까지 Kodi 시작을 늦추려면 ON으로 설정합니다. 네트워크를 켜고 MySQL 주 데이터베이스에 접근하기 전에 운영 체계가 Kodi를 시작한다면 이 옵션을 사용합니다."
+
+msgctxt "#737"
+msgid "Time in seconds to wait for an established network connection."
+msgstr "네크워크 연결 대기 시간 - 초"
+
+msgctxt "#738"
+msgid "Set to ON to enable the embedded Samba (SMB) filesharing service"
+msgstr "내장된 Samba (SMB) 파일 공유 서비스를 사용하려면 ON으로 설정합니다"
+
+msgctxt "#739"
+msgid ""
+"Set to ON to require username/password access to local Samba fileshares"
+msgstr "ON으로 설정하려면 로컬 Samba 파일 공유에 대한 사용자명/비밀번호가 필요합니다"
+
+msgctxt "#740"
+msgid "Set the username for Samba sharing"
+msgstr "Samba 공유 사용자명 설정"
+
+msgctxt "#741"
+msgid "Set the password for Samba sharing"
+msgstr "Samba 공유 비밀번호 설정"
+
+msgctxt "#742"
+msgid ""
+"Set to ON to enable the embedded SSH server. The SSH console can be accessed"
+" with username 'root' and password '@ROOT_PASSWORD@'."
+msgstr "내장된 SSH 서버를 사용려면 ON으로 설정합니다. SSH 콘솔은 'root'  사용자와 '@ROOT_PASSWORD@' 비밀번호로 접근할 수 있습니다."
+
+msgctxt "#743"
+msgid ""
+"Set to ON if you have copied private SSH keys to your HTPC and would like to"
+" improve security by disabling SSH username and password authentication."
+msgstr "ON으로 설정하고 HTPC로 개인 SSH 키를 복사하면, SSH 사용자와 비밀번호 인증을 사용하지 않아서 보안을 향상 시킵니다"
+
+msgctxt "#744"
+msgid ""
+"Set to ON to enable the Avahi (Zeroconf/Bonjour) network discovery service"
+msgstr "Avahi (Zeroconf/Bonjour) 네트워크를 사용하려면 ON으로 설정합니다"
+
+msgctxt "#745"
+msgid "Set to ON to enable the cron daemon"
+msgstr "Cron 데몬을 사용하려면 ON으로 설정합니다"
+
+msgctxt "#746"
+msgid "Set the password for SSH"
+msgstr "SSH 비밀번호 설정"
+
+msgctxt "#747"
+msgid "Enable a PIN for @DISTRONAME@ Settings access"
+msgstr "@DISTRONAME@ 설정하는 PIN 사용"
+
+msgctxt "#748"
+msgid "Change the PIN Lock for @DISTRONAME@ Settings access"
+msgstr "@DISTRONAME@ 설정하는 PIN 잠금 바꾸기"
+
+msgctxt "#749"
+msgid ""
+"Overrride the Wireless Regulatory Domain so radio properties (channels and "
+"transmit power) comply with local laws or match the country configuration of"
+" your router."
+msgstr "무선 라우터의 설정(채널과 전송 세기)이 현지 규정이나 국가 설정에 맞도록 무선 규약 도메인을 덮어씁니다."
+
+msgctxt "#750"
+msgid "750"
+msgstr "750"
+
+msgctxt "#751"
+msgid ""
+"With OBEX filetransfer you can send files, for example movies or pictures "
+"over bluetooth to @DISTRONAME@."
+msgstr "OBEX 파일 전송으로 파일을 보낼 수 있는데, 예로 영화나 사진을 블루투스를 통해 @DISTRONAME@에 보냅니다."
+
+msgctxt "#752"
+msgid ""
+"Here you can set the folder location where OBEX file transfer should store "
+"incoming files"
+msgstr "여기에 OBEX 파일 전송에서 저장할 폴더 위치를 설정할 수 있습니다"
+
+msgctxt "#753"
+msgid "Configure the 1st keyboard software Variant"
+msgstr "키보드 1번째 소프트웨어 변형 설정"
+
+msgctxt "#754"
+msgid "Configure the 2nd keyboard software Variant"
+msgstr "키보드 2번째 소프트웨어 변형 설정"
+
+msgctxt "#755"
+msgid "Auto share external drives / partitions"
+msgstr "외부 드라이브 / 파티션 자동 공유"
+
+msgctxt "#756"
+msgid ""
+"Disable older SMB protocols by specifying the minimum supported protocol."
+msgstr "최소 프로토콜 지원으로 구형 SMB 프로토콜 사용 안 함"
+
+msgctxt "#757"
+msgid ""
+"Disable more recent SMB protocols for backward compatability with legacy "
+"clients."
+msgstr "구형 클라이언트 호환을 위해서 신형 SMB 프로토콜 사용 안 함"
+
+msgctxt "#758"
+msgid "NetBIOS group to which the server belongs. Default is WORKGROUP."
+msgstr "서버가 속해있는 NetBIOS 그룹. 기본은 WORKGROUP."
+
+msgctxt "#760"
+msgid "Select an update channel"
+msgstr "업데이트 채널 선택"
+
+msgctxt "#761"
+msgid "Enable to allow entering a custom update url"
+msgstr "사용자 업데이트 url 입력 허용"
+
+msgctxt "#762"
+msgid "Enter a custom update url (url should be the root of the update files)"
+msgstr "사용자 업데이트 url 입력 (url은 업데이트 파일의 루트여야 함)"
+
+msgctxt "#770"
+msgid "Select an available version"
+msgstr "사용가능한 버전 선택"
+
+msgctxt "#771"
+msgid ""
+"The firewall blocks unwanted network traffic. Home (default) allows traffic "
+"from private network ranges (192.168.x.x, 172.16.x.x and 10.x.x.x) only. "
+"Public blocks all traffic from all networks. Custom uses rules in "
+"/storage/.config/iptables. Off disables the firewall."
+msgstr "방화벽은 원치 않는 네트워크 트래픽을 막습니다. 집은 (기본으로) 개인 네트워크 범위만의 트래픽을 허용합니다 (192.168.x.x, 172.16.x.x, 10.x.x.x). 공용은 모든 네트워크로부터의 트래픽을 막습니다. 사용자는 /storage/.config/iptables의 룰을 따릅니다. 끄기는 방화벽을 사용하지 않습니다."
+
+msgctxt "#772"
+msgid ""
+"Checking for a new version will submit the installed Distribution, Project, "
+"CPU Arch and Version to the update server. This data is also used to report "
+"basic statistics for the project. To continue checking for updates while "
+"opting-out of stats reporting, disable this option."
+msgstr "새 버전 확인은 설치된 배포판, 프로젝트, CPU 아키텍처와 버전을 업데이트 서버에 보냅니다. 이 데이터는 프로젝트를 위한 기초 통계에도 쓰입니다. 통계 보고를 하지 않고 업데이트를 계속하려면 이 옵션을 끕니다."
+
+msgctxt "#773"
+msgid ""
+"Set the idle timeout (in minutes) before devices will be disconnected "
+"(defaults to 0 for no timeout). Applies to devices where \"Enable Standby\" "
+"has been activated in the LibreELEC device connection context menu."
+msgstr "장치 연결이 끊어질 때까지 가동되지 않은 시간(분)을 정합니다 (기본 0은 중단 시간 없음). 장치 연결 상황 메뉴의  \"대기시간 사용\"을 활성화한 장치에 적용됩니다. "
+
+msgctxt "#32001"
+msgid "Services"
+msgstr "서비스"
+
+msgctxt "#32002"
+msgid "System"
+msgstr "시스템"
+
+msgctxt "#32003"
+msgid "Interface"
+msgstr "인터페이스"
+
+msgctxt "#32005"
+msgid "Updates"
+msgstr "업데이트"
+
+msgctxt "#32009"
+msgid "Keyboard"
+msgstr "키보드"
+
+msgctxt "#32010"
+msgid "Keyboard Layout"
+msgstr "키보드 레이아웃"
+
+msgctxt "#32012"
+msgid "Select Action"
+msgstr "동작 선택"
+
+msgctxt "#32013"
+msgid "OS Updates"
+msgstr "OS 업데이트"
+
+msgctxt "#32014"
+msgid "Automatic Updates"
+msgstr "자동 업데이트"
+
+msgctxt "#32015"
+msgid "Update Channel"
+msgstr "채널 업데이트"
+
+msgctxt "#32016"
+msgid "Show Custom Channels"
+msgstr "사용자 채널 보기"
+
+msgctxt "#32017"
+msgid "  - Custom Channel 1"
+msgstr " - 사용자 채널 1"
+
+msgctxt "#32018"
+msgid "  - Custom Channel 2"
+msgstr " - 사용자 채널 2"
+
+msgctxt "#32019"
+msgid "  - Custom Channel 3"
+msgstr " - 사용자 채널 3"
+
+msgctxt "#32020"
+msgid "Available Versions"
+msgstr "사용가능한 버전"
+
+msgctxt "#32021"
+msgid "Submit Statistics"
+msgstr "통계 전송"
+
+msgctxt "#32022"
+msgid "Firmware Updates"
+msgstr "펌웨어 업데이트"
+
+msgctxt "#32023"
+msgid "Updating will occur once the system is rebooted."
+msgstr "시스템을 다시 시작하면 바로 업데이트됩니다."
+
+msgctxt "#32024"
+msgid "Bootloader EEPROM"
+msgstr "EEPROM 부트로더"
+
+msgctxt "#32025"
+msgid ""
+"Update the Raspberry Pi Bootloader EEPROM to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr "라즈베리 파이 EEPROM 부트로더를 최신 버전으로 업데이트합니다. 이 옵션은 리부팅 후에 후에 사용할 수 없게 됩니다. 시스템을 다시 시작하면 바로 업데이트됩니다."
+
+msgctxt "#32026"
+msgid "VIA USB3 Firmware"
+msgstr "VIA USB3 펌웨어"
+
+msgctxt "#32027"
+msgid ""
+"Update the Raspberry Pi VIA USB3 firmware to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr "라즈베리 파이 VIA USB3 펌웨어를 최신 버전으로 업데이트합니다. 이 옵션은 리부팅 후에 사용할 수 없게 됩니다. 시스템을 다시 시작하면 바로 업데이트됩니다."
+
+msgctxt "#32028"
+msgid "update from %s to %s"
+msgstr "%s에서%s로 업데이트"
+
+msgctxt "#32029"
+msgid "up to date: %s"
+msgstr "최신: %s"
+
+msgctxt "#32100"
+msgid "Connections"
+msgstr "연결"
+
+msgctxt "#32101"
+msgid "Network"
+msgstr "네트워크"
+
+msgctxt "#32102"
+msgid "Wireless Networks"
+msgstr "무선 네트워크"
+
+msgctxt "#32103"
+msgid "Wired Networks"
+msgstr "유선 네트워크"
+
+msgctxt "#32105"
+msgid "Active"
+msgstr "활성화됨"
+
+msgctxt "#32106"
+msgid "Username"
+msgstr "사용자명"
+
+msgctxt "#32107"
+msgid "Passphrase"
+msgstr "비밀번호"
+
+msgctxt "#32108"
+msgid "Enable 'tethered' Wireless Access Point"
+msgstr "무선 네트워크 액세스 포인트 '테더링' 사용"
+
+msgctxt "#32109"
+msgid "Connect Automatically"
+msgstr "자동으로 연결"
+
+msgctxt "#32110"
+msgid "Connection"
+msgstr "연결"
+
+msgctxt "#32111"
+msgid "IPv4"
+msgstr "IPv4"
+
+msgctxt "#32112"
+msgid "IPv6"
+msgstr "IPv6"
+
+msgctxt "#32113"
+msgid "IP Address Method"
+msgstr "IP 주소 방식"
+
+msgctxt "#32114"
+msgid "IP Address"
+msgstr "IP 주소"
+
+msgctxt "#32115"
+msgid "Subnet Mask"
+msgstr "서브넷 마스크"
+
+msgctxt "#32116"
+msgid "Default Gateway"
+msgstr "기본 게이트웨이"
+
+msgctxt "#32117"
+msgid "Prefix Length"
+msgstr "접두부 길이"
+
+msgctxt "#32118"
+msgid "Privacy"
+msgstr "프라이버시"
+
+msgctxt "#32119"
+msgid "DNS Servers"
+msgstr "DNS 서버"
+
+msgctxt "#32120"
+msgid "Nameserver #1"
+msgstr "네임서버 #1"
+
+msgctxt "#32121"
+msgid "Nameserver #2"
+msgstr "네임서버 #2"
+
+msgctxt "#32122"
+msgid "Nameserver #3"
+msgstr "네임서버 #3"
+
+msgctxt "#32123"
+msgid "NTP Servers"
+msgstr "NTP 서버"
+
+msgctxt "#32124"
+msgid "Timeserver #1"
+msgstr "타임서버 #1"
+
+msgctxt "#32125"
+msgid "Timeserver #2"
+msgstr "타임서버 #2"
+
+msgctxt "#32126"
+msgid "Timeserver #3"
+msgstr "타임서버 #3"
+
+msgctxt "#32127"
+msgid "DNS Domains"
+msgstr "DNS  도메인"
+
+msgctxt "#32128"
+msgid "Domain #1"
+msgstr "도메인 #1"
+
+msgctxt "#32129"
+msgid "Domain #2"
+msgstr "도메인 #2"
+
+msgctxt "#32130"
+msgid "Domain #3"
+msgstr "도메인 #3"
+
+msgctxt "#32140"
+msgid "Save"
+msgstr "저장"
+
+msgctxt "#32141"
+msgid "Delete"
+msgstr "삭제"
+
+msgctxt "#32142"
+msgid "Refresh"
+msgstr "새로고침"
+
+msgctxt "#32143"
+msgid "Disconnect"
+msgstr "연결 끊기"
+
+msgctxt "#32144"
+msgid "Connect"
+msgstr "연결"
+
+msgctxt "#32145"
+msgid "Pair"
+msgstr "페어링"
+
+msgctxt "#32146"
+msgid "Hidden Network Name"
+msgstr "숨겨진 네트워크 이름"
+
+msgctxt "#32147"
+msgid "Wireless Network Passphrase"
+msgstr "무선 네트워크 비밀번호"
+
+msgctxt "#32148"
+msgid "Wireless Network Username"
+msgstr "무선 네트워크 사용자명"
+
+msgctxt "#32150"
+msgid "Edit"
+msgstr "편집"
+
+msgctxt "#32180"
+msgid "Would you like to update @DISTRONAME@ now?"
+msgstr "지금 @DISTRONAME@ 업데이트를 할까요?"
+
+msgctxt "#32181"
+msgid "Filename"
+msgstr "파일명"
+
+msgctxt "#32182"
+msgid "Download speed"
+msgstr "다운로드 속도"
+
+msgctxt "#32183"
+msgid "Time remaining"
+msgstr "남은 시간"
+
+msgctxt "#32184"
+msgid "Extract file"
+msgstr "파일 추출 중"
+
+msgctxt "#32185"
+msgid "Extract speed"
+msgstr "파일 추출 속도"
+
+msgctxt "#32186"
+msgid "Initialize Archive File"
+msgstr "아카이브 파일 초기화"
+
+msgctxt "#32187"
+msgid "New Version"
+msgstr "새 버전"
+
+msgctxt "#32188"
+msgid "Current Version"
+msgstr "현재 버전"
+
+msgctxt "#32189"
+msgid "Identification"
+msgstr "확인"
+
+msgctxt "#32190"
+msgid "System Name"
+msgstr "시스템 이름"
+
+msgctxt "#32191"
+msgid "Invalid URL"
+msgstr "잘못된 URL"
+
+msgctxt "#32192"
+msgid "PIN lock"
+msgstr "PIN 잠금"
+
+msgctxt "#32193"
+msgid "Enable @DISTRONAME@ Settings PIN Lock"
+msgstr "@DISTRONAME@ 설정의 PIN 잠금 사용"
+
+msgctxt "#32194"
+msgid "Change @DISTRONAME@ Settings PIN Lock"
+msgstr "@DISTRONAME@ 설정의 PIN 잠금 바꾸기"
+
+msgctxt "#32196"
+msgid "About"
+msgstr "정보"
+
+msgctxt "#32198"
+msgid "SSID"
+msgstr "SSID"
+
+msgctxt "#32200"
+msgid "Samba"
+msgstr "Samba"
+
+msgctxt "#32201"
+msgid "SSH"
+msgstr "SSH"
+
+msgctxt "#32202"
+msgid "Use Samba Password Authentication"
+msgstr "Samba 비밀번호 인증 사용"
+
+msgctxt "#32203"
+msgid "Disable SSH Password"
+msgstr "SSH 비밀번호 사용안함"
+
+msgctxt "#32204"
+msgid "Enable Samba"
+msgstr "Samba 사용"
+
+msgctxt "#32205"
+msgid "Enable SSH"
+msgstr "SSH 사용"
+
+msgctxt "#32206"
+msgid "Enable Avahi (Zeroconf)"
+msgstr "Avahi (Zeroconf) 사용"
+
+msgctxt "#32207"
+msgid "Avahi"
+msgstr "Avahi"
+
+msgctxt "#32208"
+msgid "Hidden Wlan"
+msgstr "숨겨진 무선랜"
+
+msgctxt "#32209"
+msgid "SSH Password"
+msgstr "SSH 비밀번호"
+
+msgctxt "#32210"
+msgid ""
+"The default SSH password is widely known and considered "
+"insecure.[CR][CR]Setting a personal password is recommended."
+msgstr "기본 SSH 비밀번호는 널리 알려져서 안전하지 않습니다.[CR][CR]개인 비밀번호를 권장합니다."
+
+msgctxt "#32212"
+msgid "Cancel"
+msgstr "취소"
+
+msgctxt "#32213"
+msgid "Keep Existing"
+msgstr "기존 유지"
+
+msgctxt "#32214"
+msgid "Set Password"
+msgstr "비밀번호 설정"
+
+msgctxt "#32215"
+msgid "Workgroup name"
+msgstr "Workgroup 이름"
+
+msgctxt "#32216"
+msgid "Auto-Share External Drives"
+msgstr "외부 드라이브 자동 공유"
+
+msgctxt "#32217"
+msgid "Minimum supported protocol"
+msgstr "최소 프로토콜 지원"
+
+msgctxt "#32218"
+msgid "Maximum supported protocol"
+msgstr "최대 프로토콜 지원"
+
+msgctxt "#32220"
+msgid "Bad password!"
+msgstr "안 좋은 비밀번호!"
+
+msgctxt "#32221"
+msgid "The entered password is too weak.[CR]SSH password is unchanged."
+msgstr "입력한 비밀번호가 너무 취약합니다.[CR]SSH 비밀번호가 바뀌지 않았습니다."
+
+msgctxt "#32222"
+msgid "Password changed!"
+msgstr "비밀번호가 변경됨!"
+
+msgctxt "#32223"
+msgid "The SSH password has been successfully changed."
+msgstr "SSH 비밀번호가 성공적으로 바뀌었습니다."
+
+msgctxt "#32224"
+msgid "Unknown error!"
+msgstr "알 수 없는 오류!"
+
+msgctxt "#32225"
+msgid "There was an error during the process.[CR]SSH password is unchanged."
+msgstr "과정에서 오류가 있었습니다.[CR]SSH 비밀번호가 바뀌지 않았습니다."
+
+msgctxt "#32226"
+msgid "Enter new 4 digit PIN"
+msgstr "새로운 4자리 PIN 입력"
+
+msgctxt "#32227"
+msgid "Re-enter PIN"
+msgstr "PIN 다시 입력"
+
+msgctxt "#32228"
+msgid "Error - PIN codes did not match!"
+msgstr "오류 - PIN 코드 다름!"
+
+msgctxt "#32229"
+msgid "@DISTRONAME@ Settings PIN lock not set.[CR][CR]Please try again."
+msgstr "@DISTRONAME@ 설정의 PIN 잠금 안 됨.[CR][CR]다시 합니다."
+
+msgctxt "#32230"
+msgid "@DISTRONAME@ Settings PIN lock set."
+msgstr "@DISTRONAME@ 설정의 PIN 잠금."
+
+msgctxt "#32231"
+msgid "Your @DISTRONAME@ Settings PIN lock has been set to:"
+msgstr "@DISTRONAME@ 설정 PIN 잠금:"
+
+msgctxt "#32232"
+msgid "Error - PIN code not 4 digits!"
+msgstr "오류 - PIN 코드가 4자리가 아님!"
+
+msgctxt "#32233"
+msgid "@DISTRONAME@ Settings Locked[CR]Enter 4 digit PIN"
+msgstr "@DISTRONAME@ 설정 잠김[CR]4 자리 PIN 입력"
+
+msgctxt "#32234"
+msgid "Incorrect PIN!"
+msgstr "PIN 틀림!"
+
+msgctxt "#32235"
+msgid " attempts remaining."
+msgstr "머무름."
+
+msgctxt "#32236"
+msgid ""
+"You have entered an incorrect PIN too many times.[CR][CR]You will need to "
+"wait 5 minutes before trying again."
+msgstr "틀린 PIN을 너무 많이 입력하였습니다.[CR][CR]다시 하려면 5분을 기다려야 합니다."
+
+msgctxt "#32237"
+msgid "@DISTRONAME@ Settings Locked!"
+msgstr "@DISTRONAME@ 설정 잠김!"
+
+msgctxt "#32238"
+msgid ""
+"Time remaining before PIN can be entered: %02d:%02d[CR][CR]Too many previous"
+" failed attempts."
+msgstr "PIN 입력까지 남은 시간: %02d:%02d[CR][CR]이전 시도 모두 실패함."
+
+msgctxt "#32240"
+msgid "Wireless Regulatory Domain"
+msgstr "무선 규약 도메인"
+
+msgctxt "#32300"
+msgid "Welcome to @DISTRONAME@"
+msgstr "@DISTRONAME@에 환영합니다"
+
+msgctxt "#32301"
+msgid "Welcome"
+msgstr "환영"
+
+msgctxt "#32302"
+msgid ""
+"This wizard will guide you through the process of setting up your new "
+"@DISTRONAME@ installation - setting your location, timezone and connecting "
+"you to the internet.[CR][CR]These settings can be changed later by "
+"navigating to Programs > @DISTRONAME@ Settings."
+msgstr "이 마법사는 새로운 @DISTRONAME@ 설치 과정을 안내합니다 - 지역 설정, 시간대, 인터넷 연결.[CR][CR]이 설정은 나중에 프로그램 > @DISTRONAME@ 설정에서 바꿀 수 있습니다."
+
+msgctxt "#32303"
+msgid "Next"
+msgstr "다음"
+
+msgctxt "#32304"
+msgid ""
+"To be identified easily on the network, your new @DISTRONAME@ machine needs "
+"a name.[CR][CR]Try to choose something meaningful - like the room it's in - "
+"so you'll know what it is when you see it on the network.[CR][CR]This name "
+"is used when configuring network services, like file sharing using samba."
+msgstr "네트워크에서 쉽게 찾으려면, @DISTRONAME@ 장치 이름이 필요합니다.[CR][CR]의미있는 이름으로 - 예로 장치가 있는 방 - 네트워크에 있을 때 위치를 쉽게 알 수 있습니다.[CR][CR]이 이름은 Samba 파일 공유와 같은 네트워크 서비스를 설정할 때 쓰입니다."
+
+msgctxt "#32305"
+msgid "Networking"
+msgstr "네트워킹"
+
+msgctxt "#32306"
+msgid ""
+"In order to download backdrops, banners and thumbnails for your movies and "
+"TV shows and to stream online content from sites like YouTube, @DISTRONAME@ "
+"needs to be connected the Internet.[CR][CR]An Internet connection is also "
+"required for @DISTRONAME@ to automatically update itself."
+msgstr "영화와 TV 쇼의 배경, 배너, 섬네일을 내려 받거나 유튜브 같은 온라인 컨텐츠를 스트리밍 하려면 @DISTRONAME@의 인터넷 연결이 필요합니다.[CR][CR]인터넷 연결은 @DISTRONAME@ 자동 업데이트에도 필요합니다."
+
+msgctxt "#32307"
+msgid "Previous"
+msgstr "이전"
+
+msgctxt "#32308"
+msgid "Hostname:"
+msgstr "호스트명 : "
+
+msgctxt "#32309"
+msgid "The following Networks are currently available:"
+msgstr "사용가능한 네트워크 :"
+
+msgctxt "#32310"
+msgid "Language:"
+msgstr "언어:"
+
+msgctxt "#32311"
+msgid "Sharing and Remote Access"
+msgstr "공유와 원격 접속"
+
+msgctxt "#32312"
+msgid ""
+"@DISTRONAME@ also supports SSH for remote access. This is for advanced users"
+" who wish to interact with @DISTRONAME@'s underlying operating system. The "
+"default user is [COLOR blue]root[/COLOR] and the default password is [COLOR "
+"blue]@ROOT_PASSWORD@[/COLOR]."
+msgstr "@DISTRONAME@에 SSH 원격 접속도 지원합니다. 이는 @DISTRONAME@의 운영 체계와 상호 작용을 원하는 고급 사용자를 위한 것입니다.  기본 사용자는 [COLOR blue]root[/COLOR]이고 기본 비밀번호는 [COLOR blue]@ROOT_PASSWORD@[/COLOR]입니다."
+
+msgctxt "#32313"
+msgid ""
+"In order to share your files between your computers @DISTRONAME@ has "
+"incorporated a samba server. This samba server can be integrated into your "
+"local network by accessing it in a familiar way with Finder or Windows "
+"Explorer."
+msgstr "컴퓨터와 파일을 공유하기 위해서 @DISTRONAME@에 Samba 서버를 포함하고 있습니다. 이 Samba 서버는 익숙한 파인더나 윈도 탐색기에서 로컬 네트워크에 통합될 수 있습니다."
+
+msgctxt "#32316"
+msgid "Configure Services:"
+msgstr "서비스 설정 :"
+
+msgctxt "#32317"
+msgid "Thank you"
+msgstr "감사합니다"
+
+msgctxt "#32319"
+msgid "Cron"
+msgstr "Cron"
+
+msgctxt "#32320"
+msgid "Enable Cron"
+msgstr "Cron 사용"
+
+msgctxt "#32323"
+msgid "Reset to Defaults"
+msgstr "기본 값으로 초기화"
+
+msgctxt "#32324"
+msgid "Reset System Settings to defaults"
+msgstr "시스템 설정 초기화"
+
+msgctxt "#32325"
+msgid "Reset @DISTRONAME@ to defaults"
+msgstr "@DISTRONNAME@ 기본 값으로 초기화"
+
+msgctxt "#32326"
+msgid "Are you sure?"
+msgstr "확실합니까?"
+
+msgctxt "#32328"
+msgid "The system must reboot."
+msgstr "시스템을 다시 시작해야 합니다."
+
+msgctxt "#32329"
+msgid "Rebooting in %d seconds"
+msgstr "%d초 후에 다시 시작합니다."
+
+msgctxt "#32330"
+msgid "Keyboard Type"
+msgstr "키보드 타입"
+
+msgctxt "#32331"
+msgid "Bluetooth"
+msgstr "블루투스"
+
+msgctxt "#32333"
+msgid "Connected: "
+msgstr "연결됨 :"
+
+msgctxt "#32334"
+msgid "Yes"
+msgstr "예"
+
+msgctxt "#32335"
+msgid "No"
+msgstr "아니요"
+
+msgctxt "#32338"
+msgid "No Bluetooth adapter found."
+msgstr "블루투스 어댑터가 없습니다."
+
+msgctxt "#32339"
+msgid ""
+"No Bluetooth device found. Please put your Bluetooth device into discovery "
+"mode[CR]and start the scan"
+msgstr "블루투스 장치가 없습니다. 블루투스 장치를 검색 모드로 하고 [CR]다시 검색해야 합니다"
+
+msgctxt "#32343"
+msgid "Enter the following Key on your Device."
+msgstr "장치에 아래 키를 입력합니다."
+
+msgctxt "#32344"
+msgid "Enable Bluetooth"
+msgstr "블루투스 사용"
+
+msgctxt "#32346"
+msgid "Bluetooth is disabled"
+msgstr "블루투스가 사용 중지되었습니다."
+
+msgctxt "#32358"
+msgid "Trust and Connect"
+msgstr "확인하고 연결"
+
+msgctxt "#32362"
+msgid "Check for updates now:"
+msgstr "업데이트 확인 :"
+
+msgctxt "#32363"
+msgid "@DISTRONAME@"
+msgstr "@DISTRONAME@"
+
+msgctxt "#32364"
+msgid "Update available"
+msgstr "사용가능한 업데이트"
+
+msgctxt "#32365"
+msgid "Show Update Notifications"
+msgstr "업데이트 알림 표시"
+
+msgctxt "#32366"
+msgid "Update Download Completed"
+msgstr "업데이트 다운로드 완료"
+
+msgctxt "#32367"
+msgid "Update Extract Complete"
+msgstr "업데이트 추출 완료"
+
+msgctxt "#32368"
+msgid "Advanced Network Settings"
+msgstr "고급 네트워크 설정 "
+
+msgctxt "#32369"
+msgid "Wait for network before starting Kodi"
+msgstr "Kodi를 시작하기 전에 네트워크 대기중"
+
+msgctxt "#32370"
+msgid "Maximum Wait Time (Sec.)"
+msgstr "최대 대기 시간 (초)"
+
+msgctxt "#32371"
+msgid "Backup"
+msgstr "백업"
+
+msgctxt "#32372"
+msgid "Create System and Kodi Backup"
+msgstr "시스템과 Kodi 백업하기"
+
+msgctxt "#32373"
+msgid "Restore Backup"
+msgstr "복원"
+
+msgctxt "#32375"
+msgid "Backup Progress"
+msgstr "백업 진행"
+
+msgctxt "#32376"
+msgid "Submit Log"
+msgstr "로그 제출"
+
+msgctxt "#32377"
+msgid "Upload latest Kodi log and configs, and view the short URL"
+msgstr "최신 Kodi 로그과 설정을 업로드하고, 단축 URL을 보여 줍니다"
+
+msgctxt "#32378"
+msgid "Upload latest Kodi crash log and configs, and view the short URL"
+msgstr "최신 Kodi 충돌 로그과 설정을 업로드하고, 단축 URL을 보여 줍니다"
+
+msgctxt "#32379"
+msgid "There is not enough free storage space to continue!"
+msgstr "여유 공간이 부족합니다!"
+
+msgctxt "#32380"
+msgid ""
+"Restoring system settings requires a reboot. Are you sure you want to "
+"restore?"
+msgstr "시스템 설정을 복구하려면 리부팅이 필요합니다. 복구할까요?"
+
+msgctxt "#32381"
+msgid "Accept incoming Bluetooth Filetransfer ?"
+msgstr "블루투스 파일 전송을 허용할까요?"
+
+msgctxt "#32382"
+msgid "Speed"
+msgstr "속도"
+
+msgctxt "#32383"
+msgid "Play Files ?"
+msgstr "파일을 재생할까요?"
+
+msgctxt "#32384"
+msgid "OBEX Enabled"
+msgstr "OBEX 사용"
+
+msgctxt "#32385"
+msgid "OBEX Upload Folder"
+msgstr "OBEX 업로드 폴더"
+
+msgctxt "#32386"
+msgid "Keyboard Layout Variant #1"
+msgstr "키보드 배열 변형 #1"
+
+msgctxt "#32387"
+msgid "Keyboard Layout Variant #2"
+msgstr "키보드 배열 변형 #2"
+
+msgctxt "#32388"
+msgid "Enable Standby"
+msgstr "대기 모드 사용"
+
+msgctxt "#32389"
+msgid "Disable Standby"
+msgstr "대기 모드 사용안함"
+
+msgctxt "#32390"
+msgid "Settings addon is not yet ready, please try again later."
+msgstr "설정 애드온이 준비되지 않았습니다. 다음에 시도하시기 바랍니다."
+
+msgctxt "#32391"
+msgid "Upload configs and other debug info without logs, and view the short URL"
+msgstr ""
+
+msgctxt "#32393"
+msgid "** SAFE MODE! ** SAFE MODE! ** SAFE MODE! **"
+msgstr "** 안전 모드! ** 안전 모드! ** 안전 모드! **"
+
+msgctxt "#32395"
+msgid "Firewall"
+msgstr "방화벽"
+
+msgctxt "#32396"
+msgid "Custom"
+msgstr "사용자"
+
+msgctxt "#32397"
+msgid "Off"
+msgstr "끄기"
+
+msgctxt "#32398"
+msgid "Home"
+msgstr "집"
+
+msgctxt "#32399"
+msgid "Public"
+msgstr "공용"
+
+msgctxt "#32400"
+msgid "Idle Timeout"
+msgstr "가동되지 않은 시간"

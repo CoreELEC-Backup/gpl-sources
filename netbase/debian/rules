@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+D := $(CURDIR)/debian/netbase
+
+%:
+	dh $@ $(NO_PACKAGE)
+
+override_dh_auto_test:
+#	check for duplicate etc/services entries and abort if any found
+	@echo Checking for duplicate services:
+	@if (sed 's/#.*$$//;s/[[:space:]][[:space:]]*/ /g' etc/services | \
+	      while read name serv other; do \
+	        for a in $$name $$other; do echo $$a $$serv; done; \
+              done | sort | uniq -d | sed 's/^/  /' | grep ^); \
+        then \
+	  false; \
+	else \
+	  echo "  None found"; \
+	fi
+

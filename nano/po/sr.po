@@ -1,0 +1,2890 @@
+# Serbian translation of nano.
+# Copyright © 2017 Free Software Foundation, Inc.
+# This file is distributed under the same license as the nano package.
+# Danilo Segan <dsegan@gmx.net>, 2003.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2013—2018.
+msgid ""
+msgstr ""
+"Project-Id-Version: nano-2.9.4-pre1\n"
+"Report-Msgid-Bugs-To: nano-devel@gnu.org\n"
+"POT-Creation-Date: 2020-05-23 17:07+0200\n"
+"PO-Revision-Date: 2018-03-19 05:33+0200\n"
+"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"Language-Team: Serbian <(nothing)>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+
+#: src/browser.c:67
+#, c-format
+msgid "Cannot open directory: %s"
+msgstr "Не могу да отворим директоријум: %s"
+
+#. TRANSLATORS: This is a prompt.
+#: src/browser.c:232
+msgid "Go To Directory"
+msgstr "Иди у директоријум"
+
+#: src/browser.c:233 src/browser.c:648 src/files.c:1181 src/files.c:2127
+#: src/nano.c:844 src/search.c:114 src/search.c:208 src/search.c:712
+#: src/search.c:765 src/text.c:2559 src/text.c:2751
+msgid "Cancelled"
+msgstr "Отказано"
+
+#. TRANSLATORS: This refers to the confining effect of the
+#. * option --operatingdir, not of --restricted.
+#: src/browser.c:250 src/browser.c:281
+#, c-format
+msgid "Can't go outside of %s"
+msgstr "Не могу да идем ван „%s“"
+
+#: src/browser.c:272
+msgid "Can't move up a directory"
+msgstr "Не могу да идем директоријум изнад"
+
+#: src/browser.c:287 src/files.c:902 src/files.c:908 src/files.c:1655
+#: src/files.c:1764 src/files.c:1797 src/files.c:1811 src/history.c:298
+#: src/history.c:394 src/rcfile.c:899 src/rcfile.c:1609
+#, c-format
+msgid "Error reading %s: %s"
+msgstr "Грешка при читању „%s“: %s"
+
+#: src/browser.c:370
+msgid "The working directory has disappeared"
+msgstr "Радни директоријум је нестао"
+
+#. TRANSLATORS: Try to keep this at most 7 characters.
+#: src/browser.c:518 src/browser.c:525
+msgid "(dir)"
+msgstr "(дир)"
+
+#. TRANSLATORS: Try to keep this at most 12 characters.
+#: src/browser.c:522
+msgid "(parent dir)"
+msgstr "(главни дир)"
+
+#. TRANSLATORS: Try to keep this at most 7 characters.
+#. * If necessary, you can leave out the parentheses.
+#: src/browser.c:552
+msgid "(huge)"
+msgstr "(велик)"
+
+#. TRANSLATORS: This is the main search prompt.
+#: src/browser.c:637 src/search.c:100
+msgid "Search"
+msgstr "Тражи"
+
+#. TRANSLATORS: A modifier of the Search prompt.
+#: src/browser.c:639 src/search.c:104
+msgid " [Backwards]"
+msgstr " [уназад]"
+
+#: src/browser.c:678 src/browser.c:683 src/search.c:278
+msgid "Search Wrapped"
+msgstr "Тражи у круг"
+
+#: src/browser.c:694 src/search.c:416
+msgid "This is the only occurrence"
+msgstr "Ово је једина појава"
+
+#: src/browser.c:740 src/search.c:352
+msgid "No current search pattern"
+msgstr "Нема шаблона текуће претраге"
+
+#: src/color.c:186
+#, c-format
+msgid "Unknown syntax name: %s"
+msgstr "Непознат назив синтаксе: %s"
+
+#: src/color.c:226
+#, c-format
+msgid "magic_load() failed: %s"
+msgstr "„magic_load()“ није успело: %s"
+
+#: src/color.c:230
+#, c-format
+msgid "magic_file(%s) failed: %s"
+msgstr "„magic_file(%s)“ није успело: %s"
+
+#: src/cut.c:159 src/cut.c:224 src/cut.c:594
+msgid "Nothing was cut"
+msgstr ""
+
+#: src/cut.c:639
+msgid "Cutbuffer is empty"
+msgstr ""
+
+#: src/files.c:109
+#, c-format
+msgid "Error deleting lock file %s: %s"
+msgstr "Грешка брисања датотеке закључавања „%s“: %s"
+
+#. TRANSLATORS: Keep the next eight messages at most 76 characters.
+#: src/files.c:138
+msgid "Couldn't determine my identity for lock file"
+msgstr ""
+
+#: src/files.c:143
+#, c-format
+msgid "Couldn't determine hostname: %s"
+msgstr ""
+
+#: src/files.c:163 src/files.c:172 src/files.c:213
+#, c-format
+msgid "Error writing lock file %s: %s"
+msgstr "Грешка записивања датотеке закључавања „%s“: %s"
+
+#: src/files.c:240
+msgid "Someone else is also editing this file"
+msgstr ""
+
+#: src/files.c:248
+#, c-format
+msgid "Error opening lock file %s: %s"
+msgstr "Грешка отварања датотеке закључавања „%s“: %s"
+
+#: src/files.c:263
+#, c-format
+msgid "Bad lock file is ignored: %s"
+msgstr ""
+
+#. TRANSLATORS: The second %s is the name of the user, the third that of the editor.
+#: src/files.c:284
+#, c-format
+msgid "File %s is being edited by %s (with %s, PID %s); open anyway?"
+msgstr ""
+
+#: src/files.c:352
+#, c-format
+msgid "Directory '%s' does not exist"
+msgstr "Директоријум „%s“ не постоји"
+
+#: src/files.c:354
+#, c-format
+msgid "Path '%s': %s"
+msgstr "Путања „%s“: %s"
+
+#: src/files.c:356
+#, c-format
+msgid "Path '%s' is not a directory"
+msgstr "Путања „%s“ није директоријум"
+
+#: src/files.c:358
+#, c-format
+msgid "Path '%s' is not accessible"
+msgstr "Путањи „%s“ се не може приступати"
+
+#: src/files.c:361
+#, c-format
+msgid "Directory '%s' is not writable"
+msgstr "Директоријум „%s“ није уписив"
+
+#: src/files.c:391
+#, c-format
+msgid "Can't read file from outside of %s"
+msgstr "Не могу да читам датотеку изван „%s“"
+
+#: src/files.c:401 src/rcfile.c:875
+#, c-format
+msgid "\"%s\" is a directory"
+msgstr "„%s“ је директоријум"
+
+#: src/files.c:406 src/rcfile.c:876
+#, c-format
+msgid "\"%s\" is a device file"
+msgstr "„%s“ је датотека уређаја"
+
+#: src/files.c:412
+#, c-format
+msgid "\"%s\" is a FIFO"
+msgstr ""
+
+#. TRANSLATORS: First %s is file name, second %s is file format.
+#: src/files.c:522
+#, c-format
+msgid "%s -- %zu line (%s)"
+msgid_plural "%s -- %zu lines (%s)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/files.c:524 src/files.c:530 src/global.c:1070 src/winio.c:2088
+msgid "New Buffer"
+msgstr "Нова међумеморија"
+
+#: src/files.c:525
+msgid "DOS"
+msgstr ""
+
+#: src/files.c:525
+msgid "Mac"
+msgstr ""
+
+#: src/files.c:528
+#, c-format
+msgid "%s -- %zu line"
+msgid_plural "%s -- %zu lines"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/files.c:538
+msgid "No more open file buffers"
+msgstr "Нема више међумеморије отворених датотека"
+
+#: src/files.c:681 src/files.c:900 src/files.c:1854
+msgid "Interrupted"
+msgstr ""
+
+#: src/files.c:819
+#, c-format
+msgid "File '%s' is unwritable"
+msgstr "Датотека „%s“ није уписива"
+
+#. TRANSLATORS: Keep the next four messages at most 78 characters.
+#: src/files.c:823
+#, c-format
+msgid "Read %zu line (Converted from DOS and Mac format)"
+msgid_plural "Read %zu lines (Converted from DOS and Mac format)"
+msgstr[0] "Учитах %zu ред (претворен из ДОС и Мекинтош записа)"
+msgstr[1] "Учитах %zu реда (претворених из ДОС и Мекинтош записа)"
+msgstr[2] "Учитах %zu редова (претворених из ДОС и Мекинтош записа)"
+
+#: src/files.c:828
+#, c-format
+msgid "Read %zu line (Converted from Mac format)"
+msgid_plural "Read %zu lines (Converted from Mac format)"
+msgstr[0] "Учитах %zu ред (претворен из Мекинтош записа)"
+msgstr[1] "Учитах %zu реда (претворених из Мекинтош записа)"
+msgstr[2] "Учитах %zu редова (претворених из Мекинтош записа)"
+
+#: src/files.c:833
+#, c-format
+msgid "Read %zu line (Converted from DOS format)"
+msgid_plural "Read %zu lines (Converted from DOS format)"
+msgstr[0] "Учитах %zu ред (претворен из ДОС записа)"
+msgstr[1] "Учитах %zu реда (претворених из ДОС записа)"
+msgstr[2] "Учитах %zu редова (претворених из ДОС записа)"
+
+#: src/files.c:839
+#, c-format
+msgid "Read %zu line"
+msgid_plural "Read %zu lines"
+msgstr[0] "Учитах %zu ред"
+msgstr[1] "Учитах %zu реда"
+msgstr[2] "Учитах %zu редова"
+
+#: src/files.c:874
+msgid "New File"
+msgstr "Нова датотека"
+
+#: src/files.c:877
+#, c-format
+msgid "File \"%s\" not found"
+msgstr "Нисам нашао датотеку „%s“"
+
+#: src/files.c:884
+msgid "Reading from FIFO..."
+msgstr ""
+
+#: src/files.c:912
+msgid "Reading..."
+msgstr ""
+
+#: src/files.c:993 src/text.c:2146 src/text.c:2567
+msgid "Could not create pipe"
+msgstr "Не могу да направим спојку"
+
+#: src/files.c:1029 src/text.c:2223 src/text.c:2384 src/text.c:2601
+msgid "Could not fork"
+msgstr "Не могу да расцепим"
+
+#: src/files.c:1034
+msgid "Executing..."
+msgstr ""
+
+#. TRANSLATORS: This one goes with Undid/Redid messages.
+#: src/files.c:1054 src/files.c:1097
+msgid "filtering"
+msgstr ""
+
+#: src/files.c:1092
+#, c-format
+msgid "Failed to open pipe: %s"
+msgstr ""
+
+#. TRANSLATORS: The next six messages are prompts.
+#: src/files.c:1137
+msgid "Command to execute in new buffer"
+msgstr "Наредба за извршавање у новој међумеморији"
+
+#: src/files.c:1140
+msgid "Command to execute"
+msgstr "Наредба за извршавање"
+
+#: src/files.c:1148
+#, c-format
+msgid "File to read unconverted into new buffer [from %s]"
+msgstr ""
+
+#: src/files.c:1151
+#, c-format
+msgid "File to read into new buffer [from %s]"
+msgstr ""
+
+#: src/files.c:1156
+#, c-format
+msgid "File to insert unconverted [from %s]"
+msgstr ""
+
+#: src/files.c:1159
+#, c-format
+msgid "File to insert [from %s]"
+msgstr "Датотека за унос [из „%s“]"
+
+#: src/files.c:1484
+#, c-format
+msgid "Invalid operating directory: %s\n"
+msgstr ""
+
+#: src/files.c:1534
+msgid "Failed to write backup file; continue saving? (Say N if unsure.) "
+msgstr ""
+"Нисам успео да запишем датотеку резерве; да наставим са чувањем? (Одговорите "
+"са „N“ ако нисте сигурни.) "
+
+#: src/files.c:1551
+#, c-format
+msgid "Invalid backup directory: %s\n"
+msgstr ""
+
+#: src/files.c:1621
+#, c-format
+msgid "Can't write outside of %s"
+msgstr "Не могу да пишем ван %s"
+
+#: src/files.c:1685 src/files.c:1709 src/files.c:1727 src/files.c:1741
+#: src/files.c:1753 src/files.c:1770 src/files.c:1780
+#, c-format
+msgid "Error writing backup file %s: %s"
+msgstr "Грешка записивања датотеке резерве „%s“: %s"
+
+#: src/files.c:1686 src/nano.c:419
+msgid "Too many backup files?"
+msgstr "Превише резервних датотека?"
+
+#: src/files.c:1804 src/files.c:1815 src/text.c:2477 src/text.c:2495
+#: src/text.c:2891
+#, c-format
+msgid "Error writing temp file: %s"
+msgstr "Грешка писања привремене датотеке: %s"
+
+#: src/files.c:1822
+msgid "Writing to FIFO..."
+msgstr ""
+
+#: src/files.c:1856 src/files.c:1867 src/files.c:1888 src/files.c:1904
+#: src/files.c:1913 src/files.c:1941 src/files.c:1949
+#, c-format
+msgid "Error writing %s: %s"
+msgstr "Грешка приликом писања „%s“: %s"
+
+#: src/files.c:1874
+msgid "Writing..."
+msgstr ""
+
+#: src/files.c:1930 src/files.c:1938
+#, c-format
+msgid "Error reading temp file: %s"
+msgstr ""
+
+#: src/files.c:2006
+#, c-format
+msgid "Wrote %zu line"
+msgid_plural "Wrote %zu lines"
+msgstr[0] "Уписах %zu ред"
+msgstr[1] "Уписах %zu реда"
+msgstr[2] "Уписах %zu редова"
+
+#: src/files.c:2087
+msgid " [DOS Format]"
+msgstr " [ДОС запис]"
+
+#: src/files.c:2088
+msgid " [Mac Format]"
+msgstr " [Мек запис]"
+
+#: src/files.c:2089
+msgid " [Backup]"
+msgstr " [Резерва]"
+
+#. TRANSLATORS: The next six strings are prompts.
+#: src/files.c:2096
+msgid "Prepend Selection to File"
+msgstr "Додаје избор на почетак датотеке"
+
+#: src/files.c:2097
+msgid "Append Selection to File"
+msgstr "Додаје избор на крај датотеке"
+
+#: src/files.c:2098
+msgid "Write Selection to File"
+msgstr "Уписује избор у датотеку"
+
+#: src/files.c:2100
+msgid "File Name to Prepend to"
+msgstr "Назив датотеке којој ће претходити"
+
+#: src/files.c:2101
+msgid "File Name to Append to"
+msgstr "Назив датотеке за којом ће следити"
+
+#: src/files.c:2104
+msgid "File Name to Write"
+msgstr "Назив датотеке у којој ће уписати"
+
+#. TRANSLATORS: Concisely say the screen is too small.
+#: src/files.c:2187
+msgid "Too tiny"
+msgstr ""
+
+#. TRANSLATORS: Restricted mode forbids overwriting.
+#: src/files.c:2217
+msgid "File exists -- cannot overwrite"
+msgstr "Датотека постоји —— не могу да је препишем"
+
+#: src/files.c:2227
+msgid "Save file under DIFFERENT NAME? "
+msgstr "Да сачувам датотеку под ДРУГАЧИЈИМ НАЗИВОМ? "
+
+#: src/files.c:2235
+#, c-format
+msgid "File \"%s\" exists; OVERWRITE? "
+msgstr "Датотека „%s“ постоји, да ПРЕСНИМИМ? "
+
+#: src/files.c:2261
+msgid "File on disk has changed"
+msgstr "Датотека на диску је измењена"
+
+#: src/files.c:2263
+msgid "File was modified since you opened it; continue saving? "
+msgstr "Датотека је измењена од када сте је отворили; да наставим са чувањем? "
+
+#: src/files.c:2665
+msgid "(more)"
+msgstr "(још)"
+
+#. TRANSLATORS: Try to keep the next two strings at most 10 characters.
+#: src/global.c:563
+msgid "Exit"
+msgstr "Изађи"
+
+#: src/global.c:564
+msgid "Close"
+msgstr "Затвори"
+
+#. TRANSLATORS: The next long series of strings are shortcut descriptions;
+#. * they are best kept shorter than 56 characters, but may be longer.
+#: src/global.c:572
+msgid "Cancel the current function"
+msgstr "Отказује текућу операцију"
+
+#: src/global.c:573
+msgid "Display this help text"
+msgstr "Приказује текст ове помоћи"
+
+#: src/global.c:574
+msgid "Close the current buffer / Exit from nano"
+msgstr "Затвара текућу међумеморију / излази из нана"
+
+#: src/global.c:576
+msgid "Write the current buffer (or the marked region) to disk"
+msgstr "Уписује текућу међумеморију (или назначену област) на диск"
+
+#: src/global.c:578
+msgid "Insert another file into current buffer (or into new buffer)"
+msgstr "Умеће другу фатотеку у текућу међумеморију (или у нову)"
+
+#: src/global.c:580
+msgid "Search forward for a string or a regular expression"
+msgstr "Тражи унапред ниску или регуларни израз"
+
+#: src/global.c:582
+msgid "Search backward for a string or a regular expression"
+msgstr "Тражи уназа ниску или регуларни израз"
+
+#: src/global.c:584
+msgid "Cut current line (or marked region) and store it in cutbuffer"
+msgstr "Исеца текући ред (или означену област) и смешта га у исечке"
+
+#: src/global.c:586
+msgid "Paste the contents of cutbuffer at current cursor position"
+msgstr ""
+
+#: src/global.c:587
+msgid "Display the position of the cursor"
+msgstr "Приказује положај курзора"
+
+#: src/global.c:589
+msgid "Invoke the spell checker, if available"
+msgstr "Покреће проверу правописа, ако је доступна"
+
+#: src/global.c:591
+msgid "Replace a string or a regular expression"
+msgstr "Замењује ниску или регуларни израз"
+
+#: src/global.c:592
+msgid "Go to line and column number"
+msgstr "На ред и број ступца"
+
+#: src/global.c:594
+msgid "Mark text starting from the cursor position"
+msgstr "Означава текст почевши од положаја курзора"
+
+#: src/global.c:596
+msgid "Copy current line (or marked region) and store it in cutbuffer"
+msgstr "Исеца текући ред (или означену област) и смешта га у исечке"
+
+#: src/global.c:597
+msgid "Throw away the current line (or marked region)"
+msgstr ""
+
+#: src/global.c:598
+msgid "Indent the current line (or marked lines)"
+msgstr "Увлачи текући ред (или означене редове)"
+
+#: src/global.c:599
+msgid "Unindent the current line (or marked lines)"
+msgstr "Поништава увлачење текућег реда (или означених редова)"
+
+#: src/global.c:600
+msgid "Undo the last operation"
+msgstr "Поништава последњу радњу"
+
+#: src/global.c:601
+msgid "Redo the last undone operation"
+msgstr "Враћа последњу поништену радњу"
+
+#: src/global.c:603
+msgid "Go back one character"
+msgstr "Иде један знак уназад"
+
+#: src/global.c:604
+msgid "Go forward one character"
+msgstr "Иде један знак унапред"
+
+#: src/global.c:605
+msgid "Go back one word"
+msgstr "Иде једну реч уназад"
+
+#: src/global.c:606
+msgid "Go forward one word"
+msgstr "Иде једну реч унапред"
+
+#: src/global.c:607
+msgid "Go to previous line"
+msgstr "На претходни ред"
+
+#: src/global.c:608
+msgid "Go to next line"
+msgstr "На следећи ред"
+
+#: src/global.c:609
+msgid "Go to beginning of current line"
+msgstr "На почетак текућег реда"
+
+#: src/global.c:610
+msgid "Go to end of current line"
+msgstr "На крај текућег реда"
+
+#: src/global.c:611
+msgid "Go to previous block of text"
+msgstr "Иде на претходни блок текста"
+
+#: src/global.c:612
+msgid "Go to next block of text"
+msgstr "Иде на следећи блок текста"
+
+#: src/global.c:615
+msgid "Go to beginning of paragraph; then of previous paragraph"
+msgstr "На почетак пасуса; затим претходног пасуса"
+
+#: src/global.c:617
+msgid "Go just beyond end of paragraph; then of next paragraph"
+msgstr "Иде одмах после краја пасуса; затим следећег пасуса"
+
+#: src/global.c:619
+msgid "Go one screenful up"
+msgstr "На следећи екран"
+
+#: src/global.c:620
+msgid "Go one screenful down"
+msgstr "На претходни екран"
+
+#: src/global.c:621
+msgid "Go to the first line of the file"
+msgstr "Иде у први ред датотеке"
+
+#: src/global.c:622
+msgid "Go to the last line of the file"
+msgstr "Иде у последњи ред датотеке"
+
+#: src/global.c:624
+msgid "Go to the matching bracket"
+msgstr "На одговарајућу заграду"
+
+#: src/global.c:628
+msgid "Scroll up one line without moving the cursor textually"
+msgstr ""
+
+#: src/global.c:630
+msgid "Scroll down one line without moving the cursor textually"
+msgstr ""
+
+#: src/global.c:633
+msgid "Switch to the previous file buffer"
+msgstr "Пребацује се на међумеморију претходне датотеке"
+
+#: src/global.c:634
+msgid "Switch to the next file buffer"
+msgstr "Пребацује се на међумеморију следеће датотеке"
+
+#: src/global.c:636
+msgid "Insert the next keystroke verbatim"
+msgstr "Умеће следећу дословност притиска тастера"
+
+#: src/global.c:637
+msgid "Insert a tab at the cursor position"
+msgstr "Умеће табулатор на положај курсора"
+
+#: src/global.c:638
+msgid "Insert a newline at the cursor position"
+msgstr "Умеће нови ред на положај курсора"
+
+#: src/global.c:639
+msgid "Delete the character under the cursor"
+msgstr "Брише знак под курзором"
+
+#: src/global.c:641
+msgid "Delete the character to the left of the cursor"
+msgstr "Брише знак лево од курзора"
+
+#: src/global.c:644
+msgid "Delete backward from cursor to word start"
+msgstr ""
+
+#: src/global.c:646
+msgid "Delete forward from cursor to next word start"
+msgstr ""
+
+#: src/global.c:648
+msgid "Cut from the cursor position to the end of the file"
+msgstr "Одсеца од положаја курзора до краја датотеке"
+
+#: src/global.c:651
+msgid "Justify the current paragraph"
+msgstr "Поравнава текући пасус"
+
+#: src/global.c:652
+msgid "Justify the entire file"
+msgstr "Поравнава читаву датотеку"
+
+#: src/global.c:656
+msgid "Count the number of words, lines, and characters"
+msgstr "Броји речи, редова, и знакова"
+
+#: src/global.c:658
+msgid "Refresh (redraw) the current screen"
+msgstr "Освежава (поново исцртава) текући екран"
+
+#: src/global.c:659
+msgid "Suspend the editor (if suspension is enabled)"
+msgstr "Обуставља уређивача (ако је обустављање укључено)"
+
+#: src/global.c:661
+msgid "Try and complete the current word"
+msgstr "Покушава и довршава текућу реч"
+
+#: src/global.c:665
+msgid "Comment/uncomment the current line (or marked lines)"
+msgstr "Поставља/уклања напомену текућег реда (или означених редова)"
+
+#: src/global.c:667
+msgid "Save file without prompting"
+msgstr "Чува датотеку без постављања упита"
+
+#: src/global.c:668
+msgid "Search next occurrence backward"
+msgstr "Тражи следеће појављивање уназад"
+
+#: src/global.c:669
+msgid "Search next occurrence forward"
+msgstr "Тражи следеће појављивање унапред"
+
+#: src/global.c:671
+msgid "Start/stop recording a macro"
+msgstr "Покреће/зауставља снимање макроа"
+
+#: src/global.c:672
+msgid "Run the last recorded macro"
+msgstr "Покреће последњи снимљени макро"
+
+#: src/global.c:674
+msgid "Toggle the case sensitivity of the search"
+msgstr "Пребацује осетљивост величине слова у претрази"
+
+#: src/global.c:675
+msgid "Reverse the direction of the search"
+msgstr "Заокреће правац претраге"
+
+#: src/global.c:676
+msgid "Toggle the use of regular expressions"
+msgstr "Пребацује коришћење регуларних израза"
+
+#: src/global.c:678
+msgid "Recall the previous search/replace string"
+msgstr "Опозива ниску претходне претраге и замене"
+
+#: src/global.c:679
+msgid "Recall the next search/replace string"
+msgstr "Опозива ниску следеће претраге и замене"
+
+#: src/global.c:682
+msgid "Toggle the use of DOS format"
+msgstr "Пребацује коришћење ДОС записа"
+
+#: src/global.c:683
+msgid "Toggle the use of Mac format"
+msgstr "Пребацује коришћење Мекинтош записа"
+
+#: src/global.c:684
+msgid "Toggle appending"
+msgstr "Пребацује додавање након"
+
+#: src/global.c:685
+msgid "Toggle prepending"
+msgstr "Пребацује додавање пре"
+
+#: src/global.c:686
+msgid "Toggle backing up of the original file"
+msgstr "Пребацује стварање резерве изворне датотеке"
+
+#: src/global.c:687
+msgid "Execute external command"
+msgstr "Извршава спољну наредбу"
+
+#: src/global.c:689
+msgid "Pipe the current buffer (or marked region) to the command"
+msgstr ""
+
+#: src/global.c:690
+msgid "Do not convert from DOS/Mac format"
+msgstr ""
+
+#: src/global.c:693
+msgid "Toggle the use of a new buffer"
+msgstr "Пребацује коришћење нове међумеморије"
+
+#: src/global.c:695
+msgid "Close buffer without saving it"
+msgstr "Затвара међумеморију без чувања"
+
+#: src/global.c:697
+msgid "Go to file browser"
+msgstr "Иде у прегледач датотека"
+
+#: src/global.c:698
+msgid "Exit from the file browser"
+msgstr "Излази из прегледача датотека"
+
+#: src/global.c:699
+msgid "Go to the first file in the list"
+msgstr "Иде у прву датотеку на списку"
+
+#: src/global.c:700
+msgid "Go to the last file in the list"
+msgstr "Иде у последњу датотеку на списку"
+
+#: src/global.c:701
+msgid "Go to the previous file in the list"
+msgstr "На претходну датотеку на списку"
+
+#: src/global.c:702
+msgid "Go to the next file in the list"
+msgstr "Иде у следећу датотеку на списку"
+
+#: src/global.c:704
+msgid "Go to lefthand column"
+msgstr "Иде на стубац са леве стане"
+
+#: src/global.c:705
+msgid "Go to righthand column"
+msgstr "Иде на стубац са десне стане"
+
+#: src/global.c:706
+msgid "Go to first row in this column"
+msgstr "Иде на први ред у овом ступцу"
+
+#: src/global.c:707
+msgid "Go to last row in this column"
+msgstr "Иде на последњи ред у овом ступцу"
+
+#: src/global.c:709
+msgid "Search forward for a string"
+msgstr ""
+
+#: src/global.c:710
+msgid "Search backward for a string"
+msgstr ""
+
+#: src/global.c:711
+msgid "Refresh the file list"
+msgstr "Освежава списак датотека"
+
+#: src/global.c:712
+msgid "Go to directory"
+msgstr "Иде у директоријум"
+
+#: src/global.c:715
+msgid "Invoke the linter, if available"
+msgstr "Покреће чистача, ако је доступан"
+
+#: src/global.c:716
+msgid "Go to previous linter msg"
+msgstr "Иде на претходну поруку чистача"
+
+#: src/global.c:717
+msgid "Go to next linter msg"
+msgstr "Иде на следећу поруку чистача"
+
+#: src/global.c:720
+msgid "Invoke a program to format/arrange/manipulate the buffer"
+msgstr ""
+
+#. TRANSLATORS: Try to keep the next eleven strings at most 10 characters.
+#: src/global.c:735
+msgid "Get Help"
+msgstr "Добави помоћ"
+
+#: src/global.c:738 src/prompt.c:668
+msgid "Cancel"
+msgstr "Откажи"
+
+#: src/global.c:751
+msgid "Write Out"
+msgstr "Испиши"
+
+#: src/global.c:759 src/global.c:1085
+msgid "Read File"
+msgstr "Читај датотеку"
+
+#: src/global.c:766 src/global.c:791
+msgid "Justify"
+msgstr "Пораванај"
+
+#: src/global.c:772 src/global.c:857 src/global.c:887 src/global.c:1000
+msgid "Refresh"
+msgstr "Освежи"
+
+#: src/global.c:777 src/global.c:860
+msgid "Where Is"
+msgstr "Где је"
+
+#: src/global.c:780 src/global.c:831
+msgid "Replace"
+msgstr "Замени"
+
+#: src/global.c:783
+msgid "Cut Text"
+msgstr "Исеци текст"
+
+#: src/global.c:786
+msgid "Paste Text"
+msgstr ""
+
+#: src/global.c:795
+msgid "To Spell"
+msgstr "На проверу писања"
+
+#. TRANSLATORS: Try to keep the next thirteen strings at most 12 characters.
+#: src/global.c:801
+msgid "Cur Pos"
+msgstr "Положај курзора"
+
+#: src/global.c:808 src/global.c:844 src/global.c:955
+msgid "Go To Line"
+msgstr "На ред"
+
+#: src/global.c:813
+msgid "Undo"
+msgstr "Опозови"
+
+#: src/global.c:815
+msgid "Redo"
+msgstr "Поврати"
+
+#: src/global.c:818
+msgid "Mark Text"
+msgstr "Означи текст"
+
+#: src/global.c:820
+msgid "Copy Text"
+msgstr "Умножи текст"
+
+#: src/global.c:824
+msgid "Case Sens"
+msgstr "Вел. слова"
+
+#: src/global.c:826
+msgid "Regexp"
+msgstr "Рег. израз"
+
+#: src/global.c:828
+msgid "Backwards"
+msgstr "Уназад"
+
+#: src/global.c:834
+msgid "No Replace"
+msgstr "Не мењај"
+
+#: src/global.c:838
+msgid "Older"
+msgstr ""
+
+#: src/global.c:840
+msgid "Newer"
+msgstr ""
+
+#: src/global.c:848 src/global.c:987
+msgid "FullJstify"
+msgstr "Пуно поравнање"
+
+#. TRANSLATORS: Try to keep the next seven strings at most 10 characters.
+#: src/global.c:854
+msgid "Go To Dir"
+msgstr "У директорјум"
+
+#. TRANSLATORS: This starts a backward search.
+#: src/global.c:862 src/global.c:871 src/global.c:885
+msgid "Where Was"
+msgstr "Где беше"
+
+#: src/global.c:867
+msgid "To Bracket"
+msgstr "До заграде"
+
+#. TRANSLATORS: This refers to searching the preceding occurrence.
+#: src/global.c:875
+msgid "Previous"
+msgstr "Претходно"
+
+#: src/global.c:878 src/global.c:883
+msgid "Next"
+msgstr "Следеће"
+
+#. TRANSLATORS: This means move the cursor one character back.
+#: src/global.c:892 src/global.c:897
+msgid "Back"
+msgstr "Назад"
+
+#: src/global.c:894 src/global.c:899
+msgid "Forward"
+msgstr "Напред"
+
+#. TRANSLATORS: Try to keep the next eighteen strings at most 12 characters.
+#: src/global.c:904
+msgid "Prev Word"
+msgstr "Претходна реч"
+
+#: src/global.c:906
+msgid "Next Word"
+msgstr "Следећа реч"
+
+#: src/global.c:909
+msgid "Home"
+msgstr "Почетак"
+
+#: src/global.c:911
+msgid "End"
+msgstr "Крај"
+
+#: src/global.c:914
+msgid "Prev Line"
+msgstr "Претходни ред"
+
+#: src/global.c:916
+msgid "Next Line"
+msgstr "Следећи ред"
+
+#: src/global.c:919
+msgid "Scroll Up"
+msgstr "Помакни горе"
+
+#: src/global.c:921
+msgid "Scroll Down"
+msgstr "Помакни доле"
+
+#: src/global.c:925
+msgid "Prev Block"
+msgstr "Претходни блок"
+
+#: src/global.c:927
+msgid "Next Block"
+msgstr "Следећи блок"
+
+#: src/global.c:930
+msgid "Beg of Par"
+msgstr "Почeтaк пасуса"
+
+#: src/global.c:932
+msgid "End of Par"
+msgstr "Крај пасуса"
+
+#: src/global.c:936 src/global.c:1095
+msgid "Prev Page"
+msgstr "Претходна страна"
+
+#: src/global.c:938 src/global.c:1097
+msgid "Next Page"
+msgstr "Следећа страна"
+
+#: src/global.c:941
+msgid "First Line"
+msgstr "Први ред"
+
+#: src/global.c:943
+msgid "Last Line"
+msgstr "Последњи ред"
+
+#: src/global.c:947
+msgid "Prev File"
+msgstr "Претходна датотека"
+
+#: src/global.c:949
+msgid "Next File"
+msgstr "Следећа датотека"
+
+#. TRANSLATORS: The next four strings are names of keyboard keys.
+#: src/global.c:960
+msgid "Tab"
+msgstr "Табулатор"
+
+#: src/global.c:962
+msgid "Enter"
+msgstr "Унеси"
+
+#: src/global.c:965
+msgid "Backspace"
+msgstr "Врати простор"
+
+#: src/global.c:967
+msgid "Delete"
+msgstr "Обриши"
+
+#. TRANSLATORS: The next two strings refer to deleting words.
+#: src/global.c:978
+msgid "Chop Left"
+msgstr ""
+
+#: src/global.c:980
+msgid "Chop Right"
+msgstr ""
+
+#: src/global.c:982
+msgid "CutTillEnd"
+msgstr "Исеци до краја"
+
+#: src/global.c:992
+msgid "Word Count"
+msgstr "Изброј речи"
+
+#: src/global.c:996
+msgid "Verbatim"
+msgstr "Вербатим"
+
+#: src/global.c:1004
+msgid "Suspend"
+msgstr "Обустави"
+
+#: src/global.c:1008
+msgid "Indent"
+msgstr ""
+
+#: src/global.c:1010
+msgid "Unindent"
+msgstr ""
+
+#: src/global.c:1014
+msgid "Comment Lines"
+msgstr "Комент. редове"
+
+#: src/global.c:1018
+msgid "Complete"
+msgstr "Доврши"
+
+#: src/global.c:1022
+msgid "Record"
+msgstr "Сними"
+
+#: src/global.c:1024
+msgid "Run Macro"
+msgstr "Покрени макро"
+
+#: src/global.c:1027
+msgid "Zap Text"
+msgstr ""
+
+#: src/global.c:1032
+msgid "To Linter"
+msgstr "На чишћење"
+
+#: src/global.c:1035
+msgid "Formatter"
+msgstr "Обликовач"
+
+#: src/global.c:1041
+msgid "Save"
+msgstr "Сачувај"
+
+#: src/global.c:1044
+msgid "Go To Text"
+msgstr "На текст"
+
+#: src/global.c:1048
+msgid "DOS Format"
+msgstr "ДОС запис"
+
+#: src/global.c:1050
+msgid "Mac Format"
+msgstr "Мекинтош запис"
+
+#: src/global.c:1058
+msgid "Append"
+msgstr "Додај позади"
+
+#: src/global.c:1060
+msgid "Prepend"
+msgstr "Додај напред"
+
+#: src/global.c:1063
+msgid "Backup File"
+msgstr "Направи резерву"
+
+#: src/global.c:1074
+msgid "No Conversion"
+msgstr ""
+
+#: src/global.c:1079
+msgid "Execute Command"
+msgstr "Изврши наредбу"
+
+#: src/global.c:1082
+msgid "Pipe Text"
+msgstr ""
+
+#: src/global.c:1092
+msgid "To Files"
+msgstr "У датотеке"
+
+#: src/global.c:1100
+msgid "First File"
+msgstr "Прва датотека"
+
+#: src/global.c:1102
+msgid "Last File"
+msgstr "Пследња датотека"
+
+#: src/global.c:1105
+msgid "Left Column"
+msgstr "Леви стубац"
+
+#: src/global.c:1107
+msgid "Right Column"
+msgstr "Десни стубац"
+
+#: src/global.c:1109
+msgid "Top Row"
+msgstr "Горњи ред"
+
+#: src/global.c:1111
+msgid "Bottom Row"
+msgstr "Доњи ред"
+
+#: src/global.c:1116
+msgid "Discard buffer"
+msgstr "Одбаци међумеморију"
+
+#. TRANSLATORS: The next two strings may be up to 37 characters each.
+#: src/global.c:1121
+msgid "Prev Lint Msg"
+msgstr "Пртх пор чистч"
+
+#: src/global.c:1123
+msgid "Next Lint Msg"
+msgstr "След пор чистч"
+
+#. TRANSLATORS: The next thirteen strings are toggle descriptions;
+#. * they are best kept shorter than 40 characters, but may be longer.
+#: src/global.c:1453
+msgid "Help mode"
+msgstr "Режим помоћи"
+
+#: src/global.c:1455
+msgid "Constant cursor position display"
+msgstr "Сталан приказ положаја курзора"
+
+#: src/global.c:1457
+msgid "Soft wrapping of overlong lines"
+msgstr "Слабо преламање превише дугих редова"
+
+#: src/global.c:1459
+msgid "Whitespace display"
+msgstr "Приказ празнина"
+
+#: src/global.c:1461
+msgid "Color syntax highlighting"
+msgstr "Истицање синтаксе у боји"
+
+#: src/global.c:1463
+msgid "Smart home key"
+msgstr "Паметни тастер „Почетак“"
+
+#: src/global.c:1465
+msgid "Auto indent"
+msgstr "Самоувлачење"
+
+#: src/global.c:1467
+msgid "Cut to end"
+msgstr "Исецање до краја"
+
+#: src/global.c:1469
+msgid "Hard wrapping of overlong lines"
+msgstr "Јако преламање превише дугих редова"
+
+#: src/global.c:1471
+msgid "Conversion of typed tabs to spaces"
+msgstr "Претварање укуцаних табулатора у размаке"
+
+#: src/global.c:1473
+msgid "Mouse support"
+msgstr "Подршка за миша"
+
+#: src/global.c:1475
+msgid "Suspension"
+msgstr "Обустави"
+
+#: src/global.c:1477
+msgid "Line numbering"
+msgstr "Набрајање редова"
+
+# bug: there's "enter" and "Enter"
+#: src/help.c:305
+msgid ""
+"Search Command Help Text\n"
+"\n"
+" Enter the words or characters you would like to search for, and then press "
+"Enter.  If there is a match for the text you entered, the screen will be "
+"updated to the location of the nearest match for the search string.\n"
+"\n"
+" The previous search string will be shown in brackets after the search "
+"prompt.  Hitting Enter without entering any text will perform the previous "
+"search.  "
+msgstr ""
+"Помоћ за наредбу претраге\n"
+"\n"
+" Унесите речи или знаке које желите да нађете, и притисните Унеси. Уколико "
+"постоји тражени текст, на екрану ће се приказати положај најближег резултата "
+"претраге.\n"
+"\n"
+" Претходна ниска претраге ће се приказати у угластим заградама након "
+"„Тражи:“. Притиском на Унеси без уноса неког текста ће обавити претходну "
+"претрагу.  "
+
+#: src/help.c:314
+msgid ""
+"If you have selected text with the mark and then search to replace, only "
+"matches in the selected text will be replaced.\n"
+"\n"
+" The following function keys are available in Search mode:\n"
+"\n"
+msgstr ""
+"Ако сте изабрали текст са означавачем а затим претрагу да замените, само "
+"поклапања у изабраном тексту ће бити замењена.\n"
+"\n"
+" Следећи тастери су доступни у режиму претраге:\n"
+"\n"
+
+#: src/help.c:320
+msgid ""
+"Go To Line Help Text\n"
+"\n"
+" Enter the line number that you wish to go to and hit Enter.  If there are "
+"fewer lines of text than the number you entered, you will be brought to the "
+"last line of the file.\n"
+"\n"
+" The following function keys are available in Go To Line mode:\n"
+"\n"
+msgstr ""
+"Помоћ за одлазак у ред\n"
+"\n"
+" Унесите број реда у који желите да идете и притисните Унеси. Уколико има "
+"мање редова текста од броја који сте унели, поставићу вас на последњи ред "
+"датотеке.\n"
+"\n"
+" Следећи тастери су доступни у режиму одласка у ред:\n"
+"\n"
+
+#: src/help.c:329
+msgid ""
+"Insert File Help Text\n"
+"\n"
+" Type in the name of a file to be inserted into the current file buffer at "
+"the current cursor location.\n"
+"\n"
+" If you have compiled nano with multiple file buffer support, and enable "
+"multiple file buffers with the -F or --multibuffer command line flags, the "
+"Meta-F toggle, or a nanorc file, inserting a file will cause it to be loaded "
+"into a separate buffer (use Meta-< and > to switch between file buffers).  "
+msgstr ""
+"Помоћ за уметање датотеке\n"
+"\n"
+" Унесите назив датотеке коју желите да уметнете у текућу међумеморију на "
+"текућем положају курзора.\n"
+"\n"
+" Уколико сте наноа изградили са подршком међумеморије за више датотека, и "
+"укључили међумеморије више датотека са опцијама „-F“ или „--multibuffer“, "
+"Мета-F изменом, или нанорц датотеком, уметање датотеке ће је учитати у "
+"одвојеној међумеморији (користите Мета-< и > за пребацивање између "
+"међумеморија).  "
+
+#: src/help.c:338
+msgid ""
+"If you need another blank buffer, do not enter any filename, or type in a "
+"nonexistent filename at the prompt and press Enter.\n"
+"\n"
+" The following function keys are available in Insert File mode:\n"
+"\n"
+msgstr ""
+"Уколико вам треба још једна празна међумеморија, немојте унети назив "
+"датотеке, или укуцајте назив непостојеће датотеке и притисните Унеси.\n"
+"\n"
+" Следећи тастери су доступни у режиму уметања датотеке:\n"
+"\n"
+
+#: src/help.c:344
+msgid ""
+"Write File Help Text\n"
+"\n"
+" Type the name that you wish to save the current file as and press Enter to "
+"save the file.\n"
+"\n"
+" If you have selected text with the mark, you will be prompted to save only "
+"the selected portion to a separate file.  To reduce the chance of "
+"overwriting the current file with just a portion of it, the current filename "
+"is not the default in this mode.\n"
+"\n"
+" The following function keys are available in Write File mode:\n"
+"\n"
+msgstr ""
+"Помоћ за упис датотеке\n"
+"\n"
+" Унесите назив датотеке у којој желите да сачувате текућу датотеку и "
+"притисните Унеси да сачувате датотеку.\n"
+"\n"
+" Уколико сте изабрали текст помоћу означавача, бићете упитани да ли желите "
+"да сачувате само изабрани део у засебну датотеку. Да умањите шансе "
+"преснимавања постојеће датотеке само једним њеним делом, назив текуће "
+"датотеке се не подразумева у овом режиму.\n"
+"\n"
+" Следећи тастери су доступни у режиму уписа датотеке:\n"
+"\n"
+
+#: src/help.c:358
+msgid ""
+"File Browser Help Text\n"
+"\n"
+" The file browser is used to visually browse the directory structure to "
+"select a file for reading or writing.  You may use the arrow keys or Page Up/"
+"Down to browse through the files, and S or Enter to choose the selected file "
+"or enter the selected directory.  To move up one level, select the directory "
+"called \"..\" at the top of the file list.\n"
+"\n"
+" The following function keys are available in the file browser:\n"
+"\n"
+msgstr ""
+"Помоћ за прегледач датотека\n"
+"\n"
+" Прегледач датотека се користи за визуелно разгледање директоријума за избор "
+"датотеке ради читања или уписа. Можете користити стрелице или тастере "
+"„Страница горе/доле“ за разгледање датотека, а S или Унеси да изаберете "
+"означену датотеку или да уђете у означени директоријум. Да одете један ниво "
+"изнад, изаберите директоријум са називом „..“ на врху списка датотека.\n"
+"\n"
+" Следећи тастери су доступни у режиму прегледача датотека:\n"
+"\n"
+
+# bug: there's "enter" and "Enter"
+#: src/help.c:371
+msgid ""
+"Browser Search Command Help Text\n"
+"\n"
+" Enter the words or characters you would like to search for, and then press "
+"Enter.  If there is a match for the text you entered, the screen will be "
+"updated to the location of the nearest match for the search string.\n"
+"\n"
+" The previous search string will be shown in brackets after the search "
+"prompt.  Hitting Enter without entering any text will perform the previous "
+"search.\n"
+"\n"
+msgstr ""
+"Помоћ за наредбу претраге прегледача\n"
+"\n"
+" Унесите речи или знаке које желите да нађете, и притисните Унеси. Уколико "
+"постоји тражени текст, на екрану ће се приказати положај најближег резултата "
+"претраге.\n"
+"\n"
+" Претходна ниска претраге ће се приказати у угластим заградама након "
+"„Тражи:“. Притиском на Унеси без уноса неког текста ће обавити претходну "
+"претрагу.\n"
+"\n"
+
+#: src/help.c:380
+msgid ""
+" The following function keys are available in Browser Search mode:\n"
+"\n"
+msgstr ""
+" Следећи тастери су доступни у режиму претраге прегледача:\n"
+"\n"
+
+#: src/help.c:384
+msgid ""
+"Browser Go To Directory Help Text\n"
+"\n"
+" Enter the name of the directory you would like to browse to.\n"
+"\n"
+" If tab completion has not been disabled, you can use the Tab key to "
+"(attempt to) automatically complete the directory name.\n"
+"\n"
+" The following function keys are available in Browser Go To Directory mode:\n"
+"\n"
+msgstr ""
+"Помоћ за одлазак у директоријум\n"
+"\n"
+" Унесите назив директоријума у који желите да одете.\n"
+"\n"
+" Уколико није искључено допуњавање табулатором, можете користити TAB тастер "
+"да (покушате да) самодопуните назив директоријума.\n"
+"\n"
+" Следећи тастери су доступни у режиму одласка у директоријум:\n"
+"\n"
+
+#: src/help.c:397
+msgid ""
+"Spell Check Help Text\n"
+"\n"
+" The spell checker checks the spelling of all text in the current file.  "
+"When an unknown word is encountered, it is highlighted and a replacement can "
+"be edited.  It will then prompt to replace every instance of the given "
+"misspelled word in the current file, or, if you have selected text with the "
+"mark, in the selected text.\n"
+"\n"
+" The following function keys are available in Spell Check mode:\n"
+"\n"
+msgstr ""
+"Помоћ за проверу правописа\n"
+"\n"
+" Провера правописа ради на свом тексту текуће датотеке.  Када се наиђе на "
+"непознату реч, она се истиче и замена се може уредити.  Тада ћете бити "
+"упитани да замените сваку појаву дате погрешно унете речи у текућој "
+"датотеци.\n"
+"\n"
+" Следећи тастери су доступни у режиму провере правописа:\n"
+"\n"
+
+#: src/help.c:412
+msgid ""
+"Execute Command Help Text\n"
+"\n"
+" This mode allows you to insert the output of a command run by the shell "
+"into the current buffer (or into a new buffer).  If the command is preceded "
+"by '|' (the pipe symbol), the current contents of the buffer (or marked "
+"region) will be piped to the command.  "
+msgstr ""
+
+#: src/help.c:418
+msgid ""
+"If you just need another blank buffer, do not enter any command.\n"
+"\n"
+msgstr ""
+
+#: src/help.c:420
+msgid ""
+" The following function keys are available in Execute Command mode:\n"
+"\n"
+msgstr ""
+
+#: src/help.c:423
+msgid ""
+"=== Linter ===\n"
+"\n"
+" In this mode, the status bar shows an error message or warning, and the "
+"cursor is put at the corresponding position in the file.  With PageUp and "
+"PageDown you can switch to earlier and later messages.\n"
+"\n"
+msgstr ""
+
+#: src/help.c:428
+msgid ""
+" The following function keys are available in Linter mode:\n"
+"\n"
+msgstr ""
+
+#: src/help.c:435
+msgid ""
+"Main nano help text\n"
+"\n"
+" The nano editor is designed to emulate the functionality and ease-of-use of "
+"the UW Pico text editor.  There are four main sections of the editor.  The "
+"top line shows the program version, the current filename being edited, and "
+"whether or not the file has been modified.  Next is the main editor window "
+"showing the file being edited.  The status line is the third line from the "
+"bottom and shows important messages.  "
+msgstr ""
+"Главна нанова помоћ\n"
+"\n"
+" Уређивач нано је израђен да опонаша могућности и лакоћу употребе уређивача "
+"Пико са Универзитета у Вашингтону. Постоје четири главна одељка уређивача: "
+"горњи ред приказује издање програма, назив датотеке која се управо уређује, "
+"и да ли је датотека измењена или не. Следећи део је главни прозор уређивача "
+"који приказује датотеку која се уређује. Ред са стањем је трећи ред одоздо и "
+"приказује важне поруке.  "
+
+#: src/help.c:445
+msgid ""
+"The bottom two lines show the most commonly used shortcuts in the editor.\n"
+"\n"
+" Shortcuts are written as follows: Control-key sequences are notated with a "
+"'^' and can be entered either by using the Ctrl key or pressing the Esc key "
+"twice.  Meta-key sequences are notated with 'M-' and can be entered using "
+"either the Alt, Cmd, or Esc key, depending on your keyboard setup.  "
+msgstr ""
+"Два доња реда приказују најчешће коришћене пречице у уређивачу.\n"
+"\n"
+" Пречице се записују овако: Пречице тастера Контрол се записују помоћу "
+"симбола „^“ и уносе се уз тастер Ктрл или двоструким притиском на тастер "
+"Ескејп (Esc).  Пречице тастера Мета се записују помоћу „М-“ и уносе се "
+"помоћу тастера „Alt“, „Cmd“ или „Esc“, у зависности од подешавања ваше "
+"тастатуре.  "
+
+#: src/help.c:452
+msgid ""
+"Also, pressing Esc twice and then typing a three-digit decimal number from "
+"000 to 255 will enter the character with the corresponding value.  The "
+"following keystrokes are available in the main editor window.  Alternative "
+"keys are shown in parentheses:\n"
+"\n"
+msgstr ""
+"Такође, двоструким притиском на тастер Ескејп и укуцавањем троцифреног "
+"децималног броја од 000 до 255 унећете знак са одговарајућом вредношћу. "
+"Следећи притисци тастера су доступни у главном прозору уређивача. Заменски "
+"тастери су приказани у загради:\n"
+"\n"
+
+#: src/help.c:484 src/help.c:556
+msgid "enable/disable"
+msgstr "— укључује/искључује"
+
+#: src/history.c:270
+#, c-format
+msgid ""
+"Unable to create directory %s: %s\n"
+"It is required for saving/loading search history or cursor positions.\n"
+msgstr ""
+"Не могу да направим директоријум „%s“: %s\n"
+"Потребан је за чување/учитавање историјата претраге или положаја курсора.\n"
+
+#: src/history.c:277
+#, c-format
+msgid ""
+"Path %s is not a directory and needs to be.\n"
+"Nano will be unable to load or save search history or cursor positions.\n"
+msgstr ""
+"Путања „%s“ није директоријум а мора бити.\n"
+"Нано неће бити у могућности да учита или да сачува историјат претраге или "
+"положаје курсора.\n"
+
+#: src/history.c:367 src/history.c:376 src/history.c:458 src/history.c:480
+#, c-format
+msgid "Error writing %s: %s\n"
+msgstr "Грешка писања „%s“: %s\n"
+
+#: src/nano.c:281
+msgid "Key is invalid in view mode"
+msgstr "Тастер је неисправан у режиму прегледа"
+
+#: src/nano.c:288
+msgid "This function is disabled in restricted mode"
+msgstr "Ова функција је искључена у ограниченом режиму"
+
+#: src/nano.c:299
+msgid "Help is not available"
+msgstr "Помоћ није доступна"
+
+#: src/nano.c:413
+#, c-format
+msgid ""
+"\n"
+"Buffer written to %s\n"
+msgstr ""
+"\n"
+"Међумеморија је уписана у %s\n"
+
+#: src/nano.c:415
+#, c-format
+msgid ""
+"\n"
+"Buffer not written to %s: %s\n"
+msgstr ""
+"\n"
+"Међумеморија није уписана у %s: %s\n"
+
+#: src/nano.c:418
+#, c-format
+msgid ""
+"\n"
+"Buffer not written: %s\n"
+msgstr ""
+"\n"
+"Међумеморија није уписана: %s\n"
+
+#: src/nano.c:528
+#, c-format
+msgid ""
+"Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n"
+"\n"
+msgstr ""
+"Употреба: nano [МОГУЋНОСТИ] [[+РЕД[,СТУБАЦ]] ДАТОТЕКА]...\n"
+"\n"
+
+#. TRANSLATORS: The next two strings are part of the --help output.
+#. * It's best to keep its lines within 80 characters.
+#: src/nano.c:531
+#, c-format
+msgid ""
+"To place the cursor on a specific line of a file, put the line number with\n"
+"a '+' before the filename.  The column number can be added after a comma.\n"
+msgstr ""
+"Да поставите курзор на одређени ред у датотеци, ставите број реда са\n"
+"знаком + пре назива датотеке.  Број ступца се може додати после зареза.\n"
+
+#: src/nano.c:533
+#, c-format
+msgid ""
+"When a filename is '-', nano reads data from standard input.\n"
+"\n"
+msgstr ""
+"Када је назив датотеке -, нано чита податке са стандардног улаза.\n"
+"\n"
+
+#. TRANSLATORS: The next three are column headers of the --help output.
+#: src/nano.c:535
+msgid "Option"
+msgstr ""
+
+#: src/nano.c:535
+msgid "Long option"
+msgstr ""
+
+#: src/nano.c:535
+msgid "Meaning"
+msgstr ""
+
+#. TRANSLATORS: The next forty or so strings are option descriptions
+#. * for the --help output.  Try to keep them at most 40 characters.
+#: src/nano.c:539
+msgid "Enable smart home key"
+msgstr "Укључује паметни тастер „Почетак“"
+
+#: src/nano.c:541
+msgid "Save backups of existing files"
+msgstr "Чува резерве постојећих датотека"
+
+#: src/nano.c:542
+msgid "-C <dir>"
+msgstr "-C [дир]"
+
+#: src/nano.c:542
+msgid "--backupdir=<dir>"
+msgstr "--backupdir=[дир]"
+
+#: src/nano.c:543
+msgid "Directory for saving unique backup files"
+msgstr "Директоријум за чување јединствених датотека резерве"
+
+#: src/nano.c:546
+msgid "Use bold instead of reverse video text"
+msgstr "Користи подебљање уместо обрнутог видео текста"
+
+#: src/nano.c:548
+msgid "Convert typed tabs to spaces"
+msgstr "Претвара укуцане табулаторе у размаке"
+
+#: src/nano.c:553
+msgid "Read a file into a new buffer by default"
+msgstr "Чита датотеку у нову међумеморију по основи"
+
+#: src/nano.c:556
+msgid "Use (vim-style) lock files"
+msgstr "Користи (вим-стила) датотеке закључавања"
+
+#: src/nano.c:561
+msgid "Log & read search/replace string history"
+msgstr "Бележи и чита историјат претраге/замене ниске"
+
+#: src/nano.c:564
+msgid "Don't look at nanorc files"
+msgstr "Не тражи у нанорц датотекама"
+
+#: src/nano.c:567
+msgid "-J <number>"
+msgstr ""
+
+#: src/nano.c:567
+msgid "--guidestripe=<number>"
+msgstr ""
+
+#: src/nano.c:568
+msgid "Show a guiding bar at this column"
+msgstr ""
+
+#: src/nano.c:571
+msgid "Fix numeric keypad key confusion problem"
+msgstr "Поправља проблеме тастера нумеричке тастатуре"
+
+#: src/nano.c:574
+msgid "Don't add an automatic newline"
+msgstr ""
+
+#: src/nano.c:578
+msgid "Trim tail spaces when hard-wrapping"
+msgstr "Крати крајње размаке приликом јаког преламања"
+
+#: src/nano.c:582
+msgid "Don't convert files from DOS/Mac format"
+msgstr "Не претвара датотеке из ДОС/Мекинтош записа"
+
+#: src/nano.c:587
+msgid "Log & read location of cursor position"
+msgstr "Бележи и чита место положаја курзора"
+
+#: src/nano.c:590
+msgid "-Q <regex>"
+msgstr ""
+
+#: src/nano.c:590
+msgid "--quotestr=<regex>"
+msgstr ""
+
+#. TRANSLATORS: This refers to email quoting,
+#. * like the > in: > quoted text.
+#: src/nano.c:593
+msgid "Regular expression to match quoting"
+msgstr ""
+
+#: src/nano.c:596
+msgid "Restrict access to the filesystem"
+msgstr ""
+
+#: src/nano.c:597
+msgid "-T <#cols>"
+msgstr "-T [#ступци]"
+
+#: src/nano.c:597
+msgid "--tabsize=<#cols>"
+msgstr "--tabsize=[#ступци]"
+
+#: src/nano.c:598
+msgid "Set width of a tab to #cols columns"
+msgstr "Поставља ширину табулатора на „#ступци“ стубаца"
+
+#: src/nano.c:599
+msgid "Wipe status bar upon next keystroke"
+msgstr ""
+
+#: src/nano.c:600
+msgid "Print version information and exit"
+msgstr "Исписује податке о издању и излази"
+
+#: src/nano.c:603
+msgid "Detect word boundaries more accurately"
+msgstr "Тачније открива границе речи"
+
+#: src/nano.c:604
+msgid "-X <str>"
+msgstr "-X [ниска]"
+
+#: src/nano.c:604
+msgid "--wordchars=<str>"
+msgstr "--wordchars=[ниска]"
+
+#: src/nano.c:605
+msgid "Which other characters are word parts"
+msgstr "Који други знаци су делови речи"
+
+#: src/nano.c:609
+msgid "-Y <name>"
+msgstr "-Y <назив>"
+
+#: src/nano.c:609
+msgid "--syntax=<name>"
+msgstr "--syntax=<назив>"
+
+#: src/nano.c:610
+msgid "Syntax definition to use for coloring"
+msgstr "Одредница синтаксе за обојавање"
+
+#: src/nano.c:613
+msgid "Let Bsp and Del erase a marked region"
+msgstr ""
+
+#: src/nano.c:614
+msgid "When soft-wrapping, do it at whitespace"
+msgstr "Приликом меког преламања, чини то на празнинама"
+
+#: src/nano.c:617
+msgid "Automatically hard-wrap overlong lines"
+msgstr ""
+
+#: src/nano.c:619
+msgid "Constantly show cursor position"
+msgstr "Непрекидно приказује положај курзора"
+
+#: src/nano.c:621
+msgid "Fix Backspace/Delete confusion problem"
+msgstr "Поправља проблеме тастера Поврати простор/Обриши"
+
+#: src/nano.c:622
+msgid "Keep the line below the title bar empty"
+msgstr ""
+
+#: src/nano.c:624
+msgid "-f <file>"
+msgstr ""
+
+#: src/nano.c:624
+msgid "--rcfile=<file>"
+msgstr ""
+
+#: src/nano.c:625
+msgid "Use only this file for configuring nano"
+msgstr ""
+
+#: src/nano.c:628
+msgid "Show cursor in file browser & help text"
+msgstr ""
+
+#: src/nano.c:630
+msgid "Show this help text and exit"
+msgstr "Приказује овај текст помоћи и излази"
+
+#: src/nano.c:632
+msgid "Automatically indent new lines"
+msgstr "Самостално увлачи нове редове"
+
+#: src/nano.c:634
+msgid "Scroll per half-screen, not per line"
+msgstr ""
+
+#: src/nano.c:636
+msgid "Cut from cursor to end of line"
+msgstr "Исеца од курзора до краја реда"
+
+#: src/nano.c:639
+msgid "Show line numbers in front of the text"
+msgstr "Приказује бројеве редова испред текста"
+
+#: src/nano.c:642
+msgid "Enable the use of the mouse"
+msgstr "Укључује коришћење миша"
+
+#: src/nano.c:644
+msgid "Do not read the file (only write it)"
+msgstr "Не чита датотеку (само је пише)"
+
+#: src/nano.c:646
+msgid "-o <dir>"
+msgstr "-o [дир]"
+
+#: src/nano.c:646
+msgid "--operatingdir=<dir>"
+msgstr "--operatingdir=[дир]"
+
+#: src/nano.c:647
+msgid "Set operating directory"
+msgstr "Поставља радни директоријум"
+
+#: src/nano.c:649
+msgid "Preserve XON (^Q) and XOFF (^S) keys"
+msgstr "Очувава тастере XON (^Q) и XOFF (^S)"
+
+#: src/nano.c:651
+msgid "-r <#cols>"
+msgstr "-r [#стубац]"
+
+#: src/nano.c:651
+msgid "--fill=<#cols>"
+msgstr "--fill=[#стубац]"
+
+#: src/nano.c:652
+msgid "Set width for hard-wrap and justify"
+msgstr ""
+
+#: src/nano.c:656
+msgid "-s <prog>"
+msgstr "-s [програм]"
+
+#: src/nano.c:656
+msgid "--speller=<prog>"
+msgstr "--speller=[програм]"
+
+#: src/nano.c:657
+msgid "Enable alternate speller"
+msgstr "Укључује заменску проверу правописа"
+
+#: src/nano.c:659
+msgid "Auto save on exit, don't prompt"
+msgstr "Сам чува при излазу, не пита"
+
+#: src/nano.c:661
+msgid "Save a file by default in Unix format"
+msgstr "Чува датотеку по основи у Јуникс запису"
+
+#: src/nano.c:663
+msgid "View mode (read-only)"
+msgstr "Режим прегледа (само за читање)"
+
+#: src/nano.c:665
+msgid "Don't hard-wrap long lines [default]"
+msgstr ""
+
+#: src/nano.c:667
+msgid "Don't show the two help lines"
+msgstr "Не приказује два реда помоћи"
+
+#: src/nano.c:669
+msgid "Make Ctrl+Right stop at word ends"
+msgstr ""
+
+#: src/nano.c:672
+msgid "Enable suspension"
+msgstr "Укључује обуставу"
+
+#: src/nano.c:674
+msgid "Display overlong lines on multiple rows"
+msgstr ""
+
+#: src/nano.c:686
+#, c-format
+msgid " GNU nano, version %s\n"
+msgstr " Гнуов нано, издање %s\n"
+
+#: src/nano.c:689
+#, c-format
+msgid " (C) 2014-%s the contributors to nano\n"
+msgstr " © 2014—%s доприносиоци за нано\n"
+
+#: src/nano.c:690
+#, c-format
+msgid " Email: nano@nano-editor.org\tWeb: https://nano-editor.org/"
+msgstr " Е-пошта: nano@nano-editor.org\tВеб: http://nano-editor.org/"
+
+#: src/nano.c:691
+#, c-format
+msgid ""
+"\n"
+" Compiled options:"
+msgstr ""
+"\n"
+" Уграђене опције:"
+
+#: src/nano.c:834
+msgid "No file name"
+msgstr "Нема назива датотеке"
+
+#: src/nano.c:836
+msgid "Save modified buffer? "
+msgstr ""
+
+#: src/nano.c:905
+msgid "Could not reconnect stdin to keyboard\n"
+msgstr ""
+
+#: src/nano.c:924
+#, c-format
+msgid "Reading data from keyboard; type ^D or ^D^D to finish.\n"
+msgstr ""
+
+#: src/nano.c:934
+#, c-format
+msgid "Failed to open stdin: %s"
+msgstr "Нисам уепео да отворим стандардни улаз: %s"
+
+#: src/nano.c:1018
+msgid "Received SIGHUP or SIGTERM\n"
+msgstr "Примих SIGHUP или SIGTERM\n"
+
+#: src/nano.c:1025
+#, c-format
+msgid "Sorry! Nano crashed!  Code: %d.  Please report a bug.\n"
+msgstr ""
+
+#: src/nano.c:1040
+#, c-format
+msgid "Use \"fg\" to return to nano.\n"
+msgstr "Користите „fg“ да се вратите у нано.\n"
+
+#: src/nano.c:1058
+msgid "Suspension is not enabled"
+msgstr "Обустава није укључена"
+
+#: src/nano.c:1197
+msgid "enabled"
+msgstr "укључено"
+
+#: src/nano.c:1197
+msgid "disabled"
+msgstr "искључено"
+
+#: src/nano.c:1355
+msgid "Unbound key"
+msgstr "Развежи тастер"
+
+#: src/nano.c:1358
+msgid "Unbindable key: M-["
+msgstr "Несвезиви тастер: M-["
+
+#: src/nano.c:1361
+#, c-format
+msgid "Unbindable key: M-^%c"
+msgstr ""
+
+#: src/nano.c:1365
+#, c-format
+msgid "Unbound key: Sh-M-%c"
+msgstr ""
+
+#: src/nano.c:1368
+#, c-format
+msgid "Unbound key: M-%c"
+msgstr "Развежи тастер: M-%c"
+
+#: src/nano.c:1370
+msgid "Unbindable key: ^["
+msgstr ""
+
+#: src/nano.c:1372
+#, c-format
+msgid "Unbound key: ^%c"
+msgstr "Развежи тастер: ^%c"
+
+#: src/nano.c:1375
+#, c-format
+msgid "Unbound key: %c"
+msgstr "Развежи тастер: %c"
+
+#: src/nano.c:1933 src/rcfile.c:1526
+#, c-format
+msgid "Guide column \"%s\" is invalid"
+msgstr ""
+
+#: src/nano.c:1957 src/nano.c:1976
+#, c-format
+msgid "Option %s is ignored; it is the default\n"
+msgstr ""
+
+#: src/nano.c:1982 src/rcfile.c:1582
+#, c-format
+msgid "Requested tab size \"%s\" is invalid"
+msgstr "Тражена величина табулатора %s је неисправна"
+
+#: src/nano.c:2078 src/rcfile.c:1517
+#, c-format
+msgid "Requested fill size \"%s\" is invalid"
+msgstr "Тражена величина попуне %s је неисправна"
+
+#: src/nano.c:2125
+#, c-format
+msgid "Type '%s -h' for a list of available options.\n"
+msgstr "Укуцајте „%s -h“ за списак доступних опција.\n"
+
+#: src/nano.c:2302
+#, c-format
+msgid "Bad quoting regex \"%s\": %s\n"
+msgstr ""
+
+#: src/nano.c:2447
+#, c-format
+msgid "Invalid search modifier '%c'"
+msgstr ""
+
+#: src/nano.c:2458
+msgid "Empty search string"
+msgstr ""
+
+#: src/nano.c:2463 src/search.c:782
+msgid "Invalid line or column number"
+msgstr "Неисправан број реда или ступца"
+
+#: src/nano.c:2537
+msgid "Welcome to nano.  For basic help, type Ctrl+G."
+msgstr ""
+
+#. TRANSLATORS: For the next three strings, specify the starting letters
+#. * of the translations for "Yes"/"No"/"All".  The first letter of each of
+#. * these strings MUST be a single-byte letter; others may be multi-byte.
+#: src/prompt.c:629
+msgid "Yy"
+msgstr "ДдDdYy"
+
+#: src/prompt.c:630
+msgid "Nn"
+msgstr "НнNn"
+
+#: src/prompt.c:631
+msgid "Aa"
+msgstr "АаАа"
+
+#: src/prompt.c:655
+msgid "Yes"
+msgstr "Да"
+
+#: src/prompt.c:659
+msgid "No"
+msgstr "Не"
+
+#: src/prompt.c:664
+msgid "All"
+msgstr "Све"
+
+#: src/rcfile.c:195
+#, c-format
+msgid "Mistakes in '%s'"
+msgstr "Грешка у „%s“"
+
+#: src/rcfile.c:199
+msgid "Problems with history file"
+msgstr ""
+
+#: src/rcfile.c:203
+#, c-format
+msgid "Error in %s on line %zu: "
+msgstr "Грешка у %s у %zu. реду: "
+
+#: src/rcfile.c:544
+#, c-format
+msgid "Argument '%s' has an unterminated \""
+msgstr "Аргумент „%s“ садржи недовршени знак \""
+
+#: src/rcfile.c:565 src/rcfile.c:576
+msgid "Regex strings must begin and end with a \" character"
+msgstr "Ниске регуларних израза морају почети и завршити се знаком \""
+
+#: src/rcfile.c:581
+msgid "Empty regex string"
+msgstr "Празна ниска регуларног израза"
+
+#: src/rcfile.c:606 src/search.c:44
+#, c-format
+msgid "Bad regex \"%s\": %s"
+msgstr "Лош регуларни израз „%s“: %s"
+
+#: src/rcfile.c:628
+msgid "Missing syntax name"
+msgstr "Недостаје назив синтаксе"
+
+#: src/rcfile.c:636
+msgid "Unpaired quote in syntax name"
+msgstr "Неупарени наводник у називу синтаксе"
+
+#: src/rcfile.c:648
+msgid "The \"none\" syntax is reserved"
+msgstr "Синтакса „none“ је резервисана"
+
+#: src/rcfile.c:679
+msgid "The \"default\" syntax does not accept extensions"
+msgstr "Синтакса „default“ не прихвата проширења"
+
+#: src/rcfile.c:697
+#, c-format
+msgid "Syntax \"%s\" has no color commands"
+msgstr "Синтакса „%s“ нема наредбе боје"
+
+#: src/rcfile.c:728
+msgid "Missing key name"
+msgstr "Недостаје назив тастера"
+
+#: src/rcfile.c:744 src/rcfile.c:751
+#, c-format
+msgid "Key name %s is invalid"
+msgstr "Назив тастера „%s“ је неисправан"
+
+#: src/rcfile.c:760
+msgid "Must specify a function to bind the key to"
+msgstr "Морате навести функцију за коју свезати тастер"
+
+#. TRANSLATORS: Do not translate the word "all".
+#: src/rcfile.c:771
+msgid "Must specify a menu (or \"all\") in which to bind/unbind the key"
+msgstr "Морате навести изборник (или „all“) у коме свезати/развезати тастер"
+
+#: src/rcfile.c:790
+#, c-format
+msgid "Cannot map name \"%s\" to a function"
+msgstr "Не могу да мапирам назив „%s“ ка функцији"
+
+#: src/rcfile.c:797
+#, c-format
+msgid "Cannot map name \"%s\" to a menu"
+msgstr "Не могу да мапирам назив „%s“ ка изборнику"
+
+#: src/rcfile.c:831
+#, c-format
+msgid "Function '%s' does not exist in menu '%s'"
+msgstr "Функција „%s“ не постоји у изборнику „%s“"
+
+#: src/rcfile.c:842
+#, c-format
+msgid "Keystroke %s may not be rebound"
+msgstr ""
+
+#: src/rcfile.c:933 src/rcfile.c:1426
+#, c-format
+msgid "Command \"%s\" not understood"
+msgstr "Нисам разумео наредбу „%s“"
+
+#: src/rcfile.c:969
+#, c-format
+msgid "Error expanding %s: %s"
+msgstr "Грешка ширења „%s“: %s"
+
+#: src/rcfile.c:1004
+#, c-format
+msgid "Color \"%s\" not understood"
+msgstr "Нисам разумео боју „%s“"
+
+#: src/rcfile.c:1020
+msgid "A background color cannot be bright"
+msgstr "Боја позадине не може бити светла"
+
+#: src/rcfile.c:1052
+msgid "Missing color name"
+msgstr "Недостаје назив боје"
+
+#: src/rcfile.c:1063 src/rcfile.c:1166
+#, c-format
+msgid "Missing regex string after '%s' command"
+msgstr "Недостаје ниска регуларног израза након наредбе „%s“"
+
+#: src/rcfile.c:1089
+msgid "\"start=\" requires a corresponding \"end=\""
+msgstr "„start=“ захтева и одговарајући „end=“"
+
+#: src/rcfile.c:1155 src/rcfile.c:1406
+#, c-format
+msgid "A '%s' command requires a preceding 'syntax' command"
+msgstr "Наредба „%s“ захтева да јој претходи наредба „syntax“"
+
+#: src/rcfile.c:1161
+#, c-format
+msgid "The \"default\" syntax does not accept '%s' regexes"
+msgstr "Синтакса „default“ не прихвата регуларне изразе „%s“"
+
+#: src/rcfile.c:1206
+#, c-format
+msgid "Missing argument after '%s'"
+msgstr "Недостаје аргумент након „%s“"
+
+#: src/rcfile.c:1216
+#, c-format
+msgid "Argument of '%s' lacks closing \""
+msgstr "Аргументу „%s“ недостаје затварајући \""
+
+#: src/rcfile.c:1267
+#, c-format
+msgid "No key is bound to function '%s' in menu '%s'.  Exiting.\n"
+msgstr ""
+
+#: src/rcfile.c:1270
+#, c-format
+msgid ""
+"If needed, use nano with the -I option to adjust your nanorc settings.\n"
+msgstr ""
+"Ако је потребно, користите нано са опцијом „-I“ да дотерате ваша подешавања "
+"нанорц-а.\n"
+
+#: src/rcfile.c:1338
+#, c-format
+msgid "Could not find syntax \"%s\" to extend"
+msgstr "Не могу да нађем синтаксу „%s“ за ширење"
+
+#: src/rcfile.c:1395
+#, c-format
+msgid "Command \"%s\" not allowed in included file"
+msgstr "Наредба „%s“ није дозвољена у укљученој датотеци"
+
+#: src/rcfile.c:1438
+msgid "Missing option"
+msgstr "Недостаје опција"
+
+#: src/rcfile.c:1452
+#, c-format
+msgid "Unknown option \"%s\""
+msgstr "Непозната опција „%s“"
+
+#: src/rcfile.c:1467
+#, c-format
+msgid "Cannot unset option \"%s\""
+msgstr "Не могу да расподесим опцију „%s“"
+
+#: src/rcfile.c:1472
+#, c-format
+msgid "Option \"%s\" requires an argument"
+msgstr "Опција „%s“ захтева аргумент"
+
+#: src/rcfile.c:1484
+msgid "Argument is not a valid multibyte string"
+msgstr "Аргумент није исправна вишебитна ниска"
+
+#: src/rcfile.c:1532 src/rcfile.c:1553 src/rcfile.c:1559
+msgid "Non-blank characters required"
+msgstr "Потребни су не-празни знаци"
+
+#: src/rcfile.c:1535
+msgid "Even number of characters required"
+msgstr ""
+
+#: src/rcfile.c:1541
+msgid "Two single-column characters required"
+msgstr "Потребна су два знака једног-ступца"
+
+#: src/rcfile.c:1630
+msgid "Specified rcfile does not exist\n"
+msgstr ""
+
+#: src/rcfile.c:1649
+msgid "I can't find my home directory!  Wah!"
+msgstr "Ја не могу да нађем мој лични директоријум! Бре, брате!"
+
+#. TRANSLATORS: The next four modify the search prompt.
+#: src/search.c:102
+msgid " [Case Sensitive]"
+msgstr " [разл. величину слова]"
+
+#: src/search.c:103
+msgid " [Regexp]"
+msgstr " [рег. израз]"
+
+#: src/search.c:107
+msgid " (to replace) in selection"
+msgstr " (за замену) у избору"
+
+#: src/search.c:109
+msgid " (to replace)"
+msgstr " (за замену)"
+
+#. TRANSLATORS: This is shown when searching takes
+#. * more than half a second.
+#: src/search.c:218
+msgid "Searching..."
+msgstr "Тражим..."
+
+#: src/search.c:389
+#, c-format
+msgid "\"%.*s%s\" not found"
+msgstr "Нисам нашао „%.*s%s“"
+
+#. TRANSLATORS: This is a prompt.
+#: src/search.c:580
+msgid "Replace this instance?"
+msgstr "Да заменим ову појаву?"
+
+#. TRANSLATORS: This is a prompt.
+#: src/search.c:702
+msgid "Replace with"
+msgstr "Замени са"
+
+#: src/search.c:733
+#, c-format
+msgid "Replaced %zd occurrence"
+msgid_plural "Replaced %zd occurrences"
+msgstr[0] "Замених %zd појаву"
+msgstr[1] "Замених %zd појаве"
+msgstr[2] "Замених %zd појава"
+
+#. TRANSLATORS: This is a prompt.
+#: src/search.c:761
+msgid "Enter line number, column number"
+msgstr "Унесите број реда, број ступца"
+
+#: src/search.c:938
+msgid "Not a bracket"
+msgstr "Није заграда"
+
+#: src/search.c:981
+msgid "No matching bracket"
+msgstr "Нема одговарајуће заграде"
+
+# 48x48/emblems/emblem-marketing.icon.in.h:1
+#: src/text.c:52
+msgid "Mark Set"
+msgstr "Постављена ознака"
+
+#: src/text.c:56
+msgid "Mark Unset"
+msgstr "Поништена ознака"
+
+#: src/text.c:383
+msgid "Commenting is not supported for this file type"
+msgstr "Напомене нису подржане за ову врсту датотеке"
+
+#: src/text.c:393
+msgid "Cannot comment past end of file"
+msgstr "Не могу да прокоментаришем прошли крај датотеке"
+
+#: src/text.c:510
+msgid "Nothing to undo"
+msgstr ""
+
+#. TRANSLATORS: The next thirteen strings describe actions
+#. * that are undone or redone.  They are all nouns, not verbs.
+#: src/text.c:521 src/text.c:578 src/text.c:694 src/text.c:752
+msgid "addition"
+msgstr ""
+
+#: src/text.c:529 src/text.c:706
+msgid "line break"
+msgstr "крај реда"
+
+#: src/text.c:544 src/text.c:716
+msgid "deletion"
+msgstr ""
+
+#: src/text.c:554 src/text.c:722
+msgid "line join"
+msgstr "спој реда"
+
+#: src/text.c:570 src/text.c:737
+msgid "replacement"
+msgstr ""
+
+#: src/text.c:588 src/text.c:756
+msgid "erasure"
+msgstr ""
+
+#. TRANSLATORS: Remember: these are nouns, NOT verbs.
+#: src/text.c:594 src/text.c:761
+msgid "cut"
+msgstr ""
+
+#: src/text.c:598 src/text.c:765
+msgid "paste"
+msgstr ""
+
+#: src/text.c:605 src/text.c:769
+msgid "insertion"
+msgstr ""
+
+#: src/text.c:634 src/text.c:792
+msgid "indent"
+msgstr "увлачење"
+
+#: src/text.c:638 src/text.c:796
+msgid "unindent"
+msgstr "поништавање увлачења"
+
+#: src/text.c:643 src/text.c:801
+msgid "comment"
+msgstr "уметни напомену"
+
+#: src/text.c:647 src/text.c:805
+msgid "uncomment"
+msgstr "уклони напомену"
+
+#: src/text.c:655
+#, c-format
+msgid "Undid %s"
+msgstr ""
+
+#: src/text.c:681
+msgid "Nothing to redo"
+msgstr ""
+
+#: src/text.c:813
+#, c-format
+msgid "Redid %s"
+msgstr ""
+
+#. TRANSLATORS: This one goes with Undid/Redid messages.
+#: src/text.c:1746 src/text.c:1959
+msgid "justification"
+msgstr ""
+
+#: src/text.c:1758
+msgid "Selection is empty"
+msgstr ""
+
+#: src/text.c:1968
+msgid "Justified selection"
+msgstr ""
+
+#: src/text.c:1972
+msgid "Justified file"
+msgstr ""
+
+#: src/text.c:1974
+msgid "Justified paragraph"
+msgstr ""
+
+#: src/text.c:2066
+#, c-format
+msgid "Unfindable word: %s"
+msgstr "Реч се не може наћи: %s"
+
+#: src/text.c:2082
+msgid "Edit a replacement"
+msgstr "Измените замену"
+
+#. TRANSLATORS: Shown after fixing misspellings in one word.
+#: src/text.c:2095
+msgid "Next word..."
+msgstr "Следећа реч..."
+
+#: src/text.c:2231 src/text.c:2610
+msgid "Could not get size of pipe buffer"
+msgstr "Не могу да добавим величину међумеморије спојке"
+
+#: src/text.c:2297
+msgid "Error invoking \"uniq\""
+msgstr "Грешка при покретању „uniq“-а"
+
+#: src/text.c:2300
+msgid "Error invoking \"sort\""
+msgstr ""
+
+#: src/text.c:2303
+msgid "Error invoking \"spell\""
+msgstr "Грешка при покретању „spell“-а"
+
+#: src/text.c:2306 src/text.c:2454
+msgid "Finished checking spelling"
+msgstr "Завршио сам проверу правописа"
+
+#: src/text.c:2397 src/text.c:2701
+#, c-format
+msgid "Error invoking '%s'"
+msgstr ""
+
+#: src/text.c:2400
+#, c-format
+msgid "Program '%s' complained"
+msgstr ""
+
+#: src/text.c:2408
+msgid "Nothing changed"
+msgstr ""
+
+#. TRANSLATORS: The next two go with Undid/Redid messages.
+#: src/text.c:2437
+msgid "spelling correction"
+msgstr ""
+
+#: src/text.c:2437
+msgid "formatting"
+msgstr ""
+
+#: src/text.c:2456
+msgid "Buffer has been processed"
+msgstr ""
+
+#: src/text.c:2522
+#, c-format
+msgid "%s: %s"
+msgstr ""
+
+#: src/text.c:2546
+msgid "No linter is defined for this type of file"
+msgstr ""
+
+#: src/text.c:2556
+msgid "Save modified buffer before linting?"
+msgstr "Да сачувам измењену међумеморију пре чишћења?"
+
+#: src/text.c:2573
+msgid "Invoking linter, please wait"
+msgstr "Призивам чистача, сачекајте мало"
+
+#: src/text.c:2706
+#, c-format
+msgid "Got 0 parsable lines from command: %s"
+msgstr "Добих 0 обрадивих редова од наредбе: %s"
+
+#: src/text.c:2744
+#, c-format
+msgid "This message is for unopened file %s, open it in a new buffer?"
+msgstr ""
+"Ова порука је за неотворену датотеку „%s“, да је отворим у новој "
+"међумеморији?"
+
+#: src/text.c:2783
+msgid "No messages for this file"
+msgstr ""
+
+#: src/text.c:2830
+msgid "At first message"
+msgstr "На прву поруку"
+
+#: src/text.c:2840
+msgid "At last message"
+msgstr "На последњу поруку"
+
+#: src/text.c:2881
+msgid "No formatter is defined for this type of file"
+msgstr ""
+
+#: src/text.c:2957
+#, c-format
+msgid "%sWords: %zu  Lines: %zd  Chars: %zu"
+msgstr "%sРечи: %zu  Редова: %zd  Знакова: %zu"
+
+#: src/text.c:2958
+msgid "In Selection:  "
+msgstr "У избору:  "
+
+#. TRANSLATORS: Shown when the next keystroke will be inserted verbatim.
+#: src/text.c:2969
+msgid "Verbatim Input"
+msgstr "Улаз дословности"
+
+#. TRANSLATORS: Shown when no text is directly left of the cursor.
+#: src/text.c:3058
+msgid "No word fragment"
+msgstr ""
+
+#: src/text.c:3150
+msgid "No further matches"
+msgstr "Нема даљих поклапања"
+
+#. TRANSLATORS: Shown when there are zero possible completions.
+#: src/text.c:3154
+msgid "No matches"
+msgstr "Нема поклапања"
+
+#: src/utils.c:298 src/utils.c:310
+msgid "Nano is out of memory!\n"
+msgstr ""
+
+#: src/winio.c:95
+msgid "Recording a macro..."
+msgstr "Снимам макро..."
+
+#: src/winio.c:98
+msgid "Stopped recording"
+msgstr "Зауставих снимање"
+
+#: src/winio.c:107
+msgid "Cannot run macro while recording"
+msgstr "Не могу да покренем макро приликом снимања"
+
+#: src/winio.c:113
+msgid "Macro is empty"
+msgstr "Макро је празан"
+
+#: src/winio.c:215
+msgid "Too many errors from stdin\n"
+msgstr ""
+
+#. TRANSLATORS: This refers to a sequence of escape codes
+#. * (from the keyboard) that nano does not recognize.
+#: src/winio.c:870
+msgid "Unknown sequence"
+msgstr "Непознати низ"
+
+#. TRANSLATORS: This is shown while a six-digit hexadecimal
+#. * Unicode character code (%s) is being typed in.
+#: src/winio.c:1467
+#, c-format
+msgid "Unicode Input: %s"
+msgstr "Улаз Уникода: %s"
+
+#. TRANSLATORS: The next five are "labels" in the title bar.
+#: src/winio.c:2066
+msgid "Linting --"
+msgstr ""
+
+#: src/winio.c:2072
+msgid "DIR:"
+msgstr "ДИР:"
+
+#: src/winio.c:2093 src/winio.c:2099
+msgid "Modified"
+msgstr "Измењено"
+
+#: src/winio.c:2095
+msgid "View"
+msgstr "Преглед"
+
+#: src/winio.c:2097
+msgid "Restricted"
+msgstr ""
+
+#: src/winio.c:3398
+#, c-format
+msgid "line %zd/%zd (%d%%), col %zu/%zu (%d%%), char %zu/%zu (%d%%)"
+msgstr "ред %zd/%zd (%d%%), стубац %zu/%zu (%d%%), знак %zu/%zu (%d%%)"
+
+#: src/winio.c:3578
+msgid "The nano text editor"
+msgstr "Уређивач текста нано"
+
+#: src/winio.c:3579
+msgid "version"
+msgstr "издање"
+
+#: src/winio.c:3580
+msgid "Brought to you by:"
+msgstr "Припремили:"
+
+#: src/winio.c:3581
+msgid "Special thanks to:"
+msgstr "Посебно се захваљујемо:"
+
+#: src/winio.c:3582
+msgid "The Free Software Foundation"
+msgstr "Задужбини слободног софтвера"
+
+#: src/winio.c:3583
+msgid "the many translators and the TP"
+msgstr "многим преводиоцима и ТП-у"
+
+#: src/winio.c:3584
+msgid "For ncurses:"
+msgstr "За ен-курсис:"
+
+#: src/winio.c:3585
+msgid "and anyone else we forgot..."
+msgstr "и свима осталима које смо пропустили..."
+
+#: src/winio.c:3586
+msgid "Thank you for using nano!"
+msgstr "Хвала вам што користите нано!"
+
+#: lib/getopt.c:278
+#, c-format
+msgid "%s: option '%s%s' is ambiguous\n"
+msgstr ""
+
+#: lib/getopt.c:284
+#, c-format
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr ""
+
+#: lib/getopt.c:319
+#, c-format
+msgid "%s: unrecognized option '%s%s'\n"
+msgstr ""
+
+#: lib/getopt.c:345
+#, c-format
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr ""
+
+#: lib/getopt.c:360
+#, c-format
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr ""
+
+#: lib/getopt.c:621
+#, c-format
+msgid "%s: invalid option -- '%c'\n"
+msgstr ""
+
+#: lib/getopt.c:636 lib/getopt.c:682
+#, c-format
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr ""
+
+#: lib/regcomp.c:135
+msgid "Success"
+msgstr ""
+
+#: lib/regcomp.c:138
+msgid "No match"
+msgstr ""
+
+#: lib/regcomp.c:141
+msgid "Invalid regular expression"
+msgstr ""
+
+#: lib/regcomp.c:144
+msgid "Invalid collation character"
+msgstr ""
+
+#: lib/regcomp.c:147
+msgid "Invalid character class name"
+msgstr ""
+
+#: lib/regcomp.c:150
+msgid "Trailing backslash"
+msgstr ""
+
+#: lib/regcomp.c:153
+msgid "Invalid back reference"
+msgstr ""
+
+#: lib/regcomp.c:156
+msgid "Unmatched [, [^, [:, [., or [="
+msgstr ""
+
+#: lib/regcomp.c:159
+msgid "Unmatched ( or \\("
+msgstr ""
+
+#: lib/regcomp.c:162
+msgid "Unmatched \\{"
+msgstr ""
+
+#: lib/regcomp.c:165
+msgid "Invalid content of \\{\\}"
+msgstr ""
+
+#: lib/regcomp.c:168
+msgid "Invalid range end"
+msgstr ""
+
+#: lib/regcomp.c:171
+msgid "Memory exhausted"
+msgstr ""
+
+#: lib/regcomp.c:174
+msgid "Invalid preceding regular expression"
+msgstr ""
+
+#: lib/regcomp.c:177
+msgid "Premature end of regular expression"
+msgstr ""
+
+#: lib/regcomp.c:180
+msgid "Regular expression too big"
+msgstr ""
+
+#: lib/regcomp.c:183
+msgid "Unmatched ) or \\)"
+msgstr ""
+
+#: lib/regcomp.c:676
+msgid "No previous regular expression"
+msgstr ""

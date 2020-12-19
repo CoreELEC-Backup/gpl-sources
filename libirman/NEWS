@@ -1,0 +1,83 @@
+v0.5.2  2016/05/18
+        Fix lirc plugin logging issues.
+        Configure the sys/file.h header (Debian #436563).
+        Build: Fix parallel make glitch.
+
+v0.5.1  2015/10/22
+        Bugfix: --enable-swtest broken in 0.5.0
+
+v0.5.0  2015/10/11
+        Maintenance release. Add support for building the LIRC plugin,
+        more build system clean-up.
+
+v0.4.6  2015/09/18
+	maintenance release: Refreshing automake files and installation,
+        add pkg-config support.
+
+v0.4.5  2009/04/10
+
+	maintenance release: now using automake
+
+v0.4.4  2006/02/25
+
+	fixed gcc 4.0 compile error
+	better IRA-3 support
+
+v0.4.3  2004/04/04
+
+	maintenance release to fix incompatibilities with 2.6 kernels
+	(Christoph Bartelmus)
+
+v0.4.2  1999/03/28
+
+	handling of remotes which send each code twice
+	file locking of the serial device
+	new set of errno codes
+	configuration / Makefile updates
+        lirmand removed (now distributed with lirc v0.5.5+)
+	ir_open_port() and ir_init() now return the portfd for select()
+
+v0.4.1b 1999/02/18
+
+	fixed to work with Irix, Solaris and possibly other Unixen
+
+v0.4.1a	1999/02/15
+
+	added some more lines to irman.conf
+	fixed bug in Makefile
+	tidied workmanir
+
+v0.4.1	1999/02/11
+
+	Moved to autoconf
+	Updated docs for lirc
+	Fixed lirmand to work better with lirc's irrecord
+
+v0.4	1999/02/03
+
+	Renamed to libirman
+	Added IR_SOFTWARE_TEST mode for high level testing w/out IR
+	Added ir_clear_buffer()
+	Added `lirmand' for lirc (v0.5.4+) support, see also:
+		http://fsinfo.cs.uni-sb.de/~columbus/lirc/
+	Added name binding and aliases
+	Added command level abstraction
+	Added support for ~/.irmanrc and /etc/irman.conf
+
+v0.3	1998/11/09
+
+	Renamed to libir
+	converted to static library as opposed to object file
+	added high level functions (ircmd.c) for hashed code matching
+	added ir_code_to_text() and ir_text_to_code()
+	added HISTORY file
+
+v0.2	1998/11/06
+
+	Added medium level functions, ir_init() and ir_get_code()
+	started documentation (README file)
+
+v0.1	1998/11/05
+
+	First technology demonstrator, `IRIO.C'
+	essentially consisted of (what is now) irio.c and test_lo.c

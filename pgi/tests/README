@@ -1,0 +1,21 @@
+===========
+Test-Suites
+===========
+
+tests_pgi:
+    Tests for the gobject-introspection bindings and pgi only api
+    and pgi internals
+
+tests_mixed:
+    Tests that get run with bith gi and pgi and are not copied
+    from pygobject.
+
+tests_pygobject:
+    Tests that are copied (and adjusted to work with pgi) from pygobject
+    and are run with both gi and pgi.
+
+misc:
+    pep8/pyflakes tests
+
+libs:
+    Libraries copied from the gobject-introspection test suite

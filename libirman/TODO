@@ -1,0 +1,9 @@
+TODO for libirman
+
+. make ir_init_commands read /etc/irman.conf _and_ ~/.irmanrc so that
+  bind's can be defined in /etc/irman.conf and alias's defined in ~/.irmanrc
+. implement `assign' in irman.conf
+. implement variables in irman.conf
+. event layer - instead of commands, callbacks.
+. redo bind / alias to work more dynamically, so as to enable many codes
+  to map to one alias.

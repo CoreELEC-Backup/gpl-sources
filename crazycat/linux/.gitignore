@@ -1,0 +1,11 @@
+linux-media.tar.bz2*
+.patches_applied
+.linked_dir
+.git_log.md5
+git_log
+kernel_version.h
+drivers/
+firmware/
+include/
+sound/
+mm/

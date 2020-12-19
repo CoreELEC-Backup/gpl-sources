@@ -1,0 +1,63 @@
+# LIRC - Linux Infrared Remote Control README.
+
+    Copyright (C) 1996 Ralph Metzler <rjkm@thp.uni-koeln.de>
+    Copyright (C) 1998-2010 Christoph Bartelmus <lirc@bartelmus.de>
+    Copyright (C) 2010-2011 Jarod Wilson <jarod@redhat.com>
+    (according to GNU General Public Licence 2.0 or later)
+
+## General
+
+This is the README file for LIRC, the Linux Infrared Remote Control
+package. The main documentation of this package is available in HTML
+format at http://lirc.sf.net. After building the documentation is also
+available at doc/html/index.html.
+
+Updated versions of lirc is available using the website http://lirc.org.
+
+## Last version: 0.10.1
+
+## Build and install.
+
+More complete build and install instructions are available in the
+manual, the Installation chapter. The fast track:
+
+    $ ./configure
+    $ make
+    $ sudo make install
+
+If you are upgrading from an older version of LIRC take a look at the
+NEWS file which contains all user visible changes between
+releases.
+
+
+## What is LIRC?
+
+LIRC is a package that allows you to decode and send infra-red signals
+of many (but not all) commonly used remote controls. Pre-release versions
+are currently available at the LIRC homepage: http://www.lirc.org/
+
+Former versions focused on home-brew hardware connected to the serial
+or parallel port. Descriptions how to build this hardware can be found
+on the LIRC homepage. Current versions of LIRC also support a variety
+of other hardware. An up-to-date list of all supported devices and the
+status of the according drivers is available on the LIRC homepage.
+
+The most important part of LIRC is the lircd daemon which decodes IR
+signals received by the device drivers and provides the information
+on a socket. It also accepts commands for IR signals to be sent if
+the hardware supports this.
+
+The user space applications will allow you to control your computer
+with your remote control. You can send X events to applications, start
+programs and much more on just one button press.  The possible
+applications are obvious: Infra-red mouse, remote control for your TV
+tuner card or CD-ROM, shutdown by remote, program your VCR and/or
+satellite tuner with your computer, etc.
+
+Since some time some of the LIRC functionality has been moved to the
+kernel. However, LIRC still adds functionality and flexibility to the
+basic kernel IR remote handling.
+
+## Bug tracker and mailing list.
+
+See https://sourceforge.net/projects/lirc/

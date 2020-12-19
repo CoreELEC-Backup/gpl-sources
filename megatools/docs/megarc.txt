@@ -1,0 +1,125 @@
+megarc(5)
+=========
+
+NAME
+----
+megarc - Configuration file for megatools
+
+
+SYNOPSIS
+--------
+[verse]
+'~/.megarc'
+'./.megarc'
+
+
+DESCRIPTION
+-----------
+
+Megatools use INI configuration file to store commonly used login credentials.
+This makes it less bothersome to use the tools, as you can simply write
+
+--------
+$ megadf
+--------
+
+instead of
+
+--------
+$ megadf --username my@email.com --password mypass
+--------
+
+when using the tools.
+
+Configuration file is read either from the current directory or user's home
+directory. Exceptions are when `--ignore-config-file` was passed to the tool, or
+when explicit path to the config file was given via `--config <path>`.
+
+
+CONFIG FILE SECTIONS
+--------------------
+
+All sections are optional. All names are case sensitive, thus you must write
+[Login], and not [login], and so on.
+
+
+[Login] Section
+~~~~~~~~~~~~~~~
+
+Username::
+	Your username.
+
+Password::
+	Your password. Be aware that back slashes have special meaning. If you
+	have back slash in your password, you must escape it with another
+	backslash. For example: my\nice\password would be written as
+	my\\nice\\password in the config file.
+
+
+[Cache] Section
+~~~~~~~~~~~~~~~
+
+Timeout::
+	Cache timeout in seconds (default is 10 minutes).
+
+
+[Network] Section
+~~~~~~~~~~~~~~~
+
+DownloadSpeedLimit::
+	Set maximum allowed download speed in KiB/s.
+	0 means no limit. Overrides SpeedLimit setting.
+
+UploadSpeedLimit::
+	Set maximum allowed upload speed in KiB/s.
+	0 means no limit. Overrides SpeedLimit setting.
+	When using ParallelTransfers > 1, upload speed limit is applied
+	to each transfer individually.
+
+SpeedLimit::
+	Set maximum allowed upload and download speed in KiB/s.
+	0 means no limit.
+
+ParallelTransfers::
+	Set maximum allowed number of parallel connections when upload or downloading a file.
+	The file is split into chunks of a size between 128 kiB and 1 MiB, and these chunks
+	are uploaded in parallel.
+	The number must be between 1 and 16. Default is 5.
+
+Proxy::
+	Use proxy server to connect to mega.nz.
+	More information can be found in libcurl documentation at
+	link:https://curl.haxx.se/libcurl/c/CURLOPT_PROXY.html[].
+	Some acceptable values are:
+	* `socks5://localhost:9050` : Local SOCKSv5 proxy server
+	* `socks5h://localhost:9050` : Local SOCKSv5 proxy server with DNS handled by the proxy
+
+[Upload] Section
+~~~~~~~~~~~~~~~
+
+CreatePreviews::
+	Create Previews (see --enable-previews option).
+
+
+EXAMPLE
+-------
+
+Create ~/.megarc (on linux) or mega.ini file containing these 3 lines:
+
+------------
+[Login]
+Username = your@email
+Password = yourpassword
+
+[Network]
+# 1MiB/s
+SpeedLimit = 1024
+# Use over TOR
+Proxy = socks5://127.0.0.1:9050
+ParallelTransfers = 2
+------------
+
+Run man:megadf[1] to check that megatools are able to login to your account.
+
+
+include::footer.txt[]

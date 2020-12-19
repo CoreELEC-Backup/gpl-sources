@@ -1,0 +1,201 @@
+README file for libirman v0.5.0
+by Tom Wheeley <tomw@tsys.demon.co.uk>
+
+v0.5.2 maintenance release by Alec Leamas
+  - Plugin: Fix logging issues.
+  - Configure the sys/file.h header (Debian #436563).
+  - Build: Fix parallel make glitch.
+
+v0.5.1 maintenance release by Alec Leamas
+- Fix FTBS bug for --enable-swtest
+- Clean up plugin installation.
+
+v0.5.0 maintenance release by Alec Leamas
+
+- Always build the irman.test* tools.
+- If compiled with lirc > 0.9.3, builds the irman lirc plugin (i. e., driver).
+  Disable using the new --without-plugin configure option.
+- Update autotools setup to current standards.
+- Added pkg-config support (libirman.pc).
+- Added VPATH build support.
+
+Copyright and Licensing
+
+
+libirman v0.4.5, Copyright (C) 1998,1999 Tom Wheeley <tomw@tsys.demon.co.uk>
+
+The files which make up the library are covered under the GNU Library
+General Public License, which is in the file COPYING.lib.
+
+The files which make up the test programs and the documentation are covered
+under the GNU General Public License, which is in the file COPYING.
+
+
+
+Introduction
+
+
+libirman is a library for accessing the IRMAN hardware from Linux
+and other Unix systems.
+
+Currently the package is mainly for advanced users and developers; this
+does not mean that less experienced users will not be able to use it, but
+that there are not a lot of applications for libirman at the moment, and
+that if you run into problems you may have difficulty fixing things.
+
+Read the file TECHNICAL to see how libirman works, and how to use it in your
+applications.
+
+
+Use with LIRC
+
+For general applications programming, the preferred interface for infra-red
+control is `lirc', as lirc supports multiple programs sharing the same
+infra-red receiver.  It does this by providing a socket based interface to
+which several programs can connect.
+
+lirc uses libirman to interface with the Irman hardware, so in single use
+applications directly using libirman is simpler and uses less system
+resources.  Currently, lirc only works on Linux systems, so programs written
+using libirman directly are more portable.
+
+Prior to lirc 0.9.4 lirc depended on libirman to build the libirman support.
+From lirc 0.9.4 and libirman 0.5.0 lirc does not depend on libirman. Instead,
+the libirman package can build the required lirc plugin with the new
+--with-plugin configure option.
+
+
+
+Other Information
+
+  my homepage
+    http://www.tsys.demon.co.uk
+
+  libirman homepage
+    http://www.evation.com/libirman/
+
+  Irman hompage
+    http://www.evation.com/irman/
+
+  LIRC homepage
+    http://www.lirc.org/
+
+  Infra red remotes (technical information)
+    http://falcon.arts.cornell.edu/~dnegro/IR/IR.html
+
+  Universal Infra Red Receiver (build your own Irman)
+    http://www.geocities.com/SiliconValley/Sector/3863/infrared.html
+
+
+
+Installation
+
+
+To build libirman, run
+
+    autoreconf -fi
+    ./configure
+    make
+    make install
+
+The autoreconf step is optional, but recommended. You can also build
+without cluttering the sources:
+
+    autoreconf -fi
+    mkdir _build; cd _build
+    ../configure
+    make
+    make install
+
+You may well like to check the available options to configure by typing
+
+    ./configure --help
+
+the most important are: --prefix ,--enable-swtest and without-plugin.
+
+This will create the following important files:
+
+  libirman.a	The static library which talks to the irman and
+                manages the results
+  libirman.so.* Equivalent dynamic libraries.
+
+  test_io	Test program for the low level functions in libirman
+  test_func	Test program for the mid-level functions in libirman
+  test_name	test program for the name functions.
+
+  workmanir	Program to control workman via infra red
+
+  irman.so      LIRC irman plugin
+
+By default they are installed in /usr/local besides the LIRC plugin which is
+installed as defined by LIRC. If you do not use the --prefix option to
+`configure' then you will need to be root to run `make install'; installing
+the LIRC plugin typically also requires root permissions.
+
+
+Using libirman
+
+
+Firstly, you should test that the system works.  Run `test_io' with the
+hardware plugged in and see if code numbers appear on the screen when you
+press buttons on your remote control.
+
+Once the basic hardware works, you should run `test_func' to help you set up
+libirman for your remote control.  Make sure you have available virtual
+consoles, or are running either `screen' or `X' or some other similar
+multi-tasking aid.
+
+The file `irman.conf' should be copied to /usr/local/etc/irman.conf.  You may
+want to copy this to `~/.irmanrc'.  libirman searches first for ~/.irmanrc,
+and if that is not found reads /usr/local/etc/irman.conf.
+
+Press each button on your remote control, and note down the number printed -
+you need to add a `bind' line to your irmanrc file, noting the naming
+convention used:
+
+  bind manufacturer-device-button code
+
+once you have entered in the data for your remote control, you should change
+the workman-* alias lines to point to your remote control's entries.
+
+You may also like to specify the default port in the config file.
+
+Once you have entered in names into your irman config file, try running
+`test_name' to see if the bindings have worked.  (You should see the names
+you gave on the `bind' lines appear as you press the buttons).
+
+To see if `workmanir' works, make sure you are already running `workman', then
+start `workmanir' and try pressing buttons.  Make sure you have changed the
+`alias' lines in your irman.conf.
+
+
+Testing
+
+
+If you want to test libirman without using the irman hardware, you can run:
+
+`./configure --enable-swtest; make'
+
+which will create libirman_sw.a and programs *_sw (except test_io).  These
+will ask you to enter a twelve digit hex code to represent a code instead of
+querying the hardware.
+
+If you compile libirman with the define -DDEBUG_COMM then every byte
+read/written from the serial port is printed to stdout.
+(to do this run: CPPFLAGS=-DDEBUG_COMM ./configure; make clean; make)
+
+
+
+Credits
+
+
+Thankyou to the following:
+
+  Christoph Bartelmus <lirc@bartelmus.de>
+    maintainer of LIRC project.
+
+  Bill Ryder <bryder@sgi.com>
+    fix to make it work on SGI Indy's (and other Unix boxes)
+
+  MiniDisc,  http://www.minidisc.org
+    for being just so damn cool.

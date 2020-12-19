@@ -1,0 +1,84 @@
+.TH LIRCRCD "8" "Last change: Sep 2015" "lircrcd @version@" "System Manager Manual"
+.SH NAME
+.P
+\fBlircrcd\fR - Synchronize lircrc state among client applications.
+.SH SYNOPSIS
+.P
+\fBlircrcd\fR [\fIoptions\fR] \fIconfig-file\fR
+.SH DESCRIPTION
+.P
+.B lircrcd
+reads the given .lircrc config file and synchronises the mode
+that the LIRC clients such as \fBirexec(1)\fR, \fBirxevent(1)\fR,
+etc., are in. Using
+.B lircrcd
+has to be explicitly
+enabled in the lircrc config file by adding the following line at the
+beginning of the file:
+.IP
+lircrc_class default
+.P
+This must be done at the top-level file, not an included one. The lircrc_class
+string (here "default") could actually be anything; clients using the same
+string in their lircrc will be synchronized.
+.SH OPTIONS
+.TP
+\fB\-h\fR \fB\-\-help\fR
+Display help message.
+.TP
+\fB\-v\fR \fB\-\-version\fR
+Display version.
+.TP
+.BI \-p,\ \-\-permission= mode
+The \-\-permission option gives the file permission of the Unix domain
+socket lircrcd creates on startup in octal representation. Read the
+documentation for chmod for further details. If no \-\-permission option
+is given when the socket is created the default is to give only the
+user owning the file read and write permissions (0600 in octal
+representation).
+.TP
+.BI \-o,\ \-\-output= socket
+With the \-\-output option you can select the Unix domain socket, which
+lircrcd will create. The default is to create a socket in VARRUNDIR
+(@varrundir@/lirc), see FILES.
+
+.SH SOCKET PROTOCOL
+
+lircrcd syntactically uses the same protocol as lircd described in the
+lircd(8) manpage. It supports the following commands:
+
+.TP 4
+.B IDENT \fIident\fR
+Each program connecting to lircrcd identifies itself using this program.
+\fIident\fR is the string that is used in the \fIProg = \fR token inside
+the .lircrc file.
+
+.TP 4
+.B CODE \fIcode\fR
+When the client receives the code string from lircd it will send it to
+lircrcd and will receive back the applicable config string from the .lircrc
+config file. It should resend the CODE command until nothing is
+returned back which means that nothing (more) should happen in response
+to \fIcode\fR. This command is used each time the lirc_code2char()
+function is called by a client.
+
+.TP 4
+.B GETMODE
+lircrcd will return the current mode string.
+
+
+.TP 4
+.B SETMODE \fImode\fR
+lircrcd will set the actual mode, reflecting a mode in the .lircrc
+file.
+
+.SH FILES
+lircrcd creates its socket(s) in the VARRUNDIR directory
+(@varrundir@/lirc).  The socket basename includes the user UID and the
+string from the lircrc_class option.
+.SH "SEE ALSO"
+.P
+The documentation for
+.B lirc
+is maintained as html pages. They are located under html/ in the
+documentation directory.

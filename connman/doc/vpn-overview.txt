@@ -1,0 +1,99 @@
+VPN daemon overview
+*******************
+
+
+Manager interface
+=================
+
+Manager interface described in vpn-manager-api.txt is to be used
+by both the connectivity UI and by ConnMan. The Create(),
+Remove(), RegisterAgent() and UnregisterAgent() functions are for
+UI usage. The GetConnections() method and ConnectionAdded() and
+ConnectionRemoved() signals are for ConnMan VPN plugin to use.
+
+The UI should use the methods like this:
+- Ask VPN properties (like certs, usernames etc) from the user.
+- Call Manager.Create() to create a VPN connection (note that
+  the system does not yet try to connect to VPN at this point)
+- Register an agent to vpnd so that vpnd can ask any extra
+  parameters etc from the user if needed.
+- If the user wants to connect to VPN gateway, then the
+  connection attempt should be done in ConnMan side as
+  there will be a service created there.
+- If the user wishes to remove the VPN configuration, the UI
+  can call the Manager.Remove() which removes the VPN connection.
+  If the VPN was in use, the VPN connection is also disconnected.
+- When UI is terminated, the UI should call the UnregisterAgent()
+
+The ConnMan calls VPN daemon like this:
+- There is a VPN plugin which at startup starts to listen the
+  ConnectionAdded() and ConnectionRemoved() signals.
+- The VPN plugin will call GetConnections() in order to get
+  available VPN connections. It will then create a provider service
+  for each VPN connection that is returned.
+- User can then connect to the VPN by calling the service Connect()
+  method
+- The existing ConnMan Manager.ConnectProvider() interface can still
+  work by calling vpn.Manager.Create() and then call vpn.Connection.Connect()
+  but this ConnectProvider() interface will be deprecated at some
+  point.
+
+
+
+Connection interface
+====================
+
+The Manager.Create() will return the object path of the created
+vpn.Connection object and place it in idle state. Note that
+vpn.Connection.PropertyChanged signal is not called when Connection
+object is created because the same parameters are returned via
+vpn.Manager.ConnectionAdded() signal.
+The vpn.Connection object can be connected using the Connect() method
+and disconnected by calling Disconnect() method. When the connection
+is established (meaning VPN client has managed to create a connection
+to VPN server), then State property is set to "ready" and PropertyChanged
+signal is sent. If the connection cannot be established, then
+State property is set to "failure".
+After successful connection, the relevant connection properties are sent
+by PropertyChanged signal; like IPv[4|6] information, the index of the
+VPN tunneling interface (if there is any), nameserver information,
+server specified routes etc.
+
+VPN agent interface
+===================
+
+VPN agent interface described in vpn-agent-api.txt is used for
+interaction between the connectivity UI and ConnMan. A VPN agent
+registered via Management interface gets requests from the VPN plugins
+to input credentials or other authentication information for the VPN
+connection and offers information about the VPN to be connected.
+
+In addition to basic credentials, there are additional types of optional
+and control parameters. The user can dictate whether to store the
+credentials with the optional SaveCredentials value. The VPN plugins can
+also define with the control values AllowStoreCredentials,
+AllowRetrieveCredentials and KeepCredentials how the VPN agent must
+handle the credentials. AllowStoreCredentials as false indicates that
+client cannot use SaveCredentials option. AllowRetrieveCredentials set
+as false, without AllowStoreCredentials set as false should not have
+that same effect and in that case user is allowed to save credentials.
+
+These three control values become useful when a VPN has two or more
+sets of authentication credentials, second of which can be requested
+when the VPN detects a need for them. The first, main credentials,
+would be requested without these control values, so user is able to
+select whether the credentials are saved or not with SaveCredentials
+value. After the VPN initializes the connection and, e.g., needs to
+decrypt a private key file, a new request is sent to VPN agent. In this
+new request both AllowStoreCredentials and AllowRetrieveCredentials are
+set as false indicating that in no circumstances existing credentials
+stored are to be used and neither there should be option visible for
+the user to select saving of the credentials. Depending on VPN agent
+implementation these values can be interpreted as clearing of all the
+existing credentials related to the VPN connection from the credential
+storage. By including the KeepCredentials as true value the VPN can,
+however, tell the VPN agent not to clear the credentials for this VPN
+connection. The KeepCredentials is used to inform the VPN agent that
+these new, second/third/etc. credentials are only to be queried from
+the user and forgotten after that, when used in conjunction with the
+AllowStoreCredentials and AllowRetrieveCredentials set as false.

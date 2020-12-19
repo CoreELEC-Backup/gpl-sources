@@ -1,0 +1,6 @@
+This code was developed in participation with the Protocol Freedom
+Information Foundation.
+
+Please see 
+  https://www.samba.org/samba/PFIF/
+for more details.

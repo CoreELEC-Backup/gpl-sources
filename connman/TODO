@@ -1,0 +1,240 @@
+Background
+==========
+
+- Priority scale: High, Medium and Low
+
+- Complexity scale: C1, C2, C4 and C8.
+   The complexity scale is exponential, with complexity 1 being the
+   lowest complexity. Complexity is a function of both task 'complexity'
+   and task 'scope'.
+
+
+Core
+====
+
+- Personal firewall
+
+   Priority: Low
+   Complexity: C8
+
+   Discuss and implement a basic and safe firewalling strategy into
+   Connman. Provide a D-Bus API for personal firewalling.
+
+
+- PACRunner extensions
+
+   Priority: Low
+   Complexity: C4
+
+   Support more URI schemes, support multiple connections, tighter
+   security integration.
+
+
+- Check logging produced by connman_info()
+
+   Priority: Medium
+   Complexity: C1
+
+   Check that logging produced by connman_info() contains meaningful messages
+   and get rid of the unnecessary ones.
+
+
+- Remove --nobacktrace option
+
+   Priority: Medium
+   Complexity: C1
+   When: 2.0
+
+   Remove the --nobacktrace option or change it to --backtrace depending on
+   the level of systemd integration or other factors.
+
+
+- Clean up data structure usage
+
+   Priority: Medium
+   Complexity: C4
+
+   Use hash tables, queues and lists in the code. Check on the currently used
+   data structures and see if something can be simplified.
+
+
+- Unit tests for DHCP, DNS and HTTP
+
+   Priority: Low
+   Complexity: C4
+
+   Create unit tests for these components starting with DHCP. Use gtest
+   from GLib for this task similarly to what has been done for OBEX in Bluez
+   and oFono in general.
+
+
+- Support other time sources than NTP
+
+   Priority: Low
+   Complexity: C2
+
+   Support other time sources like cellular, GPS in addition to NTP.
+
+
+- Get interface names from src/device.c
+
+   Priority: Low
+   Complexity: C2
+
+   Instead of using ioctls in connman_inet_ifindex and connman_inet_ifname,
+   utilize the information already provided by netlink in src/device.c.
+
+
+- Support D-Bus ObjectManager
+
+   Priority: Medium
+   Complexity: C4
+
+   Support D-Bus ObjectManager by using functionality already present in
+   ./gdbus. Method calls and signals are already registered with gdbus, but
+   properties and replies especially in Agent are still handled with plain
+   dbus library function calls.
+
+   With this, Manager API is removed, and a WiFi P2P API based on
+   ObjectManager common to Linux desktops can be implemented.
+
+
+Tethering
+=========
+
+- Verify if bridge has been correctly created and configured
+
+   Priority: Low
+   Complexity: C1
+
+   When enabling tethering check if there was any error while creating and
+   configuring the bridge before continue. It has been done only for WiFi
+   technology, for other tethering technologies it should be evaluated
+   and implemented in case it is advantageous.
+
+
+WiFi
+====
+
+- Clean up WiFi data structure usage
+
+   Priority: Medium
+   Complexity: C2
+
+   Struct wifi_data is passed as a pointer in some of the wifi plugin
+   callbacks. For example removing a WiFi USB stick causes RTNL and
+   wpa_supplicant to call the wifi plugin at the same time causing the
+   freeing of the wifi data structure. Fix up the code to have proper
+   reference counting or other handling in place for the shared wifi data
+   and the members in the data structure.
+
+
+- EAP-AKA/SIM
+
+   Priority: Medium
+   Complexity: C2
+
+   This EAP is needed for SIM card based network authentication.
+   ConnMan here plays a minor role: Once wpa_supplicant is set up for
+   starting and EAP-AKA/SIM authentication, it will talk to a SIM card
+   through its pcsc-lite API.
+
+
+- EAP-FAST
+
+   Priority: Low
+   Complexity: C1
+
+
+- Removing wpa_supplicant 0.7.x legacy support
+
+  Priority: Low
+  Complexity: C1
+
+  Removing global country property setter in gsupplicant, and removing
+  wifi's technology set_regdom implementation. Removing autoscan fallback.
+  (Note: should be done around the end 2012)
+
+
+Bluetooth
+=========
+
+
+Cellular
+========
+
+
+VPN
+===
+
+- IPsec
+
+   Priority: Medium
+   Complexity: C4
+
+
+- L2TP & PPTP compatibility prefix removal
+
+   Priority: Medium
+   Complexity: C1
+   When: connman 2.0
+
+   The VPN config file provisioning patchset contains code that makes
+   PPP options to be marked by "PPPD." prefix. The code supports also
+   old "L2TP." and "PPTP." prefix for PPP options. Remove the compatibility
+   code and only allow "PPPD." prefix for PPP options.
+
+
+- Update VPNC and OpenVPN with Agent support
+
+   Priority: Medium
+   Complexity: C2
+
+   Update VPNC and OpenVPN with VPN Agent support to request possible user
+   ids and passphrases.
+
+
+- Change OpenConnect plugin to use libopenconnect
+
+   Priority: Medium
+   Complexity: C4
+
+   Current implementation of OpenConnect uses screenscraping and interactive
+   mode for accepting self signed certificates and reacting to PKCS pass
+   phrase requests. This should be replaced with libopenconnect use. It may be
+   worthwhile to attempt to replace the whole authentication with the use of
+   openconnect_obtain_cookie() whatever authentication type is used. This
+   would lead to using only the cookie when connecting (--cookie-on-stdin)
+   and would cleanup the code at run_connect().
+
+   The usage of stdout can be removed as unnecessary. Cookie should be
+   retrieved with openconnect_obtain_cookie(). Remove this also from
+   connman_task_run().
+
+   Function is_valid_protocol() must use openconnect_get_supported_protocols.
+   Also the static const char *protocols[] would be unnecessary.
+
+   Reading the stderr with byte-by-byte approach is to be removed, as well as
+   are the PKCS failures and requests in stderr IO channel processing.
+
+   The use of interactive mode toggle is to be removed. Non-interactive mode
+   must be used, which leads to using --syslog with each authentication type
+   as task arg.
+
+   If the peer certificate cannot be verified with normal means it is because
+   the peer certificate is self signed and the user setting
+   "AllowSelfSignedCert" has to be used for the verify certificate callback
+   reply. The callback for certificate validation must return zero if user has
+   allowed self signed certificates. In such case save the SHA1 fingerprint of
+   server certificate as it is done now, otherwise indicate error to
+   libopenconnect.
+
+Tools
+=====
+
+- Add Clock API support to connmanctl
+
+   Priority: Low
+   Complexity: C2
+
+   The connmanctl command line tool should support Clock API.

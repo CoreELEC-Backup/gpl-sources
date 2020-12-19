@@ -1,0 +1,140 @@
+Mauro Carvalho Chehab                                   2006 Apr 26
+
+V4L/DVB building procedures are based at the use of Makefile rules.
+Those rules are close to the ones at Linux Kernel, to allow an easier
+usage.
+
+=======================================================================
+Quick building procedure is:
+	make all
+======================================================================
+
+For those who may want more than just build all stuff there are some
+other interesting parameters to make:
+
+======================
+Normal building rules:
+all		- build all modules
+
+clean		- Cleans compiled files from the tree,
+		  but keeping the latest
+		  used configuration and kernel version
+
+distclean	- Cleans compiled files from the tree,
+		  latest used configuration and kernel
+		  version.
+
+default		- Continues building the latest module selection
+		  This is the behavior when just typed:
+			make
+
+install		- Installs all modules at kernel's default dir
+		  for V4L/DVB. Requires root access.
+
+rminstall	- cleans previous installations of V4L/DVB modules
+
+sound-install	- installs the sound modules related to V4L/DVB
+		  tree.
+
+======================
+Firmware rules:
+
+firmware	- Create the firmware files that are enclosed at the
+		  tree.
+		  Notice: Only a very few firmwares are currently here
+
+firmware_install- Install firmware files under /lib/firmware
+
+=======================
+Module selection rules:
+(Those may require write access to kernel tree)
+
+allmodconfig	- Called by make all. Selects all modules that are known
+		  to compile against the kernel version used.
+
+stagingconfig	- Select all modules, plus all staging modules. The
+		  staging drivers are there because they may have
+		  bad userspace API's, serious bugs and/or not fill
+		  into Kernel required level of quality. So, be
+		  careful with those drivers.
+
+xconfig		- Generate a xconfig menu. Requires full
+		  kernel source, since it depends on kernel's
+		  qconf stript;
+
+gconfig		- Generate a qt menu. Requires full
+		  kernel source, since it depends on kernel's
+		  gconf stript;
+
+config		- Generate a text-mode menu. Requires full
+		  kernel source, since it depends on kernel's
+		  conf stript;
+
+menuconfig	- Generate a ncurses menu. Requires full
+		  kernel source, since it depends on kernel's
+		  mconf and lxconfig stripts;
+
+release		- Allows changing kernel version.
+		  Typical usage is:
+			make release VER=2.6.12-18mdk
+			(to force compiling to 2.6.12-18mdk)
+			(This will work only if
+			 /lib/modules/2.6.12-18mdk/build/
+			 points to that kernel version)
+		  Or
+			make release DIR=~/linux-git
+			(to force using kernel at a specific dir)
+		  To use current kernel version instead:
+			make release
+
+======================
+Module handling rules:
+(require root access)
+
+insmod		- inserts all modules from V4L/DVB tree
+
+rmmod		- removes all modules from V4L/DVB tree
+
+reload		- removes then reinserts all modules
+
+===================
+Tree merging rules:
+
+ivtv		- enable merged ivtv build, using the latest ivtv sources
+		  from ivtvdriver.org (requires subversion)
+
+cx88-ivtv	- enable cx88-blackbird ivtv API emulation
+
+ivtv-update	- update ivtv sources from ivtvdriver.org
+
+==========================================
+Patch preparation and tree handling rules:
+(used by developers)
+
+kernel-links	- Generate links to V4L/DVB at kernel tree.
+		  Requires write access to kernel tree.
+
+cardlist	- Updates Documentation/video4linux/CARDLIST.*
+
+update		- updates the tree from master repository
+
+commit		- commits the change, asking for a commit msg
+
+push		- sends outgoing stuff to master repository
+
+checkemacs	- checks codingstyle and reports to emacs
+		  using "make checkemacs" at emacs compile menu,
+		  will report the lines with errors inside emacs.
+
+checkpatch	- checks codingstyle and reports using the same
+		  format as c. This way, c error parsers will
+		  handle it.
+
+checkterse	- checks codingstyle and reports using terse
+		  syntax, used on several compilaton tools.
+
+mismatch	- checks for linker section mismatch. In other words,
+		  check if some driver has functions not properly
+		  declared with __init/__exit, and similar tags.
+		  It will also be more pedantic by dealing with
+		  compilation warnings as if they are errors.

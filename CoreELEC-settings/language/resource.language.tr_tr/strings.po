@@ -1,0 +1,1145 @@
+# Kodi Media Center language file
+# Addon Name: @DISTRONAME@ Configuration
+# Addon id: service.coreelec.settings
+# Addon Provider: CoreELEC
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgctxt "#600"
+msgid "@DISTRONAME@ Settings"
+msgstr "@DISTRONAME@ Ayarları"
+
+msgctxt "#601"
+msgid "Interface"
+msgstr "Arayüz"
+
+msgctxt "#602"
+msgid "Address"
+msgstr "Adres"
+
+msgctxt "#603"
+msgid "Type"
+msgstr "Tip"
+
+msgctxt "#604"
+msgid "State"
+msgstr "Durum"
+
+msgctxt "#605"
+msgid "Address"
+msgstr "Adres"
+
+msgctxt "#606"
+msgid "Distribution: "
+msgstr "Dağıtım:"
+
+msgctxt "#607"
+msgid "Version: "
+msgstr "Sürüm:"
+
+msgctxt "#608"
+msgid "Architecture: "
+msgstr "Mimari:"
+
+msgctxt "#700"
+msgid ""
+"Configure a hostname, keyboard type, perform a reset, update, or backups and"
+" restores"
+msgstr "Bir ana makine adı ayarlayın, klavye türünü yapılandırın, sıfırlayın, güncelleme yapın,  yedekleme gerçekleştirin ve geri yükleyin"
+
+msgctxt "#701"
+msgid "Configure network startup options, NTP and VPNs"
+msgstr "Ağ başlangıç ​​seçeneklerini, NTP ve VPN’leri yapılandırma"
+
+msgctxt "#702"
+msgid ""
+"Manage the Ethernet, Wireless and VPN connections available to the system"
+msgstr "Kullanılabilir Ethernet, Wireless ve VPN bağlantılarını yönetin"
+
+msgctxt "#703"
+msgid "Configure system services like Samba, SSH, Cron, Avahi and Syslog"
+msgstr "Samba, SSH, Cron, Avahi ve Syslog gibi sistem hizmetlerini yapılandırın"
+
+msgctxt "#704"
+msgid "Configure and pair Bluetooth devices"
+msgstr "Bluetooth aygıtlarını yapılandırın ve eşleyin"
+
+msgctxt "#707"
+msgid "Configure updates"
+msgstr "Güncellemeleri yapılandır"
+
+msgctxt "#710"
+msgid ""
+"Configure the Hostname of your @DISTRONAME@ system. This will be used for "
+"the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+msgstr "@DISTRONAME@ sisteminizin Ana Bilgisayar adını yapılandırın. Bu, Windows'taki HTPC \\\\ana bilgisayar adı ve Mac OS Finder'da SMB sunucusu adı için kullanılacaktır."
+
+msgctxt "#711"
+msgid "Configure the 1st keyboard software layout"
+msgstr "1. klavye yazılımı düzenini yapılandırın"
+
+msgctxt "#712"
+msgid "Configure the 2nd keyboard software layout"
+msgstr "2. klavye yazılımı düzenini yapılandırın"
+
+msgctxt "#713"
+msgid "Configure the physical keyboard type"
+msgstr "Fiziksel klavye tipini ayarlayın"
+
+msgctxt "#714"
+msgid ""
+"@DISTRONAME@ can be configured for automatic or manual updates. Automatic "
+"updates are available on stable releases and stable release candidates. "
+"Automatic update self-disables on beta and development builds"
+msgstr "@DISTRONAME@, otomatik veya manuel güncellemeler için yapılandırılabilir. Otomatik güncellemeler kararlı sürümlerde ve kararlı sürüm adaylarında kullanılabilir. Beta ve geliştirme sürümlerinde otomatik güncelleme özelliği devre dışı"
+
+msgctxt "#715"
+msgid ""
+"Set to ON and an on-screen notification will be displayed when a new update "
+"is available"
+msgstr "AÇIK olarak ayarlandığında, yeni bir güncelleme olduğunda ekranda bir bildirim görünecektir"
+
+msgctxt "#718"
+msgid ""
+"Send boot config files from /flash, kodi.log, kernel log and Samba configs "
+"to http://ix.io, and display the short URL"
+msgstr "kodi.log, kernel günlüğü, Samba yapılandırmaları ve /flash dizininden önyükleme yapılandırma dosyalarını http://ix.io adresine yolla ve kısa URL adresini göster"
+
+msgctxt "#719"
+msgid ""
+"Send boot config files from /flash, kodi_crash.log, kernel log and Samba "
+"configs to http://ix.io, and display the short URL"
+msgstr "kodi_crash.log, kernel günlüğü, Samba yapılandırmaları ve /flash dizininden önyükleme yapılandırma dosyalarını http://ix.io adresine yolla ve kısa URL adresini göster"
+
+msgctxt "#720"
+msgid "Set to ON to enable the Bluetooth service"
+msgstr ""
+
+msgctxt "#721"
+msgid "Send CoreELEC debug info without logs to http://ix.io, and display the short URL"
+msgstr ""
+
+msgctxt "#722"
+msgid ""
+"Create a tar archive containing all @DISTRONAME@ and Kodi configuration "
+"settings, databases and thumbnail content. Backup files will be stored in "
+"/storage/backup/"
+msgstr "Tüm @DISTRONAME@ ve Kodi yapılandırma ayarlarını, veritabanlarını ve küçük resim içeriğini içeren bir tar arşivi oluşturun. Yedek dosyalar /storage/backup/ içinde saklanır"
+
+msgctxt "#723"
+msgid ""
+"Restore a tar archive backup previously created using the backup option "
+"above"
+msgstr "Yukarıdaki yedekleme seçeneğini kullanarak daha önce oluşturulmuş bir tar arşiv yedeğini geri yükleyin"
+
+msgctxt "#724"
+msgid ""
+"[COLOR FF00FF00]SOFT RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
+msgstr "[COLOR FF00FF00]SOFT RESET[/COLOR]\n@DISTRONAME@ yapılandırmasını varsayılan ayarlara kalıcı olarak sıfırlayın (kitaplığınız da dahil olmak üzere Kodi'yi de varsayılana sıfırlar. Medya - müzik/video/vb)"
+
+msgctxt "#725"
+msgid ""
+"[COLOR FFFF0000]HARD RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ and Kodi configuration to defaults (everything in your storage partition will be deleted)"
+msgstr "[COLOR FFFF0000]HARD RESET[/COLOR]\n@DISTRONAME@ ve Kodi yapılandırmasını varsayılan ayarlara kalıcı olarak sıfırlayın (depolama bölümünüzdeki her şey silinecek)"
+
+msgctxt "#726"
+msgid "Enable or disable support for Wireless (WLAN) networks"
+msgstr "Kablosuz (WLAN) ağlar için desteği etkinleştirme veya devre dışı bırakma"
+
+msgctxt "#727"
+msgid ""
+"Enable a 'tethered' Wireless Access Point. This requires your wireless card "
+"(and driver) to support bridging and access point mode. Not all cards are "
+"capable."
+msgstr "'Bağlı' bir Kablosuz Erişim Noktasını etkinleştirin. Bu, kablosuz kartınızın (ve sürücünün) köprüleme ve erişim noktası modunu desteklemesini gerektirir. Tüm kartlar yetenekli değil."
+
+msgctxt "#728"
+msgid "Configure the Access Point SSID"
+msgstr "Access Point SSID'sini ayarlayın"
+
+msgctxt "#729"
+msgid "Configure the Access Point Passphrase"
+msgstr "Erişim Noktası Şifresini Yapılandırma"
+
+msgctxt "#730"
+msgid "Enable or disable support for Wired (Ethernet) networks"
+msgstr "Kablolu (Ethernet) ağlar için desteği etkinleştirme veya devre dışı bırakma"
+
+msgctxt "#732"
+msgid "Configure the 1st time (NTP) server"
+msgstr "1. saat (NTP) sunucusunu yapılandırın"
+
+msgctxt "#733"
+msgid "Configure the 2nd time (NTP) server"
+msgstr "2. saat (NTP) sunucusunu yapılandırın"
+
+msgctxt "#734"
+msgid "Configure the 3rd time (NTP) server"
+msgstr "3. saat (NTP) sunucusunu yapılandırın"
+
+msgctxt "#736"
+msgid ""
+"Set to ON to delay Kodi startup until the network is available. Use this if "
+"the OS is booting into Kodi before the network is up and central MySQL "
+"databases are accessible."
+msgstr "Ağ kullanıma hazır olana kadar Kodi başlatmayı geciktirmek için AÇIK olarak ayarlayın. Ağ kurulmadan ve merkezi MySQL veritabanlarına erişilmeden önce işletim sistemi Kodi'ye önyüklenirse bunu kullanın."
+
+msgctxt "#737"
+msgid "Time in seconds to wait for an established network connection."
+msgstr "Ağ bağlantısı kurulmasını beklemek için saniye cinsinden süre."
+
+msgctxt "#738"
+msgid "Set to ON to enable the embedded Samba (SMB) filesharing service"
+msgstr "Katıştırılmış Samba (SMB) dosya paylaşım servisini etkinleştirmek için AÇIK olarak ayarlayın."
+
+msgctxt "#739"
+msgid ""
+"Set to ON to require username/password access to local Samba fileshares"
+msgstr "Yerel Samba dosya paylaşımlarına kullanıcı adı / şifre erişimi talep etmek için AÇIK olarak ayarlayın."
+
+msgctxt "#740"
+msgid "Set the username for Samba sharing"
+msgstr "Samba paylaşımı için kullanıcı adını ayarlayın"
+
+msgctxt "#741"
+msgid "Set the password for Samba sharing"
+msgstr "Samba paylaşımı için şifreyi ayarlayın"
+
+msgctxt "#742"
+msgid ""
+"Set to ON to enable the embedded SSH server. The SSH console can be accessed"
+" with username 'root' and password '@ROOT_PASSWORD@'."
+msgstr "Katıştırılmış SSH sunucusunu etkinleştirmek için AÇIK olarak ayarlayın. SSH konsoluna kullanıcı adı 'root' ve şifre '@ROOT_PASSWORD@' ile erişilebilir."
+
+msgctxt "#743"
+msgid ""
+"Set to ON if you have copied private SSH keys to your HTPC and would like to"
+" improve security by disabling SSH username and password authentication."
+msgstr "Özel SSH anahtarlarını HTPC'nize kopyaladıysanız ve SSH kullanıcı adını ve parola doğrulamasını devre dışı bırakarak güvenliği artırmak istiyorsanız AÇIK olarak ayarlayın."
+
+msgctxt "#744"
+msgid ""
+"Set to ON to enable the Avahi (Zeroconf/Bonjour) network discovery service"
+msgstr "Avahi (Zeroconf / Bonjour) ağ bulma servisini etkinleştirmek için AÇIK olarak ayarlayın"
+
+msgctxt "#745"
+msgid "Set to ON to enable the cron daemon"
+msgstr "Cron arka planını etkinleştirmek için AÇIK olarak ayarlayın"
+
+msgctxt "#746"
+msgid "Set the password for SSH"
+msgstr "SSH için şifreyi ayarlayın"
+
+msgctxt "#747"
+msgid "Enable a PIN for @DISTRONAME@ Settings access"
+msgstr "@DISTRONAME@ Ayarlarına erişmek için bir PIN ayarlayın"
+
+msgctxt "#748"
+msgid "Change the PIN Lock for @DISTRONAME@ Settings access"
+msgstr "@DISTRONAME@ Ayarlarına erişmek için gereken PIN Kilidini Değiştirin"
+
+msgctxt "#749"
+msgid ""
+"Overrride the Wireless Regulatory Domain so radio properties (channels and "
+"transmit power) comply with local laws or match the country configuration of"
+" your router."
+msgstr ""
+
+msgctxt "#750"
+msgid "750"
+msgstr "750"
+
+msgctxt "#751"
+msgid ""
+"With OBEX filetransfer you can send files, for example movies or pictures "
+"over bluetooth to @DISTRONAME@."
+msgstr "OBEX filetransfer ile @DISTRONAME@ dizinine dosya, örneğin film veya bluetooth üzerinden resim gönderebilirsiniz."
+
+msgctxt "#752"
+msgid ""
+"Here you can set the folder location where OBEX file transfer should store "
+"incoming files"
+msgstr "Burada OBEX dosya transferinin gelen dosyaları saklaması gereken klasör konumunu ayarlayabilirsiniz."
+
+msgctxt "#753"
+msgid "Configure the 1st keyboard software Variant"
+msgstr "1. klavye yazılımını yapılandırın"
+
+msgctxt "#754"
+msgid "Configure the 2nd keyboard software Variant"
+msgstr "2. klavye yazılımını yapılandırın"
+
+msgctxt "#755"
+msgid "Auto share external drives / partitions"
+msgstr "Harici sürücüleri / bölümleri otomatik paylaş"
+
+msgctxt "#756"
+msgid ""
+"Disable older SMB protocols by specifying the minimum supported protocol."
+msgstr "Desteklenen minimum protokolü belirleyerek eski SMB protokollerini devre dışı bırakın."
+
+msgctxt "#757"
+msgid ""
+"Disable more recent SMB protocols for backward compatability with legacy "
+"clients."
+msgstr "Eski istemcilerle geriye dönük uyumluluk için daha yeni SMB protokollerini devre dışı bırakın."
+
+msgctxt "#758"
+msgid "NetBIOS group to which the server belongs. Default is WORKGROUP."
+msgstr "Sunucunun ait olduğu NetBIOS grubu. Varsayılan, WORKGROUP."
+
+msgctxt "#760"
+msgid "Select an update channel"
+msgstr "Bir güncelleme kanalı seçin"
+
+msgctxt "#761"
+msgid "Enable to allow entering a custom update url"
+msgstr "Özel bir güncelleme URL'si girilmesine izin vermek için etkinleştir"
+
+msgctxt "#762"
+msgid "Enter a custom update url (url should be the root of the update files)"
+msgstr "Özel bir güncelleme URL'si girin (URL, güncelleme dosyalarının kökü olmalıdır)"
+
+msgctxt "#770"
+msgid "Select an available version"
+msgstr "Kullanılabilir bir sürüm seçin"
+
+msgctxt "#771"
+msgid ""
+"The firewall blocks unwanted network traffic. Home (default) allows traffic "
+"from private network ranges (192.168.x.x, 172.16.x.x and 10.x.x.x) only. "
+"Public blocks all traffic from all networks. Custom uses rules in "
+"/storage/.config/iptables. Off disables the firewall."
+msgstr "Güvenlik duvarı, istenmeyen ağ trafiğini engeller. Ana Sayfa (varsayılan) yalnızca özel ağ aralıklarından (192.168.x.x, 172.16.x.x and 10.x.x.x) gelen trafiğe izin verir. Genel, tüm ağlardan gelen tüm trafiği engeller. Özel /storage/.config/iptables içindeki kuralları kullanır. Kapalı, güvenlik duvarını devre dışı bırakır."
+
+msgctxt "#772"
+msgid ""
+"Checking for a new version will submit the installed Distribution, Project, "
+"CPU Arch and Version to the update server. This data is also used to report "
+"basic statistics for the project. To continue checking for updates while "
+"opting-out of stats reporting, disable this option."
+msgstr "Yeni bir sürümün kontrol edilmesi, kurulu Dağıtım, Proje, CPU Arch ve Sürüm'ü güncelleme sunucusuna gönderecektir. Bu veriler aynı zamanda projenin temel istatistiklerini bildirmek için kullanılır. İstatistik raporlarından çıkarken güncellemeleri kontrol etmeye devam etmek için bu seçeneği devre dışı bırakın."
+
+msgctxt "#773"
+msgid ""
+"Set the idle timeout (in minutes) before devices will be disconnected "
+"(defaults to 0 for no timeout). Applies to devices where \"Enable Standby\" "
+"has been activated in the LibreELEC device connection context menu."
+msgstr ""
+
+msgctxt "#32001"
+msgid "Services"
+msgstr "Hizmetler"
+
+msgctxt "#32002"
+msgid "System"
+msgstr "Sistem"
+
+msgctxt "#32003"
+msgid "Interface"
+msgstr "Arayüz"
+
+msgctxt "#32005"
+msgid "Updates"
+msgstr "Güncellemeler"
+
+msgctxt "#32009"
+msgid "Keyboard"
+msgstr "Klavye"
+
+msgctxt "#32010"
+msgid "Keyboard Layout"
+msgstr "Klavye Düzeni"
+
+msgctxt "#32012"
+msgid "Select Action"
+msgstr "Bir İşlem Seçin"
+
+msgctxt "#32013"
+msgid "OS Updates"
+msgstr "OS güncellemesi"
+
+msgctxt "#32014"
+msgid "Automatic Updates"
+msgstr "Otomatik Güncellemeler"
+
+msgctxt "#32015"
+msgid "Update Channel"
+msgstr "Kanalı Güncelle"
+
+msgctxt "#32016"
+msgid "Show Custom Channels"
+msgstr "Özel Kanalları Göster"
+
+msgctxt "#32017"
+msgid "  - Custom Channel 1"
+msgstr "- Özel Kanal 1"
+
+msgctxt "#32018"
+msgid "  - Custom Channel 2"
+msgstr "- Özel Kanal 2"
+
+msgctxt "#32019"
+msgid "  - Custom Channel 3"
+msgstr "- Özel Kanal 3"
+
+msgctxt "#32020"
+msgid "Available Versions"
+msgstr "Kullanılabilir Sürümler"
+
+msgctxt "#32021"
+msgid "Submit Statistics"
+msgstr "İstatistikleri Gönder"
+
+msgctxt "#32022"
+msgid "Firmware Updates"
+msgstr ""
+
+msgctxt "#32023"
+msgid "Updating will occur once the system is rebooted."
+msgstr "Sistem yeniden başlatıldığında güncelleme gerçekleşecektir."
+
+msgctxt "#32024"
+msgid "Bootloader EEPROM"
+msgstr "Bootloader EEPROM"
+
+msgctxt "#32025"
+msgid ""
+"Update the Raspberry Pi Bootloader EEPROM to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr "Raspberry Pi Önyükleyici EEPROM'u en son sürüme güncelleyin. Bu seçenek, yeniden başlattıktan sonra otomatik olarak devre dışı bırakılır. Güncellemeyi uygulamak için sistemi yeniden başlatın."
+
+msgctxt "#32026"
+msgid "VIA USB3 Firmware"
+msgstr "VIA USB3 Firmware"
+
+msgctxt "#32027"
+msgid ""
+"Update the Raspberry Pi VIA USB3 firmware to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr "Raspberry Pi VIA USB3 üretici yazılımını en son sürüme güncelleyin. Bu seçenek, yeniden başlattıktan sonra otomatik olarak devre dışı bırakılır. Güncellemeyi uygulamak için sistemi yeniden başlatın."
+
+msgctxt "#32028"
+msgid "update from %s to %s"
+msgstr "%s sürümü, %ssürümüne güncelleştirildi"
+
+msgctxt "#32029"
+msgid "up to date: %s"
+msgstr "güncel: %s"
+
+msgctxt "#32100"
+msgid "Connections"
+msgstr "Bağlantılar"
+
+msgctxt "#32101"
+msgid "Network"
+msgstr "Ağlar"
+
+msgctxt "#32102"
+msgid "Wireless Networks"
+msgstr "Kablosuz Ağlar"
+
+msgctxt "#32103"
+msgid "Wired Networks"
+msgstr "Kablolu Ağlar"
+
+msgctxt "#32105"
+msgid "Active"
+msgstr "Aktif"
+
+msgctxt "#32106"
+msgid "Username"
+msgstr "Kullanıcı Adı"
+
+msgctxt "#32107"
+msgid "Passphrase"
+msgstr "Parola "
+
+msgctxt "#32108"
+msgid "Enable 'tethered' Wireless Access Point"
+msgstr "'Bağlı' Kablosuz Erişim Noktasını Etkinleştir"
+
+msgctxt "#32109"
+msgid "Connect Automatically"
+msgstr "Otomatik Olarak Bağlan"
+
+msgctxt "#32110"
+msgid "Connection"
+msgstr "Bağlantı"
+
+msgctxt "#32111"
+msgid "IPv4"
+msgstr "IPv4"
+
+msgctxt "#32112"
+msgid "IPv6"
+msgstr "IPv6"
+
+msgctxt "#32113"
+msgid "IP Address Method"
+msgstr "IP Adress Methodu"
+
+msgctxt "#32114"
+msgid "IP Address"
+msgstr "IP Adres"
+
+msgctxt "#32115"
+msgid "Subnet Mask"
+msgstr "Alt Ağ Maskesi"
+
+msgctxt "#32116"
+msgid "Default Gateway"
+msgstr "Varsayılan Ağ Geçidi"
+
+msgctxt "#32117"
+msgid "Prefix Length"
+msgstr "Önek uzunluğu"
+
+msgctxt "#32118"
+msgid "Privacy"
+msgstr "Gizlilik"
+
+msgctxt "#32119"
+msgid "DNS Servers"
+msgstr "DNS Sunucuları"
+
+msgctxt "#32120"
+msgid "Nameserver #1"
+msgstr "Ad sunucusu #1"
+
+msgctxt "#32121"
+msgid "Nameserver #2"
+msgstr "Ad sunucusu #2"
+
+msgctxt "#32122"
+msgid "Nameserver #3"
+msgstr "Ad sunucusu #3"
+
+msgctxt "#32123"
+msgid "NTP Servers"
+msgstr "NTP Sunucuları"
+
+msgctxt "#32124"
+msgid "Timeserver #1"
+msgstr "Zaman sunucusu #1"
+
+msgctxt "#32125"
+msgid "Timeserver #2"
+msgstr "Zaman sunucusu #2"
+
+msgctxt "#32126"
+msgid "Timeserver #3"
+msgstr "Zaman sunucusu #3"
+
+msgctxt "#32127"
+msgid "DNS Domains"
+msgstr "DNS Etki Alanları"
+
+msgctxt "#32128"
+msgid "Domain #1"
+msgstr "Domain #1"
+
+msgctxt "#32129"
+msgid "Domain #2"
+msgstr "Domain #2"
+
+msgctxt "#32130"
+msgid "Domain #3"
+msgstr "Domain #3"
+
+msgctxt "#32140"
+msgid "Save"
+msgstr "Kaydet"
+
+msgctxt "#32141"
+msgid "Delete"
+msgstr "Sil"
+
+msgctxt "#32142"
+msgid "Refresh"
+msgstr "Yenile"
+
+msgctxt "#32143"
+msgid "Disconnect"
+msgstr "Bağlantıyı Kes"
+
+msgctxt "#32144"
+msgid "Connect"
+msgstr "Bağlan"
+
+msgctxt "#32145"
+msgid "Pair"
+msgstr "Çiftler"
+
+msgctxt "#32146"
+msgid "Hidden Network Name"
+msgstr "Gizli Ağ Adı"
+
+msgctxt "#32147"
+msgid "Wireless Network Passphrase"
+msgstr "Kablosuz Ağ Parolası"
+
+msgctxt "#32148"
+msgid "Wireless Network Username"
+msgstr "Kablosuz Ağ Kullanıcı Adı"
+
+msgctxt "#32150"
+msgid "Edit"
+msgstr "Düzenle"
+
+msgctxt "#32180"
+msgid "Would you like to update @DISTRONAME@ now?"
+msgstr "@DISTRONAME@'i şimdi güncellemek ister misiniz?"
+
+msgctxt "#32181"
+msgid "Filename"
+msgstr "Dosya Adı"
+
+msgctxt "#32182"
+msgid "Download speed"
+msgstr "İndirme hızı"
+
+msgctxt "#32183"
+msgid "Time remaining"
+msgstr "Kalan zaman"
+
+msgctxt "#32184"
+msgid "Extract file"
+msgstr "Dosyayı çıkart"
+
+msgctxt "#32185"
+msgid "Extract speed"
+msgstr "Çıkartma hızı"
+
+msgctxt "#32186"
+msgid "Initialize Archive File"
+msgstr "Arşiv Dosyasını Başlat"
+
+msgctxt "#32187"
+msgid "New Version"
+msgstr "Yeni Sürüm"
+
+msgctxt "#32188"
+msgid "Current Version"
+msgstr "Geçerli Sürüm"
+
+msgctxt "#32189"
+msgid "Identification"
+msgstr "Kimlik"
+
+msgctxt "#32190"
+msgid "System Name"
+msgstr "Sistem Adı"
+
+msgctxt "#32191"
+msgid "Invalid URL"
+msgstr "Geçeriz URL"
+
+msgctxt "#32192"
+msgid "PIN lock"
+msgstr "PIN kilidi"
+
+msgctxt "#32193"
+msgid "Enable @DISTRONAME@ Settings PIN Lock"
+msgstr "@DISTRONAME@ Ayarları PIN Kilidini Etkinleştir"
+
+msgctxt "#32194"
+msgid "Change @DISTRONAME@ Settings PIN Lock"
+msgstr "@DISTRONAME@ Ayarları PIN Kilidini Değiştir"
+
+msgctxt "#32196"
+msgid "About"
+msgstr "Hakkında"
+
+msgctxt "#32198"
+msgid "SSID"
+msgstr "SSID"
+
+msgctxt "#32200"
+msgid "Samba"
+msgstr "Samba"
+
+msgctxt "#32201"
+msgid "SSH"
+msgstr "SSH"
+
+msgctxt "#32202"
+msgid "Use Samba Password Authentication"
+msgstr "Samba Parola Yetkilendirilmesini Kullan"
+
+msgctxt "#32203"
+msgid "Disable SSH Password"
+msgstr "SSH Parolasını Devre Dışı Bırak"
+
+msgctxt "#32204"
+msgid "Enable Samba"
+msgstr "Samba Hizmetini Etkinleştir"
+
+msgctxt "#32205"
+msgid "Enable SSH"
+msgstr "SSH Hizmetini Etkinleştir"
+
+msgctxt "#32206"
+msgid "Enable Avahi (Zeroconf)"
+msgstr "Avahi (Zeroconf) Hizmetini Etkinleştir"
+
+msgctxt "#32207"
+msgid "Avahi"
+msgstr "Avahi"
+
+msgctxt "#32208"
+msgid "Hidden Wlan"
+msgstr "Gizli Kablosuz Ağ"
+
+msgctxt "#32209"
+msgid "SSH Password"
+msgstr "SSH Şifresi"
+
+msgctxt "#32210"
+msgid ""
+"The default SSH password is widely known and considered "
+"insecure.[CR][CR]Setting a personal password is recommended."
+msgstr "Varsayılan SSH şifresi yaygın olarak bilinir ve güvensiz olarak kabul edilir.[CR][CR]Kişisel bir şifre belirlemeniz önerilir."
+
+msgctxt "#32212"
+msgid "Cancel"
+msgstr "İptal"
+
+msgctxt "#32213"
+msgid "Keep Existing"
+msgstr "Varolanı Koru"
+
+msgctxt "#32214"
+msgid "Set Password"
+msgstr "Şifreyi belirle"
+
+msgctxt "#32215"
+msgid "Workgroup name"
+msgstr "Çalışma grubu adı"
+
+msgctxt "#32216"
+msgid "Auto-Share External Drives"
+msgstr "Harici Diskleri Otomatik Paylaşma"
+
+msgctxt "#32217"
+msgid "Minimum supported protocol"
+msgstr "Desteklenen minimum protokol"
+
+msgctxt "#32218"
+msgid "Maximum supported protocol"
+msgstr "Desteklenen maksimum protokol"
+
+msgctxt "#32220"
+msgid "Bad password!"
+msgstr "Hatalı şifre!"
+
+msgctxt "#32221"
+msgid "The entered password is too weak.[CR]SSH password is unchanged."
+msgstr "Girilen şifre çok zayıf.[CR]SSH şifresi değişmedi."
+
+msgctxt "#32222"
+msgid "Password changed!"
+msgstr "Şifre değişti!"
+
+msgctxt "#32223"
+msgid "The SSH password has been successfully changed."
+msgstr "SSH şifresi başarıyla değiştirildi."
+
+msgctxt "#32224"
+msgid "Unknown error!"
+msgstr "Bilinmeyen hata!"
+
+msgctxt "#32225"
+msgid "There was an error during the process.[CR]SSH password is unchanged."
+msgstr "İşlem sırasında bir hata oluştu[CR]SSH şifresi değişmedi."
+
+msgctxt "#32226"
+msgid "Enter new 4 digit PIN"
+msgstr "4 basamaklı yeni bir PIN girin"
+
+msgctxt "#32227"
+msgid "Re-enter PIN"
+msgstr "PIN'i yeniden girin"
+
+msgctxt "#32228"
+msgid "Error - PIN codes did not match!"
+msgstr "Hata - PIN kodları eşleşmedi!"
+
+msgctxt "#32229"
+msgid "@DISTRONAME@ Settings PIN lock not set.[CR][CR]Please try again."
+msgstr "@DISTRONAME@ Ayarları PIN kilidi ayarlanmadı.[CR][CR]Lütfen tekrar deneyin."
+
+msgctxt "#32230"
+msgid "@DISTRONAME@ Settings PIN lock set."
+msgstr "@DISTRONAME@ Ayarları PIN kilidi ayarı."
+
+msgctxt "#32231"
+msgid "Your @DISTRONAME@ Settings PIN lock has been set to:"
+msgstr ""
+
+msgctxt "#32232"
+msgid "Error - PIN code not 4 digits!"
+msgstr "Hata - PIN kodu 4 basamaklı değil!"
+
+msgctxt "#32233"
+msgid "@DISTRONAME@ Settings Locked[CR]Enter 4 digit PIN"
+msgstr ""
+
+msgctxt "#32234"
+msgid "Incorrect PIN!"
+msgstr "Hatalı PIN!"
+
+msgctxt "#32235"
+msgid " attempts remaining."
+msgstr "deneme hakkı kaldı."
+
+msgctxt "#32236"
+msgid ""
+"You have entered an incorrect PIN too many times.[CR][CR]You will need to "
+"wait 5 minutes before trying again."
+msgstr "PIN'i çok fazla kez yanlış girdiniz.[CR][CR]Tekrar denemeden önce 5 dakika beklemeniz gerekecek."
+
+msgctxt "#32237"
+msgid "@DISTRONAME@ Settings Locked!"
+msgstr "@DISTRONAME@ Ayarları Kilitli!"
+
+msgctxt "#32238"
+msgid ""
+"Time remaining before PIN can be entered: %02d:%02d[CR][CR]Too many previous"
+" failed attempts."
+msgstr ""
+
+msgctxt "#32240"
+msgid "Wireless Regulatory Domain"
+msgstr ""
+
+msgctxt "#32300"
+msgid "Welcome to @DISTRONAME@"
+msgstr "@DISTRONAME@ 'e hoşgeldiniz"
+
+msgctxt "#32301"
+msgid "Welcome"
+msgstr "Hoşgeldiniz"
+
+msgctxt "#32302"
+msgid ""
+"This wizard will guide you through the process of setting up your new "
+"@DISTRONAME@ installation - setting your location, timezone and connecting "
+"you to the internet.[CR][CR]These settings can be changed later by "
+"navigating to Programs > @DISTRONAME@ Settings."
+msgstr "Bu sihirbaz, yeni @DISTRONAME@ kurulumunuzda konum, saat dilimi ve internet bağlanıtısı ayarlarınızı yaparken size rehberlik edecektir. [CR][CR] Bu ayarları daha sonra Programlar > @DISTRONAME@ Ayarları bölümünden değiştirebilirsiniz."
+
+msgctxt "#32303"
+msgid "Next"
+msgstr "İleri"
+
+msgctxt "#32304"
+msgid ""
+"To be identified easily on the network, your new @DISTRONAME@ machine needs "
+"a name.[CR][CR]Try to choose something meaningful - like the room it's in - "
+"so you'll know what it is when you see it on the network.[CR][CR]This name "
+"is used when configuring network services, like file sharing using samba."
+msgstr "Ağ üzerinde kolayca tanımlanabilmesi için, @DISTRONAME@ cihazınızın bir isme ihtiyacı var.[CR][CR] Anlamlı bir isim seçmeye çalışın -bulunduğu odanın ismi gibi- böylece ağ üzerinde gördüğünüzde ne olduğunu bileceksiniz.[CR][CR]Bu isim dosya paylaşımı yapmak için kullanılan samba hizmeti gibi ağ hizmetlerini yapılandırırken kullanılır."
+
+msgctxt "#32305"
+msgid "Networking"
+msgstr "Ağ"
+
+msgctxt "#32306"
+msgid ""
+"In order to download backdrops, banners and thumbnails for your movies and "
+"TV shows and to stream online content from sites like YouTube, @DISTRONAME@ "
+"needs to be connected the Internet.[CR][CR]An Internet connection is also "
+"required for @DISTRONAME@ to automatically update itself."
+msgstr "Filmleriniz ve TV programlarınız için fonlar, afişler ve küçük resimler indirmek ve çevrimiçi içeriklerinizi YouTube gibi sitelerden yayınlamak için @DISTRONAME@ İnternet'e bağlı olmalıdır.[CR][CR]@DISTRONAME@ için de bir İnternet bağlantısı gerekir. kendisini otomatik olarak güncellemek için."
+
+msgctxt "#32307"
+msgid "Previous"
+msgstr "Önceki"
+
+msgctxt "#32308"
+msgid "Hostname:"
+msgstr "Sunucu adı:"
+
+msgctxt "#32309"
+msgid "The following Networks are currently available:"
+msgstr "Aşağıdaki ağlar şu anda kullanılabilir:"
+
+msgctxt "#32310"
+msgid "Language:"
+msgstr "Dil:"
+
+msgctxt "#32311"
+msgid "Sharing and Remote Access"
+msgstr "Paylaşma ve Uzaktan Erişim"
+
+msgctxt "#32312"
+msgid ""
+"@DISTRONAME@ also supports SSH for remote access. This is for advanced users"
+" who wish to interact with @DISTRONAME@'s underlying operating system. The "
+"default user is [COLOR blue]root[/COLOR] and the default password is [COLOR "
+"blue]@ROOT_PASSWORD@[/COLOR]."
+msgstr "@DISTRONAME@, uzaktan erişim için SSH'yi de destekliyor. Bu, @DISTRONAME@ 'ın temel işletim sistemi ile etkileşimde bulunmak isteyen ileri düzey kullanıcılar içindir. Varsayılan kullanıcı [COLOR blue]root[/COLOR] ve varsayılan şifre [COLOR blue]@ROOT_PASSWORD@[/COLOR] şeklindedir."
+
+msgctxt "#32313"
+msgid ""
+"In order to share your files between your computers @DISTRONAME@ has "
+"incorporated a samba server. This samba server can be integrated into your "
+"local network by accessing it in a familiar way with Finder or Windows "
+"Explorer."
+msgstr "Dosyalarınızı bilgisayarınız arasında paylaşmak için @DISTRONAME@ bir samba sunucusu ekledi. Bu samba sunucusu, Finder veya Windows Gezgini ile tanıdık bir şekilde erişerek yerel ağınıza entegre edilebilir."
+
+msgctxt "#32316"
+msgid "Configure Services:"
+msgstr "Hizmetleri Yapılandır:"
+
+msgctxt "#32317"
+msgid "Thank you"
+msgstr "Teşekkürler"
+
+msgctxt "#32318"
+msgid ""
+"Your @DISTRONAME@ installation is now complete and you are about to enter "
+"Kodi where you can set up your media libraries. For help with this, there is"
+" a guide available at wiki.kodi.tv[CR][CR]@DISTRONAME@ is developed by a "
+"dedicated team of developers who work purely in their spare time. Even as a "
+"volunteer project, we still have to pay for our internet bandwidth and "
+"development resources so if you find @DISTRONAME@ useful we will always "
+"appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using"
+" @DISTRONAME@ as much as we've enjoyed building it. If you need any more "
+"help, you can find links to our support forum along with latest news at our "
+"website."
+msgstr "@DISTRONAME@ kurulumunuz şimdi tamamlandı ve medya kitaplıklarınızı kurabileceğiniz Kodi'ye girmek üzeresiniz. Bununla ilgili yardım almak için wiki.kodi.tv adresinde mevcut bir rehber vardır.[CR][CR]@DISTRONAME@ yanlızca boş zamanlarını bu işe ayıran özel bir geliştirici ekibi tarafından geliştirilmiştir. Gönüllü bir proje olarak bile, internet bant genişliğimiz ve geliştirme kaynaklarımız için yine de ödeme yapmak zorundayız, bu yüzden @DISTRONAME@ yazılımını yararlı bulursanız, herhangi bir miktarda yapacağınız bağışı her zaman takdir ederiz.[CR][CR]Umarız @DISTRONAME@ yazılımını yapmaktan zevk aldığımız kadar sizde kullanmaktan zevk alırsınız. Daha fazla yardıma ihtiyacınız olursa, web sitemizdeki son haberlerle birlikte destek forumumuzda birçok bağlantı bulabilirsiniz."
+
+msgctxt "#32319"
+msgid "Cron"
+msgstr "Cron"
+
+msgctxt "#32320"
+msgid "Enable Cron"
+msgstr "Cron Hizmetini Etkinleştir"
+
+msgctxt "#32323"
+msgid "Reset to Defaults"
+msgstr "Varsayılanlara ayarla"
+
+msgctxt "#32324"
+msgid "Reset System Settings to defaults"
+msgstr "Sistem Ayarlarını Varsayılanlara Döndür"
+
+msgctxt "#32325"
+msgid "Reset @DISTRONAME@ to defaults"
+msgstr "@DISTRONAME@ sürümünü varsayılan ayarlara döndür"
+
+msgctxt "#32326"
+msgid "Are you sure?"
+msgstr "Emin misiniz?"
+
+msgctxt "#32328"
+msgid "The system must reboot."
+msgstr "Sistemi yeniden başlatmalısınız."
+
+msgctxt "#32329"
+msgid "Rebooting in %d seconds"
+msgstr "%d saniye içinde yeniden başlayacak"
+
+msgctxt "#32330"
+msgid "Keyboard Type"
+msgstr "Klavye Tipi"
+
+msgctxt "#32331"
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+msgctxt "#32333"
+msgid "Connected: "
+msgstr "Bağlandı: "
+
+msgctxt "#32334"
+msgid "Yes"
+msgstr "Evet"
+
+msgctxt "#32335"
+msgid "No"
+msgstr "Hayır"
+
+msgctxt "#32338"
+msgid "No Bluetooth adapter found."
+msgstr "Bluetooth adaptörü bulunamadı."
+
+msgctxt "#32339"
+msgid ""
+"No Bluetooth device found. Please put your Bluetooth device into discovery "
+"mode[CR]and start the scan"
+msgstr "Bluetooth cihazı bulunamadı. Bluetooth cihazınızın görülebilir modda[CR] olduğundan emin olun ve tekrar tarama yapın"
+
+msgctxt "#32343"
+msgid "Enter the following Key on your Device."
+msgstr "Cihazınızda aşağıdaki anahtarı girin."
+
+msgctxt "#32344"
+msgid "Enable Bluetooth"
+msgstr "Bluetooth Hizmetini Etkinleştir"
+
+msgctxt "#32346"
+msgid "Bluetooth is disabled"
+msgstr "Bluetooth kapalı"
+
+msgctxt "#32358"
+msgid "Trust and Connect"
+msgstr "Güven ve Bağlan"
+
+msgctxt "#32362"
+msgid "Check for updates now:"
+msgstr "Güncellemeler için şimdi kontrol edin:"
+
+msgctxt "#32363"
+msgid "@DISTRONAME@"
+msgstr "@DISTRONAME@"
+
+msgctxt "#32364"
+msgid "Update available"
+msgstr "Güncellemeler var"
+
+msgctxt "#32365"
+msgid "Show Update Notifications"
+msgstr "Güncelleme Bildirimlerini Göster"
+
+msgctxt "#32366"
+msgid "Update Download Completed"
+msgstr "Güncelleme İndirmeleri Bitti"
+
+msgctxt "#32367"
+msgid "Update Extract Complete"
+msgstr "Güncellemeler Ayıklandı"
+
+msgctxt "#32368"
+msgid "Advanced Network Settings"
+msgstr "Gelişmiş Ağ Ayarları"
+
+msgctxt "#32369"
+msgid "Wait for network before starting Kodi"
+msgstr "Kodi başlamadan önce ağ için bekle"
+
+msgctxt "#32370"
+msgid "Maximum Wait Time (Sec.)"
+msgstr "En fazla bekleme zamanı (san.)"
+
+msgctxt "#32371"
+msgid "Backup"
+msgstr "Geri yükleme"
+
+msgctxt "#32372"
+msgid "Create System and Kodi Backup"
+msgstr "Sistem ve Kodi Yedeklemesi Oluştur"
+
+msgctxt "#32373"
+msgid "Restore Backup"
+msgstr "Yedeklemeyi Geri Yükle"
+
+msgctxt "#32375"
+msgid "Backup Progress"
+msgstr "Geri Yükleme İşlemi"
+
+msgctxt "#32376"
+msgid "Submit Log"
+msgstr "Günlüğü Gönder"
+
+msgctxt "#32377"
+msgid "Upload latest Kodi log and configs, and view the short URL"
+msgstr "En son Kodi günlüğünü ve yapılandırmasını yükleyin ve kısa URL'yi görüntüleyin "
+
+msgctxt "#32378"
+msgid "Upload latest Kodi crash log and configs, and view the short URL"
+msgstr "En son Kodi çökme günlüğünü ve yapılandırmasını yükleyin ve kısa URL'yi görüntüleyin"
+
+msgctxt "#32379"
+msgid "There is not enough free storage space to continue!"
+msgstr "Devam etmek için yeterli boş alan yok!"
+
+msgctxt "#32380"
+msgid ""
+"Restoring system settings requires a reboot. Are you sure you want to "
+"restore?"
+msgstr "Sistem ayarlarını geri yüklemek, yeniden başlatmayı gerektirir. Geri yüklemek istediğinizden emin misiniz?"
+
+msgctxt "#32381"
+msgid "Accept incoming Bluetooth Filetransfer ?"
+msgstr "Gelen Bluetooth dosya aktarımını kabul et?"
+
+msgctxt "#32382"
+msgid "Speed"
+msgstr "Hız"
+
+msgctxt "#32383"
+msgid "Play Files ?"
+msgstr "Dosyalar oynatılsın mı?"
+
+msgctxt "#32384"
+msgid "OBEX Enabled"
+msgstr "OBEX Etkin"
+
+msgctxt "#32385"
+msgid "OBEX Upload Folder"
+msgstr "OBEX  yükleme klasörü"
+
+msgctxt "#32386"
+msgid "Keyboard Layout Variant #1"
+msgstr "Klavye Düzeni Varyantı #1"
+
+msgctxt "#32387"
+msgid "Keyboard Layout Variant #2"
+msgstr "Klavye Düzeni Varyantı #2"
+
+msgctxt "#32388"
+msgid "Enable Standby"
+msgstr "Bekleme Modunu Etkinleştir"
+
+msgctxt "#32389"
+msgid "Disable Standby"
+msgstr "Bekleme Modunu Devre Dışı Bırak"
+
+msgctxt "#32390"
+msgid "Settings addon is not yet ready, please try again later."
+msgstr "Ayarlar eklentisi henüz hazır değil, lütfen daha sonra tekrar deneyin."
+
+msgctxt "#32391"
+msgid "Upload configs and other debug info without logs, and view the short URL"
+msgstr ""
+
+msgctxt "#32393"
+msgid "** SAFE MODE! ** SAFE MODE! ** SAFE MODE! **"
+msgstr "** GÜVENLİ MOD! ** GÜVENLİ MOD! ** GÜVENLİ MOD! **"
+
+msgctxt "#32395"
+msgid "Firewall"
+msgstr "Güvenlik Duvarı"
+
+msgctxt "#32396"
+msgid "Custom"
+msgstr "Özel"
+
+msgctxt "#32397"
+msgid "Off"
+msgstr "Kapalı"
+
+msgctxt "#32398"
+msgid "Home"
+msgstr "Ana sayfa"
+
+msgctxt "#32399"
+msgid "Public"
+msgstr "Genel"
+
+msgctxt "#32400"
+msgid "Idle Timeout"
+msgstr ""

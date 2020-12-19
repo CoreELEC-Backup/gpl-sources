@@ -1,0 +1,494 @@
+                   ==============================
+                   Release Notes for Samba 4.13.3
+                          December 15, 2020
+                   ==============================
+
+
+This is the latest stable release of the Samba 4.13 release series.
+
+
+Changes since 4.13.2
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 14210: libcli: smb2: Never print length if smb2_signing_key_valid()
+     fails for crypto blob.
+   * BUG 14486: s3: modules: gluster. Fix the error I made in preventing talloc
+     leaks from a function. 
+   * BUG 14515: s3: smbd: Don't overwrite contents of fsp->aio_requests[0] with
+     NULL via TALLOC_FREE().
+   * BUG 14568: s3: spoolss: Make parameters in call to user_ok_token() match
+     all other uses.
+   * BUG 14590: s3: smbd: Quiet log messages from usershares for an unknown
+     share.
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 14248: samba process does not honor max log size.
+   * BUG 14587: vfs_zfsacl: Add missing inherited flag on hidden "magic"
+     everyone@ ACE.
+
+o  Isaac Boukris <iboukris@gmail.com>
+   * BUG 13124: s3-libads: Pass timeout to open_socket_out in ms.
+
+o  Günther Deschner <gd@samba.org>
+   * BUG 14486: s3-vfs_glusterfs: Always disable write-behind translator.
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 14517: smbclient: Fix recursive mget.
+   * BUG 14581: clitar: Use do_list()'s recursion in clitar.c.
+
+o  Anoop C S <anoopcs@samba.org>
+   * BUG 14486: manpages/vfs_glusterfs: Mention silent skipping of write-behind
+     translator.
+   * BUG 14573: vfs_shadow_copy2: Preserve all open flags assuming ROFS.
+
+o  Jones Syue <jonessyue@qnap.com>
+   * BUG 14514: interface: Fix if_index is not parsed correctly.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the Samba 4.1 and newer product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+Release notes for older releases follow:
+----------------------------------------
+
+                   ==============================
+                   Release Notes for Samba 4.13.2
+                          November 03, 2020
+                   ==============================
+
+
+This is the latest stable release of the Samba 4.13 release series.
+
+Major enhancements include:
+  o BUG 14537: ctdb-common: Avoid aliasing errors during code optimization.
+  o BUG 14486: vfs_glusterfs: Avoid data corruption with the write-behind
+               translator.
+
+
+=======
+Details
+=======
+
+The GlusterFS write-behind performance translator, when used with Samba, could
+be a source of data corruption. The translator, while processing a write call,
+immediately returns success but continues writing the data to the server in the
+background. This can cause data corruption when two clients relying on Samba to
+provide data consistency are operating on the same file.
+
+The write-behind translator is enabled by default on GlusterFS.
+The vfs_glusterfs plugin will check for the presence of the translator and
+refuse to connect if detected. Please disable the write-behind translator for
+the GlusterFS volume to allow the plugin to connect to the volume.
+
+
+Changes since 4.13.1
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 14486: s3: modules: vfs_glusterfs: Fix leak of char 
+     **lines onto mem_ctx on return.
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 14471: RN: vfs_zfsacl: Only grant DELETE_CHILD if ACL tag is special.
+
+o  Alexander Bokovoy <ab@samba.org>
+   * BUG 14538: smb.conf.5: Add clarification how configuration changes
+     reflected by Samba.
+   * BUG 14552: daemons: Report status to systemd even when running in
+     foreground.
+   * BUG 14553: DNS Resolver: Support both dnspython before and after 2.0.0.
+ 
+o  Günther Deschner <gd@samba.org>
+   * BUG 14486: s3-vfs_glusterfs: Refuse connection when write-behind xlator is
+     present.
+
+o  Amitay Isaacs <amitay@gmail.com>
+   * BUG 14487: provision: Add support for BIND 9.16.x.
+   * BUG 14537: ctdb-common: Avoid aliasing errors during code optimization.
+   * BUG 14541: libndr: Avoid assigning duplicate versions to symbols.
+
+o  Björn Jacke <bjacke@samba.org>
+   * BUG 14522: docs: Fix default value of spoolss:architecture.
+
+o  Laurent Menase <laurent.menase@hpe.com>
+   * BUG 14388: winbind: Fix a memleak.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 14531: s4:dsdb:acl_read: Implement "List Object" mode feature.
+
+o  Sachin Prabhu <sprabhu@redhat.com>
+   * BUG 14486: docs-xml/manpages: Add warning about write-behind translator for
+     vfs_glusterfs.
+
+o  Khem Raj <raj.khem@gmail.com>
+   * nsswitch/nsstest.c: Avoid nss function conflicts with glibc nss.h.
+
+o  Anoop C S <anoopcs@samba.org>
+   * BUG 14530: vfs_shadow_copy2: Avoid closing snapsdir twice.
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 14547: third_party: Update resolv_wrapper to version 1.1.7.
+   * BUG 14550: examples:auth: Do not install example plugin.
+
+o  Martin Schwenke <martin@meltin.net>
+   * BUG 14513: ctdb-recoverd: Drop unnecessary and broken code.
+
+o  Andrew Walker <awalker@ixsystems.com>
+   * BUG 14471: RN: vfs_zfsacl: Only grant DELETE_CHILD if ACL tag is special.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the Samba 4.1 and newer product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   ==============================
+                   Release Notes for Samba 4.13.1
+                          October 29, 2020
+                   ==============================
+
+
+This is a security release in order to address the following defects:
+
+o CVE-2020-14318: Missing handle permissions check in SMB1/2/3 ChangeNotify.
+o CVE-2020-14323: Unprivileged user can crash winbind.
+o CVE-2020-14383: An authenticated user can crash the DCE/RPC DNS with easily
+		  crafted records.
+
+
+=======
+Details
+=======
+
+o  CVE-2020-14318:
+   The SMB1/2/3 protocols have a concept of "ChangeNotify", where a client can
+   request file name notification on a directory handle when a condition such as
+   "new file creation" or "file size change" or "file timestamp update" occurs.
+
+   A missing permissions check on a directory handle requesting ChangeNotify
+   meant that a client with a directory handle open only for
+   FILE_READ_ATTRIBUTES (minimal access rights) could be used to obtain change
+   notify replies from the server. These replies contain information that should
+   not be available to directory handles open for FILE_READ_ATTRIBUTE only.
+
+o  CVE-2020-14323:
+   winbind in version 3.6 and later implements a request to translate multiple
+   Windows SIDs into names in one request. This was done for performance
+   reasons: The Microsoft RPC call domain controllers offer to do this
+   translation, so it was an obvious extension to also offer this batch
+   operation on the winbind unix domain stream socket that is available to local
+   processes on the Samba server.
+
+   Due to improper input validation a hand-crafted packet can make winbind
+   perform a NULL pointer dereference and thus crash.
+
+o  CVE-2020-14383:
+   Some DNS records (such as MX and NS records) usually contain data in the
+   additional section. Samba's dnsserver RPC pipe (which is an administrative
+   interface not used in the DNS server itself) made an error in handling the
+   case where there are no records present: instead of noticing the lack of
+   records, it dereferenced uninitialised memory, causing the RPC server to
+   crash. This RPC server, which also serves protocols other than dnsserver,
+   will be restarted after a short delay, but it is easy for an authenticated
+   non-admin attacker to crash it again as soon as it returns. The Samba DNS
+   server itself will continue to operate, but many RPC services will not.
+
+For more details, please refer to the security advisories.
+
+
+Changes since 4.13.0
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 14434: CVE-2020-14318: s3: smbd: Ensure change notifies can't get set
+     unless the directory handle is open for SEC_DIR_LIST.
+
+o  Douglas Bagnall <douglas.bagnall@catalyst.net.nz>
+   * BUG 12795: CVE-2020-14383: Remote crash after adding NS or MX records using
+     'samba-tool'.
+   * BUG 14472: CVE-2020-14383: Remote crash after adding MX records.
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 14436: CVE-2020-14323: winbind: Fix invalid lookupsids DoS.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the Samba 4.1 and newer product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   ==============================
+                   Release Notes for Samba 4.13.0
+                          September 22, 2020
+                   ==============================
+
+
+This is the first stable release of the Samba 4.13 release series.
+Please read the release notes carefully before upgrading.
+
+
+ZeroLogon
+=========
+
+Please avoid to set "server schannel = no" and "server schannel= auto" on all
+Samba domain controllers due to the wellknown ZeroLogon issue.
+
+For details please see
+https://www.samba.org/samba/security/CVE-2020-1472.html.
+
+
+NEW FEATURES/CHANGES
+====================
+
+Python 3.6 or later required
+----------------------------
+
+Samba's minimum runtime requirement for python was raised to Python
+3.5 with samba 4.12.  Samba 4.13 raises this minimum version to Python
+3.6 both to access new features and because this is the oldest version
+we test with in our CI infrastructure.
+
+This is also the last release where it will be possible to build Samba
+(just the file server) with Python versions 2.6 and 2.7.
+
+As Python 2.7 has been End Of Life upstream since April 2020, Samba
+is dropping ALL Python 2.x support in the NEXT release.
+
+Samba 4.14 to be released in March 2021 will require Python 3.6 or
+later to build.
+
+wide links functionality
+------------------------
+
+For this release, the code implementing the insecure "wide links = yes"
+functionality has been moved out of the core smbd code and into a separate
+VFS module, vfs_widelinks. Currently this vfs module is implicitly loaded
+by smbd as the last but one module before vfs_default if "wide links = yes"
+is enabled on the share (note, the existing restrictions on enabling wide
+links around the SMB1 "unix extensions" and the "allow insecure wide links"
+parameters are still in force). The implicit loading was done to allow
+existing users of "wide links = yes" to keep this functionality without
+having to make a change to existing working smb.conf files.
+
+Please note that the Samba developers recommend changing any Samba
+installations that currently use "wide links = yes" to use bind mounts
+as soon as possible, as "wide links = yes" is an inherently insecure
+configuration which we would like to remove from Samba. Moving the
+feature into a VFS module allows this to be done in a cleaner way
+in future.
+
+A future release to be determined will remove this implicit linkage,
+causing administrators who need this functionality to have to explicitly
+add the vfs_widelinks module into the "vfs objects =" parameter lists.
+The release notes will be updated to note this change when it occurs.
+
+NT4-like 'classic' Samba domain controllers
+-------------------------------------------
+
+Samba 4.13 deprecates Samba's original domain controller mode.
+
+Sites using Samba as a Domain Controller should upgrade from the
+NT4-like 'classic' Domain Controller to a Samba Active Directory DC
+to ensure full operation with modern windows clients.
+
+SMBv1 only protocol options deprecated
+--------------------------------------
+
+A number of smb.conf parameters for less-secure authentication methods
+which are only possible over SMBv1 are deprecated in this release.
+
+
+REMOVED FEATURES
+================
+
+The deprecated "ldap ssl ads" smb.conf option has been removed.
+
+
+smb.conf changes
+================
+
+  Parameter Name                      Description                Default
+  --------------                      -----------                -------
+  ldap ssl ads                        Removed
+  smb2 disable lock sequence checking Added                      No
+  smb2 disable oplock break retry     Added                      No
+  domain logons                       Deprecated                 no
+  raw NTLMv2 auth                     Deprecated                 no
+  client plaintext auth               Deprecated                 no
+  client NTLMv2 auth                  Deprecated                 yes
+  client lanman auth                  Deprecated                 no
+  client use spnego                   Deprecated                 yes
+  server require schannel:COMPUTER    Added
+
+
+CHANGES SINCE 4.13.0rc5
+=======================
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 14497: CVE-2020-1472(ZeroLogon): s3:rpc_server/netlogon: Protect
+     netr_ServerPasswordSet2 against unencrypted passwords.
+
+o  Günther Deschner <gd@samba.org>
+   * BUG 14497: CVE-2020-1472(ZeroLogon): s3:rpc_server/netlogon: Support
+     "server require schannel:WORKSTATION$ = no" about unsecure configurations.
+
+o  Gary Lockyer <gary@catalyst.net.nz>
+   * BUG 14497: CVE-2020-1472(ZeroLogon): s4 torture rpc: repeated bytes in
+     client challenge.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 14497: CVE-2020-1472(ZeroLogon): libcli/auth: Reject weak client
+     challenges in netlogon_creds_server_init()
+     "server require schannel:WORKSTATION$ = no".
+
+
+CHANGES SINCE 4.13.0rc4
+=======================
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 14399: waf: Only use gnutls_aead_cipher_encryptv2() for GnuTLS >
+     3.6.14.
+   * BUG 14467: s3:smbd: Fix %U substitutions if it contains a domain name.
+   * BUG 14479: The created krb5.conf for 'net ads join' doesn't have a domain
+     entry.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 14482: Fix build problem if libbsd-dev is not installed.
+
+
+CHANGES SINCE 4.13.0rc3
+=======================
+
+o  David Disseldorp <ddiss@samba.org>
+   * BUG 14437: build: Toggle vfs_snapper using "--with-shared-modules".
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 14465: idmap_ad does not deal properly with a RFC4511 section 4.4.1
+     response.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 14428: PANIC: Assert failed in get_lease_type().
+   * BUG 14465: idmap_ad does not deal properly with a RFC4511 section 4.4.1
+     response.
+
+
+CHANGES SINCE 4.13.0rc2
+=======================
+
+o  Andrew Bartlett <abartlet@samba.org>
+   * BUG 14460: Deprecate domain logons, SMBv1 things.
+
+o  Günther Deschner <gd@samba.org>
+   * BUG 14318: docs: Add missing winexe manpage.
+
+o  Christof Schmitt <cs@samba.org>
+   * BUG 14166: util: Allow symlinks in directory_create_or_exist.
+
+o  Martin Schwenke <martin@meltin.net>
+   * BUG 14466: ctdb disable/enable can fail due to race condition.
+
+
+CHANGES SINCE 4.13.0rc1
+=======================
+
+o  Andrew Bartlett <abartlet@samba.org>
+   * BUG 14450: dbcheck: Allow a dangling forward link outside our known NCs.
+
+o  Isaac Boukris <iboukris@gmail.com>
+   * BUG 14462: Remove deprecated "ldap ssl ads" smb.conf option.
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 14435: winbind: Fix lookuprids cache problem.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 14354: kdc:db-glue: Ignore KRB5_PROG_ETYPE_NOSUPP also for
+     Primary:Kerberos.
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 14358: docs: Fix documentation for require_membership_of of
+     pam_winbind.conf.
+
+o  Martin Schwenke <martin@meltin.net>
+   * BUG 14444: ctdb-scripts: Use nfsconf as a last resort get nfsd thread
+     count.
+
+
+KNOWN ISSUES
+============
+
+https://wiki.samba.org/index.php/Release_Planning_for_Samba_4.13#Release_blocking_bugs
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the Samba 4.1 and newer product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+

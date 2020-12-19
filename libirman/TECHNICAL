@@ -1,0 +1,316 @@
+<html><head><title>libirman 0.4.5 reference</title></head><body><pre>
+
+Programmers' Reference to libirman v0.4.5
+by Tom Wheeley <tomw@tsys.demon.co.uk> 
+
+(for more information, read irman.h)
+
+Overview
+
+libirman is a general purpose library for programs to use in order to
+receive infra red signals via irman compatible hardware.  It is designed
+to be portable across Unices but is so far only known to work under Linux.
+
+
+Architecture
+
+ . layers
+
+libirman is split into 3 layers: io, function and command.  User programs
+can access functions in any of these 3 layers.
+
+ . data structures
+
+Data from the irman is read by the io layer and assembled into `codes' by
+the function layer.  The function layer also contains routines to convert
+`codes' to and from `text'.  `text' is a 12 character string representing
+the 6 byte code in hexadecimal.
+
+The command layer then contains functions which can bind meaningful `names'
+to `text' entries, with functions to convert to and from.  It also allows
+aliases to be made linking `names' to `names'.  Binding and Aliasing of
+codes is specified in an rc file, typically `/usr/local/etc/irman.conf'
+
+The command layer then lets you register integer values, `commands', with
+`names'.
+
+
+
+Function Layer
+
+The function layer (middle) is the simplest to explain and understand and
+so is presented first.
+
+  int ir_init(char *filename);
+
+    This function opens the serial port and sets up communication between
+    the computer and the irman hardware.  `filename' is the name of the
+    device file to which the Irman is connected (eg "/dev/ttyS1")
+
+    Returns the port's file descriptor on success, and -1 on error.
+    Earlier versions of libirman returned 0 on success, so if you are not
+    planning to use the FD then check for >= 0 for maximum compatibility.
+
+  
+  unsigned char *ir_get_code(void);
+  unsigned char *ir_poll_code(void);
+
+    These two functions return a pointer to an array of IR_CODE_LEN (ie 6)
+    bytes long filled with the ir code on success or NULL on failure (with
+    errno set).
+    
+    They return a pointer to static data, so you should not attempt to
+    free() it.  You should also note that it will be overwritten next time
+    you call *either* of these functions.  
+    
+    You can not print this data directly as it is raw binary data, not text.
+    
+    ir_get_code() blocks until the next ir code is received
+    ir_poll_code() returns immediately. (returning NULL if no data avilable) 
+    
+    New for v0.4.2:
+    Especially with the later generation Irman hardware, many remotes
+    generate two identical codes for each keypress.  To cope with this, if
+    libirman receives two identical codes within a certain timescale, then
+    it will return NULL on the second code, and set errno to IR_EDUPCODE.
+
+    This means you *cannot* just bail out if ir_X_code() returns NULL.
+    In the event of this occurrence, you may still use the old pointer
+    received from the last calling of ir_X_code(), which will obviously
+    still refer to the code received. 
+
+
+  char *ir_code_to_text(unsigned char *code);
+  unsigned char *ir_text_to_code(char *text);
+
+    These two functions convert `codes' to `text' and vice versa.  A `text'
+    item is simply a `code' item but written in hexadecimal.
+    
+    These functions return pointers to static data, so standard caveats
+    apply.
+
+  
+  int ir_valid_code(char *text);
+  
+    Perhaps slightly misnamed, this function reports whether `text' is a
+    valid text representation of a code.  Returns 1 for yes, 0 for no.
+
+
+  int ir_finish(void);
+
+    Call this to close the port and perform any other tidying up.
+
+
+
+Command layer
+
+The command layer serves to abstract user programs away from the actual
+codes sent by the remote controls.  It lets programs use different remotes
+without either maintaining their own config file or needing recompiling.
+
+It achieves this in two ways:
+ 
+ a) By implementing its own config file which binds IR codes to meaningful
+    names.
+
+ b) By providing a command level abstraction which lets programs register
+    names with action codes.
+    
+    
+ . name support
+ 
+  int ir_init_commands(char *rcname, int warn);
+
+    Initialises memory and reads in the config file.  The config file is
+    searched for in the following order, and *only* the first match is read.
+    
+      `rcname'		(call this with NULL if none specified)
+      ${HOME}/.irmanrc
+      /etc/irman.conf
+      
+    Call with `warn' set to 1 if you want errors and warnings printed on
+    stderr if there are mistakes in the irman config file. 
+    
+    
+  char *ir_default_portname(void);
+
+    This returns the value set in the config file for the default location
+    of the irman device, or NULL if none is set.
+    
+    This value is set in the config file using the `port' directive.
+    
+    
+  int ir_bind(char *name, char *text);
+
+    This function binds a name to the text representation of a code.
+    
+    It returns 0 on success or -1 on error.  errno is set to EEXIST if
+    either `name' or `text' is already bound to somethign else.
+    
+    
+  int ir_alias(char *newname, char *name);
+  
+    This function links one name to another.
+    
+    errno is set to ENOENT if `name' does not already exist, or EEXIST if
+    `newname' does already exist.
+
+
+  char *ir_text_to_name(char *text);
+  char *ir_name_to_text(char *name);
+
+    These two functions convert between text representation of codes and
+    names.
+    
+    Obviously due to aliases more than one name can be linked to the same
+    code; ir_text_to_name() returns the name to which it is bound.
+    
+    If there is no name linked to the text, ir_text_to_name() returns the
+    text passed as the parameter.  (command functions which expect a name as
+    a parameter also accept text).
+    
+    ir_name_to_text() returns NULL and sets errno to IR_ENOKEY if `name' does
+    not exist.
+    
+
+void ir_free_commands(void);
+
+
+    This function frees the internal data structures used to keep track of
+    the names and commands.
+
+
+ . commands
+ 
+Commands are represented by an integer value which is linked to a name when
+registered with libirman.
+
+  int ir_register_command(char *name, int command);
+
+    This function registers the integer value `command' with `name'.  `name'
+    can also be a `text' representation of a `code'.
+    `command' must be greater than 1.
+    
+    
+  int ir_remove_command(char *name);
+
+    This removes the command `name' from the register.  At the moment it is
+    not possible to remove commands by `command'.
+    
+    
+  int ir_get_command(void);
+  int ir_poll_command(void);
+
+    These two functions either block or poll for an IR code which is then
+    matched to a registered command.
+    
+    They either return the command number if successful, IR_CMD_UNKNOWN if
+    the code does not have a command registered to it, or IR_CMD_ERROR on
+    error.
+    
+    
+ . miscellaneous
+
+
+  unsigned char *ir_ask_for_code(char *name, int display);
+
+    If you want to ask someone to enter an IR code using their remote, then
+    this is the lazy way to do so.  For quick hacks only.
+
+  char *ir_strerror(int eno);
+
+    The preferred alternative to strerror.  This will also return error
+    strings for the internal errors:
+     
+      IR_EENABLED	"Irman already initialised"
+      IR_EDISABLED	"Irman not yet initialised"
+      IR_EHANDSHAKE	"Irman handshake failed"
+      IR_EBADCMD	"Invalid command code"
+      IR_ENOKEY		"Key not found"
+      IR_EDUPKEY	"Key already exists"
+
+
+IO layer
+
+These functions are not really meant for use by user programs, but are
+available for those who wish to use them.  If you open the port manually,
+then you will not be able to use the higher level functions to read data
+from the port (although technically you can, read irman.h for details)
+
+Most functions return 0 on success or -1 on error and set errno.
+
+  int ir_open_port(char *filename);
+
+    Opens the device `filename' and sets the control lines and terminal
+    settings appropriately.  returns the port's file descriptor (use this
+    *only* for select(), please) on success, or < 0 on error.
+    
+  
+  
+  int ir_close_port(void);
+  
+    closes the port and restores the old terminal settings.
+    
+    
+  int ir_write_char(unsigned char data);
+  
+    writes one byte of data to the port.
+    
+    
+  int ir_read_char(long timeout);
+
+    reads a byte of data from the port, with timeout `timeout'.
+    
+    timeout < 0  -  block indefinitely
+    timeout = 0  -  return immediately
+    timeout > 0  -  timeout after `timeout' microseconds
+                    use the nice macros in irman.h to define sec, msec, usec
+
+    returns -1 and sets errno on timeout or error.
+
+
+  void ir_clear_buffer(void);
+
+    reads and swallows any data in the buffer.
+
+
+  void ir_usleep(unsigned long usec);
+
+    same as usleep(), except that I know where it is :)
+
+
+
+Interface specification for the Irman
+-------------------------------------
+(Author: unknown)
+
+
+Serial settings
+
+The settings of the serial port must be 9600 Baud, no parity, 1 stop
+bit and no flow-control.
+ 
+Initialization
+
+The device is powered up by setting RTS and DTR high on the host.
+After a few milliseconds the microcontroller is up and running.
+During powerup the output pins of the microcontroller are not yet stable.
+This gives some garbage on the RXD line of the host.
+So clear the input fifo on the host, a few milliseconds after setting
+RTS and DTR high. Next the host must send a character 'I' and a
+character 'R' with at least a 500 microsecond delay in between. The
+microntroller responds with sending the characters 'O' and 'K'. Now
+the initialization is done and the microcontroller will start sending
+decoded infrared-trains to the host from this point on.
+
+
+Receiving Remote Keypresses
+
+Once the device is initialized, the microcontroller sends 6 bytes to
+the host, every time a decodable infrared pulsetrain comes in from the
+infrared receiver. These 6 bytes are pseudorandom, but constant for
+every specific key on a remote.
+If more information is needed, please let me know.
+
+
+</pre></body></html>

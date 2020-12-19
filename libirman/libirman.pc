@@ -1,0 +1,11 @@
+Name: libirman
+Description: Library to access Irman and compatible IR receivers
+Version: 0.5.2
+
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Libs: -lirman
+Cflags: -I${includedir} -fpic

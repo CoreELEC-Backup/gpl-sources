@@ -1,0 +1,1164 @@
+# Kodi Media Center language file
+# Addon Name: @DISTRONAME@ Configuration
+# Addon id: service.coreelec.settings
+# Addon Provider: CoreELEC
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs_CZ\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgctxt "#600"
+msgid "@DISTRONAME@ Settings"
+msgstr "Nastavení @DISTRONAME@"
+
+msgctxt "#601"
+msgid "Interface"
+msgstr "Rozhraní"
+
+msgctxt "#602"
+msgid "Address"
+msgstr "Adresa"
+
+msgctxt "#603"
+msgid "Type"
+msgstr "Typ"
+
+msgctxt "#604"
+msgid "State"
+msgstr "Stav"
+
+msgctxt "#605"
+msgid "Address"
+msgstr "Adresa"
+
+msgctxt "#606"
+msgid "Distribution: "
+msgstr "Distribuce:"
+
+msgctxt "#607"
+msgid "Version: "
+msgstr "Verze:"
+
+msgctxt "#608"
+msgid "Architecture: "
+msgstr "Architektura:"
+
+msgctxt "#700"
+msgid ""
+"Configure a hostname, keyboard type, perform a reset, update, or backups and"
+" restores"
+msgstr "Nastavit název systému, typ klávesnice, provést obnovení výchozího nastavení, aktualizaci, nebo zálohy a obnovení"
+
+msgctxt "#701"
+msgid "Configure network startup options, NTP and VPNs"
+msgstr "Nastavit možnosti sítě, NTP a VPN"
+
+msgctxt "#702"
+msgid ""
+"Manage the Ethernet, Wireless and VPN connections available to the system"
+msgstr "Spravovat dostupné ethernetové, bezdrátové a VPN připojení"
+
+msgctxt "#703"
+msgid "Configure system services like Samba, SSH, Cron, Avahi and Syslog"
+msgstr "Nastavit systémové služby jako SMB, SSH, Cron, Avahi nebo Syslog"
+
+msgctxt "#704"
+msgid "Configure and pair Bluetooth devices"
+msgstr "Nastavit a párovat zařízení Bluetooth"
+
+msgctxt "#705"
+msgid ""
+"Useful information like version and architecture details, support and "
+"documentation links, and how to donate and support the project."
+msgstr "Užitečné informace, jako jsou podrobnosti o verzi a architektuře, odkazy na podporu a dokumentaci a jak přispět a podporovat projekt."
+
+msgctxt "#707"
+msgid "Configure updates"
+msgstr "Konfigurace aktualizací"
+
+msgctxt "#710"
+msgid ""
+"Configure the Hostname of your @DISTRONAME@ system. This will be used for "
+"the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+msgstr "Nastavení názvu systému @DISTRONAME@. Tento název bude použit v adresním řádku průzkumníku Windows a také jako název SMB serveru v Mac OS Finderu"
+
+msgctxt "#711"
+msgid "Configure the 1st keyboard software layout"
+msgstr "Nastavit rozložení 1. softwarové klávesnice"
+
+msgctxt "#712"
+msgid "Configure the 2nd keyboard software layout"
+msgstr "Nastavit rozložení 2. softwarové klávesnice"
+
+msgctxt "#713"
+msgid "Configure the physical keyboard type"
+msgstr "Nastavit typ klávesnice"
+
+msgctxt "#714"
+msgid ""
+"@DISTRONAME@ can be configured for automatic or manual updates. Automatic "
+"updates are available on stable releases and stable release candidates. "
+"Automatic update self-disables on beta and development builds"
+msgstr "@DISTRONAME@ může být nakonfigurován pro automatické nebo ruční stažení aktualizace. Automatické aktualizace jsou k dispozici na stable a RC verzích systému. Automatické aktualizace jsou v betaverzích a ve vývojových sestaveních vypnuté"
+
+msgctxt "#715"
+msgid ""
+"Set to ON and an on-screen notification will be displayed when a new update "
+"is available"
+msgstr "Nastavte do polohy [I]povoleno[/I], aby se na obrazovce zobrazovala oznámení o dostupnosti nové aktualizace"
+
+msgctxt "#718"
+msgid ""
+"Send boot config files from /flash, kodi.log, kernel log and Samba configs "
+"to http://ix.io, and display the short URL"
+msgstr "Odeslat soubory konfigurace bootování z /flash, kodi.log, záznam jádra a nastavení SMB na http://ix.io a zobrazit zkrácenou adresu URL"
+
+msgctxt "#719"
+msgid ""
+"Send boot config files from /flash, kodi_crash.log, kernel log and Samba "
+"configs to http://ix.io, and display the short URL"
+msgstr "Odeslat soubory konfigurace bootování z /flash, kodi_crash.log, záznam jádra a nastavení SMB na http://ix.io a zobrazit zkrácenou adresu URL"
+
+msgctxt "#720"
+msgid "Set to ON to enable the Bluetooth service"
+msgstr "Nastavte do polohy [I]povoleno[/I] pro povolení služby Bluetooth"
+
+msgctxt "#721"
+msgid "Send CoreELEC debug info without logs to http://ix.io, and display the short URL"
+msgstr ""
+
+msgctxt "#722"
+msgid ""
+"Create a tar archive containing all @DISTRONAME@ and Kodi configuration "
+"settings, databases and thumbnail content. Backup files will be stored in "
+"/storage/backup/"
+msgstr "Vytvoří tar archiv, který obsahuje nastavení @DISTRONAME@ a Kodi, zálohu databáze a náhledů. Soubory zálohy budou uloženy v adresáři /storage/backup/"
+
+msgctxt "#723"
+msgid ""
+"Restore a tar archive backup previously created using the backup option "
+"above"
+msgstr "Obnovit zálohu z tar archivu, který byl v minulosti vytvořen použitím výše uvedené volby zálohování"
+
+msgctxt "#724"
+msgid ""
+"[COLOR FF00FF00]SOFT RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
+msgstr "[COLOR FF00FF00]SOFT RESET[/COLOR]\nObnoví konfiguraci @DISTRONAME@ na výchozí hodnoty nastavení (včetně nastavení Kodi a knihovny. Vaše multimediální soubory zůstanou netknuté)"
+
+msgctxt "#725"
+msgid ""
+"[COLOR FFFF0000]HARD RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ and Kodi configuration to defaults (everything in your storage partition will be deleted)"
+msgstr "[COLOR FFFF0000]HARD RESET[/COLOR]\nObnoví tovární nastavení @DISTRONAME@ a výchozí konfiguraci Kodi. Všechny vaše soubory na diskovém oddílu budou smazány!"
+
+msgctxt "#726"
+msgid "Enable or disable support for Wireless (WLAN) networks"
+msgstr "Povolit nebo zakázat podporu bezdrátových sítí (WLAN)"
+
+msgctxt "#727"
+msgid ""
+"Enable a 'tethered' Wireless Access Point. This requires your wireless card "
+"(and driver) to support bridging and access point mode. Not all cards are "
+"capable."
+msgstr "Povolit „tetherovaný“ bezdrátový přístupový bod. Pro podporu režimu bezdrátového mostu a přístupového bodu je nutná bezdrátová karta (a ovladač). Tuto volbu umožňují pouze některé karty."
+
+msgctxt "#728"
+msgid "Configure the Access Point SSID"
+msgstr "Nastavit SSID přístupového bodu"
+
+msgctxt "#729"
+msgid "Configure the Access Point Passphrase"
+msgstr "Nastavit heslo přístupového bodu"
+
+msgctxt "#730"
+msgid "Enable or disable support for Wired (Ethernet) networks"
+msgstr "Povolit nebo zakázat podporu pro kabelové (Ethernetové) sítě"
+
+msgctxt "#732"
+msgid "Configure the 1st time (NTP) server"
+msgstr "Nastavit 1. zdroj přesného času (NTP)"
+
+msgctxt "#733"
+msgid "Configure the 2nd time (NTP) server"
+msgstr "Nastavit 2. zdroj přesného času (NTP)"
+
+msgctxt "#734"
+msgid "Configure the 3rd time (NTP) server"
+msgstr "Nastavit 3. zdroj přesného času (NTP)"
+
+msgctxt "#736"
+msgid ""
+"Set to ON to delay Kodi startup until the network is available. Use this if "
+"the OS is booting into Kodi before the network is up and central MySQL "
+"databases are accessible."
+msgstr "Nastavte do polohy [I]povoleno[/I] pro zpoždění spuštění Kodi do okamžiku, kdy bude síť k dispozici. Použijte toto nastavení, pokud se operační systém spouští dříve, než je síť aktivní a centrální MySQL databáze k dispozici."
+
+msgctxt "#737"
+msgid "Time in seconds to wait for an established network connection."
+msgstr "Doba v sekundách, po kterou čekat na navázání připojení k síti."
+
+msgctxt "#738"
+msgid "Set to ON to enable the embedded Samba (SMB) filesharing service"
+msgstr "Nastavte do polohy [I]povoleno[/I], abyste zapnuli integrovanou službu Samba (SMB) pro sdílení souborů"
+
+msgctxt "#739"
+msgid ""
+"Set to ON to require username/password access to local Samba fileshares"
+msgstr "Nastavte do polohy [I]povoleno[/I], aby bylo vyžadováno uživatelské jméno/heslo pro přístup k lokálním souborům sdíleným přes Sambu"
+
+msgctxt "#740"
+msgid "Set the username for Samba sharing"
+msgstr "Nastavit uživatelské jméno pro Samba sdílení"
+
+msgctxt "#741"
+msgid "Set the password for Samba sharing"
+msgstr "Nastavit heslo pro Samba sdílení"
+
+msgctxt "#742"
+msgid ""
+"Set to ON to enable the embedded SSH server. The SSH console can be accessed"
+" with username 'root' and password '@ROOT_PASSWORD@'."
+msgstr "Nastavte do polohy [I]povoleno[/I], aby byl povolen integrovaný SSH server. SSH konzole je přístupná pod uživatelským jménem „root“ a heslem „@ROOT_PASSWORD@“."
+
+msgctxt "#743"
+msgid ""
+"Set to ON if you have copied private SSH keys to your HTPC and would like to"
+" improve security by disabling SSH username and password authentication."
+msgstr "Nastavte do polohy [I]povoleno[/I], pokud jste překopírovali privátní SSH klíče do svého HTPC a rádi byste zvýšili zabezpečení vypnutím SSH přihlášení pomocí uživatelského jména a hesla."
+
+msgctxt "#744"
+msgid ""
+"Set to ON to enable the Avahi (Zeroconf/Bonjour) network discovery service"
+msgstr "Nastavte do polohy [I]povoleno[/I] pro zapnutí služby Avahi (Zeroconf/Bonjour) pro prohledání sítě"
+
+msgctxt "#745"
+msgid "Set to ON to enable the cron daemon"
+msgstr "Nastavte do polohy [I]povoleno[/I] pro zapnutí cron daemonu"
+
+msgctxt "#746"
+msgid "Set the password for SSH"
+msgstr "Nastavte heslo pro SSH"
+
+msgctxt "#747"
+msgid "Enable a PIN for @DISTRONAME@ Settings access"
+msgstr "Povolte PIN pro přístup do Nastavení @DISTRONAME@"
+
+msgctxt "#748"
+msgid "Change the PIN Lock for @DISTRONAME@ Settings access"
+msgstr "Změňte zámek PIN pro přístup do Nastavení @DISTRONAME@"
+
+msgctxt "#749"
+msgid ""
+"Overrride the Wireless Regulatory Domain so radio properties (channels and "
+"transmit power) comply with local laws or match the country configuration of"
+" your router."
+msgstr ""
+
+msgctxt "#750"
+msgid "750"
+msgstr "750"
+
+msgctxt "#751"
+msgid ""
+"With OBEX filetransfer you can send files, for example movies or pictures "
+"over bluetooth to @DISTRONAME@."
+msgstr "Pomocí protokolu OBEX je možné posílat přes Bluetooth do @DISTRONAME@ soubory, jako např. filmy nebo obrázky."
+
+msgctxt "#752"
+msgid ""
+"Here you can set the folder location where OBEX file transfer should store "
+"incoming files"
+msgstr "Zde je možné nastavit umístění složky, do které budou ukládány soubory přijaté protokolem OBEX"
+
+msgctxt "#753"
+msgid "Configure the 1st keyboard software Variant"
+msgstr "Konfigurovat 1. variantu softwarové klávesnice"
+
+msgctxt "#754"
+msgid "Configure the 2nd keyboard software Variant"
+msgstr "Konfigurovat 2. variantu softwarové klávesnice"
+
+msgctxt "#755"
+msgid "Auto share external drives / partitions"
+msgstr "Automaticky sdílet externí disky"
+
+msgctxt "#756"
+msgid ""
+"Disable older SMB protocols by specifying the minimum supported protocol."
+msgstr "Zakázat starší verze protokolů SMB stanovením minimálního podporovaného protokolu."
+
+msgctxt "#757"
+msgid ""
+"Disable more recent SMB protocols for backward compatability with legacy "
+"clients."
+msgstr "Zakázat novější verze protokolů SMB kvůli zpětné kompatibilitě se staršími klienty."
+
+msgctxt "#758"
+msgid "NetBIOS group to which the server belongs. Default is WORKGROUP."
+msgstr "Skupina NetBIOS, ke které server náleží. Výchozí je WORKGROUP."
+
+msgctxt "#760"
+msgid "Select an update channel"
+msgstr "Vyberte aktualizační kanál"
+
+msgctxt "#761"
+msgid "Enable to allow entering a custom update url"
+msgstr "Umožnit zadávání vlastní URL pro aktualizaci"
+
+msgctxt "#762"
+msgid "Enter a custom update url (url should be the root of the update files)"
+msgstr "Zadejte vlastní URL pro aktualizaci (musí ukazovat do kořenové složky aktualizačních souborů)"
+
+msgctxt "#770"
+msgid "Select an available version"
+msgstr "Vyberte dostupnou verzi"
+
+msgctxt "#771"
+msgid ""
+"The firewall blocks unwanted network traffic. Home (default) allows traffic "
+"from private network ranges (192.168.x.x, 172.16.x.x and 10.x.x.x) only. "
+"Public blocks all traffic from all networks. Custom uses rules in "
+"/storage/.config/iptables. Off disables the firewall."
+msgstr "Firewall blokuje nežádoucí síťový provoz. Domácí (výchozí) povolí provoz pouze z rozsahů místních sítí (192.168.x.x, 172.16.x.x a 10.x.x.x). Veřejný blokuje veškerý provoz ze všech sítí. Vlastní použije pravidla ze souboru /storage/.config/iptables. Vypnutý zakáže firewall."
+
+msgctxt "#772"
+msgid ""
+"Checking for a new version will submit the installed Distribution, Project, "
+"CPU Arch and Version to the update server. This data is also used to report "
+"basic statistics for the project. To continue checking for updates while "
+"opting-out of stats reporting, disable this option."
+msgstr "Při kontrolování nové verze se aktualizačnímu serveru odešlou informace o nainstalované distribuci, projektu, architektuře procesoru a verzi. Tato data budou použita i k získání základních statistik projektu. Zakažte tuto volbu, pokud tato data nechcete odesílat, a chcete pouze zkontrolovat novou verzi."
+
+msgctxt "#773"
+msgid ""
+"Set the idle timeout (in minutes) before devices will be disconnected "
+"(defaults to 0 for no timeout). Applies to devices where \"Enable Standby\" "
+"has been activated in the LibreELEC device connection context menu."
+msgstr "Nastavit časový limit nečinnosti (v minutách) předtím, než budou zařízení odpojena (0 je výchozí hodnota pro žádný časový limit). Platí pro všechna zařízení, u kterých bylo v kontextovém menu LibreELEC Připojení aktivováno nastavení „Povolit pohotovostní režim“."
+
+msgctxt "#32001"
+msgid "Services"
+msgstr "Služby"
+
+msgctxt "#32002"
+msgid "System"
+msgstr "Systém"
+
+msgctxt "#32003"
+msgid "Interface"
+msgstr "Rozhraní"
+
+msgctxt "#32005"
+msgid "Updates"
+msgstr "Aktualizace"
+
+msgctxt "#32009"
+msgid "Keyboard"
+msgstr "Klávesnice"
+
+msgctxt "#32010"
+msgid "Keyboard Layout"
+msgstr "Rozložení klávesnice"
+
+msgctxt "#32012"
+msgid "Select Action"
+msgstr "Vyberte akci "
+
+msgctxt "#32013"
+msgid "OS Updates"
+msgstr "Aktualizace OS"
+
+msgctxt "#32014"
+msgid "Automatic Updates"
+msgstr "Automatické aktualizace"
+
+msgctxt "#32015"
+msgid "Update Channel"
+msgstr "Kanál aktualizací"
+
+msgctxt "#32016"
+msgid "Show Custom Channels"
+msgstr "Ukázat vlastní kanály"
+
+msgctxt "#32017"
+msgid "  - Custom Channel 1"
+msgstr "- Vlastní kanál 1 "
+
+msgctxt "#32018"
+msgid "  - Custom Channel 2"
+msgstr "- Vlastní kanál 2"
+
+msgctxt "#32019"
+msgid "  - Custom Channel 3"
+msgstr "- Vlastní kanál 3"
+
+msgctxt "#32020"
+msgid "Available Versions"
+msgstr "Dostupné verze"
+
+msgctxt "#32021"
+msgid "Submit Statistics"
+msgstr "Odeslat statistiky"
+
+msgctxt "#32022"
+msgid "Firmware Updates"
+msgstr "Aktualizace firmware"
+
+msgctxt "#32023"
+msgid "Updating will occur once the system is rebooted."
+msgstr "Aktualizace proběhne po restartování systému."
+
+msgctxt "#32024"
+msgid "Bootloader EEPROM"
+msgstr "Zavaděč EEPROM"
+
+msgctxt "#32025"
+msgid ""
+"Update the Raspberry Pi Bootloader EEPROM to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr "Aktualizujte zavaděč EEPROM Raspberry Pi na aktuální verzi. Tato volba se po restartu automaticky zakáže. Pro provedení aktualizace restartujte systém."
+
+msgctxt "#32026"
+msgid "VIA USB3 Firmware"
+msgstr "VIA USB3 Firmware"
+
+msgctxt "#32027"
+msgid ""
+"Update the Raspberry Pi VIA USB3 firmware to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr "Aktualizujte Raspberry Pi VIA USB3 firmware na aktuální verzi. Tato volba se po restartu automaticky zakáže. Pro provedení aktualizace restartujte systém."
+
+msgctxt "#32028"
+msgid "update from %s to %s"
+msgstr "aktualizovat z %s na %s"
+
+msgctxt "#32029"
+msgid "up to date: %s"
+msgstr "aktuální: %s"
+
+msgctxt "#32100"
+msgid "Connections"
+msgstr "Připojení"
+
+msgctxt "#32101"
+msgid "Network"
+msgstr "Síť"
+
+msgctxt "#32102"
+msgid "Wireless Networks"
+msgstr "Bezdrátové sítě"
+
+msgctxt "#32103"
+msgid "Wired Networks"
+msgstr "Kabelové sítě"
+
+msgctxt "#32105"
+msgid "Active"
+msgstr "Aktivní"
+
+msgctxt "#32106"
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+msgctxt "#32107"
+msgid "Passphrase"
+msgstr "Heslo"
+
+msgctxt "#32108"
+msgid "Enable 'tethered' Wireless Access Point"
+msgstr "Povolit „tetherovaný“ bezdrátový přístupový bod"
+
+msgctxt "#32109"
+msgid "Connect Automatically"
+msgstr "Připojovat automaticky "
+
+msgctxt "#32110"
+msgid "Connection"
+msgstr "Připojení"
+
+msgctxt "#32111"
+msgid "IPv4"
+msgstr "IPv4"
+
+msgctxt "#32112"
+msgid "IPv6"
+msgstr "IPv6"
+
+msgctxt "#32113"
+msgid "IP Address Method"
+msgstr "Způsob získávání IP adresy"
+
+msgctxt "#32114"
+msgid "IP Address"
+msgstr "IP adresa"
+
+msgctxt "#32115"
+msgid "Subnet Mask"
+msgstr "Maska podsítě"
+
+msgctxt "#32116"
+msgid "Default Gateway"
+msgstr "Výchozí brána"
+
+msgctxt "#32117"
+msgid "Prefix Length"
+msgstr "Délka prefixu"
+
+msgctxt "#32118"
+msgid "Privacy"
+msgstr "Soukromí"
+
+msgctxt "#32119"
+msgid "DNS Servers"
+msgstr "DNS servery"
+
+msgctxt "#32120"
+msgid "Nameserver #1"
+msgstr "DNS server #1"
+
+msgctxt "#32121"
+msgid "Nameserver #2"
+msgstr "DNS server #2"
+
+msgctxt "#32122"
+msgid "Nameserver #3"
+msgstr "DNS server #3"
+
+msgctxt "#32123"
+msgid "NTP Servers"
+msgstr "NTP servery"
+
+msgctxt "#32124"
+msgid "Timeserver #1"
+msgstr "NTP server #1"
+
+msgctxt "#32125"
+msgid "Timeserver #2"
+msgstr "NTP server #2"
+
+msgctxt "#32126"
+msgid "Timeserver #3"
+msgstr "NTP server #3"
+
+msgctxt "#32127"
+msgid "DNS Domains"
+msgstr "Domény DNS"
+
+msgctxt "#32128"
+msgid "Domain #1"
+msgstr "Doména #1"
+
+msgctxt "#32129"
+msgid "Domain #2"
+msgstr "Doména #2"
+
+msgctxt "#32130"
+msgid "Domain #3"
+msgstr "Doména #3"
+
+msgctxt "#32140"
+msgid "Save"
+msgstr "Uložit"
+
+msgctxt "#32141"
+msgid "Delete"
+msgstr "Vymazat"
+
+msgctxt "#32142"
+msgid "Refresh"
+msgstr "Obnovit"
+
+msgctxt "#32143"
+msgid "Disconnect"
+msgstr "Odpojit"
+
+msgctxt "#32144"
+msgid "Connect"
+msgstr "Připojit"
+
+msgctxt "#32145"
+msgid "Pair"
+msgstr "Spárovat"
+
+msgctxt "#32146"
+msgid "Hidden Network Name"
+msgstr "Název skryté sítě"
+
+msgctxt "#32147"
+msgid "Wireless Network Passphrase"
+msgstr "Heslo bezdrátové sítě"
+
+msgctxt "#32148"
+msgid "Wireless Network Username"
+msgstr "Uživatelské jméno bezdrátové sítě"
+
+msgctxt "#32150"
+msgid "Edit"
+msgstr "Upravit"
+
+msgctxt "#32180"
+msgid "Would you like to update @DISTRONAME@ now?"
+msgstr "Přejete si nyní aktualizovat @DISTRONAME@?"
+
+msgctxt "#32181"
+msgid "Filename"
+msgstr "Název souboru"
+
+msgctxt "#32182"
+msgid "Download speed"
+msgstr "Rychlost stahování"
+
+msgctxt "#32183"
+msgid "Time remaining"
+msgstr "Zbývající čas"
+
+msgctxt "#32184"
+msgid "Extract file"
+msgstr "Rozbalit soubor"
+
+msgctxt "#32185"
+msgid "Extract speed"
+msgstr "Rychlost rozbalování"
+
+msgctxt "#32186"
+msgid "Initialize Archive File"
+msgstr "Inicializace archivního souboru"
+
+msgctxt "#32187"
+msgid "New Version"
+msgstr "Nová verze"
+
+msgctxt "#32188"
+msgid "Current Version"
+msgstr "Stávající verze"
+
+msgctxt "#32189"
+msgid "Identification"
+msgstr "Identifikace"
+
+msgctxt "#32190"
+msgid "System Name"
+msgstr "Název systému"
+
+msgctxt "#32191"
+msgid "Invalid URL"
+msgstr "Neplatná adresa URL"
+
+msgctxt "#32192"
+msgid "PIN lock"
+msgstr "Zámek PIN"
+
+msgctxt "#32193"
+msgid "Enable @DISTRONAME@ Settings PIN Lock"
+msgstr "Povolit zámek PIN pro vstup do Nastavení @DISTRONAME@"
+
+msgctxt "#32194"
+msgid "Change @DISTRONAME@ Settings PIN Lock"
+msgstr "Změnit zámek PIN pro vstup do Nastavení @DISTRONAME@"
+
+msgctxt "#32196"
+msgid "About"
+msgstr "O programu"
+
+msgctxt "#32198"
+msgid "SSID"
+msgstr "SSID"
+
+msgctxt "#32200"
+msgid "Samba"
+msgstr "Samba"
+
+msgctxt "#32201"
+msgid "SSH"
+msgstr "SSH"
+
+msgctxt "#32202"
+msgid "Use Samba Password Authentication"
+msgstr "Používat u SMB protokolu ověření heslem"
+
+msgctxt "#32203"
+msgid "Disable SSH Password"
+msgstr "Deaktivovat SSH heslo"
+
+msgctxt "#32204"
+msgid "Enable Samba"
+msgstr "Povolit SMB protokol"
+
+msgctxt "#32205"
+msgid "Enable SSH"
+msgstr "Povolit SSH"
+
+msgctxt "#32206"
+msgid "Enable Avahi (Zeroconf)"
+msgstr "Povolit Avahi (Zeroconf)"
+
+msgctxt "#32207"
+msgid "Avahi"
+msgstr "Avahi"
+
+msgctxt "#32208"
+msgid "Hidden Wlan"
+msgstr "Skrytá bezdrátová síť"
+
+msgctxt "#32209"
+msgid "SSH Password"
+msgstr "Heslo SSH"
+
+msgctxt "#32210"
+msgid ""
+"The default SSH password is widely known and considered "
+"insecure.[CR][CR]Setting a personal password is recommended."
+msgstr "Výchozí heslo SSH je všeobecně známé a je považováno za nedůvěryhodné.[CR][CR]Doporučuje se nastavit vlastní heslo."
+
+msgctxt "#32212"
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgctxt "#32213"
+msgid "Keep Existing"
+msgstr "Zachovat existující"
+
+msgctxt "#32214"
+msgid "Set Password"
+msgstr "Nastavit heslo"
+
+msgctxt "#32215"
+msgid "Workgroup name"
+msgstr "Název pracovní skupiny"
+
+msgctxt "#32216"
+msgid "Auto-Share External Drives"
+msgstr "Automaticky sdílet připojené jednotky"
+
+msgctxt "#32217"
+msgid "Minimum supported protocol"
+msgstr "Minimální podporovaný protokol"
+
+msgctxt "#32218"
+msgid "Maximum supported protocol"
+msgstr "Maximální podporovaný protokol"
+
+msgctxt "#32220"
+msgid "Bad password!"
+msgstr "Nesprávné heslo!"
+
+msgctxt "#32221"
+msgid "The entered password is too weak.[CR]SSH password is unchanged."
+msgstr "Zadané heslo je příliš slabé.[CR]Heslo SSH zůstává nezměněno."
+
+msgctxt "#32222"
+msgid "Password changed!"
+msgstr "Heslo změněno!"
+
+msgctxt "#32223"
+msgid "The SSH password has been successfully changed."
+msgstr "Heslo SSH bylo úspěšně změněno."
+
+msgctxt "#32224"
+msgid "Unknown error!"
+msgstr "Neznámá chyba!"
+
+msgctxt "#32225"
+msgid "There was an error during the process.[CR]SSH password is unchanged."
+msgstr "Během procesu došlo k chybě.[CR]Heslo SSH zůstává nezměněno."
+
+msgctxt "#32226"
+msgid "Enter new 4 digit PIN"
+msgstr "Zadejte nový 4číselný PIN "
+
+msgctxt "#32227"
+msgid "Re-enter PIN"
+msgstr "Zadejte znovu PIN"
+
+msgctxt "#32228"
+msgid "Error - PIN codes did not match!"
+msgstr "Chyba – PINy se neshodují!"
+
+msgctxt "#32229"
+msgid "@DISTRONAME@ Settings PIN lock not set.[CR][CR]Please try again."
+msgstr "Zámek PIN pro vstup do Nastavení @DISTRONAME@ nebyl nastaven.[CR][CR]Zkuste to prosím znovu."
+
+msgctxt "#32230"
+msgid "@DISTRONAME@ Settings PIN lock set."
+msgstr "Zámek PIN pro vstup do Nastavení @DISTRONAME@ byl nastaven."
+
+msgctxt "#32231"
+msgid "Your @DISTRONAME@ Settings PIN lock has been set to:"
+msgstr ""
+
+msgctxt "#32232"
+msgid "Error - PIN code not 4 digits!"
+msgstr "Chyba – PIN není 4číselný!"
+
+msgctxt "#32233"
+msgid "@DISTRONAME@ Settings Locked[CR]Enter 4 digit PIN"
+msgstr ""
+
+msgctxt "#32234"
+msgid "Incorrect PIN!"
+msgstr "Nesprávný PIN!"
+
+msgctxt "#32235"
+msgid " attempts remaining."
+msgstr " zbývající pokusy."
+
+msgctxt "#32236"
+msgid ""
+"You have entered an incorrect PIN too many times.[CR][CR]You will need to "
+"wait 5 minutes before trying again."
+msgstr "Mnohokrát jste zadali nesprávný PIN.[CR][CR]Před dalším pokusem budete muset počkat 5 minut."
+
+msgctxt "#32237"
+msgid "@DISTRONAME@ Settings Locked!"
+msgstr "Nastavení @DISTRONAME@ je uzamčeno!"
+
+msgctxt "#32238"
+msgid ""
+"Time remaining before PIN can be entered: %02d:%02d[CR][CR]Too many previous"
+" failed attempts."
+msgstr ""
+
+msgctxt "#32240"
+msgid "Wireless Regulatory Domain"
+msgstr ""
+
+msgctxt "#32300"
+msgid "Welcome to @DISTRONAME@"
+msgstr "Vítejte v @DISTRONAME@"
+
+msgctxt "#32301"
+msgid "Welcome"
+msgstr "Vítejte"
+
+msgctxt "#32302"
+msgid ""
+"This wizard will guide you through the process of setting up your new "
+"@DISTRONAME@ installation - setting your location, timezone and connecting "
+"you to the internet.[CR][CR]These settings can be changed later by "
+"navigating to Programs > @DISTRONAME@ Settings."
+msgstr "Tento pomocník vás provede procesem nastavení vaší nové instalace @DISTRONAME@ – zadáním vaší polohy, časové zóny a připojí vás k internetu.[CR][CR]Tato nastavení mohou být později změněna v menu: Programy > Nastavení @DISTRONAME@."
+
+msgctxt "#32303"
+msgid "Next"
+msgstr "Další"
+
+msgctxt "#32304"
+msgid ""
+"To be identified easily on the network, your new @DISTRONAME@ machine needs "
+"a name.[CR][CR]Try to choose something meaningful - like the room it's in - "
+"so you'll know what it is when you see it on the network.[CR][CR]This name "
+"is used when configuring network services, like file sharing using samba."
+msgstr "Pro jednodušší síťovou identifikaci nového zařízení @DISTRONAME@ je nutné zadat jeho název.[CR][CR]Zkuste si vybrat nějaký výstižný – např. v jaké místnosti se zařízení nachází. Okamžitě tak budete vědět o jaké zařízení v síti se jedná.[CR][CR]Tento název je použit pro nastavení síťových služeb, jako je sdílení souborů pomocí SMB."
+
+msgctxt "#32305"
+msgid "Networking"
+msgstr "Síť"
+
+msgctxt "#32306"
+msgid ""
+"In order to download backdrops, banners and thumbnails for your movies and "
+"TV shows and to stream online content from sites like YouTube, @DISTRONAME@ "
+"needs to be connected the Internet.[CR][CR]An Internet connection is also "
+"required for @DISTRONAME@ to automatically update itself."
+msgstr "Aby bylo možné stahovat pozadí, banery a náhledy pro filmy a TV seriály a pro možnost online sledování obsahu ze stránek jako je YouTube, je nutné, aby byl systém @DISTRONAME@ připojen k internetu.[CR][CR]Internetové připojení je také nutné pro automatické aktualizace systému @DISTRONAME@."
+
+msgctxt "#32307"
+msgid "Previous"
+msgstr "Předchozí"
+
+msgctxt "#32308"
+msgid "Hostname:"
+msgstr "Název systému:"
+
+msgctxt "#32309"
+msgid "The following Networks are currently available:"
+msgstr "K dispozici jsou následující sítě:"
+
+msgctxt "#32310"
+msgid "Language:"
+msgstr "Jazyk:"
+
+msgctxt "#32311"
+msgid "Sharing and Remote Access"
+msgstr "Sdílení a vzdálený přístup"
+
+msgctxt "#32312"
+msgid ""
+"@DISTRONAME@ also supports SSH for remote access. This is for advanced users"
+" who wish to interact with @DISTRONAME@'s underlying operating system. The "
+"default user is [COLOR blue]root[/COLOR] and the default password is [COLOR "
+"blue]@ROOT_PASSWORD@[/COLOR]."
+msgstr "@DISTRONAME@ také podporuje vzdálený přístup pomocí SSH. Tato možnost je pro pokročilé uživatele, kteří chtějí komunikovat s jádrem systému @DISTRONAME@. Výchozí uživatelské jméno je [COLOR blue]root[/COLOR] a výchozí heslo je [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+
+msgctxt "#32313"
+msgid ""
+"In order to share your files between your computers @DISTRONAME@ has "
+"incorporated a samba server. This samba server can be integrated into your "
+"local network by accessing it in a familiar way with Finder or Windows "
+"Explorer."
+msgstr "Aby bylo možné sdílet soubory mezi počítačem a zařízením @DISTRONAME@, jsou k dispozici sdílené složky pomocí protokolu SMB. Pro snadný přístup ke sdílením složkám v lokální síti je možné použít všeobecně známé rozhraní aplikací Finder nebo Windows Explorer."
+
+msgctxt "#32316"
+msgid "Configure Services:"
+msgstr "Nastavit služby:"
+
+msgctxt "#32317"
+msgid "Thank you"
+msgstr "Děkujeme"
+
+msgctxt "#32318"
+msgid ""
+"Your @DISTRONAME@ installation is now complete and you are about to enter "
+"Kodi where you can set up your media libraries. For help with this, there is"
+" a guide available at wiki.kodi.tv[CR][CR]@DISTRONAME@ is developed by a "
+"dedicated team of developers who work purely in their spare time. Even as a "
+"volunteer project, we still have to pay for our internet bandwidth and "
+"development resources so if you find @DISTRONAME@ useful we will always "
+"appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using"
+" @DISTRONAME@ as much as we've enjoyed building it. If you need any more "
+"help, you can find links to our support forum along with latest news at our "
+"website."
+msgstr "Instalace @DISTRONAME@ byla dokončena a nyní můžete pokračovat do Kodi, kde si můžete nastavit vaše mediální knihovny. Pokud s tím potřebujete pomoct, můžete si projít návod, který je k dispozici na adrese wiki.kodi.tv.[CR][CR]@DISTRONAME@ je vyvíjen obětavým týmem vývojářů, kteří na něm pracují ve svém volném čase. Přestože jde o dobrovolnický projekt, i tak musíme platit za udržení síťové infrastruktury v chodu a za náklady na vývoj. Pokud se vám @DISTRONAME@ líbí a shledáváte ho užitečným, my pak zase vždy vděčně oceníme finanční příspěvek v jakékoliv výši.[CR][CR]Závěrem doufáme, že vás @DISTRONAME@ baví stejně, jako nás baví ho dávat dohromady. Jestliže s něčím potřebujete dále pomoci, odkazy na naše fórum podpory naleznete na našem webu  společně s aktuálními novinkami."
+
+msgctxt "#32319"
+msgid "Cron"
+msgstr "Cron"
+
+msgctxt "#32320"
+msgid "Enable Cron"
+msgstr "Povolit Cron"
+
+msgctxt "#32323"
+msgid "Reset to Defaults"
+msgstr "Obnovit výchozí nastavení"
+
+msgctxt "#32324"
+msgid "Reset System Settings to defaults"
+msgstr "Obnovit výchozí nastavení systému"
+
+msgctxt "#32325"
+msgid "Reset @DISTRONAME@ to defaults"
+msgstr "Obnovit výchozí nastavení @DISTRONAME@ "
+
+msgctxt "#32326"
+msgid "Are you sure?"
+msgstr "Jste si jisti?"
+
+msgctxt "#32328"
+msgid "The system must reboot."
+msgstr "Je potřeba restartovat systém."
+
+msgctxt "#32329"
+msgid "Rebooting in %d seconds"
+msgstr "Restartování proběhne za %d s"
+
+msgctxt "#32330"
+msgid "Keyboard Type"
+msgstr "Typ klávesnice"
+
+msgctxt "#32331"
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+msgctxt "#32333"
+msgid "Connected: "
+msgstr "Připojeno:"
+
+msgctxt "#32334"
+msgid "Yes"
+msgstr "Ano"
+
+msgctxt "#32335"
+msgid "No"
+msgstr "Ne"
+
+msgctxt "#32338"
+msgid "No Bluetooth adapter found."
+msgstr "Nebyl nalezen žádný Bluetooth adaptér."
+
+msgctxt "#32339"
+msgid ""
+"No Bluetooth device found. Please put your Bluetooth device into discovery "
+"mode[CR]and start the scan"
+msgstr "Nebylo nalezeno žádné zařízení Bluetooth. Nastavte prosím zařízení Bluetooth do zjistitelného režimu[CR]a spusťte prohledávání."
+
+msgctxt "#32343"
+msgid "Enter the following Key on your Device."
+msgstr "Zadejte na svém zařízení následující klíč."
+
+msgctxt "#32344"
+msgid "Enable Bluetooth"
+msgstr "Povolit Bluetooth"
+
+msgctxt "#32346"
+msgid "Bluetooth is disabled"
+msgstr "Bluetooth je zakázán"
+
+msgctxt "#32358"
+msgid "Trust and Connect"
+msgstr "Důvěřovat a připojit"
+
+msgctxt "#32362"
+msgid "Check for updates now:"
+msgstr "Vyhledat aktualizace nyní:"
+
+msgctxt "#32363"
+msgid "@DISTRONAME@"
+msgstr "@DISTRONAME@"
+
+msgctxt "#32364"
+msgid "Update available"
+msgstr "Aktualizace k dispozici"
+
+msgctxt "#32365"
+msgid "Show Update Notifications"
+msgstr "Zobrazit oznámení aktualizací"
+
+msgctxt "#32366"
+msgid "Update Download Completed"
+msgstr "Stažení aktualizace dokončeno"
+
+msgctxt "#32367"
+msgid "Update Extract Complete"
+msgstr "Rozbalení aktualizace dokončeno"
+
+msgctxt "#32368"
+msgid "Advanced Network Settings"
+msgstr "Rozšířené nastavení internetu"
+
+msgctxt "#32369"
+msgid "Wait for network before starting Kodi"
+msgstr "Počkat na připojení k síti před spuštěním Kodi"
+
+msgctxt "#32370"
+msgid "Maximum Wait Time (Sec.)"
+msgstr "Čekat maximálně (Sek.)"
+
+msgctxt "#32371"
+msgid "Backup"
+msgstr "Zálohovat"
+
+msgctxt "#32372"
+msgid "Create System and Kodi Backup"
+msgstr "Vytvořit zálohu systému a Kodi"
+
+msgctxt "#32373"
+msgid "Restore Backup"
+msgstr "Obnovit zálohu"
+
+msgctxt "#32375"
+msgid "Backup Progress"
+msgstr "Průběh zálohování"
+
+msgctxt "#32376"
+msgid "Submit Log"
+msgstr "Odeslat protokol"
+
+msgctxt "#32377"
+msgid "Upload latest Kodi log and configs, and view the short URL"
+msgstr "Nahrát aktuální protokol (log) a nastavení z Kodi a zobrazit zkrácenou adresu URL"
+
+msgctxt "#32378"
+msgid "Upload latest Kodi crash log and configs, and view the short URL"
+msgstr "Nahrát aktuální protokol (log) o pádu a nastavení z Kodi a zobrazit zkrácenou adresu URL"
+
+msgctxt "#32379"
+msgid "There is not enough free storage space to continue!"
+msgstr "Není dostatek volného místa pro pokračování!"
+
+msgctxt "#32380"
+msgid ""
+"Restoring system settings requires a reboot. Are you sure you want to "
+"restore?"
+msgstr "Obnovení nastavení systému vyžaduje restart. Skutečně si přejete provést obnovení?"
+
+msgctxt "#32381"
+msgid "Accept incoming Bluetooth Filetransfer ?"
+msgstr "Povolit příchozí Bluetooth přenos?"
+
+msgctxt "#32382"
+msgid "Speed"
+msgstr "Rychlost"
+
+msgctxt "#32383"
+msgid "Play Files ?"
+msgstr "Přehrát soubory?"
+
+msgctxt "#32384"
+msgid "OBEX Enabled"
+msgstr "Povolit OBEX"
+
+msgctxt "#32385"
+msgid "OBEX Upload Folder"
+msgstr "Adresář pro nahrávání OBEX"
+
+msgctxt "#32386"
+msgid "Keyboard Layout Variant #1"
+msgstr "Varianta rozložení klávesnice č. 1"
+
+msgctxt "#32387"
+msgid "Keyboard Layout Variant #2"
+msgstr "Varianta rozložení klávesnice č. 2"
+
+msgctxt "#32388"
+msgid "Enable Standby"
+msgstr "Povolit pohotovostní režim"
+
+msgctxt "#32389"
+msgid "Disable Standby"
+msgstr "Zakázat pohotovostní režim"
+
+msgctxt "#32390"
+msgid "Settings addon is not yet ready, please try again later."
+msgstr "Nastavení doplňku ještě není připraveno, zkuste to prosím později."
+
+msgctxt "#32391"
+msgid "Upload configs and other debug info without logs, and view the short URL"
+msgstr ""
+
+msgctxt "#32393"
+msgid "** SAFE MODE! ** SAFE MODE! ** SAFE MODE! **"
+msgstr "** NOUZOVÝ REŽIM! ** NOUZOVÝ REŽIM! ** NOUZOVÝ REŽIM! **"
+
+msgctxt "#32394"
+msgid ""
+"@DISTRONAME@ has temporarily started in safe mode due to repeated Kodi "
+"crashes.[CR][CR]You may now investigate the cause of the crashes by enabling"
+" ssh or Samba.[CR][CR]Your original Kodi installation can be accessed via "
+"\"/storage/.kodi.FAILED\" and the Samba \"Kodi-Failed\" "
+"share.[CR][CR]Rebooting will return to your original Kodi "
+"installation.[CR][CR]Go to https://forum.libreelec.tv if you require further"
+" assistance. When posting to the forum include the link to your crash log "
+"which can be viewed by clicking the crash log option in Settings > LibreELEC"
+" > System > Submit Log."
+msgstr "@DISTRONAME@ byl z důvodu opakovaných pádů Kodi dočasně spuštěn v nouzovém režimu.[CR][CR]Můžete prověřit příčiny pádů povolením SSH nebo Samby (SMB).[CR][CR]Vaše původní instalace Kodi je přístupná přes „/storage/.kodi.FAILED“ a sdílenou složku Samba – „Kodi-Failed“.[CR][CR]Restartováním se vrátíte k původní instalaci Kodi.[CR][CR]Pokud potřebujete další pomoc, navštivte https://forum.libreelec.tv. Při přispívání do fóra prosím uveďte adresu protokolu o pádu, kterou získáte klepnutím na volbu Protokol o pádu v Nastavení > LibreELEC > Systém > Odeslat protokol."
+
+msgctxt "#32395"
+msgid "Firewall"
+msgstr "Firewall"
+
+msgctxt "#32396"
+msgid "Custom"
+msgstr "Vlastní"
+
+msgctxt "#32397"
+msgid "Off"
+msgstr "Vypnutý"
+
+msgctxt "#32398"
+msgid "Home"
+msgstr "Domácí"
+
+msgctxt "#32399"
+msgid "Public"
+msgstr "Veřejný"
+
+msgctxt "#32400"
+msgid "Idle Timeout"
+msgstr "Časový limit nečinnosti"

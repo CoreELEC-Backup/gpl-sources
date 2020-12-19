@@ -1,0 +1,295 @@
+
+config GXB_SKT_V1
+	bool "Support amlogic gxbaby skt v1 board"
+	default n
+
+config GXB_P200_V1
+	bool "Support amlogic gxbaby p200(develop) v1 board"
+	default n
+
+config GXB_P201_V1
+	bool "Support amlogic gxbaby p200(reference) v1 board"
+	default n
+
+config GXTVBB_SKT_V1
+	bool "Support amlogic gxtv baby socket v1 board"
+	default n
+
+config GXTVBB_P301_V1
+	bool "Support amlogic gxtv baby p301(reference) v1 board"
+	default n
+
+config GXTVBB_P300_V1
+	bool "Support amlogic gxtv baby p300(develop) v1 board"
+	default n
+
+config GXTVBB_P310_V1
+	bool "Support amlogic gxtv baby P310 socket v1 board"
+	default n
+
+config GXTVBB_P311_V1
+	bool "Support amlogic gxtv baby P311 socket v1 board"
+	default n
+
+config GXTVBB_9023_SKT_V1
+	bool "Support amlogic gxtv baby 9023 socket v1 board"
+	default n
+
+config GXTVBB_T966_SKT_V1
+	bool "Support amlogic gxtv baby 9023 socket v1 board"
+	default n
+
+config GXL_SKT_V1
+	bool "Support amlogic gxl socket v1 board"
+	default n
+
+config GXL_P212_V1
+	bool "Support amlogic gxl p212 board"
+	default n
+
+config LIBRETECH_CC
+	bool "Support LibreTech CC board"
+	default n
+
+config GXL_P241_V1
+    bool "Support amlogic gxl p241 board"
+    default n
+
+config GXL_P230_V1
+	bool "Support amlogic gxm/gxl p230 board"
+	default n
+
+config GXL_P231_V1
+	bool "Support amlogic gxm/gxl p231 board"
+	default n
+
+config GXL_P400_V1
+        bool "Support amlogic gxl p400 board"
+        default n
+
+config GXL_P401_V1
+        bool "Support amlogic gxl p401 board"
+        default n
+
+config GXM_SKT_V1
+	bool "Support amlogic gxm/gxl skt board"
+	default n
+
+config GXM_Q201_V1
+	bool "Support amlogic gxm/gxl q201 board"
+	default n
+
+config GXM_Q200_V1
+	bool "Support amlogic gxm/gxl q200 board"
+	default n
+
+config TXL_SKT_V1
+	bool "Support amlogic txl socket v1 board"
+	default n
+
+config TXL_P320_V1
+	bool "Support amlogic txl p320 board"
+	default n
+
+config TXL_P321_V1
+	bool "Support amlogic txl p321 board"
+	default n
+
+config TXL_T950_SKT_V1
+	bool "Support amlogic txl t950 socket board"
+	default n
+
+config TXL_P341_V1
+	bool "Support amlogic txl t950 p341 board"
+	default n
+
+config TXL_P341_V2
+	bool "Support amlogic txl t950 p341 v2 board"
+	default n
+
+config TXL_P346_V1
+	bool "Support amlogic txl t960 p346 v1 board"
+	default n
+
+config TXLX_T962X_SKT_V1
+	bool "Support amlogic txlx t962x skt v1 board"
+	default n
+
+config TXLX_T962E_SKT_V1
+	bool "Support amlogic txlx t962e skt v1 board"
+	default n
+
+config TXLX_T962X_R311_V1
+	bool "Support amlogic txlx t962x r311 v1 board"
+	default n
+
+config TXLX_T962E_R321_V1
+	bool "Support amlogic txlx t962e r321 v1 board"
+	default n
+
+config AXG_SKT_V1
+	bool "Support amlogic axg skt v1 board"
+	default n
+
+config AXG_S400_V1
+	bool "Support amlogic axg s400 v1 board"
+	default n
+
+config AXG_S420_V1
+	bool "Support amlogic axg s420 v1 board"
+	default n
+
+config PXP_EMULATOR
+	bool "Support pxp environment"
+	default n
+
+config SUPPORT_CUSOTMER_BOARD
+	bool "Customer board support"
+
+config ODROID_C2
+	bool "Support Hardkernel ODROID-C2 board"
+	default n
+
+if GXB_SKT_V1
+source "board/amlogic/gxb_skt_v1/Kconfig"
+endif
+
+if GXB_P200_V1
+source "board/amlogic/gxb_p200_v1/Kconfig"
+endif
+
+if GXB_P201_V1
+source "board/amlogic/gxb_p201_v1/Kconfig"
+endif
+
+if GXTVBB_SKT_V1
+source "board/amlogic/gxtvbb_skt_v1/Kconfig"
+endif
+
+if GXTVBB_P301_V1
+source "board/amlogic/gxtvbb_p301_v1/Kconfig"
+endif
+
+if GXTVBB_P300_V1
+source "board/amlogic/gxtvbb_p300_v1/Kconfig"
+endif
+
+if GXTVBB_P310_V1
+source "board/amlogic/gxtvbb_p310_v1/Kconfig"
+endif
+
+if GXTVBB_P311_V1
+source "board/amlogic/gxtvbb_p311_v1/Kconfig"
+endif
+
+if GXTVBB_9023_SKT_V1
+source "board/amlogic/gxtvbb_9023_skt_v1/Kconfig"
+endif
+
+if GXTVBB_T966_SKT_V1
+source "board/amlogic/gxtvbb_t966_skt_v1/Kconfig"
+endif
+
+if GXL_SKT_V1
+source "board/amlogic/gxl_skt_v1/Kconfig"
+endif
+
+if GXL_P212_V1
+source "board/amlogic/gxl_p212_v1/Kconfig"
+endif
+
+if LIBRETECH_CC
+source "board/amlogic/libretech_cc/Kconfig"
+endif
+
+if GXL_P241_V1
+source "board/amlogic/gxl_p241_v1/Kconfig"
+endif
+
+if GXL_P230_V1
+source "board/amlogic/gxl_p230_v1/Kconfig"
+endif
+
+if GXL_P231_V1
+source "board/amlogic/gxl_p231_v1/Kconfig"
+endif
+
+if GXL_P400_V1
+source "board/amlogic/gxl_p400_v1/Kconfig"
+endif
+
+if GXL_P401_V1
+source "board/amlogic/gxl_p401_v1/Kconfig"
+endif
+
+if GXM_SKT_V1
+source "board/amlogic/gxm_skt_v1/Kconfig"
+endif
+
+if GXM_Q201_V1
+source "board/amlogic/gxm_q201_v1/Kconfig"
+endif
+
+if GXM_Q200_V1
+source "board/amlogic/gxm_q200_v1/Kconfig"
+endif
+
+if TXL_SKT_V1
+source "board/amlogic/txl_skt_v1/Kconfig"
+endif
+
+if TXL_P320_V1
+source "board/amlogic/txl_p320_v1/Kconfig"
+endif
+
+if TXL_P321_V1
+source "board/amlogic/txl_p321_v1/Kconfig"
+endif
+
+if TXL_T950_SKT_V1
+source "board/amlogic/txl_t950_skt_v1/Kconfig"
+endif
+
+if TXL_P341_V1
+source "board/amlogic/txl_p341_v1/Kconfig"
+endif
+
+if TXL_P341_V2
+source "board/amlogic/txl_p341_v2/Kconfig"
+endif
+
+if TXL_P346_V1
+source "board/amlogic/txl_p346_v1/Kconfig"
+endif
+
+if TXLX_T962X_SKT_V1
+source "board/amlogic/txlx_t962x_skt_v1/Kconfig"
+endif
+
+if TXLX_T962E_SKT_V1
+source "board/amlogic/txlx_t962e_skt_v1/Kconfig"
+endif
+
+if TXLX_T962X_R311_V1
+source "board/amlogic/txlx_t962x_r311_v1/Kconfig"
+endif
+
+if TXLX_T962E_R321_V1
+source "board/amlogic/txlx_t962e_r321_v1/Kconfig"
+endif
+
+if AXG_SKT_V1
+source "board/amlogic/axg_skt_v1/Kconfig"
+endif
+
+if AXG_S400_V1
+source "board/amlogic/axg_s400_v1/Kconfig"
+endif
+
+if AXG_S420_V1
+source "board/amlogic/axg_s420_v1/Kconfig"
+endif
+
+if ODROID_C2
+source "board/hardkernel/odroidc2/Kconfig"
+endif

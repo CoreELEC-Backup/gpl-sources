@@ -1,0 +1,91 @@
+LIRC release procedure (more or less)
+-------------------------------------
+
+Pre-requisites:
+- Compiles without warnings
+- Unit tests pass.
+    + cd test
+    + make
+    + ./run-tests
+- Python bindings test pass:
+    + cd python-pkg/test
+    + python3 -m unittest discover
+- 'make distcheck' pass
+- Build in separate clone is OK.
+- VPATH build in separate clone is OK.
+- Encoder/decoder regression tests all pass
+- lirc.org linkcheck:
+    + cd doc; DESTDIR=$PWD/foo make install
+    + linkchecker -r 8 foo/usr/local/share/doc/lirc/lirc.org/index.html
+    + cd doc; make fix-urls
+- liblirc_client: version number change required?
+    + use abidiff
+    + run (more or less)
+         $ abidiff lirc-old/lib/.libs/liblirc_client.so.0.3.0  \
+         >     lirc-new/lib/.libs/liblirc_client.so.0.3.0
+        current:release:age
+        https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html
+- Same for liblirc_driver.so.3.0.3
+- git master branch is committed and pushed
+- Update NEWS.
+- Create a new git release branch:
+      git checkout -b <version>
+
+
+Steps for a new release (pre or final)
+
+1) Checkout the release branch from master:
+
+      git checkout master
+      git checkout -b <release branch>
+
+2) Rebase it on release and verify that it still the same
+
+      git rebase -X theirs release
+      git diff <release branch> master
+
+3) Update NEWS.
+
+4) Update version number in:
+        README, NEWS, configure.ac
+        Makefile.am (ChangeLog entries)
+        doc/lirc.org/index.html (Add NEWS entry, update download link)
+   Update driver_version in  plugins/*.c.
+   Update the news entry in README.
+   Remove the attic/ directory
+
+5) Commit and push branch:
+        git commit -a -s -m "Update for lirc <version> release"
+
+6) Create tarball:
+        git clone -b <release branch> lirc lirc-tmp
+        cd lirc-tmp
+        ./autogen.sh
+        ./configure
+        make distcheck
+
+   Make preliminary Debian and RPM packages to pick up packaging errors.
+
+7) Merge release branch into the 'release' branch:
+       git checkout release
+       git merge <release branch>
+       git tag -a  lirc-<version> HEAD    # Using version like lirc-0.10.0
+       git push --tags origin <release-branch>
+   Check that the tags are present also in the release branch (no rebase
+   problems):
+       git log --oneline --decorate -25
+
+8) Get tarballs to Christoph to post at http://lirc.org/software/snapshots/,
+   or publish it elsewhere.
+
+9) Announce on the list.
+
+For final release:
+
+1) Upload tarball to sourceforge
+
+2) Back in master, increment <version> in the files in step 3 for the next
+   version
+
+3) Send announcement email to lirc-list@lists.sourceforge.net, include top
+   of NEWS.

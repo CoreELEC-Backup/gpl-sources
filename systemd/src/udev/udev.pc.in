@@ -1,0 +1,6 @@
+Name: udev
+Description: udev
+Version: @PROJECT_VERSION@
+
+udev_dir=@udevlibexecdir@
+udevdir=${udev_dir}

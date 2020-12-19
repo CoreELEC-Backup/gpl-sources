@@ -1,0 +1,232 @@
+    <A NAME="general"></A><HR>
+    <H1 ALIGN="CENTER">About this chapter</H1>
+     <!-- Dependencies +++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <p>
+    This chapter describes how to build and install LIRC. Note that LIRC
+    is packaged for all major linux distributions. If you
+    just want to use lirc, you should be able to install it like any
+    other package. This way, you don't have to look at the
+    dependencies, build and installation description found here.</p>
+    <p>
+    The ./configure script is the ultimate source as to what libraries
+    and tools LIRC requires. The list here is not complete in any way,
+    being focused on things to install before building.</p>
+
+    <A NAME="dependencies"></A><HR>
+    <H1 ALIGN="CENTER">Dependencies</H1>
+
+    <p>
+      <b>Mandatory dependencies</b>
+    </p>
+    <p>
+      There are a few mandatory dependencies, all of which
+      packaged on most (all?) Linux distributions.
+    </p>
+
+    <ul>
+      <li>Building directly from the git source tree requires
+          <em>autoconf</em>,<em>automake</em> and
+          <em>libtool</em>.</li>
+      <li>Compilation and linking requires the GNU toolchain
+          including <em>make</em>, <em>gcc</em>, <em>g++</em>
+          and <em>ld</em>.</li>
+      <li>python3 </li>
+      <li>Building requires <em>pkg-config</em>.</li>
+      <li>xsltproc </li>
+     </ul>
+     <p><b>Optional dependencies</b></p>
+     If these are missing, ./configure can cope with it and still
+     build LIRC in a more or less limited way.
+     <ul>
+      <li>On linux building requires <em>modinfo</em>, often in the
+          package kmod. Without modinfo, all kernel drivers are excluded
+          from the build.</li>
+      <li>On Linux building requires kernel headers, often in the
+          kernel-headers package. Building without these is possible,
+          but strongly discouraged (on linux).</li>
+      <li>Several scripts need the python3 PyYaml at
+          http://pyyaml.org/wiki/PyYAML. Some distributions includes a
+          python3-yaml package. There is also a pypi package at
+          https://pypi.python.org/pypi/PyYAML. Building without
+          this is possible but not recommended.</li>
+      <li>Generating the HTML manpages requires man2html. </li>
+      <li>Generating the API documentation requires Doxygen. </li>
+      <li>The Python bindings needs python 3.5+ to enable all
+          functionality. Other python3 version should work, but
+          will limit the python bindings API.</li>
+      <li>The <em>lirc-setup</em> GUI configuration tool
+          needs python3-gi and thus also the Gtk
+          libs and icons. These are not required for the build, though. </li>
+      <li>Building the X11 GUI tools like <em>irxevent</em> and
+          <em>xmode2</em> requires the X11 header files. </li>
+      <li> The audio drivers needs the alsa and portaudio libs
+           (libraries and headers). </li>
+       <li>
+         The <em>ftdi</em> and <em>ftdix</em> drivers require libftdi from
+         <a href="http://www.intra2net.com/de/produkte/opensource/ftdi/">
+         http://www.intra2net.com/de/produkte/opensource/ftdi/</a></li>
+     </ul>
+
+    <A NAME="kernel"></A>
+    <hr>
+    <H1 ALIGN="CENTER">Kernel</H1>
+
+    <P>
+      As of 0.9.0+, lirc uses the kernel modules from the
+      kernel. Some of these are formerly lirc modules which are
+      now part of the kernel. Thus, building lirc does not involve
+      building any kernel modules (as it used to).  </P>
+    <p>
+      Some of the former lirc modules are part of the official kernel
+      and should be available on any reasonably updated system. However,
+      some are in the staging area; if they are part of your kernel
+      depends on the distro you use (unless of course if you compile
+      your own kernel).</P>
+    <P>
+      There are example and test kernel modules in the drivers/
+      directory. None of these are required for regular LIRC use, but
+      they are supposed to be helpful while testing or writing drivers.</P>
+
+    <!-- Compiling +++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <A NAME="compile"></A><HR>
+    <H1 ALIGN="CENTER">Compile and Install</H1>
+
+    <P>
+      Since 0.9.1+ , lirc loads drivers dynamically. This means that
+      that the build system is redesigned to always build all drivers.
+      The former setup.sh script is dropped in favor of a standard
+      ./configure, make, make install sequence.
+    </P>
+    <p>
+      When building directly from git, a first required step to
+      create ./configure and some other files is </p>
+<pre>
+           ./autogen.sh
+</pre>
+      Whether using git sources or just using a distributed tarball, the
+      next steps are the canonical
+<pre>
+            ./configure
+            make
+            sudo make install
+</pre>
+    Notes:
+    <ul>
+      <li>
+        When running the configure script, please pay attention at its
+        output.  Specifically, at the very end it prints a list of
+        the enabled functionality.</li>
+      <li>
+        Running configure without options will install lirc in /usr/local
+        according to GNU standards. However, many examples in this manual
+        as well as other documentation are assuming that ./configure ran
+        with the <em>--prefix=/usr</em> option, installing in /etc/lirc,
+        /usr/bin etc.</li>
+      <li>
+        When cross-compiling, the configure script cannot use the defaults
+        determined from the build host. Hence, cross-compiling requires a
+        close look to the <i>./configure --help</i> output which have some
+        hints for this.</li>
+      <li>
+        The build system supports VPATH builds which does not
+        clutter the source tree. To use this do something like:
+<pre>
+            mkdir _build; cd _build;
+            ../configure
+            make
+            sudo make install
+</pre>
+        </li>
+    </ul>
+    <A NAME="check"></A><HR>
+    <H1 ALIGN="CENTER">Checking the build</H1>
+
+     Since the dynamic drivers are not linked during the build, it's
+     recommended to check that the expected drivers are built and can
+     be loaded using
+<pre>
+             cd tools; ./lirc-lsplugins -U ../plugins/.libs
+</pre>
+     <p>
+     Is some cases, lirc-lsplugins will crash on missing libraries e. g.,
+     <em>liblirc.so.0</em>. If so, you need to add the path where lirc
+     installs it's libraries (by default, /usr/local/lib) to the runtime
+     linker path. Refer to generic ld.so(1) documentation.</p>
+     <p>
+     With working paths lirc-lsplugins will create a list of all drivers
+     available, and also possible link errors not revealed during the build.
+     <em>lirc-lsplugins</em> has a <em> -h</em> option providing help, and
+     <em> nroff -man ../doc/man/lirc-lsplugins.1 | more </em>
+     provides more complete info.</p>
+     <p>
+     The test/ directory contains some (but too few) unit tests. Compiling
+     these requires the <em>cppunit</em> library from
+     https://www.freedesktop.org/wiki/Software/cppunit. <em>cppunit</em> is
+     packaged in most linux distribtutions. With this in place,
+     do:</p>
+     <pre>
+         $ cd test
+         $ make
+         $ ./run-tests
+     </pre>
+     <p>
+     From 0.10.0, the python-pkg has some traditional unittests. These
+     tests requires the <em>socat</em> and <em>expect</em> packages, both of
+     which packaged for major linux distributions.  The python version
+     needs to be 3.5+. To invoke: </p>
+     <pre>
+          $ cd python-pkg/tests
+          $ python3 -m unittest discover
+     </pre>
+
+     <!-- Install LIRC ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <A NAME="configuration"></A><HR>
+    <H1 ALIGN="CENTER">Configuration</H1>
+
+    <p>
+      Formerly, lirc was configured during build where the setup.sh script
+      was used to select driver, configuration file, etc. Also, there was
+      little support for starting and running the services from boot. From
+      0.9.1+ the configuration is instead done after the build. The
+      configuration steps for the main lircd program involves:
+    <ul>
+        <li> In some cases e. g., serial devices setting up kernel module
+             options in /etc/modprobe.d or using udev rules. </li>
+        <li> Selecting the driver and kernel device for your capture
+             device.</li>
+        <li> Selecting configuration file for your remote.</li>
+        <li> Configuring and using systemd to run the services. </li>
+        <li> Creating lircrc files for your applications.</li>
+    </ul>
+    <p>
+      This is described in the <a href="configuration-guide.html">
+      configuration guide</a>.</p>
+
+    <!-- Uninstall LIRC ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <A NAME="uninstall"></A><HR>
+    <H1 ALIGN="CENTER">Uninstall</H1>
+    <UL>
+      <LI>Remove the installed artifacts:<BR>
+        <BR>
+        <em>make uninstall</em><BR>
+        <BR>
+      </LI>
+      <LI>Remove the config files, if you don't need them anymore:<BR>
+        <BR>
+        <em>rm -rf /etc/lirc/</em><BR>
+        <em>rm -f ~/.config/lircrc</em><BR>
+        <BR>
+        You might also want to check /etc/modprobe.d for left-overs.
+      </LI>
+    </UL>
+
+    <A NAME="updating"></A><HR>
+    <H1 ALIGN="CENTER">Updating from older versions</H1>
+    <p>
+     The <a href="NEWS.txt">NEWS</a> file  describes the changes since last
+     version. Normally, upgrading from a previous version should not be too
+     painful. However, if you have to update a really old version it's probably
+     better to make a fresh install.

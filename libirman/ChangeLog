@@ -1,0 +1,10 @@
+v0.5.0 maintenance release by Alec Leamas.
+
+- Always build the irman.test* tools.
+- If compiled with lirc > 0.9.3, builds the irman lirc plugin (i. e., driver).
+- Add ChangeLog, AUTHORS + INSTALL to make package GNU-compatible
+- Using a GNU make extension $(shell ...).
+
+v0.4.6 Maintenance release by Alec Leamas.
+
+- Update configure.ac and Makefile.am to current autotools standards.

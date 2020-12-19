@@ -1,0 +1,70 @@
+.TH irsimsend "1" "Last change: Oct 2015" "irsimsend @version@" "User Commands"
+.SH NAME
+.P
+\fBirsimsend\fR - Send simulated IR data.
+.SH SYNOPSIS
+.P
+\fBirsimsend\fR [\-k \fIkeysym\fR |-l \fIlistfile\fR ] [other options] <\fIfile\fR>
+.P
+\fBirsimsend\fR [\fI\-v\fR |\fI\-h\fR]
+.P
+\fBirsimsend\fR <\fIconfigfile\fR>
+
+.SH DESCRIPTION
+.P
+\fBirsimsend\fR is a simple test tool which given a lircd configuration
+file will send all keys defined in that file, the keys listed in
+another file or a symbol defined on the command line.
+.PP
+The program uses the file driver to log all sent data (pulses/spaces
+durations) into a file 'simsend.out'. The symbols sent are printed on
+stdout.
+
+.SH OPTIONS
+
+.TP 4
+\fB-c, --count\fR  <\fIcount\fR>
+Repeat each sent signal <count> times.
+
+.TP 4
+\fB-U, --plugindir\fB <\fIpath\fR>
+Load drivers from \fIpath\fR, a ':' separated search path similar to $PATH.
+
+.TP 4
+\fB-l,--listfile\fR  <\fIpath\fR>
+Send symbols listed in file instead of just the symbols in the config
+file. The file could either be listing a single key symbol per line,
+or have a complete code string like
+\fI000000000000a123 01 KEY_POWER brand\fR on each line.
+
+.TP 4
+\fB-k\fR, \fB--keysym\fR
+Send a single key symbol defined in \fIfile\fR.
+
+.TP 4
+\fB-s\fR, \fB--start-space\fR <\fIuseconds\fR>
+Send an initial space before sending data.
+
+
+.TP 4
+\fB-v\fR , \fB--version\fR
+Print version and exit.
+
+.TP 4
+\fB-h\fR , \fB--help\fR
+Print help message.
+
+.SH FILES
+.TP 4
+.B ~/.cache/irsimsend.log
+Debug log. Setting the XDG_CACHE_HOME environment variable relocates this
+file to $XDG_CACHE_HOME/irsimsend.log. The amount of logging respects the
+LIRC_LOGLEVEL environment variable, defaulting to the \fidebug\fR value
+in the\fi[lircd]\fR section of lirc_options.conf.
+
+
+.SH "SEE ALSO"
+.P
+The documentation for \fBlirc\fR
+is maintained as html pages. They are located under html/ in the
+documentation directory.

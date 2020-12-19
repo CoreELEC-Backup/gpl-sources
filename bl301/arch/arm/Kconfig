@@ -1,0 +1,33 @@
+menu "ARM architecture"
+	depends on ARM
+
+config SYS_ARCH
+	default "arm"
+
+config ARM64
+	bool
+
+config HAS_VBAR
+        bool
+
+config SYS_CPU
+	default "armv8" if ARM64
+
+choice
+	prompt "Target select"
+
+config TARGET_MESON_GX
+	bool "Support meson gx-series 64bit"
+	select ARM64
+
+config TARGET_MESON_G12B
+	bool "Support meson g12b-series 64bit"
+	select ARM64
+
+endchoice
+
+source "board/Kconfig"
+
+source "arch/arm/Kconfig.debug"
+
+endmenu

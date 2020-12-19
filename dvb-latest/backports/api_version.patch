@@ -1,0 +1,21 @@
+diff --git a/drivers/media/cec/cec-api.c b/drivers/media/cec/cec-api.c
+index b6536bbad530..401ed65c834b 100644
+--- a/drivers/media/cec/cec-api.c
++++ b/drivers/media/cec/cec-api.c
+@@ -85 +85 @@ static long cec_adap_g_caps(struct cec_adapter *adap,
+-	caps.version = LINUX_VERSION_CODE;
++	caps.version = V4L2_VERSION;
+diff --git a/drivers/media/mc/mc-device.c b/drivers/media/mc/mc-device.c
+index 3bae24b15eaa..7f7cc64c637c 100644
+--- a/drivers/media/mc/mc-device.c
++++ b/drivers/media/mc/mc-device.c
+@@ -81 +81 @@ static long media_device_get_info(struct media_device *dev, void *arg)
+-	info->media_version = LINUX_VERSION_CODE;
++	info->media_version = V4L2_VERSION;
+diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+index 54afc9c7ee6e..4572a87acc0b 100644
+--- a/drivers/media/v4l2-core/v4l2-ioctl.c
++++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+@@ -1044 +1044 @@ static int v4l_querycap(const struct v4l2_ioctl_ops *ops,
+-	cap->version = LINUX_VERSION_CODE;
++	cap->version = V4L2_VERSION;

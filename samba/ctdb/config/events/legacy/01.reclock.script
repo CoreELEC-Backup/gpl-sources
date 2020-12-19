@@ -1,0 +1,34 @@
+#!/bin/sh
+# script to check accessibility to the reclock file on a node
+
+[ -n "$CTDB_BASE" ] || \
+    CTDB_BASE=$(d=$(dirname "$0") ; cd -P "$d" ; dirname "$PWD")
+
+. "${CTDB_BASE}/functions"
+
+case "$1" in
+init)
+	recovery_lock=$("${CTDB_HELPER_BINDIR}/ctdb-config" \
+				get cluster "recovery lock")
+	# xshellcheck disable=SC2181
+	# Above is already complicated enough without embedding into "if"
+	case $? in
+	0) : ;;
+	2) exit 0 ;; # ENOENT: not configured
+	*) die "Unexpected error getting recovery lock configuration"
+	esac
+
+	if [ -z "$recovery_lock" ] ; then
+		exit 0
+	fi
+
+	# If a helper is specified then exit because this script can't
+	# do anything useful
+	case "$recovery_lock" in
+	!*) exit 0 ;;
+	esac
+
+	d=$(dirname "$recovery_lock")
+	mkdir -p "$d"
+	;;
+esac

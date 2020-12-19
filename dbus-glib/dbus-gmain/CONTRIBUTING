@@ -1,0 +1,25 @@
+The mainline git tree for this code is at:
+git://anongit.freedesktop.org/git/dbus/dbus-glib -b dbus-gmain
+
+= Contributing changes =
+
+Be sure to match the existing code style (Emacs: "gnu").
+
+If you are making major changes which you wish to be incorporated upstream,
+please do as small commits to your local git tree, so there is a good
+history of your changes.
+
+When you consider changes ready for merging to mainline, use
+"git-format-patch" or otherwise generate unified diffs.  Post those diffs
+to a new bug at http://bugs.freedesktop.org, project DBus, component GLib.
+
+For nontrivial changes please try to extend the test suite to cover it.
+
+Run "make check" to run the test suite.
+
+= Releases =
+
+dbus-gmain is currently set up to be a git subtree or git submodule,
+so it does not have releases in its own right. It gets merged or
+otherwise included in larger projects like dbus-glib and dbus-python
+instead.

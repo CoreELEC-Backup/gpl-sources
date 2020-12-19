@@ -1,0 +1,391 @@
+.TH LIRCD "8" "Last change: Jun 2017" "lircd @version@" "System Administration Utilities"
+.SH NAME
+.P
+\fBlircd\fR - Decode infrared signals and provide them on a socket.
+.SH SYNOPSIS
+.B lircd
+[\fIoptions\fR] [\fIconfig file\fR]
+.SH DESCRIPTION
+The main task of lircd is to decode the infrared signals and provide
+an uniform interface for client applications. Clients can connect to
+lircd through a Unix domain socket, by default
+@varrundir@/lirc/lircd.  Using this socket they will get the infrared
+codes received by lircd and they can send commands to lircd.
+.PP
+
+.SH ARGUMENTS
+.TP 4
+.I config file
+The configuration file, by default @etcdir@/lirc/lircd.conf. A relative
+path is interpreted from @etcdir@/lirc. The default configuration file
+includes all files in @etcdir@/lircd.conf.d.
+.IP
+Each remote which should be decoded by lircd usually requires that a
+specific file is used e. g., by copying it to @etcdir@/lirc/lirc.conf.d/.
+The format is described in lircd.conf(5). Configuration files could be
+found using irdb-get(1) or lirc-setup(1). It's also possible to
+generate a config file using irrecord(1)
+
+.SH OPTIONS
+Common options:
+.TP 4
+\fB-d, --device\fR <\fIdevice\fR>
+Select the character device which lircd should read from. The default
+is currently /dev/lirc0 on most systems.
+.IP
+Some drivers, including the default \fIdevinput\fR driver, supports the
+\fIauto\fR device which picks the first usable device found for the actual
+driver.
+.IP "" 4
+When using the devinput driver \fIname=STRING\fR
+or \fIphys=STRING\fR can be used to select the device; lircd will
+look in /dev/input to find a device with a matching description.
+This is useful in case the device name isn't fixed. \fISTRING\fR
+may contain the '*' and '?' wildcards and '\\' to mark them as literal.
+Use \fBmode2 \-\-driver devinput \-\-list-devices \fRto list the
+actual devices.
+.TP
+\fB-H, --driver\fR <\fIdriver\fR>
+The driver to use.  Using
+.I --driver help
+lists all available drivers, see DRIVER LOADING below.
+.TP
+\fB-h, --help\fR
+Displays short help message.
+.P
+Other options:
+.TP 4
+\fB-a, --allow-simulate\fR
+Enable the SIMULATE command which can be issued using irsend(1) or
+the client API. This will allow simulating arbitrary IR events
+from the command line. Use this option with caution because it will give all
+users with access to the lircd socket wide control over the system.
+E.g., if you have configured your system to shut down by a button press
+on your remote control, everybody will be able to shut down
+your system from the command line.
+.TP 4
+\fB-c, --connect\fR [\fIhost[:port]][,[host[:port]]\fR]
+Connects to other lircd servers that provide a network
+socket at the given host and port number (see \fI--listen\fR). The
+number of such connections is currently limited to 100.
+The connecting lircd instance will receive IR events from the lircd
+instance it connects to. To connect to multiple servers, add them as a
+comma separated list.
+.TP
+\fB-e, --effective-user\fR <\fIuid\fR>
+If started as user root, lircd drops it privileges and runs as user <uid>
+after opening files etc.
+.TP 4
+\fB-i, --immediate-init\fR
+Lircd normally initializes the driver when the first client
+connects. If this option is selected, the driver is instead initialized
+immediately at start.
+.TP 4
+\fB-A, --driver-options\fR \fIkey:value[|key:value...]\fR
+Set one or more options for the driver. The argument is a list of
+key:value pairs delimited by '|'. The key can not contain spaces, but
+such are allowed in the value part. Certain characters including '#'
+and ';' are used as comment markers in the config file and are not
+allowed anywhere.
+.TP
+\fB-Y, --dynamic-codes  [EXPERIMENTAL]\fR
+Allows use of codes which have been decoded for one remote but
+are not defined in lircd.conf.  New codes are dynamically
+created  with a default name. This feature is experimental and subject
+to all sorts of changes. It has not ben tested thoroughly.
+.TP 4
+\fB-l, --listen\fR [\fI[address:]port]\fR]
+Let lircd listen for network
+connections on the given address/port. The default address is 0.0.0.0,
+which means that connections on all network interfaces will be accepted.
+The address must be given in dotted numerical form.
+Port defaults to  8765.
+The listening lircd instance will send all IR events to the connecting
+lircd instances without any security checks.
+.IP
+On non-glibc platforms the address:port argument is mandatory, but can be
+given as an empty string e. g. \fI--listen=\fR which then defaults
+to \fB0.0.0.0:8765\fR.
+.TP 4
+\fB-L, --logfile\fR <\fIlogfile path\fR>
+Select the lircd daemon log file. logfile is either the string 'syslog'
+indicating that syslog(1) should be used or a log file path. The default
+is to use syslog.
+.TP 4
+\fB-D, --loglevel\fR [\fIlevel\fR]
+Determine the amount of logging information. \fIlevel\fR can be a symbolic
+syslog level: 'error','warning, 'info', 'notice' or  'debug'.
+lircd also defines three additional levels 'trace', 'trace1' and 'trace2'
+which gives even more messages ('trace2' bringing the most).
+However, in the log these messages are marked as 'debug'.
+.IP
+On non-glibc platforms the \fIlevel\fR argument is mandatory, but can be
+given as an empty string e. g. \fI--loglevel=\fR which then defaults
+to \fBdebug\fR.
+.IP
+The level can also be an integer in the range 3 (almost no messages) to
+10.
+.TP 4
+\fB-O, --options-file\fR <\fIpath\fR>
+File containing default values for all options. A relative path is
+interpreted from current directory. See [FILES] below.
+.TP 4
+\fB-o, --output\fR <\fIoutput socket\fR>
+Select Unix domain socket, which lircd will write remote key codes to.
+The default currently is @varrundir@/lirc/lircd.
+.TP 4
+\fB\-p, \-\-permission\fR <\fIperm\fR>
+Gives the file permission of the output socket if it has to be
+created in octal representation. See chmod(1).
+If no \-\-permission option is given when the
+socket is initially created the default is to give all users read
+and write permissions (0666 in octal representation). If
+the socket already exists this option has no effect.
+.TP 4
+\fB-p, --pidfile\fR <\fIpath\fR>
+Select the lircd daemon pid file, defaults to @varrundir@/lirc/lircd.pid.
+.TP
+\fB-U --plugindir\fR <\fIpath\fR>
+Sets the directory from which lircd loads it's
+userspace drivers. These are *.so files, by default found as described
+under DRIVER LOADING. The argument is a :-separated search path.
+.TP 4
+\fB-r, --release\fR [\fIsuffix\fR]
+This option is deprecated and will be removed in an upcoming release. See
+lircd-uinput(8) for a replacement.
+.IP
+Enables automatic generation of release events for each button press.
+lircd will append the given suffix to the button name for each release
+event. If no suffix is given the default suffix is '_EVUP'.
+.IP
+Note the suffix _UP, which was used by
+.B lircd
+prior to 0.10.0, is used by the linux kernel for other purposes since 4.7.
+.TP
+\fB-R, --repeat-max\fR <\fIlimit\fR>
+Sets an upper limit to the number of repeats when sending a signal. The
+current default is 600. A SEND_START request will repeat the signal this
+many times. Also, if the number of repeats in a SEND_ONCE request exceeds
+this number, it will be replaced by this number.
+
+.SH SOCKET BROADCAST MESSAGES FORMAT
+
+.P
+When decoding a button press or receiving a SIGHUP signal lircd.conf
+\fBlircd\fR broadcasts messages to all connected clients.
+.P
+For each decoded button press a package is made available on the
+socket. This is printable data formatted as:
+.nf
+        <code> <repeat count> <button name> <remote control name>
+.fi
+.P
+e.g.,
+.nf
+        0000000000f40bf0 00 KEY_UP ANIMAX
+.fi
+
+
+
+The fields are:
+
+.TP 4
+.I code
+A 16 hexadecimal digits number encoding of the IR signal.
+It's usage in applications is deprecated and it should be ignored.
+.TP 4
+.I repeat count
+shows how long the user has been holding down a button. The counter
+will start at 0 and increment each time a new IR signal has been
+received.
+.TP 4
+.I button name
+is the name of a key defined in the lircd.conf file.
+.TP 4
+.I remote control name
+is the mandatory \fIname\fR attribute in the lircd.conf config file.
+.PP
+These packets are broadcasted to all clients. The only other situation
+when lircd broadcasts to all clients is when it receives the SIGHUP signal
+and successfully re-reads its config file. Then it will send a SIGHUP
+packet to its clients indicating that its configuration might have changed.
+The sighup packet is three lines
+.PP
+.nf
+        BEGIN
+        SIGHUP
+        END
+.fi
+.PP
+
+.SH SOCKET COMMAND INTERFACE
+Applications can also send commands to lircd over the socket interface. The
+most common task is sending data, but there are also other commands.
+Each command is a single printable line, terminated with a newline. For
+each command, lircd replies with a reply package.
+.PP
+Supported commands:
+.TP 4
+.B SEND_ONCE \fI<remote control> <button name> [repeats]\fR
+Tell lircd to send the IR signal associated with the given \fIremote
+control\fR and \fIbutton name\fR, and then repeat
+it \fIrepeats\fR times.
+\fIrepeats\fR is a decimal number between 0
+and repeat_max.
+The latter can be given as a --repeat-max command line argument to lircd,
+and defaults to 600.
+If \fIrepeats\fR is not specified or is less than the minimum number of
+repeats for the selected remote control, the minimum value will be used.
+.PP
+.TP 4
+.B SEND_START \fI<remote control name> <button name>\fR
+Tell lircd to start repeating the given button until it receives a
+SEND_STOP command.
+However, the number of repeats is limited to repeat_max. lircd won't
+accept any new send commands while it is repeating.
+.TP 4
+.B SEND_STOP \fI<remote control name> <button name>\fR
+Tell lircd to abort a SEND_START command.
+.TP 4
+.B LIST \fI[remote control]\fR
+Without arguments lircd replies with a list of all defined remote
+controls.
+Given a remote control argument, lircd replies with a
+list of all keys defined in the given remote.
+.TP 4
+.B SET_INPUTLOG \fI[path]\fR
+Given a path, lircd will start logging all received data on that file.
+The log is printable lines as defined in mode2(1) describing pulse/space
+durations.
+Without a path, current logfile is closed and the logging is stopped.
+.TP
+.B DRV_OPTION \fIkey\fR \fIvalue\fR
+Make lircd invoke the drvctl_func(DRVCTL_SET_OPTION, option) with
+option being made up by the parsed key and value.
+The return package reflects the outcome of the drvctl_func call.
+.TP
+.B SIMULATE \fIkey data\fR
+Given \fIkey data\fR, instructs lircd to send this to all
+clients i.  e., to simulate that this key has been decoded.
+The \fIkey data\fR must be formatted exactly as the packet described in
+[SOCKET BROADCAST MESSAGES FORMAT], notably is the number of digits in
+code and repeat count hardcoded.
+This command is only accepted if the --allow-simulate command line
+option is active.
+.TP
+.B SET_TRANSMITTERS \fItransmitter mask\fR
+Make lircd invoke the drvctl_func(LIRC_SET_TRANSMITTER_MASK, &channels),
+where channels is the decoded value of \fItransmitter mask\fR. See
+lirc(4) for more information.
+.TP 4
+.B VERSION
+Tell lircd to send a version packet response.
+.PP
+The protocol guarantees that broadcasted messages won't interfere with
+reply packets. But broadcasts may appear at any point between packets.
+The only exception are SIGHUP packages. These may appear just after
+you have sent a command to lircd, so you have to make sure you don't
+confuse them with replies.
+.PP
+The format of the reply packet is
+.PP
+.nf
+  BEGIN
+  <command>
+  [SUCCESS|ERROR]
+  [DATA
+  n
+  n lines of data]
+  END
+.fi
+.PP
+If the command was successful, data is only sent for the commands that
+return some information. Note that a packet containing 0 lines of data
+can be a valid reply.
+
+.SH RUNNING AS REGULAR USER
+Traditionally
+.B lircd
+has been running as root since accessing kernel devices like
+.I /dev/lirc0
+by default requires root privileges.
+However, running a long-running service like this is a major security
+issue.
+.P
+The lirc distribution contains example udev rules which makes
+.I /dev/lirc[0-9]
+, USB and serial devices accessible by the
+.I lirc
+user.
+Using these rules, it is possible to run
+.B lircd
+as a regular user and group such as
+.I lirc.
+
+.SH FILES
+.TP 4
+.B @etcdir@/lirc/lircd.conf
+Main config file, see lircd.conf(5).
+
+.TP 4
+.B @etcdir@/lirc/lirc_options.conf
+The options file. lircd handles the values under the [lircd] section
+in this file. The location can be changed using the -O/--options-file
+command-line option or using the environment variable LIRC_OPTIONS_PATH.
+The values here are used as defaults for any option not present on
+command line.
+
+.SH ENVIRONMENT
+.TP 4
+.B LIRC_OPTIONS_PATH
+Options file path, see FILES.
+.TP 4
+.B LIRC_PLUGINDIR
+Plugin load path, se DRIVER LOADING.
+.TP 4
+.B LIRC_DEBUG_OPTIONS
+If set, enables debugging in early stages when the
+.I --debug
+option is yet not parsed.
+
+.SH "DRIVER LOADING"
+Drivers are loaded dynamically. This is done from a traditional *ux
+\':\'-separated path where each component in the path is searched (leading
+part first, trailing last).
+.P
+The path used for this is determined by (falling priority):
+.IP \- 2
+The --plugindir option.
+.IP \- 2
+The 'plugindir' entry in  the [lircd] section of the lirc_options.conf file.
+.IP \- 2
+The environment variable LIRC_PLUGINDIR.
+.IP \- 2
+A hardcoded default (@libpath@/lirc/plugins).
+
+.SH SIGNALS
+.TP 4
+.B HUP
+On receiving SIGHUP lircd re-reads the lircd.conf configuration file
+(but not lirc_options.conf) and adjusts itself if the file has changed.
+.TP 4
+.B USR1
+On receiving SIGUSR1 lircd makes a clean exit.
+
+.SH DAEMONS
+\fBlircd\fR  is a daemon.
+It should be started in some system-dependent init script.
+By default, lirc ships with systemd files enabling user to
+control the lircd service.
+.SH "SEE ALSO"
+.BR irdb-get (1)
+.br
+.BR lirc-setup (1)
+.br
+.BR lircd.conf (5)
+.br
+.BR irrecord (1)
+.br
+.BR lirc (4)
+.br
+.BR lircd-uinput (8)

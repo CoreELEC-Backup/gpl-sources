@@ -1,0 +1,282 @@
+.TH LIRCD-UINPUT "8" "Last change: Jun 2017" "lircd.uinput @version@" "System Managers Manual"
+
+.\" Copyright (c) 2015, Alec Leamas
+.\"
+.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, see
+.\" <http://www.gnu.org/licenses/>.
+.\" %%%LICENSE_END
+
+.SH NAME
+.P
+lircd-uinput \- Forward lirc button presses as uinput events
+
+.SH SYNOPSIS
+.P
+lircd-uinput [\fIoptions\fP]... [\fIlircd output socket\fP]
+.br
+lircd-uinput [\fIoptions\fP]... [\fIfile\fP]
+
+.SH DESCRIPTION
+
+.B lircd-uinput
+reads decoded button press events from a
+.BR lircd(8)
+output socket and
+injects these as key events to the kernel uinput device.
+The kernel makes these events available to other applications on a
+.I /dev/input/event
+device, just as for regular input hardware.
+.P
+.B lircd-uinput
+is designed to run as a systemd service.
+.P
+The
+.I lircd output socket
+argument is an optional path to the lircd output socket.
+It defaults to the \fIoutput\fP value in the [lircd] section of the
+lirc_options config file, falling back to
+.I @varrundir@/lirc/lircd.
+.P
+If a plain file is given instead of a socket it is supposed to contain
+button press events formatted as documented in
+.BR lircd(8)
+\&.
+.B lircd-uinput
+will in this case send the codes in this file and exit.
+.P
+In order to work, release events must be sent to the uinput device.
+See REPEAT HANDLING.
+.P
+.B lircd-uinput
+can only handle button events named using the official namespace i. e.,
+buttons known to the kernel. See NOTES.
+.P
+Unless the
+.I /dev/uinput
+default permissions are changed
+.B lirc-uinput
+needs to run as root. See NOTES.
+.P
+The
+.I /dev/input/event
+device created by the kernel can be tricky to locate, and is not stable.
+See NOTES.
+
+.SH OPTIONS
+.TP
+\fB\-u\fR \fB\-\-uinput\fR <\fIdevice\fR>
+uinput kernel device, defaults to /dev/uinput.
+.TP
+\fB\-r\fR \fB\-\-release-suffix\fR <\fIsuffix\fR>
+.B lircd-uinput
+generates different events depending on if the button name
+ends with the \fIrelease-suffix\fR or not.
+Defaults to
+.I _EVUP
+\&. See REPEAT HANDLING
+.TP
+\fB\-R\fR \fB\-\-repeat\fR <\fIdelay\fR[,\fIperiod\fR] | \fI,period\fR>
+Set kernel autorepeat parameters of the created
+.I /dev/input/event
+device.
+.I delay
+is the time before repeating a key event,
+.I period
+is the time between repeated key events.
+Both values are in milliseconds, separated by a comma.
+Any  value can be omitted or set to 0 in which case
+the kernel/system defaults are used.
+See REPEAT HANDLING.
+.TP
+\fB\-a\fR \fB\-\-add-release-events\fR
+Generate synthetic release events.
+This option is mandatory unless
+.BR lircd
+is using the deprecated
+.I --release
+option.
+The timeout used can be modified using the
+.I release-timeout
+key in the
+.I lircd-uinput
+section of the
+.BR lirc_options.conf
+file.
+Useless if used with a text file as input.
+\&. See REPEAT HANDLING
+.TP
+\fB\-d\fR \fB\-\-disabled\fR <\fIdisabled buttons file path\fR>
+The path of a file which contains name of buttons to be disabled,
+one per line.
+By default,
+.B lircd-uinput
+sends all buttons found in input.
+See NOTES.
+.TP
+\fB\-O\fR \fB\-\-options-file\fR <\fIpath\fR>
+Options file holding default values. Defaults to
+.I @etcdir@/lircd/lirc_options.conf
+.TP
+\fB-L, --logfile\fR <\fIlogfile path\fR>
+Select the log file, either the string 'syslog' indicating that syslog(1)
+should be used or a log file path.
+The default is to use syslog.
+.TP
+\fB-D, --loglevel\fR [\fIlevel\fR]
+Determine the amount of logging information.
+.I level
+can be a symbolic syslog level: 'error','warning, 'info', 'notice' or
+\'debug'.
+.B lircd-uinput
+also defines three additional levels 'trace', 'trace1' and 'trace2' which
+gives even more messages ('trace2' bringing the most).
+However, in the log these messages are marked as 'debug'.
+.TP
+\fB\-h\fR \fB\-\-help\fR
+Display usage summary.
+.TP
+\fB\-v\fR \fB\-\-version\fR
+Display version info.
+
+.SH REPEAT HANDLING
+
+After receiving a keypress event the kernel will start emitting repeat
+events to applications until
+.B lircd-uinput
+emits a corresponding release event.
+The release events could be created by
+.BR lircd(8)
+using the deprecated
+.I --release
+option.
+Such events typically has an
+.I _EVUP
+suffix appended to the original keypress event.
+.P
+The preferred way is that
+.B lircd-uinput
+creates release events using the
+.I --add-release-events
+option.
+Combining both of these options might give unexpected results.
+.P
+Note that the linux kernel uses the suffix _UP (which was used py
+lircd prior to 0.10.0) for other purposes since 4.7.
+.P
+In any case, the repeat events generated by the kernel can be tweaked using
+the
+.I --repeat
+option. This can set the time between the keypress event and the
+first repeat event and the time between each repeat event.
+The
+.I --repeat
+option should only be used if no other program or udev rule is
+automatically setting up key repeat parameters.
+By design the repeat parameters can't be set in an atomic way
+during input device registration so this option is prone to
+race conditions.
+.P
+Note that the
+.B lircd-uinput
+repeat-event handling differs from
+.BR lircd(8)
+which  implements (emulates) hardware autorepeat in the events
+sent to uinput (event.value == 2).
+.B lircd-uinput
+only sends keypress and release events, trusting the kernel autorepeat
+support.
+
+.SH NOTES
+
+By default, the
+.I dev/uinput
+device is not writable for regular users.
+Thus
+.B lircd-uinput
+needs to run as root unless these permissions are changed.
+.P
+One way to achieve this is an udev rule.
+The lirc distribution contains an example rule which makes the
+.B lircd-uinput
+device writable for users in the group lirc.
+Another way is to use
+.BR lircd-setup(8)
+to change the permissions. As distributed, the
+.I lirc_options.conf
+file contains an commented example using
+.BR setfacl(1)
+\&.
+
+.B lircd-uinput
+can only forward lircd button events with names from
+the legal namespace defined by the kernel.
+A complete list of possible button names  is available in
+.I /usr/include/linux/input-event-codes.h
+and also using
+.I irrecord -l
+\&.
+Other button names are silently dropped.
+.P
+The event keycode depends on the name that was given a button in the
+lircd config file e.g., if the button is named \fIKEY_1\fR the keycode
+\fI1\fR will be generated.
+.P
+The kernel makes the events generated by
+.B lircd-uinput
+available on a
+.I /dev/input
+device like
+.I /dev/input/event12.
+This device name is not stable and typically varies after a reboot.
+The lirc distribution contains a udev rule which if installed creates
+a device link named
+.I /dev/lircd-uinput
+which always can be used.
+.P
+.B lircd-uinput
+is designed to replace the currently deprecated
+.I --uinput
+option to
+.BR lircd(8).
+However,
+.B lircd-uinput
+forwards all events unless blocked by the
+.I --disabled
+option.
+On the other hand,
+.BR lircd
+.I --uinput
+does not forward all events - the heuristics used has been changed
+over versions.
+
+.SH BUGS
+
+Since the device name is fixed, only one instance of
+.B lircd-uinput
+can run on a system.
+
+.SH "SEE ALSO"
+
+.br
+.BR lircd (8)
+.br
+.BR irrecord(1)
+.br
+.BR http://www.kernel.org/doc/Documentation/input/event-codes.txt

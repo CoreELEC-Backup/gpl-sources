@@ -1,0 +1,65 @@
+#!/bin/sh
+#
+# Copyright (C) 2009-2010 Paul Bender.
+#
+# This file is part of eventlircd.
+#
+# eventlircd is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# eventlircd is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with eventlircd.  If not, see <http://www.gnu.org/licenses/>.
+
+#
+# This script generates the evkey_code_to_name.h header file using the installed 
+# linux/input.h header file.
+#
+
+#
+# This script makes two assumptions about linux/input.h. First, it assumes that
+# any evkey defines that are not monotonically increasing can be ignored.
+# Second, it assumes that any evkey defines that are not numeric (e.g. defined
+# as a function of other evkey defines) can be ignored.
+#
+
+ABSOLUTE_LINUX_INPUT_H=@ABSOLUTE_LINUX_INPUT_H@
+AWK=@AWK@
+
+rm -f evkey_code_to_name.h
+
+${AWK} --non-decimal-data "
+    BEGIN {
+      printf(\"#ifndef _EVENTLIRCD_EVKEY_CODE_TO_NAME_H_\n\");
+      printf(\"#define _EVENTLIRCD_EVKEY_CODE_TO_NAME_H_ 1\n\");
+      printf(\"#include <${ABSOLUTE_LINUX_INPUT_H}>\n\");
+      printf(\"static const char *evkey_code_to_name[KEY_MAX] = {\n\");
+      code_cur = -1;
+    };
+    /#define KEY_CNT/             { next; };
+    /#define KEY_MAX/             { next; };
+    /#define KEY_MIN_INTERESTING/ { next; };
+    /#define KEY_RESERVED/        { next; };
+    /#define KEY_/                {
+                                    if ((\$3 == \$3 + 0) && (\$3 > code_cur)) {
+                                      printf(\"\t[ %-20s ] = \\\"%s\\\",\n\", \$2, \$2);
+                                      code_cur = \$3;
+                                    };
+                                  };
+    /#define BTN_/                {
+                                    if ((\$3 == \$3 + 0) && (\$3 > code_cur)) {
+                                      printf(\"\t[ %-20s ] = \\\"%s\\\",\n\", \$2, \$2);
+                                      code_cur = \$3;
+                                    };
+                                  };
+    END {
+      printf(\"};\n\");
+      printf(\"#endif\n\");
+    }
+    " < ${ABSOLUTE_LINUX_INPUT_H} >> evkey_code_to_name.h

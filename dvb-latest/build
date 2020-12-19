@@ -1,0 +1,696 @@
+#!/usr/bin/perl
+use strict;
+use Getopt::Long;
+use Pod::Usage;
+
+#####################
+# Parameters handling
+#####################
+
+my $level = 0;
+my $help = 0;
+my $man = 0;
+my $check_only = 0;
+my $main_git = 0;
+my $depth;
+my @git;
+
+my $main_git_url = "git://linuxtv.org/media_tree.git";
+my $main_branch = "master";
+my $firmware_url = "http://www.linuxtv.org/downloads/firmware/";
+my $firmware_tarball = "dvb-firmwares.tar.bz2";
+
+GetOptions('v|verbose' => \$level,
+	   'help|?' => \$help,
+	    man => \$man,
+	   'check_only|check-only' => \$check_only,
+	   'main_git|main-git' => \$main_git,
+	   'depth=i' => \$depth,
+	   'git=s{2}' => \@git,
+	  ) or pod2usage(2);
+pod2usage(1) if $help;
+pod2usage(-exitstatus => 0, -verbose => 2) if $man;
+
+$depth="--depth $depth" if ($depth);
+
+#############
+# Static vars
+#############
+
+my @missing;
+my $system_release;
+
+##################################################
+# Subroutines used at the check missing deps logic
+##################################################
+
+sub catcheck($)
+{
+  my $res = "";
+  $res = qx(cat $_[0]) if (-r $_[0]);
+  return $res;
+}
+
+sub give_redhat_hints()
+{
+	my $install;
+
+	my %map = (
+		"wget"			=> "wget",
+		"lsdiff"		=> "patchutils",
+		"Digest::SHA"		=> "perl-Digest-SHA",
+		"Proc::ProcessTable"	=> "perl-Proc-ProcessTable",
+	);
+
+	foreach my $prog (@missing) {
+		print "ERROR: please install \"$prog\", otherwise, build won't work.\n";
+		if (defined($map{$prog})) {
+			$install .= " " . $map{$prog};
+		} else {
+			$install .= " " . $prog;
+		}
+	}
+
+	printf("You should run:\n\tyum install -y $install\n");
+}
+
+sub give_ubuntu_hints()
+{
+	my $install;
+
+	my %map = (
+		"lsdiff"		=> "patchutils",
+		"Digest::SHA"		=> "libdigest-sha1-perl",
+		"Proc::ProcessTable"	=> "libproc-processtable-perl",
+	);
+
+	foreach my $prog (@missing) {
+		print "ERROR: please install \"$prog\", otherwise, build won't work.\n";
+		if (defined($map{$prog})) {
+			$install .= " " . $map{$prog};
+		} else {
+			$install .= " " . $prog;
+		}
+	}
+
+	printf("You should run:\n\tsudo apt-get install $install\n");
+}
+
+sub give_opensuse_hints()
+{
+	my $install;
+
+	my %map = (
+		"lsdiff"		=> "patchutils",
+		"Digest::SHA"		=> "perl-Digest-SHA1",
+		"Proc::ProcessTable"	=> "perl-Proc-ProcessTable",
+	);
+	
+	my $need_perl_repo = 0;
+	
+	foreach my $prog (@missing) {
+		print "ERROR: please install \"$prog\", otherwise, build won't work.\n";
+		if (defined($map{$prog})) {
+			$install .= " " . $map{$prog};
+		} else {
+			$install .= " " . $prog;
+		}
+		if ($prog eq "Proc::ProcessTable") {
+			$need_perl_repo = 1;
+		}
+	}
+	
+	printf("You should run:\n\tsudo zypper install $install\n");
+	
+	if ($need_perl_repo) {
+		printf("\nThe Proc::ProcessTable perl module can be found in the perl buildservice repository. ");
+		printf("Add with the command (replacing 12.1 with your openSUSE release version):\n");
+		printf("\tsudo zypper ar http://download.opensuse.org/repositories/devel:/languages:/perl/openSUSE_12.1/ perl\n");
+	}
+}
+
+sub give_arch_linux_hints()
+{
+	my $install;
+
+	my %map = (
+		"lsdiff"		=> "community/patchutils",
+		"Digest::SHA"		=> "extra/perl-digest-sha1",
+		"Proc::ProcessTable"	=> "aur/perl-proc-processtable",
+	);
+
+	foreach my $prog (@missing) {
+		print "ERROR: please install \"$prog\", otherwise, build won't work.\n";
+		if (defined($map{$prog})) {
+			$install .= " " . $map{$prog};
+		} else {
+			$install .= " " . $prog;
+		}
+	}
+
+	printf("You should install those package(s) (repository/package): $install\n");
+}
+
+sub give_gentoo_hints()
+{
+	my $install;
+
+	my %map = (
+		"lsdiff"		=> "dev-util/patchutils",
+		"Digest::SHA"		=> "dev-perl/Digest-SHA1",
+		"Proc::ProcessTable"	=> "dev-perl/Proc-ProcessTable",
+	);
+
+	foreach my $prog (@missing) {
+		print "ERROR: please install \"$prog\", otherwise, build won't work.\n";
+		if (defined($map{$prog})) {
+			$install .= " " . $map{$prog};
+		} else {
+			$install .= " " . $prog;
+		}
+	}
+
+	printf("You should emerge those package(s): $install\n");
+}
+
+sub give_hints()
+{
+
+	# Distro-specific hints
+	if ($system_release =~ /Red Hat Enterprise Linux/) {
+		give_redhat_hints;
+		return;
+	}
+	if ($system_release =~ /Fedora/) {
+		give_redhat_hints;
+		return;
+	}
+	if ($system_release =~ /Ubuntu/) {
+		give_ubuntu_hints;
+		return;
+	}
+	if ($system_release =~ /openSUSE/) {
+		give_opensuse_hints;
+		return;
+	}
+	if ($system_release =~ /Arch Linux/) {
+		give_arch_linux_hints;
+		return;
+	}
+	if ($system_release =~ /Debian/) {
+		give_ubuntu_hints;
+		return;
+	}
+	if ($system_release =~ /Raspbian/) {
+		give_ubuntu_hints;
+		return;
+	}
+	if ($system_release =~ /Gentoo/) {
+		give_gentoo_hints;
+		return;
+	}
+	# Fall-back to generic hint code
+	foreach my $prog (@missing) {
+		print "ERROR: please install \"$prog\", otherwise, build won't work.\n";
+	}
+	print "I don't know distro $system_release. So, I can't provide you a hint with the package names.\n";
+	print "Be welcome to contribute with a patch for media-build, by submitting a distro-specific hint\n";
+	print "to linux-media\@vger.kernel.org\n";
+}
+
+my $need = 0;
+sub findprog($)
+{
+	foreach(split(/:/, $ENV{PATH})) {
+		return "$_/$_[0]" if(-x "$_/$_[0]");
+	}
+}
+
+sub need_program($)
+{
+	my $prog = shift;
+
+	return if findprog($prog);
+
+	push @missing, $prog;
+
+	$need++;
+}
+
+sub need_perl_module($)
+{
+	my $prog = shift;
+
+	my $err = system("perl -M$prog -e 1 2>/dev/null /dev/null");
+	return if ($err == 0);
+
+	push @missing, $prog;
+
+	$need++;
+}
+
+sub check_needs()
+{
+	if ($system_release) {
+		print "Checking if the needed tools for $system_release are available\n";
+	} else {
+		print "Checking if the needed tools are present\n";
+	}
+
+	# Check for needed programs/tools
+	need_program "git";
+	need_program "make";
+	need_program "gcc";
+	need_program "patch";
+	need_program "lsdiff";
+	need_program "wget";
+
+	# Check for needed perl modules
+	need_perl_module "Digest::SHA";
+	need_perl_module "Proc::ProcessTable";
+
+	give_hints if ($need);
+
+	die "Build can't procceed as $need dependency is missing" if ($need == 1);
+	die "Build can't procceed as $need dependencies are missing" if ($need);
+
+	print "Needed package dependencies are met.\n";
+}
+
+######
+# Git
+######
+
+sub get_remote_name()
+{
+	if ($git[0] =~ m,^(http|git|git\+ssh|ssh):\/\/linuxtv.org\/(.*),) {
+		my $name = $2;
+		$name =~ s,^/git,,;
+		$name =~ s,\.git$,,g;
+		$name =~ s,/,_,g;
+
+		return ($name, 0);
+	}
+	if (!($git[0] =~ m,^(http|git|git\+ssh|ssh):\/\/,)) {
+		my $name = $git[0];
+		$name =~ s,\s*$,,;
+		$name =~ s,/$,,;
+		$name =~ s,/,_,g;
+
+		return ($name, 1);
+	}
+	die "Invalid URL. Need to use one from linuxtv.org site or a local one\n";
+}
+
+sub check_git($$)
+{
+	my $cmd = shift;
+	my $remote = shift;
+
+	print "\$ git --git-dir media/.git $cmd (checking for '$remote')\n" if ($level);
+	open IN, "git --git-dir media/.git $cmd|" or die "can't run git --git-dir media/.git $cmd";
+	while (<IN>) {
+		return 1 if (m/^[\*]*\s*($remote)\n$/);
+	}
+	close IN;
+	print "check failed\n" if ($level);
+	return 0;
+}
+
+####################
+# Other aux routines
+####################
+sub license ()
+{
+	print "************************************************************\n";
+	print "* All drivers and build system are under GPLv2 License     *\n";
+	print "* Firmware files are under the license terms found at:     *\n";
+	printf "* %-56s *\n", $firmware_url;
+	print "* Please abort in the next 5 secs if you don't agree with  *\n";
+	print "* the license                                              *\n";
+	print "************************************************************\n";
+	print "\n";
+	sleep 5;
+	print "Not aborted. It means that the licence was agreed. Proceeding...\n\n";
+}
+
+sub which($)
+{
+	my $file = shift;
+	my @path = split ":", $ENV{PATH};
+
+	foreach my $dir(@path) {
+		my $name = $dir.'/'.$file;
+		return $name if (-x $name );
+	}
+	return undef;
+}
+
+sub run($$)
+{
+       my $cmd = shift;
+       my $err = shift;
+       $err = '' unless defined($err);
+
+       my ($pkg,$filename,$line) = caller;
+
+       print "\$ $cmd\n" if ($level);
+       system($cmd) == 0
+               or die($err . " at $filename line $line\n");
+}
+
+######
+# Main
+######
+
+# Determine the system type. There's no standard unique way that would
+# work with all distros with a minimal package install. So, several
+# methods are used here.
+#
+# By default, it will use lsb_release function. If not available, it will
+# fail back to reading the known different places where the distro name
+# is stored
+#
+$system_release = qx(lsb_release -d) if which("lsb_release");
+$system_release =~ s/Description:\s*// if ($system_release);
+$system_release = catcheck("/etc/system-release") if !$system_release;
+$system_release = catcheck("/etc/redhat-release") if !$system_release;
+$system_release = catcheck("/etc/lsb-release") if !$system_release;
+$system_release = catcheck("/etc/gentoo-release") if !$system_release;
+$system_release = catcheck("/etc/issue") if !$system_release;
+$system_release =~ s/\s+$//;
+
+check_needs;
+
+exit (0) if ($check_only);
+
+if ($main_git) {
+	$git[0] = $main_git_url;
+	$git[1] = $main_branch;
+}
+
+if (@git == 2) {
+	my $name;
+	my $workdir;
+
+	my ($rname,$local) = get_remote_name();
+
+	if ($local) {
+		$name = "l_" . $rname;
+	} else {
+		$name = "r_" . $rname;
+	}
+
+	if ($git[0] ne $main_git_url) {
+		print "\n";
+		print "************************************************************\n";
+		print "* WARNING: This script will use a git tree as reference for*\n";
+		print "* the media drivers. This build system takes into accont   *\n";
+		print "* only the main repository, and the latest staging branch. *\n";
+		print "* Trying to compile an old experimental tree will likely   *\n";
+		print "* fail, as the backport patches may not fit on the needs   *\n";
+		print "************************************************************\n";
+		print "\n";
+		$workdir = qx(which git-new-workdir);
+	} else {
+		print "************************************************************\n";
+		printf "* building %-38s git tree *\n", $git[0];
+		print "************************************************************\n";
+	}
+	license;
+
+	if (!stat "./media/.git/config") {
+		if (!$local) {
+			print "Getting the latest Kernel tree. This will take some time\n";
+			if ($depth) {
+				run("git clone --origin '$rname/$git[1]' git://linuxtv.org/media_tree.git media $depth",
+					"Can't clone from the upstream tree");
+			} else {
+				run("git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git media $depth",
+					"Can't clone from the upstream tree");
+			}
+			system('git --git-dir media/.git config format.cc "Linux Media Mailing List <linux-media@vger.kernel.org>"');
+			system('git --git-dir media/.git config format.signoff true');
+			system('git --git-dir media/.git config format.numbered auto');
+			system('git --git-dir media/.git config sendemail.chainreplyto false');
+		} else {
+			if ($workdir ne "") {
+				print "Creating a new workdir from $git[0] at media\n";
+				run("git new-workdir $git[0] media",
+					"Can't create a new workdir");
+			} else {
+				print "Creating a new clone\n";
+				run("git clone -l $git[0] media $depth",
+					"Can't create a new clone");
+			}
+		}
+	} elsif ($workdir eq "") {
+		if (check_git("remote", "$rname/$git[1]")) {
+			run("git --git-dir media/.git remote update '$rname/$git[1]'",
+				"Can't update from the upstream tree");
+		} else {
+			run("git --git-dir media/.git remote update origin",
+				"Can't update from the upstream tree");
+		}
+	}
+
+	if ($workdir eq "") {
+		if (!check_git("remote", "$name")) {
+			print "adding remote $name to track $git[0]\n";
+			run("git --git-dir media/.git remote add $name $git[0]",
+				"Can't create remote $name");
+		}
+		if (!$depth) {
+			print "updating remote $rname\n";
+			run("git --git-dir media/.git remote update $name",
+					"Can't update remote $name");
+			print "creating a local branch $rname\n";
+			if (!check_git("branch", "$rname/$git[1]")) {
+				run("(cd media; git checkout -b $rname/$git[1] remotes/$name/$git[1])",
+					"Can't create local branch $rname");
+			} else {
+				run("(cd media; git checkout $rname/$git[1])",
+						"Can't checkout to branch $rname");
+				run("(cd media; git pull . remotes/$name/$git[1])",
+						"Can't update local branch $name");
+			}
+		}
+	} else {
+		print "git checkout $git[1]\n";
+		run("(cd media; git checkout $git[1])",
+			"Can't checkout $git[1]");
+	}
+
+
+	run("make -C linux dir DIR=../media/",
+		"Can't link the building system to the media directory.");
+} else {
+	print "\n";
+	print "************************************************************\n";
+	print "* This script will download the latest tarball and build it*\n";
+	print "* Assuming that your kernel is compatible with the latest  *\n";
+	print "* drivers. If not, you'll need to add some extra backports,*\n";
+	print "* ./backports/<kernel> directory.                          *\n";
+	print "* It will also update this tree to be sure that all compat *\n";
+	print "* bits are there, to avoid compilation failures            *\n";
+	print "************************************************************\n";
+	license;
+
+	print "****************************\n";
+	print "Updating the building system\n";
+	print "****************************\n";
+	run("git pull git://linuxtv.org/media_build.git master",
+	    "Can't clone tree from linuxtv.org");
+
+	run("make -C linux/ download", "Download failed");
+	run("make -C linux/ untar", "Untar failed");
+}
+
+print "**********************************************************\n";
+print "* Downloading firmwares from linuxtv.org.                *\n";
+print "**********************************************************\n";
+
+if (!stat $firmware_tarball) {
+	run("wget $firmware_url/$firmware_tarball -O $firmware_tarball",
+		"Can't download $firmware_tarball");
+}
+run("(cd v4l/firmware/; tar xvfj ../../$firmware_tarball)",
+		"Can't extract $firmware_tarball");
+
+
+print "******************\n";
+print "* Start building *\n";
+print "******************\n";
+
+run("make allyesconfig", "can't select all drivers");
+run("make", "build failed");
+
+print "**********************************************************\n";
+print "* Compilation finished. Use 'make install' to install them\n";
+print "**********************************************************\n";
+
+
+__END__
+
+=head1 NAME
+
+build - Builds the media drivers without needing to compile a new kernel
+
+=head1 SYNOPSIS
+
+build [--help] [--man] [--verbose] [--check-only] [<--git> [URL] [BRANCH]]
+ [--main-git] [--depth [DEPTH]]
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--help>
+
+Print a brief help message and exits.
+
+=item B<--man>
+
+Prints the manual page and exits.
+
+=item B<--verbose>
+
+Be more verbose.
+
+=item B<--check-only>
+
+Don't do anything, except for checking if the needed dependencies are there.
+
+=item B<--git> [URL] [BRANCH]
+
+Allows specifying a URL and a git branch, instead of the default ones.
+Currently, only linuxtv.org git URL's are supported, as the build needs to
+warrant an unique namespace for git remotes.
+
+=item B<--main-git>
+
+Use the main development git tree, as found at
+L<http://git.linuxtv.org/media_tree.git>.
+
+=item B<--depth> [DEPTH]
+
+When doing a git clone (e. g. with --git or --main-git), pass the
+depth parameter, in order to get a smaller tree.
+
+That helps to reduce disk storage and download time.
+
+=back
+
+=head1 DESCRIPTION
+
+B<build> will download and compile the latest drivers from linuxtv.org,
+allowing testing them before reaching the upstream kernels.
+
+This is an experimental build system for media drivers.
+All files on this tree are covered by GPLv2, as stated at COPYING file.
+
+Usage:
+
+Just call the build utility:
+
+=over 8
+
+~/media_build $ B<./build>
+
+=back
+
+Then, install the drivers as root, with:
+
+=over 8
+
+~/media_build # B<make install>
+
+=back
+
+In order to test, unload old drivers with:
+
+=over 8
+
+~/media_build # B<make rmmod>
+
+=back
+
+Then modprobe the driver you want to test. For example, to load driver B<foo>:
+
+=over 8
+
+~/media_build # B<modprobe foo>
+
+=back
+
+If you're developing a new driver or patch, it is better to use:
+
+=over 8
+
+~/media_build $ B<./build --main-git> B<--depth 1>
+
+=back
+
+Then, install the drivers as root, with:
+
+=over 8
+
+~/media_build # B<make install>
+
+=back
+
+In order to test, unload old drivers with:
+
+=over 8
+
+~/media_build # B<make rmmod>
+
+=back
+
+Then modprobe the driver you want to test:
+
+=over 8
+
+~/media_build # B<modprobe foo>
+
+=back
+
+In this case, in order to modify something, you should edit the file at
+the media/ subdir.
+
+For example, a typical procedure to develop a new patch would be:
+
+=over 8
+
+~/media_build $ B<cd media>
+
+~/media $ B<gedit drivers/media/video/foo.c>
+
+~/media $ B<make -C ../v4l>
+
+~/media $ B<make -C .. rmmod>
+
+~/media $ B<modprobe foo>
+
+(some procedure to test the "foo" driver)
+
+~/media $ B<git diff >/tmp/my_changes.patch>
+
+(email /tmp/my_changes.patch inlined to <linux-media@vger.kernel.org>)
+
+=back
+
+=head1 BUGS
+
+Report bugs to <linux-media@vger.kernel.org>
+
+=head1 COPYRIGHT
+
+Copyright (c) 2011 by Mauro Carvalho Chehab.
+
+License GPLv2: GNU GPL version 2 L<http://gnu.org/licenses/gpl.html>.
+
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+=cut

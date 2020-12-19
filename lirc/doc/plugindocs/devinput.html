@@ -1,0 +1,42 @@
+                    <A NAME="overview"></A><HR>
+                    <CENTER><H1>Linux input layer driver</H1></CENTER>
+
+                    <P>
+                      Usually you don't have to create a config file
+                      yourself. As distributed, the lircd.conf.d contains
+                      a file devinput.lircd.dist. This can be used by
+                      renaming it to devinput.lircd.conf. If required, the
+                      config file can be re-generated using
+                      <a href="lirc-make-devinput">lirc-make-devinput</a>.
+                    </P>
+                    <P>
+                      This driver uses <em>/dev/input/event0</em> as
+                      its input device per default. You should provide
+                      the correct device as --device parameter on the
+                      lircd and irrecord command line.
+                    </P>
+                    <P>
+                      The driver supports enumerating the available
+                      devices using <i>mode2 --driver devinput
+                      --list-devices</i>.
+                    </P>
+                    <P>
+                      Sometimes the input device mapping changes
+                      between system reboots. In that case it is
+                      possible to specify the correct input device by
+                      its name or physical location by preceding the
+                      desired value with <em>name=</em> or
+                      <em>phys=</em>. See the
+                      <a href="configuration-guide.html#appendix-6">
+                      Configuration Guide.</a></p>
+                    <p>
+                      In simple setups, where there is just one device
+                      available (i. e., there is just a single
+                      /sys/class/rc/rc0 directory) the device can be
+                      given as <em>auto</em>.</p>
+                    <p>
+                      The devices under /dev/input are often writable
+                      for some group. On Fedora, current user can be given
+                      access to these devices using <i>usermod -aG input $USER</i>,
+                      which adds the input group to the grouplist of current
+                      user.  Other distros have similar steps.</p>

@@ -1,0 +1,1131 @@
+# Kodi Media Center language file
+# Addon Name: @DISTRONAME@ Configuration
+# Addon id: service.coreelec.settings
+# Addon Provider: CoreELEC
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bg_BG\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#600"
+msgid "@DISTRONAME@ Settings"
+msgstr "@DISTRONAME@ Настройки"
+
+msgctxt "#601"
+msgid "Interface"
+msgstr "Интерфейс"
+
+msgctxt "#602"
+msgid "Address"
+msgstr "Адрес"
+
+msgctxt "#603"
+msgid "Type"
+msgstr "Вид"
+
+msgctxt "#604"
+msgid "State"
+msgstr "Състояние"
+
+msgctxt "#605"
+msgid "Address"
+msgstr "Адрес"
+
+msgctxt "#606"
+msgid "Distribution: "
+msgstr "Дистрибуция:"
+
+msgctxt "#607"
+msgid "Version: "
+msgstr "Версия:"
+
+msgctxt "#608"
+msgid "Architecture: "
+msgstr "Архитектура:"
+
+msgctxt "#700"
+msgid ""
+"Configure a hostname, keyboard type, perform a reset, update, or backups and"
+" restores"
+msgstr "Задайте име на устройството, тип на клавиатурата, нулирайте настройките, актуализирайте, направете резервно копие или възстановете старо копие"
+
+msgctxt "#701"
+msgid "Configure network startup options, NTP and VPNs"
+msgstr "Стартови настройки за мрежата - NTP и VPN"
+
+msgctxt "#702"
+msgid ""
+"Manage the Ethernet, Wireless and VPN connections available to the system"
+msgstr "Управление на наличните връзки (жични, безжични и VPN)"
+
+msgctxt "#703"
+msgid "Configure system services like Samba, SSH, Cron, Avahi and Syslog"
+msgstr "Настройте системните услуги като Samba, SSH, Cron, Avahi и Syslog"
+
+msgctxt "#704"
+msgid "Configure and pair Bluetooth devices"
+msgstr "Настройване и сдвояване на Bluetooth устройства"
+
+msgctxt "#707"
+msgid "Configure updates"
+msgstr "Конфигуриране на актуализации"
+
+msgctxt "#710"
+msgid ""
+"Configure the Hostname of your @DISTRONAME@ system. This will be used for "
+"the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+msgstr "Задайте име на устройството за Вашата @DISTRONAME@ система. Името ще се ползва в Windows и SMB мрежи  (\\\\име–на–устройството), както и в Mac OS Finder"
+
+msgctxt "#711"
+msgid "Configure the 1st keyboard software layout"
+msgstr "Първа клавишна подредба на софтуерната клавиатурата"
+
+msgctxt "#712"
+msgid "Configure the 2nd keyboard software layout"
+msgstr "Втора клавишна подредба на софтуерната клавиатурата"
+
+msgctxt "#713"
+msgid "Configure the physical keyboard type"
+msgstr "Изберете типа хардуерна клавиатура"
+
+msgctxt "#714"
+msgid ""
+"@DISTRONAME@ can be configured for automatic or manual updates. Automatic "
+"updates are available on stable releases and stable release candidates. "
+"Automatic update self-disables on beta and development builds"
+msgstr "@DISTRONAME@ може да се актуализира автоматично или ръчно. Автоматично актуализиране се извършва само до стабилни версии или такива на които им предстои издаване. Автоматичното актуализиране е изключено за бета и развойни компилации."
+
+msgctxt "#715"
+msgid ""
+"Set to ON and an on-screen notification will be displayed when a new update "
+"is available"
+msgstr "Включите ли опцията, ще бъдете известявани при наличие на нова актуализация"
+
+msgctxt "#718"
+msgid ""
+"Send boot config files from /flash, kodi.log, kernel log and Samba configs "
+"to http://ix.io, and display the short URL"
+msgstr "Изпраща конфигурационните файлове от /flash, журналите kodi.log, kernel, и конфигурацията на Samba в http://ix.io. След това показва кратък URL адрес за достъп до качените данни"
+
+msgctxt "#719"
+msgid ""
+"Send boot config files from /flash, kodi_crash.log, kernel log and Samba "
+"configs to http://ix.io, and display the short URL"
+msgstr "Изпраща конфигурационните файлове от /flash, журналите kodi.log, kernel, и конфигурацията на Samba в http://ix.io. След това показва кратък URL адрес за достъп до качените данни"
+
+msgctxt "#720"
+msgid "Set to ON to enable the Bluetooth service"
+msgstr "Включете за да активирате Bluetooth"
+
+msgctxt "#721"
+msgid "Send CoreELEC debug info without logs to http://ix.io, and display the short URL"
+msgstr ""
+
+msgctxt "#722"
+msgid ""
+"Create a tar archive containing all @DISTRONAME@ and Kodi configuration "
+"settings, databases and thumbnail content. Backup files will be stored in "
+"/storage/backup/"
+msgstr "Създава .tar архив съдържащ всички настройки на @DISTRONAME@ и Kodi, бази данни и миниатюри. Резервните копия се съхраняват в /storage/backup/"
+
+msgctxt "#723"
+msgid ""
+"Restore a tar archive backup previously created using the backup option "
+"above"
+msgstr "Възстановява резервни копия от .tar архиви, създадени с горната функция"
+
+msgctxt "#724"
+msgid ""
+"[COLOR FF00FF00]SOFT RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
+msgstr "[COLOR FF00FF00]SOFT RESET[/COLOR]\nНулира настройките на @DISTRONAME@ и Kodi към стандартните стойности (включително и библиотеката, но файловете Ви, като музика, видео и др. ще останат непокътнати)"
+
+msgctxt "#725"
+msgid ""
+"[COLOR FFFF0000]HARD RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ and Kodi configuration to defaults (everything in your storage partition will be deleted)"
+msgstr "[COLOR FFFF0000]HARD RESET[/COLOR]\nНулира настройките на @DISTRONAME@ и Kodi към стандартните стойности (файлове Ви ще Бъдат Изтрити)"
+
+msgctxt "#726"
+msgid "Enable or disable support for Wireless (WLAN) networks"
+msgstr "Включва или изключва поддръжката за безжични (WLAN) мрежи"
+
+msgctxt "#727"
+msgid ""
+"Enable a 'tethered' Wireless Access Point. This requires your wireless card "
+"(and driver) to support bridging and access point mode. Not all cards are "
+"capable."
+msgstr "Включване на \"'tethered\" безжична точка за достъп. Позволява споделяне на Интернет от устройството към други устройва посредством създаване на нова безжична мрежа. Необходимо е картата за безжична връзка (и драйвъра) да поддържат функцията - не всички карти се поддържат."
+
+msgctxt "#728"
+msgid "Configure the Access Point SSID"
+msgstr "Настройте името (SSID) на точката за достъп"
+
+msgctxt "#729"
+msgid "Configure the Access Point Passphrase"
+msgstr "Настройте паролата на точката за достъп"
+
+msgctxt "#730"
+msgid "Enable or disable support for Wired (Ethernet) networks"
+msgstr "Включване или изключване поддръжката за жични (Ethernet) мрежи"
+
+msgctxt "#732"
+msgid "Configure the 1st time (NTP) server"
+msgstr "Задайте 1ви сървър за точно време (NTP)"
+
+msgctxt "#733"
+msgid "Configure the 2nd time (NTP) server"
+msgstr "Задайте 2ри сървър за точно време (NTP)"
+
+msgctxt "#734"
+msgid "Configure the 3rd time (NTP) server"
+msgstr "Задайте 3ти сървър за точно време (NTP)"
+
+msgctxt "#736"
+msgid ""
+"Set to ON to delay Kodi startup until the network is available. Use this if "
+"the OS is booting into Kodi before the network is up and central MySQL "
+"databases are accessible."
+msgstr "Включете, за да забавите стартирането на Kodi докато не се осъществи свързването с локалната мрежа. Ползвайте опцията ако операционната система зарежда Kodi преди да е налична мрежова връзка и централната MySQL база данни е достъпна."
+
+msgctxt "#737"
+msgid "Time in seconds to wait for an established network connection."
+msgstr "Време в секунди за изчакване на установена мрежова връзка."
+
+msgctxt "#738"
+msgid "Set to ON to enable the embedded Samba (SMB) filesharing service"
+msgstr "Включете за да активирате вградената услуга Samba (SMB), за споделяне на файлове"
+
+msgctxt "#739"
+msgid ""
+"Set to ON to require username/password access to local Samba fileshares"
+msgstr "Включете за да активирате изискването на потребителско име и парола преди да се предостави достъп до споделените файлове"
+
+msgctxt "#740"
+msgid "Set the username for Samba sharing"
+msgstr "Задайте потребител за Samba споделянето"
+
+msgctxt "#741"
+msgid "Set the password for Samba sharing"
+msgstr "Задайте парола за Samba споделянето"
+
+msgctxt "#742"
+msgid ""
+"Set to ON to enable the embedded SSH server. The SSH console can be accessed"
+" with username 'root' and password '@ROOT_PASSWORD@'."
+msgstr "Включете за да активирате вграденият SSH сървър. За достъп чрез SSH конзолата можете да ползвате потребител \"root\" и парола \"@ROOT_PASSWORD@\"."
+
+msgctxt "#743"
+msgid ""
+"Set to ON if you have copied private SSH keys to your HTPC and would like to"
+" improve security by disabling SSH username and password authentication."
+msgstr "Включете ако сте копирали частните SSH ключове в CoreELEC системата и желаете да повишите нивото на сигурност, като избегнете ползването на потребителско име и парола."
+
+msgctxt "#744"
+msgid ""
+"Set to ON to enable the Avahi (Zeroconf/Bonjour) network discovery service"
+msgstr "Включете за да активирате услугата Avahi (Zeroconf/Bonjour) за автоматично откриване на устройства в мрежата"
+
+msgctxt "#745"
+msgid "Set to ON to enable the cron daemon"
+msgstr "Включете за да активирате Cron демона"
+
+msgctxt "#746"
+msgid "Set the password for SSH"
+msgstr "Задайте SSH парола"
+
+msgctxt "#747"
+msgid "Enable a PIN for @DISTRONAME@ Settings access"
+msgstr ""
+
+msgctxt "#748"
+msgid "Change the PIN Lock for @DISTRONAME@ Settings access"
+msgstr ""
+
+msgctxt "#749"
+msgid ""
+"Overrride the Wireless Regulatory Domain so radio properties (channels and "
+"transmit power) comply with local laws or match the country configuration of"
+" your router."
+msgstr ""
+
+msgctxt "#750"
+msgid "750"
+msgstr "750"
+
+msgctxt "#751"
+msgid ""
+"With OBEX filetransfer you can send files, for example movies or pictures "
+"over bluetooth to @DISTRONAME@."
+msgstr "Чрез OBEX можете да изпращате файлове, като филми и снимки, през Bluetooth към @DISTRONAME@."
+
+msgctxt "#752"
+msgid ""
+"Here you can set the folder location where OBEX file transfer should store "
+"incoming files"
+msgstr "От тук можете да определите къде да се съхраняват приетите чрез OBEX файлове"
+
+msgctxt "#753"
+msgid "Configure the 1st keyboard software Variant"
+msgstr "Задайте първа софтуерна подредба на клавиатурата"
+
+msgctxt "#754"
+msgid "Configure the 2nd keyboard software Variant"
+msgstr "Задайте втора софтуерна подредба на клавиатурата"
+
+msgctxt "#755"
+msgid "Auto share external drives / partitions"
+msgstr "Споделяй автоматичното външните дискове/дялове"
+
+msgctxt "#756"
+msgid ""
+"Disable older SMB protocols by specifying the minimum supported protocol."
+msgstr "Деактивирайте старите версии на SMB протокола, като посочите минималната версия, която да се поддържа ."
+
+msgctxt "#757"
+msgid ""
+"Disable more recent SMB protocols for backward compatability with legacy "
+"clients."
+msgstr "Деактивирайте по-новите версии на SMB протокола за да осигурите съвместимост с по-стари устройства."
+
+msgctxt "#758"
+msgid "NetBIOS group to which the server belongs. Default is WORKGROUP."
+msgstr "Принадлежност към NetBIOS група. Стандартната е WORKGROUP."
+
+msgctxt "#760"
+msgid "Select an update channel"
+msgstr "Изберете канал за актуализацията"
+
+msgctxt "#761"
+msgid "Enable to allow entering a custom update url"
+msgstr "Включете за да въведете различен URL адрес за актуализациите."
+
+msgctxt "#762"
+msgid "Enter a custom update url (url should be the root of the update files)"
+msgstr "Въведете различена връзка за актуализациите (връзката трябва да води към основната папка)"
+
+msgctxt "#770"
+msgid "Select an available version"
+msgstr "Изберете версия"
+
+msgctxt "#771"
+msgid ""
+"The firewall blocks unwanted network traffic. Home (default) allows traffic "
+"from private network ranges (192.168.x.x, 172.16.x.x and 10.x.x.x) only. "
+"Public blocks all traffic from all networks. Custom uses rules in "
+"/storage/.config/iptables. Off disables the firewall."
+msgstr "Защитната стена блокира нежелан мрежови трафик. \"Домашен режим\" (стандартен) разрешава комуникация само с частни мрежи (192.168.x.x, 172.16.x.x and 10.x.x.x). \"Публичен режим\" блокира трафика от всяка мрежа. \"Персонален режим\" ползва правилата дефинирани във файла /storage/.config/iptables. \"Изключена\" спира защитната стена."
+
+msgctxt "#772"
+msgid ""
+"Checking for a new version will submit the installed Distribution, Project, "
+"CPU Arch and Version to the update server. This data is also used to report "
+"basic statistics for the project. To continue checking for updates while "
+"opting-out of stats reporting, disable this option."
+msgstr "Проверката за нова версия изпраща информация за инсталираната версия, дистрибуцията, проекта и архитектурата на процесора до сървъра за актуализиране. Данните се ползват и за генериране на  статистически доклади. Деактивирайте опцията ако желаете да проверявате за актуализации, но не желаете да изпращате данни за статистическите доклади."
+
+msgctxt "#773"
+msgid ""
+"Set the idle timeout (in minutes) before devices will be disconnected "
+"(defaults to 0 for no timeout). Applies to devices where \"Enable Standby\" "
+"has been activated in the LibreELEC device connection context menu."
+msgstr ""
+
+msgctxt "#32001"
+msgid "Services"
+msgstr "Услуги"
+
+msgctxt "#32002"
+msgid "System"
+msgstr "Система"
+
+msgctxt "#32003"
+msgid "Interface"
+msgstr "Интерфейс"
+
+msgctxt "#32005"
+msgid "Updates"
+msgstr "Актуализации"
+
+msgctxt "#32009"
+msgid "Keyboard"
+msgstr "Клавиатура"
+
+msgctxt "#32010"
+msgid "Keyboard Layout"
+msgstr "Клавиатурна подредба"
+
+msgctxt "#32012"
+msgid "Select Action"
+msgstr "Изберете действие"
+
+msgctxt "#32013"
+msgid "OS Updates"
+msgstr "Актуализации за операционната система"
+
+msgctxt "#32014"
+msgid "Automatic Updates"
+msgstr "Актуализиране"
+
+msgctxt "#32015"
+msgid "Update Channel"
+msgstr "Канал за актуализацията"
+
+msgctxt "#32016"
+msgid "Show Custom Channels"
+msgstr "Покажи персонализирани канали"
+
+msgctxt "#32017"
+msgid "  - Custom Channel 1"
+msgstr "- Персонализиран Канал 1"
+
+msgctxt "#32018"
+msgid "  - Custom Channel 2"
+msgstr "- Персонализиран Канал 2"
+
+msgctxt "#32019"
+msgid "  - Custom Channel 3"
+msgstr "- Персонализиран Канал 3"
+
+msgctxt "#32020"
+msgid "Available Versions"
+msgstr "Налични версии"
+
+msgctxt "#32021"
+msgid "Submit Statistics"
+msgstr "Изпращане на статистически данни"
+
+msgctxt "#32022"
+msgid "Firmware Updates"
+msgstr "Актуализации за фърмуера"
+
+msgctxt "#32023"
+msgid "Updating will occur once the system is rebooted."
+msgstr "Актуализирането ще се извърши след рестартиране на системата."
+
+msgctxt "#32024"
+msgid "Bootloader EEPROM"
+msgstr ""
+
+msgctxt "#32025"
+msgid ""
+"Update the Raspberry Pi Bootloader EEPROM to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr ""
+
+msgctxt "#32026"
+msgid "VIA USB3 Firmware"
+msgstr ""
+
+msgctxt "#32027"
+msgid ""
+"Update the Raspberry Pi VIA USB3 firmware to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr ""
+
+msgctxt "#32028"
+msgid "update from %s to %s"
+msgstr ""
+
+msgctxt "#32029"
+msgid "up to date: %s"
+msgstr ""
+
+msgctxt "#32100"
+msgid "Connections"
+msgstr "Връзки"
+
+msgctxt "#32101"
+msgid "Network"
+msgstr "Мрежа"
+
+msgctxt "#32102"
+msgid "Wireless Networks"
+msgstr "Безжични мрежи"
+
+msgctxt "#32103"
+msgid "Wired Networks"
+msgstr "Жични мрежи"
+
+msgctxt "#32105"
+msgid "Active"
+msgstr "Активни"
+
+msgctxt "#32106"
+msgid "Username"
+msgstr "Потребителско име"
+
+msgctxt "#32107"
+msgid "Passphrase"
+msgstr "Парола"
+
+msgctxt "#32108"
+msgid "Enable 'tethered' Wireless Access Point"
+msgstr "Включи \"'tethered\" безжична точка за достъп"
+
+msgctxt "#32109"
+msgid "Connect Automatically"
+msgstr "Автоматично свързване"
+
+msgctxt "#32110"
+msgid "Connection"
+msgstr "Връзка"
+
+msgctxt "#32111"
+msgid "IPv4"
+msgstr "IPv4"
+
+msgctxt "#32112"
+msgid "IPv6"
+msgstr "IPv6"
+
+msgctxt "#32113"
+msgid "IP Address Method"
+msgstr "Метод за определяне на IP адреса"
+
+msgctxt "#32114"
+msgid "IP Address"
+msgstr "IP адрес"
+
+msgctxt "#32115"
+msgid "Subnet Mask"
+msgstr "Мрежова маска"
+
+msgctxt "#32116"
+msgid "Default Gateway"
+msgstr "Стандартен шлюз"
+
+msgctxt "#32117"
+msgid "Prefix Length"
+msgstr "Дължина на представката"
+
+msgctxt "#32118"
+msgid "Privacy"
+msgstr "Поверителност"
+
+msgctxt "#32119"
+msgid "DNS Servers"
+msgstr "DNS сървъри"
+
+msgctxt "#32120"
+msgid "Nameserver #1"
+msgstr "Сървър №1"
+
+msgctxt "#32121"
+msgid "Nameserver #2"
+msgstr "Сървър №2"
+
+msgctxt "#32122"
+msgid "Nameserver #3"
+msgstr "Сървър №3"
+
+msgctxt "#32123"
+msgid "NTP Servers"
+msgstr "NTP сървъри"
+
+msgctxt "#32124"
+msgid "Timeserver #1"
+msgstr "Сървър №1"
+
+msgctxt "#32125"
+msgid "Timeserver #2"
+msgstr "Сървър №2"
+
+msgctxt "#32126"
+msgid "Timeserver #3"
+msgstr "Сървър №3"
+
+msgctxt "#32127"
+msgid "DNS Domains"
+msgstr "DNS домейни"
+
+msgctxt "#32128"
+msgid "Domain #1"
+msgstr "Домейн №1"
+
+msgctxt "#32129"
+msgid "Domain #2"
+msgstr "Домейн №2"
+
+msgctxt "#32130"
+msgid "Domain #3"
+msgstr "Домейн №3"
+
+msgctxt "#32140"
+msgid "Save"
+msgstr "Запиши"
+
+msgctxt "#32141"
+msgid "Delete"
+msgstr "Изтрий"
+
+msgctxt "#32142"
+msgid "Refresh"
+msgstr "Обнови"
+
+msgctxt "#32143"
+msgid "Disconnect"
+msgstr "Изключване"
+
+msgctxt "#32144"
+msgid "Connect"
+msgstr "Свързване"
+
+msgctxt "#32145"
+msgid "Pair"
+msgstr "Сдвои"
+
+msgctxt "#32146"
+msgid "Hidden Network Name"
+msgstr "Име на скритата мрежа"
+
+msgctxt "#32147"
+msgid "Wireless Network Passphrase"
+msgstr "Парола за безжичната мрежа"
+
+msgctxt "#32148"
+msgid "Wireless Network Username"
+msgstr "Потребителско име за безжичната мрежа"
+
+msgctxt "#32150"
+msgid "Edit"
+msgstr "Редактиране"
+
+msgctxt "#32180"
+msgid "Would you like to update @DISTRONAME@ now?"
+msgstr "Да бъде ли актуализиран @DISTRONAME@ сега?"
+
+msgctxt "#32181"
+msgid "Filename"
+msgstr "Име на файла"
+
+msgctxt "#32182"
+msgid "Download speed"
+msgstr "Скорост на сваляне"
+
+msgctxt "#32183"
+msgid "Time remaining"
+msgstr "Оставащо време"
+
+msgctxt "#32184"
+msgid "Extract file"
+msgstr "Извличане на файл"
+
+msgctxt "#32185"
+msgid "Extract speed"
+msgstr "Скорост на извличане"
+
+msgctxt "#32186"
+msgid "Initialize Archive File"
+msgstr "Инициализиране на архивен файл"
+
+msgctxt "#32187"
+msgid "New Version"
+msgstr "Нова версия"
+
+msgctxt "#32188"
+msgid "Current Version"
+msgstr "Текуща версия"
+
+msgctxt "#32189"
+msgid "Identification"
+msgstr "Идентификация"
+
+msgctxt "#32190"
+msgid "System Name"
+msgstr "Име на системата"
+
+msgctxt "#32191"
+msgid "Invalid URL"
+msgstr "Невалиден URL адрес"
+
+msgctxt "#32192"
+msgid "PIN lock"
+msgstr "Заключване с ПИН"
+
+msgctxt "#32193"
+msgid "Enable @DISTRONAME@ Settings PIN Lock"
+msgstr ""
+
+msgctxt "#32194"
+msgid "Change @DISTRONAME@ Settings PIN Lock"
+msgstr ""
+
+msgctxt "#32196"
+msgid "About"
+msgstr "Относно"
+
+msgctxt "#32198"
+msgid "SSID"
+msgstr "SSID"
+
+msgctxt "#32200"
+msgid "Samba"
+msgstr "Samba"
+
+msgctxt "#32201"
+msgid "SSH"
+msgstr "SSH"
+
+msgctxt "#32202"
+msgid "Use Samba Password Authentication"
+msgstr "Ползване на удостоверяване с парола за Samba"
+
+msgctxt "#32203"
+msgid "Disable SSH Password"
+msgstr "Забраняване на SSH достъпа чрез парола"
+
+msgctxt "#32204"
+msgid "Enable Samba"
+msgstr "Включи Samba"
+
+msgctxt "#32205"
+msgid "Enable SSH"
+msgstr "Включи SSH"
+
+msgctxt "#32206"
+msgid "Enable Avahi (Zeroconf)"
+msgstr "Включи Avahi (Zeroconf)"
+
+msgctxt "#32207"
+msgid "Avahi"
+msgstr "Avahi"
+
+msgctxt "#32208"
+msgid "Hidden Wlan"
+msgstr "Скрита безжична мрежа"
+
+msgctxt "#32209"
+msgid "SSH Password"
+msgstr "SSH парола"
+
+msgctxt "#32210"
+msgid ""
+"The default SSH password is widely known and considered "
+"insecure.[CR][CR]Setting a personal password is recommended."
+msgstr "Стандартната SSH е публично известна и се счита за проблем.[CR][CR]Препоръчително е да я промените."
+
+msgctxt "#32212"
+msgid "Cancel"
+msgstr "Отказ"
+
+msgctxt "#32213"
+msgid "Keep Existing"
+msgstr "Запази стандартната"
+
+msgctxt "#32214"
+msgid "Set Password"
+msgstr "Задай нова"
+
+msgctxt "#32215"
+msgid "Workgroup name"
+msgstr "Работна група"
+
+msgctxt "#32216"
+msgid "Auto-Share External Drives"
+msgstr "Споделяй автоматичното външните дискове"
+
+msgctxt "#32217"
+msgid "Minimum supported protocol"
+msgstr "Минимална версия на протокола (за ползване)"
+
+msgctxt "#32218"
+msgid "Maximum supported protocol"
+msgstr "Максимална версия на протокола (за ползване)"
+
+msgctxt "#32220"
+msgid "Bad password!"
+msgstr "Грешна парола!"
+
+msgctxt "#32221"
+msgid "The entered password is too weak.[CR]SSH password is unchanged."
+msgstr "Въведената парола е много проста.[CR]SSH паролата не е променена."
+
+msgctxt "#32222"
+msgid "Password changed!"
+msgstr "Променена парола!"
+
+msgctxt "#32223"
+msgid "The SSH password has been successfully changed."
+msgstr "SSH паролата е променена."
+
+msgctxt "#32224"
+msgid "Unknown error!"
+msgstr "Неизвестна грешка!"
+
+msgctxt "#32225"
+msgid "There was an error during the process.[CR]SSH password is unchanged."
+msgstr "Възникна грешка.[CR]SSH паролата не е променена."
+
+msgctxt "#32226"
+msgid "Enter new 4 digit PIN"
+msgstr "Въведете нов 4 цифрен ПИН"
+
+msgctxt "#32227"
+msgid "Re-enter PIN"
+msgstr "Въведете повторно"
+
+msgctxt "#32228"
+msgid "Error - PIN codes did not match!"
+msgstr "Грешка - ПИН кодовете не съвпадат!"
+
+msgctxt "#32229"
+msgid "@DISTRONAME@ Settings PIN lock not set.[CR][CR]Please try again."
+msgstr ""
+
+msgctxt "#32230"
+msgid "@DISTRONAME@ Settings PIN lock set."
+msgstr ""
+
+msgctxt "#32231"
+msgid "Your @DISTRONAME@ Settings PIN lock has been set to:"
+msgstr ""
+
+msgctxt "#32232"
+msgid "Error - PIN code not 4 digits!"
+msgstr "Грека - ПИН кодът трябва да съдържа 4 цифти!"
+
+msgctxt "#32233"
+msgid "@DISTRONAME@ Settings Locked[CR]Enter 4 digit PIN"
+msgstr "@DISTRONAME@ Настройките са заключени[CR]Въведете 4 цифрен код"
+
+msgctxt "#32234"
+msgid "Incorrect PIN!"
+msgstr "Грешен ПИН!"
+
+msgctxt "#32235"
+msgid " attempts remaining."
+msgstr ""
+
+msgctxt "#32236"
+msgid ""
+"You have entered an incorrect PIN too many times.[CR][CR]You will need to "
+"wait 5 minutes before trying again."
+msgstr "Няколко пъти въведохте грешен ПИН.[CR][CR]Ще можете да опитанте отново след 5 минути."
+
+msgctxt "#32237"
+msgid "@DISTRONAME@ Settings Locked!"
+msgstr ""
+
+msgctxt "#32238"
+msgid ""
+"Time remaining before PIN can be entered: %02d:%02d[CR][CR]Too many previous"
+" failed attempts."
+msgstr "Ще можете да въведете ПИН код след: %02d:%02d[CR][CR]Въвели сте няколко пъти грешен ПИН код."
+
+msgctxt "#32240"
+msgid "Wireless Regulatory Domain"
+msgstr ""
+
+msgctxt "#32300"
+msgid "Welcome to @DISTRONAME@"
+msgstr "Добре дошли в @DISTRONAME@"
+
+msgctxt "#32301"
+msgid "Welcome"
+msgstr "Добре дошли!"
+
+msgctxt "#32302"
+msgid ""
+"This wizard will guide you through the process of setting up your new "
+"@DISTRONAME@ installation - setting your location, timezone and connecting "
+"you to the internet.[CR][CR]These settings can be changed later by "
+"navigating to Programs > @DISTRONAME@ Settings."
+msgstr "Помощникът ще Ви насочва в процеса по настройване на @DISTRONAME@ - задаване на местоположение, часови пояс и свързване с Интернет.[CR][CR]Направеният сега избор можете да промените по-късно от Програми > Настройки на @DISTRONAME@."
+
+msgctxt "#32303"
+msgid "Next"
+msgstr "Следващ"
+
+msgctxt "#32304"
+msgid ""
+"To be identified easily on the network, your new @DISTRONAME@ machine needs "
+"a name.[CR][CR]Try to choose something meaningful - like the room it's in - "
+"so you'll know what it is when you see it on the network.[CR][CR]This name "
+"is used when configuring network services, like file sharing using samba."
+msgstr "Въведете име за по-лесно разпознавате, в мрежата, на инсталацията на @DISTRONAME@.[CR][CR]Изберете смислено име (например име на стаята в която се намира устройството).[CR][CR]Името ще се ползва за мрежови услуги като споделяне на файлове."
+
+msgctxt "#32305"
+msgid "Networking"
+msgstr "Мрежа"
+
+msgctxt "#32306"
+msgid ""
+"In order to download backdrops, banners and thumbnails for your movies and "
+"TV shows and to stream online content from sites like YouTube, @DISTRONAME@ "
+"needs to be connected the Internet.[CR][CR]An Internet connection is also "
+"required for @DISTRONAME@ to automatically update itself."
+msgstr "За свалянето на изображения (плакати, банери и миниатюри) за филми и ТВ Сериали или за гледане на поточно видео от сайтове като YouTube, @DISTRONAME@ изисква връзка с Интернет.[CR][CR]Необходима е и за автоматичното актуализиране на @DISTRONAME@."
+
+msgctxt "#32307"
+msgid "Previous"
+msgstr "Предишен"
+
+msgctxt "#32308"
+msgid "Hostname:"
+msgstr "Име на устройството:"
+
+msgctxt "#32309"
+msgid "The following Networks are currently available:"
+msgstr "Към момента са налични са следните мрежи:"
+
+msgctxt "#32310"
+msgid "Language:"
+msgstr "Език:"
+
+msgctxt "#32311"
+msgid "Sharing and Remote Access"
+msgstr "Споделяне и отдалечен достъп"
+
+msgctxt "#32312"
+msgid ""
+"@DISTRONAME@ also supports SSH for remote access. This is for advanced users"
+" who wish to interact with @DISTRONAME@'s underlying operating system. The "
+"default user is [COLOR blue]root[/COLOR] and the default password is [COLOR "
+"blue]@ROOT_PASSWORD@[/COLOR]."
+msgstr "@DISTRONAME@ поддържа протокола SSH за отдалечен достъп. Опцията е предназначена за напреднали потребители, които желаят да имат достъп до файловете на операционната система (@DISTRONAME@). Стандартния потребител е [COLOR blue]root[/COLOR], а паролата е [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+
+msgctxt "#32313"
+msgid ""
+"In order to share your files between your computers @DISTRONAME@ has "
+"incorporated a samba server. This samba server can be integrated into your "
+"local network by accessing it in a familiar way with Finder or Windows "
+"Explorer."
+msgstr "За споделяне на файлове между компютри, @DISTRONAME@ съдържа и Samba сървър. Интегрира се в локалната Ви мрежа и дава достъп до файловете посредством Finder или Windows Explorer."
+
+msgctxt "#32316"
+msgid "Configure Services:"
+msgstr "Настройване на услугите:"
+
+msgctxt "#32317"
+msgid "Thank you"
+msgstr "Благодарим Ви"
+
+msgctxt "#32319"
+msgid "Cron"
+msgstr "Cron"
+
+msgctxt "#32320"
+msgid "Enable Cron"
+msgstr "Включи Cron-a"
+
+msgctxt "#32323"
+msgid "Reset to Defaults"
+msgstr "Нулиране (възстановяване на стандартните настройки)"
+
+msgctxt "#32324"
+msgid "Reset System Settings to defaults"
+msgstr "Нулиране на системата"
+
+msgctxt "#32325"
+msgid "Reset @DISTRONAME@ to defaults"
+msgstr "Нулиране на @DISTRONAME@"
+
+msgctxt "#32326"
+msgid "Are you sure?"
+msgstr "Сигурни ли сте?"
+
+msgctxt "#32328"
+msgid "The system must reboot."
+msgstr "Трябва да рестартирате системата."
+
+msgctxt "#32329"
+msgid "Rebooting in %d seconds"
+msgstr "Рестартиране след  %d сек"
+
+msgctxt "#32330"
+msgid "Keyboard Type"
+msgstr "Тип клавиатура"
+
+msgctxt "#32331"
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+msgctxt "#32333"
+msgid "Connected: "
+msgstr "Свързана:"
+
+msgctxt "#32334"
+msgid "Yes"
+msgstr "Да"
+
+msgctxt "#32335"
+msgid "No"
+msgstr "Не"
+
+msgctxt "#32338"
+msgid "No Bluetooth adapter found."
+msgstr "Няма открити Bluetooth адаптери."
+
+msgctxt "#32339"
+msgid ""
+"No Bluetooth device found. Please put your Bluetooth device into discovery "
+"mode[CR]and start the scan"
+msgstr "Не са открити Bluetooth устройства. Поставете вашето Bluetooth устройство[CR]в режим който ще го направи откриваемо (направете го \"видимо\")[CR]и стартирайте ново търсене"
+
+msgctxt "#32343"
+msgid "Enter the following Key on your Device."
+msgstr "Въведете следния код на вашето устройство."
+
+msgctxt "#32344"
+msgid "Enable Bluetooth"
+msgstr "Включи Bluetooth"
+
+msgctxt "#32346"
+msgid "Bluetooth is disabled"
+msgstr "Bluetooth е изключен"
+
+msgctxt "#32358"
+msgid "Trust and Connect"
+msgstr "Довери се и се свържи"
+
+msgctxt "#32362"
+msgid "Check for updates now:"
+msgstr "Провери за актуализации:"
+
+msgctxt "#32363"
+msgid "@DISTRONAME@"
+msgstr "@DISTRONAME@"
+
+msgctxt "#32364"
+msgid "Update available"
+msgstr "Налична е актуализация"
+
+msgctxt "#32365"
+msgid "Show Update Notifications"
+msgstr "Показване на известие при налична актуализация"
+
+msgctxt "#32366"
+msgid "Update Download Completed"
+msgstr "Свалянето на актуализация завърши"
+
+msgctxt "#32367"
+msgid "Update Extract Complete"
+msgstr "Извличането на актуализацията завърши"
+
+msgctxt "#32368"
+msgid "Advanced Network Settings"
+msgstr "Допълнителни мрежови настройки"
+
+msgctxt "#32369"
+msgid "Wait for network before starting Kodi"
+msgstr "Стартиране на Kodi след свързване към мрежа"
+
+msgctxt "#32370"
+msgid "Maximum Wait Time (Sec.)"
+msgstr "Макс. време за изчакване (сек)"
+
+msgctxt "#32371"
+msgid "Backup"
+msgstr "Резервно копие"
+
+msgctxt "#32372"
+msgid "Create System and Kodi Backup"
+msgstr "Създаване резервно копие на системата и на Kodi"
+
+msgctxt "#32373"
+msgid "Restore Backup"
+msgstr "Възстановяване от резервно копие"
+
+msgctxt "#32375"
+msgid "Backup Progress"
+msgstr "Прогрес за създаване на резервното копие"
+
+msgctxt "#32376"
+msgid "Submit Log"
+msgstr "Изпращане на журналите"
+
+msgctxt "#32377"
+msgid "Upload latest Kodi log and configs, and view the short URL"
+msgstr "Качване на журнала, настройките на Kodi и преглед на URL адреса"
+
+msgctxt "#32378"
+msgid "Upload latest Kodi crash log and configs, and view the short URL"
+msgstr "Качване журнала (за сривове), настройките на Kodi и преглед на URL адреса"
+
+msgctxt "#32379"
+msgid "There is not enough free storage space to continue!"
+msgstr "Остатъчното свободно място\nне е достатъчно!"
+
+msgctxt "#32380"
+msgid ""
+"Restoring system settings requires a reboot. Are you sure you want to "
+"restore?"
+msgstr "Възстановяването на системните настройки изисква рестартиране. Сигурни ли сте, че желаете да бъдат възстановени?"
+
+msgctxt "#32381"
+msgid "Accept incoming Bluetooth Filetransfer ?"
+msgstr "Приемане на входящата заявка за получаване на файлове чрез Bluetooth?"
+
+msgctxt "#32382"
+msgid "Speed"
+msgstr "Скорост"
+
+msgctxt "#32383"
+msgid "Play Files ?"
+msgstr "Възпроизвеждане на файловете?"
+
+msgctxt "#32384"
+msgid "OBEX Enabled"
+msgstr "Включи OBEX"
+
+msgctxt "#32385"
+msgid "OBEX Upload Folder"
+msgstr "Папка за файловете качени чрез OBEX"
+
+msgctxt "#32386"
+msgid "Keyboard Layout Variant #1"
+msgstr "Подредба №1"
+
+msgctxt "#32387"
+msgid "Keyboard Layout Variant #2"
+msgstr "Подредба №2"
+
+msgctxt "#32388"
+msgid "Enable Standby"
+msgstr "Включи режима за готовност"
+
+msgctxt "#32389"
+msgid "Disable Standby"
+msgstr "Изключи режима за готовност"
+
+msgctxt "#32390"
+msgid "Settings addon is not yet ready, please try again later."
+msgstr "Добавката за настройките не е в готовност. Моля, опитайте по-късно."
+
+msgctxt "#32391"
+msgid "Upload configs and other debug info without logs, and view the short URL"
+msgstr ""
+
+msgctxt "#32393"
+msgid "** SAFE MODE! ** SAFE MODE! ** SAFE MODE! **"
+msgstr "** БЕЗОПАСЕН РЕЖИМ! ** БЕЗОПАСЕН РЕЖИМ! **"
+
+msgctxt "#32395"
+msgid "Firewall"
+msgstr "Защитна стена"
+
+msgctxt "#32396"
+msgid "Custom"
+msgstr "Персонален режим"
+
+msgctxt "#32397"
+msgid "Off"
+msgstr "Изключена"
+
+msgctxt "#32398"
+msgid "Home"
+msgstr "Домашен режим"
+
+msgctxt "#32399"
+msgid "Public"
+msgstr "Публичен режим"
+
+msgctxt "#32400"
+msgid "Idle Timeout"
+msgstr ""

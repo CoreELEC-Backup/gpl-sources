@@ -1,0 +1,16 @@
+<samba:parameter name="map acl inherit"
+                 context="S"
+                 type="boolean"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+    <para>This boolean parameter controls whether <citerefentry><refentrytitle>smbd</refentrytitle>                                       
+    <manvolnum>8</manvolnum></citerefentry> will attempt to map the 'inherit' and 'protected'
+    access control entry flags stored in Windows ACLs into an extended attribute
+    called user.SAMBA_PAI (POSIX ACL Inheritance). This parameter requires
+    supports for extended attributes on the filesystem and
+    allows the Windows ACL editor to store inheritance information while
+    NT ACLs are mapped best-effort to the POSIX ACLs.
+    </para>
+</description>
+<value type="default">no</value>
+</samba:parameter>

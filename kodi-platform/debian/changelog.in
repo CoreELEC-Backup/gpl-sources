@@ -1,0 +1,36 @@
+kodiplatform (17.1.0-#TAGREV#~#DIST#) #DIST#; urgency=medium
+
+  * rename find_package kodi to Kodi
+
+ -- h.udo <hudokkow@gmail.com>  Mon, 16 May 2016 10:44:56 +0000
+
+kodiplatform (17.0.0-#TAGREV#~#DIST#) #DIST#; urgency=medium
+
+  * adjust to libplatform rename to libp8-platform
+
+ -- wsnipex <wsnipex@a1.net>  Thu, 12 Feb 2015 13:28:01 +0100
+
+kodiplatform (16.0.0-#TAGREV#~#DIST#) #DIST#; urgency=medium
+
+  * split up into libplatform and libkodiplatform, and removed libCEC-only code
+
+ -- Lars Op den Kamp <lars@opdenkamp.eu>  Thu, 20 Apr 2015 12:16:17 +0100
+
+kodiplatform (15.0.0-1~#DIST#) #DIST#; urgency=medium
+
+  * rebrand to kodi
+  * bump to Isengard
+
+ -- wsnipex <wsnipex@a1.net>  Thu, 12 Feb 2015 13:28:01 +0100
+
+xbmcplatform (14.0.0-1~#DIST#) #DIST#; urgency=medium
+
+  * bump version
+
+ -- wsnipex <wsnipex@a1.net>  Mon, 07 Jul 2014 08:23:48 +0200
+
+xbmcplatform (13.0.0-1~#DIST#) #DIST#; urgency=low
+
+  * Initial release
+
+ -- Arne Morten Kvarving <arne.morten.kvarving@sintef.no>  Sun, 19 May 2013 02:23:53 +0200

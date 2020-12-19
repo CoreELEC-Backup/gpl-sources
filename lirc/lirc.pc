@@ -1,0 +1,14 @@
+Name: lirc
+Description: LIRC Linux Infrared Control client libs.
+Version: 0.10.1
+
+prefix=/usr/local
+datarootdir=${prefix}/share
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+pkgdatadir=${datarootdir}/lirc
+plugindir=${libdir}/lirc/plugins
+
+Libs: -L${libdir} -llirc_client
+Cflags: -I${includedir}

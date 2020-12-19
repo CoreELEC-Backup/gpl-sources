@@ -1,0 +1,110 @@
+# lirc setup configuration files README.
+
+Overview
+--------
+
+This README file lives in the same directory as a large number of
+configuration files. Here is a number of more or less static
+*.yaml files and the more dynamic *.conf files.
+
+The original configuration data comes from different sources:
+
+  - User-space drivers have compiled configuration hints.
+    This reflected in the file drivers.yaml.
+  - The kernel drivers has a static file kernel-drivers.yaml
+    which provides the same info for some of the the kernel
+    drivers.
+  - lircd.conf files for LIRCCODE type hardware sometimes
+    has a 'driver' attribute describing the required driver
+    for this file. This is reflected in the conf_by_driver.yaml
+    file.
+  - The *.conf files in configs/ describes entries a user
+    can select.
+
+
+drivers.yaml and kernel-driver.yaml
+-----------------------------------
+
+The kernel-drivers.dist file  is a static file  describing some
+of the built-in kernel drivers which either needs manual configuration
+or might be abscent. It has the same format as drivers.yaml.
+Actually usable drivers are determined in runtime using modinfo(1).
+
+The drivers.yaml file is created  using 'lirc-lsplugins --yaml'
+which retrieves data from the driver configuration hints.  It
+describes the driver configuration:
+
+  - id:   Mandatory, unique identifier (no spaces allowed).
+
+  - device_hint <device>:
+          optional, defaults to 'None'. <device> is a glob pattern.  User
+          can select between matches, configuration fails if nothing
+          matches.  If there is a single match this is silently selected
+          without user interaction.  There is specific support for:
+
+              - 'udp_port' [default port]: User can select an udp port
+              - '/dev/tty*': User can select an available tty.
+              - 'drvctl': Driver can list devices using DRVCTL_GET_DEVICES.
+              - 'None': No device option is configured.
+              - 'auto': No configuration, but a message is displayed.
+
+  - modprobe;
+         Required modprobe configuration. Note that the device_hint in
+         some cases e. g., serial ports alse ends up in modprobe config.
+
+  - modinit:
+         Shell commands needed to set up the device (runs as root).
+	 Supported substitutions in commands string:
+           - @device@: Device selected by user (based on device_hint)
+           - @rc_dir@: The /sys/class/rc/rcX directory corresponding to
+             the selected device, or "" if no such dir is found.
+	   - @set_lirc_protocol@: The canonical
+             "echo lirc > /sys/class/rc/rcX/protocols" for given device.
+
+  - type:
+         'mode2' or 'code', reflects the overall mode. Derived from the
+         driver features masked with
+         LIRC_CAN_REC_RAW | LIRC_CAN_REC_PULSE | LIRC_CAN_REC_MODE2
+
+  - can_send:
+         'yes' or 'no'. derived from driver features masked with
+         LIRC_CAN_SEND_RAW | LIRC_CAN_SEND_PULSE | LIRC_CAN_SEND_MODE2
+
+
+confs_by_driver.
+----------------
+
+The conf_by_driver.yaml file is created using *irdb-get yaml-config*.
+It maps driver names to a list of lircd.conf files which can
+be used with this (type code) driver.
+
+
+*.conf files.
+-------------
+
+The *.conf files represent a configuration entry i. e., what a
+user selects.  If selected, it will configure a specific capture
+device, possibly running some dialogs. Different config entries
+might configurate the same driver, effectively creating different
+names and remote config files for a generic driver. Files contains:
+
+  - id:     Mandatory, unique identifier (no spaces allowed).
+
+  - label:  User visible description (mandatory).
+
+  - menu:   The menu this option is presented in, mandatory.  One of
+            home_brew, irda, other, other_serial, pda, soundcard, tv_card,
+            usb.
+
+  - note:   Message displayed when selecting this capture device, optional.
+
+  - driver: The configured driver, mandatory. Must match a driver id in
+            drivers.yaml or kernel-drivers.yaml
+
+  - lircd_conf:
+            Proposed lircd.conf files for this entry. The config files
+            for current driver in conf_by_driver are implicitly added.
+
+  - lircmd_conf:
+            Proposed lircmd.conf files for this entry. Files in
+            conf_by_driver are implicitly added to this list.

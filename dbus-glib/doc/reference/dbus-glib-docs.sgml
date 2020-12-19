@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY dbus-binding-tool SYSTEM "dbus-binding-tool.xml">
+<!ENTITY version SYSTEM "version.xml">
+]>
+<book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
+  <bookinfo>
+    <title>D-Bus GLib bindings - Reference Manual</title>
+    <releaseinfo>for version &version;</releaseinfo>
+  </bookinfo>
+
+  <warning>
+    <para>dbus-glib is a deprecated API for use of D-Bus from GLib
+      applications. Do not use it in new code.</para>
+
+    <para>Since version 2.26, GLib's accompanying GIO library
+      provides a high-level API for D-Bus, "GDBus", based on an
+      independent reimplementation of the D-Bus protocol. The maintainers
+      of D-Bus recommend that GLib applications should use GDBus
+      instead of dbus-glib.</para>
+  </warning>
+
+  <chapter>
+    <title>Introduction</title> 
+
+    <para>D-Bus is a message bus system, a simple way for applications
+    to talk to one another. For more information on D-Bus, see
+      <ulink url="http://www.freedesktop.org/wiki/Software/dbus">
+       http://www.freedesktop.org/wiki/Software/dbus</ulink>.
+    </para>
+
+    <warning>
+      <para>dbus-glib is a deprecated API for use of D-Bus from GLib
+        applications. Do not use it in new code.</para>
+
+      <para>Since version 2.26, GLib's accompanying GIO library
+        provides a high-level API for D-Bus, "GDBus", based on an
+        independent reimplementation of the D-Bus protocol. The maintainers
+        of D-Bus recommend that GLib applications should use GDBus
+        instead of dbus-glib.</para>
+    </warning>
+  </chapter>
+
+  <chapter>
+    <title>API Reference</title>
+    <xi:include href="xml/dbus-gconnection.xml"/>
+    <xi:include href="xml/dbus-gobject.xml"/>
+    <xi:include href="xml/dbus-gmessage.xml"/>
+    <xi:include href="xml/dbus-gmethod.xml"/>
+    <xi:include href="xml/dbus-gerror.xml"/>
+    <xi:include href="xml/dbus-gproxy.xml"/>
+    <xi:include href="xml/dbus-gtype-specialized.xml"/>
+    <xi:include href="xml/dbus-glib-lowlevel.xml"/>
+  </chapter>
+
+  <chapter>
+    <title>Tools Reference</title>
+
+    &dbus-binding-tool;
+
+  </chapter>
+  <index id="api-index-full">
+    <title>Index of all symbols</title>
+    <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
+  </index>
+
+</book>

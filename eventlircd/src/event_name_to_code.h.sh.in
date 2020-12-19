@@ -1,0 +1,108 @@
+#!/bin/sh
+#
+# Copyright (C) 2009-2010 Paul Bender.
+#
+# This file is part of eventlircd.
+#
+# eventlircd is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# eventlircd is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with eventlircd.  If not, see <http://www.gnu.org/licenses/>.
+
+#
+# This script generates the event_name_to_code.h header file using the installed 
+# linux/input.h header file.
+#
+
+ABSOLUTE_LINUX_INPUT_H=@ABSOLUTE_LINUX_INPUT_H@
+AWK=@AWK@
+
+rm -f event_name_to_code.h
+
+${AWK} "
+    BEGIN {
+      printf(\"#ifndef _EVENTLIRCD_EVENT_NAME_TO_CODE_H_\n\");
+      printf(\"#define _EVENTLIRCD_EVENT_NAME_TO_CODE_H_ 1\n\");
+      printf(\"#include <${ABSOLUTE_LINUX_INPUT_H}>\n\");
+      printf(\"#include <linux/types.h>\n\");
+      printf(\"static const struct {\n\");
+      printf(\"\tconst char *name;\n\");
+      printf(\"\t__u16 type;\n\");
+      printf(\"\t__u16 code;\n\");
+      printf(\"} event_name_to_code[] = {\n\");
+    };
+    /#define SYN_/                {
+                                    code_str = \"\\\"\" \$2 \"\\\"\";
+                                    code_num = \$2;
+                                    printf(\"\t{ %-25s , EV_SYN , %-23s },\n\", code_str, code_num);
+                                  };
+    /#define KEY_CNT/             { next; };
+    /#define KEY_MAX/             { next; };
+    /#define KEY_MIN_INTERESTING/ { next; };
+    /#define KEY_RESERVED/        { next; };
+    /#define KEY_/                {
+                                    code_str = \"\\\"\" \$2 \"\\\"\";
+                                    code_num = \$2;
+                                    printf(\"\t{ %-25s , EV_KEY , %-23s },\n\", code_str, code_num);
+                                  };
+    /#define BTN_/                {
+                                    code_str = \"\\\"\" \$2 \"\\\"\";
+                                    code_num = \$2;
+                                    printf(\"\t{ %-25s , EV_KEY , %-23s },\n\", code_str, code_num);
+                                  };
+    /#define REL_CNT/             { next; };
+    /#define REL_MAX/             { next; };
+    /#define REL_/                {
+                                    code_str = \"\\\"\" \$2 \"\\\"\";
+                                    code_num = \$2;
+                                    printf(\"\t{ %-25s , EV_REL , %-23s },\n\", code_str, code_num);
+                                  };
+    /#define ABS_CNT/             { next; };
+    /#define ABS_MAX/             { next; };
+    /#define ABS_/                {
+                                    code_str = \"\\\"\" \$2 \"\\\"\";
+                                    code_num = \$2;
+                                    printf(\"\t{ %-25s , EV_ABS , %-23s },\n\", code_str, code_num);
+                                  };
+    /#define MSC_CNT/             { next; };
+    /#define MSC_MAX/             { next; };
+    /#define MSC_/                {
+                                    code_str = \"\\\"\" \$2 \"\\\"\";
+                                    code_num = \$2;
+                                    printf(\"\t{ %-25s , EV_MSC , %-23s },\n\", code_str, code_num);
+                                  };
+    /#define SW_CNT/              { next; };
+    /#define SW_MAX/              { next; };
+    /#define SW_/                 {
+                                    code_str = \"\\\"\" \$2 \"\\\"\";
+                                    code_num = \$2;
+                                    printf(\"\t{ %-25s , EV_SW  , %-23s },\n\", code_str, code_num);
+                                  };
+    /#define LED_CNT/             { next; };
+    /#define LED_MAX/             { next; };
+    /#define LED_/                {
+                                    code_str = \"\\\"\" \$2 \"\\\"\";
+                                    code_num = \$2;
+                                    printf(\"\t{ %-25s , EV_LED , %-23s },\n\", code_str, code_num);
+                                  };
+    /#define SND_CNT/             { next; };
+    /#define SND_MAX/             { next; };
+    /#define SND_/                {
+                                    code_str = \"\\\"\" \$2 \"\\\"\";
+                                    code_num = \$2;
+                                    printf(\"\t{ %-25s , EV_SND , %-23s },\n\", code_str, code_num);
+                                  };
+    END {
+      printf(\"\t{ NULL                      , 0      , 0                       },\n\");
+      printf(\"};\n\");
+      printf(\"#endif\n\");
+    };
+    " < ${ABSOLUTE_LINUX_INPUT_H} >> event_name_to_code.h

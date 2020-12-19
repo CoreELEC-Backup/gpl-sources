@@ -1,0 +1,54 @@
+#include "sm1_s905x3_ac213.dts"
+#include "coreelec_common.dtsi"
+
+/{
+	auge_sound {
+		aml-audio-card,dai-link@0 {
+			cpu {
+				sound-dai = <&spdifb>;
+			};
+		};
+
+		aml-audio-card,dai-link@1 {
+			bitclock-master = <&tdmb>;
+			frame-master = <&tdmb>;
+			cpu {
+				sound-dai = <&tdmb>;
+			};
+		};
+
+		aml-audio-card,dai-link@2 {
+			cpu {
+				sound-dai = <&spdifa>;
+			};
+		};
+	};
+};
+
+&audiobus {
+	aml_i2s2hdmi: i2s2hdmi {
+		compatible = "amlogic, sm1-snd-tdmc";
+	};
+
+	spdifa: spdif@0 {
+		pinctrl-0 = <&spdifout>;
+	};
+};
+
+&i2c3 {
+	status = "disabled";
+};
+
+&dwc2_a {
+	controller-type = <3>;
+};
+
+&ethmac {
+	cali_val = <0x10000>;
+	rx_delay = <0>;
+	auto_cali_idx = <0>;
+};
+
+&earc {
+	status = "disabled";
+};

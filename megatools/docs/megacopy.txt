@@ -1,0 +1,72 @@
+megacopy(1)
+===========
+
+NAME
+----
+megacopy - Upload/download entire directories to/from your Mega.nz account
+
+
+SYNOPSIS
+--------
+[verse]
+'megacopy' [-n] [--no-progress] --local <path> --remote <remotepath>
+'megacopy' [-n] [--no-progress] --download --local <path> --remote <remotepath>
+
+
+DESCRIPTION
+-----------
+
+Sync remote and local directories. No files are ever overwritten or removed.
+
+Default direction is to upload files to the cloud. If you want to download
+files, you have to add `--download` option.
+
+
+OPTIONS
+-------
+
+-r <remotepath>::
+--remote <remotepath>::
+	Remote directory path.
+
+-l <path>::
+--local <path>::
+	Local directory path.
+
+-d::
+--download::
+	Download files from the Mega.nz. The default is to upload.
+
+-n::
+--dryrun::
+	Don't perform any actual changes, just print what would be done.
+
+--no-progress::
+	Disable upload progress reporting.
+
+include::upload-options.txt[]
+include::download-options.txt[]
+include::auth-options.txt[]
+include::basic-options.txt[]
+
+
+EXAMPLES
+--------
+
+* Upload directory.
++
+------------
+$ megacopy --local MyBackups --remote /Root/Backups
+------------
+
+
+* Download directory.
++
+------------
+$ megacopy --local MyBackups --remote /Root/Backups --download
+------------
+
+
+include::remote-paths.txt[]
+
+include::footer.txt[]

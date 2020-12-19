@@ -1,0 +1,1145 @@
+# Kodi Media Center language file
+# Addon Name: @DISTRONAME@ Configuration
+# Addon id: service.coreelec.settings
+# Addon Provider: CoreELEC
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#600"
+msgid "@DISTRONAME@ Settings"
+msgstr "@DISTRONAME@-Einstellungen"
+
+msgctxt "#601"
+msgid "Interface"
+msgstr "Schnittstelle"
+
+msgctxt "#602"
+msgid "Address"
+msgstr "Adresse"
+
+msgctxt "#603"
+msgid "Type"
+msgstr "Typ"
+
+msgctxt "#604"
+msgid "State"
+msgstr "Status"
+
+msgctxt "#605"
+msgid "Address"
+msgstr "Adresse"
+
+msgctxt "#606"
+msgid "Distribution: "
+msgstr "Distribution: "
+
+msgctxt "#607"
+msgid "Version: "
+msgstr "Version: "
+
+msgctxt "#608"
+msgid "Architecture: "
+msgstr "Architektur: "
+
+msgctxt "#700"
+msgid ""
+"Configure a hostname, keyboard type, perform a reset, update, or backups and"
+" restores"
+msgstr "Konfiguriere einen Gerätenamen, einen Tastaturtypen, setze das System zurück, erstelle Datensicherungen oder stelle eine Datensicherung wieder her, übermittele einen Fehlerbericht."
+
+msgctxt "#701"
+msgid "Configure network startup options, NTP and VPNs"
+msgstr "Netzwerkeinstellungen, Startoptionen, NTP und VPN konfigurieren."
+
+msgctxt "#702"
+msgid ""
+"Manage the Ethernet, Wireless and VPN connections available to the system"
+msgstr "Verfügbare LAN-, Drahtlos- und VPN-Verbindungen konfigurieren"
+
+msgctxt "#703"
+msgid "Configure system services like Samba, SSH, Cron, Avahi and Syslog"
+msgstr "Systemdienste z.B. Samba Dateifreigaben, SSH Fernzugriffe, Cron, Avahi und Syslog konfigurieren"
+
+msgctxt "#704"
+msgid "Configure and pair Bluetooth devices"
+msgstr "Bluetoothgeräte verbinden und verwalten"
+
+msgctxt "#707"
+msgid "Configure updates"
+msgstr "Konfiguriere Aktualisierungen"
+
+msgctxt "#710"
+msgid ""
+"Configure the Hostname of your @DISTRONAME@ system. This will be used for "
+"the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+msgstr "Konfigurieren Sie den Hostnamen Ihres @DISTRONAME@ Systems. Dies wird für den HTPC \\\\Hostnamen in Windows und für den SMB-Servernamen im Mac OS Finder verwendet werden."
+
+msgctxt "#711"
+msgid "Configure the 1st keyboard software layout"
+msgstr "Primäres Tastaturschema"
+
+msgctxt "#712"
+msgid "Configure the 2nd keyboard software layout"
+msgstr "Sekundäres Tastaturschema"
+
+msgctxt "#713"
+msgid "Configure the physical keyboard type"
+msgstr "Tastaturbelegung konfigurieren"
+
+msgctxt "#714"
+msgid ""
+"@DISTRONAME@ can be configured for automatic or manual updates. Automatic "
+"updates are available on stable releases and stable release candidates. "
+"Automatic update self-disables on beta and development builds"
+msgstr "@DISTRONAME@ kann für automatische oder manuelle Aktualisierungen konfiguriert werden. Automatische Aktualisierungen sind für stabile Releases und Release Candidates für stabile Releases verfügbar. Automatische Aktualisierungen werden für Beta- und Entwickler- Versionen standardmäßig abgeschaltet."
+
+msgctxt "#715"
+msgid ""
+"Set to ON and an on-screen notification will be displayed when a new update "
+"is available"
+msgstr "Auf EIN stellen und eine Bildschirm-Benachrichtigung wird angezeigt, sobald eine neue Aktualisierung verfügbar ist."
+
+msgctxt "#718"
+msgid ""
+"Send boot config files from /flash, kodi.log, kernel log and Samba configs "
+"to http://ix.io, and display the short URL"
+msgstr "Boot-Konfigurationen von /flash, kodi.log, kernel log und Samba-Konfigurationen an http://ix.io übermitteln und die Kurz-URL anzeigen"
+
+msgctxt "#719"
+msgid ""
+"Send boot config files from /flash, kodi_crash.log, kernel log and Samba "
+"configs to http://ix.io, and display the short URL"
+msgstr "Boot-Konfigurationen von /flash, kodi_crash.log, kernel log und Samba-Konfigurationen an http://ix.io übermitteln und die Kurz-URL anzeigen"
+
+msgctxt "#720"
+msgid "Set to ON to enable the Bluetooth service"
+msgstr "Auf EIN stellen, um Bluetooth zu aktivieren"
+
+msgctxt "#721"
+msgid "Send CoreELEC debug info without logs to http://ix.io, and display the short URL"
+msgstr ""
+
+msgctxt "#722"
+msgid ""
+"Create a tar archive containing all @DISTRONAME@ and Kodi configuration "
+"settings, databases and thumbnail content. Backup files will be stored in "
+"/storage/backup/"
+msgstr "Erzeugt ein Backup als tar-Archiv, welches die gesamten Einstellungen, Datenbanken und Vorschaubilder von @DISTRONAME@ und Kodi enthält. Die Sicherungen werden unter /storage/backup/ abgelegt."
+
+msgctxt "#723"
+msgid ""
+"Restore a tar archive backup previously created using the backup option "
+"above"
+msgstr "Wiederherstellung einer Datensicherung, die hier mit der Sicherungsoption erstellt wurde"
+
+msgctxt "#724"
+msgid ""
+"[COLOR FF00FF00]SOFT RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
+msgstr "[COLOR FF00FF00]SOFT RESET[/COLOR]\nStandardeinstellungen von @DISTRONAME@ und Kodi dauerhaft wiederherstellen (inklusive Reset der Datenbank. Musik- und Video-Dateien etc. werden dabei aber nicht  verändert)."
+
+msgctxt "#725"
+msgid ""
+"[COLOR FFFF0000]HARD RESET[/COLOR]\n"
+"Permanently reset @DISTRONAME@ and Kodi configuration to defaults (everything in your storage partition will be deleted)"
+msgstr "[COLOR FFFF0000]HARD RESET[/COLOR]\nStandardeinstellungen von @DISTRONAME@ und Kodi dauerhaft wiederherstellen (die gesamte Partition \"storage\" wird gelöscht)."
+
+msgctxt "#726"
+msgid "Enable or disable support for Wireless (WLAN) networks"
+msgstr "Drahtlose Netzwerke (WLAN) aktivieren oder deaktivieren"
+
+msgctxt "#727"
+msgid ""
+"Enable a 'tethered' Wireless Access Point. This requires your wireless card "
+"(and driver) to support bridging and access point mode. Not all cards are "
+"capable."
+msgstr "Aktiviert die Freigabe Ihres Netzwerkes (Tethering). Hierfür ist ein Drahtlosnetzwerkadapter erforderlich, der als Zugriffspunkt arbeiten kann. Nicht alle Drahtlosnetzwerkadapter unterstützen diesen Modus."
+
+msgctxt "#728"
+msgid "Configure the Access Point SSID"
+msgstr "Tethering Zugriffspunkt SSID (Name)"
+
+msgctxt "#729"
+msgid "Configure the Access Point Passphrase"
+msgstr "Tethering Zugriffspunkt Passwort"
+
+msgctxt "#730"
+msgid "Enable or disable support for Wired (Ethernet) networks"
+msgstr "Aktivieren bzw. deaktivieren von Kabelgebundenen Netzwerken (Ethernet)"
+
+msgctxt "#732"
+msgid "Configure the 1st time (NTP) server"
+msgstr "Erster Zeitserver (NTP)"
+
+msgctxt "#733"
+msgid "Configure the 2nd time (NTP) server"
+msgstr "Zweiter Zeitserver (NTP)"
+
+msgctxt "#734"
+msgid "Configure the 3rd time (NTP) server"
+msgstr "Dritter Zeitserver (NTP)"
+
+msgctxt "#736"
+msgid ""
+"Set to ON to delay Kodi startup until the network is available. Use this if "
+"the OS is booting into Kodi before the network is up and central MySQL "
+"databases are accessible."
+msgstr "Auf EIN stellen, um den Start von Kodi zu verzögern, bis das Netzwerk verfügbar ist. Verwende dies, wenn das Betriebssystem Kodi startet, bevor das Netzwerk und MySQL-Datenbanken verfügbar sind."
+
+msgctxt "#737"
+msgid "Time in seconds to wait for an established network connection."
+msgstr "Zeit in Sekunden, um auf eine bestehende Netzwerkverbindung zu warten."
+
+msgctxt "#738"
+msgid "Set to ON to enable the embedded Samba (SMB) filesharing service"
+msgstr "Auf EIN stellen, um den eingebetteten Samba (SMB) Datenfreigabedienst zu aktivieren"
+
+msgctxt "#739"
+msgid ""
+"Set to ON to require username/password access to local Samba fileshares"
+msgstr "Auf EIN stellen, um beim Zugriff auf lokale Samba-Dateifreigaben einen Benutzernamen/ein Passwort zu benötigen"
+
+msgctxt "#740"
+msgid "Set the username for Samba sharing"
+msgstr "Samba-Benutzername für Freigaben"
+
+msgctxt "#741"
+msgid "Set the password for Samba sharing"
+msgstr "Samba-Passwort für Freigaben"
+
+msgctxt "#742"
+msgid ""
+"Set to ON to enable the embedded SSH server. The SSH console can be accessed"
+" with username 'root' and password '@ROOT_PASSWORD@'."
+msgstr "Auf EIN stellen, um den eingebetteten SSH-Server zu aktivieren. Auf die SSH-Konsole kann mit dem Benutzernamen 'root' und dem Passwort '@ROOT_PASSWORD@' zugegriffen werden."
+
+msgctxt "#743"
+msgid ""
+"Set to ON if you have copied private SSH keys to your HTPC and would like to"
+" improve security by disabling SSH username and password authentication."
+msgstr "Auf EIN stellen, wenn du private SSH-Schlüssel auf deinen HTPC kopiert haben und die Sicherheit durch Deaktivierung der SSH-Benutzernamen- und Passwort-Authentifizierung verbessern möchtest."
+
+msgctxt "#744"
+msgid ""
+"Set to ON to enable the Avahi (Zeroconf/Bonjour) network discovery service"
+msgstr "Auf EIN stellen, um den Avahi (Zeroconf/Bonjour) Netzwerkverzeichnisdienst zu aktivieren"
+
+msgctxt "#745"
+msgid "Set to ON to enable the cron daemon"
+msgstr "Auf EIN stellen, um den Cron-Daemon zu aktivieren."
+
+msgctxt "#746"
+msgid "Set the password for SSH"
+msgstr "Passwort für SSH setzen"
+
+msgctxt "#747"
+msgid "Enable a PIN for @DISTRONAME@ Settings access"
+msgstr "PIN für den Zugriff auf die @DISTRONAME@ Einstellungen aktivieren"
+
+msgctxt "#748"
+msgid "Change the PIN Lock for @DISTRONAME@ Settings access"
+msgstr "PIN für den Zugriff auf die @DISTRONAME@ Einstellungen ändern"
+
+msgctxt "#749"
+msgid ""
+"Overrride the Wireless Regulatory Domain so radio properties (channels and "
+"transmit power) comply with local laws or match the country configuration of"
+" your router."
+msgstr "Die Behördliche Bestimmungen (für Funkkanäle und Sendeleistung) überschreiben, um mit den örtlichen Gesetzen im Einklang zu stehen."
+
+msgctxt "#750"
+msgid "750"
+msgstr "750"
+
+msgctxt "#751"
+msgid ""
+"With OBEX filetransfer you can send files, for example movies or pictures "
+"over bluetooth to @DISTRONAME@."
+msgstr "Mit OBEX-Dateiübertragung kannst du Dateien, zum Beispiel Filme oder Bilder, über Bluetooth an @DISTRONAME@ senden."
+
+msgctxt "#752"
+msgid ""
+"Here you can set the folder location where OBEX file transfer should store "
+"incoming files"
+msgstr "Hier kannst du den Speicherort auswählen, wo OBEX-Dateiübertragung die eingehenden Dateien abspeichert"
+
+msgctxt "#753"
+msgid "Configure the 1st keyboard software Variant"
+msgstr "Konfiguration des 1. Tastaturschemas"
+
+msgctxt "#754"
+msgid "Configure the 2nd keyboard software Variant"
+msgstr "Konfiguration des zweiten Tastaturschemas"
+
+msgctxt "#755"
+msgid "Auto share external drives / partitions"
+msgstr "Automatische Freigabe externer Laufwerke / Partitionen"
+
+msgctxt "#756"
+msgid ""
+"Disable older SMB protocols by specifying the minimum supported protocol."
+msgstr "Zur Definition der niedrigsten unterstützten Protokoll-Version ältere SMB-Protokolle deaktivieren."
+
+msgctxt "#757"
+msgid ""
+"Disable more recent SMB protocols for backward compatability with legacy "
+"clients."
+msgstr "Neuere SMB-Protokolle für die Abwärtskompatibilität mit veralteten Clients deaktivieren."
+
+msgctxt "#758"
+msgid "NetBIOS group to which the server belongs. Default is WORKGROUP."
+msgstr "NetBIOS-Gruppe, zu der der Server gehört. Standard ist WORKGROUP."
+
+msgctxt "#760"
+msgid "Select an update channel"
+msgstr "Update-Kanal auswählen"
+
+msgctxt "#761"
+msgid "Enable to allow entering a custom update url"
+msgstr "Aktiveren, um die Eingabe einer benutzerdefinierten URL zu erlauben"
+
+msgctxt "#762"
+msgid "Enter a custom update url (url should be the root of the update files)"
+msgstr "Benutzerdefinierte URL eingeben (URL sollte das Wurzelverzeichnis der Update-Dateien sein)"
+
+msgctxt "#770"
+msgid "Select an available version"
+msgstr "Eine verfügbare Version auswählen"
+
+msgctxt "#771"
+msgid ""
+"The firewall blocks unwanted network traffic. Home (default) allows traffic "
+"from private network ranges (192.168.x.x, 172.16.x.x and 10.x.x.x) only. "
+"Public blocks all traffic from all networks. Custom uses rules in "
+"/storage/.config/iptables. Off disables the firewall."
+msgstr "Die Firewall blockiert unerwünschten Netzwerkverkehr. Privat (Standard) erlaubt nur den Datenverkehr von privaten Netzwerkbereichen (192.168.x.x, 172.16.x.x und 10.x.x.x). Öffentlich blockiert den Datenverkehr von allen Netzwerken. Benutzerdefiniert verwendet die Regeln unter /storage/.config/iptables. Deaktiviert schaltet die Firewall aus."
+
+msgctxt "#772"
+msgid ""
+"Checking for a new version will submit the installed Distribution, Project, "
+"CPU Arch and Version to the update server. This data is also used to report "
+"basic statistics for the project. To continue checking for updates while "
+"opting-out of stats reporting, disable this option."
+msgstr "Das Überprüfen auf eine neue Version übermittelt die installierte Distribution, das Projekt, die CPU-Architektur und die Version an den Update-Server. Diese Daten werden auch verwendet, um grundlegende Statistiken für das Projekt zu übermitteln. Um weiterhin nach Updates suchen zu können, bei dem das übermitteln der Statistiken deaktiviert ist, bitte diese Option deaktivieren."
+
+msgctxt "#773"
+msgid ""
+"Set the idle timeout (in minutes) before devices will be disconnected "
+"(defaults to 0 for no timeout). Applies to devices where \"Enable Standby\" "
+"has been activated in the LibreELEC device connection context menu."
+msgstr "Das Leerlauf-Timeout (in Minuten) einstellen, bevor die Geräte getrennt werden (standardmäßig 0 für kein Timeout). Gilt für Geräte, bei denen \"Standby aktivieren\" im Kontextmenü der @DISTRONAME@ Geräteverbindung Menü aktiviert wurde."
+
+msgctxt "#32001"
+msgid "Services"
+msgstr "Dienste"
+
+msgctxt "#32002"
+msgid "System"
+msgstr "System"
+
+msgctxt "#32003"
+msgid "Interface"
+msgstr "Schnittstelle"
+
+msgctxt "#32005"
+msgid "Updates"
+msgstr "Aktualisierungen"
+
+msgctxt "#32009"
+msgid "Keyboard"
+msgstr "Tastatur"
+
+msgctxt "#32010"
+msgid "Keyboard Layout"
+msgstr "Tastaturbelegung"
+
+msgctxt "#32012"
+msgid "Select Action"
+msgstr "Aktion auswählen"
+
+msgctxt "#32013"
+msgid "OS Updates"
+msgstr "Aktualisierungen des Betriebssystems"
+
+msgctxt "#32014"
+msgid "Automatic Updates"
+msgstr "Automatische Aktualisierungen"
+
+msgctxt "#32015"
+msgid "Update Channel"
+msgstr "Update-Kanal"
+
+msgctxt "#32016"
+msgid "Show Custom Channels"
+msgstr "Benutzerdefinierte Kanäle anzeigen"
+
+msgctxt "#32017"
+msgid "  - Custom Channel 1"
+msgstr "- Benutzerdefinierter Kanal 1"
+
+msgctxt "#32018"
+msgid "  - Custom Channel 2"
+msgstr "- Benutzerdefinierter Kanal 2"
+
+msgctxt "#32019"
+msgid "  - Custom Channel 3"
+msgstr "- Benutzerdefinierter Kanal 3"
+
+msgctxt "#32020"
+msgid "Available Versions"
+msgstr "Verfügbare Versionen"
+
+msgctxt "#32021"
+msgid "Submit Statistics"
+msgstr "Statistiken übermitteln"
+
+msgctxt "#32022"
+msgid "Firmware Updates"
+msgstr "Firmware-Aktualisierungen"
+
+msgctxt "#32023"
+msgid "Updating will occur once the system is rebooted."
+msgstr "Die Aktualisierung erfolgt nach dem nächsten Neustart des Systems."
+
+msgctxt "#32024"
+msgid "Bootloader EEPROM"
+msgstr "EEPROM-Bootloader"
+
+msgctxt "#32025"
+msgid ""
+"Update the Raspberry Pi Bootloader EEPROM to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr "Den EEPROM-Bootloader des Raspberry Pi auf die neueste Version aktualisieren. Diese Option wird nach dem nächsten Neustart des Systems automatisch wieder deaktiviert. Starte das System neu, um die Aktualisierung durchzuführen."
+
+msgctxt "#32026"
+msgid "VIA USB3 Firmware"
+msgstr "VIA USB 3.0 Firmware"
+
+msgctxt "#32027"
+msgid ""
+"Update the Raspberry Pi VIA USB3 firmware to the latest version. This option"
+" is automatically disabled after rebooting. Reboot the system to apply the "
+"update."
+msgstr "Die Raspberry-Pi-Firmware des VIA USB 3.0 auf die neueste Version aktualisieren. Diese Option wird nach dem nächsten Neustart automatisch wieder deaktiviert. Starte das System neu, um die Aktualisierung durchzuführen."
+
+msgctxt "#32028"
+msgid "update from %s to %s"
+msgstr "Aktualisierung von %s auf %s"
+
+msgctxt "#32029"
+msgid "up to date: %s"
+msgstr "Auf dem neusten Stand: %s"
+
+msgctxt "#32100"
+msgid "Connections"
+msgstr "Verbindungen"
+
+msgctxt "#32101"
+msgid "Network"
+msgstr "Netzwerk"
+
+msgctxt "#32102"
+msgid "Wireless Networks"
+msgstr "Drahtlose Netzwerke"
+
+msgctxt "#32103"
+msgid "Wired Networks"
+msgstr "Kabelgebundene Netzwerke"
+
+msgctxt "#32105"
+msgid "Active"
+msgstr "aktiv"
+
+msgctxt "#32106"
+msgid "Username"
+msgstr "Benutzername"
+
+msgctxt "#32107"
+msgid "Passphrase"
+msgstr "Passwort"
+
+msgctxt "#32108"
+msgid "Enable 'tethered' Wireless Access Point"
+msgstr "WLAN-Acces Point ('tethered') aktivieren"
+
+msgctxt "#32109"
+msgid "Connect Automatically"
+msgstr "Automatisch verbinden"
+
+msgctxt "#32110"
+msgid "Connection"
+msgstr "Verbindung"
+
+msgctxt "#32111"
+msgid "IPv4"
+msgstr "IPv4"
+
+msgctxt "#32112"
+msgid "IPv6"
+msgstr "IPv6"
+
+msgctxt "#32113"
+msgid "IP Address Method"
+msgstr "IP-Adressierungsmethode"
+
+msgctxt "#32114"
+msgid "IP Address"
+msgstr "IP-Adresse"
+
+msgctxt "#32115"
+msgid "Subnet Mask"
+msgstr "Subnetzmaske"
+
+msgctxt "#32116"
+msgid "Default Gateway"
+msgstr "Standard Gateway"
+
+msgctxt "#32117"
+msgid "Prefix Length"
+msgstr "Prefix Länge"
+
+msgctxt "#32118"
+msgid "Privacy"
+msgstr "Privatsphäre"
+
+msgctxt "#32119"
+msgid "DNS Servers"
+msgstr "DNS-Server"
+
+msgctxt "#32120"
+msgid "Nameserver #1"
+msgstr "Erster Nameserver"
+
+msgctxt "#32121"
+msgid "Nameserver #2"
+msgstr "Zweiter Nameserver"
+
+msgctxt "#32122"
+msgid "Nameserver #3"
+msgstr "Dritter Nameserver"
+
+msgctxt "#32123"
+msgid "NTP Servers"
+msgstr "Zeitserver (NTP)"
+
+msgctxt "#32124"
+msgid "Timeserver #1"
+msgstr "Erster Zeitserver"
+
+msgctxt "#32125"
+msgid "Timeserver #2"
+msgstr "Zweiter Zeitserver"
+
+msgctxt "#32126"
+msgid "Timeserver #3"
+msgstr "Dritter Zeitserver"
+
+msgctxt "#32127"
+msgid "DNS Domains"
+msgstr "DNS Domänen"
+
+msgctxt "#32128"
+msgid "Domain #1"
+msgstr "Erste Domäne"
+
+msgctxt "#32129"
+msgid "Domain #2"
+msgstr "Zweite Domäne"
+
+msgctxt "#32130"
+msgid "Domain #3"
+msgstr "Dritte Domäne"
+
+msgctxt "#32140"
+msgid "Save"
+msgstr "Speichern"
+
+msgctxt "#32141"
+msgid "Delete"
+msgstr "Löschen"
+
+msgctxt "#32142"
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+msgctxt "#32143"
+msgid "Disconnect"
+msgstr "Verbindung trennen"
+
+msgctxt "#32144"
+msgid "Connect"
+msgstr "Verbinden"
+
+msgctxt "#32145"
+msgid "Pair"
+msgstr "Verbinden (pairing)"
+
+msgctxt "#32146"
+msgid "Hidden Network Name"
+msgstr "Name des unsichtbaren Funknetzwerkes"
+
+msgctxt "#32147"
+msgid "Wireless Network Passphrase"
+msgstr "WLAN Passwort"
+
+msgctxt "#32148"
+msgid "Wireless Network Username"
+msgstr "Funknetzwerk Benutzername"
+
+msgctxt "#32150"
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgctxt "#32180"
+msgid "Would you like to update @DISTRONAME@ now?"
+msgstr "Möchtest du @DISTRONAME@ jetzt aktualisieren?"
+
+msgctxt "#32181"
+msgid "Filename"
+msgstr "Dateiname"
+
+msgctxt "#32182"
+msgid "Download speed"
+msgstr "Geschwindigkeit"
+
+msgctxt "#32183"
+msgid "Time remaining"
+msgstr "Restzeit"
+
+msgctxt "#32184"
+msgid "Extract file"
+msgstr "Entpacke Datei"
+
+msgctxt "#32185"
+msgid "Extract speed"
+msgstr "Geschwindigkeit"
+
+msgctxt "#32186"
+msgid "Initialize Archive File"
+msgstr "Entpacke Datei"
+
+msgctxt "#32187"
+msgid "New Version"
+msgstr "Neue Version"
+
+msgctxt "#32188"
+msgid "Current Version"
+msgstr "Aktuelle Version"
+
+msgctxt "#32189"
+msgid "Identification"
+msgstr "Identifikation"
+
+msgctxt "#32190"
+msgid "System Name"
+msgstr "Systemname"
+
+msgctxt "#32191"
+msgid "Invalid URL"
+msgstr "Ungültige URL"
+
+msgctxt "#32192"
+msgid "PIN lock"
+msgstr "PIN-Sperre"
+
+msgctxt "#32193"
+msgid "Enable @DISTRONAME@ Settings PIN Lock"
+msgstr "PIN-Sperre für die @DISTRONAME@ Einstellungen aktivieren"
+
+msgctxt "#32194"
+msgid "Change @DISTRONAME@ Settings PIN Lock"
+msgstr "PIN-Sperre für @DISTRONAME@ Einstellungen ändern"
+
+msgctxt "#32196"
+msgid "About"
+msgstr "Über"
+
+msgctxt "#32198"
+msgid "SSID"
+msgstr "SSID"
+
+msgctxt "#32200"
+msgid "Samba"
+msgstr "Samba"
+
+msgctxt "#32201"
+msgid "SSH"
+msgstr "SSH"
+
+msgctxt "#32202"
+msgid "Use Samba Password Authentication"
+msgstr "Samba-Kennwortauthentifizierung benutzen"
+
+msgctxt "#32203"
+msgid "Disable SSH Password"
+msgstr "SSH-Passwort deaktivieren"
+
+msgctxt "#32204"
+msgid "Enable Samba"
+msgstr "Samba aktivieren"
+
+msgctxt "#32205"
+msgid "Enable SSH"
+msgstr "SSH aktivieren"
+
+msgctxt "#32206"
+msgid "Enable Avahi (Zeroconf)"
+msgstr "Avahi (Zeroconf) aktivieren"
+
+msgctxt "#32207"
+msgid "Avahi"
+msgstr "Avahi"
+
+msgctxt "#32208"
+msgid "Hidden Wlan"
+msgstr "Unsichtbares Wlan"
+
+msgctxt "#32209"
+msgid "SSH Password"
+msgstr "SSH-Passwort"
+
+msgctxt "#32210"
+msgid ""
+"The default SSH password is widely known and considered "
+"insecure.[CR][CR]Setting a personal password is recommended."
+msgstr "Das voreingestellte SSH-Passwort ist weithin bekannt und gilt als unsicher.[CR] [CR] Es wird empfohlen ein persönliches Passwort festzulegen."
+
+msgctxt "#32212"
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgctxt "#32213"
+msgid "Keep Existing"
+msgstr "Aktuelles beibehalten"
+
+msgctxt "#32214"
+msgid "Set Password"
+msgstr "Passwort festlegen"
+
+msgctxt "#32215"
+msgid "Workgroup name"
+msgstr "Name der Arbeitsgruppe"
+
+msgctxt "#32216"
+msgid "Auto-Share External Drives"
+msgstr "Automatische Freigabe externer Laufwerke"
+
+msgctxt "#32217"
+msgid "Minimum supported protocol"
+msgstr "Niedrigste unterstützte Protokoll-Version"
+
+msgctxt "#32218"
+msgid "Maximum supported protocol"
+msgstr "Höchste unterstützte Protokoll-Version"
+
+msgctxt "#32220"
+msgid "Bad password!"
+msgstr "Schlechtes Passwort!"
+
+msgctxt "#32221"
+msgid "The entered password is too weak.[CR]SSH password is unchanged."
+msgstr "Das eingegebene Passwort ist zu schwach.[CR]SSH-Passwort wurde nicht geändert."
+
+msgctxt "#32222"
+msgid "Password changed!"
+msgstr "Passwort wurde geändert!"
+
+msgctxt "#32223"
+msgid "The SSH password has been successfully changed."
+msgstr "Das SSH-Passwort wurde erfolgreich geändert."
+
+msgctxt "#32224"
+msgid "Unknown error!"
+msgstr "Unbekannter Fehler!"
+
+msgctxt "#32225"
+msgid "There was an error during the process.[CR]SSH password is unchanged."
+msgstr "Beim Bearbeiten des Vorgangs ist ein Fehler aufgetreten.[CR]SSH-Passwort wurde nicht geändert."
+
+msgctxt "#32226"
+msgid "Enter new 4 digit PIN"
+msgstr "Neue 4-stellige PIN eingeben"
+
+msgctxt "#32227"
+msgid "Re-enter PIN"
+msgstr "PIN wiederholen"
+
+msgctxt "#32228"
+msgid "Error - PIN codes did not match!"
+msgstr "Fehler: PINs stimmen nicht überein"
+
+msgctxt "#32229"
+msgid "@DISTRONAME@ Settings PIN lock not set.[CR][CR]Please try again."
+msgstr "PIN-Sperre für die @DISTRONAME@ Einstellungen wurde nicht eingerichtet.[CR][CR]Bitte nochmals versuchen."
+
+msgctxt "#32230"
+msgid "@DISTRONAME@ Settings PIN lock set."
+msgstr "PIN-Sperre für die @DISTRONAME@ Einstellungen eingerichtet."
+
+msgctxt "#32231"
+msgid "Your @DISTRONAME@ Settings PIN lock has been set to:"
+msgstr "Deine PIN-Sperre für die @DISTRONAME@ Einstellungen wurde eingestellt auf: "
+
+msgctxt "#32232"
+msgid "Error - PIN code not 4 digits!"
+msgstr "Fehler: PIN ist nicht 4-stellig!"
+
+msgctxt "#32233"
+msgid "@DISTRONAME@ Settings Locked[CR]Enter 4 digit PIN"
+msgstr "@DISTRONAME@ Einstellungen gesperrt[CR]4-stellige PIN eingeben"
+
+msgctxt "#32234"
+msgid "Incorrect PIN!"
+msgstr "Falsche PIN!"
+
+msgctxt "#32235"
+msgid " attempts remaining."
+msgstr "Verbleibende Eingabeversuche."
+
+msgctxt "#32236"
+msgid ""
+"You have entered an incorrect PIN too many times.[CR][CR]You will need to "
+"wait 5 minutes before trying again."
+msgstr "Du hast zu oft hintereinander eine falsche PIN eingegeben.[CR][CR]Du musst 5 Minuten warten, bevor Du es erneut versuchen kannst."
+
+msgctxt "#32237"
+msgid "@DISTRONAME@ Settings Locked!"
+msgstr "@DISTRONAME@ Einstellungen gesperrt!"
+
+msgctxt "#32238"
+msgid ""
+"Time remaining before PIN can be entered: %02d:%02d[CR][CR]Too many previous"
+" failed attempts."
+msgstr "Verbleibende Zeit bis die PIN erneut eigegeben werden darf %02d:%02d[CR][CR]Zu viele fehlgeschlagene Versuche."
+
+msgctxt "#32240"
+msgid "Wireless Regulatory Domain"
+msgstr "Behördliche Bestimmungen für Funkkanäle"
+
+msgctxt "#32300"
+msgid "Welcome to @DISTRONAME@"
+msgstr "Willkommen bei @DISTRONAME@"
+
+msgctxt "#32301"
+msgid "Welcome"
+msgstr "Willkommen"
+
+msgctxt "#32302"
+msgid ""
+"This wizard will guide you through the process of setting up your new "
+"@DISTRONAME@ installation - setting your location, timezone and connecting "
+"you to the internet.[CR][CR]These settings can be changed later by "
+"navigating to Programs > @DISTRONAME@ Settings."
+msgstr "Dieser Assistent führt dich durch die Einrichtung einer neuen Installation von @DISTRONAME@. Dazu zählt u.a. die Auswahl des Standortes, der Zeitzone und die Konfiguration der Internetverbindung.[CR][CR]Diese Einstellungen können später über Programme > @DISTRONAME@ Konfiguration angepasst werden."
+
+msgctxt "#32303"
+msgid "Next"
+msgstr "Weiter"
+
+msgctxt "#32304"
+msgid ""
+"To be identified easily on the network, your new @DISTRONAME@ machine needs "
+"a name.[CR][CR]Try to choose something meaningful - like the room it's in - "
+"so you'll know what it is when you see it on the network.[CR][CR]This name "
+"is used when configuring network services, like file sharing using samba."
+msgstr "Damit die neue @DISTRONAME@ Installation im Netzwerk gefunden werden kann, wird ein Gerätename benötigt.[CR][CR]Wähle eine möglichst aussagekräftigen Namen, wie z.B. den Raum, in dem das Gerät steht.[CR][CR]Dieser Name wird auch für die Konfiguration weiterer Netzwerkdienste, z.B. Dateifreigaben per Samba, benötigt."
+
+msgctxt "#32305"
+msgid "Networking"
+msgstr "Netzwerk"
+
+msgctxt "#32306"
+msgid ""
+"In order to download backdrops, banners and thumbnails for your movies and "
+"TV shows and to stream online content from sites like YouTube, @DISTRONAME@ "
+"needs to be connected the Internet.[CR][CR]An Internet connection is also "
+"required for @DISTRONAME@ to automatically update itself."
+msgstr "@DISTRONAME@ muss mit dem Internet verbunden sein, um Hintergrundbilder, Banner und Vorschaubilder für Serien und Filme herunterladen zu können und um Online-Inhalte von z.B. Youtube streamen zu können.[CR][CR]Außerdem wird eine Internetverbindung auch für automatische Aktualisierungen von @DISTRONAME@ benötigt."
+
+msgctxt "#32307"
+msgid "Previous"
+msgstr "Zurück"
+
+msgctxt "#32308"
+msgid "Hostname:"
+msgstr "Rechnername:"
+
+msgctxt "#32309"
+msgid "The following Networks are currently available:"
+msgstr "Die folgenden Netzwerke sind derzeit verfügbar:"
+
+msgctxt "#32310"
+msgid "Language:"
+msgstr "Sprache:"
+
+msgctxt "#32311"
+msgid "Sharing and Remote Access"
+msgstr "Dateifreigaben und Fernzugriffe"
+
+msgctxt "#32312"
+msgid ""
+"@DISTRONAME@ also supports SSH for remote access. This is for advanced users"
+" who wish to interact with @DISTRONAME@'s underlying operating system. The "
+"default user is [COLOR blue]root[/COLOR] and the default password is [COLOR "
+"blue]@ROOT_PASSWORD@[/COLOR]."
+msgstr "@DISTRONAME@ unterstützt SSH für den Fernzugriff. Diese Möglichkeit ist für erfahrene Benutzer gedacht, die direkt auf das @DISTRONAME@ basierende Betriebssystem zugreifen möchten. Der Standard-Benutzername lautet [COLOR blue]root[/COLOR]. Das Standard-Passwort ist [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+
+msgctxt "#32313"
+msgid ""
+"In order to share your files between your computers @DISTRONAME@ has "
+"incorporated a samba server. This samba server can be integrated into your "
+"local network by accessing it in a familiar way with Finder or Windows "
+"Explorer."
+msgstr "Um Dateien mit anderen Geräten im Netzwerk teilen zu können, hat @DISTRONAME@ einen eingabauten Samba-Server. Dieser Server kann in das lokale Netzwerk eingebunden werden, sodass in gewohnter Weise, z.B. mit dem Finder oder Windows Explorer, darauf zugegriffen werden kann."
+
+msgctxt "#32316"
+msgid "Configure Services:"
+msgstr "Dienste konfigurieren:"
+
+msgctxt "#32317"
+msgid "Thank you"
+msgstr "Danke"
+
+msgctxt "#32318"
+msgid ""
+"Your @DISTRONAME@ installation is now complete and you are about to enter "
+"Kodi where you can set up your media libraries. For help with this, there is"
+" a guide available at wiki.kodi.tv[CR][CR]@DISTRONAME@ is developed by a "
+"dedicated team of developers who work purely in their spare time. Even as a "
+"volunteer project, we still have to pay for our internet bandwidth and "
+"development resources so if you find @DISTRONAME@ useful we will always "
+"appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using"
+" @DISTRONAME@ as much as we've enjoyed building it. If you need any more "
+"help, you can find links to our support forum along with latest news at our "
+"website."
+msgstr "Die Installation von @DISTRONAME@ ist abgeschlossen. Du darfst nun endlich in die Kodi-Welt eintauchen in der Du Deine Mediatheken einrichten kannst. Falls Du Hilfe benötigst, findest Du unter wiki.kodi.tv Anleitungen und Unterstützung.[CR][CR]@DISTRONAME@ wird von einem engagierten Freiwilligenteam entwickelt, das daran ausschließlich in seiner Freizeit arbeiten. Dennoch müssen wir selbst als ehrenamtliches Projekt unser Internet, die Website, das Webhosting, die Technik und die Entwicklungskosten bezahlen. Wenn Du also @DISTRONAME@ nützlich findest, würden wir uns über eine Spende in beliebiger Höhe freuen.[CR][CR]Zum Schluss wünschen wir Dir mit @DISTRONAME@ genauso viel Spaß, wie wir bei der Entwicklung hatten. Falls Du weitere Hilfe benötigst, findest Du auf unserer Website auch ein Support-Forum und aktuelle Meldungen."
+
+msgctxt "#32319"
+msgid "Cron"
+msgstr "Cron"
+
+msgctxt "#32320"
+msgid "Enable Cron"
+msgstr "Cron aktivieren"
+
+msgctxt "#32323"
+msgid "Reset to Defaults"
+msgstr "Standardwerte wiederherstellen"
+
+msgctxt "#32324"
+msgid "Reset System Settings to defaults"
+msgstr "Einstellungen in den Auslieferungszustand zurücksetzen"
+
+msgctxt "#32325"
+msgid "Reset @DISTRONAME@ to defaults"
+msgstr "@DISTRONAME@ auf Standardeinstellungen zurücksetzen"
+
+msgctxt "#32326"
+msgid "Are you sure?"
+msgstr "Bist du dir sicher?"
+
+msgctxt "#32328"
+msgid "The system must reboot."
+msgstr "Das System muss neu starten."
+
+msgctxt "#32329"
+msgid "Rebooting in %d seconds"
+msgstr "Neustart in %d Sekunden"
+
+msgctxt "#32330"
+msgid "Keyboard Type"
+msgstr "Tastaturbelegung"
+
+msgctxt "#32331"
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+msgctxt "#32333"
+msgid "Connected: "
+msgstr "Verbunden: "
+
+msgctxt "#32334"
+msgid "Yes"
+msgstr "Ja"
+
+msgctxt "#32335"
+msgid "No"
+msgstr "Nein"
+
+msgctxt "#32338"
+msgid "No Bluetooth adapter found."
+msgstr "Kein Bluetooth-Adapter gefunden."
+
+msgctxt "#32339"
+msgid ""
+"No Bluetooth device found. Please put your Bluetooth device into discovery "
+"mode[CR]and start the scan"
+msgstr "Keine Bluetooth-Geräte gefunden. Aktiviere im Bluetooth-Gerät den[CR]Verbindungsmodus und starte die Suche erneut."
+
+msgctxt "#32343"
+msgid "Enter the following Key on your Device."
+msgstr "Gebe den folgenden Code auf deinem Gerät ein."
+
+msgctxt "#32344"
+msgid "Enable Bluetooth"
+msgstr "Bluetooth aktivieren"
+
+msgctxt "#32346"
+msgid "Bluetooth is disabled"
+msgstr "Bluetooth ist deaktiviert"
+
+msgctxt "#32358"
+msgid "Trust and Connect"
+msgstr "Vertrauen und verbinden"
+
+msgctxt "#32362"
+msgid "Check for updates now:"
+msgstr "Jetzt nach Aktualisierungen suchen:"
+
+msgctxt "#32363"
+msgid "@DISTRONAME@"
+msgstr "@DISTRONAME@"
+
+msgctxt "#32364"
+msgid "Update available"
+msgstr "Aktualisierung verfügbar"
+
+msgctxt "#32365"
+msgid "Show Update Notifications"
+msgstr "Aktualisierungsbenachrichtigungen anzeigen"
+
+msgctxt "#32366"
+msgid "Update Download Completed"
+msgstr "Herunterladen der Aktualisierung abgeschlossen"
+
+msgctxt "#32367"
+msgid "Update Extract Complete"
+msgstr "Entpacken der Aktualisierung abgeschlossen"
+
+msgctxt "#32368"
+msgid "Advanced Network Settings"
+msgstr "Erweiterte Netzwerkeinstellungen"
+
+msgctxt "#32369"
+msgid "Wait for network before starting Kodi"
+msgstr "Vor dem Start von Kodi auf das Netzwerk warten"
+
+msgctxt "#32370"
+msgid "Maximum Wait Time (Sec.)"
+msgstr "Maximale Wartezeit (Sekunden)"
+
+msgctxt "#32371"
+msgid "Backup"
+msgstr "Sichern"
+
+msgctxt "#32372"
+msgid "Create System and Kodi Backup"
+msgstr "System und Kodi Datensicherung erstellen"
+
+msgctxt "#32373"
+msgid "Restore Backup"
+msgstr "Datensicherung wiederherstellen"
+
+msgctxt "#32375"
+msgid "Backup Progress"
+msgstr "Fortschritt der Datensicherung"
+
+msgctxt "#32376"
+msgid "Submit Log"
+msgstr "Fehlerbericht (Log) übermitteln"
+
+msgctxt "#32377"
+msgid "Upload latest Kodi log and configs, and view the short URL"
+msgstr "Aktuelle Kodi Log und Konfigurationen übermitteln und die Kurz-URL anzeigen"
+
+msgctxt "#32378"
+msgid "Upload latest Kodi crash log and configs, and view the short URL"
+msgstr "Aktuelle Kodi Absturz-Log und Konfigurationen übermitteln und die Kurz-URL anzeigen"
+
+msgctxt "#32379"
+msgid "There is not enough free storage space to continue!"
+msgstr "Es ist nicht genügend freier Speicherplatz vorhanden!"
+
+msgctxt "#32380"
+msgid ""
+"Restoring system settings requires a reboot. Are you sure you want to "
+"restore?"
+msgstr "Die Wiederherstellung benötigt einen Neustart. Bist du dir sicher, dass du die Wiederherstellung durchführen möchten."
+
+msgctxt "#32381"
+msgid "Accept incoming Bluetooth Filetransfer ?"
+msgstr "Eingehende Bluetooth-Dateiübertragung annehmen?"
+
+msgctxt "#32382"
+msgid "Speed"
+msgstr "Geschwindigkeit"
+
+msgctxt "#32383"
+msgid "Play Files ?"
+msgstr "Wiedergeben von Dateien?"
+
+msgctxt "#32384"
+msgid "OBEX Enabled"
+msgstr "OBEX aktiviert"
+
+msgctxt "#32385"
+msgid "OBEX Upload Folder"
+msgstr "OBEX-Hochladeordner"
+
+msgctxt "#32386"
+msgid "Keyboard Layout Variant #1"
+msgstr "Tastaturbelegung Variante 1"
+
+msgctxt "#32387"
+msgid "Keyboard Layout Variant #2"
+msgstr "Tastaturbelegung Variante 2"
+
+msgctxt "#32388"
+msgid "Enable Standby"
+msgstr "Aktiviere Standby"
+
+msgctxt "#32389"
+msgid "Disable Standby"
+msgstr "Deaktivere Standby"
+
+msgctxt "#32390"
+msgid "Settings addon is not yet ready, please try again later."
+msgstr "Das Einstellungs-Addon ist nicht bereit. Versuch es später erneut."
+
+msgctxt "#32391"
+msgid "Upload configs and other debug info without logs, and view the short URL"
+msgstr ""
+
+msgctxt "#32393"
+msgid "** SAFE MODE! ** SAFE MODE! ** SAFE MODE! **"
+msgstr "** Sicherheitsmodus! ** Sicherheitsmodus! ** Sicherheitsmodus! **"
+
+msgctxt "#32395"
+msgid "Firewall"
+msgstr "Firewall"
+
+msgctxt "#32396"
+msgid "Custom"
+msgstr "Benutzerdefiniert"
+
+msgctxt "#32397"
+msgid "Off"
+msgstr "Deaktiviert"
+
+msgctxt "#32398"
+msgid "Home"
+msgstr "Privat"
+
+msgctxt "#32399"
+msgid "Public"
+msgstr "Öffentlich"
+
+msgctxt "#32400"
+msgid "Idle Timeout"
+msgstr "Leerlauf-Timeout"

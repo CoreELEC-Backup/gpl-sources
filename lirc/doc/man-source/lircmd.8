@@ -1,0 +1,165 @@
+.TH LIRCMD "8" "Last change: Aug 2016" "lircmd @version@" "System Administration Utilities"
+.SH NAME
+.P
+\fBlircmd\fR - Translate infrared signals into mouse events.
+.SH SYNOPSIS
+.P
+\fBlircmd\fR [\fIoptions\fR] [\fIconfig-file\fR]
+.SH DESCRIPTION
+.B lircmd
+reads decoded buttonpress events from a
+.BR lircd(8)
+output socket and converts them to mouse events.
+These events are made available either on the lircmd output
+socket (by default
+.I @varrundir@/lirc/lircmd
+) or, using the
+.I --uinput
+option, on a /dev/input device like
+.I /dev/input/event12
+\&.
+.P
+This daemon can simulate a MouseSystems, IntelliMouse or IMPS/2 type mouse.
+The function depends on a configuration file, by default
+.I @etcdir@/lirc/lircmd.conf
+\&.
+This file determines which button from which remote causes a mouse move
+or a mouse button click.
+Special button which activates or deactivates the mouse mode can also be
+defined.
+.P
+The normal usage is to configure X11 to use the events produced by lircmd
+as an input source.
+See  SEE ALSO.
+.P
+Using the
+.I --uinput
+option the user device created by the kernel has a dynamic name
+which typically changes after a reboot.
+The lirc distribution contains a udev rule which, if installed, creates
+a fixed link named
+.I /dev/lircmd
+which always can be used.
+.P
+By default, using the
+.I --uinput
+option requires
+.B lircmd
+to run as root since the
+.I /dev/uinput
+device can be accessed only by root.
+The lirc distribution contains example udev rules and
+.B lircd-setup(8)
+configurations which can be used to make the device accessible by other
+users.
+In this way,
+.B lircmd
+can be run as a regular user.
+
+
+.SH OPTIONS
+.TP
+\fB\-h\fR \fB\-\-help\fR
+Display help  message.
+.TP
+\fB\-v\fR \fB\-\-version\fR
+Display version.
+.TP
+\fB\-n\fR \fB\-\-nodaemon\fR
+Don't fork to background.
+.TP
+\fB\-s\fR \fB\-\-socket\fR <\fIsocket path\fR>
+Use alternate lircd socket path (the lircmd input source).
+Defaults to the
+.I output
+key in the
+.I [lircd]
+section of the
+.I lirc_options.conf
+config file, falling back to @varrundir@/lirc/lircd.
+.TP
+\fB\-O\fR \fB\-\-options\-file\fR=\fIfile\fR
+Alternative default options file, usually defaults to
+@etcdir@/lirc/lirc_options.conf.
+.TP
+\fB\-u\fR \fB\-\-uinput\fR
+On Linux systems the \-\-uinput option will enable automatic generation
+of Linux input events. lircmd will open /dev/input/uinput and inject
+the simulated mouse events into the Linux kernel rather than creating
+the /dev/lircm device.
+The kernel makes these  events available to other applications on a
+/dev/input device, just like any other kernel input device.
+.TP
+\fB\-D\fR \fB\-\-loglevel\fR=[\fIlevel\fR]
+Determine the amount of logging information. [level] can be a symbolic
+syslog level: 'error','warning, 'info', 'notice' or  'debug'. lircd
+also defines three additional levels 'trace', 'trace1' and 'trace2' which
+gives even more messages ('trace2' bringing the most). However, in the
+log these messages are marked as 'debug'.
+
+.SH SOCKET PROTOCOL
+
+The socket protocol contains undocumented parts. The data on the output
+socket is
+.TP 4
+.B MouseSystems
+5 byte packets:
+.RS 4
+.IP \(bu 4
+Byte 1: Button information.
+.IP \(bu 4
+Byte 2: X-axis change.
+.IP \(bu 4
+Byte 3: Y-axis change.
+.IP \(bu 4
+Byte 4 and 5: 0.
+.RE
+.TP
+.B IMPS/2
+4 byte packets. Please refer to the lircmd source code for details.
+.TP 4
+.B IntelliMouse
+4 byte packets. Please refer to the lircmd source code for details.
+
+.SH FILES
+
+\fBlircmd\fR will use syslogd to output error messages. It depends on your
+system configuration where they will show up.
+.P
+The options file is by default @etcdir@/lirc/lirc_options.conf;
+.B lircmd
+handles the values under the [lircmd] section in this file.
+The location can be changed using the -O/--options-file command-line
+option or using the environment variable LIRC_OPTIONS_PATH.
+The values here are used as defaults for any option not present on
+command line.
+.P
+
+.SH DAEMONS
+
+.B lircmd
+is a  daemon.
+It should be started in some system-dependent init script.
+Besides the systemd setup which is installed by default there are also
+example scripts for other distros and init systems in the contrib
+directory.
+.B lircmd
+has to be started after lircd as it connects to the socket lircd provides.
+
+.SH BUGS
+
+Since the device name used when registrating the
+.I --uinput
+device is fixed, only one instance of
+.B lircmd
+using this option can run on a given system.
+.P
+The socket protocol is a documentation-wise mess.
+
+.SH "SEE ALSO"
+.P
+.BR http://lirc.org/html/configure.html#lircmd.conf
+.br
+.BR lircd(8)
+.br
+.BR lircd-setup(8)

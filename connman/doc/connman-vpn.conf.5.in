@@ -1,0 +1,73 @@
+.\" connman-vpn.conf(5) manual page
+.\"
+.\" Copyright (C) 2015 Intel Corporation
+.\"
+.TH "connman-vpn.conf" "5" "2015-10-15" ""
+.SH NAME
+connman-vpn.conf \- ConnMan-VPN configuration file
+.SH SYNOPSIS
+.B @sysconfdir@/connman/connman-vpn.conf
+.SH DESCRIPTION
+.P
+.B connman-vpn.conf
+is a configuration file for ConnMan-VPN. The configuration file is
+optional but it can be used to set up various aspects of ConnMan-VPN's
+behavior. The location of the file may be changed through use of
+the \fB\-\-config= \fRargument for \fBconnman-vpn\fP(8).
+.P
+DAC privileges (user, group and supplementary groups) of a VPN binary
+ran by \fBconnman-vpn\fP(8) can be controlled by this configuration.
+Configuration in
+.B connman-vpn.conf
+is for all VPN types and can be overridden by defining separate configs into
+.B @sysconfdir@/connman/vpn-plugin/
+using the plugin name + .conf suffix using the same syntax. For example,
+for OpenVPN the path to config is
+.B  @sysconfdir@/connman/vpn-plugin/openvpn.conf
+which will override any value in the main configuration.
+
+.SH "FILE FORMAT"
+.P
+The configuration file consists of sections (groups) of key-value pairs.
+Lines beginning with a '#' and blank lines are considered comments.
+Sections are started by a header line containing the section enclosed
+in '[' and ']', and ended implicitly by the start of the next section
+or the end of the file. Each key-value pair must be contained in a section.
+.P
+Description of sections and available keys follows:
+.SS [General]
+This section is the only mandatory section of the configuration file.
+.TP
+.BI InputRequestTimeout= secs
+Set input request timeout. Default is 300 seconds. The request for inputs
+like passphrase will timeout after certain amount of time. Use this setting
+to increase the value in case of different user interface designs.
+.SS [DACPrivileges]
+This section controls the DAC privileges to use for a VPN binary used by a VPN
+plugin. DAC privileges that can be set are user, group and supplementary groups.
+.TP
+.BI User= username/uid
+User on the system to use for running VPN binary. Username or uid can be used.
+.TP
+.BI Group= groupname/gid
+The main group to use for running VPN binary. Group name or gid can be used.
+.TP
+.BI SupplementaryGroups= groupnames/gids
+Comma separated list of supplementary groups to set for the VPN binary. Groups
+can be defined with their names or gid's.
+.SH "EXAMPLES"
+The following example configuration sets InputRequestTimeout to 10 minutes,
+runs VPNs as user "vpn_user" of group "vpn" with additional supplementary
+groups "inet" and "net_admin".
+.PP
+.nf
+[General]
+InputRequestTimeout = 600
+
+[DACPrivileges]
+User = vpn_user
+Group = vpn
+SupplementaryGroups = inet, net_admin
+.fi
+.SH "SEE ALSO"
+.BR connman (8), \ connman-vpn (8)

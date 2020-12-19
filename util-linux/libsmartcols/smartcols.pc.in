@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: smartcols
+Description: table or tree library
+Version: @LIBSMARTCOLS_VERSION@
+Cflags: -I${includedir}/libsmartcols
+Libs: -L${libdir} -lsmartcols

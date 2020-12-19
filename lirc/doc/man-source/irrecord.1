@@ -1,0 +1,248 @@
+.TH IRRECORD "1" "Last change: May 2017" "irrecord @version@" "User Commands"
+.SH NAME
+.P
+\fBirrecord\fR - IR-codes recording tool for usage with LIRC
+.SH SYNOPSIS
+.P
+\fBirrecord\fR [\fI-f\fR] [\fI-n\fR] [\fI-H driver\fR] [\fI-d device\fR] [\fIfile\fR]
+.P
+\fBirrecord\fR -a <\fIfile\fR>
+.P
+\fBirrecord\fR -l
+.P
+\fBirrecord\fR \--help | --version
+
+.SH DESCRIPTION
+This program will record the signals from your remote control and create
+a config file for lircd.  Although a good deal of effort is put in
+this program it is often not possible to automatically recognize all
+features of a remote control. See USAGE NOTES below.
+.P
+If \fIfile\fR is not specified it defaults to "irrecord.lircd.conf"
+.P
+If \fIfile\fR already exists and contains a valid config irrecord will
+use the protocol description found there and will only try to record the
+buttons.
+
+.SH OPTIONS
+.TP
+\fB\-a\fR \fB\-\-analyse\fR
+Analyse a raw_codes config file, trying to convert it to a
+regular configuration.
+.TP
+\fB\-u\fR \fB\-\-update\fR
+Add new buttons to an existing config file. No protocol information is
+updated.
+.TP
+\fB\-f\fR \fB\-\-force\fR
+Force raw mode. Use this if recording fails otherwise. This
+creates a raw codes configuration file which can be used as-is
+or converted using the -a option.
+.TP
+\fB\-n\fR \fB\-\-disable\-namespace\fR
+Disable namespace checks.
+.TP
+\fB\-l\fR \fB\-\-list\-namespace\fR
+List valid button names.
+.TP
+\fB\-H\fR \fB\-\-driver\fR=\fIdriver\fR
+Use given driver. -H help lists available drivers.
+.TP
+\fB\-d\fR \fB\-\-device\fR=\fIdevice\fR
+Read from given device. Use \fBmode2(1) --list-devices\fR to list
+available devices for a driver.
+.TP
+\fB\-U\fR \fB\-\-plugindir\fR=\fIdirectory\fR
+Load drivers from directory. See DRIVER LOADING.
+.TP
+\fB\-k\fR \fB\-\-keep-root\fR
+Don't drop root privileges after opening device. See RUNNING AS ROOT.
+.TP
+\fB-A, --driver-options\fR \fIkey:value[|key:value...]\fR
+Set one or more options for the driver. The argument is a list of
+key:value pairs delimited by '|'. The key can not contain spaces, but
+such are allowed in the value part. Certain characters including '#'
+and ';' are used as comment markers in the config file and are not
+allowed anywhere.
+.TP
+\fB\-D\fR \fB\-\-loglevel\fR=\fIlevel\fR
+Determine the amount of logging information. [level] can be a symbolic
+syslog level: 'error','warning, 'info', 'notice' or  'debug'. lirc
+also defines three additional levels 'trace', 'trace1' and 'trace2' which
+gives even more messages ('trace2' bringing the most). However, in the
+log these messages are marked as 'debug'.
+The level can also be an integer in the range 3 (almost no messages) to
+10.
+.TP
+\fB\-O, \fB\-\-options-file\fR <\fIpath\fR>
+File containing default values for all options. A relative path is
+interpreted from current directory. See [FILES] below.
+.TP
+\fB\-h\fR \fB\-\-help\fR
+Display this message.
+.TP
+\fB\-v\fR \fB\-\-version\fR
+Display version.
+
+.SH USAGE NOTES
+.P
+The primary options are \-\-driver and usually also \-\-device (some drivers
+does not need \-\-device). These could be verified using mode2(1)
+if \fiirrecord\fR runs into trouble.
+.P
+When driver and device is known it saves some work to update
+lirc_options.conf with the new values. irrecord uses the [lircd] section
+as a fallback, so with a proper lirc_options.conf irrecord could be run
+without command line options.
+.P
+Using an existing file as a template can sometimes be required for
+\fIirrecord\fR to work. If using one of the generic templates it can also
+provide better timing. See PROTOCOL PARAMETERS AND TEMPLATES.
+.P
+If the program fails to recognize the protocol of the remote control you
+could use the \-\-force option to at least create a config file in raw mode.
+
+.SH REPEAT MASKS
+After recording some buttons with irrecord, you should check the
+repeat masks. These are needed in order to handle repeated button
+presses, which are very common
+.P
+Using the config file, start lircd and irw. Keeping a button
+pressed down, you should see something like:<
+.nf
+
+        0000000000f40bf0 00 KEY_1 ANIMAX
+        0000000000f40bf0 01 KEY_1 ANIMAX
+        0000000000f40bf0 02 KEY_1 ANIMAX
+        0000000000f40bf0 03 KEY_1 ANIMAX
+        0000000000f40bf0 04 KEY_1 ANIMAX
+        0000000000f40bf0 05 KEY_1 ANIMAX
+.fi
+.P
+Note how the second field gets incremented. This must work for correct
+operation.
+
+.SH PROTOCOL PARAMETERS AND TEMPLATES.
+irrecord actually works in two phases. In the first, it tries to identify
+the protocol used by the remote. Although this often  works quite well,
+there are advantages using an existing file as a template.
+.P
+One reason to use a template is when irrecord fails to recognize the
+protocol in the beginning. In such cases, try to find an existing
+configuration from the same vendor using something like:
+.P
+.nf
+        $ irdb-get find motorola
+          # lots of remotes listed...
+        $ irdb-get download motorola/VIP_1200.lircd.conf  # Pick any
+        $ cp VIP_1200.lircd.conf my_remote.lircd.conf
+        $ irrecord my_remote.lircd.conf
+.fi
+.P
+Invoking irrecord this way re-uses the existing protocol which usually
+works (vendors seldom changes protocol parameters).
+.P
+Another reason to use an existing file is to get more exact timing,
+important when planning to also transmit (blast). In such cases, using
+a generic template found using \fIirdb-get find generic\fR has
+advantages since the timing values here are hand-crafted from
+specifications. To use these, you need to know which protocol your
+remote uses, though.
+.P
+If decoding of IR commands does not work reliably you can try to
+modify the eps and aeps values in the lircd config file to adjust
+the tolerance of signal lengths. aeps is an absolute value while
+eps is a relative value expressed in percent. See lircd.conf(5)
+
+.SH TROUBLESHOOTING
+.P
+.SS Multiple-personalities remotes
+.P
+Some remotes actually emulates two or more remotes. \fIirrecord\fR runs
+into trouble if  buttons from different logical remotes are mixed in
+the same run, in particular in the initial protocol identification. For
+such devices, irrecord must be invoked once for every logical device using
+only buttons from this device during the run.
+
+.SS Un-printable garbage when using default driver
+If there is various non-printable garbage on the screen when running
+irrecord when using the default driver the rc protocol needs to be set.
+With a single device the protocol can be set and inspected using
+.P
+.nf
+        sudo sh -c "echo 'lirc' > /sys/class/rc/rc0/protocol"
+        cat /sys/class/rc/rc0/protocol
+.fi
+
+.SS Physical disturbances
+As for physical disturbances, the primary source is fluorescent
+light. You should not have any such light around when using irrecord.
+It's also important to have a suitable distance between the remote and
+the capture device, which often is smaller than in typical, normal
+usage. However, making the distance too small might cause other problems.
+At a first try use a foot or two.
+
+.SH "DRIVER LOAD PATH"
+Drivers are loaded dynamically. This is done from a traditional *ux
+\':\'\-separated path where each component in the path is searched (leading
+part first, trailing last).
+.P
+The path used for this is determined by (falling
+priority):
+.IP \- 2
+The --plugindir option.
+.IP \- 2
+The 'plugindir' entry in  the [lircd] section of the lirc_options.conf file.
+.IP \- 2
+The environment variable LIRC_PLUGINDIR.
+.IP \- 2
+A hardcoded default (@libpath@/lirc/plugins).
+
+.SH RUNNING AS ROOT
+In many cases irrecord needs to run as root to access devices not
+available to regular users. On the other hand, running as root creates
+problems such as log files owned by root, security concerns etc.
+.P
+In order to cope with this, irrecord by default drops root privileges
+after opening the input device. This support is based on that root
+permissions are accquired using sudo(1) e. g., using
+.nf
+
+        $ sudo irrecord --device /dev/lirc0 --driver default
+
+.fi
+If not using sudo, the same behaviour could be accomplished using the
+SUDO_USER environment variable e. g.,
+.nf
+
+        # SUDO_USER=$LOGNAME irrecord --device /dev/lirc0 --driver default
+
+.fi
+The --keep-root option will make irrecord to keep root privileges for the
+complete run.
+
+
+
+.SH FILES
+.TP 4
+.B @etcdir@/lirc/lirc_options.conf
+The options file holding default values for command line options in the
+[irrecord] section. For some values including debug, plugindir, driver and
+device irrecord falls back to the [lircd] section if not found in [irrecord].
+.IP \- 4
+The location of this file can be changed using the -O/--options-file
+command-line option or using the environment variable LIRC_OPTIONS_PATH.
+
+.TP 4
+.B ~/.cache/irrecord.log
+Debug output. Setting the XDG_CACHE_HOME environment variable relocates this
+file to $XDG_CACHE_HOME/irrecord.log
+
+.SH "SEE ALSO"
+https://sourceforge.net/p/lirc-remotes/wiki
+.br
+irdb-get(1)
+.br
+mode2(1)
+.br
+lircd.conf(5)

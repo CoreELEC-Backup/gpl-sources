@@ -1,0 +1,74 @@
+.TH LIRC-LSPLUGINS "1" "Last change: Oct 2016" "lirc-lsplugins @version@" "User Commands"
+.SH NAME
+.P
+\fBlirc-lsplugins\fR - Print dynamic modules info
+.SH SYNOPSIS
+.P
+\fBlirc-lsplugins\fR [\fI-l\fR] [\fI-q\fR] [\fI-U plugindir\fR] [\fIdrivers\fR]
+.P
+\fBlirc-lsplugins\fR -e [\fI-q\fR] [\fI-U plugindir\fR]
+.P
+\fBlirc-lsplugins\fR -y  [\fI-U plugindir\fR]
+
+.SH DESCRIPTION
+Tool which writes a simple list with info for each driver found. In
+particular, it writes info if a plugin can't be loaded e. g., due to
+unresolved references.
+.P
+The
+\fIdrivers\fR
+argument is an optional selector which limits the output to matching drivers.
+The match is a glob-type match as done by fnmatch()
+.SH OPTIONS
+.TP
+\fB\-U\fR \fB\-\-plugindir\fR <\fIpath\fR>
+Use <path> to search for plugins. The path is a':'-separated search path
+similar to e. g., $PATH.
+.TP
+\fB\-q\fR \fB\-\-quiet\fR
+Don't write headers and trailing legend.
+.TP
+\fB\-s\fR \fB\-\-summary\fR
+Just write a summary over number of plugins, drivers and errors.
+.TP
+\fB\-e\fR \fB\-\-errors\fR
+Only list plugins which can't be loaded, or does not contain any drivers.
+.TP
+\fB\-y\fR \fB\-\-yaml\fR
+Make a YAML listing reflecting the drivers' configuration hints such as
+the device_hint. The format is unstable and primarely used by lirc-setup(1).
+.TP
+\fB\-l\fR \fB\-\-long\fR
+Add info on driver features.
+.TP
+\fB\-p\fR \fB\-\-default-path\fR
+Print default search path and exit.
+.TP
+\fB\-h\fR \fB\-\-help\fR
+Display usage summary.
+.TP
+\fB\-v\fR \fB\-\-version\fR
+Display version info.
+
+.SH EXAMPLES
+.IP "" 4
+$ lirc-lsplugins -U ../lib/.libs:/usr/local/lib/lirc/plugins tira*
+.P
+Lists all drivers with name matching 'tira*' found in plugins living
+in ../lib/.libs or /usr/local/lib/lirc/plugins.
+
+.SH RETURN VALUE
+lirc-lsplugins returns a non-zero error code if there is at least one plugin
+from which no driver can be loaded or options and parameters can't be
+parsed. Otherwise it returns zero.
+
+.SH BUGS
+Some drivers change their capabilities in runtime after inspecting the
+underlying hardware. These runtime capabilities can not be listed by
+lirc-lsplugins.
+
+
+.SH "SEE ALSO"
+fnmatch(3)
+.br
+lircd(8)

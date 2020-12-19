@@ -1,0 +1,2599 @@
+2017-09-10  Alec Leamas  <leamas.alec@gmail.com>
+
+	Update for 0.10.1
+
+2017-09-03  Alec Leamas  <leamas.alec@gmail.com>
+
+	mode2: Fix inconsistent loglevel/debug option (#307).
+
+2017-08-31  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Fix make "always build all" error.
+
+2017-08-23  Ayke van Laethem  <aykevanlaethem@gmail.com>
+
+	plugins: devinput: fix glob "no match" error
+	See 63e041cc5 and LIRC issue #285 (Debian: #860551)
+
+2017-08-14  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: install media/lirc.h (BTS #872074).
+	The plugin builds references this file. Basically, this should be
+	resolved by lirc_driver.h, testing if the kernel header is
+	available and using it if so, but without including config.h
+
+	This fix adds an evil symlink to not remove anything. The proper
+	fix includes actually moving the file and also streamlining the
+	HAVE_KERNEL_LIRC_H to the generic HAVE_LINUX_LIRC_H.
+
+2017-08-12  Alec Leamas  <leamas.alec@gmail.com>
+
+	Update for lirc-0.10.0
+
+	lib: Comments update.
+
+	plugins: Update driver_version.
+
+	build: Mute libtool when V=0.
+
+	build: Fix typo.
+
+2017-08-12  Baruch Siach  <baruch@tkos.co.il>
+
+	lib/curl_poll.h: fix header guard collision with musl libc
+	The musl libc uses the _POLL_H macro as a double include guard for the poll.h
+	header. This breaks compilation of files the include curl_poll.h:
+
+	In file included from driver.h:32:0,
+	                 from driver.c:12:
+	lirc/curl_poll.h:38:29: error: array type has incomplete element type ‘struct pollfd’
+	 int curl_poll(struct pollfd ufds[], unsigned int nfds, int timeout_ms);
+	                             ^~~~
+
+	Rename the curl_poll.h header guard macro to avoid collision. Don't use a name
+	that starts with an underscore and a capital letter since these names are
+	reserved according to the ANSI C standard.
+
+	https://www.gnu.org/software/libc/manual/html_node/Reserved-Names.html
+
+2017-06-22  Alec Leamas  <leamas.alec@gmail.com>
+
+	Merge branch 'release-0.10' into release
+
+2017-06-21  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Missing dep, repeated builds and clean fixes.
+
+	python-pkg: Don't distribute test if python < 3.5.
+
+	Update for 0.10.0-rc3
+
+	build: Update ABI version info for 0.10.0.
+
+	doc: Updates.
+
+	lircmd: Don't write on non-existing socket (#295).
+
+2017-06-20  Alec Leamas  <leamas@nowhere.net>
+
+	tests: Overall portability fixes.
+	  - Use correct lircrcd binary from development tree.
+	  - Use explicit /bin/bash shebang, don't trust /bin/sh to be bash.
+
+2017-06-20  Alec Leamas  <leamas.alec@gmail.com>
+
+	Don't distribute generated config.h, config.py and paths.h (#294).
+
+	build: Fix VPATHS builds (#294).
+
+2017-06-15  Alec Leamas  <al@localhost>
+
+	Build: Disable non-linkable plugins on kfreebsd.
+
+2017-06-13  Alec Leamas  <leamas.alec@gmail.com>
+
+	python-pkg: tests: Don't hardcode socat and expect paths.
+
+	Build: more distcheck.
+
+	Build: more distcheck.
+
+	Build: distribute python test files.
+
+	Build: fix "make clean".
+
+	Build: Revert timestamp fix.
+
+	Update for 0.10.0-rc2
+
+	Build: distcheck fixes.
+
+2017-06-12  Alec Leamas  <leamas.alec@gmail.com>
+
+	Build: non-linux FTBS fixes.
+
+	Build: More python installation clean-up.
+	  - Move and install lirctool wrapper (but no link).
+	  - Don't hardcode python3 shebang
+
+	attic: Remove attic from release branch.
+
+2017-06-11  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Rectify "make clean"
+
+	python-pkg: tests: Use socat instead of ncat (#289).
+	Turns out that ncat exists in several version on Debian, all of
+	them broken somehow. socat seems more uniform and works in both
+	Fedora and Debian stretch.
+
+	mode2: Actually parse the [mode2] config file section [#292].
+	Although the manpage describes how mode2 reads the [mode2] section
+	in the config file, the actual code for this was missing.
+
+2017-06-10  Alec Leamas  <leamas.alec@gmail.com>
+
+	irsimsend: Fix log setup typo.
+
+	lirc-setup: Clean up paths handling (#290)
+
+	doc: Update.
+	  - Kill all 0.9.5 references.
+	  - Review lircd-uinput repeat handling after deprecating lircd
+	    --release option.
+	  - Rewrite intro chapter in Configuration guide.
+	  - Typos and clean-up.
+
+2017-06-08  Christoph Bartelmus  <lirc@users.sourceforge.net>
+
+	doc: lirc.org: Set left margin to 0
+
+2017-06-08  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Fix python document generation.
+	Add missing python filters to distribution, and ensure it works
+	with alternative  python interpreters.
+
+2017-06-03  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Don't hardcode python3 interpreter name.
+	Fixes build errors on hosts where python3 is invoked e. g.,
+	as python3.5.
+
+2017-06-01  Alec Leamas  <leamas.alec@gmail.com>
+
+	Build: fix bad link tools/lirc-setup/config.py
+
+	Build: Fix timestamps in generated tarball.
+	The debian buildchain requires generated tarballs to have the
+	same timestamps to be considered equal. So, set the timestamps
+	of generated files to the git commit date.
+
+2017-05-31  Alec Leamas  <leamas.alec@gmail.com>
+
+	Build: fix linking issue.
+
+	Build: Use correct python interpreter.
+
+	doc: Mute annoying build error message.
+
+	doc: Deprecate lirc.hwdb, NEWS update.
+
+2017-05-31  Alec leamas  <al@mageia.localdomain>
+
+	build: Mageia fixes
+
+2017-05-29  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Let configure update also lib/lirc/config.h
+
+	lib: Fix missing #include config.h
+
+2017-05-28  Alec Leamas  <leamas.alec@gmail.com>
+
+	Updating for lirc-0.10.0rc1
+
+	NEWS: update.
+
+2017-05-22  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Update.
+
+2017-05-21  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Fix download links for new version.
+
+2017-05-20  Alec Leamas  <leamas.alec@gmail.com>
+
+	NEWS:update
+
+	lircd: Deprecate --release option.
+
+	doc: Add release into index.html
+
+	build: Make it more quiet.
+
+	irpipe: Build against system lirc.h.
+
+	build: Update ABI version info (added interfaces).
+
+2017-05-19  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Move upstreamed lirc.4 manpage to attic.
+
+	plugins/commandir: Mute compiler warnings (somewhat shaky).
+
+	build: Fix recent GCC compiler warnings.
+
+	Update for lirc-0.10.0
+
+	Merge branch 'master' into release-0.10 - release branch
+
+2017-05-16  Alec Leamas  <leamas.alec@gmail.com>
+
+	NEWS: update.
+
+	doc: fixes, some source comments
+
+	build: Don't build table.html and hwdb on cross-compile (#286).
+	This is a temporary fix. Building these in runtime, the proper
+	solution, requires vast changes to the build not suitable at
+	this point.
+
+2017-05-16  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Relax -O option parsing.
+	The original code only handled the option followed by a space and
+	the config file path. New code handles:
+
+	  + -O/some/path
+	  + -0=/some/path
+	  + -O /some/path
+	  + --options-file=/some/path
+	  + --options-file /some/path
+
+2017-05-16  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircd-uinput: Fix options config file handling (#284).
+	The release-timeout option value was actually not used.
+
+	The add-release-event, logfile and uinput options was not
+	handled when set in the config file (but OK if on command line).
+
+	Don't use lircd --release option as default suffix; the lircd
+	--release handling is likely to be deprecated.
+
+2017-05-15  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Don't invoke lirc-lsplugins on cross-compile build (#286).
+
+2017-05-14  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Cross-compilation fixes (#278).
+	  - Fix bad space in compiler -I flags.
+	  - Add SH_PATH cross-compile configuration variable.
+	  - Fix HAVE_WORKING_POLL help message.
+	  - Sanitize cross-compile checks for DEVINPUT_HEADER.
+
+	lib: Possible read() buffer overflow fix.
+
+2017-05-14  Alec Leamas  <leamas.alec@gmail.com>
+
+	Use lircd waitfordata() instead of copy in lib/receive (#278).
+	Using a separate waitfordata() in lib/receive causes subtle errors
+	when transmitting if data is received concurrently. In all
+	circumstances, having two parallel poll()/select() loops is a
+	bad idea leading to hard-to-understand logics.
+
+	Patch lets clients such as lircd set the function used by
+	waitfordata() in lib/receive, effectively forcing drivers to
+	used the lircd waitfordata() function. This centralizes the
+	event loop to a single function.
+
+	lib/receive still uses the old function as default e. g., when
+	used by irrecord.
+
+2017-05-13  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Add missing library defs.
+
+	lircd-uinput: Fix release-timeout option handling (#284).
+
+2017-05-05  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircd: Enhance handling of --release option (#284).
+
+	plugins: devinput: Enhance "No device available" log message (#285).
+
+2017-05-04  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Enhance ./configure output
+
+2017-05-04  Alec Leamas  <leamas@nowhere.net>
+
+	build: kill a compiler warning.
+
+2017-05-04  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: MacOS fixes
+	  - Don't break on missing clock_gettime().
+	  - Use specific tests instead of -D DARWIN.
+	  - Don't use broken stock AC_TYPE_GETGROUPS.
+	  - Bugfixes, in particular lirc-make-devinput.
+
+2017-05-03  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Make build less verbose by default
+	Basically applies .SILENT if V is unset or set to '0'. Use
+	'make V=0' or 'make V=1' to provide less or more feedback.
+
+2017-04-19  Alec Leamas  <leamas.alec@gmail.com>
+
+	Revert "build: Add missing -I flag to lirc-driver.pc (#282)."
+	    The real problem here is a bad include path in media/lirc.h; this
+	    is already fixed in 87c02189 without changing the .pc file
+	    include paths. Ditching un-needed patch which makes all sorts of
+	    private headers visible in the driver.
+
+	Un-revert "lib: config_file: Fix parsing absolute include path (#281)."
+	This reverts commit 8d9ee2dde7766a6c8951110ce6595dd3cf9e00e8. This is
+	an insane mess, the wrong commit was reverted and the commit message
+	is a joke.
+
+	lircmd: Fix parsing of -D option (#283).
+
+2017-04-13  Alec Leamas  <leamas.alec@gmail.com>
+
+	Revert "lib: config_file: Fix parsing absolute include path (#281)."
+	The real problem here is a bad include path in media/lirc.h; this
+	is already fixed in 87c02189 without changing the .pc file
+	include paths. Ditching un-needed patch which makes all sorts of
+	private headers visible in the driver.
+
+2017-04-12  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: config_file: Fix parsing absolute include path (#281).
+
+	build: Add missing -I flag to lirc-driver.pc (#282).
+
+2017-04-07  Alec Leamas  <allura@localhost>
+
+	Merge /u/mhej/lirc/ branch small-fixes into master
+	https://sourceforge.net/p/lirc/git/merge-requests/29/
+
+2017-04-07  Bengt Martensson  <barf@bengt-martensson.de>
+
+	lircd: Bug in setuptimeout() - merge request 27.
+	The drvctl_functions according to specs returns "nonzero" on failure;
+	the code however was expting -1 on failure. Possibly non-inialized vars:
+	min_timeout, max_timeout.
+
+	Changed some lirc_t to uint32_t.
+
+2017-04-07  Alec Leamas  <leamas.alec@gmail.com>
+
+	tools, plugins: lirc-lsplugins: Kill device_hint shell cruft.
+
+2017-04-06  Alec Leamas  <leamas.alec@gmail.com>
+
+	irlog: remove some cruft, add missing Makefile.
+
+	drivers: Adding a logging module wrapper.
+
+2017-04-05  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib, tools: Refactor some drv_handle_opts() code.
+
+	irrecord: Add a driver-options argument (#277).
+
+2017-04-05  Matthias Reichl  <hiassoft@users.sf.net>
+
+	lib: Fix bad driver initialization (#279).
+
+2017-04-05  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: devinput: Fix bad codelength (#265).
+
+2017-04-05  pylover  <pylover@users.sf.net>
+
+	python-pkg: Change extension module path (#270)
+
+2017-04-05  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Fix lircd.conf manpage bug (#276).
+
+	mode2: Write error messages on stderr (#272).
+
+	build: Warn for missing Python.h
+
+	build: Use bundled event codes on non-linux platforms (#273).
+
+2017-04-05  Alec Leamas  <leamas@nowhere.net>
+
+	build: Disable python client if python version < 3.5.
+	The new client requires 3.5+, causinng build errors otherwise.
+
+	lib: MacOS build bugfix.
+
+2017-04-04  Alec Leamas  <leamas.alec@gmail.com>
+
+	Handle missing kernel-devel lirc.h - part 2 (#280)
+
+	Handle missing kernel-devel lirc.h (#280)
+
+2017-04-01  Alec Leamas  <leamas.alec@gmail.com>
+
+	Handle systemd new pkg-config filename (#274)
+
+2017-03-30  John Penfold  <jpenfold@users.sf.net>
+
+	plugins: ftdi: Fix bad timings (#275).
+	Old code had all timings multiplied by two; fixed.
+
+2017-03-14  Bengt Martensson  <barf@bengt-martensson.de>
+
+	girs.[c|html]: minor issues fixed; substantially improved doc.
+	readdata(lirc_t): do not return when the hardward times out, just
+	continue. (Made mode2 bail out).
+	initialize_tcp(): bugfix.
+
+2017-03-07  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Add development link for lirc/config.h
+
+2017-03-05  Vahid  <vahid.mardani@gmail.com>
+
+	test_client: Misspelled OSError typo
+
+2017-02-14  Maciej S. Szmigiero  <mail@maciej.szmigiero.name>
+
+	plugins/devinput: use correct code printout field precision
+	ir_code is a 64-bit (16 hex digits) type, but devinput logged it with
+	8-digit field precision which resulted in printout length varying between
+	various event types (which are encoded in top 16 bits of a code number).
+
+	Print codes with full 16 hex digits so to maintain constant length output.
+
+2017-02-14  Maciej S. Szmigiero  <mail@maciej.szmigiero.name>
+
+	lib: Fix spinning in array_guest_code_equals()
+	lircd was spinning on startup in array_guest_code_equals() when started
+	with one of my configs.
+	That function didn't correctly advance current element pointers when
+	iterating over code lists in keys that had more than one code.
+
+	Fix this and also improper return value when the first argument key codes
+	are a prefix of the second argument ones (previously the function would
+	return "equal" verdict in this case).
+
+2017-02-13  Maciej S. Szmigiero  <mail@maciej.szmigiero.name>
+
+	lib: Fix crash when loading remote without "codes" block
+	When loading a config file that has a remote without "codes" block
+	(at least) irrecord crashes.
+
+	It turns out that sanityChecks() function tries to deference rem->codes
+	pointer blindly.
+	Fix it by checking whether this pointer is null and failing the validation
+	in this case.
+
+	Let's use this opportunity to also fix a logging call few lines earlier in
+	this function which tried to output a struct type as a string.
+
+2017-02-12  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Kill som unused cruft.
+
+	NEWS: Clean up merge from release, update.
+
+	Use _EVUP instead of _UP as release suffic (#263).
+
+	driver API: Add server version info.
+	Drivers needs a way to check the server version level i. e., the
+	support available in server. This is an oversight in thescurrent
+	driver API.
+
+	build: Configure devinput (#264)
+
+	doc, build: Fix FTBS bugs on hosts without installed lirc.
+
+2017-02-09  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Fix FTBS bug on hosts without installed lirc.
+
+2017-02-02  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircd: Remove --uinput option.
+
+	plugins: Remove the slink-e (a. k. a. slinke) driver.
+	The hardware was discontinued in 2004, so it's time.
+	http://www.avsforum.com/forum/28-tweaks-do-yourself/
+	416812-slink-e-discontinued.html
+
+	doc: Update out-of-tree driver Makefile example.
+
+	lib: Handle segfault in lirc_readconfig_only().
+
+2017-01-25  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Missing files, bad python import paths and versioning.
+
+	plugins: More device enumeration.
+
+2017-01-23  Alec Leamas  <leamas.alec@gmail.com>
+
+	NEWS: update.
+
+	irpipe: Use kernel lirc.h header, not the bundled file.
+
+	Revert buggy part of 1b7f6b0 (#254).
+
+	Revert buggy part of 1b7f6b0 (#254).
+
+	Reconsider next version: 0.9.5 -> 0.10.0.
+
+	lirc-setup: Clean up import paths.
+
+	python: Documentation fixs, Makefile.am bugfix.
+
+2017-01-22  Alec Leamas  <leamas.alec@gmail.com>
+
+	python-bindings: feature complete.
+	Old and new python code now lives in  python-pkg/. This is installed
+	in  regular locations by Makefile, but it is also a functional
+	pypi package which could be installed e. g., in a virtualenv.
+
+	The API contains pieces to send commands and receive data. See the
+	API docs and also the manual. It is supposed to be complete in the
+	sense that it can handle all known socket commands to lircd(0) and
+	lircrcd(8). It can also receive both raw events like irw(1) and
+	application string like ircat(1).
+
+	There are also some proof-of-concepts in doc/python-bindings. If
+	installed in a virtualenc the pypi package installs the lirctool
+	script, a more complete demonstration of the API.
+
+2017-01-22  Alec Leamas  <leamas.alec@gmail.com>
+
+	lirc_client: Make lirc_deinit() idempotent.
+
+2017-01-21  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Document ircat LIRC_SOCKET_PATH usage, more list-devices stuff.
+
+2017-01-19  Alec Leamas  <leamas.alec@gmail.com>
+
+	contrib: release-process: update.
+
+	doc: Document ircat LIRC_SOCKET_PATH usage.
+
+2017-01-18  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: slinke doc update.
+
+	Build: Fix repeated 'make install' failures on same target dir.
+
+	lib: Fix segfault in driver enumeration.
+
+2017-01-08  Alec Leamas  <leamas.alec@gmail.com>
+
+	Update for 0.9.4d
+
+	NEWS:update.
+
+	doc: Fix missing logo.
+
+	lirc_client: Fix bunch of lircrcd-related bugs (#254)
+	the lirc_code2char function has provisions to use a centralized
+	translation in order to support global modes using lircrcd. This
+	code has not been teste thoroughly, and lirc_client has a several
+	bugs related to communication with lircrcd and trailing lf in
+	text.
+
+2017-01-07  Alec Leamas  <leamas.alec@gmail.com>
+
+	xmode2: Fix handling of --driver option.
+
+2017-01-07  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Print drivers in columns.
+	In original code the long list of drivers made the original message
+	disappear.
+
+	Also a fix for bad handling of --driver to xmode2.
+
+2017-01-06  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Fix some API docs comments.
+
+	lircd: Fix DRV_OPTION error message handling (#256).
+
+	lircd: Fix DRV_OPTION error message handling (#256).
+
+2017-01-05  Alec Leamas  <leamas.alec@gmail.com>
+
+	tools: pylint fixes
+
+2017-01-05  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircrcd: Rewrite to match manpage functionality (#253).
+	The old lircrcd implementation is plain broken with respect to the
+	manual page. It opens a connection ti lircd, listens to all decoded
+	keypresses and uses this to generate application strings to
+	clients.
+
+	New implementation is just s common instance and state for converting
+	codes to application strings. It only listens to clients, and
+	translates as required.
+
+	Caching key/mode transltions could make this daemon considerably faster.
+
+2017-01-05  Alec Leamas  <leamas.alec@gmail.com>
+
+	lirc_client: Fix bunch of lircrcd-related bugs (#254)
+	the lirc_code2char function has provisions to use a centralized
+	translation in order to support global modes using lircrcd. This
+	code has not been teste thoroughly, and lirc_client has a several
+	bugs related to communication with lircrcd and trailing lf in
+	text.
+
+	lib, doc: Clean up API docs.
+
+2017-01-05  Samuel Thibault  <sthibault@debian.org>
+
+	build, plugins: Fix hurd build issues (BTS #845499).
+
+2017-01-04  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: Only export the driver table (#255).
+
+	ircat: Fix option parsing bug + empty conditions (#251).
+	The --command/-c option was not parsed correctly, despite that
+	it seemed to work. lirc_code2char is not guarenteed to return
+	NULL if there is no more data, it could just be empty.
+
+	lircd: Fix segfault in SET_INPUTLOG without arguments (#252).
+
+	ircat: Fix option parsing bug + empty conditions (#251).
+	The --command/-c option was not parsed correctly, despite that
+	it seemed to work. lirc_code2char is not guarenteed to return
+	NULL if there is no more data, it could just be empty.
+
+	lircd: Fix segfault in SET_INPUTLOG without arguments (#252).
+
+2016-12-30  Alec Leamas  <leamas.alec@gmail.com>
+
+	lirc-setup: Kill pylint warnings.
+
+	build: Include config.h in installed headers (#250).
+
+	build: Include config.h in installed headers (#250).
+
+2016-12-27  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Device enumeration support update.
+
+	lirc-setup: Adapted to new device enumeration.
+
+	plugins: Use new enumeration for ttyUSB devices.
+
+	lib, plugins: Device enumeration jumbo update.
+
+	configure: Fix libusb detection bug.
+
+2016-12-23  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Document optional args on non-glibc host (#240).
+
+	lircd: Fix --listen option parsing [#249].
+
+	lircd: Fix --listen option parsing [#249].
+
+2016-12-22  Alec Leamas  <leamas.alec@gmail.com>
+
+	NEWS: update
+
+	doc: Update irtoy plugins docs.
+
+2016-12-22  Felix Schmidt  <fesc2000@mailbox.org>
+
+	plugins: irtoy: Add support for irdroid.
+	Irdroid is basically a stripped down irtoy with old firmware
+	version 20 lacking support for signalling pins. The commit avoids
+	using the signalling pins for version 20 (i. e., "2.0").
+
+	The state of version 21 is unknown. The use of signalling pins is
+	enabled for versions >= 22.
+
+2016-12-21  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: More driver device enumeration.
+	Adding new drv_enum library file, re-factoring free'ing of
+	DRVCTL_DEG_DEVICES data, adding centralized globbing support.
+
+	lircd: Add logging of options etc. [#244].
+
+	plugins: Add some more  driver device enumeration.
+
+2016-12-20  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Fix _XOPEN_SOURCE related FTBS on some platforms (#248).
+
+	lib: Fix _XOPEN_SOURCE related FTBS on some platforms (#248).
+
+2016-11-16  Alec Leamas  <leamas.alec@gmail.com>
+
+	systemd: Add missing lircd-setup.service to distribution (#243).
+
+	systemd: Add missing lircd-setup.service to distribution (#243).
+
+2016-11-09  Alec Leamas  <leamas.alec@gmail.com>
+
+	Build: configure plugins/ftdix and usb libraries (freebsd fix).
+
+	Build: Don't use pkg-config for libusb (freebsd buildfix).
+
+	Build: Don't generate linux files on non-linux hosts (kfreebsd build).
+	Also some more cleanup in configure.ac.
+
+	Build: Configure false (kfreebsd build).
+
+	Build: configure plugins/ftdix.
+
+	Build: Don't use pkg-config for libusb (freebsd buildfix).
+
+	Build: Don't generate linux files on non-linux hosts (kfreebsd build).
+
+2016-11-07  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Use pkg-config instead of os-dependent hacks.
+
+2016-11-06  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Configure libudev (#242).
+
+	build: Configure libudev (#242).
+
+2016-11-04  Alec Leamas  <leamas.alec@gmail.com>
+
+	config: Remove deprecated --uinput from lirc_options.conf
+
+2016-11-03  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Remove  old. unused systemd bug walk-around.
+
+	build: Configure clock_gettime().
+
+	doc: lirc.org: Fix some available hardware links.
+
+	build: More cleanup: deps, configure.ac constructs
+
+2016-10-31  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Fix python3 command handling
+	The old--enable-python3-fix was a abomination, installing a
+	global python3 link if not available. When packaging, this
+	just don't work. Instead, patch scripts at installation time
+	to use the python3 interpreter available and remove the switch.
+
+	build: Remove configure.ac cruft, cleanup.
+
+	all: Remove kernel-space data types __u32 et. al.
+	The types __u32, __u64 etc. are designed to be used in linux kernel
+	space. Using them instead of the generic types in stdint.h causes
+	portability problems, notably on Debian. uint32_t etc.  are always
+	available due to the autoconf support.
+
+	build: Use autoconf AC_TYPE_GETGROUPS instead of homebrew hack.
+
+	lib: Only use local headers in lirc_private.h (#237).
+	The lirc_private.h header should only be used internally
+	when building lirc tools, and i this case we should not
+	care about what's possibly installed in /usr/include/lirc.
+
+	.gitignore: doc/ fixes
+
+	systemd: Fix wrong path to irexec (#239).
+
+	Build: Add --enable-uinput ./configure option  (#238).
+	There are situations where the default value guessed from the
+	existence of the /dev/uinput device cannot be used to determine
+	if lircd-uinput should be built, all related to cross-compiling.
+	The bug occurs on Ubuntu, where some build hosts seems to lack
+	this device. It will also bite anyone doing a traditional
+	cross-compilation. The new option should work in all cases, not
+	adding so much  complexity since the default is almost always
+	sane.
+
+2016-10-30  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Only use local headers in lirc_private.h (#237).
+	The lirc_private.h header should only be used internally
+	when building lirc tools, and i this case we should not
+	care about what's possibly installed in /usr/include/lirc.
+
+	lirc.pc: Fix bad library specification (#236).
+
+	.gitignore: doc/ fixes
+
+2016-10-29  Alec Leamas  <leamas.alec@gmail.com>
+
+	systemd: Fix wrong path to irexec (#239).
+
+	Build: Use HAVE_UINPUT=1 to force building uinput code (#238).
+
+2016-10-25  Alec Leamas  <leamas.alec@gmail.com>
+
+	lirc.pc: Fix bad library specification (#236).
+
+	lib: curl_poll.h: Ensure build on unconfiguredclients.
+
+	lib: curl_poll.h: Ensure build on unconfiguredclients.
+
+2016-10-23  Alec Leamas  <leamas.alec@gmail.com>
+
+	configure: Fix cross-compilation error (#233).
+
+	build: lirc.h: Configure includes in lirc.h (#234).
+	Fall back to sys/ioctl.h instead of linux/ioctl.h etc. on
+	non-linux platform i. e., MacOS.
+
+	lirc.org: Clean up distribution links, bugfixes.
+
+	lirc.org: Clean up distribution links, bugfixes.
+
+	build: lirc.h: Configure includes in lirc.h (#234).
+	Fall back to sys/ioctl.h instead of linux/ioctl.h etc. on
+	non-linux platform i. e., MacOS.
+
+	configure: Fix cross-compilation error (#233).
+
+	doc: lirc.org update.
+
+2016-10-22  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: girs.c: Default device typo fix.
+
+	plugins: girs.c: Default device typo fix.
+
+	NEWS:update
+
+	lircd: Remove use of functions killed in kernel 4.8.0
+	From 4.8.0 the kernel no longer supports LIRC_NOTIFY_DECODE,
+	LIRC_SETUP_START/LIRC_SETUP_END and several constants related
+	to initiating filters. Remove corresponding calls from lircd.
+
+	include: Update bundled lirc.h.
+
+2016-10-21  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins>/girs: Use curl_poll wrapper for poll()
+
+	plugins>/girs: Use curl_poll wrapper for poll()
+
+	Update for 0.9.4c release.
+
+	tools: irtext2udp: Bugfixes.
+
+	tools: irtext2udp: Bugfixes.
+
+	NEWS: Update.
+
+	plugins: girs: Add tcp/udp support (#201).
+
+2016-10-21  Bengt Martensson  <barf@bengt-martensson.de>
+
+	plugins: girs: Add tcp/udp support (#201).
+
+2016-10-20  Alec Leamas  <leamas.alec@gmail.com>
+
+	macos, lib: Use curl_poll instead of poll() to handle macos (#227).
+	This affects many drivers which is somewhat problematic. The alternative
+	would be to define poll() as a macro. Not really sure.
+
+	lib: Handle bad poll() implementations using a wrapper (#227).
+	Primarely for macos, this adds a wrapper for poll which uses
+	select() on platforms with a bad poll(). Here is also a
+	configure.ac test to check for buggy poll implementations.
+
+	build: handle macos missing openpty() declaration (#226).
+
+	plugins: Handle macos not having strchrnul(3) (#226).
+	This is only used in a single plugin, so just make it
+	a local definition. The implementation is trivial.
+
+	lircd: osx compilation fixes (#226).
+	https://sourceforge.net/p/lirc/mailman/message/35403649/
+
+	docs: Update.
+
+	Adding curl and ciniparser license files.
+
+2016-10-20  Alec Leamas  <leamas.alec@gmail.com>
+
+	Add curl and ciniparser license files.
+	The ciniparser license is missing long since, but is now in
+	place. The curl one is for the new lib/curl_poll files.
+
+	ciniparser COPYING
+
+2016-10-20  Alec Leamas  <leamas.alec@gmail.com>
+
+	macos, lib: Use curl_poll instead of poll() to handle macos (#227).
+	This affects many drivers which is somewhat problematic. The alternative
+	would be to define poll() as a macro. Not really sure.
+
+	lib: Handle bad poll() implementations using a wrapper (#227).
+	Primarely for macos, this adds a wrapper for poll which uses
+	select() on platforms with a bad poll(). Here is also a
+	configure.ac test to check for buggy poll implementations.
+
+	build: handle macos missing openpty() declaration (#226).
+
+	plugins: Handle macos not having strchrnul(3) (#226).
+	This is only used in a single plugin, so just make it
+	a local definition. The implementation is trivial.
+
+	lircd: osx compilation fixes (#226).
+	https://sourceforge.net/p/lirc/mailman/message/35403649/
+
+	Add new irtext2udp filter (#197).
+
+	Add new irtext2udp filter (#197).
+
+2016-10-19  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Fix multiple manpages version markup.
+
+	doc: Fix multiple manpages version markup.
+
+2016-08-27  Alec Leamas  <leamas.alec@gmail.com>
+
+	mode2: Fix broken --raw option (#223).
+
+	mode2: Fix broken --raw option (#223).
+
+2016-08-23  Alec Leamas  <leamas.alec@gmail.com>
+
+	lirc-make-devinput: Fix that two remotes has the same name (#222).
+
+	lirc-make-devinput: Fix that two remotes has the same name (#222).
+
+	lircd: Warn for duplicate remote definitions (#222).
+
+	lircd: Warn for duplicate remote definitions (#222).
+
+	lircd: Retry temporary unavailable write sockets (#221).
+
+	lircd: Retry temporary unavailable write sockets (#221).
+
+2016-08-22  Alec Leamas  <leamas.alec@gmail.com>
+
+	contrib: Fix usb devices' acl permissions (rhbz #1364744).
+
+	lirc-setup: Fix crasher bugfix.
+	Fixes https://retrace.fedoraproject.org/faf/reports/1166394/
+
+	lirc-setup: Fix crasher bugfix.
+	Fixes https://retrace.fedoraproject.org/faf/reports/1166394/
+
+	doc: Review and fix links, mute linkchecker(1).
+
+	lircd: Remove use of functions killed in kernel 4.8.0
+	From 4.8.0 the kernel no longer supports LIRC_NOTIFY_DECODE,
+	LIRC_SETUP_START/LIRC_SETUP_END and several constants related
+	to initiating filters. Remove corresponding calls from lircd.
+
+	include: Update bundled lirc.h.
+
+	contrib: Fix usb devices' acl permissions (rhbz #1364744).
+
+2016-08-18  Alec Leamas  <leamas.alec@gmail.com>
+
+	contrib: disable udev /dev/uinput rule.
+
+	contrib: disable udev /dev/uinput rule.
+
+	plugins: audio_alsa: Fix byte truncating in 16-bit data (#218):
+	This fixes a bug introduced in 82305c72 which basically was
+	about muting a "dereferencing type-punned pointer will break
+	strict-aliasing rules" compiler warning.
+
+	plugins: audio_alsa: Fix byte truncating in 16-bit data (#218):
+	This fixes a bug introduced in 82305c72 which basically was
+	about muting a "dereferencing type-punned pointer will break
+	strict-aliasing rules" compiler warning.
+
+2016-08-16  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: 0.9.4b Update of lirc.org/index.
+
+2016-08-16  Helen Foster  <helen-foster@users.sourceforge.net>
+
+	irtoy: improve error handling (#220).
+	Avoid double init. Avoid calling setPin or trying to send if irtoy
+	is not initialized (segfault).
+
+	irtoy: improve error handling (#220).
+	Avoid double init. Avoid calling setPin or trying to send if irtoy
+	is not initialized (segfault).
+
+2016-08-10  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircd-uinput: More (final?) cleanup.
+
+2016-08-09  Alec Leamas  <leamas.alec@gmail.com>
+
+	NEWS, doc: Fix news entry in lirc.org, update NEWS, manpage typos.
+
+	NEWS, lirc.org/index.html: Fixes.
+
+	doc: Fix manpage typos.
+
+	Update for 0.9.4b
+
+	lib: Add missing line_buffer.
+
+	NEWS: update.
+
+	lircd-setup: Accept also keys code1..code10 + manpage update.
+
+	doc: Fix lircmd setup text.
+
+	lib: Add missing Makefile.am dep (#210).
+	Fixes bug introduced in [19439d] where the comment is OK but the
+	single-line patch is wrong...
+
+	doc: Update lircd manpage.
+
+	lircmd: Options, udev examples and manpage update.
+	  - Use the lircd output settings as lircmd default input.
+	  - Add udev fixed link for lircmd in example rules.
+	  - Manpage overhaul.
+
+	doc: lircd-uinput: Document running as root.
+
+	systemd: Update service files hardening comments (#204).
+
+	systemd: Add hardening options comments to services (#204).
+
+2016-08-09  Matthias Reichl  <https://sourceforge.net/u/hiassoft>
+
+	doc: lircd-uinput manpage update.
+
+2016-08-09  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircd-uinput: Add a --repeat option (#211).
+	Let user set the kernel autorepeat options, since this is the only
+	repeat mechanism we are using.
+
+	lircd-uinput: Minor cleanups.
+
+	lircd-uinput: Don't register --disabled buttons (#211).
+	The buttons registered might affect how the kernel classifies the
+	uinput device. By blocking the --disabled buttons also when
+	registrating users can walk-around possible problems.
+
+	lircd-uinput: A multitude of fixes (#213, #211, #177)
+	As released, lircd-uinput is a pile of junk. Fixes:
+	  - Fix release events handling causing loops.
+	  - Don't drop the release events as illegal.
+	  - Fix --loglevel CLI option handling
+	  - Fix ---release-suffix CLI option handling.
+	  - Add new --disable CLI option to block certain keys.
+	  - Add new --add-release-events option as an alternative to
+	    lircd --release.
+	  - Forward all available key symbols
+	  - Don't emulate hardware autorepeat (event.value == 2), instead
+	    trust the kernel autorepeat support.
+	  - Add support for input from a plain file (testability).
+	  - Add some logging, notably --debug logs all events sent to kernel.
+	  - Add udev rule making the input device visible.
+	  - lircd-uinput(8) manpage update + TOC links.
+	  - Refactoring, cleanup and commenting.
+
+2016-08-09  Helen Foster  <helen.foster@somewhere.net>
+
+	lirc_client: read_string() not terminating buffer contents (#216);
+	Lack og trailing '\0' in certain situations causes segfaults
+	in irsend.
+
+2016-08-09  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: lircd.conf: Document suppress_repeat.
+
+	lib:irrecord: Fix under-sized buffer (#208).
+
+2016-08-09  Helen Foster  <helen.foster@somewhere.net>
+
+	lib/lirc_client: Don't write to fd 0 (#207)
+	File descriptor 0 is normally stdin. On some systems, writing to it
+	seems to work, but stops the user redirecting the output. In
+	particular, this affected irsend LIST.
+
+2016-08-09  Alec Leamas  <leamas.alec@gmail.com>
+
+	tools: Fix bad non-python3 reference.
+
+	lib: Fix the added Makefile dep (#210).
+
+2016-08-08  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Fix lircmd setup text, add lircd-setup links, bugfixes.
+
+	lib: Add missing Makefile.am dep (#210).
+
+	doc: Update lircd manpage.
+
+	lircmd: Options, udev examples and manpage update.
+	  - Use the lircd output settings as lircmd default input.
+	  - Add udev fixed link for lircmd in example rules.
+	  - Manpage overhaul.
+
+	systemd: Update service files hardening comments (#204).
+
+	doc: lircd-uinput: Document running as root.
+
+	lircd-setup: Accept also keys code1..code10 + manpage update.
+
+2016-08-07  Matthias Reichl  <https://sourceforge.net/u/hiassoft>
+
+	doc: lircd-uinput manpage update.
+
+2016-08-07  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircd-uinput: Add a --repeat option (#211).
+	Let user set the kernel autorepeat options, since this is the only
+	repeat mechanism we are using.
+
+2016-08-05  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircd-uinput: Minor cleanups.
+
+2016-08-04  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircd-uinput: Don't register --disabled buttons (#211).
+	The buttons registered might affect how the kernel classifies the
+	uinput device. By blocking the --disabled buttons also when
+	registrating users can walk-around possible problems.
+
+	systemd: Add hardening options comments to services (#204).
+
+	doc: Some small fixes.
+
+	lircd-uinput: A multitude of fixes (#213, #211, #177)
+	As released, lircd-uinput is a pile of junk. Fixes:
+	  - Fix release events handling causing loops.
+	  - Don't drop the release events as illegal.
+	  - Fix --loglevel CLI option handling
+	  - Fix ---release-suffix CLI option handling.
+	  - Add new --disable CLI option to block certain keys.
+	  - Add new --add-release-events option as an alternative to
+	    lircd --release.
+	  - Forward all available key symbols
+	  - Don't emulate hardware autorepeat (event.value == 2), instead
+	    trust the kernel autorepeat support.
+	  - Add support for input from a plain file (testability).
+	  - Add some logging, notably --debug logs all events sent to kernel.
+	  - Add udev rule making the input device visible.
+	  - lircd-uinput(8) manpage update + TOC links.
+	  - Refactoring, cleanup and commenting.
+
+	lib: Add a line buffer.
+
+	lib: Add some comments, formatting.
+
+2016-08-03  Helen Foster  <helen.foster@somewhere.net>
+
+	lirc_client: read_string() not terminating buffer contents (#216);
+	Lack og trailing '\0' in certain situations causes segfaults
+	in irsend.
+
+2016-08-01  Craig Andrews  <candrews@integralblue.com>
+
+	build: Don't define docdir - autoconf defines docdir
+
+2016-08-01  Bengt Martensson  <barf@bengt-martensson.de>
+
+	girs.c: Mark last of receive as LIRC_MODE2_TIMEOUT. Log improvements.
+
+2016-08-01  Craig Andrews  <candrews@integralblue.com>
+
+	build: Use $(runstatedir) to set VARRUNDIR (#212)
+	Use runstatedir (when available) to set VARRUNDIR instead of
+	using $(localstatedir)/run
+
+2016-08-01  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: lircd.conf: Document suppress_repeat.
+
+	irrecord: Enhance "Don't use devinput" message (#180).
+
+	lib:irrecord: Fix under-sized buffer (#208).
+
+2016-08-01  Helen Foster  <helen.foster@somewhere.net>
+
+	lib/lirc_client: Don't write to fd 0 (#207)
+	File descriptor 0 is normally stdin. On some systems, writing to it
+	seems to work, but stops the user redirecting the output. In
+	particular, this affected irsend LIST.
+
+2016-08-01  William Manley  <will@williammanley.net>
+
+	ftdi: Fix retry logic
+	...by closing the ftdi device before attempting to reopen it.  Otherwise
+	you get stuck in an infinite loop as `ftdi_usb_open_desc` will fail as the
+	device is already open.  I can't understand how this retry logic ever could
+	have worked for any errors apart from:
+
+	* Open failing
+	* Unplugging and replugging the ftdi device
+
+2016-08-01  William Manley  <will@williammanley.net>
+
+	ftdi: Don't error if the ftdi device doesn't have any data available yet
+	This can happen on first use of the device after rebooting.  This
+	previously caused lirc to hang with the ftdi subprocess stuck in a loop of
+	erroring and retrying.
+
+	ftdi: Log all errors from syscalls and libftdi
+	For easier debugging.
+
+	ftdi: Refactor to clarify looping logic
+	Previously this function was confusing because the loop/retry condition
+	`ret > 0` was far from the code that would set `ret` and `ret` could be the
+	return value from either `write` to lircd or `ftdi_read` from the hardware.
+
+2016-06-28  Alec Leamas  <leamas.alec@gmail.com>
+
+	Merge branch 'release-0_9_4' into release
+
+	Update for 0.9.4a
+
+	systemd: Fix syntax errors in systemd unit files (rhbz: 1350750)
+
+	systemd: Fix syntax errors in systemd unit files (rhbz: 1350750)
+
+2016-06-08  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Skip the 'none' dummy driver config in generated table/hwdb (#202).
+
+	doc: Fix header for generated table.html (#202).
+
+	lirc-lsplugins: Fix for --yaml output(#202).
+
+2016-06-08  Bengt Martensson  <barf@bengt-martensson.de>
+
+	lircd: Typo in options decoding.
+
+2016-06-06  Alec Leamas  <leamas.alec@gmail.com>
+
+	irrecord: Enhance "Don't use devinput" message (#180).
+
+2016-06-03  Bengt Martensson  <barf@bengt-martensson.de>
+
+	lircd: Renamed option --immediate_init to immediate-init.
+
+2016-06-01  Bengt Martensson  <barf@bengt-martensson.de>
+
+	lircd.cpp: Implement --immediate-init option.
+
+2016-06-01  Aaron Thompson  <dev@aaront.org>
+
+	plugins/uirt2_raw: Reset device to UIR mode on deinit.
+	If the UIRT is left in RAW mode, it does not trigger wake from S3.
+	Setting the UIRT back to UIR mode on deinit allows wake from S3 to
+	work properly.
+
+2016-06-01  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins/uirt2_raw: Reset device to UIR mode on deinit.
+	If the UIRT is left in RAW mode, it does not trigger wake from S3.
+	Setting the UIRT back to UIR mode on deinit allows wake from S3 to
+	work properly.
+
+2016-06-01  Bengt Martensson  <barf@bengt-martensson.de>
+
+	plugins/girs.c: Enable reception after sending.
+
+	plugins/girs.c: Enable reception after sending.
+
+2016-06-01  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Remove caraca references.
+
+2016-06-01  Christoph Bartelmus  <cb@nowhere.net>
+
+	lirc.org: Update
+
+	lirc.org: Update
+
+2016-05-30  Alec Leamas  <leamas@nowhere.net>
+
+	tools/config.py: restore python3 shebang (BSD compilation).
+
+	Build: Various BSD distcheck fixes (#192).
+	Includes not building devinput.lircd.conf on non-linux hosts.
+
+2016-05-29  Bengt Martensson  <barf@bengt-martensson.de>
+
+	plugins/default: Handle  non-demodulated "IR" signals (#198).
+
+2016-05-28  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircd, liblirc_client: Fix freeaddrinfo handling (#195).
+	freeaddrinfo() was used the wrong wa which caused a segfault using
+	--connect  and during a boot race condition. Fixed the bad usage
+	of freeaddrinf() in two places + some cleanup.
+
+	lircd, liblirc_client: Fix freeaddrinfo handling (#195).
+	freeaddrinfo() was used the wrong wa which caused a segfault using
+	--connect  and during a boot race condition. Fixed the bad usage
+	of freeaddrinf() in two places + some cleanup.
+
+2016-05-27  Bengt Martensson  <barf@bengt-martensson.de>
+
+	plugins/default: Dispatch LIRC_SET_TRANSMITTER_MASK to driver (#196).
+
+2016-05-27  Alec Leamas  <leamas.alec@gmail.com>
+
+	lirc_options.conf: debug => loglevel (#199).
+
+	lirc.org/index update.
+
+	doc: Remove local lirc.4 fix in Makefile.am.
+
+	lirc_options.conf: debug => loglevel (#199).
+
+2016-05-25  Thomas Petazzoni  <thomas.petazzoni@free-electrons.com>
+
+	lib: use proper linking method to avoid parallel build issue
+	Using <foo>_LDFLAGS = -l<library> is correct when <library> is an
+	external library. However, when it is built by the same package, and
+	especially in the same directory, this is wrong and can cause parallel
+	build issues. In lib/Makefile.am, there was:
+
+	libirrecord_la_LDFLAGS      = -llirc
+
+	But the liblirc library is built in the same directory. Or, due to the
+	using of <foo>_LDFLAGS, make is not aware of the build dependency
+	between libirrecord and liblirc.
+
+	To solve this, <foo>_LIBADD should be used instead, as follows:
+
+	libirrecord_la_LIBADD       = liblirc.la
+
+	This fixes parallel build issues seen by automated build tests
+	conducted by the Buildroot project, such as:
+
+	  http://autobuild.buildroot.org/results/eb4/eb47d57de8182d25b1dacbf0ac3726ed20063d04/build-end.log
+
+2016-05-25  Baruch Siach  <baruch@tkos.co.il>
+
+	tools: make_rel_symlink.py can also use python2
+	The make_rel_symlink.py script is compatible with both python2 and python3.
+	Don't hard code a requirement for python3.
+
+2016-05-25  Thomas Petazzoni  <thomas.petazzoni@free-electrons.com>
+
+	lib: use proper linking method to avoid parallel build issue
+	Using <foo>_LDFLAGS = -l<library> is correct when <library> is an
+	external library. However, when it is built by the same package, and
+	especially in the same directory, this is wrong and can cause parallel
+	build issues. In lib/Makefile.am, there was:
+
+	libirrecord_la_LDFLAGS      = -llirc
+
+	But the liblirc library is built in the same directory. Or, due to the
+	using of <foo>_LDFLAGS, make is not aware of the build dependency
+	between libirrecord and liblirc.
+
+	To solve this, <foo>_LIBADD should be used instead, as follows:
+
+	libirrecord_la_LIBADD       = liblirc.la
+
+	This fixes parallel build issues seen by automated build tests
+	conducted by the Buildroot project, such as:
+
+	  http://autobuild.buildroot.org/results/eb4/eb47d57de8182d25b1dacbf0ac3726ed20063d04/build-end.log
+
+2016-05-25  Baruch Siach  <baruch@tkos.co.il>
+
+	tools: make_rel_symlink.py can also use python2
+	The make_rel_symlink.py script is compatible with both python2 and python3.
+	Don't hard code a requirement for python3.
+
+2016-05-24  Alec Leamas  <leamas.alec@gmail.com>
+
+	lirc-lsplugins: Add support for displaying device enumeration.
+
+	plugins/devinput: Announce the list-devices support.
+
+	plugins/devinput: Make the list-devices support available.
+
+	configure.ac: Bugfix (BSD setting reported wrong).
+
+	configure.ac: Bugfix (BSD setting reported wrong).
+
+	Don't build commandir unless we have usb.h (#191).
+
+	Don't build commandir unless we have usb.h (#191).
+
+	lirc.org: Bugfix.
+
+2016-05-23  Alec Leamas  <leamas.alec@gmail.com>
+
+	NEWS: update.
+
+2016-05-23  Alec Leamas  <leamas.alec@gmail.com>
+
+	Build: Fix some BSD portability issues (#155).
+	  - Make implicit header sys/wait.h explicit.
+	  - cp -ar => cp -pr and sed => $(SED)
+	  - #!/bin/bash =>  #!/usr/bin/env bash
+	  - Handle missing modinfo by skipping kernel drivers.
+	  - Don't build plugins requiring linux-specific stuff.
+	  - and some more...
+
+	The bug is really about OSX, but this is what we do for now.
+	Package builds on FreeBSD 10.3, but cannot run 'make dist'
+	due to some files generated when doing 'make dist' requiring
+	linux tools.
+
+2016-05-23  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Update version-info age part (added interfaces).
+
+	NEWS: update
+
+	Revert "Build: Handle alternative usb.h locations."
+	This reverts commit 46fd216d0862cf3ed745fca5499f992779be0433.
+
+	Documentation fixes.
+
+	plugins/default: Support the "auto" device.
+	Making the default and devinput driver support the "auto" device should
+	cope with a large number of trivial configurations.
+
+	lirc-setup: Add support for drvctl device enumeration.
+
+	lirc-setup: Fix bad imports (python gi lib update).
+
+	Debian build: Kill some trivial lintian warnings.
+
+	gitignore: update.
+
+	plugins: Don't add trailing line on pluginlist.am.
+
+	README: update.
+
+2016-05-15  William Manley  <will@williammanley.net>
+
+	plugins/ftdi: Specify duty_cycle to fix ftdi driver
+	The recent commit c9afda9 added support for duty_cycle to the ftdi driver.
+	This worked for lircd config files that actually specified `duty_cycle`
+	but broke it for config files that didn't as it would default to 0 rather
+	than 50.
+
+	Before this commit it was the responsibility of each driver that implements
+	duty_cycle to know about this default.  This fix centralises the defaults
+	by adding a getter function to `ir_remote`, simplifying the drivers.  As a
+	result, even though this patch is to fix a bug in ftdi it touches the
+	default driver too.
+
+	This issue didn't come up in testing c9afda9 because I'd only tested it
+	with config files that actually explicitly set duty_cycle.
+
+	For the ftdix driver I hard-code a duty_cycle of 50 because that's all it's
+	capable of.  Passing in duty_cycle to modulate_pulses in this instance was
+	misleading.
+
+	Kudos: Dave Röthlisberg (testing).
+
+2016-05-12  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Try to fix broken html for lircd-uinput.8.
+
+	gitignore: Update.*
+
+2016-05-10  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Add example udev rule for fixed /dev/lirc* links.
+
+2016-05-09  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Handle brain-dead Ubuntu systemd configuration.
+
+2016-05-06  Nigel Kettlewell  <njk@stealth.njknet.org.uk>
+
+	plugins/uirt: Don't block if a 0xff is received by usb-uirt .
+	Periodically the usb§$-uirt-raw sends a short signal without any IR
+	activity. I don't know what the signal is, but as it's a "raw" receiver
+	I presume it's some interference.
+
+	Regardless, the problem is that the uirt receiver code sees this short
+	signal, and the main loop goes back to the uirt2 code because there is
+	data remaining to be read. It reads a 0xff as the first byte in
+	uirt2_read_raw and that function goes back to read more .. but there
+	isn't any more, so it blocks forever because the main loop function gave
+	us a timeout of zero .. which is turned into an infinite timeout in
+	waitfordata.
+
+	Subsequent IR keypresses DO work, because the blocking read gets some
+	data. But subsequent connections to the socket (e.g. by irw or irsend)
+	DON'T work: they block until some IR activity occurs which could be many
+	minutes later, because lircd is stuck in a poll on the USB fd, but isn't
+	polling on the socket connection fd, which is only done by the main
+	loop.
+
+	There may other ways to fix this, but this does work. With the patch I
+	can always connect to the socket, and IR keypresses continue to be
+	processed correctly.
+
+2016-05-06  Alec Leamas  <leamas.alec@gmail.com>
+
+	NEWS: update.
+
+	irrecord (lirc-make-devinput): Handle new include files (#187).
+
+	lirc-lsplugins: Handle plugins with errors in --yaml mode.
+
+2016-05-03  Alec Leamas  <leamas.alec@gmail.com>
+
+	tests: Bugfix.
+
+	Makefile.am: Bugfixes.
+	Makefile.am: bugfix.
+
+	plugins/default: Add device enumeration.
+
+	plugins/devinput: Add device enumeration.
+
+	lib/driver: Add some glob_t convenience stuff.
+
+2016-04-27  Alec Leamas  <leamas.alec@gmail.com>
+
+	git-tools/checkpatch.pl: Kill unescaped brace warning.
+
+	plugins/ftdi: Registration cleanup, checkpatch warnings.
+
+2016-04-27  William Manley  <will@williammanley.net>
+
+	plugins/ftdi: Add new ftdix driver + documentation.
+	Mode2 transmitter using the bitbang mode of an FTDI USB-to-serial chip such as
+	the FT230X.  The standard FTDI driver with the FT232R is unreliable having a
+	IR transmit failure rate of ~2%.  The FT232R also becomes unusable if you set
+	the tx_baud_rate to values other than 65536.
+
+	This driver works differently modifying its tx_baud_rate according to the
+	carrier frequency set.  This is ok because the FT230X does not have the timing
+	bugs present in the FT232R.  This allows much lower data rates over USB and
+	so improves reliablity, particularly if other devices are connect to the same
+	USB port.
+
+	Receive is not included to significantly simplify design of this driver.
+
+2016-04-27  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins/file: Fix bad test for LIRCCODE cases (#171).
+	Bug caused the file driver to emit "code" instead of pulse/space for
+	the last values in somw raw remotes.
+
+	lirs-lsremotes: Don't use non-standard GLOB_BRACE (#174).
+
+	doc: mode2.1 manpage update.
+
+2016-04-26  Helen Foster  <helen.foster@somewhere.net>
+
+	Fix  misleading logprintf comments (#179)
+
+2016-04-26  Alec Leamas  <leamas.alec@gmail.com>
+
+	tests: fix logging tests.
+
+	build: distcheck bugfix.
+
+2016-04-26  William Manley  <will@williammanley.net>
+
+	plugins/ftdi: Conform to lirc driver API v2 lifecycle expectations
+	As documented in a1c63fe.  Specifically:
+
+	> * At some later point, lirc calls the deinit() func. This puts the
+	>   driver in a stand-by state, from which it is a reasonably fast
+	>   operation to call `init_func()` again.
+	> * As a last operation, lirc might call the `close()` func. This
+	>   relinquishes all resources allocated by the driver.
+	> * functions are not guaranteed to be executed in the order described.
+	>   In general, the driver should not break if e. g., the `init()` or
+	>   `deinit()` function is called twice.
+
+2016-04-26  William Manley  <will@williammanley.net>
+
+	plugins/ftdi: Tear down subprocess if parent dies
+	If the lircd parent process is killed with SIGKILL it will be unable
+	to call `hwftdi_deinit` and so the subprocess it spawned will continue
+	living, keeping the ftdi device busy.  This change uses receiving EOF
+	on the pipe from the parent process as a signal that the parent process
+	has died and will shut itself down accordingly too.
+
+	plugins/ftdi: Add support for duty_cycle in lirc configuration file
+	An IR signal is modulated on a carrier.  The carrier consists of a square
+	wave of 0 and 1 at a default frequency of 38kHz.  The duty_cycle is the
+	percentage of the time that the carrier is at 1 rather than at 0 during
+	a carrier cycle.  It is in the range 1-99.
+
+	plugins/ftdi: Refactor pulling pulse creation function by itself
+	The new `write_pulse` function is more functional and less dependent on
+	the other implementation details of the ftdi driver.  This will give me
+	more oppertunity to investigate its operation.
+
+2016-04-26  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Clean up loglevel handling (#178).
+
+2016-04-25  Bengt Martensson  <barf@bengt-martensson.de>
+
+	plugins:  girs.c bugfixes.
+	See https://sourceforge.net/p/lirc/mailman/message/34982405/
+
+2016-04-25  Alec Leamas  <leamas.alec@gmail.com>
+
+	Fix typo causing lost deinit_func() calls (#179).
+
+2016-01-25  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins/default: Work around kernel bug (#172).
+
+	irpipe: Bugfix.
+
+	plugins/file: Bugfix dumping non-LIRCCODE data (#171).
+
+	Add explicit default -L${libdir} linker flag.
+	Adding an explicit -L${libdir} is redundant on single-arch hosts
+	but is essential e. g., when building a 32-bit library on a 64-bit host.
+
+	build: Fix cleaning.
+
+	systemd: Remove space in key definitions
+	Spaces generates valid packaging warnings  on Debian (lintian).
+
+	drivers: Update iguanair plugin docs.
+
+	docs: update.
+
+	doc: Add a "Default Configuration" chapter.
+
+	Fix generation of plugin docs.
+
+	lircd-uinput.8: Fix bad section.
+
+	Fix Debian FTBS compilation error.
+
+2016-01-08  Alec Leamas  <leamas.alec@gmail.com>
+
+	Starting 0.9.5 cycle.
+
+2016-01-06  Alec Leamas  <leamas.alec@gmail.com>
+
+	docs: update.
+
+	README: update.
+
+	Fix --options-file option parsing (#165).
+
+	doc: Makefile.am distcheck bugfix.
+
+	Use kernel lirc.h if available (#163).
+
+2016-01-05  Alec Leamas  <leamas.alec@gmail.com>
+
+	Make --uinput a separate service lircd-uinput (#162-part1).
+
+	Upstream the lirc.4 manpage (#164).
+
+	doc: lirc.4 upstream review remarks fixes.
+	This version has been merged to upstream
+	http://git.kernel.org/cgit/docs/man-pages/man-pages.git
+
+2015-12-29  Alec Leamas  <leamas.alec@gmail.com>
+
+	Build: Fix clean errors.
+
+2015-12-08  Alec Leamas  <leamas.alec@gmail.com>
+
+	tools: Teach irpipe to handle LIRCCODE drivers.
+
+	plugins: file: Add sending of LIRCCODE files.
+
+	lib: log: Remove unused cruft.
+
+2015-12-02  Alec Leamas  <leamas.alec@gmail.com>
+
+	irpipe: Fix compiler option (breaks w recent kernel).
+
+2015-11-29  Nicolas  <https://sourceforge.net/u/nadenislamarre/profile/send_message>
+
+	Temporay fix for uinput device setup (#161).
+	We normally init the driver when the first client connects to
+	the socket, and calle deinit() whenthe last client disconnects.
+	Using uinput we connect at startup, and never disconnects.
+
+2015-11-24  Alec Leamas  <leamas.alec@gmail.com>
+
+	Revert use of CLOCK_MONOTONIC_RAW (#158).
+
+	Fix wrong device in 03e378f (#150, again).
+
+2015-11-07  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Fix getgroups(2) configuration (#155).
+
+2015-11-06  Alec Leamas  <leamas.alec@gmail.com>
+
+	lirc-config: pylint/pep8 cleanup + bad bugfix.
+
+	test: Update plugin count.
+
+	lircd: Add tentative Darwin timer handling.
+
+	build, lircd: Use CLOCK_MONOTONIC_RAW if available.
+
+2015-11-06  Jarkko Sonninen  <kasper@iki.fi>
+
+	lircd: Fix sending gap between repeats (#158).
+
+2015-11-04  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: Move iguanair driver out of tree.
+
+2015-11-03  Alec Leamas  <leamas.alec@gmail.com>
+
+	Remove in-source debian packaging files.
+
+	debian: Update.
+	- Follow-ups to kernel-drivers.dist handling.
+	- Be strict when checking for libftdi > 1.0.
+
+	All: MacOS compilation fixes (#155).
+	- Affects all parts
+
+2015-11-02  Alec Leamas  <leamas.alec@gmail.com>
+
+	Create kernel-driver.yaml data in runtime (#157).
+
+	log: Fix bad useconds typing in 9f8c440 (#159).
+
+	doc: Restore manpages destroyed by bdc7525.
+
+	debian: Fix some remarks from debian-mentors.
+
+2015-10-31  Alec Leamas  <leamas.alec@gmail.com>
+
+	debian: Bugfixes (#160).
+
+2015-10-28  Alec Leamas  <leamas.alec@gmail.com>
+
+	NEWS: drivers OOT move.
+
+	drivers: Update yard2 docs.
+
+2015-10-28  Jarkko Sonninen  <kasper@iki.fi>
+
+	lib: Add microseconds to log time (#159).
+
+2015-10-28  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: Move irman driver out of tree.
+	This removes all libirman dependencies from the main build tree.
+	The driver can be built and installed out of tree, after that
+	lirc has been installed.
+
+	plugins: Move yard2 driver out of tree.
+
+	doc: Add yard2 plugin documentation.
+
+2015-10-26  Alec Leamas  <leamas.alec@gmail.com>
+
+	debian: bugfixes.
+
+2015-10-25  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Fix broken links.
+
+	doc: Add some missing files.
+
+	doc: Update (includes fixes to #154).
+	  - New substitution variable @website@ for manpage use.
+	  - irexec manpage overhaul.
+	  - New lircrc examples added to contrib.
+	  - New FTDI driver documentation.
+	  - New lircrc manpage.
+
+	Add a system-wide irexec service (#156).
+
+2015-10-25  Alec Leamas  <leamas.alec@gmail.com>
+
+	Add plugin device enumeration.
+	The only reliable way to enumerate devices, in particular the USB ones
+	is done by the driver. This adds a new option in the configs file +
+	a mode2 CLI option to display the values listed by the driver. The
+	actual code is a DRVCTL so it does not really change the driver
+	interface.
+
+	Implement in atilibusb and ftdi, the latter untested. The ftdi code
+	fixes an existing error in the drvctl_func.
+
+2015-10-25  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Fix OOT plugin docs generation, update example code.
+
+2015-10-19  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Update.
+
+	contrib: Add a new "blacklist all" catch all rule, clean-up.
+
+	configs: Update.
+
+	lirc-setup: Bugfixes
+	Fix some glitches which surfaced when starting on Debian.
+
+	Create a devinput-based default setup (#106).
+	Using the devinput driver with the 'auto' device as default setup works
+	if there is a single remote with rc-based driver. While certainly not
+	covering all cases, it's a reasonable attempt - there is actually a
+	chance this "works" out of the box for some users.
+
+	irrecord:  Fix error messages (#152).
+
+	plugins: Add "No such file" logging to default (#151).
+
+2015-10-19  Alec Leamas  <leamas.alec@gmail.com>
+
+	Clean up generating of devinput.lircd.conf (#153).
+	The existing logic was completely broken. The idea to distribute
+	input_map.inc is wrong since it reflects the kernel on the machine
+	where it was created. Better then to just distribute a best-effort
+	devinput.lircd.conf + simple tool to re-generate it from the target
+	system kernel.
+
+	After patch there is just one single script used both when building and
+	when users re-generate devinput.lircd.conf.
+
+2015-10-19  Alec Leamas  <leamas.alec@gmail.com>
+
+	build:  Debian packaging build wrap-up.
+	Locating modinfo is causing some pain on Debian system which havn't
+	/sbin:/usr/sbin in $PATH. Locate using autoconf and use that value.
+	While we are on it, rename paths.py to config.py, which reflects the
+	purpose.
+
+	A VERSION file is added, installed as a document. Git version data
+	is updated at "make dist".
+
+	The debian packaging is updated, and outside the package the Fedora
+	debian toolchain has been updated so that source packages can be built.
+
+	Various bugfixes and clean-up.
+
+2015-10-16  Alec Leamas  <leamas.alec@gmail.com>
+
+	Add debian upstream packaging (#137).
+	Normally this is done downstream. However, with the Debian package
+	stalled at 0.9.0 we need to support some way for Debian users to
+	use a more recent version. Until the downstream situation improves
+	we need to carry this.
+
+2015-10-15  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: irrecord: Re-factoring bugfix (#147).
+
+2015-10-14  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Add missing lircd-setup manpage.
+
+	doc: Add missing pronto2lirc manpage.
+
+2015-10-14  Alec Leamas  <leamas@nowhere.net>
+
+	contrib: Remove outdated start script lircs.
+
+	contrib: Remove init.d cruft (trust the packagers).
+
+2015-10-14  Alec Leamas  <leamas.alec@gmail.com>
+
+	Revert walk-around kernel bug fixes (#119, #148)
+	Reverting  "default: Conditionalize kernel bug walk-around"
+	(68e49ce4a) and "plugins: default: Work around kernel bug (#119)."
+	(19b01d0fc). The fix is broken, and the upstream bug is fixed
+	from kernel 4.1.6.
+
+2015-10-14  Bengt Martensson  <barf@bengt-martensson.de>
+
+	plugins:girs: Minor fixes (#150).
+
+2015-10-04  Jon Bergli Heier  <snakebite@jvnv.net>
+
+	lib: receive: Return 0 on poll() timeout.
+
+	lib: receive: Fixed timeout value for poll().
+
+2015-10-03  Alec Leamas  <leamas.alec@gmail.com>
+
+	NEWS: update
+
+	Sanitize the for_each_plugin() signature.
+
+	doc, tools: Database distcheck fixes.
+
+	doc: Mega update.
+
+	doc: Provide a configuration-guide symlink to plugindocs.
+
+	lib, tools: Streamline application logging.
+
+2015-10-03  Alec Leamas  <leamas.alec@gmail.com>
+
+	lirc-setup: Update: tests, documentation links, bugfixes
+	- Added options for running mode2 and lircd+irw for selected config.
+	- Added documentation links for driver
+	- Support for /bin/sh driver hints scripts
+	- Added paths.py to substitute installation paths.
+	- Tons of bugfixes.
+
+	The UI has more or less collapsed and need an overhaul. However,
+	this seems at a glance funtionally complete.
+
+2015-10-02  Alec Leamas  <leamas.alec@gmail.com>
+
+	irrecord: Fix some messages.
+
+	plugins: Generate devinput.lircd.conf, fix obsolete file warning.
+	Add code to generate devinput.lircd.conf on current system. Fix warning
+	in devinput plugin for obsolete file.
+
+	plugins: Add some complicated device_hints.
+
+	configs: Fix yaml generation, bugfixes.
+
+2015-10-02  Alec Leamas  <leamas.alec@gmail.com>
+
+	lirc-lsplugins: Quote some YAML output.
+	The YAML parser is unhappy with more complicated shell commands in
+	the device_hint string. Write string as a double-quoted string,
+	quoting all \ to \\. The more YAML-friendly single quoting doesn't
+	work since "'" is part of command shell commands.
+
+	Also adds the info string to the generated output.
+
+2015-10-02  Alec Leamas  <leamas.alec@gmail.com>
+
+	Revert "build: Add selinux policy."
+	Lets make an upstream policy patch instead:
+	https://github.com/fedora-selinux/selinux-policy/pull/41
+
+	irrecord: Fix un-decodable buttons handling (#146).
+
+	atilibusb: Fix crash for non-existing device (#145).
+
+	lirc-lsplugins: Fix --plugindir not being respected (#144).
+
+	tests: fix  expected driver count (girs => +1).
+
+2015-09-29  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Fix parsing of multiple files (#141).
+	In certain combinations of including multiple files which contains
+	concatened remotes the concatenated remotes were silently dropped.
+
+2015-09-28  Alec Leamas  <leamas.alec@gmail.com>
+
+	Retire the caraca driver.
+	The driver depends on a library which isn't packaged in any major
+	distribution. The code is since 2002, and does not build. Keeping
+	the driver in attic for the time being.
+
+2015-09-27  Alec Leamas  <leamas.alec@gmail.com>
+
+	NEWS:update
+
+	doc, tools: distcheck database fixes.
+
+	girs: Mute some checkfiles warnings.
+
+2015-09-27  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Add selinux policy.
+	The selinux policy is built if the libselinux-devel files (really
+	libselinux.pc) is present. The set of policies (mls, targeted) is
+	hardcoded in Makefile.am.  Although polices are built they are not
+	installed during 'make install'.
+
+	The long time solution is to add this policy to the upstream generic
+	one. However, using a package policy yields a faster turn-around in
+	the initial incarnations. There is also some problems with the
+	module naming:
+
+	https://github.com/fedora-selinux/selinux-policy/issues/38
+
+2015-09-27  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Generate devinput.lircd.conf.
+	The devinput.lircd.conf reflects the host (i. e., the kernel) rather
+	than any external hardware. Thus it makes sense to rebuild it
+	as part of the build so an actual up-to-date version always is
+	available.
+
+	doc: Fix install-time paths in manpages (#140).
+	Add build mechanics to patch installation paths in manpages and
+	apply them for /var/run (@varrundir@) and /etc (@etcdir@).
+
+	irrecord: Fix get_toggle_mask infinite loop (#139).
+
+	irrecord: From mailing list: improve some text.
+
+2015-09-27  Alec Leamas  <leamas.alec@gmail.com>
+
+	tools: irrecord, mode2, xmode2: Options and default values.
+	As pointed out in the mailing list, using the lircd values for
+	driver and device are reasonable fallbacks when no value
+	exists in the [irrecord] section. While we are on it, fix
+	debuglevel and plugindir as well. This fix:
+
+	 - Makes all three tools handle --device, --driver, --debug
+	   --plugindir, --options-file and --keep-root in a uniform way.
+	 - Makes all three tools fall back to the [lircd] section for
+	   --driver, --device, --plugindir and --debug if not defined
+	   elsewhere.
+	 - Adds feedback for effective driver and device.
+	 - Makes a manpage overhaul.
+
+2015-09-27  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: Add document reference in .info.
+	For those drivers which have documentation, linking to that seems to
+	be a Good Thing. Moving the plugindocs dir declared in lirc-driver.pc
+	fomr /usr/share to /usr/share/doc. This is a border case, the driver
+	works without the docs but contains a link to it.
+
+	doc: Add out-of-tree plugin docs generation.
+
+	doc: Adding irman driver doc sketch.
+
+	doc: Driver API logging update.
+
+	logging: Macroize logperror.
+
+	logging: Macroize standard logprintf usecases.
+	Using macros is a better interface, and opens up for addding e. g.,
+	file and line number to messages.
+
+	logging: replace LOGPERROR ->logperror.
+
+	logging: Replace LOGPRINTF -> logprintf (#129).
+
+	configs: bugfixes, README update.
+
+	Lower priority of duplicate codes messages.
+	The messages about multiple definitions or multiple values are
+	far from severe. In many cases the codes are defined this way
+	deliberately. NOTICE is more appropriate.
+
+	mode2: Clean up stdout/stderr output(#142).
+	Old code puts error messages on stdout which is a plain bug.
+	Fix this. While we're on it: fix some message definitions.
+	Raise default loglevel to DEBUG.
+
+	girs: Add configs/ file.
+	From a user perspective, the girs driver is as of now Arduino
+	support and this config file presents it as such. It is perfectly
+	possible to add another one named "girs" presenting the driver as
+	a generic tool should the need arise.
+
+	girs: Add device_hint, update to API version 3.
+
+2015-09-27  Bengt Martensson  <barf@bengt-martensson.de>
+
+	Girs driver: completed code, documented.
+
+2015-09-24  Alec Leamas  <leamas.alec@gmail.com>
+
+	irrecord: Fix insane driver default being devinput.
+
+2015-09-22  Alec Leamas  <leamas.alec@gmail.com>
+
+	Merge branch 'config'
+	A bunch of fixes which eventually updates the configuration data
+	database. The input is coming from several sources ending up in
+	a number of yaml files in configs/. The database has a python API;
+	current code is updated to use this uniform API.
+
+	The driver api is bumped after adding configuration hooks to the
+	drivers.
+
+2015-09-22  Alec Leamas  <leamas.alec@gmail.com>
+
+	contrib: Add generic USB devices permissions rule
+
+	Documentation: updates for configuration tools.
+
+	datatable: Adapt to new database format.
+
+	data2hwdb: Adapt to new data model.
+
+	lirc-setup: Handle local files, fix some deprecations.
+
+	lirc-setup: Adapting to new data model.
+
+	build: Add mechanics to build *yaml files.
+
+	Adding new lirc-kerneldrivers tool.
+
+	configs/README: Provisionary config file documentation.
+
+	configs: Update to new standards, resurrect most in attic.
+	The open question is how many configs using the 'default' driver that
+	actually are supported by the kernel. The first one who actually
+	tries will know, there isn't much of an alternative (?).
+
+2015-09-22  Alec Leamas  <leamas.alec@gmail.com>
+
+	configs: Nove obsolete configs to attic
+	The lirc_gpio driver is retired since long. Moving configs
+	depneding on this driver to new "attic" place so they can
+	still be found if someone wants to resurrect them.
+
+	The wpc8769l driver didn't make it when the lirc drivers were
+	upstreamed to the kernel. Moving the config to the attic, and
+	re-adding the kernel driver (which doesn't build as-is) if
+	someone want's to resurrect them.
+
+2015-09-22  Alec Leamas  <leamas.alec@gmail.com>
+
+	configs: First stab on kernel-drivers.dist.
+
+	irdb-get: Add support for creating confs_by_driver yaml.
+	   - New yaml-config subcommand creates confs_by_driver.yaml
+	   - Add support for XDG_CACHE_HOME for cached directory
+	   - Add testing environment variables.
+	   - Add -v/--version support
+
+	lirc-lsplugins: Add support for yaml listing.
+
+	plugins: Show real device in error feedback.
+	For drivers which autodetects devices the probed the device should
+	be made available as early as possible in driver.device so that
+	error messages can reflect the probed device.
+
+2015-09-21  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: Add configuration data, API version bump to 3.
+
+	plugins: devinput: Handle larger events (kernel interface update).
+	kernel input events are now 24 bytes, breaking some hard-coded
+	limits in both this driver and in mode2. Bump driver interface
+	version.
+
+	NEWS: update.
+
+2015-09-20  Alec Leamas  <leamas.alec@gmail.com>
+
+	mode2: Make read buffer size dynamic.
+	New input size from the /dev/input events breaks hard-coded limits.
+	Instead of just raising the limits makes the size dynamic.
+
+	plugins: devinput: Add DRVCTL_GET_RAW_CODELENGTH support.
+	If mode2 should work, it needs to read the correct number of bytes
+	when reading from /dev/input devices. This is required, since
+	this driver does not implement readdata().
+
+	lib: Add new DRVCTL_GET_RAW_CODELENGTH drvctl command.
+
+	lib: Use correct groups when dropping CLI privileges.
+
+2015-09-19  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: file.c: Fix off-by-one sscanf error (#138).
+
+2015-09-18  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Use getaddrinfo instead of gethostbyname (#122).
+
+	lircd: Use getaddrinfo instead of gethostbyname (#122).
+	Also: refactor some code.
+
+	NEWS:update.
+
+	doc: Major update.
+	  Configuration guide:
+	     - New appendix "Handling USB HID devices".
+	     - New appendix "Using irrecord".
+	     - New appendix "Running as a regular user".
+	  Fix rpmlint manpage warnings
+	  Add note on bundled header in lirc(4).
+	  irsend: Fix help message + manpage glitch.
+	  Various bugfixes.
+
+	Add lircd setup tool (#121).
+
+	plugins/default: Just check lirc protocol if read-only access (#133).
+	When assuring the the used protocol is 'lirc' in the current rc device,
+	first check if it's already set. If OK, the code works without write
+	access.
+
+	plugins/devinput: Add an "auto" device (#134).
+
+2015-09-18  Alec Leamas  <leamas.alec@gmail.com>
+
+	Clean up documentation (#136).
+	Remove the manpages under html/ and mode everything to lirc.org.
+	Clean up some links and symlinks. Remaining symlinks reflects
+	the different view from api-docs/ and lirc.org/html.
+
+	The symlinks can now be easily expanded using tar --dereference.
+
+2015-09-09  Alec Leamas  <leamas.alec@gmail.com>
+
+	lib: Fix missing --lirc flag.
+	This is not strictly required, the linker resolves the symbols anyway.
+	However, there is packaging noise without it.
+
+	irrecord: Fix crash when invoked without arguments.
+
+2015-09-08  Alec Leamas  <leamas.alec@gmail.com>
+
+	checkfiles: Mute needless kernel.space check (#135).
+
+	Revert "tools: Add missing file lirc-setup/database.py."
+	This reverts commit 034bc3b198a057427d79d4bd93a40234936be1cc, which is
+	part of a yet-not-merged feature branch.
+
+2015-09-07  Alec Leamas  <leamas.alec@gmail.com>
+
+	default: Conditionalize kernel bug walk-around
+	The fix introduced in "19b01d plugins: default: Work around kernel bug
+	(#119)" does not play with the regression tests.  Add a simple fix
+	which disables the fix if LIRC_REGRESSION_TEST is defined in the
+	environment for now, better long-term strategies are needed later,
+	and update the test script.
+
+	contrib: Update release process.
+
+	Restore some old files to original shape.
+
+	plugins: update version info.
+
+	irsimreceive: Fix -U option parsing bug.
+
+	tools: Add missing file lirc-setup/database.py.
+
+2015-09-03  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: Update to checkpatch standards.
+
+	lirc_options.conf: Clean-up.
+
+	lirc-config-tool: Update some heuristics.
+
+	Updating to 0.9.4-devel
+
+	Link a single large doc file to keep dist archives sane.
+	WHile it's good thing to have everything in the archive (and versioned)
+	this single seldom read PDF doubles the distribution size. Store
+	it on sourceforge outside the git repo and link to it.
+
+	gitignore
+
+	Documentation (README, Install.txt, lirc.org/index.html) fixed.
+
+2015-08-28  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircd: Fix unloadable driver error message (#128).
+
+	lircd: Fix crash in debug output (#126).
+
+	lircd: Don't require unused arguments (#131).
+
+	lib: Add explicit default value for lircd.conf:frequency (#132).
+
+	build: Don't hardcode -j make flags (#130).
+
+2015-08-23  Alec Leamas  <leamas.alec@gmail.com>
+
+	configure.ac: Don't meddle with CFLAGS (again!) (#127).
+
+2015-08-20  Alec Leamas  <leamas.alec@gmail.com>
+
+	Build: fix dependencies.
+
+	doc: Update
+
+	doc: driver-api: Add permissions text.
+
+	configure.ac: Don't hardcode CFLAGS (#124).
+
+	irrecord-ui: Handle remotes without gap (#98).
+
+	irrecord-ui: Fix -k option parsing bug.
+
+	lib: Create log directory if missing (#125).
+
+	lib: irrecord: Rewrite insane waitfordata loop.
+
+	lirc-setup: Fix missing item in lirc_options.
+
+	lirc-setup: Fix for compressed kernel modules, typos.
+
+	tools: Add -h/--help to pronto2lirc.
+
+	tools: Pylint/pep8 fixes.
+
+	lirc-lsplugins: Fix left-over log file.
+	lsplugins left logfile on current directory, fixed.
+
+2015-08-20  Alec Leamas  <leamas.elac@nospam.net>
+
+	Build: Add configdir and plugindocs pkg-config support.
+	Add configdir pkg-config variable so that plugins compiled
+	out-of-tree knows where to install configuration. Likewise
+	add a new plugindocs directory wheer plugins can install docs.
+	Having these available using pkg-config mean that drivers
+	don't need to be configured.
+
+2015-08-17  Alec Leamas  <leamas.alec@gmail.com>
+
+	tools: Fix bad typo creating lirc_lsremotes, not lirc-lsremotes.
+
+2015-08-16  Alec Leamas  <leamas.alec@gmail.com>
+
+	tests: Adjust # plugins.
+
+	lirc-lsplugins: Use puts when applicable.
+
+	lircd: --effective-user: Set also gid (RH bz 1253907).
+
+	doc: Add missing files.
+	This should teach me to run distcheck from a fresh clone.
+
+	doc: Updates, bugfixes.
+	 - NEWS updated
+	 - Driver api: Refer to manpage instead of duplicate.
+	 - Bundle and link NEWS in docs,
+	 - All sorts of typos etc.
+	 - Clean up some links.
+	 - All sorts of updates & fixes.
+
+	tools: lirc-lsplugins: Patch legend info, fix irw formatting.
+
+	lib: Typo fix.
+
+2015-08-16  Alec Leamas  <leamas.alec@gmail.com>
+
+	lircd: Set supplementary groups (RH bz 1253907).
+	Setting effective user id isn't enough, we also need the supplementary
+	groups (e. g., to access /var/lock files).
+
+	Downstream: https://bugzilla.redhat.com/show_bug.cgi?id=1253907
+
+	This is perhaps no final solution, but definitely makes the semantics
+	better.
+
+2015-08-16  Alec Leamas  <leamas.alec@gmail.com>
+
+	Removing remotes.
+	Since the regression tests now uses the sf remotes database
+	the local remotes are not required any more.
+
+	plugins: default: Work around kernel bug (#119).
+
+	tools: pronto2lirc: Fix stoneage python syntax (#118).
+
+	irrecord-ui: More user feedback, formatting.
+
+	lib: irrecord: Fix debug output + formatting fixes.
+
+	lircrcd: poll() bugfix.
+
+	lircd: poll() bugfixes.
+
+	irtestcase: LIRC_SOCKET_PATH handling bugfix.
+
+2015-08-13  Alec Leamas  <leamas.alec@gmail.com>
+
+	plugins: Fix wrong driver configuring kernel (#99).
+
+	build: Warn if python3 link is missing, clean-up.
+
+2015-08-12  Alec Leamas  <leamas.alec@gmail.com>
+
+	build: Let configure die without suitbale python (#112)
+
+	tools: Clean up perror output using perrorf()
+
+	daemons: Clean up perror output using perrorf()
+
+	lib: Add perrorf() function, formatted perror() support.
+
+2015-08-11  Alec Leamas  <leamas.alec@gmail.com>
+
+	Remove links on uninstall (#113).
+	Surprise: 'make distcheck' does not check for left-over links
+	after uninstall...
+
+2015-08-10  Alec Leamas  <leamas.alec@gmail.com>
+
+	No designated initializers in C++ (#111).
+
+	doc: bugfix.
+
+	doc: Yet another missing image.
+
+	doc: Move som stuff to configuration guide, more bugfix.
+
+	build: distcheck/VPATH fixes.
+
+	doc: Update, fix links, reorganize.
+	- Update install info.
+	- Configure -> Configuration reference, bugfixes.
+	- Make a separate Program Overview.
+	- Manpages macro usage cleanup.
+	- Add som info on drivers.
+	- New iguanair driver doc.
+	- Fix broken links and missing images (lot's of them).
+
+	configs: Make iguanaIR driver conflict kernel's.
+	Basically, this is up to the iguanaIR tools from
+	IguanaIR, Inc. However, lirc's igunanair driver clearly
+	cannot work with the kernel iguanair, so conflict: it.
+
+	doc: distcheck fix.
+
+2015-08-03  Alec Leamas  <leamas.alec@gmail.com>
+
+	NEWS:update
+
+	doc: Move things from install and configure, clean up.
+
+	doc: Add driver support files info to driver API.
+	Clean up some things in technical and index.
+
+	doc: Move protocol info to manpages (lircd, lircrcd, lircmd).
+	The protocol info in technical.html is not updated, many (most?)
+	commands are missing. Moving to manpage to create better chance
+	for folks updating the code to also update the docs. Update manpages
+	to current status.
+
+	doc: Remove duplicated config tools text.
+
+	doc: Add sending to client manual.
+
+	doc: Expand api-docs on install and link to them.
+
+	doc: Add irpipe manpage.
+
+	doc: index: Clean up manpage TOC, add programs overview.
+
+	doc: install, technical: refresh, remove obsolete text.
+
+	doc: Makefile.am: Mute some garbage, bugfixes.
+
+2015-08-02  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Really delete lirc_ioctl after merge.
+
+	lirc.org: Clean up intro text.
+
+	lirc.org: Update for 0.9.3.
+
+	daemons: Remove irsimsend and irsimreceive.
+	These adds more complexity to lircd, and we don't need that. The
+	new irsimsend + irpipe tools provides better substitutes.
+
+2015-08-01  Alec Leamas  <leamas.alec@gmail.com>
+
+	doc: Configuration Guide: html bugfix.
+
+	tools/irpipe: Nuke some compiler warnings.
+
+	tools: Makefile.am distcheck fix.
+
+	Merge lirc.4 and lirc_ioctl.4 manpages into lirc.4.
+	Also fix some review remarks fromm Michael Kerrick, Linux manpages
+	project.
+
+	doc: Add some missing manpage links.
+
+	doc: lircd manpage update.
+
+	doc: Remove bad links to lirc.org.
+
+	doc: Configuration Guide: Add tools and files appendixes.
+
+	doc: file-driver.html bugfix.
+
+	doc: Add table.html to lirc.org.
+
+	doc: Configuration Guide update.
+
+	Update lirc-codec-regression-test to use irpipe
+	New test does not use lircd.simsend or lircd.simreceive but are based
+	on the irpipe kernel driver.
+
+	tools: irpipe test tool added.
+	Userspace tool to handle the irpipe kernel driver.
+
+	Adding irpipe kernel test driver.
+
+	plugins: zotac: Use poll() instead of select().
+
+	plugins: uirt2_common: Use poll() instead of select().
+
+	plugins: uirt_common: Use poll() instead of select().
+
+	plugins: tira: Use poll() instead of select().
+
+	plugins:irtoy:Use poll() instead of select().
+
+	plugins: irlink: Use poll() instead of select().
+
+	plugins: IguanaIR: Use poll() instead of select().
+
+	plugins: atwf83: Use poll() instead of select().
+
+	lib: serial: Use poll() instead of select().
+
+	lib: receive: Use poll() instead of select().
+
+	irpty: Use poll() instead of select().
+
+	irrecord: Use poll() instead of select().
+
+	lircrcd: Use poll() instead of select().
+
+	lircd: Use poll() instead of select().
+
+2015-08-01  Bengt Martensson  <bulk  at bengt-martensson.de>
+
+	configure.ac: Typo fix (#110).
+
+2015-08-01  Alec Leamas  <leamas.alec@gmail.com>
+
+	irw: Make a clean exit on SIGUSR1.
+
+	NEWS: update
+
+	lirc-lsplugins: Display log after parsing file(s).
+
+	Check for button duplicates when parsing (#107).
+	The ticket is about (rightfully) about duplicate key names. While
+	we're on it, also check for duplicate values/data.
+
+	lircrcd: Remove superfluos PACKET_SIZE definition (#108).
+
+	lirc-config-tool: Mute bogus BTN_ and MOUSE_ warnings (#105)
+
+2015-08-01  lotan_rm  <lotan_rm sf user>
+
+	irexec: Make lirc_init() before readconfig() (#102).
+
+2015-08-01  Alec Leamas  <leamas.alec@gmail.com>
+
+	irsimsend: Fix argument parsing -> -U/--pluginpath bugfix.
+
+	irsimsend: List all remote definitions, not just the first.
+
+	irsimsend: bugfix.
+
+	configs: Add irtoy item.
+
+	gitignore: Update.
+
+	Updating version to 0.9.4
+
+2015-08-01  Bengt Martensson  <barf@bengt-martensson.de>
+
+	plugins: irtoy: Added support for debug LEDs (RA2,...,RA5), new docs.
+	Original blinking when IR received caused problems, removed.
+	Use receivePin when listening (compatiblity with IrScrutinizer).
+
+	Docs added (irtoy_driver.html).

@@ -1,0 +1,241 @@
+vpn connection
+==============
+
+Service		net.connman.vpn
+Interface	net.connman.vpn.Connection
+Object path	[variable prefix]/{connection0,connection1,...}
+
+Methods		dict GetProperties()  [experimental]
+
+			Returns properties for the connection object. See
+			the properties section for available properties.
+
+			Possible Errors: [connection].Error.InvalidArguments
+
+		void SetProperty(string name, variant value) [experimental]
+
+			Changes the value of the specified property or the
+			properties defined as a dict passed as variant, where
+			the format is equal to the dict returned by
+			GetProperties(). Only properties that are listed as
+			read-write are changeable. Property name "Properties"
+			indicates a dict of properties. On success a
+			PropertyChanged signal will be emitted for the
+			specified property or for all changed properties
+			individually. If there is no change in property value
+			no PropertyChanged signal is sent. Configuration is
+			written to disk when one or more values are changed.
+			In case a dict of properties are given, configuration
+			write is done after all properties are processed.
+			Specifics in dict use in contrast to setting a single
+			property:
+				- Dict can contain values set as empty strings
+				  or arrays. This causes the values to be
+				  cleared as if using ClearProperty().
+				- If there are errors with the properties,
+				  InvalidProperty or PermissionDenied error is
+				  returned. InvalidProperty is sent when there
+				  is at least one invalid property, in this
+				  case there can be also properties that
+				  cannot be changed (immutable properties).
+				  If there are only immutable properties
+				  PermissionDenied error is returned.
+				- The properties that are invalid or immutable
+				  are reported back at the end of the error
+				  message as a comma separated property name
+				  list.
+				- One invalid/immutable property does not
+				  cause the rest of the properties to be
+				  ignored. If there are valid and invalid
+				  properties, the valid properties emit
+				  PropertyChanged signal and invalid are
+				  reported back with an InvalidProperty
+				  message.
+
+			Possible Errors: [connection].Error.InvalidArguments
+					 [connection].Error.InvalidProperty
+					 [connection].Error.PermissionDenied
+					 [connection].Error.NotSupported
+
+		void ClearProperty(string name) [experimental]
+
+			Clears the value of the specified property.
+
+			Possible Errors: [connection].Error.InvalidArguments
+					 [connection].Error.InvalidProperty
+					 [connection].Error.PermissionDenied
+
+		void Connect() [experimental]
+
+			Connect this VPN connection. It will attempt to connect
+			to the VPN connection. The Connect() will wait until
+			the connection is created or there is an error. The
+			error description is returned in dbus error.
+
+			Possible Errors: [connection].Error.InvalidArguments
+					[connection].Error.InProgress
+
+		void Connect2(string dbus_sender) [experimental]
+
+			Connect this VPN connection. The Connect2() is a
+			wrapper for Connect() allowing to pass original D-Bus
+			sender when proxying the connection request. The
+			Connect2() will wait until the connection is created or
+			there is an error. The error description is returned in
+			dbus error.
+
+			Possible Errors: [connection].Error.InvalidArguments
+					[connection].Error.InProgress
+
+
+		void Disconnect() [experimental]
+
+			Disconnect this VPN connection. If the connection is
+			not connected an error message will be generated.
+
+			Possible Errors: [connection].Error.InvalidArguments
+
+Signals		PropertyChanged(string name, variant value) [experimental]
+
+			This signal indicates a changed value of the given
+			property.
+
+Properties	string State [readonly]
+
+			The connection state information.
+
+			Valid states are "idle", "failure", "configuration",
+			"ready", "disconnect".
+
+		string Type [readonly]
+
+			The VPN type (for example "openvpn", "vpnc" etc.)
+
+		string Name [readonly]
+
+			The VPN name.
+
+		string Domain [readonly]
+
+			The domain name used behind the VPN connection.
+			This is optional for most VPN technologies.
+
+		string Host [readonly]
+
+		       The VPN host (server) address.
+
+		boolean Immutable [readonly]
+
+			This value will be set to true if the connection is
+			configured externally via a configuration file.
+
+			The only valid operation are Connect(), Disconnect()
+			and GetProperties()
+
+		boolean SplitRouting
+
+			This value reflects the split routing setting on
+			connmand side. By default, this value is omitted and
+			defaults to false. The value needs to be explicitly
+			set to true for VPN to be split routed.
+
+		int Index [readonly]
+
+			The index of the VPN network tunneling interface.
+			If there is no tunneling device, then this value
+			is not returned.
+
+		dict IPv4 [readonly]
+
+			string Address
+
+			        The current configured IPv4 address.
+
+			string Netmask
+
+			       The current configured IPv4 netmask.
+
+			string Gateway
+
+			       The current configured IPv4 gateway.
+
+			string Peer
+
+			       The current configured VPN tunnel endpoint
+			       IPv4 address.
+
+		dict IPv6 [readonly]
+
+			string Address
+
+			        The current configured IPv6 address.
+
+			string PrefixLength
+
+			       The prefix length of the IPv6 address.
+
+			string Gateway
+
+			       The current configured IPv6 gateway.
+
+			string Peer
+
+			       The current configured VPN tunnel endpoint
+			       IPv6 address.
+
+		array{string} Nameservers [readonly]
+
+			The list of nameservers set by VPN.
+
+		array{dict} UserRoutes [readwrite]
+
+			int ProtocolFamily
+
+				Protocol family of the route. Set to 4
+				if IPv4 and 6 if IPv6 route. Set to 0
+				(PF_UNSPEC) or omit, to have it assigned
+				automatically.
+
+			string Network
+
+				The network part of the route.
+
+			string Netmask
+
+				The netmask of the route. For IPv6 routes,
+				this is the prefix length.
+
+			string Gateway
+
+				Gateway address of the route.
+
+			The list of currently active user activated
+			routes.
+
+		array{dict} ServerRoutes [readonly]
+
+			int ProtocolFamily
+
+				Protocol family of the route. Set to 4
+				if IPv4 and 6 if IPv6 route.
+
+			string Network
+
+				The network part of the route.
+
+			string Netmask
+
+				The netmask of the route. For IPv6 routes,
+				this is the prefix length.
+
+			string Gateway
+
+				Gateway address of the route.
+
+			The VPN server activated route. These routes
+			are pushed to connman by VPN server.
+
+		There can be other properties also but as the VPN
+		technologies are so different, they have different
+		kind of options that they need, so not all options
+		are mentioned in this document.

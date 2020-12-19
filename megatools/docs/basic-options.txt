@@ -1,0 +1,23 @@
+include::network-options.txt[]
+
+--config <path>::
+	Load configuration from a file
+
+--ignore-config-file::
+	Disable loading .megarc
+
+--debug [<options>]::
+	Enable debugging of various aspects of the megatools 
+	operation. You may enable multiple debugging options 
+	separated by commas. (eg. `--debug api,fs`)
++
+Available options are:
+
+	* `http`: Dump HTTP request/response details (can be used to debug connection/proxy issues)
+	* `api`: Dump Mega.nz API calls
+	* `fs`: Dump Mega.nz filesystem (may require `--reload` to actually print something)
+	* `cache`: Dump cache contents
+	* `tman`: Dump transfer manager events
+
+--version::
+	Show version information

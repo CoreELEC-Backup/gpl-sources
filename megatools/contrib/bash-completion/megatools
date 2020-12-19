@@ -1,0 +1,195 @@
+# Copyright (c) 2017 albaldi
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# See here for updates: https://github.com/megous/megatools/issues/368
+
+_remotepath()
+{
+        local flags_megals cur listing i tmp
+        cur="${COMP_WORDS[COMP_CWORD]}"
+        # workaround for when cur is empty and expand to '/ ' instead of /Root,/Contacts, etc
+        if [[ -z "${cur}" ]] ; then
+                tmp="/"
+        else
+                tmp="${cur%/*}/"
+        fi
+        flags_megals=()
+        for i in "${!COMP_WORDS[@]}"
+        do
+                case "${COMP_WORDS[i]}" in
+                        --config)
+                                flags_megals+=("${COMP_WORDS[i]}")
+                                flags_megals+=("$(compgen -W "${COMP_WORDS[i+1]}")")
+                                i=$((i+2))
+                                continue
+                                ;;
+                        --proxy)
+                                flags_megals+=("${COMP_WORDS[i]}")
+                                flags_megals+=("$(compgen -W "${COMP_WORDS[i+1]}")")
+                                i=$((i+2))
+                                continue
+                                ;;
+                        --username|-u)
+                                flags_megals+=("${COMP_WORDS[i]}")
+                                flags_megals+=("$(compgen -W "${COMP_WORDS[i+1]}")")
+                                i=$((i+2))
+                                continue
+                                ;;
+                        --password|-p)
+                                flags_megals+=("${COMP_WORDS[i]}")
+                                flags_megals+=("$(compgen -W "${COMP_WORDS[i+1]}")")
+                                i=$((i+2))
+                                continue
+                                ;;
+                        *)
+                                ;;
+                esac
+        done
+        # awesome https://stackoverflow.com/a/26511572
+        mapfile -t -d '' listing < <( megals --print0 "${flags_megals[@]}" "$tmp" )
+        mangle() {
+                printf '%q ' "${@}"
+        }
+        mapfile -t COMPREPLY < <( compgen -W "$(mangle "${listing[@]}")" -- "${cur}" )
+        # https://stackoverflow.com/a/11536437
+#        COMPREPLY=($(printf "%q\\n" "${COMPREPLY[@]}"))
+}
+
+
+_megatools()
+{
+    local cur prev opts_megacopy opts_megadl opts_megals opts_megaput opts_megarm opts_megadf opts_megaget opts_megamkdir opts_megareg opts_debug cmd
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    cmd="${COMP_WORDS[0]}"
+
+#for i in megacopy megadl megals megaput megarm megadf megaget megamkdir megareg ; do printf "opts_%s=\"%s\"\n" "$i" "$("$i" --help-all | grep -o -- "-[^,= ]\{1,\}" | tr '\n' ' ')" ;  done
+
+    opts_megacopy="-h --help --help-all --help-basic --help-network --help-auth --help-upload --help-download --config --ignore-config-file --debug --version --limit-speed --proxy -u --username -p --password --no-ask-password --reload --enable-previews --disable-previews --disable-resume -r --remote -l --local -d --download --no-progress --no-follow -n --dryrun"
+    opts_megadl="-h --help --help-all --help-basic --help-network --help-auth --help-download --config --ignore-config-file --debug --version --limit-speed --proxy -u --username -p --password --no-ask-password --reload --disable-resume --path --no-progress --print-names"
+    opts_megals="-? --help --help-all --help-basic --help-network --help-auth --config --ignore-config-file --debug --version --limit-speed --proxy -u --username -p --password --no-ask-password --reload -n --names -R --recursive -l --long --header -h --human -0 --print0 -e --export"
+    opts_megaput="-h --help --help-all --help-basic --help-network --help-auth --help-upload --config --ignore-config-file --debug --version --limit-speed --proxy -u --username -p --password --no-ask-password --reload --enable-previews --disable-previews --path --no-progress"
+    opts_megarm="-h --help --help-all --help-basic --help-network --help-auth --config --ignore-config-file --debug --version --limit-speed --proxy -u --username -p --password --no-ask-password --reload"
+    opts_megadf="-? --help --help-all --help-basic --help-network --help-auth --config --ignore-config-file --debug --version --limit-speed --proxy -u --username -p --password --no-ask-password --reload -h --human --mb --gb --total --used --free"
+    opts_megaget="-h --help --help-all --help-basic --help-network --help-auth --help-download --config --ignore-config-file --debug --version --limit-speed --proxy -u --username -p --password --no-ask-password --reload --disable-resume --path --no-progress"
+    opts_megamkdir="-h --help --help-all --help-basic --help-network --help-auth --config --ignore-config-file --debug --version --limit-speed --proxy -u --username -p --password --no-ask-password --reload"
+    opts_megareg="-h --help --help-all --help-basic --help-network --config --ignore-config-file --debug --version --limit-speed --proxy -n --name -e --email -p --password --register --verify --scripted --register"
+
+    opts_debug="http api fs cache tman"
+
+	
+    case "${prev}" in
+            --config)
+                    _filedir
+                    return 0
+                    ;;
+            --local|-l)
+                    _cd
+                    return 0
+                    ;;
+            --debug)
+                    # shellcheck disable=SC2207
+                    COMPREPLY=( $(compgen -W "${opts_debug}" -- "${cur}") )
+                    return 0
+                    ;;
+            --path)
+                    if [[ "${cmd}" = "megaput" ]] ; then
+                            _remotepath
+                            return 0
+                    fi
+                    _filedir
+                    return 0
+                    ;;
+            --remote|-r)
+                    _remotepath
+                    return 0
+                    ;;
+            *)
+                    ;;
+    esac
+
+    if [[ ${cur} == -* ]] ; then
+            case "${cmd}" in
+                    megacopy)
+                            # shellcheck disable=SC2207
+                            COMPREPLY=( $(compgen -W "${opts_megacopy}" -- "${cur}") )
+                            return 0
+                            ;;
+                    megadl)
+                            # shellcheck disable=SC2207
+                            COMPREPLY=( $(compgen -W "${opts_megadl}" -- "${cur}") )
+                            return 0
+                            ;;
+                    megals)
+                            # shellcheck disable=SC2207
+                            COMPREPLY=( $(compgen -W "${opts_megals}" -- "${cur}") )
+                            return 0
+                            ;;
+                    megaput)
+                            # shellcheck disable=SC2207
+                            COMPREPLY=( $(compgen -W "${opts_megaput}" -- "${cur}") )
+                            return 0
+                            ;;
+                    megarm)
+                            # shellcheck disable=SC2207
+                            COMPREPLY=( $(compgen -W "${opts_megarm}" -- "${cur}") )
+                            return 0
+                            ;;
+                    megadf)
+                            # shellcheck disable=SC2207
+                            COMPREPLY=( $(compgen -W "${opts_megadf}" -- "${cur}") )
+                            return 0
+                            ;;
+                    megaget)
+                            # shellcheck disable=SC2207
+                            COMPREPLY=( $(compgen -W "${opts_megaget}" -- "${cur}") )
+                            return 0
+                            ;;
+                    megamkdir)
+                            # shellcheck disable=SC2207
+                            COMPREPLY=( $(compgen -W "${opts_megamkdir}" -- "${cur}") )
+                            return 0
+                            ;;
+                    megareg)
+                            # shellcheck disable=SC2207
+                            COMPREPLY=( $(compgen -W "${opts_megareg}" -- "${cur}") )
+                            return 0
+                            ;;
+                    *)
+                            ;;
+                    esac
+        return 0
+    fi
+    
+    case "${cmd}" in
+            megamkdir|megarm|megaget|megals)
+                    _remotepath
+                    ;;
+            *)
+                    _filedir
+                    ;;
+    esac
+}
+# because of _remotpath I needed to add -o filenames, if not _remotepath suggestions don't get  quote/escaped for space and similar characters
+# solution found reading https://github.com/jgm/pandoc/issues/2749
+complete -o filenames -F _megatools megacopy megadl megals megaput megarm megadf megaget megamkdir megareg
+
+# /* vim: set filetype=sh ts=8: */

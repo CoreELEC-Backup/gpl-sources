@@ -1,0 +1,8 @@
+2020-06-30:  Version 1.1.0
+- Add functions to open directories/files from already open directory.
+- Fix possible memory corruption with inline files.
+- Improve error resilience and stability.
+- Add support for Volume Descriptor Pointer.
+
+2017-06-07: Version 1.0.0
+

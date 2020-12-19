@@ -1,0 +1,68 @@
+config GENERIC_GX
+	bool "Support Generic gxl board"
+	default n
+
+config GENERIC_P241_P281
+	bool "Support Generic gxl p241/p281 board"
+	default n
+
+config GENERIC_G12B
+	bool "Support Generic g12b board"
+	default n
+
+config GENERIC_SM1
+	bool "Support Generic sm1 board"
+	default n
+
+config KHADAS_VIM1
+	bool "Support Khadas VIM1 board"
+	select KHADAS_COMMON
+	default n
+
+config KHADAS_VIM3
+	bool "Support Khadas VIM3 board"
+	default n
+
+config KHADAS_VIM3L
+	bool "Support Khadas VIM3L board"
+	default n
+
+if GENERIC_GX
+source "board/generic/gxl/Kconfig"
+endif
+
+if GENERIC_P241_P281
+source "board/generic/gxl_p241_p281/Kconfig"
+endif
+
+if GENERIC_G12B
+source "board/generic/g12b/Kconfig"
+
+config SYS_CONFIG_NAME
+	default "generic_g12b"
+endif
+
+if GENERIC_SM1
+source "board/generic/g12b/Kconfig"
+
+config SYS_CONFIG_NAME
+	default "generic_sm1"
+endif
+
+if KHADAS_VIM1
+source "board/khadas/kvim1/Kconfig"
+endif
+
+if KHADAS_VIM3
+source "board/khadas/kvim3/Kconfig"
+
+config SYS_CONFIG_NAME
+	default "kvim3"
+endif
+
+if KHADAS_VIM3L
+source "board/khadas/kvim3/Kconfig"
+
+config SYS_CONFIG_NAME
+	default "kvim3l"
+endif

@@ -1,0 +1,145 @@
+Introduction
+------------
+
+For a developer, the simplest way of running most tests on a local
+machine from within the git repository is:
+
+  make test
+
+This runs all UNIT and INTEGRATION tests.
+
+tests/run_tests.sh
+------------------
+
+This script can be used to manually run all tests or selected tests,
+with a variety of options.  For usage, run:
+
+  tests/run_tests.sh -h
+
+If no tests are specified this runs all of the UNIT and INTEGRATION
+tests.
+
+By default:
+
+* INTEGRATION tests are run against 3 local daemons
+
+* When testing is complete, a summary showing a list is printed
+  showing the tests run and their results
+
+Tests can be selected in various ways:
+
+* tests/run_tests.sh UNIT INTEGRATION
+
+  runs all UNIT and INTEGRATION tests, and is like specifying no tests
+
+* tests/run_tests.sh UNIT/tool
+
+  runs all of the "tool" UNIT tests
+
+* tests/run_tests.sh tests/UNIT/eventscripts/00.ctdb.setup.001.sh
+  tests/run_tests.sh tests/INTEGRATION/simple/basics.001.listnodes.sh
+
+  each runs a single specified test case
+
+* tests/run_tests.sh UNIT/eventscripts UNIT/tool tests/UNIT/onnode/0001.sh
+
+  runs a combination of UNIT test suites and a single UNIT test
+
+Testing on a cluster
+--------------------
+
+INTEGRATION and CLUSTER tests can be run on a real or virtual cluster
+using tests/run_cluster_tests.sh (or "tests/run_tests.sh -c").  The
+test code needs to be available on all cluster nodes, as well as the
+test client node.  The test client node needs to have a nodes file
+where the onnode(1) command will find it.
+
+If the all of the cluster nodes have the CTDB git tree in the same
+location as on the test client then no special action is necessary.
+The simplest way of doing this is to share the tree to cluster nodes
+and test clients via NFS.
+
+Alternatively, the tests can be installed on all nodes.  One technique
+is to build a package containing the tests and install it on all
+nodes.  CTDB developers do a lot of testing this way using the
+provided sample packaging, which produces a ctdb-tests RPM package.
+
+Finally, if the test code is installed in a different place on the
+cluster nodes, then CTDB_TEST_REMOTE_DIR can be set on the test client
+node to point to a directory that contains the test_wrap script on the
+cluster nodes.
+
+Running tests under valgrind
+----------------------------
+
+The easiest way of doing this is something like:
+
+  VALGRIND="valgrind -q" tests/run_tests ...
+
+This can be used to cause all invocations of the ctdb tool, test
+programs and, with local daemons, the ctdbd daemons themselves to run
+under valgrind.
+
+How is the ctdb tool invoked?
+-----------------------------
+
+$CTDB determines how to invoke the ctdb client.  If not already set
+and if $VALGRIND is set, this is set to "$VALGRIND ctdb".  If this is
+not already set but $VALGRIND is not set, this is simply set to "ctdb"
+
+Test and debugging variable options
+-----------------------------------
+
+       CTDB_TEST_MODE
+
+	   Set this environment variable to enable test mode.
+
+	   This enables daemons and tools to locate their socket and
+	   PID file relative to CTDB_BASE.
+
+	   When testing with multiple local daemons on a single
+	   machine this does 3 extra things:
+
+	   * Disables checks related to public IP addresses
+
+	   * Speeds up the initial recovery during startup at the
+	     expense of some consistency checking
+
+	   * Disables real-time scheduling
+
+       CTDB_DEBUG_HUNG_SCRIPT_LOGFILE=FILENAME
+	   FILENAME specifies where log messages should go when
+	   debugging hung eventscripts. This is a testing option. See
+	   also CTDB_DEBUG_HUNG_SCRIPT.
+
+	   No default. Messages go to stdout/stderr and are logged to
+	   the same place as other CTDB log messages.
+
+       CTDB_SYS_ETCDIR=DIRECTORY
+	   DIRECTORY containing system configuration files. This is
+	   used to provide alternate configuration when testing and
+	   should not need to be changed from the default.
+
+	   Default is /etc.
+
+       CTDB_RUN_TIMEOUT_MONITOR=yes|no
+	   Whether CTDB should simulate timing out monitor
+	   events in local daemon tests.
+
+	   Default is no.
+
+       CTDB_TEST_SAMBA_VERSION=VERSION
+
+	    VERSION is a 32-bit number containg the Samba major
+	    version in the most significant 16 bits and the minor
+	    version in the least significant 16 bits.  This can be
+	    used to test CTDB's checking of incompatible versions
+	    without installing an incompatible version.  This is
+	    probably best set like this:
+
+		export CTDB_TEST_SAMBA_VERSION=$(( (4 << 16) | 12 ))
+
+       CTDB_VARDIR=DIRECTORY
+	   DIRECTORY containing CTDB files that are modified at runtime.
+
+	   Defaults to /usr/local/var/lib/ctdb.

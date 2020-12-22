@@ -1,5 +1,5 @@
 /* aarch64-asm.c -- AArch64 assembler support.
-   Copyright (C) 2012-2019 Free Software Foundation, Inc.
+   Copyright (C) 2012-2020 Free Software Foundation, Inc.
    Contributed by ARM Ltd.
 
    This file is part of the GNU opcodes library.
@@ -77,6 +77,17 @@ insert_all_fields (const aarch64_operand *self, aarch64_insn *code,
 }
 
 /* Operand inserters.  */
+
+/* Insert nothing.  */
+bfd_boolean
+aarch64_ins_none (const aarch64_operand *self ATTRIBUTE_UNUSED,
+		  const aarch64_opnd_info *info ATTRIBUTE_UNUSED,
+		  aarch64_insn *code ATTRIBUTE_UNUSED,
+		  const aarch64_inst *inst ATTRIBUTE_UNUSED,
+		  aarch64_operand_error *errors ATTRIBUTE_UNUSED)
+{
+  return TRUE;
+}
 
 /* Insert register number.  */
 bfd_boolean
@@ -1967,7 +1978,7 @@ convert_to_real (aarch64_inst *inst, const aarch64_opcode *real)
       break;
     }
 
-convert_to_real_return:
+ convert_to_real_return:
   aarch64_replace_opcode (inst, real);
 }
 
@@ -2099,7 +2110,7 @@ aarch64_opcode_encode (const aarch64_opcode *opcode,
     }
 
 
-encoding_exit:
+ encoding_exit:
   DEBUG_TRACE ("exit with %s", opcode->name);
 
   *code = inst->value;

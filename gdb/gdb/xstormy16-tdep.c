@@ -21,7 +21,7 @@
 #include "frame.h"
 #include "frame-base.h"
 #include "frame-unwind.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "symtab.h"
 #include "gdbtypes.h"
 #include "gdbcmd.h"
@@ -133,9 +133,9 @@ xstormy16_register_type (struct gdbarch *gdbarch, int regnum)
 static int
 xstormy16_type_is_scalar (struct type *t)
 {
-  return (TYPE_CODE(t) != TYPE_CODE_STRUCT
-	  && TYPE_CODE(t) != TYPE_CODE_UNION
-	  && TYPE_CODE(t) != TYPE_CODE_ARRAY);
+  return (t->code () != TYPE_CODE_STRUCT
+	  && t->code () != TYPE_CODE_UNION
+	  && t->code () != TYPE_CODE_ARRAY);
 }
 
 /* Function: xstormy16_use_struct_convention 
@@ -430,7 +430,7 @@ xstormy16_skip_prologue (struct gdbarch *gdbarch, CORE_ADDR pc)
       /* Found a function.  */
       sym = lookup_symbol (func_name, NULL, VAR_DOMAIN, NULL).symbol;
       /* Don't use line number debug info for assembly source files.  */
-      if (sym && SYMBOL_LANGUAGE (sym) != language_asm)
+      if (sym && sym->language () != language_asm)
 	{
 	  sal = find_pc_line (func_addr, 0);
 	  if (sal.end && sal.end < func_end)
@@ -610,7 +610,7 @@ xstormy16_pointer_to_address (struct gdbarch *gdbarch,
 			      struct type *type, const gdb_byte *buf)
 {
   enum bfd_endian byte_order = gdbarch_byte_order (gdbarch);
-  enum type_code target = TYPE_CODE (TYPE_TARGET_TYPE (type));
+  enum type_code target = TYPE_TARGET_TYPE (type)->code ();
   CORE_ADDR addr
     = extract_unsigned_integer (buf, TYPE_LENGTH (type), byte_order);
 
@@ -629,7 +629,7 @@ xstormy16_address_to_pointer (struct gdbarch *gdbarch,
 			      struct type *type, gdb_byte *buf, CORE_ADDR addr)
 {
   enum bfd_endian byte_order = gdbarch_byte_order (gdbarch);
-  enum type_code target = TYPE_CODE (TYPE_TARGET_TYPE (type));
+  enum type_code target = TYPE_TARGET_TYPE (type)->code ();
 
   if (target == TYPE_CODE_FUNC || target == TYPE_CODE_METHOD)
     {
@@ -833,8 +833,9 @@ xstormy16_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
    Initializer function for the Sanyo Xstormy16a module.
    Called by gdb at start-up.  */
 
+void _initialize_xstormy16_tdep ();
 void
-_initialize_xstormy16_tdep (void)
+_initialize_xstormy16_tdep ()
 {
   register_gdbarch_init (bfd_arch_xstormy16, xstormy16_gdbarch_init);
 }

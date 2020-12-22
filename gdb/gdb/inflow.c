@@ -27,7 +27,7 @@
 #include "observable.h"
 #include <signal.h>
 #include <fcntl.h>
-#include "gdb_select.h"
+#include "gdbsupport/gdb_select.h"
 
 #include "inflow.h"
 #include "gdbcmd.h"
@@ -953,8 +953,9 @@ initialize_stdin_serial (void)
   stdin_serial = serial_fdopen (0);
 }
 
+void _initialize_inflow ();
 void
-_initialize_inflow (void)
+_initialize_inflow ()
 {
   add_info ("terminal", info_terminal_command,
 	    _("Print inferior's saved terminal status."));

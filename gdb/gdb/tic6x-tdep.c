@@ -24,7 +24,7 @@
 #include "frame-unwind.h"
 #include "frame-base.h"
 #include "trad-frame.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "symtab.h"
 #include "inferior.h"
 #include "gdbtypes.h"
@@ -784,7 +784,7 @@ tic6x_return_value (struct gdbarch *gdbarch, struct value *function,
       if (type != NULL)
 	{
 	  type = check_typedef (type);
-	  if (language_pass_by_reference (type))
+	  if (!(language_pass_by_reference (type).trivially_copyable))
 	    return RETURN_VALUE_STRUCT_CONVENTION;
 	}
     }
@@ -808,7 +808,7 @@ static int
 tic6x_arg_type_alignment (struct type *type)
 {
   int len = TYPE_LENGTH (check_typedef (type));
-  enum type_code typecode = TYPE_CODE (check_typedef (type));
+  enum type_code typecode = check_typedef (type)->code ();
 
   if (typecode == TYPE_CODE_STRUCT || typecode == TYPE_CODE_UNION)
     {
@@ -881,16 +881,16 @@ tic6x_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
 
   /* Determine the type of this function.  */
   func_type = check_typedef (func_type);
-  if (TYPE_CODE (func_type) == TYPE_CODE_PTR)
+  if (func_type->code () == TYPE_CODE_PTR)
     func_type = check_typedef (TYPE_TARGET_TYPE (func_type));
 
-  gdb_assert (TYPE_CODE (func_type) == TYPE_CODE_FUNC
-	      || TYPE_CODE (func_type) == TYPE_CODE_METHOD);
+  gdb_assert (func_type->code () == TYPE_CODE_FUNC
+	      || func_type->code () == TYPE_CODE_METHOD);
 
   /* For a variadic C function, the last explicitly declared argument and all
      remaining arguments are passed on the stack.  */
   if (TYPE_VARARGS (func_type))
-    first_arg_on_stack = TYPE_NFIELDS (func_type) - 1;
+    first_arg_on_stack = func_type->num_fields () - 1;
 
   /* Now make space on the stack for the args.  */
   for (argnum = 0; argnum < nargs; argnum++)
@@ -915,7 +915,7 @@ tic6x_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
       struct value *arg = args[argnum];
       struct type *arg_type = check_typedef (value_type (arg));
       int len = TYPE_LENGTH (arg_type);
-      enum type_code typecode = TYPE_CODE (arg_type);
+      enum type_code typecode = arg_type->code ();
 
       val = value_contents (arg);
 
@@ -1301,8 +1301,9 @@ tic6x_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
   return gdbarch;
 }
 
+void _initialize_tic6x_tdep ();
 void
-_initialize_tic6x_tdep (void)
+_initialize_tic6x_tdep ()
 {
   register_gdbarch_init (bfd_arch_tic6x, tic6x_gdbarch_init);
 }

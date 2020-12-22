@@ -32,7 +32,7 @@
 #include "frame-base.h"
 #include "value.h"
 #include "gdbcore.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "remote.h"
 #include "target-descriptions.h"
 
@@ -668,12 +668,12 @@ rx_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
   struct type *func_type = value_type (function);
 
   /* Dereference function pointer types.  */
-  while (TYPE_CODE (func_type) == TYPE_CODE_PTR)
+  while (func_type->code () == TYPE_CODE_PTR)
     func_type = TYPE_TARGET_TYPE (func_type);
 
   /* The end result had better be a function or a method.  */
-  gdb_assert (TYPE_CODE (func_type) == TYPE_CODE_FUNC
-	      || TYPE_CODE (func_type) == TYPE_CODE_METHOD);
+  gdb_assert (func_type->code () == TYPE_CODE_FUNC
+	      || func_type->code () == TYPE_CODE_METHOD);
 
   /* Functions with a variable number of arguments have all of their
      variable arguments and the last non-variable argument passed
@@ -687,7 +687,7 @@ rx_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
      of the ``arg_reg'' variable to get these other details correct.  */
 
   if (TYPE_VARARGS (func_type))
-    num_register_candidate_args = TYPE_NFIELDS (func_type) - 1;
+    num_register_candidate_args = func_type->num_fields () - 1;
   else
     num_register_candidate_args = 4;
 
@@ -706,8 +706,8 @@ rx_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
 	{
 	  struct type *return_type = TYPE_TARGET_TYPE (func_type);
 
-	  gdb_assert (TYPE_CODE (return_type) == TYPE_CODE_STRUCT
-		      || TYPE_CODE (func_type) == TYPE_CODE_UNION);
+	  gdb_assert (return_type->code () == TYPE_CODE_STRUCT
+		      || func_type->code () == TYPE_CODE_UNION);
 
 	  if (TYPE_LENGTH (return_type) > 16
 	      || TYPE_LENGTH (return_type) % 4 != 0)
@@ -728,7 +728,7 @@ rx_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
 
 	  if (i == 0 && struct_addr != 0
 	      && return_method != return_method_struct
-	      && TYPE_CODE (arg_type) == TYPE_CODE_PTR
+	      && arg_type->code () == TYPE_CODE_PTR
 	      && extract_unsigned_integer (arg_bits, 4,
 					   byte_order) == struct_addr)
 	    {
@@ -739,8 +739,8 @@ rx_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
 		regcache_cooked_write_unsigned (regcache, RX_R15_REGNUM,
 						struct_addr);
 	    }
-	  else if (TYPE_CODE (arg_type) != TYPE_CODE_STRUCT
-		   && TYPE_CODE (arg_type) != TYPE_CODE_UNION
+	  else if (arg_type->code () != TYPE_CODE_STRUCT
+		   && arg_type->code () != TYPE_CODE_UNION
 		   && arg_size <= 8)
 	    {
 	      /* Argument is a scalar.  */
@@ -796,10 +796,10 @@ rx_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
 		      int p_arg_size = 4;
 
 		      if (TYPE_PROTOTYPED (func_type)
-			  && i < TYPE_NFIELDS (func_type))
+			  && i < func_type->num_fields ())
 			{
 			  struct type *p_arg_type =
-			    TYPE_FIELD_TYPE (func_type, i);
+			    func_type->field (i).type ();
 			  p_arg_size = TYPE_LENGTH (p_arg_type);
 			}
 
@@ -874,8 +874,8 @@ rx_return_value (struct gdbarch *gdbarch,
   ULONGEST valtype_len = TYPE_LENGTH (valtype);
 
   if (TYPE_LENGTH (valtype) > 16
-      || ((TYPE_CODE (valtype) == TYPE_CODE_STRUCT
-	   || TYPE_CODE (valtype) == TYPE_CODE_UNION)
+      || ((valtype->code () == TYPE_CODE_STRUCT
+	   || valtype->code () == TYPE_CODE_UNION)
 	  && TYPE_LENGTH (valtype) % 4 != 0))
     return RETURN_VALUE_STRUCT_CONVENTION;
 
@@ -1057,8 +1057,9 @@ rx_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
 
 /* Register the above initialization routine.  */
 
+void _initialize_rx_tdep ();
 void
-_initialize_rx_tdep (void)
+_initialize_rx_tdep ()
 {
   register_gdbarch_init (bfd_arch_rx, rx_gdbarch_init);
   initialize_tdesc_rx ();

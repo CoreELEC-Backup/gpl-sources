@@ -154,7 +154,8 @@ INCLUDE_CFLAGS = -I$(INCLUDE_DIR)
 LIBIBERTY = ../libiberty/libiberty.a
 
 # Where is the CTF library?  Typically in ../libctf.
-LIBCTF = ../libctf/.libs/libctf.a
+LIBCTF = @LIBCTF@
+CTF_DEPS = @CTF_DEPS@
 
 # Where is the BFD library?  Typically in ../bfd.
 BFD_DIR = ../bfd
@@ -213,6 +214,9 @@ GDB_WERROR_CFLAGS = $(WERROR_CFLAGS)
 PTHREAD_CFLAGS = @PTHREAD_CFLAGS@
 PTHREAD_LIBS = @PTHREAD_LIBS@
 
+DEBUGINFOD_CFLAGS = @DEBUGINFOD_CFLAGS@
+DEBUGINFOD_LIBS = @DEBUGINFOD_LIBS@
+
 RDYNAMIC = @RDYNAMIC@
 
 # Where is the INTL library?  Typically in ../intl.
@@ -237,6 +241,10 @@ GDBFLAGS =
 GNULIB_BUILDDIR = ../gnulib
 LIBGNU = $(GNULIB_BUILDDIR)/import/libgnu.a
 INCGNU = -I$(srcdir)/../gnulib/import -I$(GNULIB_BUILDDIR)/import
+
+SUPPORT = ../gdbsupport
+LIBSUPPORT = $(SUPPORT)/libgdbsupport.a
+INCSUPPORT = -I$(srcdir)/.. -I..
 
 #
 # CLI sub directory definitons
@@ -396,11 +404,13 @@ SUBDIR_PYTHON_SRCS = \
 	python/py-record.c \
 	python/py-record-btrace.c \
 	python/py-record-full.c \
+	python/py-registers.c \
 	python/py-signalevent.c \
 	python/py-stopevent.c \
 	python/py-symbol.c \
 	python/py-symtab.c \
 	python/py-threadevent.c \
+	python/py-tui.c \
 	python/py-type.c \
 	python/py-unwind.c \
 	python/py-utils.c \
@@ -415,17 +425,20 @@ SUBDIR_PYTHON_DEPS =
 SUBDIR_PYTHON_LDFLAGS =
 SUBDIR_PYTHON_CFLAGS =
 
-SUBDIR_UNITTESTS_SRCS = \
+SELFTESTS_SRCS = \
+	disasm-selftests.c \
+	gdbarch-selftests.c \
+	selftest-arch.c \
 	unittests/array-view-selftests.c \
 	unittests/child-path-selftests.c \
 	unittests/cli-utils-selftests.c \
+	unittests/command-def-selftests.c \
 	unittests/common-utils-selftests.c \
 	unittests/copy_bitwise-selftests.c \
 	unittests/environ-selftests.c \
 	unittests/filtered_iterator-selftests.c \
 	unittests/format_pieces-selftests.c \
 	unittests/function-view-selftests.c \
-	unittests/help-doc-selftests.c \
 	unittests/lookup_name_info-selftests.c \
 	unittests/memory-map-selftests.c \
 	unittests/memrange-selftests.c \
@@ -449,7 +462,7 @@ SUBDIR_UNITTESTS_SRCS = \
 	unittests/vec-utils-selftests.c \
 	unittests/xml-utils-selftests.c
 
-SUBDIR_UNITTESTS_OBS = $(patsubst %.c,%.o,$(SUBDIR_UNITTESTS_SRCS))
+SELFTESTS_OBS = $(patsubst %.c,%.o,$(SELFTESTS_SRCS))
 
 SUBDIR_TARGET_SRCS = target/waitstatus.c
 SUBDIR_TARGET_OBS = $(patsubst %.c,%.o,$(SUBDIR_TARGET_SRCS))
@@ -547,7 +560,7 @@ CONFIG_INSTALL = @CONFIG_INSTALL@
 CONFIG_UNINSTALL = @CONFIG_UNINSTALL@
 HAVE_NATIVE_GCORE_TARGET = @HAVE_NATIVE_GCORE_TARGET@
 
-CONFIG_SRC_SUBDIR = arch cli mi gdbsupport compile tui unittests guile python \
+CONFIG_SRC_SUBDIR = arch cli dwarf2 mi compile tui unittests guile python \
 	target nat
 CONFIG_DEP_SUBDIR = $(addsuffix /$(DEPDIR),$(CONFIG_SRC_SUBDIR))
 
@@ -579,15 +592,17 @@ CPPFLAGS = @CPPFLAGS@
 # are sometimes a little generic, we think that the risk of collision
 # with other header files is high.  If that happens, we try to mitigate
 # a bit the consequences by putting the Python includes last in the list.
-INTERNAL_CPPFLAGS = $(CPPFLAGS) @GUILE_CPPFLAGS@ @PYTHON_CPPFLAGS@
+INTERNAL_CPPFLAGS = $(CPPFLAGS) @GUILE_CPPFLAGS@ @PYTHON_CPPFLAGS@ \
+	@LARGEFILE_CPPFLAGS@
 
 # INTERNAL_CFLAGS is the aggregate of all other *CFLAGS macros.
 INTERNAL_CFLAGS_BASE = \
 	$(CXXFLAGS) $(GLOBAL_CFLAGS) $(PROFILE_CFLAGS) \
 	$(GDB_CFLAGS) $(OPCODES_CFLAGS) $(READLINE_CFLAGS) $(ZLIBINC) \
 	$(BFD_CFLAGS) $(INCLUDE_CFLAGS) $(LIBDECNUMBER_CFLAGS) \
-	$(INTL_CFLAGS) $(INCGNU) $(ENABLE_CFLAGS) $(INTERNAL_CPPFLAGS) \
-	$(SRCHIGH_CFLAGS) $(TOP_CFLAGS) $(PTHREAD_CFLAGS)
+	$(INTL_CFLAGS) $(INCGNU) $(INCSUPPORT) $(ENABLE_CFLAGS) \
+	$(INTERNAL_CPPFLAGS) $(SRCHIGH_CFLAGS) $(TOP_CFLAGS) $(PTHREAD_CFLAGS) \
+	$(DEBUGINFOD_CFLAGS)
 INTERNAL_WARN_CFLAGS = $(INTERNAL_CFLAGS_BASE) $(GDB_WARN_CFLAGS)
 INTERNAL_CFLAGS = $(INTERNAL_WARN_CFLAGS) $(GDB_WERROR_CFLAGS)
 
@@ -606,15 +621,17 @@ INTERNAL_LDFLAGS = \
 # Libraries and corresponding dependencies for compiling gdb.
 # XM_CLIBS, defined in *config files, have host-dependent libs.
 # LIBIBERTY appears twice on purpose.
-CLIBS = $(SIM) $(READLINE) $(OPCODES) $(BFD) $(LIBCTF) $(ZLIB) \
-        $(INTL) $(LIBIBERTY) $(LIBDECNUMBER) \
+CLIBS = $(SIM) $(READLINE) $(OPCODES) $(LIBCTF) $(BFD) $(ZLIB) \
+        $(LIBSUPPORT) $(INTL) $(LIBIBERTY) $(LIBDECNUMBER) \
 	$(XM_CLIBS) $(GDBTKLIBS) \
 	@LIBS@ @GUILE_LIBS@ @PYTHON_LIBS@ \
 	$(LIBEXPAT) $(LIBLZMA) $(LIBBABELTRACE) $(LIBIPT) \
-	$(LIBIBERTY) $(WIN32LIBS) $(LIBGNU) $(LIBICONV) $(LIBMPFR) \
-	$(SRCHIGH_LIBS) $(LIBXXHASH) $(PTHREAD_LIBS)
-CDEPS = $(NAT_CDEPS) $(SIM) $(BFD) $(READLINE_DEPS) $(LIBCTF) \
-	$(OPCODES) $(INTL_DEPS) $(LIBIBERTY) $(CONFIG_DEPS) $(LIBGNU)
+	$(WIN32LIBS) $(LIBGNU) $(LIBICONV) \
+	$(LIBMPFR) $(SRCHIGH_LIBS) $(LIBXXHASH) $(PTHREAD_LIBS) \
+	$(DEBUGINFOD_LIBS)
+CDEPS = $(NAT_CDEPS) $(SIM) $(BFD) $(READLINE_DEPS) $(CTF_DEPS) \
+	$(OPCODES) $(INTL_DEPS) $(LIBIBERTY) $(CONFIG_DEPS) $(LIBGNU) \
+	$(LIBSUPPORT)
 
 DIST = gdb
 
@@ -685,8 +702,10 @@ ALL_64_TARGET_OBS = \
 # All other target-dependent objects files (used with --enable-targets=all).
 ALL_TARGET_OBS = \
 	aarch32-tdep.o \
+	arc-linux-tdep.o \
 	arc-tdep.o \
 	arch/aarch32.o \
+	arch/arc.o \
 	arch/arm.o \
 	arch/arm-get-next-pcs.o \
 	arch/arm-linux.o \
@@ -705,6 +724,7 @@ ALL_TARGET_OBS = \
 	avr-tdep.o \
 	bfin-linux-tdep.o \
 	bfin-tdep.o \
+	bpf-tdep.o \
 	bsd-uthread.o \
 	cris-linux-tdep.o \
 	cris-tdep.o \
@@ -723,7 +743,6 @@ ALL_TARGET_OBS = \
 	hppa-obsd-tdep.o \
 	hppa-tdep.o \
 	i386-bsd-tdep.o \
-	i386-cygwin-tdep.o \
 	i386-darwin-tdep.o \
 	i386-dicos-tdep.o \
 	i386-fbsd-tdep.o \
@@ -735,6 +754,7 @@ ALL_TARGET_OBS = \
 	i386-obsd-tdep.o \
 	i386-sol2-tdep.o \
 	i386-tdep.o \
+	i386-windows-tdep.o \
 	i387-tdep.o \
 	iq2000-tdep.o \
 	linux-record.o \
@@ -777,6 +797,7 @@ ALL_TARGET_OBS = \
 	ravenscar-thread.o \
 	riscv-fbsd-tdep.o \
 	riscv-linux-tdep.o \
+	riscv-ravenscar-thread.o \
 	riscv-tdep.o \
 	rl78-tdep.o \
 	rs6000-aix-tdep.o \
@@ -943,6 +964,7 @@ COMMON_SFILES = \
 	alloc.c \
 	annotate.c \
 	arch-utils.c \
+	async-event.c \
 	auto-load.c \
 	auxv.c \
 	ax-gdb.c \
@@ -967,38 +989,6 @@ COMMON_SFILES = \
 	cli-out.c \
 	coff-pe-read.c \
 	coffread.c \
-	gdbsupport/agent.c \
-	gdbsupport/btrace-common.c \
-	gdbsupport/buffer.c \
-	gdbsupport/cleanups.c \
-	gdbsupport/common-debug.c \
-	gdbsupport/common-exceptions.c \
-	gdbsupport/common-inferior.c \
-	gdbsupport/common-regcache.c \
-	gdbsupport/common-utils.c \
-	gdbsupport/errors.c \
-	gdbsupport/environ.c \
-	gdbsupport/fileio.c \
-	gdbsupport/filestuff.c \
-	gdbsupport/format.c \
-	gdbsupport/job-control.c \
-	gdbsupport/gdb-dlfcn.c \
-	gdbsupport/gdb_tilde_expand.c \
-	gdbsupport/gdb_vecs.c \
-	gdbsupport/netstuff.c \
-	gdbsupport/new-op.c \
-	gdbsupport/pathstuff.c \
-	gdbsupport/print-utils.c \
-	gdbsupport/ptid.c \
-	gdbsupport/rsp-low.c \
-	gdbsupport/run-time-clock.c \
-	gdbsupport/safe-strerror.c \
-	gdbsupport/scoped_mmap.c \
-	gdbsupport/signals.c \
-	gdbsupport/signals-state-save-restore.c \
-	gdbsupport/tdesc.c \
-	gdbsupport/thread-pool.c \
-	gdbsupport/xml-utils.c \
 	complaints.c \
 	completer.c \
 	continuations.c \
@@ -1016,20 +1006,28 @@ COMMON_SFILES = \
 	dbxread.c \
 	dcache.c \
 	debug.c \
+	debuginfod-support.c \
 	dictionary.c \
 	disasm.c \
-	disasm-selftests.c \
 	dummy-frame.c \
-	dwarf-index-cache.c \
-	dwarf-index-common.c \
-	dwarf-index-write.c \
-	dwarf2-frame.c \
-	dwarf2-frame-tailcall.c \
-	dwarf2expr.c \
-	dwarf2loc.c \
-	dwarf2read.c \
+	dwarf2/abbrev.c \
+	dwarf2/attribute.c \
+	dwarf2/comp-unit.c \
+	dwarf2/dwz.c \
+	dwarf2/expr.c \
+	dwarf2/frame-tailcall.c \
+	dwarf2/frame.c \
+	dwarf2/index-cache.c \
+	dwarf2/index-common.c \
+	dwarf2/index-write.c \
+	dwarf2/leb.c \
+	dwarf2/line-header.c \
+	dwarf2/loc.c \
+	dwarf2/macro.c \
+	dwarf2/read.c \
+	dwarf2/section.c \
+	dwarf2/stringify.c \
 	eval.c \
-	event-loop.c \
 	event-top.c \
 	exceptions.c \
 	exec.c \
@@ -1051,7 +1049,6 @@ COMMON_SFILES = \
 	gdb_obstack.c \
 	gdb_regex.c \
 	gdbarch.c \
-	gdbarch-selftests.c \
 	gdbtypes.c \
 	gnu-v2-abi.c \
 	gnu-v3-abi.c \
@@ -1138,6 +1135,7 @@ COMMON_SFILES = \
 	symmisc.c \
 	symtab.c \
 	target.c \
+	target-connection.c \
 	target-dcache.c \
 	target-descriptions.c \
 	target-memory.c \
@@ -1221,7 +1219,9 @@ HFILES_NO_SRCDIR = \
 	arc-tdep.h \
 	arch-utils.h \
 	arm-linux-tdep.h \
+	arm-nbsd-tdep.h \
 	arm-tdep.h \
+	async-event.h \
 	auto-load.h \
 	auxv.h \
 	ax.h \
@@ -1255,14 +1255,13 @@ HFILES_NO_SRCDIR = \
 	dictionary.h \
 	disasm.h \
 	dummy-frame.h \
-	dwarf-index-cache.h \
-	dwarf-index-common.h \
-	dwarf2-frame.h \
-	dwarf2-frame-tailcall.h \
-	dwarf2expr.h \
-	dwarf2loc.h \
-	dwarf2read.h \
-	event-loop.h \
+	dwarf2/frame-tailcall.h \
+	dwarf2/frame.h \
+	dwarf2/expr.h \
+	dwarf2/index-cache.h \
+	dwarf2/index-common.h \
+	dwarf2/loc.h \
+	dwarf2/read.h \
 	event-top.h \
 	exceptions.h \
 	exec.h \
@@ -1380,6 +1379,7 @@ HFILES_NO_SRCDIR = \
 	remote-fileio.h \
 	remote-notif.h \
 	riscv-fbsd-tdep.h \
+	riscv-ravenscar-thread.h \
 	riscv-tdep.h \
 	rs6000-aix-tdep.h \
 	rs6000-tdep.h \
@@ -1453,6 +1453,7 @@ HFILES_NO_SRCDIR = \
 	arch/aarch32.h \
 	arch/aarch64.h \
 	arch/aarch64-insn.h \
+	arch/arc.h \
 	arch/arm.h \
 	arch/i386.h \
 	arch/ppc-linux-common.h \
@@ -1464,49 +1465,6 @@ HFILES_NO_SRCDIR = \
 	cli/cli-setshow.h \
 	cli/cli-style.h \
 	cli/cli-utils.h \
-	gdbsupport/buffer.h \
-	gdbsupport/cleanups.h \
-	gdbsupport/common-debug.h \
-	gdbsupport/common-defs.h \
-	gdbsupport/common-exceptions.h \
-	gdbsupport/common-gdbthread.h \
-	gdbsupport/common-regcache.h \
-	gdbsupport/common-types.h \
-	gdbsupport/common-utils.h \
-	gdbsupport/job-control.h \
-	gdbsupport/errors.h \
-	gdbsupport/environ.h \
-	gdbsupport/fileio.h \
-	gdbsupport/format.h \
-	gdbsupport/gdb-dlfcn.h \
-	gdbsupport/gdb-sigmask.h \
-	gdbsupport/gdb_assert.h \
-	gdbsupport/gdb_binary_search.h \
-	gdbsupport/gdb_tilde_expand.h \
-	gdbsupport/gdb_locale.h \
-	gdbsupport/gdb_proc_service.h \
-	gdbsupport/gdb_setjmp.h \
-	gdbsupport/gdb_signals.h \
-	gdbsupport/gdb_sys_time.h \
-	gdbsupport/gdb_vecs.h \
-	gdbsupport/gdb_wait.h \
-	gdbsupport/common-inferior.h \
-	gdbsupport/netstuff.h \
-	gdbsupport/host-defs.h \
-	gdbsupport/parallel-for.h \
-	gdbsupport/pathstuff.h \
-	gdbsupport/print-utils.h \
-	gdbsupport/ptid.h \
-	gdbsupport/queue.h \
-	gdbsupport/rsp-low.h \
-	gdbsupport/run-time-clock.h \
-	gdbsupport/signals-state-save-restore.h \
-	gdbsupport/symbol.h \
-	gdbsupport/tdesc.h \
-	gdbsupport/thread-pool.h \
-	gdbsupport/version.h \
-	gdbsupport/x86-xstate.h \
-	gdbsupport/xml-utils.h \
 	compile/compile.h \
 	compile/compile-c.h \
 	compile/compile-cplus.h \
@@ -1777,7 +1735,7 @@ install-only: $(CONFIG_INSTALL)
 		  true ; \
 		fi ; \
 		$(SHELL) $(srcdir)/../mkinstalldirs $(DESTDIR)$(bindir) ; \
-		$(INSTALL_PROGRAM) gdb$(EXEEXT) \
+		$(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) gdb$(EXEEXT) \
 			$(DESTDIR)$(bindir)/$$transformed_name$(EXEEXT) ; \
 		$(SHELL) $(srcdir)/../mkinstalldirs $(DESTDIR)$(includedir)/gdb ; \
 		$(INSTALL_DATA) jit-reader.h $(DESTDIR)$(includedir)/gdb/jit-reader.h
@@ -1965,13 +1923,8 @@ clean mostlyclean: $(CONFIG_CLEAN)
 # I believe this is wrong; the makefile standards for distclean just
 # describe removing files; the only sort of "re-create a distribution"
 # functionality described is if the distributed files are unmodified.
-# NB: While GDBSERVER might be configured on native systems, it isn't
-# always included in SUBDIRS.  Remove the gdbserver files explicitly.
 distclean: clean
 	@$(MAKE) $(FLAGS_TO_PASS) DO=distclean "DODIRS=$(CLEANDIRS)" subdir_do
-	rm -f gdbserver/config.status gdbserver/config.log
-	rm -f gdbserver/tm.h gdbserver/xm.h gdbserver/nm.h
-	rm -f gdbserver/Makefile gdbserver/config.cache
 	rm -f nm.h config.status config.h stamp-h b jit-reader.h
 	rm -f gdb-gdb.py gdb-gdb.gdb
 	rm -f y.output yacc.acts yacc.tmp y.tab.h
@@ -2062,6 +2015,7 @@ aclocal_m4_deps = \
 	transform.m4 \
 	../bfd/bfd.m4 \
 	../config/acinclude.m4 \
+	../config/enable.m4 \
 	../config/plugins.m4 \
 	../config/lead-dot.m4 \
 	../config/override.m4 \
@@ -2127,8 +2081,8 @@ $(srcdir)/copying.c: @MAINTAINER_MODE_TRUE@ $(srcdir)/../COPYING3 $(srcdir)/copy
 version.c: stamp-version; @true
 # Note that the obvious names for the temp file are taken by
 # create-version.sh.
-stamp-version: Makefile version.in $(srcdir)/../bfd/version.h $(srcdir)/gdbsupport/create-version.sh
-	$(ECHO_GEN) $(SHELL) $(srcdir)/gdbsupport/create-version.sh $(srcdir) \
+stamp-version: Makefile version.in $(srcdir)/../bfd/version.h $(srcdir)/../gdbsupport/create-version.sh
+	$(ECHO_GEN) $(SHELL) $(srcdir)/../gdbsupport/create-version.sh $(srcdir) \
 	    $(host_alias) $(target_alias) version-t.t
 	@$(SHELL) $(srcdir)/../move-if-change version-t.t version.c
 	@echo stamp > stamp-version
@@ -2199,6 +2153,7 @@ ALLDEPFILES = \
 	avr-tdep.c \
 	bfin-linux-tdep.c \
 	bfin-tdep.c \
+	bpf-tdep.c \
 	bsd-kvm.c \
 	bsd-uthread.c \
 	csky-linux-tdep.c \
@@ -2222,7 +2177,6 @@ ALLDEPFILES = \
 	hppa-tdep.c \
 	i386-bsd-nat.c \
 	i386-bsd-tdep.c \
-	i386-cygwin-tdep.c \
 	i386-darwin-nat.c \
 	i386-darwin-tdep.c \
 	i386-dicos-tdep.c \
@@ -2239,6 +2193,7 @@ ALLDEPFILES = \
 	i386-sol2-nat.c \
 	i386-sol2-tdep.c \
 	i386-tdep.c \
+	i386-windows-tdep.c \
 	i387-tdep.c \
 	ia64-libunwind-tdep.c \
 	ia64-linux-nat.c \
@@ -2299,6 +2254,7 @@ ALLDEPFILES = \
 	riscv-fbsd-tdep.c \
 	riscv-linux-nat.c \
 	riscv-linux-tdep.c \
+	riscv-ravenscar-thread.c \
 	riscv-tdep.c \
 	rl78-tdep.c \
 	rs6000-lynx178-tdep.c \
@@ -2514,7 +2470,7 @@ install-gdbtk:
 	  true ; \
 	fi ; \
 	$(SHELL) $(srcdir)/../mkinstalldirs $(DESTDIR)$(bindir); \
-	$(INSTALL_PROGRAM) insight$(EXEEXT) \
+	$(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) insight$(EXEEXT) \
 		$(DESTDIR)$(bindir)/$$transformed_name$(EXEEXT) ; \
 	$(SHELL) $(srcdir)/../mkinstalldirs \
 		$(DESTDIR)$(GDBTK_LIBRARY) ; \

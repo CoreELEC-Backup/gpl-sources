@@ -330,7 +330,7 @@ frame_show_address (struct frame_info *frame,
       return false;
     }
 
-  return get_frame_pc (frame) != sal.pc;
+  return get_frame_pc (frame) != sal.pc || !sal.is_stmt;
 }
 
 /* See frame.h.  */
@@ -428,7 +428,7 @@ print_frame_arg (const frame_print_options &fp_opts,
   annotate_arg_emitter arg_emitter;
   ui_out_emit_tuple tuple_emitter (uiout, NULL);
   fprintf_symbol_filtered (&stb, arg->sym->print_name (),
-			   SYMBOL_LANGUAGE (arg->sym), DMGL_PARAMS | DMGL_ANSI);
+			   arg->sym->language (), DMGL_PARAMS | DMGL_ANSI);
   if (arg->entry_kind == print_entry_values_compact)
     {
       /* It is OK to provide invalid MI-like stream as with
@@ -436,7 +436,7 @@ print_frame_arg (const frame_print_options &fp_opts,
       stb.puts ("=");
 
       fprintf_symbol_filtered (&stb, arg->sym->print_name (),
-			       SYMBOL_LANGUAGE (arg->sym),
+			       arg->sym->language (),
 			       DMGL_PARAMS | DMGL_ANSI);
     }
   if (arg->entry_kind == print_entry_values_only
@@ -474,7 +474,7 @@ print_frame_arg (const frame_print_options &fp_opts,
 	      /* Use the appropriate language to display our symbol, unless the
 		 user forced the language to a specific language.  */
 	      if (language_mode == language_mode_auto)
-		language = language_def (SYMBOL_LANGUAGE (arg->sym));
+		language = language_def (arg->sym->language ());
 	      else
 		language = current_language;
 
@@ -486,7 +486,7 @@ print_frame_arg (const frame_print_options &fp_opts,
 	      vp_opts.summary
 		= fp_opts.print_frame_arguments == print_frame_arguments_scalars;
 
-	      common_val_print (arg->val, &stb, 2, &vp_opts, language);
+	      common_val_print_checked (arg->val, &stb, 2, &vp_opts, language);
 	    }
 	  catch (const gdb_exception_error &except)
 	    {
@@ -743,6 +743,12 @@ print_frame_args (const frame_print_options &fp_opts,
   bool print_args
     = (print_names
        && fp_opts.print_frame_arguments != print_frame_arguments_none);
+
+  /* Temporarily change the selected frame to the given FRAME.
+     This allows routines that rely on the selected frame instead
+     of being given a frame as parameter to use the correct frame.  */
+  scoped_restore_selected_frame restore_selected_frame;
+  select_frame (frame);
 
   if (func)
     {
@@ -1126,10 +1132,25 @@ print_frame_info (const frame_print_options &fp_opts,
     {
       int mid_statement = ((print_what == SRC_LINE)
 			   && frame_show_address (frame, sal));
-      annotate_source_line (sal.symtab, sal.line, mid_statement,
-			    get_frame_pc (frame));
+      if (annotation_level > 0
+	  && annotate_source_line (sal.symtab, sal.line, mid_statement,
+				   get_frame_pc (frame)))
+	{
+	  /* The call to ANNOTATE_SOURCE_LINE already printed the
+	     annotation for this source line, so we avoid the two cases
+	     below and do not print the actual source line.  The
+	     documentation for annotations makes it clear that the source
+	     line annotation is printed __instead__ of printing the source
+	     line, not as well as.
 
-      if (deprecated_print_frame_info_listing_hook)
+	     However, if we fail to print the source line, which usually
+	     means either the source file is missing, or the requested
+	     line is out of range of the file, then we don't print the
+	     source annotation, and will pass through the "normal" print
+	     source line code below, the expectation is that this code
+	     will print an appropriate error.  */
+	}
+      else if (deprecated_print_frame_info_listing_hook)
 	deprecated_print_frame_info_listing_hook (sal.symtab, sal.line,
 						  sal.line + 1, 0);
       else
@@ -1261,7 +1282,7 @@ find_frame_funname (struct frame_info *frame, enum language *funlang,
     {
       const char *print_name = func->print_name ();
 
-      *funlang = SYMBOL_LANGUAGE (func);
+      *funlang = func->language ();
       if (funcp)
 	*funcp = func;
       if (*funlang == language_cplus)
@@ -1291,7 +1312,7 @@ find_frame_funname (struct frame_info *frame, enum language *funlang,
       if (msymbol.minsym != NULL)
 	{
 	  funname.reset (xstrdup (msymbol.minsym->print_name ()));
-	  *funlang = MSYMBOL_LANGUAGE (msymbol.minsym);
+	  *funlang = msymbol.minsym->language ();
 	}
     }
 
@@ -1495,7 +1516,7 @@ info_frame_command_core (struct frame_info *fi, bool selected_frame_p)
   if (func)
     {
       funname = func->print_name ();
-      funlang = SYMBOL_LANGUAGE (func);
+      funlang = func->language ();
       if (funlang == language_cplus)
 	{
 	  /* It seems appropriate to use print_name() here,
@@ -1517,7 +1538,7 @@ info_frame_command_core (struct frame_info *fi, bool selected_frame_p)
       if (msymbol.minsym != NULL)
 	{
 	  funname = msymbol.minsym->print_name ();
-	  funlang = MSYMBOL_LANGUAGE (msymbol.minsym);
+	  funlang = msymbol.minsym->language ();
 	}
     }
   calling_frame_info = get_prev_frame (fi);
@@ -2237,6 +2258,7 @@ iterate_over_block_locals (const struct block *b,
     {
       switch (SYMBOL_CLASS (sym))
 	{
+	case LOC_CONST:
 	case LOC_LOCAL:
 	case LOC_REGISTER:
 	case LOC_STATIC:
@@ -2255,56 +2277,6 @@ iterate_over_block_locals (const struct block *b,
 	}
     }
 }
-
-
-/* Same, but print labels.  */
-
-#if 0
-/* Commented out, as the code using this function has also been
-   commented out.  FIXME:brobecker/2009-01-13: Find out why the code
-   was commented out in the first place.  The discussion introducing
-   this change (2007-12-04: Support lexical blocks and function bodies
-   that occupy non-contiguous address ranges) did not explain why
-   this change was made.  */
-static int
-print_block_frame_labels (struct gdbarch *gdbarch, struct block *b,
-			  int *have_default, struct ui_file *stream)
-{
-  struct block_iterator iter;
-  struct symbol *sym;
-  int values_printed = 0;
-
-  ALL_BLOCK_SYMBOLS (b, iter, sym)
-    {
-      if (strcmp (sym->linkage_name (), "default") == 0)
-	{
-	  if (*have_default)
-	    continue;
-	  *have_default = 1;
-	}
-      if (SYMBOL_CLASS (sym) == LOC_LABEL)
-	{
-	  struct symtab_and_line sal;
-	  struct value_print_options opts;
-
-	  sal = find_pc_line (SYMBOL_VALUE_ADDRESS (sym), 0);
-	  values_printed = 1;
-	  fputs_filtered (sym->print_name (), stream);
-	  get_user_print_options (&opts);
-	  if (opts.addressprint)
-	    {
-	      fprintf_filtered (stream, " ");
-	      fputs_filtered (paddress (gdbarch, SYMBOL_VALUE_ADDRESS (sym)),
-			      stream);
-	    }
-	  fprintf_filtered (stream, " in file %s, line %d\n",
-			    sal.symtab->filename, sal.line);
-	}
-    }
-
-  return values_printed;
-}
-#endif
 
 /* Iterate over all the local variables in block B, including all its
    superblocks, stopping when the top-level block is reached.  */
@@ -2818,7 +2790,7 @@ return_command (const char *retval_exp, int from_tty)
 	function = read_var_value (thisfun, NULL, thisframe);
 
       rv_conv = RETURN_VALUE_REGISTER_CONVENTION;
-      if (TYPE_CODE (return_type) == TYPE_CODE_VOID)
+      if (return_type->code () == TYPE_CODE_VOID)
 	/* If the return-type is "void", don't try to find the
            return-value's location.  However, do still evaluate the
            return expression so that, even when the expression result
@@ -3339,8 +3311,9 @@ static struct cmd_list_element *select_frame_cmd_list = NULL;
 /* Commands with a prefix of `info frame'.  */
 static struct cmd_list_element *info_frame_cmd_list = NULL;
 
+void _initialize_stack ();
 void
-_initialize_stack (void)
+_initialize_stack ()
 {
   struct cmd_list_element *cmd;
 
@@ -3372,7 +3345,6 @@ Select and print a stack frame.\n\
 With no argument, print the selected stack frame.  (See also \"info frame\").\n\
 A single numerical argument specifies the frame to select."),
                   &frame_cmd_list, "frame ", 1, &cmdlist);
-
   add_com_alias ("f", "frame", class_stack, 1);
 
 #define FRAME_APPLY_OPTION_HELP "\
@@ -3431,14 +3403,6 @@ Usage: faas [OPTION]... COMMAND\n\
 shortcut for 'frame apply all -s [OPTION]... COMMAND'\n\
 See \"help frame apply all\" for available options."));
   set_cmd_completer_handle_brkchars (cmd, frame_apply_all_cmd_completer);
-
-  add_prefix_cmd ("frame", class_stack,
-		  &frame_cmd.base_command, _("\
-Select and print a stack frame.\n\
-With no argument, print the selected stack frame.  (See also \"info frame\").\n\
-A single numerical argument specifies the frame to select."),
-		  &frame_cmd_list, "frame ", 1, &cmdlist);
-  add_com_alias ("f", "frame", class_stack, 1);
 
   add_cmd ("address", class_stack, &frame_cmd.address,
 	   _("\
@@ -3542,7 +3506,7 @@ With a negative COUNT, print outermost -COUNT frames."),
 
   add_com_alias ("bt", "backtrace", class_stack, 0);
 
-  add_com_alias ("where", "backtrace", class_alias, 0);
+  add_com_alias ("where", "backtrace", class_stack, 0);
   add_info ("stack", backtrace_command,
 	    _("Backtrace of the stack, or innermost COUNT frames."));
   add_info_alias ("s", "stack", 1);

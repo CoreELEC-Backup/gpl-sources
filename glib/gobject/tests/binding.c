@@ -2,6 +2,47 @@
 #include <gstdio.h>
 #include <glib-object.h>
 
+typedef struct {
+  GTypeInterface g_iface;
+} FooInterface;
+
+GType foo_get_type (void);
+
+G_DEFINE_INTERFACE (Foo, foo, G_TYPE_OBJECT)
+
+static void
+foo_default_init (FooInterface *iface)
+{
+}
+
+typedef struct {
+  GObject parent;
+} Baa;
+
+typedef struct {
+  GObjectClass parent_class;
+} BaaClass;
+
+static void
+baa_init_foo (FooInterface *iface)
+{
+}
+
+GType baa_get_type (void);
+
+G_DEFINE_TYPE_WITH_CODE (Baa, baa, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (foo_get_type (), baa_init_foo))
+
+static void
+baa_init (Baa *baa)
+{
+}
+
+static void
+baa_class_init (BaaClass *class)
+{
+}
+
 typedef struct _BindingSource
 {
   GObject parent_instance;
@@ -10,6 +51,7 @@ typedef struct _BindingSource
   gint bar;
   gdouble double_value;
   gboolean toggle;
+  gpointer item;
 } BindingSource;
 
 typedef struct _BindingSourceClass
@@ -24,7 +66,8 @@ enum
   PROP_SOURCE_FOO,
   PROP_SOURCE_BAR,
   PROP_SOURCE_DOUBLE_VALUE,
-  PROP_SOURCE_TOGGLE
+  PROP_SOURCE_TOGGLE,
+  PROP_SOURCE_OBJECT
 };
 
 static GType binding_source_get_type (void);
@@ -56,6 +99,10 @@ binding_source_set_property (GObject      *gobject,
       source->toggle = g_value_get_boolean (value);
       break;
 
+    case PROP_SOURCE_OBJECT:
+      source->item = g_value_get_object (value);
+      break;
+
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (gobject, prop_id, pspec);
     }
@@ -85,6 +132,10 @@ binding_source_get_property (GObject    *gobject,
 
     case PROP_SOURCE_TOGGLE:
       g_value_set_boolean (value, source->toggle);
+      break;
+
+    case PROP_SOURCE_OBJECT:
+      g_value_set_object (value, source->item);
       break;
 
     default:
@@ -119,6 +170,10 @@ binding_source_class_init (BindingSourceClass *klass)
                                    g_param_spec_boolean ("toggle", "Toggle", "Toggle",
                                                          FALSE,
                                                          G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class, PROP_SOURCE_OBJECT,
+                                   g_param_spec_object ("object", "Object", "Object",
+                                                        G_TYPE_OBJECT,
+                                                        G_PARAM_READWRITE));
 }
 
 static void
@@ -133,6 +188,7 @@ typedef struct _BindingTarget
   gint bar;
   gdouble double_value;
   gboolean toggle;
+  gpointer foo;
 } BindingTarget;
 
 typedef struct _BindingTargetClass
@@ -146,7 +202,8 @@ enum
 
   PROP_TARGET_BAR,
   PROP_TARGET_DOUBLE_VALUE,
-  PROP_TARGET_TOGGLE
+  PROP_TARGET_TOGGLE,
+  PROP_TARGET_FOO
 };
 
 static GType binding_target_get_type (void);
@@ -172,6 +229,10 @@ binding_target_set_property (GObject      *gobject,
 
     case PROP_TARGET_TOGGLE:
       target->toggle = g_value_get_boolean (value);
+      break;
+
+    case PROP_TARGET_FOO:
+      target->foo = g_value_get_object (value);
       break;
 
     default:
@@ -201,6 +262,10 @@ binding_target_get_property (GObject    *gobject,
       g_value_set_boolean (value, target->toggle);
       break;
 
+    case PROP_TARGET_FOO:
+      g_value_set_object (value, target->foo);
+      break;
+
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (gobject, prop_id, pspec);
     }
@@ -228,6 +293,10 @@ binding_target_class_init (BindingTargetClass *klass)
                                    g_param_spec_boolean ("toggle", "Toggle", "Toggle",
                                                          FALSE,
                                                          G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class, PROP_TARGET_FOO,
+                                   g_param_spec_object ("foo", "Foo", "Foo",
+                                                        foo_get_type (),
+                                                        G_PARAM_READWRITE));
 }
 
 static void
@@ -284,6 +353,7 @@ binding_default (void)
 {
   BindingSource *source = g_object_new (binding_source_get_type (), NULL);
   BindingTarget *target = g_object_new (binding_target_get_type (), NULL);
+  GObject *tmp;
   GBinding *binding;
 
   binding = g_object_bind_property (source, "foo",
@@ -291,8 +361,14 @@ binding_default (void)
                                     G_BINDING_DEFAULT);
 
   g_object_add_weak_pointer (G_OBJECT (binding), (gpointer *) &binding);
-  g_assert_true ((BindingSource *) g_binding_get_source (binding) == source);
-  g_assert_true ((BindingTarget *) g_binding_get_target (binding) == target);
+  tmp = g_binding_dup_source (binding);
+  g_assert_nonnull (tmp);
+  g_assert_true ((BindingSource *) tmp == source);
+  g_object_unref (tmp);
+  tmp = g_binding_dup_target (binding);
+  g_assert_nonnull (tmp);
+  g_assert_true ((BindingTarget *) tmp == target);
+  g_object_unref (tmp);
   g_assert_cmpstr (g_binding_get_source_property (binding), ==, "foo");
   g_assert_cmpstr (g_binding_get_target_property (binding), ==, "bar");
   g_assert_cmpint (g_binding_get_flags (binding), ==, G_BINDING_DEFAULT);
@@ -319,6 +395,7 @@ binding_canonicalisation (void)
   BindingSource *source = g_object_new (binding_source_get_type (), NULL);
   BindingTarget *target = g_object_new (binding_target_get_type (), NULL);
   GBinding *binding;
+  GObject *tmp;
 
   g_test_summary ("Test that bindings set up with non-canonical property names work");
 
@@ -327,8 +404,14 @@ binding_canonicalisation (void)
                                     G_BINDING_DEFAULT);
 
   g_object_add_weak_pointer (G_OBJECT (binding), (gpointer *) &binding);
-  g_assert_true ((BindingSource *) g_binding_get_source (binding) == source);
-  g_assert_true ((BindingTarget *) g_binding_get_target (binding) == target);
+  tmp = g_binding_dup_source (binding);
+  g_assert_nonnull (tmp);
+  g_assert_true ((BindingSource *) tmp == source);
+  g_object_unref (tmp);
+  tmp = g_binding_dup_target (binding);
+  g_assert_nonnull (tmp);
+  g_assert_true ((BindingTarget *) tmp == target);
+  g_object_unref (tmp);
   g_assert_cmpstr (g_binding_get_source_property (binding), ==, "double-value");
   g_assert_cmpstr (g_binding_get_target_property (binding), ==, "double-value");
   g_assert_cmpint (g_binding_get_flags (binding), ==, G_BINDING_DEFAULT);
@@ -757,6 +840,242 @@ binding_fail (void)
   g_assert_null (binding);
 }
 
+static gboolean
+transform_to_func (GBinding     *binding,
+                   const GValue *value_a,
+                   GValue       *value_b,
+                   gpointer      user_data)
+{
+  if (g_value_type_compatible (G_VALUE_TYPE (value_a), G_VALUE_TYPE (value_b)))
+    {
+      g_value_copy (value_a, value_b);
+      return TRUE;
+    }
+
+  if (g_value_type_transformable (G_VALUE_TYPE (value_a), G_VALUE_TYPE (value_b)))
+    {
+      if (g_value_transform (value_a, value_b))
+        return TRUE;
+    }
+
+  return FALSE;
+}
+
+static void
+binding_interface (void)
+{
+  BindingSource *source = g_object_new (binding_source_get_type (), NULL);
+  BindingTarget *target = g_object_new (binding_target_get_type (), NULL);
+  GObject *baa;
+  GBinding *binding;
+  GClosure *transform_to;
+
+  /* binding a generic object property to an interface-valued one */
+  binding = g_object_bind_property (source, "object",
+                                    target, "foo",
+                                    G_BINDING_DEFAULT);
+
+  baa = g_object_new (baa_get_type (), NULL);
+  g_object_set (source, "object", baa, NULL);
+  g_object_unref (baa);
+
+  g_binding_unbind (binding);
+
+  /* the same, with a generic marshaller */
+  transform_to = g_cclosure_new (G_CALLBACK (transform_to_func), NULL, NULL);
+  g_closure_set_marshal (transform_to, g_cclosure_marshal_generic);
+  binding = g_object_bind_property_with_closures (source, "object",
+                                                  target, "foo",
+                                                  G_BINDING_DEFAULT,
+                                                  transform_to,
+                                                  NULL);
+
+  baa = g_object_new (baa_get_type (), NULL);
+  g_object_set (source, "object", baa, NULL);
+  g_object_unref (baa);
+
+  g_binding_unbind (binding);
+
+  g_object_unref (source);
+  g_object_unref (target);
+}
+
+typedef struct {
+  GThread *thread;
+  GBinding *binding;
+  GMutex *lock;
+  GCond *cond;
+  gboolean *wait;
+  gint *count; /* (atomic) */
+} ConcurrentUnbindData;
+
+static gpointer
+concurrent_unbind_func (gpointer data)
+{
+  ConcurrentUnbindData *unbind_data = data;
+
+  g_mutex_lock (unbind_data->lock);
+  g_atomic_int_inc (unbind_data->count);
+  while (*unbind_data->wait)
+    g_cond_wait (unbind_data->cond, unbind_data->lock);
+  g_mutex_unlock (unbind_data->lock);
+  g_binding_unbind (unbind_data->binding);
+  g_object_unref (unbind_data->binding);
+
+  return NULL;
+}
+
+static void
+binding_concurrent_unbind (void)
+{
+  guint i, j;
+
+  g_test_summary ("Test that unbinding from multiple threads concurrently works correctly");
+
+  for (i = 0; i < 50; i++)
+    {
+      BindingSource *source = g_object_new (binding_source_get_type (), NULL);
+      BindingTarget *target = g_object_new (binding_target_get_type (), NULL);
+      GBinding *binding;
+      GQueue threads = G_QUEUE_INIT;
+      GMutex lock;
+      GCond cond;
+      gboolean wait = TRUE;
+      gint count = 0; /* (atomic) */
+      ConcurrentUnbindData *data;
+
+      g_mutex_init (&lock);
+      g_cond_init (&cond);
+
+      binding = g_object_bind_property (source, "foo",
+                                        target, "bar",
+                                        G_BINDING_BIDIRECTIONAL);
+      g_object_ref (binding);
+
+      for (j = 0; j < 10; j++)
+        {
+          data = g_new0 (ConcurrentUnbindData, 1);
+
+          data->binding = g_object_ref (binding);
+          data->lock = &lock;
+          data->cond = &cond;
+          data->wait = &wait;
+          data->count = &count;
+
+          data->thread = g_thread_new ("binding-concurrent", concurrent_unbind_func, data);
+          g_queue_push_tail (&threads, data);
+        }
+
+      /* wait until all threads are started */
+      while (g_atomic_int_get (&count) < 10)
+        g_thread_yield ();
+
+      g_mutex_lock (&lock);
+      wait = FALSE;
+      g_cond_broadcast (&cond);
+      g_mutex_unlock (&lock);
+
+      while ((data = g_queue_pop_head (&threads)))
+        {
+          g_thread_join (data->thread);
+          g_free (data);
+        }
+
+      g_mutex_clear (&lock);
+      g_cond_clear (&cond);
+
+      g_object_unref (binding);
+      g_object_unref (source);
+      g_object_unref (target);
+    }
+}
+
+typedef struct {
+  GObject *object;
+  GMutex *lock;
+  GCond *cond;
+  gint *count; /* (atomic) */
+  gboolean *wait;
+} ConcurrentFinalizeData;
+
+static gpointer
+concurrent_finalize_func (gpointer data)
+{
+  ConcurrentFinalizeData *finalize_data = data;
+
+  g_mutex_lock (finalize_data->lock);
+  g_atomic_int_inc (finalize_data->count);
+  while (*finalize_data->wait)
+    g_cond_wait (finalize_data->cond, finalize_data->lock);
+  g_mutex_unlock (finalize_data->lock);
+  g_object_unref (finalize_data->object);
+  g_free (finalize_data);
+
+  return NULL;
+}
+
+static void
+binding_concurrent_finalizing (void)
+{
+  guint i;
+
+  g_test_summary ("Test that finalizing source/target from multiple threads concurrently works correctly");
+
+  for (i = 0; i < 50; i++)
+    {
+      BindingSource *source = g_object_new (binding_source_get_type (), NULL);
+      BindingTarget *target = g_object_new (binding_target_get_type (), NULL);
+      GBinding *binding;
+      GMutex lock;
+      GCond cond;
+      gboolean wait = TRUE;
+      ConcurrentFinalizeData *data;
+      GThread *source_thread, *target_thread;
+      gint count = 0; /* (atomic) */
+
+      g_mutex_init (&lock);
+      g_cond_init (&cond);
+
+      binding = g_object_bind_property (source, "foo",
+                                        target, "bar",
+                                        G_BINDING_BIDIRECTIONAL);
+      g_object_ref (binding);
+
+      data = g_new0 (ConcurrentFinalizeData, 1);
+      data->object = (GObject *) source;
+      data->wait = &wait;
+      data->lock = &lock;
+      data->cond = &cond;
+      data->count = &count;
+      source_thread = g_thread_new ("binding-concurrent", concurrent_finalize_func, data);
+
+      data = g_new0 (ConcurrentFinalizeData, 1);
+      data->object = (GObject *) target;
+      data->wait = &wait;
+      data->lock = &lock;
+      data->cond = &cond;
+      data->count = &count;
+      target_thread = g_thread_new ("binding-concurrent", concurrent_finalize_func, data);
+
+      /* wait until all threads are started */
+      while (g_atomic_int_get (&count) < 2)
+        g_thread_yield ();
+
+      g_mutex_lock (&lock);
+      wait = FALSE;
+      g_cond_broadcast (&cond);
+      g_mutex_unlock (&lock);
+
+      g_thread_join (source_thread);
+      g_thread_join (target_thread);
+
+      g_mutex_clear (&lock);
+      g_cond_clear (&cond);
+
+      g_object_unref (binding);
+    }
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -778,6 +1097,9 @@ main (int argc, char *argv[])
   g_test_add_func ("/binding/unbind-weak", binding_unbind_weak);
   g_test_add_func ("/binding/unbind-multiple", binding_unbind_multiple);
   g_test_add_func ("/binding/fail", binding_fail);
+  g_test_add_func ("/binding/interface", binding_interface);
+  g_test_add_func ("/binding/concurrent-unbind", binding_concurrent_unbind);
+  g_test_add_func ("/binding/concurrent-finalizing", binding_concurrent_finalizing);
 
   return g_test_run ();
 }

@@ -1,4 +1,4 @@
-This is gdb.info, produced by makeinfo version 6.5 from gdb.texinfo.
+This is gdb.info, produced by makeinfo version 6.7 from gdb.texinfo.
 
 Copyright (C) 1988-2020 Free Software Foundation, Inc.
 
@@ -21,7 +21,7 @@ END-INFO-DIR-ENTRY
    This file documents the GNU debugger GDB.
 
    This is the Tenth Edition, of 'Debugging with GDB: the GNU
-Source-Level Debugger' for GDB (GDB) Version 9.1.
+Source-Level Debugger' for GDB (GDB) Version 10.1.
 
    Copyright (C) 1988-2020 Free Software Foundation, Inc.
 
@@ -35,6 +35,248 @@ with the Back-Cover Texts as in (a) below.
    (a) The FSF's Back-Cover Text is: "You are free to copy and modify
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
+
+
+File: gdb.info,  Node: Go,  Next: Objective-C,  Prev: D,  Up: Supported Languages
+
+15.4.3 Go
+---------
+
+GDB can be used to debug programs written in Go and compiled with
+'gccgo' or '6g' compilers.
+
+   Here is a summary of the Go-specific features and restrictions:
+
+'The current Go package'
+     The name of the current package does not need to be specified when
+     specifying global variables and functions.
+
+     For example, given the program:
+
+          package main
+          var myglob = "Shall we?"
+          func main () {
+            // ...
+          }
+
+     When stopped inside 'main' either of these work:
+
+          (gdb) p myglob
+          (gdb) p main.myglob
+
+'Builtin Go types'
+     The 'string' type is recognized by GDB and is printed as a string.
+
+'Builtin Go functions'
+     The GDB expression parser recognizes the 'unsafe.Sizeof' function
+     and handles it internally.
+
+'Restrictions on Go expressions'
+     All Go operators are supported except '&^'.  The Go '_' "blank
+     identifier" is not supported.  Automatic dereferencing of pointers
+     is not supported.
+
+
+File: gdb.info,  Node: Objective-C,  Next: OpenCL C,  Prev: Go,  Up: Supported Languages
+
+15.4.4 Objective-C
+------------------
+
+This section provides information about some commands and command
+options that are useful for debugging Objective-C code.  See also *note
+info classes: Symbols, and *note info selectors: Symbols, for a few more
+commands specific to Objective-C support.
+
+* Menu:
+
+* Method Names in Commands::
+* The Print Command with Objective-C::
+
+
+File: gdb.info,  Node: Method Names in Commands,  Next: The Print Command with Objective-C,  Up: Objective-C
+
+15.4.4.1 Method Names in Commands
+.................................
+
+The following commands have been extended to accept Objective-C method
+names as line specifications:
+
+   * 'clear'
+   * 'break'
+   * 'info line'
+   * 'jump'
+   * 'list'
+
+   A fully qualified Objective-C method name is specified as
+
+     -[CLASS METHODNAME]
+
+   where the minus sign is used to indicate an instance method and a
+plus sign (not shown) is used to indicate a class method.  The class
+name CLASS and method name METHODNAME are enclosed in brackets, similar
+to the way messages are specified in Objective-C source code.  For
+example, to set a breakpoint at the 'create' instance method of class
+'Fruit' in the program currently being debugged, enter:
+
+     break -[Fruit create]
+
+   To list ten program lines around the 'initialize' class method,
+enter:
+
+     list +[NSText initialize]
+
+   In the current version of GDB, the plus or minus sign is required.
+In future versions of GDB, the plus or minus sign will be optional, but
+you can use it to narrow the search.  It is also possible to specify
+just a method name:
+
+     break create
+
+   You must specify the complete method name, including any colons.  If
+your program's source files contain more than one 'create' method,
+you'll be presented with a numbered list of classes that implement that
+method.  Indicate your choice by number, or type '0' to exit if none
+apply.
+
+   As another example, to clear a breakpoint established at the
+'makeKeyAndOrderFront:' method of the 'NSWindow' class, enter:
+
+     clear -[NSWindow makeKeyAndOrderFront:]
+
+
+File: gdb.info,  Node: The Print Command with Objective-C,  Prev: Method Names in Commands,  Up: Objective-C
+
+15.4.4.2 The Print Command With Objective-C
+...........................................
+
+The print command has also been extended to accept methods.  For
+example:
+
+     print -[OBJECT hash]
+
+will tell GDB to send the 'hash' message to OBJECT and print the result.
+Also, an additional command has been added, 'print-object' or 'po' for
+short, which is meant to print the description of an object.  However,
+this command may only work with certain Objective-C libraries that have
+a particular hook function, '_NSPrintForDebugger', defined.
+
+
+File: gdb.info,  Node: OpenCL C,  Next: Fortran,  Prev: Objective-C,  Up: Supported Languages
+
+15.4.5 OpenCL C
+---------------
+
+This section provides information about GDBs OpenCL C support.
+
+* Menu:
+
+* OpenCL C Datatypes::
+* OpenCL C Expressions::
+* OpenCL C Operators::
+
+
+File: gdb.info,  Node: OpenCL C Datatypes,  Next: OpenCL C Expressions,  Up: OpenCL C
+
+15.4.5.1 OpenCL C Datatypes
+...........................
+
+GDB supports the builtin scalar and vector datatypes specified by OpenCL
+1.1.  In addition the half- and double-precision floating point data
+types of the 'cl_khr_fp16' and 'cl_khr_fp64' OpenCL extensions are also
+known to GDB.
+
+
+File: gdb.info,  Node: OpenCL C Expressions,  Next: OpenCL C Operators,  Prev: OpenCL C Datatypes,  Up: OpenCL C
+
+15.4.5.2 OpenCL C Expressions
+.............................
+
+GDB supports accesses to vector components including the access as
+lvalue where possible.  Since OpenCL C is based on C99 most C
+expressions supported by GDB can be used as well.
+
+
+File: gdb.info,  Node: OpenCL C Operators,  Prev: OpenCL C Expressions,  Up: OpenCL C
+
+15.4.5.3 OpenCL C Operators
+...........................
+
+GDB supports the operators specified by OpenCL 1.1 for scalar and vector
+data types.
+
+
+File: gdb.info,  Node: Fortran,  Next: Pascal,  Prev: OpenCL C,  Up: Supported Languages
+
+15.4.6 Fortran
+--------------
+
+GDB can be used to debug programs written in Fortran, but it currently
+supports only the features of Fortran 77 language.
+
+   Some Fortran compilers (GNU Fortran 77 and Fortran 95 compilers among
+them) append an underscore to the names of variables and functions.
+When you debug programs compiled by those compilers, you will need to
+refer to variables and functions with a trailing underscore.
+
+* Menu:
+
+* Fortran Operators::           Fortran operators and expressions
+* Fortran Defaults::            Default settings for Fortran
+* Special Fortran Commands::    Special GDB commands for Fortran
+
+
+File: gdb.info,  Node: Fortran Operators,  Next: Fortran Defaults,  Up: Fortran
+
+15.4.6.1 Fortran Operators and Expressions
+..........................................
+
+Operators must be defined on values of specific types.  For instance,
+'+' is defined on numbers, but not on characters or other non-
+arithmetic types.  Operators are often defined on groups of types.
+
+'**'
+     The exponentiation operator.  It raises the first operand to the
+     power of the second one.
+
+':'
+     The range operator.  Normally used in the form of array(low:high)
+     to represent a section of array.
+
+'%'
+     The access component operator.  Normally used to access elements in
+     derived types.  Also suitable for unions.  As unions aren't part of
+     regular Fortran, this can only happen when accessing a register
+     that uses a gdbarch-defined union type.
+'::'
+     The scope operator.  Normally used to access variables in modules
+     or to set breakpoints on subroutines nested in modules or in other
+     subroutines (internal subroutines).
+
+
+File: gdb.info,  Node: Fortran Defaults,  Next: Special Fortran Commands,  Prev: Fortran Operators,  Up: Fortran
+
+15.4.6.2 Fortran Defaults
+.........................
+
+Fortran symbols are usually case-insensitive, so GDB by default uses
+case-insensitive matches for Fortran symbols.  You can change that with
+the 'set case-insensitive' command, see *note Symbols::, for the
+details.
+
+
+File: gdb.info,  Node: Special Fortran Commands,  Prev: Fortran Defaults,  Up: Fortran
+
+15.4.6.3 Special Fortran Commands
+.................................
+
+GDB has some commands to support Fortran-specific features, such as
+displaying common blocks.
+
+'info common [COMMON-NAME]'
+     This command prints the values contained in the Fortran 'COMMON'
+     block whose name is COMMON-NAME.  With no argument, the names of
+     all 'COMMON' blocks visible at the current program location are
+     printed.
 
 
 File: gdb.info,  Node: Pascal,  Next: Rust,  Prev: Fortran,  Up: Supported Languages
@@ -1217,6 +1459,29 @@ requirements.
 'show ravenscar task-switching'
      Show whether it is possible to switch from task to task in a
      program using the Ravenscar Profile.
+
+   When Ravenscar task-switching is enabled, Ravenscar tasks are
+announced by GDB as if they were threads:
+
+     (gdb) continue
+     [New Ravenscar Thread 0x2b8f0]
+
+   Both Ravenscar tasks and the underlying CPU threads will show up in
+the output of 'info threads':
+
+     (gdb) info threads
+       Id   Target Id                  Frame
+       1    Thread 1 (CPU#0 [running]) simple () at simple.adb:10
+       2    Thread 2 (CPU#1 [running]) 0x0000000000003d34 in __gnat_initialize_cpu_devices ()
+       3    Thread 3 (CPU#2 [running]) 0x0000000000003d28 in __gnat_initialize_cpu_devices ()
+       4    Thread 4 (CPU#3 [halted ]) 0x000000000000c6ec in system.task_primitives.operations.idle ()
+     * 5    Ravenscar Thread 0x2b8f0   simple () at simple.adb:10
+       6    Ravenscar Thread 0x2f150   0x000000000000c6ec in system.task_primitives.operations.idle ()
+
+   One known limitation of the Ravenscar support in GDB is that it isn't
+currently possible to single-step through the runtime initialization
+sequence.  If you need to debug this code, you should use 'set ravenscar
+task-switching off'.
 
 
 File: gdb.info,  Node: Ada Settings,  Next: Ada Glitches,  Prev: Ravenscar Profile,  Up: Ada
@@ -3022,7 +3287,7 @@ files are useful.
           add symbol table from file "/home/user/gdb/mylib.so" at
               .text_addr = 0x7ffff7ff9480
           (y or n) y
-          Reading symbols from /home/user/gdb/mylib.so...done.
+          Reading symbols from /home/user/gdb/mylib.so...
           (gdb) remove-symbol-file -a 0x7ffff7ff9480
           Remove symbol table from file "/home/user/gdb/mylib.so"? (y or n) y
           (gdb)
@@ -3194,9 +3459,9 @@ command:
 of shared library events happen.  The best way to do this is to use
 'catch load' and 'catch unload' (*note Set Catchpoints::).
 
-   GDB also supports the the 'set stop-on-solib-events' command for
-this.  This command exists for historical reasons.  It is less useful
-than setting a catchpoint, because it does not allow for conditions or
+   GDB also supports the 'set stop-on-solib-events' command for this.
+This command exists for historical reasons.  It is less useful than
+setting a catchpoint, because it does not allow for conditions or
 commands as a catchpoint does.
 
 'set stop-on-solib-events'
@@ -3770,9 +4035,7 @@ done before gdb reads the file.  The following will not work:
 
      $ gdb -iex "set use-deprecated-index-sections on" <program>
 
-   There are currently some limitation on indices.  They only work when
-using DWARF debugging information, not stabs.  And, only the '-dwarf-5'
-index works for programs using Ada.
+   Indices only work when using DWARF debugging information, not stabs.
 
 18.5.1 Automatic symbol index cache
 -----------------------------------
@@ -4279,6 +4542,13 @@ Attaching
      established.  If you are using 'gdbserver', you may also invoke
      'gdbserver' using the '--attach' option (*note Running
      gdbserver::).
+
+     Some remote targets allow GDB to determine the executable file
+     running in the process the debugger is attaching to.  In such a
+     case, GDB uses the value of 'exec-file-mismatch' to handle a
+     possible mismatch between the executable file name running in the
+     process and the name of the current exec-file loaded by GDB (*note
+     set exec-file-mismatch::).
 
 20.1.2 Host and Target Files
 ----------------------------
@@ -5527,8 +5797,8 @@ running on your system.
 to examine the image of a running process using file-system subroutines.
 This facility is supported on GNU/Linux and Solaris systems.
 
-   On FreeBSD systems, system control nodes are used to query process
-information.
+   On FreeBSD and NetBSD systems, system control nodes are used to query
+process information.
 
    In addition, some systems may provide additional process information
 in core files.  Note that a core file may include a subset of the
@@ -5552,15 +5822,15 @@ currently available from cores created on GNU/Linux and FreeBSD systems.
 
 'info proc cmdline'
      Show the original command line of the process.  This command is
-     supported on GNU/Linux and FreeBSD.
+     supported on GNU/Linux, FreeBSD and NetBSD.
 
 'info proc cwd'
      Show the current working directory of the process.  This command is
-     supported on GNU/Linux and FreeBSD.
+     supported on GNU/Linux, FreeBSD and NetBSD.
 
 'info proc exe'
      Show the name of executable of the process.  This command is
-     supported on GNU/Linux and FreeBSD.
+     supported on GNU/Linux, FreeBSD and NetBSD.
 
 'info proc files'
      Show the file descriptors open by the process.  For each open file
@@ -5591,10 +5861,11 @@ currently available from cores created on GNU/Linux and FreeBSD systems.
 
 'info proc mappings'
      Report the memory address space ranges accessible in a process.  On
-     Solaris and FreeBSD systems, each memory range includes information
-     on whether the process has read, write, or execute access rights to
-     each range.  On GNU/Linux and FreeBSD systems, each memory range
-     includes the object file which is mapped to that range.
+     Solaris, FreeBSD and NetBSD systems, each memory range includes
+     information on whether the process has read, write, or execute
+     access rights to each range.  On GNU/Linux, FreeBSD and NetBSD
+     systems, each memory range includes the object file which is mapped
+     to that range.
 
 'info proc stat'
 'info proc status'
@@ -5602,13 +5873,13 @@ currently available from cores created on GNU/Linux and FreeBSD systems.
      and group ID; virtual memory usage; the signals that are pending,
      blocked, and ignored; its TTY; its consumption of system and user
      time; its stack size; its 'nice' value; etc.  These commands are
-     supported on GNU/Linux and FreeBSD.
+     supported on GNU/Linux, FreeBSD and NetBSD.
 
      For GNU/Linux systems, see the 'proc' man page for more information
      (type 'man 5 proc' from your shell prompt).
 
-     For FreeBSD systems, 'info proc stat' is an alias for 'info proc
-     status'.
+     For FreeBSD and NetBSD systems, 'info proc stat' is an alias for
+     'info proc status'.
 
 'info proc all'
      Show all the information about the process described under all of
@@ -6235,6 +6506,7 @@ send an arbitrary command to the simulator.
 
 * ARC::                         Synopsys ARC
 * ARM::                         ARM
+* BPF::                         eBPF
 * M68K::                        Motorola M68K
 * MicroBlaze::			Xilinx MicroBlaze
 * MIPS Embedded::               MIPS Embedded
@@ -6265,7 +6537,7 @@ GDB provides the following ARC-specific commands:
      given address.
 
 
-File: gdb.info,  Node: ARM,  Next: M68K,  Prev: ARC,  Up: Embedded Processors
+File: gdb.info,  Node: ARM,  Next: BPF,  Prev: ARC,  Up: Embedded Processors
 
 21.3.2 ARM
 ----------
@@ -6351,9 +6623,24 @@ GDB provides the following ARM-specific commands:
           'all'
 
 
-File: gdb.info,  Node: M68K,  Next: MicroBlaze,  Prev: ARM,  Up: Embedded Processors
+File: gdb.info,  Node: BPF,  Next: M68K,  Prev: ARM,  Up: Embedded Processors
 
-21.3.3 M68k
+21.3.3 BPF
+----------
+
+'target sim [SIMARGS] ...'
+     The GDB BPF simulator accepts the following optional arguments.
+
+     '--skb-data-offset=OFFSET'
+          Tell the simulator the offset, measured in bytes, of the
+          'skb_data' field in the kernel 'struct sk_buff' structure.
+          This offset is used by some BPF specific-purpose load/store
+          instructions.  Defaults to 0.
+
+
+File: gdb.info,  Node: M68K,  Next: MicroBlaze,  Prev: BPF,  Up: Embedded Processors
+
+21.3.4 M68k
 -----------
 
 The Motorola m68k configuration includes ColdFire support.
@@ -6361,7 +6648,7 @@ The Motorola m68k configuration includes ColdFire support.
 
 File: gdb.info,  Node: MicroBlaze,  Next: MIPS Embedded,  Prev: M68K,  Up: Embedded Processors
 
-21.3.4 MicroBlaze
+21.3.5 MicroBlaze
 -----------------
 
 The MicroBlaze is a soft-core processor supported on various Xilinx
@@ -6398,7 +6685,7 @@ need to do this.)
 
 File: gdb.info,  Node: MIPS Embedded,  Next: OpenRISC 1000,  Prev: MicroBlaze,  Up: Embedded Processors
 
-21.3.5 MIPS Embedded
+21.3.6 MIPS Embedded
 --------------------
 
 GDB supports these special commands for MIPS targets:
@@ -6430,7 +6717,7 @@ GDB supports these special commands for MIPS targets:
 
 File: gdb.info,  Node: OpenRISC 1000,  Next: PowerPC Embedded,  Prev: MIPS Embedded,  Up: Embedded Processors
 
-21.3.6 OpenRISC 1000
+21.3.7 OpenRISC 1000
 --------------------
 
 The OpenRISC 1000 provides a free RISC instruction set architecture.  It
@@ -6459,7 +6746,7 @@ target:
 
 File: gdb.info,  Node: PowerPC Embedded,  Next: AVR,  Prev: OpenRISC 1000,  Up: Embedded Processors
 
-21.3.7 PowerPC Embedded
+21.3.8 PowerPC Embedded
 -----------------------
 
 GDB supports using the DVC (Data Value Compare) register to implement in
@@ -6531,7 +6818,7 @@ command.
 
 File: gdb.info,  Node: AVR,  Next: CRIS,  Prev: PowerPC Embedded,  Up: Embedded Processors
 
-21.3.8 Atmel AVR
+21.3.9 Atmel AVR
 ----------------
 
 When configured for debugging the Atmel AVR, GDB supports the following
@@ -6544,8 +6831,8 @@ AVR-specific commands:
 
 File: gdb.info,  Node: CRIS,  Next: Super-H,  Prev: AVR,  Up: Embedded Processors
 
-21.3.9 CRIS
------------
+21.3.10 CRIS
+------------
 
 When configured for debugging CRIS, GDB provides the following
 CRIS-specific commands:
@@ -6577,7 +6864,7 @@ CRIS-specific commands:
 
 File: gdb.info,  Node: Super-H,  Prev: CRIS,  Up: Embedded Processors
 
-21.3.10 Renesas Super-H
+21.3.11 Renesas Super-H
 -----------------------
 
 For the Renesas Super-H processor, GDB provides these commands:
@@ -6992,226 +7279,4 @@ cacheline (64 bytes), can be viewed or modified.
           (gdb) adi a/100 shmaddr = 7
           (gdb) adi x/100 shmaddr
              0xfff800010002c000:     7 7
-
-
-File: gdb.info,  Node: S12Z,  Prev: Sparc64,  Up: Architectures
-
-21.4.9 S12Z
------------
-
-When GDB is debugging the S12Z architecture, it provides the following
-special command:
-
-'maint info bdccsr'
-     This command displays the current value of the microprocessor's
-     BDCCSR register.
-
-
-File: gdb.info,  Node: Controlling GDB,  Next: Extending GDB,  Prev: Configurations,  Up: Top
-
-22 Controlling GDB
-******************
-
-You can alter the way GDB interacts with you by using the 'set' command.
-For commands controlling how GDB displays data, see *note Print
-Settings: Print Settings.  Other settings are described here.
-
-* Menu:
-
-* Prompt::                      Prompt
-* Editing::                     Command editing
-* Command History::             Command history
-* Screen Size::                 Screen size
-* Output Styling::              Output styling
-* Numbers::                     Numbers
-* ABI::                         Configuring the current ABI
-* Auto-loading::                Automatically loading associated files
-* Messages/Warnings::           Optional warnings and messages
-* Debugging Output::            Optional messages about internal happenings
-* Other Misc Settings::         Other Miscellaneous Settings
-
-
-File: gdb.info,  Node: Prompt,  Next: Editing,  Up: Controlling GDB
-
-22.1 Prompt
-===========
-
-GDB indicates its readiness to read a command by printing a string
-called the "prompt".  This string is normally '(gdb)'.  You can change
-the prompt string with the 'set prompt' command.  For instance, when
-debugging GDB with GDB, it is useful to change the prompt in one of the
-GDB sessions so that you can always tell which one you are talking to.
-
-   _Note:_ 'set prompt' does not add a space for you after the prompt
-you set.  This allows you to set a prompt which ends in a space or a
-prompt that does not.
-
-'set prompt NEWPROMPT'
-     Directs GDB to use NEWPROMPT as its prompt string henceforth.
-
-'show prompt'
-     Prints a line of the form: 'Gdb's prompt is: YOUR-PROMPT'
-
-   Versions of GDB that ship with Python scripting enabled have prompt
-extensions.  The commands for interacting with these extensions are:
-
-'set extended-prompt PROMPT'
-     Set an extended prompt that allows for substitutions.  *Note
-     gdb.prompt::, for a list of escape sequences that can be used for
-     substitution.  Any escape sequences specified as part of the prompt
-     string are replaced with the corresponding strings each time the
-     prompt is displayed.
-
-     For example:
-
-          set extended-prompt Current working directory: \w (gdb)
-
-     Note that when an extended-prompt is set, it takes control of the
-     PROMPT_HOOK hook.  *Note prompt_hook::, for further information.
-
-'show extended-prompt'
-     Prints the extended prompt.  Any escape sequences specified as part
-     of the prompt string with 'set extended-prompt', are replaced with
-     the corresponding strings each time the prompt is displayed.
-
-
-File: gdb.info,  Node: Editing,  Next: Command History,  Prev: Prompt,  Up: Controlling GDB
-
-22.2 Command Editing
-====================
-
-GDB reads its input commands via the "Readline" interface.  This GNU
-library provides consistent behavior for programs which provide a
-command line interface to the user.  Advantages are GNU Emacs-style or
-"vi"-style inline editing of commands, 'csh'-like history substitution,
-and a storage and recall of command history across debugging sessions.
-
-   You may control the behavior of command line editing in GDB with the
-command 'set'.
-
-'set editing'
-'set editing on'
-     Enable command line editing (enabled by default).
-
-'set editing off'
-     Disable command line editing.
-
-'show editing'
-     Show whether command line editing is enabled.
-
-   *Note Command Line Editing::, for more details about the Readline
-interface.  Users unfamiliar with GNU Emacs or 'vi' are encouraged to
-read that chapter.
-
-   GDB sets the Readline application name to 'gdb'.  This is useful for
-conditions in '.inputrc'.
-
-   GDB defines a bindable Readline command, 'operate-and-get-next'.
-This is bound to 'C-o' by default.  This command accepts the current
-line for execution and fetches the next line relative to the current
-line from the history for editing.  Any argument is ignored.
-
-
-File: gdb.info,  Node: Command History,  Next: Screen Size,  Prev: Editing,  Up: Controlling GDB
-
-22.3 Command History
-====================
-
-GDB can keep track of the commands you type during your debugging
-sessions, so that you can be certain of precisely what happened.  Use
-these commands to manage the GDB command history facility.
-
-   GDB uses the GNU History library, a part of the Readline package, to
-provide the history facility.  *Note Using History Interactively::, for
-the detailed description of the History library.
-
-   To issue a command to GDB without affecting certain aspects of the
-state which is seen by users, prefix it with 'server ' (*note Server
-Prefix::).  This means that this command will not affect the command
-history, nor will it affect GDB's notion of which command to repeat if
-<RET> is pressed on a line by itself.
-
-   The server prefix does not affect the recording of values into the
-value history; to print a value without recording it into the value
-history, use the 'output' command instead of the 'print' command.
-
-   Here is the description of GDB commands related to command history.
-
-'set history filename FNAME'
-     Set the name of the GDB command history file to FNAME.  This is the
-     file where GDB reads an initial command history list, and where it
-     writes the command history from this session when it exits.  You
-     can access this list through history expansion or through the
-     history command editing characters listed below.  This file
-     defaults to the value of the environment variable 'GDBHISTFILE', or
-     to './.gdb_history' ('./_gdb_history' on MS-DOS) if this variable
-     is not set.
-
-'set history save'
-'set history save on'
-     Record command history in a file, whose name may be specified with
-     the 'set history filename' command.  By default, this option is
-     disabled.
-
-'set history save off'
-     Stop recording command history in a file.
-
-'set history size SIZE'
-'set history size unlimited'
-     Set the number of commands which GDB keeps in its history list.
-     This defaults to the value of the environment variable
-     'GDBHISTSIZE', or to 256 if this variable is not set.  Non-numeric
-     values of 'GDBHISTSIZE' are ignored.  If SIZE is 'unlimited' or if
-     'GDBHISTSIZE' is either a negative number or the empty string, then
-     the number of commands GDB keeps in the history list is unlimited.
-
-'set history remove-duplicates COUNT'
-'set history remove-duplicates unlimited'
-     Control the removal of duplicate history entries in the command
-     history list.  If COUNT is non-zero, GDB will look back at the last
-     COUNT history entries and remove the first entry that is a
-     duplicate of the current entry being added to the command history
-     list.  If COUNT is 'unlimited' then this lookbehind is unbounded.
-     If COUNT is 0, then removal of duplicate history entries is
-     disabled.
-
-     Only history entries added during the current session are
-     considered for removal.  This option is set to 0 by default.
-
-   History expansion assigns special meaning to the character '!'.
-*Note Event Designators::, for more details.
-
-   Since '!' is also the logical not operator in C, history expansion is
-off by default.  If you decide to enable history expansion with the 'set
-history expansion on' command, you may sometimes need to follow '!'
-(when it is used as logical not, in an expression) with a space or a tab
-to prevent it from being expanded.  The readline history facilities do
-not attempt substitution on the strings '!=' and '!(', even when history
-expansion is enabled.
-
-   The commands to control history expansion are:
-
-'set history expansion on'
-'set history expansion'
-     Enable history expansion.  History expansion is off by default.
-
-'set history expansion off'
-     Disable history expansion.
-
-'show history'
-'show history filename'
-'show history save'
-'show history size'
-'show history expansion'
-     These commands display the state of the GDB history parameters.
-     'show history' by itself displays all four states.
-
-'show commands'
-     Display the last ten commands in the command history.
-
-'show commands N'
-     Print ten commands centered on command number N.
-
-'show commands +'
-     Print ten commands just after the commands last printed.
 

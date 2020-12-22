@@ -22,24 +22,26 @@
 
 #include "gdbsupport/common-regcache.h"
 #include "gdbsupport/function-view.h"
-#include <forward_list>
 
 struct regcache;
 struct regset;
 struct gdbarch;
 struct address_space;
 class thread_info;
+struct process_stratum_target;
 
 extern struct regcache *get_current_regcache (void);
-extern struct regcache *get_thread_regcache (ptid_t ptid);
+extern struct regcache *get_thread_regcache (process_stratum_target *target,
+					     ptid_t ptid);
 
 /* Get the regcache of THREAD.  */
 extern struct regcache *get_thread_regcache (thread_info *thread);
 
-extern struct regcache *get_thread_arch_regcache (ptid_t, struct gdbarch *);
-extern struct regcache *get_thread_arch_aspace_regcache (ptid_t,
-							 struct gdbarch *,
-							 struct address_space *);
+extern struct regcache *get_thread_arch_regcache
+  (process_stratum_target *targ, ptid_t, struct gdbarch *);
+extern struct regcache *get_thread_arch_aspace_regcache
+  (process_stratum_target *target, ptid_t,
+   struct gdbarch *, struct address_space *);
 
 extern enum register_status
   regcache_raw_read_signed (struct regcache *regcache,
@@ -385,15 +387,18 @@ public:
     this->m_ptid = ptid;
   }
 
+  process_stratum_target *target () const
+  {
+    return m_target;
+  }
+
 /* Dump the contents of a register from the register cache to the target
    debug.  */
   void debug_print_register (const char *func, int regno);
 
-  static void regcache_thread_ptid_changed (ptid_t old_ptid, ptid_t new_ptid);
 protected:
-  regcache (gdbarch *gdbarch, const address_space *aspace_);
-
-  static std::forward_list<regcache *> current_regcache;
+  regcache (process_stratum_target *target, gdbarch *gdbarch,
+	    const address_space *aspace);
 
 private:
 
@@ -421,15 +426,16 @@ private:
 
   /* If this is a read-write cache, which thread's registers is
      it connected to?  */
+  process_stratum_target *m_target;
   ptid_t m_ptid;
 
   friend struct regcache *
-  get_thread_arch_aspace_regcache (ptid_t ptid, struct gdbarch *gdbarch,
+  get_thread_arch_aspace_regcache (process_stratum_target *target, ptid_t ptid,
+				   struct gdbarch *gdbarch,
 				   struct address_space *aspace);
-
-  friend void
-  registers_changed_ptid (ptid_t ptid);
 };
+
+using regcache_up = std::unique_ptr<regcache>;
 
 class readonly_detached_regcache : public readable_regcache
 {
@@ -451,7 +457,8 @@ public:
 };
 
 extern void registers_changed (void);
-extern void registers_changed_ptid (ptid_t);
+extern void registers_changed_ptid (process_stratum_target *target,
+				    ptid_t ptid);
 
 /* Indicate that registers of THREAD may have changed, so invalidate
    the cache.  */

@@ -257,7 +257,7 @@ exp	:	field_exp FIELDNAME
 			  search_field = 0;
 			  if (current_type)
 			    {
-			      while (TYPE_CODE (current_type)
+			      while (current_type->code ()
 				     == TYPE_CODE_PTR)
 				current_type =
 				  TYPE_TARGET_TYPE (current_type);
@@ -275,7 +275,7 @@ exp	:	field_exp name
 			  search_field = 0;
 			  if (current_type)
 			    {
-			      while (TYPE_CODE (current_type)
+			      while (current_type->code ()
 				     == TYPE_CODE_PTR)
 				current_type =
 				  TYPE_TARGET_TYPE (current_type);
@@ -316,8 +316,9 @@ exp	:	exp '['
 			      stringsval.ptr = buf;
 			      stringsval.length = strlen (arrayname);
 			      strcpy (buf, arrayname);
-			      current_type = TYPE_FIELD_TYPE (current_type,
-				arrayfieldindex - 1);
+			      current_type
+				= (current_type
+				   ->field (arrayfieldindex - 1).type ());
 			      write_exp_elt_opcode (pstate, STRUCTOP_STRUCT);
 			      write_exp_string (pstate, stringsval);
 			      write_exp_elt_opcode (pstate, STRUCTOP_STRUCT);
@@ -357,9 +358,9 @@ exp	:	type '(' exp ')' %prec UNARY
 			{ if (current_type)
 			    {
 			      /* Allow automatic dereference of classes.  */
-			      if ((TYPE_CODE (current_type) == TYPE_CODE_PTR)
-				  && (TYPE_CODE (TYPE_TARGET_TYPE (current_type)) == TYPE_CODE_STRUCT)
-				  && (TYPE_CODE ($1) == TYPE_CODE_STRUCT))
+			      if ((current_type->code () == TYPE_CODE_PTR)
+				  && (TYPE_TARGET_TYPE (current_type)->code () == TYPE_CODE_STRUCT)
+				  && (($1)->code () == TYPE_CODE_STRUCT))
 				write_exp_elt_opcode (pstate, UNOP_IND);
 			    }
 			  write_exp_elt_opcode (pstate, UNOP_CAST);
@@ -601,7 +602,7 @@ exp	:	THIS
 			    this_type = NULL;
 			  if (this_type)
 			    {
-			      if (TYPE_CODE (this_type) == TYPE_CODE_PTR)
+			      if (this_type->code () == TYPE_CODE_PTR)
 				{
 				  this_type = TYPE_TARGET_TYPE (this_type);
 				  write_exp_elt_opcode (pstate, UNOP_IND);
@@ -666,10 +667,10 @@ qualified_name:	typebase COLONCOLON name
 			{
 			  struct type *type = $1;
 
-			  if (TYPE_CODE (type) != TYPE_CODE_STRUCT
-			      && TYPE_CODE (type) != TYPE_CODE_UNION)
+			  if (type->code () != TYPE_CODE_STRUCT
+			      && type->code () != TYPE_CODE_UNION)
 			    error (_("`%s' is not defined as an aggregate type."),
-				   TYPE_NAME (type));
+				   type->name ());
 
 			  write_exp_elt_opcode (pstate, OP_SCOPE);
 			  write_exp_elt_type (pstate, type);

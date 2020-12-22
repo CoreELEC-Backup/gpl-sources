@@ -98,7 +98,7 @@
 
 typedef union {
   GClosure closure;
-  volatile gint vint;
+  gint vint;
 } ClosureInt;
 
 #define CHANGE_FIELD(_closure, _field, _OP, _value, _must_set, _SET_OLD, _SET_NEW)      \
@@ -1258,8 +1258,12 @@ static void
 value_from_ffi_type (GValue *gvalue, gpointer *value)
 {
   ffi_arg *int_val = (ffi_arg*) value;
+  GType type;
 
-  switch (g_type_fundamental (G_VALUE_TYPE (gvalue)))
+  type = G_VALUE_TYPE (gvalue);
+
+restart:
+  switch (g_type_fundamental (type))
     {
     case G_TYPE_INT:
       g_value_set_int (gvalue, (gint) *int_val);
@@ -1318,9 +1322,15 @@ value_from_ffi_type (GValue *gvalue, gpointer *value)
     case G_TYPE_VARIANT:
       g_value_take_variant (gvalue, *(gpointer*)value);
       break;
+    case G_TYPE_INTERFACE:
+      type = g_type_interface_instantiatable_prerequisite (type);
+      if (type)
+        goto restart;
+      G_GNUC_FALLTHROUGH;
     default:
-      g_warning ("value_from_ffi_type: Unsupported fundamental type: %s",
-                g_type_name (g_type_fundamental (G_VALUE_TYPE (gvalue))));
+      g_warning ("value_from_ffi_type: Unsupported fundamental type %s for type %s",
+                 g_type_name (g_type_fundamental (G_VALUE_TYPE (gvalue))),
+                 g_type_name (G_VALUE_TYPE (gvalue)));
     }
 }
 

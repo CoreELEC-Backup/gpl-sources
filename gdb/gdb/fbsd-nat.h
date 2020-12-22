@@ -21,11 +21,17 @@
 #define FBSD_NAT_H
 
 #include "inf-ptrace.h"
+#include <osreldate.h>
 #include <sys/proc.h>
 
-#ifdef TRAP_BRKPT
-/* MIPS does not set si_code for SIGTRAP.  sparc64 reports
-   non-standard values in si_code for SIGTRAP.  */
+/* FreeBSD kernels 11.3 and later report valid si_code values for
+   SIGTRAP on all architectures.  Older FreeBSD kernels that supported
+   TRAP_BRKPT did not report valid values for MIPS and sparc64.  Even
+   older kernels without TRAP_BRKPT support did not report valid
+   values on any architecture.  */
+#if (__FreeBSD_kernel_version >= 1102502) || (__FreeBSD_version >= 1102502)
+# define USE_SIGTRAP_SIGINFO
+#elif defined(TRAP_BRKPT)
 # if !defined(__mips__) && !defined(__sparc64__)
 #  define USE_SIGTRAP_SIGINFO
 # endif
@@ -75,7 +81,7 @@ public:
 #endif
 
 #ifdef TDP_RFPPWAIT
-  int follow_fork (int, int) override;
+  bool follow_fork (bool, bool) override;
 
   int insert_fork_catchpoint (int) override;
   int remove_fork_catchpoint (int) override;
@@ -94,6 +100,8 @@ public:
     override;
 #endif
 #endif /* PT_LWPINFO */
+
+  bool supports_multi_process () override;
 };
 
 #endif /* fbsd-nat.h */

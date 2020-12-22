@@ -36,7 +36,9 @@ struct partial_symbol;
    other memory managed by this class), or on the per-BFD object.  The
    only link from the psymtab storage object back to the objfile (or
    objfile_obstack) that is made by the core psymtab code is the
-   compunit_symtab member in the psymtab.
+   compunit_symtab member in the standard_psymtab -- and a given
+   symbol reader can avoid this by implementing its own subclasses of
+   partial_symtab.
 
    However, it is up to each symbol reader to maintain this invariant
    in other ways, if it wants to reuse psymtabs across multiple
@@ -83,11 +85,10 @@ public:
     return OBSTACK_CALLOC (obstack (), number, struct partial_symtab *);
   }
 
-  /* Allocate a new psymtab on the psymtab obstack.  The new psymtab
-     will be linked in to the "psymtabs" list, but otherwise all other
-     fields will be zero.  */
+  /* Install a psymtab on the psymtab list.  This transfers ownership
+     of PST to this object.  */
 
-  struct partial_symtab *allocate_psymtab ();
+  void install_psymtab (partial_symtab *pst);
 
   typedef next_adapter<struct partial_symtab> partial_symtab_range;
 
@@ -128,11 +129,13 @@ public:
   std::vector<partial_symbol *> global_psymbols;
   std::vector<partial_symbol *> static_psymbols;
 
+  /* Stack of vectors of partial symbols, using during psymtab
+     initialization.  */
+
+  std::vector<std::vector<partial_symbol *>*> current_global_psymbols;
+  std::vector<std::vector<partial_symbol *>*> current_static_psymbols;
+
 private:
-
-  /* List of freed partial symtabs, available for re-use.  */
-
-  struct partial_symtab *free_psymtabs = nullptr;
 
   /* The obstack where allocations are made.  This is lazily allocated
      so that we don't waste memory when there are no psymtabs.  */

@@ -1,5 +1,5 @@
 /* CTF format description.
-   Copyright (C) 2019 Free Software Foundation, Inc.
+   Copyright (C) 2019-2020 Free Software Foundation, Inc.
 
    This file is part of libctf.
 
@@ -199,7 +199,8 @@ typedef struct ctf_header
 #define CTF_VERSION_3 4
 #define CTF_VERSION CTF_VERSION_3 /* Current version.  */
 
-#define CTF_F_COMPRESS	0x1	/* Data buffer is compressed by libctf.  */
+#define CTF_F_COMPRESS	0x1		/* Data buffer is compressed by libctf.  */
+#define CTF_F_MAX	CTF_F_COMPRESS	/* The greatest flag value in use.  */
 
 typedef struct ctf_lblent
 {

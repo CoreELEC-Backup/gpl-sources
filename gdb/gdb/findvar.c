@@ -31,7 +31,7 @@
 #include "block.h"
 #include "objfiles.h"
 #include "language.h"
-#include "dwarf2loc.h"
+#include "dwarf2/loc.h"
 #include "gdbsupport/selftest.h"
 
 /* Basic byte-swapping routines.  All 'extract' functions return a
@@ -153,7 +153,7 @@ extract_long_unsigned_integer (const gdb_byte *addr, int orig_len,
 CORE_ADDR
 extract_typed_address (const gdb_byte *buf, struct type *type)
 {
-  if (TYPE_CODE (type) != TYPE_CODE_PTR && !TYPE_IS_REFERENCE (type))
+  if (type->code () != TYPE_CODE_PTR && !TYPE_IS_REFERENCE (type))
     internal_error (__FILE__, __LINE__,
 		    _("extract_typed_address: "
 		    "type is not a pointer or reference"));
@@ -206,7 +206,7 @@ template void store_integer (gdb_byte *addr, int len,
 void
 store_typed_address (gdb_byte *buf, struct type *type, CORE_ADDR addr)
 {
-  if (TYPE_CODE (type) != TYPE_CODE_PTR && !TYPE_IS_REFERENCE (type))
+  if (type->code () != TYPE_CODE_PTR && !TYPE_IS_REFERENCE (type))
     internal_error (__FILE__, __LINE__,
 		    _("store_typed_address: "
 		    "type is not a pointer or reference"));
@@ -257,7 +257,7 @@ copy_integer_to_size (gdb_byte *dest, int dest_size, const gdb_byte *source,
 
 /* Return a `value' with the contents of (virtual or cooked) register
    REGNUM as found in the specified FRAME.  The register's type is
-   determined by register_type().  */
+   determined by register_type ().  */
 
 struct value *
 value_of_register (int regnum, struct frame_info *frame)
@@ -277,7 +277,7 @@ value_of_register (int regnum, struct frame_info *frame)
 
 /* Return a `value' with the contents of (virtual or cooked) register
    REGNUM as found in the specified FRAME.  The register's type is
-   determined by register_type().  The value is not fetched.  */
+   determined by register_type ().  The value is not fetched.  */
 
 struct value *
 value_of_register_lazy (struct frame_info *frame, int regnum)
@@ -291,6 +291,14 @@ value_of_register_lazy (struct frame_info *frame, int regnum)
   gdb_assert (frame != NULL);
 
   next_frame = get_next_frame_sentinel_okay (frame);
+
+  /* In some cases NEXT_FRAME may not have a valid frame-id yet.  This can
+     happen if we end up trying to unwind a register as part of the frame
+     sniffer.  The only time that we get here without a valid frame-id is
+     if NEXT_FRAME is an inline frame.  If this is the case then we can
+     avoid getting into trouble here by skipping past the inline frames.  */
+  while (get_frame_type (next_frame) == INLINE_FRAME)
+    next_frame = get_next_frame_sentinel_okay (next_frame);
 
   /* We should have a valid next frame.  */
   gdb_assert (frame_id_p (get_frame_id (next_frame)));
@@ -578,12 +586,12 @@ get_hosting_frame (struct symbol *var, const struct block *var_block,
   return frame;
 }
 
-/* A default implementation for the "la_read_var_value" hook in
-   the language vector which should work in most situations.  */
+/* See language.h.  */
 
 struct value *
-default_read_var_value (struct symbol *var, const struct block *var_block,
-			struct frame_info *frame)
+language_defn::read_var_value (struct symbol *var,
+			       const struct block *var_block,
+			       struct frame_info *frame) const
 {
   struct value *v;
   struct type *type = SYMBOL_TYPE (var);
@@ -615,7 +623,7 @@ default_read_var_value (struct symbol *var, const struct block *var_block,
       if (is_dynamic_type (type))
 	{
 	  /* Value is a constant byte-sequence and needs no memory access.  */
-	  type = resolve_dynamic_type (type, NULL, /* Unused address.  */ 0);
+	  type = resolve_dynamic_type (type, {}, /* Unused address.  */ 0);
 	}
       /* Put the constant back in target format. */
       v = allocate_value (type);
@@ -647,7 +655,7 @@ default_read_var_value (struct symbol *var, const struct block *var_block,
       if (is_dynamic_type (type))
 	{
 	  /* Value is a constant byte-sequence and needs no memory access.  */
-	  type = resolve_dynamic_type (type, NULL, /* Unused address.  */ 0);
+	  type = resolve_dynamic_type (type, {}, /* Unused address.  */ 0);
 	}
       v = allocate_value (type);
       memcpy (value_contents_raw (v), SYMBOL_VALUE_BYTES (var),
@@ -788,7 +796,7 @@ default_read_var_value (struct symbol *var, const struct block *var_block,
 
     case LOC_OPTIMIZED_OUT:
       if (is_dynamic_type (type))
-	type = resolve_dynamic_type (type, NULL, /* Unused address.  */ 0);
+	type = resolve_dynamic_type (type, {}, /* Unused address.  */ 0);
       return allocate_optimized_out_value (type);
 
     default:
@@ -801,18 +809,17 @@ default_read_var_value (struct symbol *var, const struct block *var_block,
   return v;
 }
 
-/* Calls VAR's language la_read_var_value hook with the given arguments.  */
+/* Calls VAR's language read_var_value hook with the given arguments.  */
 
 struct value *
 read_var_value (struct symbol *var, const struct block *var_block,
 		struct frame_info *frame)
 {
-  const struct language_defn *lang = language_def (SYMBOL_LANGUAGE (var));
+  const struct language_defn *lang = language_def (var->language ());
 
   gdb_assert (lang != NULL);
-  gdb_assert (lang->la_read_var_value != NULL);
 
-  return lang->la_read_var_value (var, var_block, frame);
+  return lang->read_var_value (var, var_block, frame);
 }
 
 /* Install default attributes for register values.  */
@@ -1088,8 +1095,9 @@ copy_integer_to_size_test ()
 
 #endif
 
+void _initialize_findvar ();
 void
-_initialize_findvar (void)
+_initialize_findvar ()
 {
 #if GDB_SELF_TEST
   selftests::register_test

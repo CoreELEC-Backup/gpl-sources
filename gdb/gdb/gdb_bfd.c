@@ -59,26 +59,16 @@ static htab_t all_bfds;
 
 struct gdb_bfd_data
 {
-  gdb_bfd_data (bfd *abfd)
-    : mtime (bfd_get_mtime (abfd)),
-      size (bfd_get_size (abfd)),
+  /* Note that if ST is nullptr, then we simply fill in zeroes.  */
+  gdb_bfd_data (bfd *abfd, struct stat *st)
+    : mtime (st == nullptr ? 0 : st->st_mtime),
+      size (st == nullptr ? 0 : st->st_size),
+      inode (st == nullptr ? 0 : st->st_ino),
+      device_id (st == nullptr ? 0 : st->st_dev),
       relocation_computed (0),
       needs_relocations (0),
       crc_computed (0)
   {
-    struct stat buf;
-
-    if (bfd_stat (abfd, &buf) == 0)
-      {
-	inode = buf.st_ino;
-	device_id = buf.st_dev;
-      }
-    else
-      {
-	/* The stat failed.  */
-	inode = 0;
-	device_id = 0;
-      }
   }
 
   ~gdb_bfd_data ()
@@ -271,24 +261,30 @@ fileio_errno_to_host (int errnum)
   return -1;
 }
 
+/* bfd_openr_iovec OPEN_CLOSURE data for gdb_bfd_open.  */
+struct gdb_bfd_open_closure
+{
+  inferior *inf;
+  bool warn_if_slow;
+};
+
 /* Wrapper for target_fileio_open suitable for passing as the
-   OPEN_FUNC argument to gdb_bfd_openr_iovec.  The supplied
-   OPEN_CLOSURE is unused.  */
+   OPEN_FUNC argument to gdb_bfd_openr_iovec.  */
 
 static void *
-gdb_bfd_iovec_fileio_open (struct bfd *abfd, void *inferior)
+gdb_bfd_iovec_fileio_open (struct bfd *abfd, void *open_closure)
 {
   const char *filename = bfd_get_filename (abfd);
   int fd, target_errno;
   int *stream;
+  gdb_bfd_open_closure *oclosure = (gdb_bfd_open_closure *) open_closure;
 
   gdb_assert (is_target_filename (filename));
 
-  fd = target_fileio_open_warn_if_slow ((struct inferior *) inferior,
-					filename
-					+ strlen (TARGET_SYSROOT_PREFIX),
-					FILEIO_O_RDONLY, 0,
-					&target_errno);
+  fd = target_fileio_open (oclosure->inf,
+			   filename + strlen (TARGET_SYSROOT_PREFIX),
+			   FILEIO_O_RDONLY, 0, oclosure->warn_if_slow,
+			   &target_errno);
   if (fd == -1)
     {
       errno = fileio_errno_to_host (target_errno);
@@ -376,10 +372,35 @@ gdb_bfd_iovec_fileio_fstat (struct bfd *abfd, void *stream,
   return result;
 }
 
+/* A helper function to initialize the data that gdb attaches to each
+   BFD.  */
+
+static void
+gdb_bfd_init_data (struct bfd *abfd, struct stat *st)
+{
+  struct gdb_bfd_data *gdata;
+  void **slot;
+
+  gdb_assert (bfd_usrdata (abfd) == nullptr);
+
+  /* Ask BFD to decompress sections in bfd_get_full_section_contents.  */
+  abfd->flags |= BFD_DECOMPRESS;
+
+  gdata = new gdb_bfd_data (abfd, st);
+  bfd_set_usrdata (abfd, gdata);
+  bfd_alloc_data (abfd);
+
+  /* This is the first we've seen it, so add it to the hash table.  */
+  slot = htab_find_slot (all_bfds, abfd, INSERT);
+  gdb_assert (slot && !*slot);
+  *slot = abfd;
+}
+
 /* See gdb_bfd.h.  */
 
 gdb_bfd_ref_ptr
-gdb_bfd_open (const char *name, const char *target, int fd)
+gdb_bfd_open (const char *name, const char *target, int fd,
+	      bool warn_if_slow)
 {
   hashval_t hash;
   void **slot;
@@ -393,9 +414,10 @@ gdb_bfd_open (const char *name, const char *target, int fd)
 	{
 	  gdb_assert (fd == -1);
 
+	  gdb_bfd_open_closure open_closure { current_inferior (), warn_if_slow };
 	  return gdb_bfd_openr_iovec (name, target,
 				      gdb_bfd_iovec_fileio_open,
-				      current_inferior (),
+				      &open_closure,
 				      gdb_bfd_iovec_fileio_pread,
 				      gdb_bfd_iovec_fileio_close,
 				      gdb_bfd_iovec_fileio_fstat);
@@ -418,22 +440,24 @@ gdb_bfd_open (const char *name, const char *target, int fd)
 	}
     }
 
-  search.filename = name;
   if (fstat (fd, &st) < 0)
     {
-      /* Weird situation here.  */
-      search.mtime = 0;
-      search.size = 0;
-      search.inode = 0;
-      search.device_id = 0;
+      /* Weird situation here -- don't cache if we can't stat.  */
+      if (debug_bfd_cache)
+	fprintf_unfiltered (gdb_stdlog,
+			    "Could not stat %s - not caching\n",
+			    name);
+      abfd = bfd_fopen (name, target, FOPEN_RB, fd);
+      if (abfd == nullptr)
+	return nullptr;
+      return gdb_bfd_ref_ptr::new_reference (abfd);
     }
-  else
-    {
-      search.mtime = st.st_mtime;
-      search.size = st.st_size;
-      search.inode = st.st_ino;
-      search.device_id = st.st_dev;
-    }
+
+  search.filename = name;
+  search.mtime = st.st_mtime;
+  search.size = st.st_size;
+  search.inode = st.st_ino;
+  search.device_id = st.st_dev;
 
   /* Note that this must compute the same result as hash_bfd.  */
   hash = htab_hash_string (name);
@@ -469,7 +493,14 @@ gdb_bfd_open (const char *name, const char *target, int fd)
       *slot = abfd;
     }
 
-  return gdb_bfd_ref_ptr::new_reference (abfd);
+  /* It's important to pass the already-computed stat info here,
+     rather than, say, calling gdb_bfd_ref_ptr::new_reference.  BFD by
+     default will "stat" the file each time bfd_get_mtime is called --
+     and since we already entered it into the hash table using this
+     mtime, if the file changed at the wrong moment, the race would
+     lead to a hash table corruption.  */
+  gdb_bfd_init_data (abfd, &st);
+  return gdb_bfd_ref_ptr (abfd);
 }
 
 /* A helper function that releases any section data attached to the
@@ -522,7 +553,6 @@ void
 gdb_bfd_ref (struct bfd *abfd)
 {
   struct gdb_bfd_data *gdata;
-  void **slot;
 
   if (abfd == NULL)
     return;
@@ -541,17 +571,9 @@ gdb_bfd_ref (struct bfd *abfd)
       return;
     }
 
-  /* Ask BFD to decompress sections in bfd_get_full_section_contents.  */
-  abfd->flags |= BFD_DECOMPRESS;
-
-  gdata = new gdb_bfd_data (abfd);
-  bfd_set_usrdata (abfd, gdata);
-  bfd_alloc_data (abfd);
-
-  /* This is the first we've seen it, so add it to the hash table.  */
-  slot = htab_find_slot (all_bfds, abfd, INSERT);
-  gdb_assert (slot && !*slot);
-  *slot = abfd;
+  /* Caching only happens via gdb_bfd_open, so passing nullptr here is
+     fine.  */
+  gdb_bfd_init_data (abfd, nullptr);
 }
 
 /* See gdb_bfd.h.  */
@@ -926,7 +948,19 @@ gdb_bfd_requires_relocations (bfd *abfd)
   return gdata->needs_relocations;
 }
 
-
+/* See gdb_bfd.h.  */
+
+bool
+gdb_bfd_get_full_section_contents (bfd *abfd, asection *section,
+				   gdb::byte_vector *contents)
+{
+  bfd_size_type section_size = bfd_section_size (section);
+
+  contents->resize (section_size);
+
+  return bfd_get_section_contents (abfd, section, contents->data (), 0,
+				   section_size);
+}
 
 /* A callback for htab_traverse that prints a single BFD.  */
 
@@ -962,8 +996,9 @@ maintenance_info_bfds (const char *arg, int from_tty)
   htab_traverse (all_bfds, print_one_bfd, uiout);
 }
 
+void _initialize_gdb_bfd ();
 void
-_initialize_gdb_bfd (void)
+_initialize_gdb_bfd ()
 {
   all_bfds = htab_create_alloc (10, htab_hash_pointer, htab_eq_pointer,
 				NULL, xcalloc, xfree);

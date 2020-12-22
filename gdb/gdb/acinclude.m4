@@ -10,19 +10,22 @@ m4_include(acx_configure_dir.m4)
 m4_include(transform.m4)
 
 # This gets AM_GDB_WARNINGS.
-m4_include(warning.m4)
+m4_include(../gdbsupport/warning.m4)
 
 # AM_GDB_UBSAN
 m4_include(sanitize.m4)
 
 # This gets GDB_AC_SELFTEST.
-m4_include(selftest.m4)
+m4_include(../gdbsupport/selftest.m4)
 
 dnl gdb/configure.in uses BFD_NEED_DECLARATION, so get its definition.
 m4_include(../bfd/bfd.m4)
 
 dnl This gets the standard macros.
 m4_include(../config/acinclude.m4)
+
+dnl This gets GCC_ENABLE.
+sinclude(../config/enable.m4)
 
 dnl This gets AC_PLUGINS, needed by ACX_LARGEFILE.
 m4_include(../config/plugins.m4)
@@ -63,7 +66,7 @@ m4_include([../config/iconv.m4])
 
 m4_include([../config/zlib.m4])
 
-m4_include([gdbsupport/common.m4])
+m4_include([../gdbsupport/common.m4])
 
 dnl For libiberty_INIT.
 m4_include(libiberty.m4)

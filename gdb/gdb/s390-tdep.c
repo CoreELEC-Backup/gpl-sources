@@ -21,7 +21,7 @@
 
 #include "arch-utils.h"
 #include "ax-gdb.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "elf/s390.h"
 #include "elf-bfd.h"
 #include "frame-base.h"
@@ -63,7 +63,7 @@ s390_type_align (gdbarch *gdbarch, struct type *t)
 
   if (TYPE_LENGTH (t) > 8)
     {
-      switch (TYPE_CODE (t))
+      switch (t->code ())
 	{
 	case TYPE_CODE_INT:
 	case TYPE_CODE_RANGE:
@@ -425,7 +425,7 @@ typedef buf_displaced_step_closure s390_displaced_step_closure;
 
 /* Implementation of gdbarch_displaced_step_copy_insn.  */
 
-static struct displaced_step_closure *
+static displaced_step_closure_up
 s390_displaced_step_copy_insn (struct gdbarch *gdbarch,
 			       CORE_ADDR from, CORE_ADDR to,
 			       struct regcache *regs)
@@ -477,7 +477,8 @@ s390_displaced_step_copy_insn (struct gdbarch *gdbarch,
       displaced_step_dump_bytes (gdb_stdlog, buf, len);
     }
 
-  return closure.release ();
+  /* This is a work around for a problem with g++ 4.8.  */
+  return displaced_step_closure_up (closure.release ());
 }
 
 /* Fix up the state of registers and memory after having single-stepped
@@ -517,14 +518,15 @@ s390_displaced_step_fixup (struct gdbarch *gdbarch,
 			paddress (gdbarch, pc), insnlen, (int) amode);
 
   /* Handle absolute branch and save instructions.  */
-  if (is_rr (insn, op_basr, &r1, &r2)
+  int op_basr_p = is_rr (insn, op_basr, &r1, &r2);
+  if (op_basr_p
       || is_rx (insn, op_bas, &r1, &d2, &x2, &b2))
     {
       /* Recompute saved return address in R1.  */
       regcache_cooked_write_unsigned (regs, S390_R0_REGNUM + r1,
 				      amode | (from + insnlen));
       /* Update PC iff the instruction doesn't actually branch.  */
-      if (insn[0] == op_basr && r2 == 0)
+      if (op_basr_p && r2 == 0)
 	regcache_write_pc (regs, from + insnlen);
     }
 
@@ -1637,21 +1639,21 @@ s390_address_class_name_to_type_flags (struct gdbarch *gdbarch,
 static struct type *
 s390_effective_inner_type (struct type *type, unsigned int min_size)
 {
-  while (TYPE_CODE (type) == TYPE_CODE_STRUCT)
+  while (type->code () == TYPE_CODE_STRUCT)
     {
       struct type *inner = NULL;
 
       /* Find a non-static field, if any.  Unless there's exactly one,
 	 abort the unwrapping.  */
-      for (int i = 0; i < TYPE_NFIELDS (type); i++)
+      for (int i = 0; i < type->num_fields (); i++)
 	{
-	  struct field f = TYPE_FIELD (type, i);
+	  struct field f = type->field (i);
 
 	  if (field_is_static (&f))
 	    continue;
 	  if (inner != NULL)
 	    return type;
-	  inner = FIELD_TYPE (f);
+	  inner = f.type ();
 	}
 
       if (inner == NULL)
@@ -1680,8 +1682,8 @@ s390_function_arg_float (struct type *type)
      or double.  */
   type = s390_effective_inner_type (type, 0);
 
-  return (TYPE_CODE (type) == TYPE_CODE_FLT
-	  || TYPE_CODE (type) == TYPE_CODE_DECFLOAT);
+  return (type->code () == TYPE_CODE_FLT
+	  || type->code () == TYPE_CODE_DECFLOAT);
 }
 
 /* Return non-zero if TYPE should be passed like a vector.  */
@@ -1695,7 +1697,7 @@ s390_function_arg_vector (struct type *type)
   /* Structs containing just a vector are passed like a vector.  */
   type = s390_effective_inner_type (type, TYPE_LENGTH (type));
 
-  return TYPE_CODE (type) == TYPE_CODE_ARRAY && TYPE_VECTOR (type);
+  return type->code () == TYPE_CODE_ARRAY && TYPE_VECTOR (type);
 }
 
 /* Determine whether N is a power of two.  */
@@ -1713,7 +1715,7 @@ is_power_of_two (unsigned int n)
 static int
 s390_function_arg_integer (struct type *type)
 {
-  enum type_code code = TYPE_CODE (type);
+  enum type_code code = type->code ();
 
   if (TYPE_LENGTH (type) > 8)
     return 0;
@@ -1920,7 +1922,7 @@ s390_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
   CORE_ADDR param_area_start, new_sp;
   struct type *ftype = check_typedef (value_type (function));
 
-  if (TYPE_CODE (ftype) == TYPE_CODE_PTR)
+  if (ftype->code () == TYPE_CODE_PTR)
     ftype = check_typedef (TYPE_TARGET_TYPE (ftype));
 
   arg_prep.copy = sp;
@@ -1937,7 +1939,7 @@ s390_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
      and arg_state.argp with the size of the parameter area.  */
   for (i = 0; i < nargs; i++)
     s390_handle_arg (&arg_state, args[i], tdep, word_size, byte_order,
-		     TYPE_VARARGS (ftype) && i >= TYPE_NFIELDS (ftype));
+		     TYPE_VARARGS (ftype) && i >= ftype->num_fields ());
 
   param_area_start = align_down (arg_state.copy - arg_state.argp, 8);
 
@@ -1964,7 +1966,7 @@ s390_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
   /* Write all parameters.  */
   for (i = 0; i < nargs; i++)
     s390_handle_arg (&arg_state, args[i], tdep, word_size, byte_order,
-		     TYPE_VARARGS (ftype) && i >= TYPE_NFIELDS (ftype));
+		     TYPE_VARARGS (ftype) && i >= ftype->num_fields ());
 
   /* Store return PSWA.  In 31-bit mode, keep addressing mode bit.  */
   if (word_size == 4)
@@ -2020,7 +2022,7 @@ s390_register_return_value (struct gdbarch *gdbarch, struct type *type,
   enum bfd_endian byte_order = gdbarch_byte_order (gdbarch);
   int word_size = gdbarch_ptr_bit (gdbarch) / 8;
   int length = TYPE_LENGTH (type);
-  int code = TYPE_CODE (type);
+  int code = type->code ();
 
   if (code == TYPE_CODE_FLT || code == TYPE_CODE_DECFLOAT)
     {
@@ -2082,7 +2084,7 @@ s390_return_value (struct gdbarch *gdbarch, struct value *function,
 
   type = check_typedef (type);
 
-  switch (TYPE_CODE (type))
+  switch (type->code ())
     {
     case TYPE_CODE_STRUCT:
     case TYPE_CODE_UNION:
@@ -7215,8 +7217,9 @@ s390_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
   return gdbarch;
 }
 
+void _initialize_s390_tdep ();
 void
-_initialize_s390_tdep (void)
+_initialize_s390_tdep ()
 {
   /* Hook us into the gdbarch mechanism.  */
   register_gdbarch_init (bfd_arch_s390, s390_gdbarch_init);

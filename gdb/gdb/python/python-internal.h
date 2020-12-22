@@ -391,10 +391,8 @@ extern int gdbpy_auto_load_enabled (const struct extension_language_defn *);
 
 extern enum ext_lang_rc gdbpy_apply_val_pretty_printer
   (const struct extension_language_defn *,
-   struct type *type,
-   LONGEST embedded_offset, CORE_ADDR address,
+   struct value *value,
    struct ui_file *stream, int recurse,
-   struct value *val,
    const struct value_print_options *options,
    const struct language_defn *language);
 extern enum ext_lang_bt_status gdbpy_apply_frame_filter
@@ -447,6 +445,8 @@ PyObject *gdbpy_parameter_value (enum var_types type, void *var);
 char *gdbpy_parse_command_name (const char *name,
 				struct cmd_list_element ***base_list,
 				struct cmd_list_element **start_list);
+PyObject *gdbpy_register_tui_window (PyObject *self, PyObject *args,
+				     PyObject *kw);
 
 PyObject *symtab_and_line_to_sal_object (struct symtab_and_line sal);
 PyObject *symtab_to_symtab_object (struct symtab *symtab);
@@ -454,6 +454,7 @@ PyObject *symbol_to_symbol_object (struct symbol *sym);
 PyObject *block_to_block_object (const struct block *block,
 				 struct objfile *objfile);
 PyObject *value_to_value_object (struct value *v);
+PyObject *value_to_value_object_no_release (struct value *v);
 PyObject *type_to_type_object (struct type *);
 PyObject *frame_info_to_frame_object (struct frame_info *frame);
 PyObject *symtab_to_linetable_object (PyObject *symtab);
@@ -471,6 +472,10 @@ PyObject *objfpy_get_xmethods (PyObject *, void *);
 PyObject *gdbpy_lookup_objfile (PyObject *self, PyObject *args, PyObject *kw);
 
 PyObject *gdbarch_to_arch_object (struct gdbarch *gdbarch);
+
+PyObject *gdbpy_new_register_descriptor_iterator (struct gdbarch *gdbarch,
+						  const char *group_name);
+PyObject *gdbpy_new_reggroup_iterator (struct gdbarch *gdbarch);
 
 gdbpy_ref<thread_object> create_thread_object (struct thread_info *tp);
 gdbpy_ref<> thread_to_thread_object (thread_info *thr);;
@@ -539,9 +544,13 @@ int gdbpy_initialize_py_events (void)
   CPYCHECKER_NEGATIVE_RESULT_SETS_EXCEPTION;
 int gdbpy_initialize_arch (void)
   CPYCHECKER_NEGATIVE_RESULT_SETS_EXCEPTION;
+int gdbpy_initialize_registers ()
+  CPYCHECKER_NEGATIVE_RESULT_SETS_EXCEPTION;
 int gdbpy_initialize_xmethods (void)
   CPYCHECKER_NEGATIVE_RESULT_SETS_EXCEPTION;
 int gdbpy_initialize_unwind (void)
+  CPYCHECKER_NEGATIVE_RESULT_SETS_EXCEPTION;
+int gdbpy_initialize_tui ()
   CPYCHECKER_NEGATIVE_RESULT_SETS_EXCEPTION;
 
 /* A wrapper for PyErr_Fetch that handles reference counting for the
@@ -766,5 +775,24 @@ struct Py_buffer_deleter
 
 /* A unique_ptr specialization for Py_buffer.  */
 typedef std::unique_ptr<Py_buffer, Py_buffer_deleter> Py_buffer_up;
+
+/* Parse a register number from PYO_REG_ID and place the register number
+   into *REG_NUM.  The register is a register for GDBARCH.
+
+   If a register is parsed successfully then *REG_NUM will have been
+   updated, and true is returned.  Otherwise the contents of *REG_NUM are
+   undefined, and false is returned.
+
+   The PYO_REG_ID object can be a string, the name of the register.  This
+   is the slowest approach as GDB has to map the name to a number for each
+   call.  Alternatively PYO_REG_ID can be an internal GDB register
+   number.  This is quick but should not be encouraged as this means
+   Python scripts are now dependent on GDB's internal register numbering.
+   Final PYO_REG_ID can be a gdb.RegisterDescriptor object, these objects
+   can be looked up by name once, and then cache the register number so
+   should be as quick as using a register number.  */
+
+extern bool gdbpy_parse_register_id (struct gdbarch *gdbarch,
+				     PyObject *pyo_reg_id, int *reg_num);
 
 #endif /* PYTHON_PYTHON_INTERNAL_H */

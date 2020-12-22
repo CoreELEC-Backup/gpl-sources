@@ -2984,4 +2984,3 @@ bus_signals_test (const char *test_data_dir _DBUS_GNUC_UNUSED)
 }
 
 #endif /* DBUS_ENABLE_EMBEDDED_TESTS */
-

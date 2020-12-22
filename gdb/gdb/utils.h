@@ -22,6 +22,7 @@
 #define UTILS_H
 
 #include "exceptions.h"
+#include "gdbsupport/array-view.h"
 #include "gdbsupport/scoped_restore.h"
 #include <chrono>
 
@@ -146,10 +147,7 @@ public:
   }
 
   /* A constructor that calls buildargv on STR.  STR may be NULL, in
-     which case this object is initialized with a NULL array.  If
-     buildargv fails due to out-of-memory, call malloc_failure.
-     Therefore, the value is guaranteed to be non-NULL, unless the
-     parameter itself is NULL.  */
+     which case this object is initialized with a NULL array.  */
 
   explicit gdb_argv (const char *str)
     : m_argv (NULL)
@@ -211,6 +209,13 @@ public:
   {
     gdb_assert (m_argv != NULL);
     return m_argv[arg];
+  }
+
+  /* Return the arguments array as an array view.  */
+
+  gdb::array_view<char *> as_array_view ()
+  {
+    return gdb::array_view<char *> (this->get (), this->count ());
   }
 
   /* The iterator type.  */

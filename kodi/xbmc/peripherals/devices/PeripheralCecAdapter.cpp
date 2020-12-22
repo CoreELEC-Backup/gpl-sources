@@ -115,11 +115,13 @@ void CPeripheralCecAdapter::ResetMembers(void)
   m_bUseTVMenuLanguage = false;
   m_bSendInactiveSource = false;
   m_bPowerOffScreensaver = false;
+  m_bPowerOffScreensaverPaused = false;
   m_bShutdownOnStandby = false;
 
   m_currentButton.iButton = 0;
   m_currentButton.iDuration = 0;
   m_standbySent.SetValid(false);
+  m_ScreensaverStandbySent.SetValid(false);
   m_configuration.Clear();
 }
 
@@ -140,6 +142,8 @@ void CPeripheralCecAdapter::Announce(ANNOUNCEMENT::AnnouncementFlag flag,
            message == "OnScreensaverDeactivated" && m_bIsReady)
   {
     bool bIgnoreDeactivate(false);
+    m_ScreensaverStandbySent.SetValid(false);
+    m_bStandbyPending = false;
     if (data["shuttingdown"].isBoolean())
     {
       // don't respond to the deactivation if we are just going to suspend/shutdown anyway
@@ -158,12 +162,15 @@ void CPeripheralCecAdapter::Announce(ANNOUNCEMENT::AnnouncementFlag flag,
   else if (flag == ANNOUNCEMENT::GUI && sender == CAnnouncementManager::ANNOUNCEMENT_SENDER &&
            message == "OnScreensaverActivated" && m_bIsReady)
   {
-    // Don't put devices to standby if application is currently playing
-    if (!g_application.GetAppPlayer().IsPlaying() && m_bPowerOffScreensaver)
+    if (m_bPowerOffScreensaver)
     {
-      // only power off when we're the active source
-      if (m_cecAdapter->IsLibCECActiveSource())
-        StandbyDevices();
+      // Don't put devices to standby if application is currently playing. Check if video is paused.
+      if (m_bPowerOffScreensaverPaused)
+        if (!g_application.GetAppPlayer().IsPlaying() || g_application.GetAppPlayer().IsPausedPlayback())
+          StandbyDevices();
+      else
+        if (!g_application.GetAppPlayer().IsPlaying())
+          StandbyDevices();
     }
   }
   else if (flag == ANNOUNCEMENT::System && sender == CAnnouncementManager::ANNOUNCEMENT_SENDER &&
@@ -1364,6 +1371,7 @@ void CPeripheralCecAdapter::SetConfigurationFromSettings(void)
   m_bUseTVMenuLanguage = GetSettingBool("use_tv_menu_language");
   m_configuration.bActivateSource = GetSettingBool("activate_source") ? 1 : 0;
   m_bPowerOffScreensaver = GetSettingBool("cec_standby_screensaver");
+  m_bPowerOffScreensaverPaused = GetSettingBool("cec_standby_screensaver_paused") ? 1 : 0;
   m_bPowerOnScreensaver = GetSettingBool("cec_wake_screensaver");
   m_bSendInactiveSource = GetSettingBool("send_inactive_source");
   m_configuration.bAutoWakeAVR = GetSettingBool("power_avr_on_as") ? 1 : 0;
@@ -1727,39 +1735,34 @@ void CPeripheralCecAdapter::ProcessActivateSource(void)
 
 void CPeripheralCecAdapter::UnregisterDevice(void)
 {
-  bool bSendStandbyCommands(false);
-  {
-    CSingleLock lock(m_critSection);
-    bSendStandbyCommands = m_iExitCode != EXITCODE_REBOOT &&
-      m_iExitCode != EXITCODE_RESTARTAPP &&
-      !m_bDeviceRemoved &&
-      (!m_bGoingToStandby || GetSettingBool("standby_tv_on_pc_standby")) &&
-      GetSettingBool("enabled");
+  if ( m_iExitCode == EXITCODE_RESTARTAPP
+    || m_iExitCode == EXITCODE_REBOOT
+    || m_bDeviceRemoved)
+      return;
 
-    if (m_bGoingToStandby)
-      m_bActiveSourceBeforeStandby = m_cecAdapter->IsLibCECActiveSource();
+  bool bActiveSource = m_cecAdapter->IsLibCECActiveSource();
+
+  if (m_bGoingToStandby)
+    m_bActiveSourceBeforeStandby = bActiveSource;
+
+  if (bActiveSource)
+  {
+    if ( GetSettingBool("standby_tv_on_pc_standby") && !m_configuration.powerOffDevices.IsEmpty())
+    {
+      CLog::Log(LOGDEBUG, "%s - sending standby commands", __FUNCTION__);
+      m_standbySent = CDateTime::GetCurrentDateTime();
+      m_cecAdapter->StandbyDevices();
+    }
+
+    if (m_bSendInactiveSource)
+    {
+      CLog::Log(LOGDEBUG, "%s - sending inactive source commands", __FUNCTION__);
+      m_cecAdapter->SetInactiveView();
+    }
   }
-
-  if (bSendStandbyCommands)
+  else
   {
-    if (m_cecAdapter->IsLibCECActiveSource())
-    {
-      if (!m_configuration.powerOffDevices.IsEmpty())
-      {
-        CLog::Log(LOGDEBUG, "%s - sending standby commands", __FUNCTION__);
-        m_standbySent = CDateTime::GetCurrentDateTime();
-        m_cecAdapter->StandbyDevices();
-      }
-      else if (m_bSendInactiveSource)
-      {
-        CLog::Log(LOGDEBUG, "%s - sending inactive source commands", __FUNCTION__);
-        m_cecAdapter->SetInactiveView();
-      }
-    }
-    else
-    {
-      CLog::Log(LOGDEBUG, "%s - XBMC is not the active source, not sending any standby commands", __FUNCTION__);
-    }
+    CLog::Log(LOGDEBUG, "%s - Kodi is not the active source, not sending any unregister commands", __FUNCTION__);
   }
 }
 
@@ -1767,22 +1770,28 @@ void CPeripheralCecAdapter::StandbyDevices(void)
 {
   CSingleLock lock(m_critSection);
   m_bStandbyPending = true;
+  m_ScreensaverStandbySent = CDateTime::GetCurrentDateTime();
 }
 
 void CPeripheralCecAdapter::ProcessStandbyDevices(void)
 {
-  bool bStandby(false);
-
+  CSingleLock lock(m_critSection);
+  if (m_bStandbyPending)
   {
-    CSingleLock lock(m_critSection);
-    bStandby = m_bStandbyPending;
+    int iScreensaverDelay = GetSettingInt("screensaver_delay_standby");
+
+    if ((iScreensaverDelay > 0) && m_ScreensaverStandbySent.IsValid())
+      if (CDateTime::GetCurrentDateTime() - m_ScreensaverStandbySent < CDateTimeSpan(0, 0, iScreensaverDelay, 0))
+          return;
+
     m_bStandbyPending = false;
-    if (bStandby)
-      m_bGoingToStandby = true;
-  }
+    m_ScreensaverStandbySent.SetValid(false);
 
-  if (bStandby)
-  {
+    if (!m_cecAdapter->IsLibCECActiveSource())
+      return;
+
+    m_bGoingToStandby = true;
+
     if (!m_configuration.powerOffDevices.IsEmpty())
     {
       m_standbySent = CDateTime::GetCurrentDateTime();

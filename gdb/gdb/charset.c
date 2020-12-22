@@ -818,7 +818,8 @@ find_charset_names (void)
   {
     std::string iconv_dir = relocate_gdb_directory (ICONV_BIN,
 						    ICONV_BIN_RELOCATABLE);
-    iconv_program = concat (iconv_dir.c_str(), SLASH_STRING, "iconv", NULL);
+    iconv_program
+      = concat (iconv_dir.c_str(), SLASH_STRING, "iconv", (char *) NULL);
   }
 #else
   iconv_program = xstrdup ("iconv");
@@ -989,13 +990,14 @@ intermediate_encoding (void)
   /* Not valid, free the allocated memory.  */
   xfree (result);
   /* No valid charset found, generate error here.  */
-  error (_("Unable to find a vaild charset for string conversions"));
+  error (_("Unable to find a valid charset for string conversions"));
 }
 
 #endif /* USE_INTERMEDIATE_ENCODING_FUNCTION */
 
+void _initialize_charset ();
 void
-_initialize_charset (void)
+_initialize_charset ()
 {
   /* The first element is always "auto".  */
   charsets.charsets.push_back (xstrdup ("auto"));

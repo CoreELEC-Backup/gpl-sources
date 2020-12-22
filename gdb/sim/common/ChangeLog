@@ -1,3 +1,21 @@
+2020-08-10  Tom de Vries  <tdevries@suse.de>
+
+	* sim-cpu.c: Include stdlib.h for free.
+
+2020-01-19  Simon Marchi  <simon.marchi@polymtl.ca>
+
+	* nrun.c: Include stdlib.h.
+	* sim-core.c: Likewise.
+	* sim-engine.c: Likewise.
+	* sim-io.c: Likewise.
+	* sim-module.c: Likewise.
+	* sim-reason.c: Likewise.
+
+2019-12-19  Tom Tromey  <tromey@adacore.com>
+
+	PR build/24572:
+	* Makefile.in (install-strip): New target.
+
 2019-12-01  Pavel I. Kryukov  <kryukov@frtk.ru>
 
 	* sim-utils.c: Prevent buffer overflow.

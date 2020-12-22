@@ -582,7 +582,7 @@ aarch64_linux_collect_sve_regset (const struct regset *regset,
 			    size - SVE_HEADER_SIZE);
 }
 
-/* Implement the "regset_from_core_section" gdbarch method.  */
+/* Implement the "iterate_over_regset_sections" gdbarch method.  */
 
 static void
 aarch64_linux_iterate_over_regset_sections (struct gdbarch *gdbarch,
@@ -1665,8 +1665,9 @@ aarch64_linux_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
   set_gdbarch_gcc_target_options (gdbarch, aarch64_linux_gcc_target_options);
 }
 
+void _initialize_aarch64_linux_tdep ();
 void
-_initialize_aarch64_linux_tdep (void)
+_initialize_aarch64_linux_tdep ()
 {
   gdbarch_register_osabi (bfd_arch_aarch64, 0, GDB_OSABI_LINUX,
 			  aarch64_linux_init_abi);

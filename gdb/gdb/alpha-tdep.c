@@ -21,7 +21,7 @@
 #include "frame.h"
 #include "frame-unwind.h"
 #include "frame-base.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "inferior.h"
 #include "symtab.h"
 #include "value.h"
@@ -327,7 +327,7 @@ alpha_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
       struct type *arg_type = check_typedef (value_type (arg));
 
       /* Cast argument to long if necessary as the compiler does it too.  */
-      switch (TYPE_CODE (arg_type))
+      switch (arg_type->code ())
 	{
 	case TYPE_CODE_INT:
 	case TYPE_CODE_BOOL:
@@ -478,7 +478,7 @@ alpha_extract_return_value (struct type *valtype, struct regcache *regcache,
   gdb_byte raw_buffer[ALPHA_REGISTER_SIZE];
   ULONGEST l;
 
-  switch (TYPE_CODE (valtype))
+  switch (valtype->code ())
     {
     case TYPE_CODE_FLT:
       switch (TYPE_LENGTH (valtype))
@@ -546,7 +546,7 @@ alpha_store_return_value (struct type *valtype, struct regcache *regcache,
   gdb_byte raw_buffer[ALPHA_REGISTER_SIZE];
   ULONGEST l;
 
-  switch (TYPE_CODE (valtype))
+  switch (valtype->code ())
     {
     case TYPE_CODE_FLT:
       switch (TYPE_LENGTH (valtype))
@@ -614,7 +614,7 @@ alpha_return_value (struct gdbarch *gdbarch, struct value *function,
 		    struct type *type, struct regcache *regcache,
 		    gdb_byte *readbuf, const gdb_byte *writebuf)
 {
-  enum type_code code = TYPE_CODE (type);
+  enum type_code code = type->code ();
 
   if ((code == TYPE_CODE_STRUCT
        || code == TYPE_CODE_UNION
@@ -1821,8 +1821,9 @@ alpha_dwarf2_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
   frame_base_append_sniffer (gdbarch, dwarf2_frame_base_sniffer);
 }
 
+void _initialize_alpha_tdep ();
 void
-_initialize_alpha_tdep (void)
+_initialize_alpha_tdep ()
 {
 
   gdbarch_register (bfd_arch_alpha, alpha_gdbarch_init, NULL);

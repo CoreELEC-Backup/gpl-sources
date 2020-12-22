@@ -56,7 +56,7 @@ struct dummy_target : public target_ops
   int remove_fork_catchpoint (int arg0) override;
   int insert_vfork_catchpoint (int arg0) override;
   int remove_vfork_catchpoint (int arg0) override;
-  int follow_fork (int arg0, int arg1) override;
+  bool follow_fork (bool arg0, bool arg1) override;
   int insert_exec_catchpoint (int arg0) override;
   int remove_exec_catchpoint (int arg0) override;
   void follow_exec (struct inferior *arg0, const char *arg1) override;
@@ -83,6 +83,7 @@ struct dummy_target : public target_ops
   bool can_async_p () override;
   bool is_async_p () override;
   void async (int arg0) override;
+  int async_wait_fd () override;
   void thread_events (int arg0) override;
   bool supports_non_stop () override;
   bool always_non_stop_p () override;
@@ -107,6 +108,8 @@ struct dummy_target : public target_ops
   bool supports_disable_randomization () override;
   bool supports_string_tracing () override;
   bool supports_evaluation_of_breakpoint_conditions () override;
+  bool supports_dumpcore () override;
+  void dumpcore (const char *arg0) override;
   bool can_run_breakpoint_commands () override;
   struct gdbarch *thread_architecture (ptid_t arg0) override;
   struct address_space *thread_address_space (ptid_t arg0) override;
@@ -224,7 +227,7 @@ struct debug_target : public target_ops
   int remove_fork_catchpoint (int arg0) override;
   int insert_vfork_catchpoint (int arg0) override;
   int remove_vfork_catchpoint (int arg0) override;
-  int follow_fork (int arg0, int arg1) override;
+  bool follow_fork (bool arg0, bool arg1) override;
   int insert_exec_catchpoint (int arg0) override;
   int remove_exec_catchpoint (int arg0) override;
   void follow_exec (struct inferior *arg0, const char *arg1) override;
@@ -251,6 +254,7 @@ struct debug_target : public target_ops
   bool can_async_p () override;
   bool is_async_p () override;
   void async (int arg0) override;
+  int async_wait_fd () override;
   void thread_events (int arg0) override;
   bool supports_non_stop () override;
   bool always_non_stop_p () override;
@@ -275,6 +279,8 @@ struct debug_target : public target_ops
   bool supports_disable_randomization () override;
   bool supports_string_tracing () override;
   bool supports_evaluation_of_breakpoint_conditions () override;
+  bool supports_dumpcore () override;
+  void dumpcore (const char *arg0) override;
   bool can_run_breakpoint_commands () override;
   struct gdbarch *thread_architecture (ptid_t arg0) override;
   struct address_space *thread_address_space (ptid_t arg0) override;
@@ -1504,30 +1510,30 @@ debug_target::remove_vfork_catchpoint (int arg0)
   return result;
 }
 
-int
-target_ops::follow_fork (int arg0, int arg1)
+bool
+target_ops::follow_fork (bool arg0, bool arg1)
 {
   return this->beneath ()->follow_fork (arg0, arg1);
 }
 
-int
-dummy_target::follow_fork (int arg0, int arg1)
+bool
+dummy_target::follow_fork (bool arg0, bool arg1)
 {
   return default_follow_fork (this, arg0, arg1);
 }
 
-int
-debug_target::follow_fork (int arg0, int arg1)
+bool
+debug_target::follow_fork (bool arg0, bool arg1)
 {
-  int result;
+  bool result;
   fprintf_unfiltered (gdb_stdlog, "-> %s->follow_fork (...)\n", this->beneath ()->shortname ());
   result = this->beneath ()->follow_fork (arg0, arg1);
   fprintf_unfiltered (gdb_stdlog, "<- %s->follow_fork (", this->beneath ()->shortname ());
-  target_debug_print_int (arg0);
+  target_debug_print_bool (arg0);
   fputs_unfiltered (", ", gdb_stdlog);
-  target_debug_print_int (arg1);
+  target_debug_print_bool (arg1);
   fputs_unfiltered (") = ", gdb_stdlog);
-  target_debug_print_int (result);
+  target_debug_print_bool (result);
   fputs_unfiltered ("\n", gdb_stdlog);
   return result;
 }
@@ -2160,6 +2166,31 @@ debug_target::async (int arg0)
   fprintf_unfiltered (gdb_stdlog, "<- %s->async (", this->beneath ()->shortname ());
   target_debug_print_int (arg0);
   fputs_unfiltered (")\n", gdb_stdlog);
+}
+
+int
+target_ops::async_wait_fd ()
+{
+  return this->beneath ()->async_wait_fd ();
+}
+
+int
+dummy_target::async_wait_fd ()
+{
+  noprocess ();
+}
+
+int
+debug_target::async_wait_fd ()
+{
+  int result;
+  fprintf_unfiltered (gdb_stdlog, "-> %s->async_wait_fd (...)\n", this->beneath ()->shortname ());
+  result = this->beneath ()->async_wait_fd ();
+  fprintf_unfiltered (gdb_stdlog, "<- %s->async_wait_fd (", this->beneath ()->shortname ());
+  fputs_unfiltered (") = ", gdb_stdlog);
+  target_debug_print_int (result);
+  fputs_unfiltered ("\n", gdb_stdlog);
+  return result;
 }
 
 void
@@ -2796,6 +2827,52 @@ debug_target::supports_evaluation_of_breakpoint_conditions ()
   target_debug_print_bool (result);
   fputs_unfiltered ("\n", gdb_stdlog);
   return result;
+}
+
+bool
+target_ops::supports_dumpcore ()
+{
+  return this->beneath ()->supports_dumpcore ();
+}
+
+bool
+dummy_target::supports_dumpcore ()
+{
+  return false;
+}
+
+bool
+debug_target::supports_dumpcore ()
+{
+  bool result;
+  fprintf_unfiltered (gdb_stdlog, "-> %s->supports_dumpcore (...)\n", this->beneath ()->shortname ());
+  result = this->beneath ()->supports_dumpcore ();
+  fprintf_unfiltered (gdb_stdlog, "<- %s->supports_dumpcore (", this->beneath ()->shortname ());
+  fputs_unfiltered (") = ", gdb_stdlog);
+  target_debug_print_bool (result);
+  fputs_unfiltered ("\n", gdb_stdlog);
+  return result;
+}
+
+void
+target_ops::dumpcore (const char *arg0)
+{
+  this->beneath ()->dumpcore (arg0);
+}
+
+void
+dummy_target::dumpcore (const char *arg0)
+{
+}
+
+void
+debug_target::dumpcore (const char *arg0)
+{
+  fprintf_unfiltered (gdb_stdlog, "-> %s->dumpcore (...)\n", this->beneath ()->shortname ());
+  this->beneath ()->dumpcore (arg0);
+  fprintf_unfiltered (gdb_stdlog, "<- %s->dumpcore (", this->beneath ()->shortname ());
+  target_debug_print_const_char_p (arg0);
+  fputs_unfiltered (")\n", gdb_stdlog);
 }
 
 bool

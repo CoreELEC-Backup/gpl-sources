@@ -31,13 +31,14 @@
 #include "record-full.h"
 #include "elf-bfd.h"
 #include "gcore.h"
-#include "event-loop.h"
+#include "gdbsupport/event-loop.h"
 #include "inf-loop.h"
 #include "gdb_bfd.h"
 #include "observable.h"
 #include "infrun.h"
 #include "gdbsupport/gdb_unlinker.h"
 #include "gdbsupport/byte-vector.h"
+#include "async-event.h"
 
 #include <signal.h>
 
@@ -319,7 +320,7 @@ public:
 			 struct bp_target_info *,
 			 enum remove_bp_reason) override;
 
-  bool has_execution (ptid_t) override;
+  bool has_execution (inferior *inf) override;
 };
 
 static record_full_target record_full_ops;
@@ -904,7 +905,7 @@ static struct async_event_handler *record_full_async_inferior_event_token;
 static void
 record_full_async_inferior_event_handler (gdb_client_data data)
 {
-  inferior_event_handler (INF_REG_EVENT, NULL);
+  inferior_event_handler (INF_REG_EVENT);
 }
 
 /* Open the process record target for 'core' files.  */
@@ -1036,6 +1037,9 @@ record_full_base_target::async (int enable)
   beneath ()->async (enable);
 }
 
+/* The PTID and STEP arguments last passed to
+   record_full_target::resume.  */
+static ptid_t record_full_resume_ptid = null_ptid;
 static int record_full_resume_step = 0;
 
 /* True if we've been resumed, and so each record_full_wait call should
@@ -1064,6 +1068,7 @@ static enum exec_direction_kind record_full_execution_dir = EXEC_FORWARD;
 void
 record_full_target::resume (ptid_t ptid, int step, enum gdb_signal signal)
 {
+  record_full_resume_ptid = inferior_ptid;
   record_full_resume_step = step;
   record_full_resumed = 1;
   record_full_execution_dir = ::execution_direction;
@@ -1190,7 +1195,8 @@ record_full_wait_1 (struct target_ops *ops,
 	  /* This is not a single step.  */
 	  ptid_t ret;
 	  CORE_ADDR tmp_pc;
-	  struct gdbarch *gdbarch = target_thread_architecture (inferior_ptid);
+	  struct gdbarch *gdbarch
+	    = target_thread_architecture (record_full_resume_ptid);
 
 	  while (1)
 	    {
@@ -1223,6 +1229,8 @@ record_full_wait_1 (struct target_ops *ops,
 		     interested in the event.  */
 
 		  registers_changed ();
+		  switch_to_thread (current_inferior ()->process_target (),
+				    ret);
 		  regcache = get_current_regcache ();
 		  tmp_pc = regcache_read_pc (regcache);
 		  const struct address_space *aspace = regcache->aspace ();
@@ -1255,14 +1263,17 @@ record_full_wait_1 (struct target_ops *ops,
 
                       if (gdbarch_software_single_step_p (gdbarch))
 			{
+			  process_stratum_target *proc_target
+			    = current_inferior ()->process_target ();
+
 			  /* Try to insert the software single step breakpoint.
 			     If insert success, set step to 0.  */
-			  set_executing (inferior_ptid, 0);
+			  set_executing (proc_target, inferior_ptid, false);
 			  reinit_frame_cache ();
 
 			  step = !insert_single_step_breakpoints (gdbarch);
 
-			  set_executing (inferior_ptid, 1);
+			  set_executing (proc_target, inferior_ptid, true);
 			}
 
 		      if (record_debug)
@@ -1285,6 +1296,8 @@ record_full_wait_1 (struct target_ops *ops,
     }
   else
     {
+      switch_to_thread (current_inferior ()->process_target (),
+			record_full_resume_ptid);
       struct regcache *regcache = get_current_regcache ();
       struct gdbarch *gdbarch = regcache->arch ();
       const struct address_space *aspace = regcache->aspace ();
@@ -2239,7 +2252,7 @@ record_full_core_target::remove_breakpoint (struct gdbarch *gdbarch,
 /* "has_execution" method for prec over corefile.  */
 
 bool
-record_full_core_target::has_execution (ptid_t the_ptid)
+record_full_core_target::has_execution (inferior *inf)
 {
   return true;
 }
@@ -2781,27 +2794,9 @@ set_record_full_insn_max_num (const char *args, int from_tty,
     }
 }
 
-/* The "set record full" command.  */
-
-static void
-set_record_full_command (const char *args, int from_tty)
-{
-  printf_unfiltered (_("\"set record full\" must be followed "
-		       "by an appropriate subcommand.\n"));
-  help_list (set_record_full_cmdlist, "set record full ", all_commands,
-	     gdb_stdout);
-}
-
-/* The "show record full" command.  */
-
-static void
-show_record_full_command (const char *args, int from_tty)
-{
-  cmd_show_list (show_record_full_cmdlist, from_tty, "");
-}
-
+void _initialize_record_full ();
 void
-_initialize_record_full (void)
+_initialize_record_full ()
 {
   struct cmd_list_element *c;
 
@@ -2830,13 +2825,13 @@ Argument is filename.  File must be created with 'record save'."),
   set_cmd_completer (c, filename_completer);
   deprecate_cmd (c, "record full restore");
 
-  add_prefix_cmd ("full", class_support, set_record_full_command,
-		  _("Set record options."), &set_record_full_cmdlist,
-		  "set record full ", 0, &set_record_cmdlist);
+  add_basic_prefix_cmd ("full", class_support,
+			_("Set record options."), &set_record_full_cmdlist,
+			"set record full ", 0, &set_record_cmdlist);
 
-  add_prefix_cmd ("full", class_support, show_record_full_command,
-		  _("Show record options."), &show_record_full_cmdlist,
-		  "show record full ", 0, &show_record_cmdlist);
+  add_show_prefix_cmd ("full", class_support,
+		       _("Show record options."), &show_record_full_cmdlist,
+		       "show record full ", 0, &show_record_cmdlist);
 
   /* Record instructions number limit command.  */
   add_setshow_boolean_cmd ("stop-at-limit", no_class,

@@ -317,17 +317,17 @@ show_endian (struct ui_file *file, int from_tty, struct cmd_list_element *c,
   if (target_byte_order_user == BFD_ENDIAN_UNKNOWN)
     if (gdbarch_byte_order (get_current_arch ()) == BFD_ENDIAN_BIG)
       fprintf_unfiltered (file, _("The target endianness is set automatically "
-				  "(currently big endian)\n"));
+				  "(currently big endian).\n"));
     else
       fprintf_unfiltered (file, _("The target endianness is set automatically "
-				  "(currently little endian)\n"));
+				  "(currently little endian).\n"));
   else
     if (target_byte_order_user == BFD_ENDIAN_BIG)
       fprintf_unfiltered (file,
-			  _("The target is assumed to be big endian\n"));
+			  _("The target is set to big endian.\n"));
     else
       fprintf_unfiltered (file,
-			  _("The target is assumed to be little endian\n"));
+			  _("The target is set to little endian.\n"));
 }
 
 static void
@@ -476,11 +476,11 @@ show_architecture (struct ui_file *file, int from_tty,
 		   struct cmd_list_element *c, const char *value)
 {
   if (target_architecture_user == NULL)
-    fprintf_filtered (file, _("The target architecture is set "
-			      "automatically (currently %s)\n"),
+    fprintf_filtered (file, _("The target architecture is set to "
+			      "\"auto\" (currently \"%s\").\n"),
 		      gdbarch_bfd_arch_info (get_current_arch ())->printable_name);
   else
-    fprintf_filtered (file, _("The target architecture is assumed to be %s\n"),
+    fprintf_filtered (file, _("The target architecture is set to \"%s\".\n"),
 		      set_architecture_string);
 }
 
@@ -858,7 +858,7 @@ default_return_in_first_hidden_param_p (struct gdbarch *gdbarch,
   /* Usually, the return value's address is stored the in the "first hidden"
      parameter if the return value should be passed by reference, as
      specified in ABI.  */
-  return language_pass_by_reference (type);
+  return !(language_pass_by_reference (type).trivially_copyable);
 }
 
 int default_insn_is_call (struct gdbarch *gdbarch, CORE_ADDR addr)
@@ -874,6 +874,38 @@ int default_insn_is_ret (struct gdbarch *gdbarch, CORE_ADDR addr)
 int default_insn_is_jump (struct gdbarch *gdbarch, CORE_ADDR addr)
 {
   return 0;
+}
+
+/*  See arch-utils.h.  */
+
+bool
+default_program_breakpoint_here_p (struct gdbarch *gdbarch,
+				   CORE_ADDR address)
+{
+  int len;
+  const gdb_byte *bpoint = gdbarch_breakpoint_from_pc (gdbarch, &address, &len);
+
+  /* Software breakpoints unsupported?  */
+  if (bpoint == nullptr)
+    return false;
+
+  gdb_byte *target_mem = (gdb_byte *) alloca (len);
+
+  /* Enable the automatic memory restoration from breakpoints while
+     we read the memory.  Otherwise we may find temporary breakpoints, ones
+     inserted by GDB, and flag them as permanent breakpoints.  */
+  scoped_restore restore_memory
+    = make_scoped_restore_show_memory_breakpoints (0);
+
+  if (target_read_memory (address, target_mem, len) == 0)
+    {
+      /* Check if this is a breakpoint instruction for this architecture,
+	 including ones used by GDB.  */
+      if (memcmp (target_mem, bpoint, len) == 0)
+	return true;
+    }
+
+  return false;
 }
 
 void
@@ -1004,8 +1036,25 @@ default_get_pc_address_flags (frame_info *frame, CORE_ADDR pc)
   return "";
 }
 
+/* See arch-utils.h.  */
 void
-_initialize_gdbarch_utils (void)
+default_read_core_file_mappings (struct gdbarch *gdbarch,
+                                 struct bfd *cbfd,
+				 gdb::function_view<void (ULONGEST count)>
+				   pre_loop_cb,
+				 gdb::function_view<void (int num,
+				                          ULONGEST start,
+							  ULONGEST end,
+							  ULONGEST file_ofs,
+							  const char *filename,
+							  const void *other)>
+				   loop_cb)
+{
+}
+
+void _initialize_gdbarch_utils ();
+void
+_initialize_gdbarch_utils ()
 {
   add_setshow_enum_cmd ("endian", class_support,
 			endian_enum, &set_endian_string, 

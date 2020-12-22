@@ -48,7 +48,7 @@ static int amd64_windows_dummy_call_integer_regs[] =
 static int
 amd64_windows_passed_by_integer_register (struct type *type)
 {
-  switch (TYPE_CODE (type))
+  switch (type->code ())
     {
       case TYPE_CODE_INT:
       case TYPE_CODE_ENUM:
@@ -76,8 +76,8 @@ amd64_windows_passed_by_integer_register (struct type *type)
 static int
 amd64_windows_passed_by_xmm_register (struct type *type)
 {
-  return ((TYPE_CODE (type) == TYPE_CODE_FLT
-	   || TYPE_CODE (type) == TYPE_CODE_DECFLOAT)
+  return ((type->code () == TYPE_CODE_FLT
+	   || type->code () == TYPE_CODE_DECFLOAT)
           && (TYPE_LENGTH (type) == 4 || TYPE_LENGTH (type) == 8));
 }
 
@@ -296,7 +296,7 @@ amd64_windows_return_value (struct gdbarch *gdbarch, struct value *function,
 
   /* See if our value is returned through a register.  If it is, then
      store the associated register number in REGNUM.  */
-  switch (TYPE_CODE (type))
+  switch (type->code ())
     {
       case TYPE_CODE_FLT:
       case TYPE_CODE_DECFLOAT:
@@ -953,8 +953,7 @@ amd64_windows_find_unwind_info (struct gdbarch *gdbarch, CORE_ADDR pc,
   pe = pe_data (sec->objfile->obfd);
   dir = &pe->pe_opthdr.DataDirectory[PE_EXCEPTION_TABLE];
 
-  base = pe->pe_opthdr.ImageBase
-    + ANOFFSET (objfile->section_offsets, SECT_OFF_TEXT (objfile));
+  base = pe->pe_opthdr.ImageBase + objfile->text_section_offset ();
   *image_base = base;
 
   /* Find the entry.
@@ -1209,8 +1208,10 @@ amd64_windows_auto_wide_charset (void)
   return "UTF-16";
 }
 
+/* Common parts for gdbarch initialization for Windows and Cygwin on AMD64.  */
+
 static void
-amd64_windows_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
+amd64_windows_init_abi_common (gdbarch_info info, struct gdbarch *gdbarch)
 {
   /* The dwarf2 unwinder (appended very early by i386_gdbarch_init) is
      preferred over the SEH one.  The reasons are:
@@ -1228,11 +1229,6 @@ amd64_windows_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
   amd64_init_abi (info, gdbarch,
 		  amd64_target_description (X86_XSTATE_SSE_MASK, false));
 
-  windows_init_abi (info, gdbarch);
-
-  /* On Windows, "long"s are only 32bit.  */
-  set_gdbarch_long_bit (gdbarch, 32);
-
   /* Function calls.  */
   set_gdbarch_push_dummy_call (gdbarch, amd64_windows_push_dummy_call);
   set_gdbarch_return_value (gdbarch, amd64_windows_return_value);
@@ -1245,9 +1241,50 @@ amd64_windows_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
   set_gdbarch_auto_wide_charset (gdbarch, amd64_windows_auto_wide_charset);
 }
 
-void
-_initialize_amd64_windows_tdep (void)
+/* gdbarch initialization for Windows on AMD64.  */
+
+static void
+amd64_windows_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
 {
-  gdbarch_register_osabi (bfd_arch_i386, bfd_mach_x86_64, GDB_OSABI_CYGWIN,
+  amd64_windows_init_abi_common (info, gdbarch);
+  windows_init_abi (info, gdbarch);
+
+  /* On Windows, "long"s are only 32bit.  */
+  set_gdbarch_long_bit (gdbarch, 32);
+}
+
+/* gdbarch initialization for Cygwin on AMD64.  */
+
+static void
+amd64_cygwin_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
+{
+  amd64_windows_init_abi_common (info, gdbarch);
+  cygwin_init_abi (info, gdbarch);
+}
+
+static gdb_osabi
+amd64_windows_osabi_sniffer (bfd *abfd)
+{
+  const char *target_name = bfd_get_target (abfd);
+
+  if (!streq (target_name, "pei-x86-64"))
+    return GDB_OSABI_UNKNOWN;
+
+  if (is_linked_with_cygwin_dll (abfd))
+    return GDB_OSABI_CYGWIN;
+
+  return GDB_OSABI_WINDOWS;
+}
+
+void _initialize_amd64_windows_tdep ();
+void
+_initialize_amd64_windows_tdep ()
+{
+  gdbarch_register_osabi (bfd_arch_i386, bfd_mach_x86_64, GDB_OSABI_WINDOWS,
                           amd64_windows_init_abi);
+  gdbarch_register_osabi (bfd_arch_i386, bfd_mach_x86_64, GDB_OSABI_CYGWIN,
+                          amd64_cygwin_init_abi);
+
+  gdbarch_register_osabi_sniffer (bfd_arch_i386, bfd_target_coff_flavour,
+				  amd64_windows_osabi_sniffer);
 }

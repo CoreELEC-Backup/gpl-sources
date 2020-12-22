@@ -21,6 +21,8 @@ if(CMAKE_MAJOR_VERSION GREATER 2)
     endif()
 endif()
 
+option(DBUS_BUILD_TESTS "enable unit test code" ON)
+
 # detect version
 include(MacrosAutotools)
 autoinit(configure.ac)
@@ -49,6 +51,10 @@ set(BUILD_FILEVERSION ${DBUS_MAJOR_VERSION},${DBUS_MINOR_VERSION},${DBUS_MICRO_V
 set(BUILD_TIMESTAMP ${DBUS_BUILD_TIMESTAMP})
 
 ########### basic vars ###############
+
+if(UNIX AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(DBUS_LINUX 1)
+endif()
 
 include(GNUInstallDirs)
 
@@ -132,6 +138,44 @@ option(DBUS_DISABLE_ASSERT "Disable assertion checking" OFF)
 
 option(DBUS_ENABLE_STATS "enable bus daemon usage statistics" OFF)
 option(DBUS_ENABLE_CONTAINERS "enable restricted servers for app-containers" OFF)
+
+if(DBUS_LINUX)
+    add_auto_option(ENABLE_SYSTEMD "build with systemd at_console support" AUTO)
+    include(FindPkgConfig)
+    pkg_check_modules(SYSTEMD libsystemd>=209)
+    if(NOT SYSTEMD_FOUND)
+        pkg_check_modules(SYSTEMD libsystemd-login>=32 libsystemd-daemon>=32 libsystemd-journal>=32)
+    endif()
+    check_auto_option(ENABLE_SYSTEMD "systemd support" SYSTEMD_FOUND "systemd")
+    if(ENABLE_SYSTEMD AND SYSTEMD_FOUND)
+        set(DBUS_BUS_ENABLE_SYSTEMD ON)
+        set(HAVE_SYSTEMD ${SYSTEMD_FOUND})
+    endif()
+    option(ENABLE_USER_SESSION "enable user-session semantics for session bus under systemd" OFF)
+    set(DBUS_ENABLE_USER_SESSION ${ENABLE_USER_SESSION})
+
+    add_path_option(WITH_SYSTEMD_SYSTEMUNITDIR "Directory for systemd service files" "")
+    add_path_option(WITH_SYSTEMD_USERUNITDIR "Directory for systemd user service files" "")
+    # get defaults
+    pkg_check_modules(_SYSTEMD systemd)
+    if(_SYSTEMD_FOUND)
+        pkg_get_variable(_SYSTEMD_PREFIX systemd prefix)
+        pkg_get_variable(_SYSTEMD_SYSTEMUNITDIR systemd systemdsystemunitdir)
+        pkg_get_variable(_SYSTEMD_USERUNITDIR systemd systemduserunitdir)
+        # remove install prefix, which may not match the current prefix
+        string(REPLACE "${_SYSTEMD_PREFIX}/" "" DBUS_SYSTEMD_SYSTEMUNITDIR ${_SYSTEMD_SYSTEMUNITDIR})
+        string(REPLACE "${_SYSTEMD_PREFIX}/" "" DBUS_SYSTEMD_USERUNITDIR ${_SYSTEMD_USERUNITDIR})
+    else()
+        set(DBUS_SYSTEMD_SYSTEMUNITDIR lib/systemd/system)
+        set(DBUS_SYSTEMD_USERUNITDIR lib/systemd/user)
+    endif()
+    if(WITH_SYSTEMD_SYSTEMUNITDIR)
+        set(DBUS_SYSTEMD_SYSTEMUNITDIR ${WITH_SYSTEMD_SYSTEMUNITDIR})
+    endif()
+    if(WITH_SYSTEMD_USERUNITDIR)
+        set(DBUS_SYSTEMD_USERUNITDIR ${WITH_SYSTEMD_USERUNITDIR})
+    endif()
+endif()
 
 if(WIN32)
     set(FD_SETSIZE "8192" CACHE STRING "The maximum number of connections that can be handled at once")
@@ -225,6 +269,11 @@ generate_warning_cflags(WARNINGS_CFLAGS "${WARNINGS}" "${WARNINGS_DISABLED}" "${
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${WARNINGS_CFLAGS}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNINGS_CFLAGS}")
 
+# let wine be able to show file and lines in backtrace
+if(DBUS_USE_WINE)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -gstabs")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -gstabs")
+endif()
 
 if(UNIX AND NOT DBUS_DISABLE_ASSERT)
     # required for backtrace
@@ -300,8 +349,6 @@ set(DBUS_INCLUDES)
 enable_testing()
 
 ########### command line options ###############
-option(DBUS_BUILD_TESTS "enable unit test code" ON)
-
 if(DBUS_BUILD_TESTS)
     set(DBUS_ENABLE_EMBEDDED_TESTS ON)
     set(DBUS_ENABLE_MODULAR_TESTS ON)
@@ -535,11 +582,11 @@ configure_file(cmake/DBus1ConfigVersion.cmake.in "${CMAKE_BINARY_DIR}/DBus1Confi
 install(FILES
     "${CMAKE_BINARY_DIR}/DBus1Config.cmake"
     "${CMAKE_BINARY_DIR}/DBus1ConfigVersion.cmake"
-    DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev
+    DESTINATION "${INSTALL_CMAKE_DIR}"
 )
 
 if(WIN32)
-    install(EXPORT DBus1Targets DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+    install(EXPORT DBus1Targets DESTINATION "${INSTALL_CMAKE_DIR}")
 endif()
 
 ########### subdirs ###############
@@ -604,7 +651,11 @@ message("        Building bus stats API:   ${DBUS_ENABLE_STATS}                "
 message("        installing system libs:   ${DBUS_INSTALL_SYSTEM_LIBS}         ")
 message("        Building inotify support: ${DBUS_BUS_ENABLE_INOTIFY}          ")
 message("        Building kqueue support:  ${DBUS_BUS_ENABLE_KQUEUE}           ")
+message("        Building systemd support: ${DBUS_BUS_ENABLE_SYSTEMD}          ")
+message("        systemd system install dir:${DBUS_SYSTEMD_SYSTEMUNITDIR}      ")
+message("        systemd user install dir: ${DBUS_SYSTEMD_USERUNITDIR}         ")
 message("        Building Doxygen docs:    ${DBUS_ENABLE_DOXYGEN_DOCS}         ")
+message("        Building Qt help docs:    ${DBUS_ENABLE_QTHELP_DOCS}          ")
 message("        Building XML docs:        ${DBUS_ENABLE_XML_DOCS}             ")
 message("        Daemon executable name:   ${DBUS_DAEMON_NAME}")
 if(WIN32)
@@ -673,7 +724,6 @@ add_custom_target(help-options
 #
 if(DBUS_ENABLE_PKGCONFIG)
     set(PLATFORM_LIBS pthread ${LIBRT})
-    include(FindPkgConfig QUIET)
     if(PKG_CONFIG_FOUND)
         # convert lists of link libraries into -lstdc++ -lm etc..
         foreach(LIB ${CMAKE_C_IMPLICIT_LINK_LIBRARIES} ${PLATFORM_LIBS})

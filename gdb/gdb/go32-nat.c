@@ -507,7 +507,8 @@ go32_nat_target::wait (ptid_t ptid, struct target_waitstatus *status,
     }
 
   getcwd (child_cwd, sizeof (child_cwd)); /* in case it has changed */
-  chdir (current_directory);
+  if (current_directory != NULL)
+    chdir (current_directory);
 
   if (a_tss.tss_irqn == 0x21)
     {
@@ -752,14 +753,14 @@ go32_nat_target::create_inferior (const char *exec_file,
   save_npx ();
 #endif
 
-  inferior_ptid = ptid_t (SOME_PID);
   inf = current_inferior ();
   inferior_appeared (inf, SOME_PID);
 
   if (!target_is_pushed (this))
     push_target (this);
 
-  add_thread_silent (inferior_ptid);
+  thread_info *thr = add_thread_silent (ptid_t (SOME_PID));
+  switch_to_thread (thr);
 
   clear_proceed_status (0);
   insert_breakpoints ();
@@ -769,8 +770,6 @@ go32_nat_target::create_inferior (const char *exec_file,
 void
 go32_nat_target::mourn_inferior ()
 {
-  ptid_t ptid;
-
   redir_cmdline_delete (&child_cmd);
   resume_signal = -1;
   resume_is_step = 0;
@@ -786,8 +785,6 @@ go32_nat_target::mourn_inferior ()
      the OS cleans up when the debuggee exits.  */
   x86_cleanup_dregs ();
 
-  ptid = inferior_ptid;
-  inferior_ptid = null_ptid;
   prog_has_started = 0;
 
   generic_mourn_inferior ();
@@ -2074,14 +2071,9 @@ go32_pte_for_address (const char *arg, int from_tty)
 
 static struct cmd_list_element *info_dos_cmdlist = NULL;
 
-static void
-go32_info_dos_command (const char *args, int from_tty)
-{
-  help_list (info_dos_cmdlist, "info dos ", class_info, gdb_stdout);
-}
-
+void _initialize_go32_nat ();
 void
-_initialize_go32_nat (void)
+_initialize_go32_nat ()
 {
   x86_dr_low.set_control = go32_set_dr7;
   x86_dr_low.set_addr = go32_set_dr;
@@ -2105,9 +2097,9 @@ _initialize_go32_nat (void)
   /* We are always processing GCC-compiled programs.  */
   processing_gcc_compilation = 2;
 
-  add_prefix_cmd ("dos", class_info, go32_info_dos_command, _("\
+  add_basic_prefix_cmd ("dos", class_info, _("\
 Print information specific to DJGPP (aka MS-DOS) debugging."),
-		  &info_dos_cmdlist, "info dos ", 0, &infolist);
+			&info_dos_cmdlist, "info dos ", 0, &infolist);
 
   add_cmd ("sysinfo", class_info, go32_sysinfo, _("\
 Display information about the target system, including CPU, OS, DPMI, etc."),

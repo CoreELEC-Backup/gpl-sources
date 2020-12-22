@@ -18,12 +18,11 @@ dnl along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 dnl Process this file with autoconf to produce a configure script.
 
+m4_include(../config/debuginfod.m4)
+
 AC_INIT(main.c)
 AC_CONFIG_HEADERS(config.h:config.in, [echo > stamp-h])
 AM_MAINTAINER_MODE
-
-# Set the 'development' global.
-. $srcdir/../bfd/development.sh
 
 AC_PROG_CC
 AC_PROG_CXX
@@ -254,7 +253,6 @@ AC_SUBST(HAVE_NATIVE_GCORE_TARGET)
 # For other settings, only the main target counts.
 gdb_sim=
 gdb_osabi=
-build_gdbserver=
 targ=$target; . ${srcdir}/configure.tgt
 
 # Fetch the default architecture and default target vector from BFD.
@@ -323,8 +321,10 @@ case $host_os in
     enable_gdbtk=no ;;
 esac
 
-# Libunwind support for ia64.
+# Handle optional debuginfod support
+AC_DEBUGINFOD
 
+# Libunwind support for ia64.
 AC_ARG_WITH(libunwind-ia64,
 AS_HELP_STRING([--with-libunwind-ia64],
 	       [use libunwind frame unwinding for ia64 targets]),,
@@ -430,7 +430,7 @@ AC_ARG_ENABLE([codesign],
 AC_SUBST([CODESIGN_CERT])
 
 ACX_PKGVERSION([GDB])
-ACX_BUGURL([http://www.gnu.org/software/gdb/bugs/])
+ACX_BUGURL([https://www.gnu.org/software/gdb/bugs/])
 AC_DEFINE_UNQUOTED([PKGVERSION], ["$PKGVERSION"], [Additional package description])
 AC_DEFINE_UNQUOTED([REPORT_BUGS_TO], ["$REPORT_BUGS_TO"], [Bug reporting address])
 
@@ -479,11 +479,6 @@ AM_ZLIB
 AC_SEARCH_LIBS(kinfo_getvmmap, util util-freebsd,
   [AC_DEFINE(HAVE_KINFO_GETVMMAP, 1,
             [Define to 1 if your system has the kinfo_getvmmap function. ])])
-
-# fbsd-nat.c can also use kinfo_getfile.
-AC_SEARCH_LIBS(kinfo_getfile, util util-freebsd,
-  [AC_DEFINE(HAVE_KINFO_GETFILE, 1,
-            [Define to 1 if your system has the kinfo_getfile function. ])])
 
 AM_ICONV
 
@@ -896,6 +891,24 @@ else
   fi
 fi
 
+dnl Use --with-python-libdir to control where GDB looks for the Python
+dnl libraries.
+dnl
+dnl If this is not given then the default will be based on the value
+dnl passed to --with-python, which is in the python_prefix variable.
+dnl If the --with-python option wasn't given then the default value in
+dnl python_prefix is based on running the 'gdb/python/python-config
+dnl --exec-prefix' script.
+AC_ARG_WITH(python-libdir,
+  AS_HELP_STRING([--with-python-libdir@<:@=DIR@:>@], [search for python's libraries in DIR]),
+  [],[
+    # If no python libdir is specified then select one based on
+    # python's prefix path.
+    if test -n "${python_prefix}"; then
+      with_python_libdir=${python_prefix}/lib
+    fi
+  ])
+
 if test "${have_libpython}" != no; then
   AC_DEFINE(HAVE_PYTHON, 1, [Define if Python interpreter is being linked in.])
   CONFIG_OBS="$CONFIG_OBS \$(SUBDIR_PYTHON_OBS)"
@@ -903,6 +916,12 @@ if test "${have_libpython}" != no; then
   CONFIG_SRCS="$CONFIG_SRCS \$(SUBDIR_PYTHON_SRCS)"
   CONFIG_INSTALL="$CONFIG_INSTALL install-python"
   ENABLE_CFLAGS="$ENABLE_CFLAGS \$(SUBDIR_PYTHON_CFLAGS)"
+
+  if test -n "${with_python_libdir}"; then
+    AC_DEFINE_UNQUOTED(WITH_PYTHON_LIBDIR, "${with_python_libdir}",
+		       [Directory containing Python's standard libraries from --with-python-libdir.])
+    GDB_AC_DEFINE_RELOCATABLE(PYTHON_LIBDIR, [python lib], ${with_python_libdir})
+  fi
 
   # Flags needed to compile Python code (taken from python-config --cflags).
   # We cannot call python-config directly because it will output whatever was
@@ -1069,7 +1088,7 @@ AC_MSG_RESULT([$with_guile])
 dnl We check guile with pkg-config.
 AC_PATH_PROG(pkg_config_prog_path, pkg-config, missing)
 
-try_guile_versions="guile-2.0"
+try_guile_versions="guile-3.0 guile-2.2 guile-2.0"
 have_libguile=no
 case "${with_guile}" in
 no)
@@ -1204,58 +1223,17 @@ fi
 AC_SUBST(SRCHIGH_LIBS)
 AC_SUBST(SRCHIGH_CFLAGS)
 
-AC_ARG_WITH(intel_pt,
-  AS_HELP_STRING([--with-intel-pt], [include Intel Processor Trace support (auto/yes/no)]),
-  [], [with_intel_pt=auto])
-AC_MSG_CHECKING([whether to use intel pt])
-AC_MSG_RESULT([$with_intel_pt])
-
-if test "${with_intel_pt}" = no; then
-  AC_MSG_WARN([Intel Processor Trace support disabled; some features may be unavailable.])
-  HAVE_LIBIPT=no
-else
-  AC_PREPROC_IFELSE([AC_LANG_SOURCE([[
-#include <linux/perf_event.h>
-#ifndef PERF_ATTR_SIZE_VER5
-# error
-#endif
-  ]])], [perf_event=yes], [perf_event=no])
-  if test "$perf_event" != yes; then
-    if test "$with_intel_pt" = yes; then
-      AC_MSG_ERROR([linux/perf_event.h missing or too old])
-    else
-      AC_MSG_WARN([linux/perf_event.h missing or too old; some features may be unavailable.])
-    fi
-  fi
-
-  AC_LIB_HAVE_LINKFLAGS([ipt], [], [#include "intel-pt.h"], [pt_insn_alloc_decoder (0);])
-  if test "$HAVE_LIBIPT" != yes; then
-    if test "$with_intel_pt" = yes; then
-      AC_MSG_ERROR([libipt is missing or unusable])
-    else
-      AC_MSG_WARN([libipt is missing or unusable; some features may be unavailable.])
-    fi
-  else
-    save_LIBS=$LIBS
-    LIBS="$LIBS $LIBIPT"
-    AC_CHECK_FUNCS(pt_insn_event)
-    AC_CHECK_MEMBERS([struct pt_insn.enabled, struct pt_insn.resynced], [], [],
-                     [#include <intel-pt.h>])
-    LIBS=$save_LIBS
-  fi
-fi
-
 # ------------------------- #
 # Checks for header files.  #
 # ------------------------- #
 
 AC_HEADER_STDC
 # elf_hp.h is for HP/UX 64-bit shared library support.
-AC_CHECK_HEADERS([nlist.h machine/reg.h poll.h sys/poll.h proc_service.h \
-                  thread_db.h linux/elf.h \
+AC_CHECK_HEADERS([nlist.h machine/reg.h \
+                  thread_db.h \
 		  sys/file.h sys/filio.h sys/ioctl.h sys/param.h \
-		  sys/resource.h sys/procfs.h sys/ptrace.h ptrace.h \
-		  sys/reg.h sys/debugreg.h sys/select.h \
+		  sys/resource.h sys/ptrace.h ptrace.h \
+		  sys/reg.h sys/debugreg.h \
 		  termios.h elf_hp.h])
 AC_CHECK_HEADERS(sys/user.h, [], [],
 [#if HAVE_SYS_PARAM_H
@@ -1270,6 +1248,9 @@ AC_CHECK_HEADERS(term.h, [], [],
 #endif
 ])
 
+AC_CHECK_HEADERS([sys/socket.h])
+AC_CHECK_HEADERS([ws2tcpip.h])
+
 # ------------------------- #
 # Checks for declarations.  #
 # ------------------------- #
@@ -1279,19 +1260,17 @@ libiberty_INIT
 AC_CHECK_DECLS([snprintf])
 AM_LC_MESSAGES
 
-# ----------------------- #
-# Checks for structures.  #
-# ----------------------- #
-
-AC_CHECK_MEMBERS([struct stat.st_blocks, struct stat.st_blksize])
-
 # ------------------ #
 # Checks for types.  #
 # ------------------ #
 
 AC_CHECK_TYPES(socklen_t, [], [],
 [#include <sys/types.h>
-#include <sys/socket.h>
+#if HAVE_SYS_SOCKET_H
+# include <sys/socket.h>
+#elif HAVE_WS2TCPIP_H
+# include <ws2tcpip.h>
+#endif
 ])
 
 # ------------------------------------- #
@@ -1306,15 +1285,13 @@ AC_C_BIGENDIAN
 # Checks for library functions.  #
 # ------------------------------ #
 
-AC_FUNC_MMAP
-AC_FUNC_VFORK
-AC_CHECK_FUNCS([getauxval getrusage getuid getgid \
-		pipe poll pread pread64 pwrite resize_term \
-		sbrk getpgid setpgid setpgrp setsid \
+AC_CHECK_FUNCS([getuid getgid \
+		pipe pread pread64 pwrite resize_term \
+		getpgid setsid \
 		sigaction sigsetmask socketpair \
 		ttrace wborder wresize setlocale iconvlist libiconvlist btowc \
 		setrlimit getrlimit posix_madvise waitpid \
-		ptrace64 sigaltstack setns use_default_colors])
+		use_default_colors])
 AM_LANGINFO_CODESET
 GDB_AC_COMMON
 
@@ -1402,13 +1379,6 @@ AC_CHECK_MEMBERS([struct reg.r_fs, struct reg.r_gs], [], [],
                  [#include <sys/types.h>
 #include <machine/reg.h>])
 
-# See if <sys/user.h> supports the %fs_base and %gs_bas amd64 segment registers.
-# Older amd64 Linux's don't have the fs_base and gs_base members of
-# `struct user_regs_struct'.
-AC_CHECK_MEMBERS([struct user_regs_struct.fs_base, struct user_regs_struct.gs_base],
-     [], [], [#include <sys/types.h>
-#include <sys/user.h>])
-
 # See if <sys/ptrace.h> provides the PTRACE_GETREGS request.
 AC_MSG_CHECKING(for PTRACE_GETREGS)
 AC_CACHE_VAL(gdb_cv_have_ptrace_getregs,
@@ -1474,17 +1444,6 @@ AC_CHECK_MEMBERS([struct ptrace_lwpinfo.pl_tdname], [], [],
 # FreeBSD 10.3.
 AC_CHECK_MEMBERS([struct ptrace_lwpinfo.pl_syscall_code], [], [],
                  [#include <sys/ptrace.h>])
-
-if test "$ac_cv_header_sys_procfs_h" = yes; then
-  BFD_HAVE_SYS_PROCFS_TYPE(gregset_t)
-  BFD_HAVE_SYS_PROCFS_TYPE(fpregset_t)
-  BFD_HAVE_SYS_PROCFS_TYPE(prgregset_t)
-  BFD_HAVE_SYS_PROCFS_TYPE(prfpregset_t)
-  BFD_HAVE_SYS_PROCFS_TYPE(prgregset32_t)
-  BFD_HAVE_SYS_PROCFS_TYPE(lwpid_t)
-  BFD_HAVE_SYS_PROCFS_TYPE(psaddr_t)
-  BFD_HAVE_SYS_PROCFS_TYPE(elf_fpregset_t)
-fi
 
 # Check if the compiler supports the `long long' type.
 
@@ -1737,29 +1696,6 @@ if test "x$gdb_cv_thread_db_h_has_td_notls" = "xyes"; then
             [Define if <thread_db.h> has the TD_NOTLS error code.])
 fi
 
-dnl Check if we can disable the virtual address space randomization.
-dnl The functionality of setarch -R.
-AC_CHECK_DECLS([ADDR_NO_RANDOMIZE],,, [#include <sys/personality.h>])
-define([PERSONALITY_TEST], [AC_LANG_PROGRAM([#include <sys/personality.h>], [
-#      if !HAVE_DECL_ADDR_NO_RANDOMIZE
-#       define ADDR_NO_RANDOMIZE 0x0040000
-#      endif
-       /* Test the flag could be set and stays set.  */
-       personality (personality (0xffffffff) | ADDR_NO_RANDOMIZE);
-       if (!(personality (personality (0xffffffff)) & ADDR_NO_RANDOMIZE))
-	   return 1])])
-AC_RUN_IFELSE([PERSONALITY_TEST],
-	      [have_personality=true],
-	      [have_personality=false],
-	      [AC_LINK_IFELSE([PERSONALITY_TEST],
-			      [have_personality=true],
-			      [have_personality=false])])
-if $have_personality
-then
-    AC_DEFINE([HAVE_PERSONALITY], 1,
-	      [Define if you support the personality syscall.])
-fi
-
 dnl Set the host's .gdbinit filename.
 case $host_os in
   go32* | *djgpp*)
@@ -1827,17 +1763,8 @@ if test x"$gdb_cv_os_cygwin" = xyes; then
 fi
 
 # The ser-tcp.c module requires sockets.
-case ${host} in
-  *mingw32*)
-    AC_DEFINE(USE_WIN32API, 1,
-              [Define if we should use the Windows API, instead of the
-	       POSIX API.  On Windows, we use the Windows API when
-	       building for MinGW, but the POSIX API when building
-	       for Cygwin.])
-    WIN32LIBS="$WIN32LIBS -lws2_32"
-    ;;
-esac
-AC_SUBST(WIN32LIBS)
+# Note that WIN32APILIBS is set by GDB_AC_COMMON.
+WIN32LIBS="$WIN32LIBS $WIN32APILIBS"
 
 # Add ELF support to GDB, but only if BFD includes ELF support.
 GDB_AC_CHECK_BFD([for ELF support in BFD], gdb_cv_var_elf,
@@ -2098,33 +2025,6 @@ if test x"${gdb_osabi}" != x ; then
 		       [Define to the default OS ABI for this configuration.])
 fi
 
-AC_ARG_ENABLE(gdbserver,
-AS_HELP_STRING([--enable-gdbserver],
-               [automatically build gdbserver (yes/no/auto, default is auto)]),
-[case "${enableval}" in
-  yes| no|auto) ;;
-  *) AC_MSG_ERROR(bad value ${enableval} for --enable-gdbserver option) ;;
-esac],[enable_gdbserver=auto])
-
-# We only build gdbserver automatically in a native configuration, and
-# only if the user did not explicitly disable its build.
-if test "$gdb_native" = "yes" -a "$enable_gdbserver" != "no"; then
-  AC_MSG_CHECKING(whether gdbserver is supported on this host)
-  if test "x$build_gdbserver" = xyes; then
-    AC_MSG_RESULT(yes)
-    AC_CONFIG_SUBDIRS(gdbserver)
-    gdbserver_build_enabled=yes
-  else
-    AC_MSG_RESULT(no)
-  fi
-fi
-
-# If the user explicitly request the gdbserver to be built, verify that
-# we were in fact able to enable it.
-if test "$enable_gdbserver" = "yes" -a "$gdbserver_build_enabled" != "yes"; then
-  AC_MSG_ERROR(Automatic gdbserver build is not supported for this configuration)
-fi
-
 # Check for babeltrace and babeltrace-ctf
 AC_ARG_WITH(babeltrace,
   AC_HELP_STRING([--with-babeltrace], [include babeltrace support (auto/yes/no)]),
@@ -2172,6 +2072,27 @@ fi
 AC_ARG_WITH(xxhash,
   AC_HELP_STRING([--with-xxhash], [use libxxhash for hashing (faster) (auto/yes/no)]),
   [], [with_xxhash=auto])
+
+GCC_ENABLE([libctf], [yes], [], [Handle .ctf type-info sections])
+if test x${enable_static} = xno; then
+  LIBCTF="-Wl,--rpath,../libctf/.libs ../libctf/.libs/libctf.so"
+  CTF_DEPS="../libctf/.libs/libctf.so"
+else
+  LIBCTF="../libctf/.libs/libctf.a"
+  CTF_DEPS="$LIBCTF"
+fi
+if test "${enable_libctf}" = yes; then
+  AC_DEFINE(ENABLE_LIBCTF, 1, [Handle .ctf type-info sections])
+else
+  LIBCTF=
+  CTF_DEPS=
+fi
+AC_SUBST(ENABLE_LIBCTF)
+AC_SUBST(LIBCTF)
+AC_SUBST(CTF_DEPS)
+
+# If nativefile (NAT_FILE) is not set in configure.nat, we link to an
+# empty version.
 
 if test "x$with_xxhash" != "xno"; then
   AC_LIB_HAVE_LINKFLAGS([xxhash], [],
@@ -2224,8 +2145,8 @@ AC_DEFINE(GDB_DEFAULT_HOST_CHARSET, "UTF-8",
           [Define to be a string naming the default host character set.])
 
 GDB_AC_SELFTEST([
-  CONFIG_OBS="$CONFIG_OBS \$(SUBDIR_UNITTESTS_OBS) gdbsupport/selftest.o selftest-arch.o"
-  CONFIG_SRCS="$CONFIG_SRCS \$(SUBDIR_UNITTESTS_SRCS) gdbsupport/selftest.c selftest-arch.c"
+  CONFIG_OBS="$CONFIG_OBS \$(SELFTESTS_OBS)"
+  CONFIG_SRCS="$CONFIG_SRCS \$(SELFTESTS_SRCS)"
 ])
 
 GDB_AC_TRANSFORM([gdb], [GDB_TRANSFORM_NAME])

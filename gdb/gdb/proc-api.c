@@ -28,8 +28,6 @@
 #include "gdbcmd.h"
 #include "completer.h"
 
-#define _STRUCTURED_PROC 1
-
 #include <sys/types.h>
 #include <sys/procfs.h>
 #include <sys/proc.h>	/* for struct proc */
@@ -416,8 +414,9 @@ proc_prettyfprint_status (long flags, int why, int what, int thread)
     }
 }
 
+void _initialize_proc_api ();
 void
-_initialize_proc_api (void)
+_initialize_proc_api ()
 {
   add_setshow_boolean_cmd ("procfs-trace", no_class, &procfs_trace, _("\
 Set tracing for /proc api calls."), _("\

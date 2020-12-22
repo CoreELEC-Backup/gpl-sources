@@ -37,14 +37,14 @@ check_make_paramless (const char *file, int line,
 {
   lookup_name_info lookup_name (name, symbol_name_match_type::FULL,
 				completion_mode, true /* ignore_parameters */);
-  const std::string &result = lookup_name.language_lookup_name (lang);
+  const char *result = lookup_name.language_lookup_name (lang);
 
-  if (result != expected)
+  if (strcmp (result, expected) != 0)
     {
       error (_("%s:%d: make-paramless self-test failed: (completion=%d, lang=%d) "
 	       "\"%s\" -> \"%s\", expected \"%s\""),
 	     file, line, completion_mode, lang, name,
-	     result.c_str (), expected);
+	     result, expected);
     }
 }
 
@@ -103,6 +103,7 @@ run_tests ()
 
 }} // namespace selftests::lookup_name
 
+void _initialize_lookup_name_info_selftests ();
 void
 _initialize_lookup_name_info_selftests ()
 {

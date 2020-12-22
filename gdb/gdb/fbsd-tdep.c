@@ -21,6 +21,7 @@
 #include "auxv.h"
 #include "gdbcore.h"
 #include "inferior.h"
+#include "objfiles.h"
 #include "regcache.h"
 #include "regset.h"
 #include "gdbthread.h"
@@ -673,7 +674,8 @@ fbsd_corefile_thread (struct thread_info *info,
 {
   struct regcache *regcache;
 
-  regcache = get_thread_arch_regcache (info->ptid, args->gdbarch);
+  regcache = get_thread_arch_regcache (info->inf->process_target (),
+				       info->ptid, args->gdbarch);
 
   target_fetch_registers (regcache, -1);
 
@@ -724,14 +726,14 @@ fbsd_make_corefile_notes (struct gdbarch *gdbarch, bfd *obfd, int *note_size)
   if (get_exec_file (0))
     {
       const char *fname = lbasename (get_exec_file (0));
-      char *psargs = xstrdup (fname);
+      std::string psargs = fname;
 
-      if (get_inferior_args ())
-	psargs = reconcat (psargs, psargs, " ", get_inferior_args (),
-			   (char *) NULL);
+      const char *infargs = get_inferior_args ();
+      if (infargs != NULL)
+	psargs = psargs + " " + infargs;
 
       note_data = elfcore_write_prpsinfo (obfd, note_data, note_size,
-					  fname, psargs);
+					  fname, psargs.c_str ());
     }
 
   /* Thread register information.  */
@@ -1018,12 +1020,12 @@ fbsd_info_proc_files_entry (int kf_type, int kf_fd, int kf_flags,
 
 	    /* For local sockets, print out the first non-nul path
 	       rather than both paths.  */
-	    const struct fbsd_sockaddr_un *sun
+	    const struct fbsd_sockaddr_un *saddr_un
 	      = reinterpret_cast<const struct fbsd_sockaddr_un *> (kf_sa_local);
-	    if (sun->sun_path[0] == 0)
-	      sun = reinterpret_cast<const struct fbsd_sockaddr_un *>
+	    if (saddr_un->sun_path[0] == 0)
+	      saddr_un = reinterpret_cast<const struct fbsd_sockaddr_un *>
 		(kf_sa_peer);
-	    printf_filtered ("%s", sun->sun_path);
+	    printf_filtered ("%s", saddr_un->sun_path);
 	    break;
 	  }
 	case FBSD_AF_INET:
@@ -1596,6 +1598,12 @@ fbsd_print_auxv_entry (struct gdbarch *gdbarch, struct ui_file *file,
       TAG (EHDRFLAGS, _("ELF header e_flags"), AUXV_FORMAT_HEX);
       TAG (HWCAP, _("Machine-dependent CPU capability hints"), AUXV_FORMAT_HEX);
       TAG (HWCAP2, _("Extension of AT_HWCAP"), AUXV_FORMAT_HEX);
+      TAG (BSDFLAGS, _("ELF BSD flags"), AUXV_FORMAT_HEX);
+      TAG (ARGC, _("Argument count"), AUXV_FORMAT_DEC);
+      TAG (ARGV, _("Argument vector"), AUXV_FORMAT_HEX);
+      TAG (ENVC, _("Environment count"), AUXV_FORMAT_DEC);
+      TAG (ENVV, _("Environment vector"), AUXV_FORMAT_HEX);
+      TAG (PS_STRINGS, _("Pointer to ps_strings"), AUXV_FORMAT_HEX);
     }
 
   fprint_auxv_entry (file, name, description, format, type, val);
@@ -1627,7 +1635,7 @@ fbsd_get_siginfo_type (struct gdbarch *gdbarch)
 
   /* union sigval */
   sigval_type = arch_composite_type (gdbarch, NULL, TYPE_CODE_UNION);
-  TYPE_NAME (sigval_type) = xstrdup ("sigval");
+  sigval_type->set_name (xstrdup ("sigval"));
   append_composite_type_field (sigval_type, "sival_int", int_type);
   append_composite_type_field (sigval_type, "sival_ptr", void_ptr_type);
 
@@ -1677,7 +1685,7 @@ fbsd_get_siginfo_type (struct gdbarch *gdbarch)
 
   /* struct siginfo */
   siginfo_type = arch_composite_type (gdbarch, NULL, TYPE_CODE_STRUCT);
-  TYPE_NAME (siginfo_type) = xstrdup ("siginfo");
+  siginfo_type->set_name (xstrdup ("siginfo"));
   append_composite_type_field (siginfo_type, "si_signo", int_type);
   append_composite_type_field (siginfo_type, "si_errno", int_type);
   append_composite_type_field (siginfo_type, "si_code", int_type);
@@ -1981,9 +1989,9 @@ fbsd_fetch_rtld_offsets (struct gdbarch *gdbarch, struct fbsd_pspace_data *data)
 				     language_c, NULL).symbol;
       if (obj_entry_sym == NULL)
 	error (_("Unable to find Struct_Obj_Entry symbol"));
-      data->off_linkmap = lookup_struct_elt (SYMBOL_TYPE(obj_entry_sym),
+      data->off_linkmap = lookup_struct_elt (SYMBOL_TYPE (obj_entry_sym),
 					     "linkmap", 0).offset / 8;
-      data->off_tlsindex = lookup_struct_elt (SYMBOL_TYPE(obj_entry_sym),
+      data->off_tlsindex = lookup_struct_elt (SYMBOL_TYPE (obj_entry_sym),
 					      "tlsindex", 0).offset / 8;
       data->rtld_offsets_valid = true;
       return;
@@ -2064,6 +2072,18 @@ fbsd_get_thread_local_address (struct gdbarch *gdbarch, CORE_ADDR dtv_addr,
   return addr + offset;
 }
 
+/* See fbsd-tdep.h.  */
+
+CORE_ADDR
+fbsd_skip_solib_resolver (struct gdbarch *gdbarch, CORE_ADDR pc)
+{
+  struct bound_minimal_symbol msym = lookup_bound_minimal_symbol ("_rtld_bind");
+  if (msym.minsym != nullptr && BMSYMBOL_VALUE_ADDRESS (msym) == pc)
+    return frame_unwind_caller_pc (get_current_frame ());
+
+  return 0;
+}
+
 /* To be called from GDB_OSABI_FREEBSD handlers. */
 
 void
@@ -2078,14 +2098,16 @@ fbsd_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
   set_gdbarch_get_siginfo_type (gdbarch, fbsd_get_siginfo_type);
   set_gdbarch_gdb_signal_from_target (gdbarch, fbsd_gdb_signal_from_target);
   set_gdbarch_gdb_signal_to_target (gdbarch, fbsd_gdb_signal_to_target);
+  set_gdbarch_skip_solib_resolver (gdbarch, fbsd_skip_solib_resolver);
 
   /* `catch syscall' */
   set_xml_syscall_file_name (gdbarch, "syscalls/freebsd.xml");
   set_gdbarch_get_syscall_number (gdbarch, fbsd_get_syscall_number);
 }
 
+void _initialize_fbsd_tdep ();
 void
-_initialize_fbsd_tdep (void)
+_initialize_fbsd_tdep ()
 {
   fbsd_gdbarch_data_handle =
     gdbarch_data_register_post_init (init_fbsd_gdbarch_data);

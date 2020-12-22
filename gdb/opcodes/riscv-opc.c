@@ -1,5 +1,5 @@
 /* RISC-V opcode list
-   Copyright (C) 2011-2019 Free Software Foundation, Inc.
+   Copyright (C) 2011-2020 Free Software Foundation, Inc.
 
    Contributed by Andrew Waterman (andrew@sifive.com).
    Based on MIPS target.
@@ -269,12 +269,14 @@ const struct riscv_opcode riscv_opcodes[] =
 {"addi",        0, INSN_CLASS_C,   "d,CU,Cj",  MATCH_C_ADDI, MASK_C_ADDI, match_rd_nonzero, INSN_ALIAS },
 {"addi",        0, INSN_CLASS_C,   "d,CU,z",    MATCH_C_NOP, MASK_C_ADDI | MASK_RVC_IMM, match_c_nop, INSN_ALIAS },
 {"addi",        0, INSN_CLASS_C,   "Cc,Cc,CL", MATCH_C_ADDI16SP, MASK_C_ADDI16SP, match_c_addi16sp, INSN_ALIAS },
+{"addi",        0, INSN_CLASS_C,   "d,Cz,Co",  MATCH_C_LI, MASK_C_LI, match_rd_nonzero, INSN_ALIAS },
 {"addi",        0, INSN_CLASS_I,   "d,s,j",  MATCH_ADDI, MASK_ADDI, match_opcode, 0 },
 {"add",         0, INSN_CLASS_C,   "d,CU,CV",  MATCH_C_ADD, MASK_C_ADD, match_c_add, INSN_ALIAS },
 {"add",         0, INSN_CLASS_C,   "d,CV,CU",  MATCH_C_ADD, MASK_C_ADD, match_c_add, INSN_ALIAS },
 {"add",         0, INSN_CLASS_C,   "d,CU,Co",  MATCH_C_ADDI, MASK_C_ADDI, match_rd_nonzero, INSN_ALIAS },
 {"add",         0, INSN_CLASS_C,   "Ct,Cc,CK", MATCH_C_ADDI4SPN, MASK_C_ADDI4SPN, match_c_addi4spn, INSN_ALIAS },
 {"add",         0, INSN_CLASS_C,   "Cc,Cc,CL", MATCH_C_ADDI16SP, MASK_C_ADDI16SP, match_c_addi16sp, INSN_ALIAS },
+{"add",         0, INSN_CLASS_C,   "d,Cz,CV",  MATCH_C_MV, MASK_C_MV, match_c_add, INSN_ALIAS },
 {"add",         0, INSN_CLASS_I,   "d,s,t",  MATCH_ADD, MASK_ADD, match_opcode, 0 },
 /* This is used for TLS, where the fourth arg is %tprel_add, to get a reloc
    applied to an add instruction, for relaxation to use.  */
@@ -882,3 +884,96 @@ const struct riscv_opcode riscv_insn_types[] =
 /* Terminate the list.  */
 {0, 0, INSN_CLASS_NONE, 0, 0, 0, 0, 0}
 };
+
+/* All standard extensions defined in all supported ISA spec.  */
+const struct riscv_ext_version riscv_ext_version_table[] =
+{
+/* name, ISA spec, major version, minor_version.  */
+{"e", ISA_SPEC_CLASS_20191213, 1, 9},
+{"e", ISA_SPEC_CLASS_20190608, 1, 9},
+{"e", ISA_SPEC_CLASS_2P2,      1, 9},
+
+{"i", ISA_SPEC_CLASS_20191213, 2, 1},
+{"i", ISA_SPEC_CLASS_20190608, 2, 1},
+{"i", ISA_SPEC_CLASS_2P2,      2, 0},
+
+{"m", ISA_SPEC_CLASS_20191213, 2, 0},
+{"m", ISA_SPEC_CLASS_20190608, 2, 0},
+{"m", ISA_SPEC_CLASS_2P2,      2, 0},
+
+{"a", ISA_SPEC_CLASS_20191213, 2, 1},
+{"a", ISA_SPEC_CLASS_20190608, 2, 0},
+{"a", ISA_SPEC_CLASS_2P2,      2, 0},
+
+{"f", ISA_SPEC_CLASS_20191213, 2, 2},
+{"f", ISA_SPEC_CLASS_20190608, 2, 2},
+{"f", ISA_SPEC_CLASS_2P2,      2, 0},
+
+{"d", ISA_SPEC_CLASS_20191213, 2, 2},
+{"d", ISA_SPEC_CLASS_20190608, 2, 2},
+{"d", ISA_SPEC_CLASS_2P2,      2, 0},
+
+{"q", ISA_SPEC_CLASS_20191213, 2, 2},
+{"q", ISA_SPEC_CLASS_20190608, 2, 2},
+{"q", ISA_SPEC_CLASS_2P2,      2, 0},
+
+{"c", ISA_SPEC_CLASS_20191213, 2, 0},
+{"c", ISA_SPEC_CLASS_20190608, 2, 0},
+{"c", ISA_SPEC_CLASS_2P2,      2, 0},
+
+{"p", ISA_SPEC_CLASS_20191213, 0, 2},
+{"p", ISA_SPEC_CLASS_20190608, 0, 2},
+{"p", ISA_SPEC_CLASS_2P2,      0, 1},
+
+{"v", ISA_SPEC_CLASS_20191213, 0, 7},
+{"v", ISA_SPEC_CLASS_20190608, 0, 7},
+{"v", ISA_SPEC_CLASS_2P2,      0, 7},
+
+{"n", ISA_SPEC_CLASS_20190608, 1, 1},
+{"n", ISA_SPEC_CLASS_2P2,      1, 1},
+
+{"zicsr", ISA_SPEC_CLASS_20191213, 2, 0},
+{"zicsr", ISA_SPEC_CLASS_20190608, 2, 0},
+
+/* Terminate the list.  */
+{NULL, 0, 0, 0}
+};
+
+struct isa_spec_t
+{
+  const char *name;
+  enum riscv_isa_spec_class class;
+};
+
+/* List for all supported ISA spec versions.  */
+static const struct isa_spec_t isa_specs[] =
+{
+  {"2.2",      ISA_SPEC_CLASS_2P2},
+  {"20190608", ISA_SPEC_CLASS_20190608},
+  {"20191213", ISA_SPEC_CLASS_20191213},
+
+/* Terminate the list.  */
+  {NULL, 0}
+};
+
+/* Get the corresponding ISA spec class by giving a ISA spec string.  */
+
+int
+riscv_get_isa_spec_class (const char *s,
+                         enum riscv_isa_spec_class *class)
+{
+  const struct isa_spec_t *version;
+
+  if (s == NULL)
+    return 0;
+
+  for (version = &isa_specs[0]; version->name != NULL; ++version)
+    if (strcmp (version->name, s) == 0)
+      {
+       *class = version->class;
+       return 1;
+      }
+
+  /* Can not find the supported ISA spec.  */
+  return 0;
+}

@@ -1,4 +1,4 @@
-This is rluserman.info, produced by makeinfo version 6.5 from
+This is rluserman.info, produced by makeinfo version 6.7 from
 rluserman.texi.
 
 This manual describes the end user interface of the GNU Readline Library
@@ -1990,3 +1990,8 @@ Node: Readline vi Mode61625
 Node: GNU Free Documentation License62539
 
 End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

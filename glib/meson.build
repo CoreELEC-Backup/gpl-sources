@@ -1,5 +1,5 @@
 project('glib', 'c', 'cpp',
-  version : '2.67.0',
+  version : '2.67.1',
   # NOTE: We keep this pinned at 0.49 because that's what Debian 10 ships
   meson_version : '>= 0.49.2',
   default_options : [
@@ -1773,7 +1773,7 @@ endforeach
 # that then to silently fall back on emulated atomic ops just because
 # the user had the wrong build environment.
 atomictest = '''int main() {
-  volatile int atomic = 2;
+  int atomic = 2;
   __sync_bool_compare_and_swap (&atomic, 2, 3);
   return 0;
 }
@@ -1883,6 +1883,7 @@ endif
 
 # FIXME: we should make it print the result and always return 0, so that
 # the output in meson shows up as green
+# volatile is needed here to avoid optimisations in the test
 stack_grows_check_prog = '''
   volatile int *a = 0, *b = 0;
   void f (int i) {
@@ -2062,7 +2063,7 @@ endif
 
 selinux_dep = []
 if host_system == 'linux'
-  selinux_dep = dependency('libselinux', required: get_option('selinux'))
+  selinux_dep = dependency('libselinux', version: '>=2.2', required: get_option('selinux'))
 
   glib_conf.set('HAVE_SELINUX', selinux_dep.found())
 endif

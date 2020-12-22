@@ -1,5 +1,5 @@
 /* 32-bit ELF support for S+core.
-   Copyright (C) 2006-2019 Free Software Foundation, Inc.
+   Copyright (C) 2006-2020 Free Software Foundation, Inc.
    Contributed by
    Brain.lin (brain.lin@sunplusct.com)
    Mei Ligang (ligang@sunnorth.com.cn)
@@ -1410,7 +1410,7 @@ score_elf_create_got_section (bfd *abfd,
   struct elf_link_hash_entry *h;
   struct bfd_link_hash_entry *bh;
   struct score_got_info *g;
-  bfd_size_type amt;
+  size_t amt;
 
   /* This function may be called more than once.  */
   s = score_elf_got_section (abfd, TRUE);
@@ -2669,13 +2669,14 @@ s3_bfd_score_elf_relocate_section (bfd *output_bfd,
 	    }
 	  else if (!bfd_link_relocatable (info))
 	    {
-	      (*info->callbacks->undefined_symbol)
-		(info, h->root.root.root.string, input_bfd,
-		 input_section, rel->r_offset,
-		 (info->unresolved_syms_in_objects == RM_GENERATE_ERROR)
+              info->callbacks->undefined_symbol
+		(info, h->root.root.root.string, input_bfd, input_section,
+		 rel->r_offset,
+		 (info->unresolved_syms_in_objects == RM_DIAGNOSE
+		  && !info->warn_unresolved_syms)
 		 || ELF_ST_VISIBILITY (h->root.other));
-	      relocation = 0;
-	    }
+              relocation = 0;
+            }
 	}
 
       if (sec != NULL && discarded_section (sec))
@@ -3009,7 +3010,7 @@ s3_bfd_score_elf_add_symbol_hook (bfd *abfd,
       /* Fall through.  */
     case SHN_SCORE_SCOMMON:
       *secp = bfd_make_section_old_way (abfd, ".scommon");
-      (*secp)->flags |= SEC_IS_COMMON;
+      (*secp)->flags |= SEC_IS_COMMON | SEC_SMALL_DATA;
       *valp = sym->st_size;
       break;
     }
@@ -3034,7 +3035,7 @@ s3_bfd_score_elf_symbol_processing (bfd *abfd, asymbol *asym)
 	{
 	  /* Initialize the small common section.  */
 	  score_elf_scom_section.name = ".scommon";
-	  score_elf_scom_section.flags = SEC_IS_COMMON;
+	  score_elf_scom_section.flags = SEC_IS_COMMON | SEC_SMALL_DATA;
 	  score_elf_scom_section.output_section = &score_elf_scom_section;
 	  score_elf_scom_section.symbol = &score_elf_scom_symbol;
 	  score_elf_scom_section.symbol_ptr_ptr = &score_elf_scom_symbol_ptr;
@@ -4020,6 +4021,10 @@ s3_elf32_score_merge_private_bfd_data (bfd *ibfd, struct bfd_link_info *info)
   if (!_bfd_generic_verify_endian_match (ibfd, info))
     return FALSE;
 
+  /* FIXME: What should be checked when linking shared libraries?  */
+  if ((ibfd->flags & DYNAMIC) != 0)
+    return TRUE;
+
   in_flags  = elf_elfheader (ibfd)->e_flags;
   out_flags = elf_elfheader (obfd)->e_flags;
 
@@ -4057,7 +4062,7 @@ static bfd_boolean
 s3_elf32_score_new_section_hook (bfd *abfd, asection *sec)
 {
   struct _score_elf_section_data *sdata;
-  bfd_size_type amt = sizeof (*sdata);
+  size_t amt = sizeof (*sdata);
 
   sdata = bfd_zalloc (abfd, amt);
   if (sdata == NULL)
@@ -4359,7 +4364,7 @@ static struct bfd_link_hash_table *
 elf32_score_link_hash_table_create (bfd *abfd)
 {
   struct elf_link_hash_table *ret;
-  bfd_size_type amt = sizeof (struct elf_link_hash_table);
+  size_t amt = sizeof (struct elf_link_hash_table);
 
   ret = (struct elf_link_hash_table *) bfd_zmalloc (amt);
   if (ret == NULL)

@@ -23,7 +23,7 @@
 
 #include "interps.h"
 #include "event-top.h"
-#include "event-loop.h"
+#include "gdbsupport/event-loop.h"
 #include "inferior.h"
 #include "infrun.h"
 #include "ui-out.h"
@@ -91,8 +91,6 @@ static void mi_memory_changed (struct inferior *inf, CORE_ADDR memaddr,
 			       ssize_t len, const bfd_byte *myaddr);
 static void mi_on_sync_execution_done (void);
 
-static int report_initial_inferior (struct inferior *inf, void *closure);
-
 /* Display the MI prompt.  */
 
 static void
@@ -137,12 +135,27 @@ mi_interp::init (bool top_level)
 
   if (top_level)
     {
-      /* The initial inferior is created before this function is
-	 called, so we need to report it explicitly.  Use iteration in
-	 case future version of GDB creates more than one inferior
-	 up-front.  */
-      iterate_over_inferiors (report_initial_inferior, mi);
-    }
+      /* The initial inferior is created before this function is called, so we
+	 need to report it explicitly when initializing the top-level MI
+	 interpreter.
+
+	 This is also called when additional MI interpreters are added (using
+	 the new-ui command), when multiple inferiors possibly exist, so we need
+	 to use iteration to report all the inferiors.  mi_inferior_added can't
+	 be used, because it would print the event on all the other MI UIs.  */
+
+      for (inferior *inf : all_inferiors ())
+	{
+	  target_terminal::scoped_restore_terminal_state term_state;
+	  target_terminal::ours_for_output ();
+
+	  fprintf_unfiltered (mi->event_channel,
+			      "thread-group-added,id=\"i%d\"",
+			      inf->num);
+
+	  gdb_flush (mi->event_channel);
+	}
+  }
 }
 
 void
@@ -961,7 +974,8 @@ multiple_inferiors_p ()
 }
 
 static void
-mi_on_resume_1 (struct mi_interp *mi, ptid_t ptid)
+mi_on_resume_1 (struct mi_interp *mi,
+		process_stratum_target *targ, ptid_t ptid)
 {
   /* To cater for older frontends, emit ^running, but do it only once
      per each command.  We do it here, since at this point we know
@@ -984,7 +998,7 @@ mi_on_resume_1 (struct mi_interp *mi, ptid_t ptid)
       && !multiple_inferiors_p ())
     fprintf_unfiltered (mi->raw_stdout, "*running,thread-id=\"all\"\n");
   else
-    for (thread_info *tp : all_non_exited_threads (ptid))
+    for (thread_info *tp : all_non_exited_threads (targ, ptid))
       mi_output_running (tp);
 
   if (!running_result_record_printed && mi_proceeded)
@@ -1004,10 +1018,11 @@ mi_on_resume (ptid_t ptid)
 {
   struct thread_info *tp = NULL;
 
+  process_stratum_target *target = current_inferior ()->process_target ();
   if (ptid == minus_one_ptid || ptid.is_pid ())
     tp = inferior_thread ();
   else
-    tp = find_thread_ptid (ptid);
+    tp = find_thread_ptid (target, ptid);
 
   /* Suppress output while calling an inferior function.  */
   if (tp->control.in_infcall)
@@ -1023,7 +1038,7 @@ mi_on_resume (ptid_t ptid)
       target_terminal::scoped_restore_terminal_state term_state;
       target_terminal::ours_for_output ();
 
-      mi_on_resume_1 (mi, ptid);
+      mi_on_resume_1 (mi, target, ptid);
     }
 }
 
@@ -1251,26 +1266,6 @@ mi_user_selected_context_changed (user_selected_what selection)
     }
 }
 
-static int
-report_initial_inferior (struct inferior *inf, void *closure)
-{
-  /* This function is called from mi_interpreter_init, and since
-     mi_inferior_added assumes that inferior is fully initialized
-     and top_level_interpreter_data is set, we cannot call
-     it here.  */
-  struct mi_interp *mi = (struct mi_interp *) closure;
-
-  target_terminal::scoped_restore_terminal_state term_state;
-  target_terminal::ours_for_output ();
-
-  fprintf_unfiltered (mi->event_channel,
-		      "thread-group-added,id=\"i%d\"",
-		      inf->num);
-  gdb_flush (mi->event_channel);
-
-  return 0;
-}
-
 ui_out *
 mi_interp::interp_ui_out ()
 {
@@ -1333,8 +1328,9 @@ mi_interp_factory (const char *name)
   return new mi_interp (name);
 }
 
+void _initialize_mi_interp ();
 void
-_initialize_mi_interp (void)
+_initialize_mi_interp ()
 {
   /* The various interpreter levels.  */
   interp_factory_register (INTERP_MI1, mi_interp_factory);

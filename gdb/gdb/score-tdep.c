@@ -34,7 +34,7 @@
 #include "frame-unwind.h"
 #include "frame-base.h"
 #include "trad-frame.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "score-tdep.h"
 
 #define G_FLD(_i,_ms,_ls) \
@@ -442,9 +442,9 @@ score_return_value (struct gdbarch *gdbarch, struct value *function,
                     struct type *type, struct regcache *regcache,
                     gdb_byte * readbuf, const gdb_byte * writebuf)
 {
-  if (TYPE_CODE (type) == TYPE_CODE_STRUCT
-      || TYPE_CODE (type) == TYPE_CODE_UNION
-      || TYPE_CODE (type) == TYPE_CODE_ARRAY)
+  if (type->code () == TYPE_CODE_STRUCT
+      || type->code () == TYPE_CODE_UNION
+      || type->code () == TYPE_CODE_ARRAY)
     return RETURN_VALUE_STRUCT_CONVENTION;
   else
     {
@@ -469,7 +469,7 @@ score_return_value (struct gdbarch *gdbarch, struct value *function,
 static int
 score_type_needs_double_align (struct type *type)
 {
-  enum type_code typecode = TYPE_CODE (type);
+  enum type_code typecode = type->code ();
 
   if ((typecode == TYPE_CODE_INT && TYPE_LENGTH (type) == 8)
       || (typecode == TYPE_CODE_FLT && TYPE_LENGTH (type) == 8))
@@ -478,9 +478,9 @@ score_type_needs_double_align (struct type *type)
     {
       int i, n;
 
-      n = TYPE_NFIELDS (type);
+      n = type->num_fields ();
       for (i = 0; i < n; i++)
-        if (score_type_needs_double_align (TYPE_FIELD_TYPE (type, i)))
+        if (score_type_needs_double_align (type->field (i).type ()))
           return 1;
       return 0;
     }
@@ -529,7 +529,7 @@ score_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
     {
       struct value *arg = args[argnum];
       struct type *arg_type = check_typedef (value_type (arg));
-      enum type_code typecode = TYPE_CODE (arg_type);
+      enum type_code typecode = arg_type->code ();
       const gdb_byte *val = value_contents (arg);
       int downward_offset = 0;
       int arg_last_part_p = 0;
@@ -918,13 +918,15 @@ score7_analyze_prologue (CORE_ADDR startaddr, CORE_ADDR pc,
                    && G_FLD (inst->v, 2, 0) == 0x0)
             {
               /* subei! r0, n */
-              sp_offset += (int) pow (2, G_FLD (inst->v, 6, 3));
+              sp_offset += (int) pow (2.0, G_FLD (inst->v, 6, 3));
             }
           else if (G_FLD (inst->v, 14, 7) == 0xc0
                    && G_FLD (inst->v, 2, 0) == 0x0)
             {
               /* addei! r0, n */
-              sp_offset -= (int) pow (2, G_FLD (inst->v, 6, 3));
+	      /* Solaris 11+gcc 5.5 has ambiguous overloads of pow, so we
+		 pass 2.0 instead of 2 to get the right one.  */
+              sp_offset -= (int) pow (2.0, G_FLD (inst->v, 6, 3));
             }
         }
       else
@@ -1508,8 +1510,9 @@ score_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
   return gdbarch;
 }
 
+void _initialize_score_tdep ();
 void
-_initialize_score_tdep (void)
+_initialize_score_tdep ()
 {
   gdbarch_register (bfd_arch_score, score_gdbarch_init, NULL);
 }

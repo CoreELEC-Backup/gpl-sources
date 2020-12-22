@@ -54,19 +54,6 @@ Dwarf::assemble $asm_file {
     set int_size [get_sizeof "int" 4]
     set addr_size [get_sizeof "void *" 8]
 
-    global srcdir subdir srcfile
-
-    extern main
-    extern doit
-
-    set main_range [function_range main ${srcdir}/${subdir}/${srcfile}]
-    set main_start [lindex $main_range 0]
-    set main_length [lindex $main_range 1]
-
-    set doit_range [function_range doit ${srcdir}/${subdir}/${srcfile}]
-    set doit_start [lindex $doit_range 0]
-    set doit_length [lindex $doit_range 1]
-
     cu {} {
 	compile_unit {
 	    {language @DW_LANG_C_plus_plus}
@@ -77,13 +64,11 @@ Dwarf::assemble $asm_file {
 	    }
 	    subprogram {
 		{abstract_origin %$main_label}
-		{low_pc $main_start addr}
-		{high_pc "$main_start + $main_length" addr}
+		{MACRO_AT_range {main}}
 	    } {
 		subprogram {
 		    {abstract_origin %$doit_label}
-		    {low_pc $doit_start addr}
-		    {high_pc "$doit_start + $doit_length" addr}
+		    {MACRO_AT_range {doit}}
 		} {
 		    formal_parameter {
 			{abstract_origin %$doit_self_label}
@@ -148,6 +133,49 @@ if { [prepare_for_testing "failed to prepare" ${testfile} \
 }
 
 gdb_test_no_output "set language c++"
+
+set psymtabs_p [psymtabs_p]
+
+# Verify that the partial symtab for the unit importing the partial unit does
+# not contain the static partial symbol int, which is defined in the partial
+# unit.  Test-case for PR25646.
+set test "no static partial symbols in importing unit"
+if { $psymtabs_p } {
+    gdb_test "main print psymbols" \
+	[multi_line \
+	     "  Depends on 1 other partial symtabs\." \
+	     "\[^\r\n\]*" \
+	     "  Global partial symbols:" \
+	     "    `main', function, $hex" \
+	     "" \
+	     ".*"] \
+	$test
+} else {
+    unsupported $test
+}
+
+# Verify that there's only one partial symtab for imported_unit.c.  Test-case
+# for PR25700.
+set test "no duplicate psymtab for imported_unit.c"
+if { $psymtabs_p } {
+    set line "Partial symtab for source file imported_unit.c"
+    gdb_test_multiple "maint print psymbols" $test {
+	-re -wrap "$line.*$line.*" {
+	    fail $gdb_test_name
+	}
+	-re -wrap "$line.*" {
+	    pass $gdb_test_name
+	}
+    }
+} else {
+    unsupported $test
+}
+
+gdb_test "l imported_unit.c:1" \
+    "1\timported_unit.c: No such file or directory\."
+
+gdb_test "info source" "\r\nCurrent source file is imported_unit.c\r\n.*" \
+    "info source for imported_unit.c"
 
 # Sanity check
 gdb_test "ptype main" "= int \\(void\\)"

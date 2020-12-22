@@ -78,6 +78,8 @@ CLogindUPowerSyscall::~CLogindUPowerSyscall()
 
 bool CLogindUPowerSyscall::Powerdown()
 {
+  // delay shutdown so that the app can close properly
+  InhibitDelayLockShutdown();
   return LogindSetPowerState("PowerOff");
 }
 

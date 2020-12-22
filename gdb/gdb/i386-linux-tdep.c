@@ -26,7 +26,7 @@
 #include "inferior.h"
 #include "osabi.h"
 #include "reggroups.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "i386-tdep.h"
 #include "i386-linux-tdep.h"
 #include "linux-tdep.h"
@@ -36,6 +36,7 @@
 #include "symtab.h"
 #include "arch-utils.h"
 #include "xml-syscall.h"
+#include "infrun.h"
 
 #include "i387-tdep.h"
 #include "gdbsupport/x86-xstate.h"
@@ -387,19 +388,19 @@ i386_canonicalize_syscall (int syscall)
 
 #define SIG_CODE_BONDARY_FAULT 3
 
-/* i386 GNU/Linux implementation of the handle_segmentation_fault
+/* i386 GNU/Linux implementation of the report_signal_info
    gdbarch hook.  Displays information related to MPX bound
    violations.  */
 void
-i386_linux_handle_segmentation_fault (struct gdbarch *gdbarch,
-				      struct ui_out *uiout)
+i386_linux_report_signal_info (struct gdbarch *gdbarch, struct ui_out *uiout,
+			       enum gdb_signal siggnal)
 {
   /* -Wmaybe-uninitialized  */
   CORE_ADDR lower_bound = 0, upper_bound = 0, access = 0;
   int is_upper;
   long sig_code = 0;
 
-  if (!i386_mpx_enabled ())
+  if (!i386_mpx_enabled () || siggnal != GDB_SIGNAL_SEGV)
     return;
 
   try
@@ -797,12 +798,12 @@ i386_linux_iterate_over_regset_sections (struct gdbarch *gdbarch,
    which does not seem worth it.  The same effect is achieved by patching that
    'nop' instruction there instead.  */
 
-static struct displaced_step_closure *
+static displaced_step_closure_up
 i386_linux_displaced_step_copy_insn (struct gdbarch *gdbarch,
 				     CORE_ADDR from, CORE_ADDR to,
 				     struct regcache *regs)
 {
-  displaced_step_closure *closure_
+  displaced_step_closure_up closure_
     =  i386_displaced_step_copy_insn (gdbarch, from, to, regs);
 
   if (i386_linux_get_syscall_number_from_regcache (regs) != -1)
@@ -810,7 +811,7 @@ i386_linux_displaced_step_copy_insn (struct gdbarch *gdbarch,
       /* The closure returned by i386_displaced_step_copy_insn is simply a
 	 buffer with a copy of the instruction. */
       i386_displaced_step_closure *closure
-	= (i386_displaced_step_closure *) closure_;
+	= (i386_displaced_step_closure *) closure_.get ();
 
       /* Fake nop.  */
       closure->buf[0] = 0x90;
@@ -1072,12 +1073,12 @@ i386_linux_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
                                   i386_linux_get_syscall_number);
 
   set_gdbarch_get_siginfo_type (gdbarch, x86_linux_get_siginfo_type);
-  set_gdbarch_handle_segmentation_fault (gdbarch,
-					 i386_linux_handle_segmentation_fault);
+  set_gdbarch_report_signal_info (gdbarch, i386_linux_report_signal_info);
 }
 
+void _initialize_i386_linux_tdep ();
 void
-_initialize_i386_linux_tdep (void)
+_initialize_i386_linux_tdep ()
 {
   gdbarch_register_osabi (bfd_arch_i386, 0, GDB_OSABI_LINUX,
 			  i386_linux_init_abi);

@@ -21,7 +21,7 @@
 #include "defs.h"
 
 #include "arch-utils.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "gdbsupport/errors.h"
 #include "frame-unwind.h"
 #include "gdbcore.h"
@@ -614,9 +614,9 @@ s12z_return_value (struct gdbarch *gdbarch, struct value *function,
                    struct type *type, struct regcache *regcache,
                    gdb_byte *readbuf, const gdb_byte *writebuf)
 {
-  if (TYPE_CODE (type) == TYPE_CODE_STRUCT
-      || TYPE_CODE (type) == TYPE_CODE_UNION
-      || TYPE_CODE (type) == TYPE_CODE_ARRAY
+  if (type->code () == TYPE_CODE_STRUCT
+      || type->code () == TYPE_CODE_UNION
+      || type->code () == TYPE_CODE_ARRAY
       || TYPE_LENGTH (type) > 4)
     return RETURN_VALUE_STRUCT_CONVENTION;
 
@@ -685,8 +685,9 @@ s12z_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
   return gdbarch;
 }
 
+void _initialize_s12z_tdep ();
 void
-_initialize_s12z_tdep (void)
+_initialize_s12z_tdep ()
 {
   gdbarch_register (bfd_arch_s12z, s12z_gdbarch_init, NULL);
 }

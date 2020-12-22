@@ -45,11 +45,11 @@ gdb_test "ptype c" " = i32"
 gdb_test "print sizeof(c)" " = 4"
 
 gdb_test "print c = 87" " = \\(\\)"
-gdb_test "print c" " = 87"
+gdb_test "print c" " = 87" "print after assignment"
 gdb_test "print c += 3" " = \\(\\)"
-gdb_test "print c" " = 90"
+gdb_test "print c" " = 90" "print after plus assignment"
 gdb_test "print c -= 90" " = \\(\\)"
-gdb_test "print c" " = 0"
+gdb_test "print c" " = 0" "print after minus assignment"
 gdb_test "print *&c" " = 0"
 gdb_test "print *(&c as &i32)" " = 0"
 gdb_test "print *(&c as *const i32)" " = 0"
@@ -239,7 +239,8 @@ gdb_test "print .." " = .*::ops::RangeFull"
 
 set pass_pattern \
     " = core::option::Option<\[a-z\]+::string::String>::Some\\(\[a-z\]+::string::String .*"
-set xfail_pattern " = <error reading variable>"
+set xfail_pattern \
+    "( = <error reading variable>|That operation is not available on .*)"
 gdb_test_multiple "print str_some" "" {
     -re "\[\r\n\]*(?:$pass_pattern)\[\r\n\]+$gdb_prompt $" {
 	pass $gdb_test_name
@@ -289,12 +290,14 @@ gdb_test "print st" \
     " = simple::StringAtOffset {field1: \"hello\", field2: 1, field3: \"world\"}"
 
 proc test_one_slice {svar length base range} {
-    global hex
+    with_test_prefix $range {
+	global hex
 
-    set result " = &\\\[.*\\\] \\{data_ptr: $hex, length: $length\\}"
+	set result " = &\\\[.*\\\] \\{data_ptr: $hex, length: $length\\}"
 
-    gdb_test "print $svar" $result
-    gdb_test "print &${base}\[${range}\]" $result
+	gdb_test "print $svar" $result
+	gdb_test "print &${base}\[${range}\]" $result
+    }
 }
 
 test_one_slice slice 1 w 2..3
@@ -335,17 +338,6 @@ gdb_test "print parametrized.next.val" \
 gdb_test "print parametrized" \
     " = simple::ParametrizedStruct<i32> \\{next: simple::ParametrizedEnum<\[a-z:\]*Box<simple::ParametrizedStruct<i32>>>::Val\\{val: $hex\\}, value: 0\\}"
 
-gdb_test "print u" " = simple::Union {f1: -1, f2: 255}"
-
-gdb_test_sequence "ptype/o Union" "" {
-    "/\\* offset    |  size \\*/  type = union simple::Union {"
-    "/\\*                 1 \\*/    f1: i8,"
-    "/\\*                 1 \\*/    f2: u8,"
-    ""
-    "                           /\\* total size \\(bytes\\):    1 \\*/"
-    "                         }"
-}
-
 gdb_test_sequence "ptype/o SimpleLayout" "" {
     "/\\* offset    |  size \\*/  type = struct simple::SimpleLayout {"
     "/\\*    0      |     2 \\*/    f1: u16,"
@@ -355,7 +347,7 @@ gdb_test_sequence "ptype/o SimpleLayout" "" {
     "                         }"
 }
 
-gdb_test "print u2" " = simple::Union2 {name: \\\[1\\\]}"
+gdb_test "print nonzero_offset" " = simple::EnumWithNonzeroOffset {a: core::option::Option<u8>::Some\\(1\\), b: core::option::Option<u8>::None}"
 
 # PR rust/23626 - this used to crash.  Note that the results are
 # fairly lax because most existing versions of Rust (those before the
@@ -375,3 +367,22 @@ if {[skip_python_tests]} {
 }
 
 gdb_test "python print(gdb.lookup_type('simple::HiBob'))" "simple::HiBob"
+
+gdb_test_no_output "python e = gdb.parse_and_eval('e')" \
+    "get value of e for python"
+gdb_test "python print(len(e.type.fields()))" "2"
+gdb_test "python print(e.type.fields()\[0\].artificial)" "True"
+gdb_test "python print(e.type.fields()\[1\].name)" "Two"
+
+gdb_test "python print(e.type.dynamic)" "False"
+
+# Before LLVM 8, the rust compiler would emit two types named
+# "simple::MoreComplicated" -- the C-like "underlying" enum type and
+# the Rust enum.  lookup_type seems to get the former, which isn't
+# very useful.  With later versions of LLVM, this test works
+# correctly.
+set v [split [rust_llvm_version] .]
+if {[lindex $v 0] >= 8} {
+    gdb_test "python print(gdb.lookup_type('simple::MoreComplicated').dynamic)" \
+	"True"
+}

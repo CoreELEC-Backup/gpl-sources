@@ -13,12 +13,23 @@
  * should be placed in this file
 */
 
+/* Opt-in to modern APIs and thread-safety for Solaris. In the Autotools
+ * build system we do the equivalent of this by appending to CFLAGS
+ * in configure.ac */
+#ifdef __sun
+# define __EXTENSIONS__
+# define _POSIX_PTHREAD_SEMANTICS
+# define _REENTRANT
+# define _XOPEN_SOURCE 500
+#endif
+
 #cmakedefine DBUS_CONSOLE_AUTH_DIR "@DBUS_CONSOLE_AUTH_DIR@"
 #cmakedefine DBUS_DATADIR  "@DBUS_DATADIR@"
 #cmakedefine DBUS_BINDIR   "@DBUS_BINDIR@"
 #cmakedefine DBUS_PREFIX "@DBUS_PREFIX@"
 #cmakedefine DBUS_SYSTEM_CONFIG_FILE  "@DBUS_SYSTEM_CONFIG_FILE@"
 #cmakedefine DBUS_SESSION_CONFIG_FILE "@DBUS_SESSION_CONFIG_FILE@"
+#cmakedefine DBUS_SESSION_SOCKET_DIR "@DBUS_SESSION_SOCKET_DIR@"
 #cmakedefine DBUS_DAEMON_NAME "@DBUS_DAEMON_NAME@"
 #cmakedefine DBUS_SYSTEM_BUS_DEFAULT_ADDRESS  "@DBUS_SYSTEM_BUS_DEFAULT_ADDRESS@"
 #cmakedefine DBUS_SESSION_BUS_CONNECT_ADDRESS  "@DBUS_SESSION_BUS_CONNECT_ADDRESS@"
@@ -105,7 +116,7 @@
 
 #cmakedefine HAVE_MEMORY_H 1
 
-/* Define to 1 if you have sys/poll.h */
+/* Define to 1 if you have poll */
 #cmakedefine    HAVE_POLL 1
 
 /* Define to 1 if you have signal.h */
@@ -125,6 +136,7 @@
 #cmakedefine HAVE_SYS_EVENTS_H 1
 #cmakedefine HAVE_SYS_INOTIFY_H 1
 #cmakedefine HAVE_SYS_PRCTL_H 1
+#cmakedefine HAVE_SYS_RANDOM_H 1
 #cmakedefine HAVE_SYS_RESOURCE_H 1
 #cmakedefine HAVE_SYS_STAT_H 1
 
@@ -164,7 +176,7 @@
 #cmakedefine   HAVE_NANOSLEEP 1
 
 /* Define to 1 if you have getpwnam_r */
-#cmakedefine   HAVE_POSIX_GETPWNAM_R 1
+#cmakedefine   HAVE_GETPWNAM_R 1
 
 /* Define to 1 if you have socketpair */
 #cmakedefine   HAVE_SOCKETPAIR 1
@@ -208,12 +220,14 @@
 #cmakedefine HAVE_DDFD 1
 
 #cmakedefine HAVE_INOTIFY_INIT1 1
+#cmakedefine HAVE_GETRANDOM 1
 #cmakedefine HAVE_GETRLIMIT 1
 #cmakedefine HAVE_PRCTL 1
 #cmakedefine HAVE_PRLIMIT 1
 #cmakedefine HAVE_RAISE 1
 #cmakedefine HAVE_SETRLIMIT 1
 #cmakedefine HAVE_UNIX_FD_PASSING 1
+#cmakedefine HAVE_SYSTEMD
 
 /* Define to use epoll(4) on Linux */
 #cmakedefine DBUS_HAVE_LINUX_EPOLL 1

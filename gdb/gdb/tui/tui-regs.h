@@ -26,39 +26,32 @@
 
 /* A data item window.  */
 
-struct tui_data_item_window : public tui_gen_win_info
+struct tui_data_item_window
 {
-  tui_data_item_window ()
-    : tui_gen_win_info (DATA_ITEM_WIN)
-  {
-  }
+  tui_data_item_window () = default;
 
   DISABLE_COPY_AND_ASSIGN (tui_data_item_window);
 
   tui_data_item_window (tui_data_item_window &&) = default;
 
-  void rerender () override;
+  void rerender (WINDOW *handle, int field_width);
 
-  void refresh_window () override;
-
-  const char *name = nullptr;
-  /* The register number, or data display number.  */
-  int item_no = -1;
+  /* Location.  */
+  int x = 0;
+  int y = 0;
+  /* The register number.  */
+  int regno = -1;
   bool highlight = false;
-  gdb::unique_xmalloc_ptr<char> content;
+  bool visible = false;
+  std::string content;
 };
 
 /* The TUI registers window.  */
 struct tui_data_window : public tui_win_info
 {
-  tui_data_window ()
-    : tui_win_info (DATA_WIN)
-  {
-  }
+  tui_data_window () = default;
 
   DISABLE_COPY_AND_ASSIGN (tui_data_window);
-
-  void refresh_window () override;
 
   const char *name () const override
   {
@@ -133,6 +126,9 @@ private:
   std::vector<tui_data_item_window> m_regs_content;
   int m_regs_column_count = 0;
   struct reggroup *m_current_group = nullptr;
+
+  /* Width of each register's display area.  */
+  int m_item_width = 0;
 };
 
 #endif /* TUI_TUI_REGS_H */

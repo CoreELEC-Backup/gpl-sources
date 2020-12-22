@@ -43,7 +43,6 @@
 
 static void
 read_alphacoff_dynamic_symtab (minimal_symbol_reader &,
-			       struct section_offsets *,
 			       struct objfile *objfile);
 
 /* Initialize anything that needs initializing when a completely new
@@ -84,7 +83,7 @@ mipscoff_symfile_read (struct objfile *objfile, symfile_add_flags symfile_flags)
 
   /* Add alpha coff dynamic symbols.  */
 
-  read_alphacoff_dynamic_symtab (reader, objfile->section_offsets, objfile);
+  read_alphacoff_dynamic_symtab (reader, objfile);
 
   /* Install any minimal symbols that have been collected as the current
      minimal symbols for this objfile.  */
@@ -174,7 +173,6 @@ alphacoff_locate_sections (bfd *ignore_abfd, asection *sectp, void *sip)
 
 static void
 read_alphacoff_dynamic_symtab (minimal_symbol_reader &reader,
-			       struct section_offsets *section_offsets,
 			       struct objfile *objfile)
 {
   bfd *abfd = objfile->obfd;
@@ -381,8 +379,9 @@ static const struct sym_fns ecoff_sym_fns =
   &psym_functions
 };
 
+void _initialize_mipsread ();
 void
-_initialize_mipsread (void)
+_initialize_mipsread ()
 {
   add_symtab_fns (bfd_target_ecoff_flavour, &ecoff_sym_fns);
 }

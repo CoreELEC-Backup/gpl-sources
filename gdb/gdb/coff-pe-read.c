@@ -266,7 +266,7 @@ add_pe_forwarded_sym (minimal_symbol_reader &reader,
      really be relocated properly, but nevertheless we make a stab at
      it, choosing an approach consistent with the history of this
      code.  */
-  baseaddr = ANOFFSET (objfile->section_offsets, SECT_OFF_TEXT (objfile));
+  baseaddr = objfile->text_section_offset ();
 
   reader.record_with_info (qualified_name.c_str (), vma - baseaddr, msymtype,
 			   section);
@@ -342,7 +342,7 @@ read_pe_exported_syms (minimal_symbol_reader &reader,
   unsigned long exp_funcbase;
   unsigned char *expdata, *erva;
   unsigned long name_rvas, ordinals, nexp, ordbase;
-  char *dll_name = (char *) dll->filename;
+  char *dll_name = (char *) bfd_get_filename (dll);
   int otherix = PE_SECTION_TABLE_SIZE;
   int is_pe64 = 0;
   int is_pe32 = 0;
@@ -439,6 +439,12 @@ read_pe_exported_syms (minimal_symbol_reader &reader,
 	  expptr = fptr + (export_opthdrrva - vaddr);
 	  break;
 	}
+    }
+
+  if (expptr == 0)
+    {
+      /* no section contains export table rva */
+      return;
     }
 
   export_rva = export_opthdrrva;
@@ -685,8 +691,9 @@ show_debug_coff_pe_read (struct ui_file *file, int from_tty,
 
 /* Adds "Set/show debug coff_pe_read" commands.  */
 
+void _initialize_coff_pe_read ();
 void
-_initialize_coff_pe_read (void)
+_initialize_coff_pe_read ()
 {
   add_setshow_zuinteger_cmd ("coff-pe-read", class_maintenance,
 			     &debug_coff_pe_read,

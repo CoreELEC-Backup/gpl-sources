@@ -22,6 +22,7 @@
 
 #include "mi/mi-cmds.h" /* For PRINT_NO_VALUES, etc.  */
 #include "gdbsupport/array-view.h"
+#include "gdbsupport/gdb_optional.h"
 
 struct breakpoint;
 struct command_line;
@@ -282,10 +283,8 @@ extern char *apply_ext_lang_type_printers (struct ext_lang_type_printers *,
 					   struct type *);
 
 extern int apply_ext_lang_val_pretty_printer
-  (struct type *type,
-   LONGEST embedded_offset, CORE_ADDR address,
-   struct ui_file *stream, int recurse,
-   struct value *val, const struct value_print_options *options,
+  (struct value *value, struct ui_file *stream, int recurse,
+   const struct value_print_options *options,
    const struct language_defn *language);
 
 extern enum ext_lang_bt_status apply_ext_lang_frame_filter
@@ -308,5 +307,13 @@ extern int breakpoint_ext_lang_cond_says_stop (struct breakpoint *);
 extern void get_matching_xmethod_workers
   (struct type *type, const char *method_name,
    std::vector<xmethod_worker_up> *workers);
+
+/* Try to colorize some source code.  FILENAME is the name of the file
+   holding the code.  CONTENTS is the source code itself.  This will
+   either a colorized (using ANSI terminal escapes) version of the
+   source code, or an empty value if colorizing could not be done.  */
+
+extern gdb::optional<std::string> ext_lang_colorize
+  (const std::string &filename, const std::string &contents);
 
 #endif /* EXTENSION_H */

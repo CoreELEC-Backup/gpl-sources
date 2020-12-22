@@ -39,6 +39,10 @@ set(test-shell_SOURCES
     shell-test.c
 )
 
+set(test-atomic_SOURCES
+    internals/atomic.c
+)
+
 set(test-spawn_SOURCES
     spawn-test.c
 )
@@ -88,10 +92,11 @@ add_helper_executable(test-sleep-forever ${test-sleep-forever_SOURCES} ${DBUS_IN
 add_helper_executable(manual-tcp ${manual-tcp_SOURCES} ${DBUS_INTERNAL_LIBRARIES})
 add_helper_executable(manual-backtrace manual-backtrace.c dbus-1)
 if(WIN32)
-    add_helper_executable(manual-paths ${manual-paths_SOURCES} ${DBUS_INTERNAL_LIBRARIES})
+    add_helper_executable(manual-paths ${manual-paths_SOURCES} dbus-testutils)
 endif()
 
 if(DBUS_ENABLE_EMBEDDED_TESTS)
+    add_test_executable(test-atomic ${test-atomic_SOURCES} dbus-testutils)
     add_test_executable(test-hash internals/hash.c dbus-testutils)
     set_target_properties(test-hash PROPERTIES COMPILE_FLAGS ${DBUS_INTERNAL_CLIENT_DEFINITIONS})
 
@@ -116,6 +121,7 @@ if(DBUS_ENABLE_EMBEDDED_TESTS)
     set_target_properties(test-message-internals PROPERTIES COMPILE_FLAGS ${DBUS_INTERNAL_CLIENT_DEFINITIONS})
 
     set(SOURCES
+        internals/address.c
         internals/dbus-auth-script.c
         internals/dbus-auth-script.h
         internals/dbus-auth-util.c
@@ -126,8 +132,10 @@ if(DBUS_ENABLE_EMBEDDED_TESTS)
         internals/dbus-marshal-validate-util.c
         internals/dbus-string-util.c
         internals/dbus-sysdeps-util.c
+        internals/mempool.c
         internals/misc-internals.c
         internals/misc-internals.h
+        internals/sha.c
     )
     add_test_executable(test-misc-internals "${SOURCES}" dbus-testutils)
     set_target_properties(test-misc-internals PROPERTIES COMPILE_FLAGS ${DBUS_INTERNAL_CLIENT_DEFINITIONS})

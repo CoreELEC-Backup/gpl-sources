@@ -1,4 +1,4 @@
-This is gdb.info, produced by makeinfo version 6.5 from gdb.texinfo.
+This is gdb.info, produced by makeinfo version 6.7 from gdb.texinfo.
 
 Copyright (C) 1988-2020 Free Software Foundation, Inc.
 
@@ -21,7 +21,7 @@ END-INFO-DIR-ENTRY
    This file documents the GNU debugger GDB.
 
    This is the Tenth Edition, of 'Debugging with GDB: the GNU
-Source-Level Debugger' for GDB (GDB) Version 9.1.
+Source-Level Debugger' for GDB (GDB) Version 10.1.
 
    Copyright (C) 1988-2020 Free Software Foundation, Inc.
 
@@ -35,6 +35,110 @@ with the Back-Cover Texts as in (a) below.
    (a) The FSF's Back-Cover Text is: "You are free to copy and modify
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
+
+
+File: gdb.info,  Node: Frame Info,  Next: Frame Apply,  Prev: Selection,  Up: Stack
+
+8.4 Information About a Frame
+=============================
+
+There are several other commands to print information about the selected
+stack frame.
+
+'frame'
+'f'
+     When used without any argument, this command does not change which
+     frame is selected, but prints a brief description of the currently
+     selected stack frame.  It can be abbreviated 'f'.  With an
+     argument, this command is used to select a stack frame.  *Note
+     Selecting a Frame: Selection.
+
+'info frame'
+'info f'
+     This command prints a verbose description of the selected stack
+     frame, including:
+
+        * the address of the frame
+        * the address of the next frame down (called by this frame)
+        * the address of the next frame up (caller of this frame)
+        * the language in which the source code corresponding to this
+          frame is written
+        * the address of the frame's arguments
+        * the address of the frame's local variables
+        * the program counter saved in it (the address of execution in
+          the caller frame)
+        * which registers were saved in the frame
+
+     The verbose description is useful when something has gone wrong
+     that has made the stack format fail to fit the usual conventions.
+
+'info frame [ FRAME-SELECTION-SPEC ]'
+'info f [ FRAME-SELECTION-SPEC ]'
+     Print a verbose description of the frame selected by
+     FRAME-SELECTION-SPEC.  The FRAME-SELECTION-SPEC is the same as for
+     the 'frame' command (*note Selecting a Frame: Selection.).  The
+     selected frame remains unchanged by this command.
+
+'info args [-q]'
+     Print the arguments of the selected frame, each on a separate line.
+
+     The optional flag '-q', which stands for 'quiet', disables printing
+     header information and messages explaining why no argument have
+     been printed.
+
+'info args [-q] [-t TYPE_REGEXP] [REGEXP]'
+     Like 'info args', but only print the arguments selected with the
+     provided regexp(s).
+
+     If REGEXP is provided, print only the arguments whose names match
+     the regular expression REGEXP.
+
+     If TYPE_REGEXP is provided, print only the arguments whose types,
+     as printed by the 'whatis' command, match the regular expression
+     TYPE_REGEXP.  If TYPE_REGEXP contains space(s), it should be
+     enclosed in quote characters.  If needed, use backslash to escape
+     the meaning of special characters or quotes.
+
+     If both REGEXP and TYPE_REGEXP are provided, an argument is printed
+     only if its name matches REGEXP and its type matches TYPE_REGEXP.
+
+'info locals [-q]'
+     Print the local variables of the selected frame, each on a separate
+     line.  These are all variables (declared either static or
+     automatic) accessible at the point of execution of the selected
+     frame.
+
+     The optional flag '-q', which stands for 'quiet', disables printing
+     header information and messages explaining why no local variables
+     have been printed.
+
+'info locals [-q] [-t TYPE_REGEXP] [REGEXP]'
+     Like 'info locals', but only print the local variables selected
+     with the provided regexp(s).
+
+     If REGEXP is provided, print only the local variables whose names
+     match the regular expression REGEXP.
+
+     If TYPE_REGEXP is provided, print only the local variables whose
+     types, as printed by the 'whatis' command, match the regular
+     expression TYPE_REGEXP.  If TYPE_REGEXP contains space(s), it
+     should be enclosed in quote characters.  If needed, use backslash
+     to escape the meaning of special characters or quotes.
+
+     If both REGEXP and TYPE_REGEXP are provided, a local variable is
+     printed only if its name matches REGEXP and its type matches
+     TYPE_REGEXP.
+
+     The command 'info locals -q -t TYPE_REGEXP' can usefully be
+     combined with the commands 'frame apply' and 'thread apply'.  For
+     example, your program might use Resource Acquisition Is
+     Initialization types (RAII) such as 'lock_something_t': each local
+     variable of type 'lock_something_t' automatically places a lock
+     that is destroyed when the variable goes out of scope.  You can
+     then list all acquired locks in your program by doing
+          thread apply all -s frame apply all -s info locals -q -t lock_something_t
+     or the equivalent shorter form
+          tfaas i lo -q -t lock_something_t
 
 
 File: gdb.info,  Node: Frame Apply,  Next: Frame Filter Management,  Prev: Frame Info,  Up: Stack
@@ -142,7 +246,7 @@ File: gdb.info,  Node: Frame Apply,  Next: Frame Filter Management,  Prev: Frame
           (gdb) faas p some_local_var_i_do_not_remember_where_it_is
 
      The 'faas' command accepts the same options as the 'frame apply'
-     command.  *Note frame apply::.
+     command.  *Note frame apply: Frame Apply.
 
      Note that the command 'tfaas COMMAND' applies COMMAND on all frames
      of all threads.  See *Note Threads: Threads.
@@ -3164,7 +3268,8 @@ values likely to be useful.
 
 '$_inferior'
      The number of the current inferior.  *Note Debugging Multiple
-     Inferiors and Programs: Inferiors and Programs.
+     Inferiors Connections and Programs: Inferiors Connections and
+     Programs.
 
 '$_thread'
      The thread number of the current thread.  *Note thread numbers::.
@@ -4168,8 +4273,8 @@ File: gdb.info,  Node: Caching Target Data,  Next: Searching Memory,  Prev: Char
 
 GDB caches data exchanged between the debugger and a target.  Each cache
 is associated with the address space of the inferior.  *Note Inferiors
-and Programs::, about inferior and address space.  Such caching
-generally improves performance in remote debugging (*note Remote
+Connections and Programs::, about inferior and address space.  Such
+caching generally improves performance in remote debugging (*note Remote
 Debugging::), because it reduces the overhead of the remote protocol by
 bundling memory reads and writes into large chunks.  Unfortunately,
 simply caching everything would lead to incorrect results, since GDB
@@ -7140,246 +7245,4 @@ File: gdb.info,  Node: D,  Next: Go,  Prev: C,  Up: Supported Languages
 GDB can be used to debug programs written in D and compiled with GDC,
 LDC or DMD compilers.  Currently GDB supports only one D specific
 feature -- dynamic arrays.
-
-
-File: gdb.info,  Node: Go,  Next: Objective-C,  Prev: D,  Up: Supported Languages
-
-15.4.3 Go
----------
-
-GDB can be used to debug programs written in Go and compiled with
-'gccgo' or '6g' compilers.
-
-   Here is a summary of the Go-specific features and restrictions:
-
-'The current Go package'
-     The name of the current package does not need to be specified when
-     specifying global variables and functions.
-
-     For example, given the program:
-
-          package main
-          var myglob = "Shall we?"
-          func main () {
-            // ...
-          }
-
-     When stopped inside 'main' either of these work:
-
-          (gdb) p myglob
-          (gdb) p main.myglob
-
-'Builtin Go types'
-     The 'string' type is recognized by GDB and is printed as a string.
-
-'Builtin Go functions'
-     The GDB expression parser recognizes the 'unsafe.Sizeof' function
-     and handles it internally.
-
-'Restrictions on Go expressions'
-     All Go operators are supported except '&^'.  The Go '_' "blank
-     identifier" is not supported.  Automatic dereferencing of pointers
-     is not supported.
-
-
-File: gdb.info,  Node: Objective-C,  Next: OpenCL C,  Prev: Go,  Up: Supported Languages
-
-15.4.4 Objective-C
-------------------
-
-This section provides information about some commands and command
-options that are useful for debugging Objective-C code.  See also *note
-info classes: Symbols, and *note info selectors: Symbols, for a few more
-commands specific to Objective-C support.
-
-* Menu:
-
-* Method Names in Commands::
-* The Print Command with Objective-C::
-
-
-File: gdb.info,  Node: Method Names in Commands,  Next: The Print Command with Objective-C,  Up: Objective-C
-
-15.4.4.1 Method Names in Commands
-.................................
-
-The following commands have been extended to accept Objective-C method
-names as line specifications:
-
-   * 'clear'
-   * 'break'
-   * 'info line'
-   * 'jump'
-   * 'list'
-
-   A fully qualified Objective-C method name is specified as
-
-     -[CLASS METHODNAME]
-
-   where the minus sign is used to indicate an instance method and a
-plus sign (not shown) is used to indicate a class method.  The class
-name CLASS and method name METHODNAME are enclosed in brackets, similar
-to the way messages are specified in Objective-C source code.  For
-example, to set a breakpoint at the 'create' instance method of class
-'Fruit' in the program currently being debugged, enter:
-
-     break -[Fruit create]
-
-   To list ten program lines around the 'initialize' class method,
-enter:
-
-     list +[NSText initialize]
-
-   In the current version of GDB, the plus or minus sign is required.
-In future versions of GDB, the plus or minus sign will be optional, but
-you can use it to narrow the search.  It is also possible to specify
-just a method name:
-
-     break create
-
-   You must specify the complete method name, including any colons.  If
-your program's source files contain more than one 'create' method,
-you'll be presented with a numbered list of classes that implement that
-method.  Indicate your choice by number, or type '0' to exit if none
-apply.
-
-   As another example, to clear a breakpoint established at the
-'makeKeyAndOrderFront:' method of the 'NSWindow' class, enter:
-
-     clear -[NSWindow makeKeyAndOrderFront:]
-
-
-File: gdb.info,  Node: The Print Command with Objective-C,  Prev: Method Names in Commands,  Up: Objective-C
-
-15.4.4.2 The Print Command With Objective-C
-...........................................
-
-The print command has also been extended to accept methods.  For
-example:
-
-     print -[OBJECT hash]
-
-will tell GDB to send the 'hash' message to OBJECT and print the result.
-Also, an additional command has been added, 'print-object' or 'po' for
-short, which is meant to print the description of an object.  However,
-this command may only work with certain Objective-C libraries that have
-a particular hook function, '_NSPrintForDebugger', defined.
-
-
-File: gdb.info,  Node: OpenCL C,  Next: Fortran,  Prev: Objective-C,  Up: Supported Languages
-
-15.4.5 OpenCL C
----------------
-
-This section provides information about GDBs OpenCL C support.
-
-* Menu:
-
-* OpenCL C Datatypes::
-* OpenCL C Expressions::
-* OpenCL C Operators::
-
-
-File: gdb.info,  Node: OpenCL C Datatypes,  Next: OpenCL C Expressions,  Up: OpenCL C
-
-15.4.5.1 OpenCL C Datatypes
-...........................
-
-GDB supports the builtin scalar and vector datatypes specified by OpenCL
-1.1.  In addition the half- and double-precision floating point data
-types of the 'cl_khr_fp16' and 'cl_khr_fp64' OpenCL extensions are also
-known to GDB.
-
-
-File: gdb.info,  Node: OpenCL C Expressions,  Next: OpenCL C Operators,  Prev: OpenCL C Datatypes,  Up: OpenCL C
-
-15.4.5.2 OpenCL C Expressions
-.............................
-
-GDB supports accesses to vector components including the access as
-lvalue where possible.  Since OpenCL C is based on C99 most C
-expressions supported by GDB can be used as well.
-
-
-File: gdb.info,  Node: OpenCL C Operators,  Prev: OpenCL C Expressions,  Up: OpenCL C
-
-15.4.5.3 OpenCL C Operators
-...........................
-
-GDB supports the operators specified by OpenCL 1.1 for scalar and vector
-data types.
-
-
-File: gdb.info,  Node: Fortran,  Next: Pascal,  Prev: OpenCL C,  Up: Supported Languages
-
-15.4.6 Fortran
---------------
-
-GDB can be used to debug programs written in Fortran, but it currently
-supports only the features of Fortran 77 language.
-
-   Some Fortran compilers (GNU Fortran 77 and Fortran 95 compilers among
-them) append an underscore to the names of variables and functions.
-When you debug programs compiled by those compilers, you will need to
-refer to variables and functions with a trailing underscore.
-
-* Menu:
-
-* Fortran Operators::           Fortran operators and expressions
-* Fortran Defaults::            Default settings for Fortran
-* Special Fortran Commands::    Special GDB commands for Fortran
-
-
-File: gdb.info,  Node: Fortran Operators,  Next: Fortran Defaults,  Up: Fortran
-
-15.4.6.1 Fortran Operators and Expressions
-..........................................
-
-Operators must be defined on values of specific types.  For instance,
-'+' is defined on numbers, but not on characters or other non-
-arithmetic types.  Operators are often defined on groups of types.
-
-'**'
-     The exponentiation operator.  It raises the first operand to the
-     power of the second one.
-
-':'
-     The range operator.  Normally used in the form of array(low:high)
-     to represent a section of array.
-
-'%'
-     The access component operator.  Normally used to access elements in
-     derived types.  Also suitable for unions.  As unions aren't part of
-     regular Fortran, this can only happen when accessing a register
-     that uses a gdbarch-defined union type.
-'::'
-     The scope operator.  Normally used to access variables in modules
-     or to set breakpoints on subroutines nested in modules or in other
-     subroutines (internal subroutines).
-
-
-File: gdb.info,  Node: Fortran Defaults,  Next: Special Fortran Commands,  Prev: Fortran Operators,  Up: Fortran
-
-15.4.6.2 Fortran Defaults
-.........................
-
-Fortran symbols are usually case-insensitive, so GDB by default uses
-case-insensitive matches for Fortran symbols.  You can change that with
-the 'set case-insensitive' command, see *note Symbols::, for the
-details.
-
-
-File: gdb.info,  Node: Special Fortran Commands,  Prev: Fortran Defaults,  Up: Fortran
-
-15.4.6.3 Special Fortran Commands
-.................................
-
-GDB has some commands to support Fortran-specific features, such as
-displaying common blocks.
-
-'info common [COMMON-NAME]'
-     This command prints the values contained in the Fortran 'COMMON'
-     block whose name is COMMON-NAME.  With no argument, the names of
-     all 'COMMON' blocks visible at the current program location are
-     printed.
 

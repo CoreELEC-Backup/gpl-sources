@@ -82,6 +82,8 @@ extern BOOL WINAPI ConvertSidToStringSidA (PSID Sid, LPSTR *StringSid);
 
 typedef int socklen_t;
 
+/* uncomment to enable windows event based poll implementation */
+//#define USE_CHRIS_IMPL
 
 void
 _dbus_win_set_errno (int err)
@@ -103,6 +105,10 @@ typedef MIB_TCPROW_OWNER_PID _MIB_TCPROW_EX;
 typedef MIB_TCPTABLE_OWNER_PID MIB_TCPTABLE_EX;
 typedef PMIB_TCPTABLE_OWNER_PID PMIB_TCPTABLE_EX;
 typedef DWORD (WINAPI *ProcAllocateAndGetTcpExtTableFromStack)(PMIB_TCPTABLE_EX*,BOOL,HANDLE,DWORD,DWORD);
+
+/* Not protected by a lock, but if we miss a write, all that
+ * happens is that the lazy initialization will happen in two threads
+ * concurrently - it results in the same value either way so that's OK */
 static ProcAllocateAndGetTcpExtTableFromStack lpfnAllocateAndGetTcpExTableFromStack = NULL;
 
 /**
@@ -1154,31 +1160,134 @@ out0:
   return FALSE;
 }
 
+#ifdef DBUS_ENABLE_VERBOSE_MODE
+static dbus_bool_t
+_dbus_dump_fd_events (DBusPollFD *fds, int n_fds)
+{
+  DBusString msg = _DBUS_STRING_INIT_INVALID;
+  dbus_bool_t result = FALSE;
+  int i;
+
+  if (!_dbus_string_init (&msg))
+    goto oom;
+
+  for (i = 0; i < n_fds; i++)
+    {
+      DBusPollFD *fdp = &fds[i];
+      if (!_dbus_string_append (&msg, i > 0 ? "\n\t" : "\t"))
+        goto oom;
+
+      if ((fdp->events & _DBUS_POLLIN) &&
+          !_dbus_string_append_printf (&msg, "R:%Iu ", fdp->fd.sock))
+        goto oom;
+
+      if ((fdp->events & _DBUS_POLLOUT) &&
+          !_dbus_string_append_printf (&msg, "W:%Iu ", fdp->fd.sock))
+        goto oom;
+
+      if (!_dbus_string_append_printf (&msg, "E:%Iu", fdp->fd.sock))
+        goto oom;
+    }
+
+  _dbus_verbose ("%s\n", _dbus_string_get_const_data (&msg));
+  result = TRUE;
+oom:
+  _dbus_string_free (&msg);
+  return result;
+}
+
+#ifdef USE_CHRIS_IMPL
+static dbus_bool_t
+_dbus_dump_fd_revents (DBusPollFD *fds, int n_fds)
+{
+  DBusString msg = _DBUS_STRING_INIT_INVALID;
+  dbus_bool_t result = FALSE;
+  int i;
+
+  if (!_dbus_string_init (&msg))
+    goto oom;
+
+  for (i = 0; i < n_fds; i++)
+    {
+      DBusPollFD *fdp = &fds[i];
+      if (!_dbus_string_append (&msg, i > 0 ? "\n\t" : "\t"))
+        goto oom;
+
+      if ((fdp->revents & _DBUS_POLLIN) &&
+          !_dbus_string_append_printf (&msg, "R:%Iu ", fdp->fd.sock))
+        goto oom;
+
+      if ((fdp->revents & _DBUS_POLLOUT) &&
+          !_dbus_string_append_printf (&msg, "W:%Iu ", fdp->fd.sock))
+        goto oom;
+
+      if ((fdp->revents & _DBUS_POLLERR) &&
+          !_dbus_string_append_printf (&msg, "E:%Iu", fdp->fd.sock))
+        goto oom;
+    }
+
+  _dbus_verbose ("%s\n", _dbus_string_get_const_data (&msg));
+  result = TRUE;
+oom:
+  _dbus_string_free (&msg);
+  return result;
+}
+#else
+static dbus_bool_t
+_dbus_dump_fdset (DBusPollFD *fds, int n_fds, fd_set *read_set, fd_set *write_set, fd_set *err_set)
+{
+  DBusString msg = _DBUS_STRING_INIT_INVALID;
+  dbus_bool_t result = FALSE;
+  int i;
+
+  if (!_dbus_string_init (&msg))
+    goto oom;
+
+  for (i = 0; i < n_fds; i++)
+    {
+      DBusPollFD *fdp = &fds[i];
+
+      if (!_dbus_string_append (&msg, i > 0 ? "\n\t" : "\t"))
+        goto oom;
+
+      if (FD_ISSET (fdp->fd.sock, read_set) &&
+          !_dbus_string_append_printf (&msg, "R:%Iu ", fdp->fd.sock))
+        goto oom;
+
+      if (FD_ISSET (fdp->fd.sock, write_set) &&
+          !_dbus_string_append_printf (&msg, "W:%Iu ", fdp->fd.sock))
+        goto oom;
+
+      if (FD_ISSET (fdp->fd.sock, err_set) &&
+          !_dbus_string_append_printf (&msg, "E:%Iu", fdp->fd.sock))
+        goto oom;
+    }
+  _dbus_verbose ("%s\n", _dbus_string_get_const_data (&msg));
+  result = TRUE;
+oom:
+  _dbus_string_free (&msg);
+  return result;
+}
+#endif
+#endif
+
+#ifdef USE_CHRIS_IMPL
 /**
- * Wrapper for poll().
+ * Windows event based implementation for _dbus_poll().
  *
  * @param fds the file descriptors to poll
  * @param n_fds number of descriptors in the array
  * @param timeout_milliseconds timeout or -1 for infinite
  * @returns numbers of fds with revents, or <0 on error
  */
-int
-_dbus_poll (DBusPollFD *fds,
-            int         n_fds,
-            int         timeout_milliseconds)
+static int
+_dbus_poll_events (DBusPollFD *fds,
+                   int         n_fds,
+                   int         timeout_milliseconds)
 {
-#define USE_CHRIS_IMPL 0
-
-#if USE_CHRIS_IMPL
-
-#define DBUS_POLL_CHAR_BUFFER_SIZE 2000
-  char msg[DBUS_POLL_CHAR_BUFFER_SIZE];
-  char *msgp;
-
   int ret = 0;
   int i;
-  struct timeval tv;
-  int ready;
+  DWORD ready;
 
 #define DBUS_STACK_WSAEVENTS 256
   WSAEVENT eventsOnStack[DBUS_STACK_WSAEVENTS];
@@ -1188,34 +1297,26 @@ _dbus_poll (DBusPollFD *fds,
   else
     pEvents = eventsOnStack;
 
+  if (pEvents == NULL)
+   {
+     _dbus_win_set_errno (ENOMEM);
+     ret = -1;
+     goto oom;
+   }
 
 #ifdef DBUS_ENABLE_VERBOSE_MODE
-  msgp = msg;
-  msgp += sprintf (msgp, "WSAEventSelect: to=%d\n\t", timeout_milliseconds);
-  for (i = 0; i < n_fds; i++)
+  _dbus_verbose ("_dbus_poll: to=%d", timeout_milliseconds);
+  if (!_dbus_dump_fd_events (fds, n_fds))
     {
-      DBusPollFD *fdp = &fds[i];
-
-
-      if (fdp->events & _DBUS_POLLIN)
-        msgp += sprintf (msgp, "R:%Iu ", fdp->fd.sock);
-
-      if (fdp->events & _DBUS_POLLOUT)
-        msgp += sprintf (msgp, "W:%Iu ", fdp->fd.sock);
-
-      msgp += sprintf (msgp, "E:%Iu\n\t", fdp->fd.sock);
-
-      // FIXME: more robust code for long  msg
-      //        create on heap when msg[] becomes too small
-      if (msgp >= msg + DBUS_POLL_CHAR_BUFFER_SIZE)
-        {
-          _dbus_assert_not_reached ("buffer overflow in _dbus_poll");
-        }
+      _dbus_win_set_errno (ENOMEM);
+      ret = -1;
+      goto oom;
     }
-
-  msgp += sprintf (msgp, "\n");
-  _dbus_verbose ("%s",msg);
 #endif
+
+  for (i = 0; i < n_fds; i++)
+    pEvents[i] = WSA_INVALID_EVENT;
+
   for (i = 0; i < n_fds; i++)
     {
       DBusPollFD *fdp = &fds[i];
@@ -1230,15 +1331,14 @@ _dbus_poll (DBusPollFD *fds,
       if (fdp->events & _DBUS_POLLOUT)
         lNetworkEvents |= FD_WRITE | FD_CONNECT;
 
-      WSAEventSelect(fdp->fd.sock, ev, lNetworkEvents);
+      WSAEventSelect (fdp->fd.sock, ev, lNetworkEvents);
 
       pEvents[i] = ev;
     }
 
-
   ready = WSAWaitForMultipleEvents (n_fds, pEvents, FALSE, timeout_milliseconds, FALSE);
 
-  if (DBUS_SOCKET_API_RETURNS_ERROR (ready))
+  if (ready == WSA_WAIT_FAILED)
     {
       DBUS_SOCKET_SET_ERRNO ();
       if (errno != WSAEWOULDBLOCK)
@@ -1250,11 +1350,8 @@ _dbus_poll (DBusPollFD *fds,
       _dbus_verbose ("WSAWaitForMultipleEvents: WSA_WAIT_TIMEOUT\n");
       ret = 0;
     }
-  else if (ready >= WSA_WAIT_EVENT_0 && ready < (int)(WSA_WAIT_EVENT_0 + n_fds))
+  else if (ready < (WSA_WAIT_EVENT_0 + n_fds))
     {
-      msgp = msg;
-      msgp += sprintf (msgp, "WSAWaitForMultipleEvents: =%d\n\t", ready);
-
       for (i = 0; i < n_fds; i++)
         {
           DBusPollFD *fdp = &fds[i];
@@ -1262,7 +1359,7 @@ _dbus_poll (DBusPollFD *fds,
 
           fdp->revents = 0;
 
-          WSAEnumNetworkEvents(fdp->fd.sock, pEvents[i], &ne);
+          WSAEnumNetworkEvents (fdp->fd.sock, pEvents[i], &ne);
 
           if (ne.lNetworkEvents & (FD_READ | FD_ACCEPT | FD_CLOSE))
             fdp->revents |= _DBUS_POLLIN;
@@ -1273,25 +1370,20 @@ _dbus_poll (DBusPollFD *fds,
           if (ne.lNetworkEvents & (FD_OOB))
             fdp->revents |= _DBUS_POLLERR;
 
-          if (ne.lNetworkEvents & (FD_READ | FD_ACCEPT | FD_CLOSE))
-              msgp += sprintf (msgp, "R:%Iu ", fdp->fd.sock);
-
-          if (ne.lNetworkEvents & (FD_WRITE | FD_CONNECT))
-              msgp += sprintf (msgp, "W:%Iu ", fdp->fd.sock);
-
-          if (ne.lNetworkEvents & (FD_OOB))
-              msgp += sprintf (msgp, "E:%Iu ", fdp->fd.sock);
-
-          msgp += sprintf (msgp, "lNetworkEvents:%d ", ne.lNetworkEvents);
-
           if(ne.lNetworkEvents)
             ret++;
 
-          WSAEventSelect(fdp->fd.sock, pEvents[i], 0);
+          WSAEventSelect (fdp->fd.sock, pEvents[i], 0);
         }
-
-      msgp += sprintf (msgp, "\n");
-      _dbus_verbose ("%s",msg);
+#ifdef DBUS_ENABLE_VERBOSE_MODE
+      _dbus_verbose ("_dbus_poll: to=%d", timeout_milliseconds);
+      if (!_dbus_dump_fd_revents (fds, n_fds))
+        {
+          _dbus_win_set_errno (ENOMEM);
+          ret = -1;
+          goto oom;
+        }
+#endif
     }
   else
     {
@@ -1299,24 +1391,34 @@ _dbus_poll (DBusPollFD *fds,
       ret = -1;
     }
 
-  for(i = 0; i < n_fds; i++)
+oom:
+  if (pEvents != NULL)
     {
-      WSACloseEvent(pEvents[i]);
+      for (i = 0; i < n_fds; i++)
+        {
+          if (pEvents[i] != WSA_INVALID_EVENT)
+            WSACloseEvent (pEvents[i]);
+        }
+      if (n_fds > DBUS_STACK_WSAEVENTS)
+        free (pEvents);
     }
 
-  if (n_fds > DBUS_STACK_WSAEVENTS)
-    free(pEvents);
-
   return ret;
-
-#else   /* USE_CHRIS_IMPL */
-
-#ifdef DBUS_ENABLE_VERBOSE_MODE
-#define DBUS_POLL_CHAR_BUFFER_SIZE 2000
-  char msg[DBUS_POLL_CHAR_BUFFER_SIZE];
-  char *msgp;
-#endif
-
+}
+#else
+/**
+ * Select based implementation for _dbus_poll().
+ *
+ * @param fds the file descriptors to poll
+ * @param n_fds number of descriptors in the array
+ * @param timeout_milliseconds timeout or -1 for infinite
+ * @returns numbers of fds with revents, or <0 on error
+ */
+static int
+_dbus_poll_select (DBusPollFD *fds,
+                   int         n_fds,
+                   int         timeout_milliseconds)
+{
   fd_set read_set, write_set, err_set;
   SOCKET max_fd = 0;
   int i;
@@ -1326,35 +1428,15 @@ _dbus_poll (DBusPollFD *fds,
   FD_ZERO (&read_set);
   FD_ZERO (&write_set);
   FD_ZERO (&err_set);
-
-
 #ifdef DBUS_ENABLE_VERBOSE_MODE
-  msgp = msg;
-  msgp += sprintf (msgp, "select: to=%d\n\t", timeout_milliseconds);
-  for (i = 0; i < n_fds; i++)
+  _dbus_verbose("_dbus_poll: to=%d", timeout_milliseconds);
+  if (!_dbus_dump_fd_events (fds, n_fds))
     {
-      DBusPollFD *fdp = &fds[i];
-
-
-      if (fdp->events & _DBUS_POLLIN)
-        msgp += sprintf (msgp, "R:%Iu ", fdp->fd.sock);
-
-      if (fdp->events & _DBUS_POLLOUT)
-        msgp += sprintf (msgp, "W:%Iu ", fdp->fd.sock);
-
-      msgp += sprintf (msgp, "E:%Iu\n\t", fdp->fd.sock);
-
-      // FIXME: more robust code for long  msg
-      //        create on heap when msg[] becomes too small
-      if (msgp >= msg + DBUS_POLL_CHAR_BUFFER_SIZE)
-        {
-          _dbus_assert_not_reached ("buffer overflow in _dbus_poll");
-        }
+      ready = -1;
+      goto oom;
     }
-
-  msgp += sprintf (msgp, "\n");
-  _dbus_verbose ("%s",msg);
 #endif
+
   for (i = 0; i < n_fds; i++)
     {
       DBusPollFD *fdp = &fds[i]; 
@@ -1388,26 +1470,14 @@ _dbus_poll (DBusPollFD *fds,
     if (ready > 0)
       {
 #ifdef DBUS_ENABLE_VERBOSE_MODE
-        msgp = msg;
-        msgp += sprintf (msgp, "select: = %d:\n\t", ready);
-
-        for (i = 0; i < n_fds; i++)
+        _dbus_verbose ("select: to=%d\n", ready);
+        if (!_dbus_dump_fdset (fds, n_fds, &read_set, &write_set, &err_set))
           {
-            DBusPollFD *fdp = &fds[i];
-
-            if (FD_ISSET (fdp->fd.sock, &read_set))
-              msgp += sprintf (msgp, "R:%Iu ", fdp->fd.sock);
-
-            if (FD_ISSET (fdp->fd.sock, &write_set))
-              msgp += sprintf (msgp, "W:%Iu ", fdp->fd.sock);
-
-            if (FD_ISSET (fdp->fd.sock, &err_set))
-              msgp += sprintf (msgp, "E:%Iu\n\t", fdp->fd.sock);
+            _dbus_win_set_errno (ENOMEM);
+            ready = -1;
+            goto oom;
           }
-        msgp += sprintf (msgp, "\n");
-        _dbus_verbose ("%s",msg);
 #endif
-
         for (i = 0; i < n_fds; i++)
           {
             DBusPollFD *fdp = &fds[i];
@@ -1424,12 +1494,30 @@ _dbus_poll (DBusPollFD *fds,
               fdp->revents |= _DBUS_POLLERR;
           }
       }
+oom:
   return ready;
-#endif  /* USE_CHRIS_IMPL */
 }
+#endif
 
-
-
+/**
+ * Wrapper for poll().
+ *
+ * @param fds the file descriptors to poll
+ * @param n_fds number of descriptors in the array
+ * @param timeout_milliseconds timeout or -1 for infinite
+ * @returns numbers of fds with revents, or <0 on error
+ */
+int
+_dbus_poll (DBusPollFD *fds,
+            int         n_fds,
+            int         timeout_milliseconds)
+{
+#ifdef USE_CHRIS_IMPL
+  return _dbus_poll_events (fds, n_fds, timeout_milliseconds);
+#else
+  return _dbus_poll_select (fds, n_fds, timeout_milliseconds);
+#endif
+}
 
 /******************************************************************************
  
@@ -1505,7 +1593,8 @@ _dbus_connect_tcp_socket_with_nonce (const char     *host,
   DBusSocket fd = DBUS_SOCKET_INIT;
   int res;
   struct addrinfo hints;
-  struct addrinfo *ai, *tmp;
+  struct addrinfo *ai = NULL;
+  const struct addrinfo *tmp;
   DBusError *connect_error;
 
   _DBUS_ASSERT_ERROR_IS_CLEAR (error);
@@ -1558,7 +1647,6 @@ _dbus_connect_tcp_socket_with_nonce (const char     *host,
                           _dbus_error_from_errno (saved_errno),
                           "Failed to open socket: %s",
                           _dbus_strerror (saved_errno));
-          freeaddrinfo(ai);
           _dbus_socket_invalidate (&fd);
           goto out;
         }
@@ -1598,7 +1686,6 @@ _dbus_connect_tcp_socket_with_nonce (const char     *host,
 
       break;
     }
-  freeaddrinfo(ai);
 
   if (!_dbus_socket_is_valid (fd))
     {
@@ -1633,6 +1720,9 @@ _dbus_connect_tcp_socket_with_nonce (const char     *host,
     }
 
 out:
+  if (ai != NULL)
+    freeaddrinfo (ai);
+
   while ((connect_error = _dbus_list_pop_first (&connect_errors)))
     {
       dbus_error_free (connect_error);
@@ -3165,11 +3255,11 @@ _dbus_get_autolaunch_address (const char *scope, DBusString *address,
       char dbus_module_path[MAX_PATH];
       DWORD rc;
 
-      _dbus_verbose( "did not found dbus daemon executable on default search path, "
-            "trying path where dbus shared library is located");
+      _dbus_verbose ("did not found dbus daemon executable on default search path, "
+                     "trying path where dbus shared library is located");
 
-      hmod = _dbus_win_get_dll_hmodule();
-      rc = GetModuleFileNameA(hmod, dbus_module_path, sizeof(dbus_module_path));
+      hmod = _dbus_win_get_dll_hmodule ();
+      rc = GetModuleFileNameA (hmod, dbus_module_path, sizeof(dbus_module_path));
       if (rc <= 0)
         {
           dbus_set_error_const (error, DBUS_ERROR_FAILED, "could not retrieve dbus shared library file name");
@@ -3178,18 +3268,20 @@ _dbus_get_autolaunch_address (const char *scope, DBusString *address,
         }
       else
         {
-          char *ext_idx = strrchr(dbus_module_path, '\\');
+          char *ext_idx = strrchr (dbus_module_path, '\\');
           if (ext_idx)
           *ext_idx = '\0';
-          if (!SearchPathA(dbus_module_path, daemon_name, NULL, sizeof(dbus_exe_path), dbus_exe_path, &lpFile))
+          if (!SearchPathA (dbus_module_path, daemon_name, NULL, sizeof(dbus_exe_path), dbus_exe_path, &lpFile))
             {
-              dbus_set_error_const (error, DBUS_ERROR_FAILED, "could not find dbus-daemon executable");
+              dbus_set_error (error, DBUS_ERROR_FAILED,
+                              "Could not find dbus-daemon executable. "
+                              "Please add the path to %s to your PATH "
+                              "environment variable or start the daemon manually",
+                              daemon_name);
               retval = FALSE;
-              fprintf (stderr, "please add the path to %s to your PATH environment variable\n", daemon_name);
-              fprintf (stderr, "or start the daemon manually\n\n");
               goto out;
             }
-          _dbus_verbose( "found dbus daemon executable at %s",dbus_module_path);
+          _dbus_verbose ("found dbus daemon executable at %s", dbus_module_path);
         }
     }
 
@@ -3292,6 +3384,28 @@ _dbus_atomic_get (DBusAtomic *atomic)
   InterlockedExchange (&dummy, 1);
 
   return atomic->value;
+}
+
+/**
+ * Atomically set the value of an integer to 0.
+ *
+ * @param atomic pointer to the integer to set
+ */
+void
+_dbus_atomic_set_zero (DBusAtomic *atomic)
+{
+  InterlockedExchange (&atomic->value, 0);
+}
+
+/**
+ * Atomically set the value of an integer to something nonzero.
+ *
+ * @param atomic pointer to the integer to set
+ */
+void
+_dbus_atomic_set_nonzero (DBusAtomic *atomic)
+{
+  InterlockedExchange (&atomic->value, 1);
 }
 
 /**
@@ -3820,14 +3934,31 @@ _dbus_logv (DBusSystemLogSeverity  severity,
 
   if (log_flags & DBUS_LOG_FLAGS_SYSTEM_LOG)
     {
-      char buf[1024];
-      char format[1024];
-
+      DBusString out = _DBUS_STRING_INIT_INVALID;
+      const char *message = NULL;
       DBUS_VA_COPY (tmp, args);
-      snprintf (format, sizeof (format), "%s: %s", s, msg);
-      vsnprintf(buf, sizeof(buf), format, tmp);
-      OutputDebugStringA(buf);
+
+      if (!_dbus_string_init (&out))
+        goto out;
+      if (!_dbus_string_append_printf (&out, "%s: ", s))
+        goto out;
+      if (!_dbus_string_append_printf_valist (&out, msg, tmp))
+        goto out;
+      message = _dbus_string_get_const_data (&out);
+out:
+      if (message != NULL)
+        {
+          OutputDebugStringA (message);
+        }
+      else
+        {
+          OutputDebugStringA ("Out of memory while formatting message: '''");
+          OutputDebugStringA (msg);
+          OutputDebugStringA ("'''");
+        }
+
       va_end (tmp);
+      _dbus_string_free (&out);
     }
 
   if (log_flags & DBUS_LOG_FLAGS_STDERR)

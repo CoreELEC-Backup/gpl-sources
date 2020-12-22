@@ -1,5 +1,5 @@
 /* Declarations for Intel 80386 opcode table
-   Copyright (C) 2007-2019 Free Software Foundation, Inc.
+   Copyright (C) 2007-2020 Free Software Foundation, Inc.
 
    This file is part of the GNU opcodes library.
 
@@ -87,8 +87,10 @@ enum
   CpuSSSE3,
   /* SSE4a support required */
   CpuSSE4a,
-  /* ABM New Instructions required */
-  CpuABM,
+  /* LZCNT support required */
+  CpuLZCNT,
+  /* POPCNT support required */
+  CpuPOPCNT,
   /* SSE4.1 support required */
   CpuSSE4_1,
   /* SSE4.2 support required */
@@ -154,8 +156,6 @@ enum
   CpuF16C,
   /* Intel BMI2 support required */
   CpuBMI2,
-  /* LZCNT support required */
-  CpuLZCNT,
   /* HLE support required */
   CpuHLE,
   /* RTM support required */
@@ -223,6 +223,12 @@ enum
   /* CET instructions support required */
   CpuIBT,
   CpuSHSTK,
+  /* AMX-INT8 instructions required */
+  CpuAMX_INT8,
+  /* AMX-BF16 instructions required */
+  CpuAMX_BF16,
+  /* AMX-TILE instructions required */
+  CpuAMX_TILE,
   /* GFNI instructions required */
   CpuGFNI,
   /* VAES instructions required */
@@ -243,10 +249,16 @@ enum
   CpuMOVDIR64B,
   /* ENQCMD instruction required */
   CpuENQCMD,
+  /* SERIALIZE instruction required */
+  CpuSERIALIZE,
   /* RDPRU instruction required */
   CpuRDPRU,
   /* MCOMMIT instruction required */
   CpuMCOMMIT,
+  /* SEV-ES instruction(s) required */
+  CpuSEV_ES,
+  /* TSXLDTRK instruction required */
+  CpuTSXLDTRK,
   /* 64bit support required  */
   Cpu64,
   /* Not supported in the 64bit mode  */
@@ -298,7 +310,8 @@ typedef union i386_cpu_flags
       unsigned int cpusmx:1;
       unsigned int cpussse3:1;
       unsigned int cpusse4a:1;
-      unsigned int cpuabm:1;
+      unsigned int cpulzcnt:1;
+      unsigned int cpupopcnt:1;
       unsigned int cpusse4_1:1;
       unsigned int cpusse4_2:1;
       unsigned int cpuavx:1;
@@ -331,7 +344,6 @@ typedef union i386_cpu_flags
       unsigned int cpurdrnd:1;
       unsigned int cpuf16c:1;
       unsigned int cpubmi2:1;
-      unsigned int cpulzcnt:1;
       unsigned int cpuhle:1;
       unsigned int cpurtm:1;
       unsigned int cpuinvpcid:1;
@@ -366,6 +378,9 @@ typedef union i386_cpu_flags
       unsigned int cpuptwrite:1;
       unsigned int cpuibt:1;
       unsigned int cpushstk:1;
+      unsigned int cpuamx_int8:1;
+      unsigned int cpuamx_bf16:1;
+      unsigned int cpuamx_tile:1;
       unsigned int cpugfni:1;
       unsigned int cpuvaes:1;
       unsigned int cpuvpclmulqdq:1;
@@ -376,8 +391,11 @@ typedef union i386_cpu_flags
       unsigned int cpumovdiri:1;
       unsigned int cpumovdir64b:1;
       unsigned int cpuenqcmd:1;
+      unsigned int cpuserialize:1;
       unsigned int cpurdpru:1;
       unsigned int cpumcommit:1;
+      unsigned int cpusev_es:1;
+      unsigned int cputsxldtrk:1;
       unsigned int cpu64:1;
       unsigned int cpuno64:1;
 #ifdef CpuUnused
@@ -401,8 +419,6 @@ enum
   Load,
   /* insn has a modrm byte. */
   Modrm,
-  /* register is in low 3 bits of opcode */
-  ShortForm,
   /* special case for jump insns; value has to be 1 */
 #define JUMP 1
   /* call and jump */
@@ -429,9 +445,10 @@ enum
   CheckRegSize,
   /* instruction ignores operand size prefix and in Intel mode ignores
      mnemonic size suffix check.  */
-  IgnoreSize,
+#define IGNORESIZE	1
   /* default insn size depends on mode */
-  DefaultSize,
+#define DEFAULTSIZE	2
+  MnemonicSize,
   /* any memory size */
   Anysize,
   /* b suffix on instruction illegal */
@@ -494,8 +511,6 @@ enum
   ImmExt,
   /* instruction don't need Rex64 prefix.  */
   NoRex64,
-  /* instruction require Rex64 prefix.  */
-  Rex64,
   /* deprecated fp insn, gets a warning */
   Ugh,
   /* insn has VEX prefix:
@@ -560,15 +575,17 @@ enum
 #define XOP2SOURCES	1
 #define VEX3SOURCES	2
   VexSources,
-  /* Instruction with vector SIB byte:
+  /* Instruction with a mandatory SIB byte:
 	1: 128bit vector register.
 	2: 256bit vector register.
 	3: 512bit vector register.
    */
-#define VecSIB128	1
-#define VecSIB256	2
-#define VecSIB512	3
-  VecSIB,
+#define VECSIB128	1
+#define VECSIB256	2
+#define VECSIB512	3
+#define SIBMEM		4
+  SIB,
+
   /* SSE to AVX support required */
   SSE2AVX,
   /* No AVX equivalent */
@@ -629,6 +646,9 @@ enum
    */
   ImplicitQuadGroup,
 
+  /* Two source operands are swapped.  */
+  SwapSources,
+
   /* Support encoding optimization.  */
   Optimize,
 
@@ -638,10 +658,16 @@ enum
   ATTSyntax,
   /* Intel syntax.  */
   IntelSyntax,
-  /* AMD64.  */
-  AMD64,
-  /* Intel64.  */
-  Intel64,
+  /* ISA64: Don't change the order without other code adjustments.
+	0: Common to AMD64 and Intel64.
+	1: AMD64.
+	2: Intel64.
+	3: Only in Intel64.
+   */
+#define AMD64		1
+#define INTEL64		2
+#define INTEL64ONLY	3
+  ISA64,
   /* The last bitfield in i386_opcode_modifier.  */
   Opcode_Modifier_Num
 };
@@ -652,14 +678,12 @@ typedef struct i386_opcode_modifier
   unsigned int w:1;
   unsigned int load:1;
   unsigned int modrm:1;
-  unsigned int shortform:1;
   unsigned int jump:3;
   unsigned int floatmf:1;
   unsigned int floatr:1;
   unsigned int size:2;
   unsigned int checkregsize:1;
-  unsigned int ignoresize:1;
-  unsigned int defaultsize:1;
+  unsigned int mnemonicsize:2;
   unsigned int anysize:1;
   unsigned int no_bsuf:1;
   unsigned int no_wsuf:1;
@@ -683,14 +707,13 @@ typedef struct i386_opcode_modifier
   unsigned int isprefix:1;
   unsigned int immext:1;
   unsigned int norex64:1;
-  unsigned int rex64:1;
   unsigned int ugh:1;
   unsigned int vex:2;
   unsigned int vexvvvv:2;
   unsigned int vexw:2;
   unsigned int vexopcode:3;
   unsigned int vexsources:2;
-  unsigned int vecsib:2;
+  unsigned int sib:3;
   unsigned int sse2avx:1;
   unsigned int noavx:1;
   unsigned int evex:3;
@@ -701,12 +724,12 @@ typedef struct i386_opcode_modifier
   unsigned int disp8memshift:3;
   unsigned int nodefmask:1;
   unsigned int implicitquadgroup:1;
+  unsigned int swapsources:1;
   unsigned int optimize:1;
   unsigned int attmnemonic:1;
   unsigned int attsyntax:1;
   unsigned int intelsyntax:1;
-  unsigned int amd64:1;
-  unsigned int intel64:1;
+  unsigned int isa64:2;
 } i386_opcode_modifier;
 
 /* Operand classes.  */
@@ -795,6 +818,8 @@ enum
   Ymmword,
   /* ZMMWORD size.  */
   Zmmword,
+  /* TMMWORD size.  */
+  Tmmword,
   /* Unspecified memory size.  */
   Unspecified,
 
@@ -839,6 +864,7 @@ typedef union i386_operand_type
       unsigned int xmmword:1;
       unsigned int ymmword:1;
       unsigned int zmmword:1;
+      unsigned int tmmword:1;
       unsigned int unspecified:1;
 #ifdef OTUnused
       unsigned int unused:(OTNumOfBits - OTUnused);
@@ -862,6 +888,18 @@ typedef struct insn_template
 #define Opcode_FloatD 0x400 /* Direction bit for float insns. */
 #define Opcode_SIMD_FloatD 0x1 /* Direction bit for SIMD fp insns. */
 #define Opcode_SIMD_IntD 0x10 /* Direction bit for SIMD int insns. */
+
+/* Pseudo prefixes.  */
+#define Prefix_Disp8		0	/* {disp8} */
+#define Prefix_Disp16		1	/* {disp16} */
+#define Prefix_Disp32		2	/* {disp32} */
+#define Prefix_Load		3	/* {load} */
+#define Prefix_Store		4	/* {store} */
+#define Prefix_VEX		5	/* {vex} */
+#define Prefix_VEX3		6	/* {vex3} */
+#define Prefix_EVEX		7	/* {evex} */
+#define Prefix_REX		8	/* {rex} */
+#define Prefix_NoOptimize	9	/* {nooptimize} */
 
   /* extension_opcode is the 3 bit extension for group <n> insns.
      This field is also used to store the 8-bit opcode suffix for the
@@ -898,7 +936,7 @@ extern const insn_template i386_optab[];
 /* these are for register name --> number & type hash lookup */
 typedef struct
 {
-  char *reg_name;
+  const char *reg_name;
   i386_operand_type reg_type;
   unsigned char reg_flags;
 #define RegRex	    0x1  /* Extended register.  */

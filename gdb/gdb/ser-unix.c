@@ -28,7 +28,7 @@
 #include <sys/socket.h>
 #include "gdbsupport/gdb_sys_time.h"
 
-#include "gdb_select.h"
+#include "gdbsupport/gdb_select.h"
 #include "gdbcmd.h"
 #include "gdbsupport/filestuff.h"
 #include <termios.h>
@@ -498,8 +498,9 @@ static const struct serial_ops hardwire_ops =
   ser_unix_write_prim
 };
 
+void _initialize_ser_hardwire ();
 void
-_initialize_ser_hardwire (void)
+_initialize_ser_hardwire ()
 {
   serial_add_interface (&hardwire_ops);
 

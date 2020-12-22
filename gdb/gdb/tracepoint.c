@@ -651,7 +651,7 @@ validate_actionline (const char *line, struct breakpoint *b)
   if (*p == '#')		/* comment line */
     return;
 
-  c = lookup_cmd (&p, cmdlist, "", -1, 1);
+  c = lookup_cmd (&p, cmdlist, "", NULL, -1, 1);
   if (c == 0)
     error (_("`%s' is not a tracepoint action, or is ambiguous."), p);
 
@@ -942,7 +942,7 @@ collection_list::collect_symbol (struct symbol *sym,
 	}
       /* A struct may be a C++ class with static fields, go to general
 	 expression handling.  */
-      if (TYPE_CODE (SYMBOL_TYPE (sym)) == TYPE_CODE_STRUCT)
+      if (SYMBOL_TYPE (sym)->code () == TYPE_CODE_STRUCT)
 	treat_as_expr = 1;
       else
 	add_memrange (gdbarch, memrange_absolute, offset, len, scope);
@@ -954,7 +954,7 @@ collection_list::collect_symbol (struct symbol *sym,
       add_local_register (gdbarch, reg, scope);
       /* Check for doubles stored in two registers.  */
       /* FIXME: how about larger types stored in 3 or more regs?  */
-      if (TYPE_CODE (SYMBOL_TYPE (sym)) == TYPE_CODE_FLT &&
+      if (SYMBOL_TYPE (sym)->code () == TYPE_CODE_FLT &&
 	  len > register_size (gdbarch, reg))
 	add_local_register (gdbarch, reg + 1, scope);
       break;
@@ -1303,7 +1303,7 @@ encode_actions_1 (struct command_line *action,
       action_exp = action->line;
       action_exp = skip_spaces (action_exp);
 
-      cmd = lookup_cmd (&action_exp, cmdlist, "", -1, 1);
+      cmd = lookup_cmd (&action_exp, cmdlist, "", NULL, -1, 1);
       if (cmd == 0)
 	error (_("Bad action list item: %s"), action_exp);
 
@@ -2673,7 +2673,7 @@ trace_dump_actions (struct command_line *action,
       if (*action_exp == '#')	/* comment line */
 	continue;
 
-      cmd = lookup_cmd (&action_exp, cmdlist, "", -1, 1);
+      cmd = lookup_cmd (&action_exp, cmdlist, "", NULL, -1, 1);
       if (cmd == 0)
 	error (_("Bad action list item: %s"), action_exp);
 
@@ -3980,8 +3980,9 @@ static const struct internalvar_funcs sdata_funcs =
 cmd_list_element *while_stepping_cmd_element = nullptr;
 
 /* module initialization */
+void _initialize_tracepoint ();
 void
-_initialize_tracepoint (void)
+_initialize_tracepoint ()
 {
   struct cmd_list_element *c;
 
@@ -4097,8 +4098,8 @@ one or more \"collect\" commands, to specify what to collect\n\
 while single-stepping.\n\n\
 Note: this command can only be used in a tracepoint \"actions\" list."));
 
-  add_com_alias ("ws", "while-stepping", class_alias, 0);
-  add_com_alias ("stepping", "while-stepping", class_alias, 0);
+  add_com_alias ("ws", "while-stepping", class_trace, 0);
+  add_com_alias ("stepping", "while-stepping", class_trace, 0);
 
   add_com ("collect", class_trace, collect_pseudocommand, _("\
 Specify one or more data items to be collected at a tracepoint.\n\

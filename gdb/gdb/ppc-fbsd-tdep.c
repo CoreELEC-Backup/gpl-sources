@@ -35,6 +35,7 @@
 #include "ppc-fbsd-tdep.h"
 #include "fbsd-tdep.h"
 #include "solib-svr4.h"
+#include "inferior.h"
 
 
 /* 32-bit regset descriptions.  */
@@ -289,7 +290,8 @@ ppcfbsd_get_thread_local_address (struct gdbarch *gdbarch, ptid_t ptid,
   struct regcache *regcache;
   int tp_offset, tp_regnum;
 
-  regcache = get_thread_arch_regcache (ptid, gdbarch);
+  regcache = get_thread_arch_regcache (current_inferior ()->process_target (),
+				       ptid, gdbarch);
 
   if (tdep->wordsize == 4)
     {
@@ -359,8 +361,9 @@ ppcfbsd_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
 					ppcfbsd_get_thread_local_address);
 }
 
+void _initialize_ppcfbsd_tdep ();
 void
-_initialize_ppcfbsd_tdep (void)
+_initialize_ppcfbsd_tdep ()
 {
   gdbarch_register_osabi (bfd_arch_powerpc, bfd_mach_ppc, GDB_OSABI_FREEBSD,
 			  ppcfbsd_init_abi);

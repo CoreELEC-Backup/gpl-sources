@@ -546,4 +546,3 @@ error_free_parser:
 error:
   return retval;
 }
-

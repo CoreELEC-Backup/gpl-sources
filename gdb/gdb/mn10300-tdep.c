@@ -28,7 +28,7 @@
 #include "frame-unwind.h"
 #include "frame-base.h"
 #include "symtab.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "osabi.h"
 #include "infcall.h"
 #include "prologue-value.h"
@@ -88,7 +88,7 @@ mn10300_type_align (struct type *type)
 {
   int i, align = 1;
 
-  switch (TYPE_CODE (type))
+  switch (type->code ())
     {
     case TYPE_CODE_INT:
     case TYPE_CODE_ENUM:
@@ -107,9 +107,9 @@ mn10300_type_align (struct type *type)
 
     case TYPE_CODE_STRUCT:
     case TYPE_CODE_UNION:
-      for (i = 0; i < TYPE_NFIELDS (type); i++)
+      for (i = 0; i < type->num_fields (); i++)
 	{
-	  int falign = mn10300_type_align (TYPE_FIELD_TYPE (type, i));
+	  int falign = mn10300_type_align (type->field (i).type ());
 	  while (align < falign)
 	    align <<= 1;
 	}
@@ -137,14 +137,14 @@ mn10300_use_struct_convention (struct type *type)
   if (TYPE_LENGTH (type) > 8)
     return 1;
 
-  switch (TYPE_CODE (type))
+  switch (type->code ())
     {
     case TYPE_CODE_STRUCT:
     case TYPE_CODE_UNION:
       /* Structures with a single field are handled as the field
 	 itself.  */
-      if (TYPE_NFIELDS (type) == 1)
-	return mn10300_use_struct_convention (TYPE_FIELD_TYPE (type, 0));
+      if (type->num_fields () == 1)
+	return mn10300_use_struct_convention (type->field (0).type ());
 
       /* Structures with word or double-word size are passed in memory, as
 	 long as they require at least word alignment.  */
@@ -174,7 +174,7 @@ mn10300_store_return_value (struct gdbarch *gdbarch, struct type *type,
   int len = TYPE_LENGTH (type);
   int reg, regsz;
   
-  if (TYPE_CODE (type) == TYPE_CODE_PTR)
+  if (type->code () == TYPE_CODE_PTR)
     reg = 4;
   else
     reg = 0;
@@ -202,7 +202,7 @@ mn10300_extract_return_value (struct gdbarch *gdbarch, struct type *type,
   int len = TYPE_LENGTH (type);
   int reg, regsz;
 
-  if (TYPE_CODE (type) == TYPE_CODE_PTR)
+  if (type->code () == TYPE_CODE_PTR)
     reg = 4;
   else
     reg = 0;
@@ -1208,7 +1208,7 @@ mn10300_push_dummy_call (struct gdbarch *gdbarch,
   for (argnum = 0; argnum < nargs; argnum++)
     {
       /* FIXME what about structs?  Unions?  */
-      if (TYPE_CODE (value_type (*args)) == TYPE_CODE_STRUCT
+      if (value_type (*args)->code () == TYPE_CODE_STRUCT
 	  && TYPE_LENGTH (value_type (*args)) > 8)
 	{
 	  /* Change to pointer-to-type.  */
@@ -1417,8 +1417,9 @@ mn10300_dump_tdep (struct gdbarch *gdbarch, struct ui_file *file)
 		      tdep->am33_mode);
 }
 
+void _initialize_mn10300_tdep ();
 void
-_initialize_mn10300_tdep (void)
+_initialize_mn10300_tdep ()
 {
   gdbarch_register (bfd_arch_mn10300, mn10300_gdbarch_init, mn10300_dump_tdep);
 }

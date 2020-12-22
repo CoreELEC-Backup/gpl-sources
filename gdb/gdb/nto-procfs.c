@@ -393,7 +393,7 @@ nto_procfs_target::update_thread_list ()
 
   prune_threads ();
 
-  pid = inferior_ptid.pid ();
+  pid = current_inferior ()->pid;
 
   status.tid = 1;
 
@@ -409,7 +409,7 @@ nto_procfs_target::update_thread_list ()
 	   (e.g. thread exited).  */
 	continue;
       ptid = ptid_t (pid, 0, tid);
-      new_thread = find_thread_ptid (ptid);
+      new_thread = find_thread_ptid (this, ptid);
       if (!new_thread)
 	new_thread = add_thread (ptid);
       update_thread_private_data (new_thread, tid, status.state, 0);
@@ -693,7 +693,6 @@ nto_procfs_target::pid_to_exec_file (const int pid)
 void
 nto_procfs_target::attach (const char *args, int from_tty)
 {
-  char *exec_file;
   int pid;
   struct inferior *inf;
 
@@ -704,7 +703,7 @@ nto_procfs_target::attach (const char *args, int from_tty)
 
   if (from_tty)
     {
-      exec_file = (char *) get_exec_file (0);
+      const char *exec_file = get_exec_file (0);
 
       if (exec_file)
 	printf_unfiltered ("Attaching to program `%s', %s\n", exec_file,
@@ -713,7 +712,7 @@ nto_procfs_target::attach (const char *args, int from_tty)
 	printf_unfiltered ("Attaching to %s\n",
 			   target_pid_to_str (ptid_t (pid)).c_str ());
     }
-  inferior_ptid = do_attach (ptid_t (pid));
+  ptid_t ptid = do_attach (ptid_t (pid));
   inf = current_inferior ();
   inferior_appeared (inf, pid);
   inf->attach_flag = 1;
@@ -721,7 +720,9 @@ nto_procfs_target::attach (const char *args, int from_tty)
   if (!target_is_pushed (ops))
     push_target (ops);
 
-  procfs_update_thread_list (ops);
+  update_thread_list ();
+
+  switch_to_thread (find_thread_ptid (this, ptid));
 }
 
 void
@@ -1001,19 +1002,16 @@ nto_procfs_target::xfer_partial (enum target_object object,
 void
 nto_procfs_target::detach (inferior *inf, int from_tty)
 {
-  int pid;
-
   target_announce_detach ();
 
   if (siggnal)
-    SignalKill (nto_node (), inferior_ptid.pid (), 0, 0, 0, 0);
+    SignalKill (nto_node (), inf->pid, 0, 0, 0, 0);
 
   close (ctl_fd);
   ctl_fd = -1;
 
-  pid = inferior_ptid.pid ();
-  inferior_ptid = null_ptid;
-  detach_inferior (pid);
+  switch_to_no_thread ();
+  detach_inferior (inf->pid);
   init_thread_list ();
   inf_child_maybe_unpush_target (ops);
 }
@@ -1133,7 +1131,7 @@ nto_procfs_target::mourn_inferior ()
       SignalKill (nto_node (), inferior_ptid.pid (), 0, SIGKILL, 0, 0);
       close (ctl_fd);
     }
-  inferior_ptid = null_ptid;
+  switch_to_no_thread ();
   init_thread_list ();
   inf_child_mourn_inferior (ops);
 }
@@ -1210,12 +1208,11 @@ nto_procfs_target::create_inferior (const char *exec_file,
   const char *in = "", *out = "", *err = "";
   int fd, fds[3];
   sigset_t set;
-  const char *inferior_io_terminal = get_inferior_io_terminal ();
   struct inferior *inf;
 
   argv = xmalloc ((allargs.size () / (unsigned) 2 + 2) *
 		  sizeof (*argv));
-  argv[0] = get_exec_file (1);
+  argv[0] = const_cast<char *> (get_exec_file (1));
   if (!argv[0])
     {
       if (exec_file)
@@ -1235,14 +1232,15 @@ nto_procfs_target::create_inferior (const char *exec_file,
 
   /* If the user specified I/O via gdb's --tty= arg, use it, but only
      if the i/o is not also being specified via redirection.  */
-  if (inferior_io_terminal)
+  const char *inferior_tty = current_inferior ()->tty ();
+  if (inferior_tty != nullptr)
     {
       if (!in[0])
-	in = inferior_io_terminal;
+	in = inferior_tty;
       if (!out[0])
-	out = inferior_io_terminal;
+	out = inferior_tty;
       if (!err[0])
-	err = inferior_io_terminal;
+	err = inferior_tty;
     }
 
   if (in[0])
@@ -1304,8 +1302,9 @@ nto_procfs_target::create_inferior (const char *exec_file,
   if (fds[2] != STDERR_FILENO)
     close (fds[2]);
 
-  inferior_ptid = do_attach (ptid_t (pid));
-  procfs_update_thread_list (ops);
+  ptid_t ptid = do_attach (ptid_t (pid));
+  update_thread_list ();
+  switch_to_thread (find_thread_ptid (this, ptid));
 
   inf = current_inferior ();
   inferior_appeared (inf, pid);
@@ -1506,8 +1505,9 @@ init_procfs_targets (void)
 
 #define OSTYPE_NTO 1
 
+void _initialize_procfs ();
 void
-_initialize_procfs (void)
+_initialize_procfs ()
 {
   sigset_t set;
 

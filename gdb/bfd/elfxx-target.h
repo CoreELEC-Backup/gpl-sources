@@ -1,5 +1,5 @@
 /* Target definitions for NN-bit ELF
-   Copyright (C) 1993-2019 Free Software Foundation, Inc.
+   Copyright (C) 1993-2020 Free Software Foundation, Inc.
 
    This file is part of BFD, the Binary File Descriptor library.
 
@@ -362,6 +362,10 @@
 #define ELF_TARGET_ID	GENERIC_ELF_DATA
 #endif
 
+#ifndef ELF_TARGET_OS
+#define ELF_TARGET_OS	is_normal
+#endif
+
 #ifndef ELF_OSABI
 #define ELF_OSABI ELFOSABI_NONE
 #endif
@@ -484,6 +488,9 @@
 #endif
 #ifndef elf_backend_size_dynamic_sections
 #define elf_backend_size_dynamic_sections 0
+#endif
+#ifndef elf_backend_strip_zero_sized_dynamic_sections
+#define elf_backend_strip_zero_sized_dynamic_sections 0
 #endif
 #ifndef elf_backend_init_index_section
 #define elf_backend_init_index_section _bfd_void_bfd_link
@@ -653,6 +660,9 @@
 #ifndef elf_backend_write_section
 #define elf_backend_write_section		NULL
 #endif
+#ifndef elf_backend_elfsym_local_is_section
+#define elf_backend_elfsym_local_is_section	NULL
+#endif
 #ifndef elf_backend_mips_irix_compat
 #define elf_backend_mips_irix_compat		NULL
 #endif
@@ -758,7 +768,7 @@
 #endif
 
 #ifndef elf_backend_copy_special_section_fields
-#define elf_backend_copy_special_section_fields NULL
+#define elf_backend_copy_special_section_fields _bfd_elf_copy_special_section_fields
 #endif
 
 #ifndef elf_backend_compact_eh_encoding
@@ -766,9 +776,25 @@
 #endif
 
 #ifndef elf_backend_cant_unwind_opcode
-#define elf_backend_cant_unwind_opcode 0
+#define elf_backend_cant_unwind_opcode NULL
 #endif
 
+#ifndef elf_backend_init_secondary_reloc_section
+#define elf_backend_init_secondary_reloc_section _bfd_elf_init_secondary_reloc_section
+#endif
+
+#ifndef elf_backend_slurp_secondary_reloc_section
+#define elf_backend_slurp_secondary_reloc_section _bfd_elf_slurp_secondary_reloc_section
+#endif
+
+#ifndef elf_backend_write_secondary_reloc_section
+#define elf_backend_write_secondary_reloc_section _bfd_elf_write_secondary_reloc_section
+#endif
+
+#ifndef elf_backend_symbol_section_index
+#define elf_backend_symbol_section_index NULL
+#endif
+ 
 #ifndef elf_match_priority
 #define elf_match_priority \
   (ELF_ARCH == bfd_arch_unknown ? 2 : ELF_OSABI == ELFOSABI_NONE ? 1 : 0)
@@ -780,6 +806,7 @@ static struct elf_backend_data elfNN_bed =
 {
   ELF_ARCH,			/* arch */
   ELF_TARGET_ID,		/* target_id */
+  ELF_TARGET_OS,		/* target_os */
   ELF_MACHINE_CODE,		/* elf_machine_code */
   ELF_OSABI,			/* elf_osabi  */
   ELF_MAXPAGESIZE,		/* maxpagesize */
@@ -815,6 +842,7 @@ static struct elf_backend_data elfNN_bed =
   elf_backend_adjust_dynamic_symbol,
   elf_backend_always_size_sections,
   elf_backend_size_dynamic_sections,
+  elf_backend_strip_zero_sized_dynamic_sections,
   elf_backend_init_index_section,
   elf_backend_relocate_section,
   elf_backend_finish_dynamic_symbol,
@@ -859,6 +887,7 @@ static struct elf_backend_data elfNN_bed =
   elf_backend_can_make_lsda_relative_eh_frame,
   elf_backend_encode_eh_address,
   elf_backend_write_section,
+  elf_backend_elfsym_local_is_section,
   elf_backend_mips_irix_compat,
   elf_backend_mips_rtype_to_howto,
   elf_backend_ecoff_debug_swap,
@@ -895,6 +924,10 @@ static struct elf_backend_data elfNN_bed =
   elf_backend_fixup_gnu_properties,
   elf_backend_compact_eh_encoding,
   elf_backend_cant_unwind_opcode,
+  elf_backend_symbol_section_index,
+  elf_backend_init_secondary_reloc_section,
+  elf_backend_slurp_secondary_reloc_section,
+  elf_backend_write_secondary_reloc_section,
   elf_backend_static_tls_alignment,
   elf_backend_stack_align,
   elf_backend_strtab_flags,

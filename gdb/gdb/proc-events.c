@@ -30,8 +30,6 @@
 
 #include "defs.h"
 
-#define _STRUCTURED_PROC 1
-
 #include <sys/types.h>
 #include <sys/procfs.h>
 #include <sys/syscall.h>
@@ -762,8 +760,9 @@ proc_prettyprint_actionset (struct sigaction *actions, int verbose)
 {
 }
 
+void _initialize_proc_events ();
 void
-_initialize_proc_events (void)
+_initialize_proc_events ()
 {
   init_syscall_table ();
 }

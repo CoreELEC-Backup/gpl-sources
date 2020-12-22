@@ -1,5 +1,5 @@
 /* ELF strtab with GC and suffix merging support.
-   Copyright (C) 2001-2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2020 Free Software Foundation, Inc.
    Written by Jakub Jelinek <jakub@redhat.com>.
 
    This file is part of BFD, the Binary File Descriptor library.
@@ -95,7 +95,7 @@ struct elf_strtab_hash *
 _bfd_elf_strtab_init (void)
 {
   struct elf_strtab_hash *table;
-  bfd_size_type amt = sizeof (struct elf_strtab_hash);
+  size_t amt = sizeof (struct elf_strtab_hash);
 
   table = (struct elf_strtab_hash *) bfd_malloc (amt);
   if (table == NULL)
@@ -245,13 +245,16 @@ _bfd_elf_strtab_save (struct elf_strtab_hash *tab)
 void
 _bfd_elf_strtab_restore (struct elf_strtab_hash *tab, void *buf)
 {
-  size_t idx, curr_size = tab->size;
+  size_t idx, curr_size = tab->size, save_size;
   struct strtab_save *save = (struct strtab_save *) buf;
 
   BFD_ASSERT (tab->sec_size == 0);
-  BFD_ASSERT (save->size <= curr_size);
-  tab->size = save->size;
-  for (idx = 1; idx < save->size; ++idx)
+  save_size = 1;
+  if (save != NULL)
+    save_size = save->size;
+  BFD_ASSERT (save_size <= curr_size);
+  tab->size = save_size;
+  for (idx = 1; idx < save_size; ++idx)
     tab->array[idx]->refcount = save->refcount[idx];
 
   for (; idx < curr_size; ++idx)
@@ -439,9 +442,8 @@ _bfd_elf_strtab_finalize (struct elf_strtab_hash *tab)
 	}
     }
 
-alloc_failure:
-  if (array)
-    free (array);
+ alloc_failure:
+  free (array);
 
   /* Assign positions to the strings we want to keep.  */
   sec_size = 1;

@@ -68,17 +68,17 @@ case ${gdb_host} in
 	LOADLIBES='-lkvm'
 	;;
     nbsd*)
-	NATDEPFILES='fork-child.o nat/fork-inferior.o inf-ptrace.o'
+	NATDEPFILES='fork-child.o nat/fork-inferior.o nat/netbsd-nat.o inf-ptrace.o'
 	HAVE_NATIVE_GCORE_HOST=1
 	;;
     obsd*)
 	NATDEPFILES='fork-child.o nat/fork-inferior.o inf-ptrace.o'
 	;;
     cygwin*)
-	NATDEPFILES='x86-nat.o nat/x86-dregs.o windows-nat.o'
+	NATDEPFILES='x86-nat.o nat/x86-dregs.o windows-nat.o nat/windows-nat.o'
 	;;
     mingw*)
-	NATDEPFILES='x86-nat.o nat/x86-dregs.o windows-nat.o'
+	NATDEPFILES='x86-nat.o nat/x86-dregs.o windows-nat.o nat/windows-nat.o'
 	;;
     aix)
 	NATDEPFILES='nat/fork-inferior.o fork-child.o inf-ptrace.o'
@@ -137,7 +137,7 @@ case ${gdb_host} in
 	    i386)
 		# Native config information for GDB on amd64
 		# systems running Cygwin.
-		NATDEPFILES="${NATDEPFILES} amd64-windows-nat.o"
+		NATDEPFILES="${NATDEPFILES} i386-windows-nat.o amd64-windows-nat.o"
 		;;
 	esac
 	;;
@@ -276,7 +276,8 @@ case ${gdb_host} in
 		;;
 	    riscv*)
 		# Host: RISC-V, running Linux
-		NATDEPFILES="${NATDEPFILES} riscv-linux-nat.o"
+		NATDEPFILES="${NATDEPFILES} riscv-linux-nat.o \
+		nat/riscv-linux-tdesc.o"
 		;;
 	    s390)
 		# Host: S390, running Linux
@@ -324,7 +325,7 @@ case ${gdb_host} in
     mingw64)
 	case ${gdb_host_cpu} in
 	    i386)
-		NATDEPFILES="${NATDEPFILES} amd64-windows-nat.o"
+		NATDEPFILES="${NATDEPFILES} i386-windows-nat.o amd64-windows-nat.o"
 		;;
 	esac
 	;;

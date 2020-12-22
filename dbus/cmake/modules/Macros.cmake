@@ -194,9 +194,102 @@ endmacro()
 
 macro(add_library_version_info _sources _name)
     set(DBUS_VER_INTERNAL_NAME "${_name}")
-    set(DBUS_VER_ORIGINAL_NAME "${DBUS_VER_INTERNAL_NAME}}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    set(DBUS_VER_ORIGINAL_NAME "${DBUS_VER_INTERNAL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
     set(DBUS_VER_FILE_TYPE "VFT_DLL")
     configure_file(${CMAKE_SOURCE_DIR}/dbus/versioninfo.rc.in ${CMAKE_CURRENT_BINARY_DIR}/versioninfo-${DBUS_VER_INTERNAL_NAME}.rc)
     # version info and uac manifest can be combined in a binary because they use different resource types
     list(APPEND ${_sources} ${CMAKE_CURRENT_BINARY_DIR}/versioninfo-${DBUS_VER_INTERNAL_NAME}.rc)
+endmacro()
+
+#
+# provide option with three states AUTO, ON, OFF
+#
+macro(add_auto_option _name _text _default)
+    if(NOT DEFINED ${_name})
+        set(${_name} ${_default} CACHE STRING "${_text}" FORCE)
+    else()
+        set(${_name} ${_default} CACHE STRING "${_text}")
+    endif()
+    set_property(CACHE ${_name} PROPERTY STRINGS AUTO ON OFF)
+endmacro()
+
+
+#
+# Ensure that if a tristate ON/OFF/AUTO feature is set to ON,
+# its requirements have been met. Fail with a fatal error if not.
+#
+# _name: name of a variable ENABLE_FOO representing a tristate ON/OFF/AUTO feature
+# _text: human-readable description of the feature enabled by _name, for the
+#        error message
+# _var: name of a variable representing a system property we checked for,
+#       such as an executable that must exist for the feature enabled by _name to work
+# _vartext: what we checked for, for the error message
+#
+macro(check_auto_option _name _text _var _vartext)
+    set(_nameval ${${_name}})
+    set(_varval ${${_var}})
+    #message("debug: _name ${_name} ${_nameval}  _var ${_var} ${_varval}")
+    if(${_nameval} AND NOT ${_nameval} STREQUAL "AUTO" AND NOT ${_varval})
+        message(FATAL_ERROR "${_text} requested but ${_vartext} not found")
+    endif()
+endmacro()
+
+#
+# Provide option that takes a path
+#
+macro(add_path_option _name _text _default)
+    if(NOT DEFINED ${_name})
+        set(${_name} ${_default} CACHE STRING "${_text}" FORCE)
+    else()
+        set(${_name} ${_default} CACHE STRING "${_text}")
+    endif()
+endmacro()
+
+#
+# create directory on install
+#
+macro(install_dir filepath)
+    install(CODE "
+    set(_path \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${filepath}\")
+    if(NOT EXISTS \"\${_path}\")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory \"\${_path}\")
+        message(\"-- Creating directory: \${_path}\")
+    else()
+        message(\"-- Up-to-date: \${_path}\")
+    endif()
+    ")
+endmacro()
+
+#
+# create symlink on install
+#
+macro(install_symlink filepath sympath)
+    install(CODE "
+    set(_sympath \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${sympath}\")
+    file(REMOVE \"\${_sympath}\")
+    execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink \"${filepath}\" \"\${_sympath}\" RESULT_VARIABLE result)
+    if(NOT result)
+        message(\"-- Creating symlink: \${_sympath} -> ${filepath}\")
+    else()
+        message(FATAL ERROR \"-- Failed to create symlink: \${_sympath} -> ${filepath}\")
+    endif()
+    ")
+endmacro()
+
+#
+# add system service <file> PATH <install path> LINKS [multi-user.target.wants [...]]
+#
+macro(add_systemd_service file)
+    set(options)
+    set(oneValueArgs PATH)
+    set(multiValueArgs LINKS)
+    cmake_parse_arguments(_ "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+    set(_targetdir ${__PATH})
+    install(FILES ${file} DESTINATION ${_targetdir})
+    get_filename_component(_name ${file} NAME)
+    foreach(l ${__LINKS})
+        set(_linkdir ${_targetdir}/${l})
+        install_dir(${_linkdir})
+        install_symlink(../${_name} ${_linkdir}/${_name})
+    endforeach()
 endmacro()

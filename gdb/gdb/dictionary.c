@@ -584,7 +584,7 @@ iter_match_first_hashed (const struct dictionary *dict,
   unsigned int hash_index = (name.search_name_hash (lang->la_language)
 			     % DICT_HASHED_NBUCKETS (dict));
   symbol_name_matcher_ftype *matches_name
-    = get_symbol_name_matcher (lang, name);
+    = lang->get_symbol_name_matcher (name);
   struct symbol *sym;
 
   DICT_ITERATOR_DICT (iterator) = dict;
@@ -612,7 +612,7 @@ iter_match_next_hashed (const lookup_name_info &name,
 {
   const language_defn *lang = DICT_LANGUAGE (DICT_ITERATOR_DICT (iterator));
   symbol_name_matcher_ftype *matches_name
-    = get_symbol_name_matcher (lang, name);
+    = lang->get_symbol_name_matcher (name);
   struct symbol *next;
 
   for (next = DICT_ITERATOR_CURRENT (iterator)->hash_next;
@@ -640,9 +640,9 @@ insert_symbol_hashed (struct dictionary *dict,
 
   /* We don't want to insert a symbol into a dictionary of a different
      language.  The two may not use the same hashing algorithm.  */
-  gdb_assert (SYMBOL_LANGUAGE (sym) == DICT_LANGUAGE (dict)->la_language);
+  gdb_assert (sym->language () == DICT_LANGUAGE (dict)->la_language);
 
-  hash = search_name_hash (SYMBOL_LANGUAGE (sym), sym->search_name ());
+  hash = search_name_hash (sym->language (), sym->search_name ());
   hash_index = hash % DICT_HASHED_NBUCKETS (dict);
   sym->hash_next = buckets[hash_index];
   buckets[hash_index] = sym;
@@ -719,7 +719,7 @@ expand_hashtable (struct dictionary *dict)
 /* See dictionary.h.  */
 
 unsigned int
-default_search_name_hash (const char *string0)
+language_defn::search_name_hash (const char *string0) const
 {
   /* The Ada-encoded version of a name P1.P2...Pn has either the form
      P1__P2__...Pn<suffix> or _ada_P1__P2__...Pn<suffix> (where the Pi
@@ -828,7 +828,7 @@ iter_match_next_linear (const lookup_name_info &name,
   const struct dictionary *dict = DICT_ITERATOR_DICT (iterator);
   const language_defn *lang = DICT_LANGUAGE (dict);
   symbol_name_matcher_ftype *matches_name
-    = get_symbol_name_matcher (lang, name);
+    = lang->get_symbol_name_matcher (name);
 
   int i, nsyms = DICT_LINEAR_NSYMS (dict);
   struct symbol *sym, *retval = NULL;
@@ -928,7 +928,7 @@ collate_pending_symbols_by_language (const struct pending *symbol_list)
     {
       for (int i = list_counter->nsyms - 1; i >= 0; --i)
 	{
-	  enum language language = SYMBOL_LANGUAGE (list_counter->symbol[i]);
+	  enum language language = list_counter->symbol[i]->language ();
 	  nsyms[language].push_back (list_counter->symbol[i]);
 	}
     }
@@ -1116,13 +1116,13 @@ void
 mdict_add_symbol (struct multidictionary *mdict, struct symbol *sym)
 {
   struct dictionary *dict
-    = find_language_dictionary (mdict, SYMBOL_LANGUAGE (sym));
+    = find_language_dictionary (mdict, sym->language ());
 
   if (dict == nullptr)
     {
       /* SYM is of a new language that we haven't previously seen.
 	 Create a new dictionary for it.  */
-      dict = create_new_language_dictionary (mdict, SYMBOL_LANGUAGE (sym));
+      dict = create_new_language_dictionary (mdict, sym->language ());
     }
 
   dict_add_symbol (dict, sym);

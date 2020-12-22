@@ -183,8 +183,8 @@ inspect_type (struct demangle_parse_info *info,
 	}
 
       /* If the type is a typedef or namespace alias, replace it.  */
-      if (TYPE_CODE (otype) == TYPE_CODE_TYPEDEF
-	  || TYPE_CODE (otype) == TYPE_CODE_NAMESPACE)
+      if (otype->code () == TYPE_CODE_TYPEDEF
+	  || otype->code () == TYPE_CODE_NAMESPACE)
 	{
 	  long len;
 	  int is_anon;
@@ -207,21 +207,21 @@ inspect_type (struct demangle_parse_info *info,
 
 	     If the symbol is typedef and its type name is the same
 	     as the symbol's name, e.g., "typedef struct foo foo;".  */
-	  if (TYPE_NAME (type) != nullptr
-	      && strcmp (TYPE_NAME (type), name) == 0)
+	  if (type->name () != nullptr
+	      && strcmp (type->name (), name) == 0)
 	    return 0;
 
-	  is_anon = (TYPE_NAME (type) == NULL
-		     && (TYPE_CODE (type) == TYPE_CODE_ENUM
-			 || TYPE_CODE (type) == TYPE_CODE_STRUCT
-			 || TYPE_CODE (type) == TYPE_CODE_UNION));
+	  is_anon = (type->name () == NULL
+		     && (type->code () == TYPE_CODE_ENUM
+			 || type->code () == TYPE_CODE_STRUCT
+			 || type->code () == TYPE_CODE_UNION));
 	  if (is_anon)
 	    {
 	      struct type *last = otype;
 
 	      /* Find the last typedef for the type.  */
 	      while (TYPE_TARGET_TYPE (last) != NULL
-		     && (TYPE_CODE (TYPE_TARGET_TYPE (last))
+		     && (TYPE_TARGET_TYPE (last)->code ()
 			 == TYPE_CODE_TYPEDEF))
 		last = TYPE_TARGET_TYPE (last);
 
@@ -274,12 +274,13 @@ inspect_type (struct demangle_parse_info *info,
 
 		 Canonicalize the name again, and store it in the
 		 current node (RET_COMP).  */
-	      std::string canon = cp_canonicalize_string_no_typedefs (name);
+	      gdb::unique_xmalloc_ptr<char> canon
+		= cp_canonicalize_string_no_typedefs (name);
 
-	      if (!canon.empty ())
+	      if (canon != nullptr)
 		{
 		  /* Copy the canonicalization into the obstack.  */
-		  name = copy_string_to_obstack (&info->obstack, canon.c_str (), &len);
+		  name = copy_string_to_obstack (&info->obstack, canon.get (), &len);
 		}
 
 	      ret_comp->u.s_name.s = name;
@@ -291,6 +292,42 @@ inspect_type (struct demangle_parse_info *info,
     }
 
   return 0;
+}
+
+/* Helper for replace_typedefs_qualified_name to handle
+   DEMANGLE_COMPONENT_TEMPLATE.  TMPL is the template node.  BUF is
+   the buffer that holds the qualified name being built by
+   replace_typedefs_qualified_name.  REPL is the node that will be
+   rewritten as a DEMANGLE_COMPONENT_NAME node holding the 'template
+   plus template arguments' name with typedefs replaced.  */
+
+static bool
+replace_typedefs_template (struct demangle_parse_info *info,
+			   string_file &buf,
+			   struct demangle_component *tmpl,
+			   struct demangle_component *repl,
+			   canonicalization_ftype *finder,
+			   void *data)
+{
+  demangle_component *tmpl_arglist = d_right (tmpl);
+
+  /* Replace typedefs in the template argument list.  */
+  replace_typedefs (info, tmpl_arglist, finder, data);
+
+  /* Convert 'template + replaced template argument list' to a string
+     and replace the REPL node.  */
+  gdb::unique_xmalloc_ptr<char> tmpl_str = cp_comp_to_string (tmpl, 100);
+  if (tmpl_str == nullptr)
+    {
+      /* If something went astray, abort typedef substitutions.  */
+      return false;
+    }
+  buf.puts (tmpl_str.get ());
+
+  repl->type = DEMANGLE_COMPONENT_NAME;
+  repl->u.s_name.s = obstack_strdup (&info->obstack, buf.string ());
+  repl->u.s_name.len = buf.size ();
+  return true;
 }
 
 /* Replace any typedefs appearing in the qualified name
@@ -313,6 +350,29 @@ replace_typedefs_qualified_name (struct demangle_parse_info *info,
      substituted name.  */
   while (comp->type == DEMANGLE_COMPONENT_QUAL_NAME)
     {
+      if (d_left (comp)->type == DEMANGLE_COMPONENT_TEMPLATE)
+	{
+	  /* Convert 'template + replaced template argument list' to a
+	     string and replace the top DEMANGLE_COMPONENT_QUAL_NAME
+	     node.  */
+	  if (!replace_typedefs_template (info, buf,
+					  d_left (comp), d_left (ret_comp),
+					  finder, data))
+	    return;
+
+	  buf.clear ();
+	  d_right (ret_comp) = d_right (comp);
+	  comp = ret_comp;
+
+	  /* Fallback to DEMANGLE_COMPONENT_NAME processing.  We want
+	     to call inspect_type for this template, in case we have a
+	     template alias, like:
+	       template<typename T> using alias = base<int, t>;
+	     in which case we want inspect_type to do a replacement like:
+	       alias<int> -> base<int, int>
+	  */
+	}
+
       if (d_left (comp)->type == DEMANGLE_COMPONENT_NAME)
 	{
 	  struct demangle_component newobj;
@@ -369,11 +429,20 @@ replace_typedefs_qualified_name (struct demangle_parse_info *info,
       comp = d_right (comp);
     }
 
-  /* If the next component is DEMANGLE_COMPONENT_NAME, save the qualified
-     name assembled above and append the name given by COMP.  Then use this
-     reassembled name to check for a typedef.  */
+  /* If the next component is DEMANGLE_COMPONENT_TEMPLATE or
+     DEMANGLE_COMPONENT_NAME, save the qualified name assembled above
+     and append the name given by COMP.  Then use this reassembled
+     name to check for a typedef.  */
 
-  if (comp->type == DEMANGLE_COMPONENT_NAME)
+  if (comp->type == DEMANGLE_COMPONENT_TEMPLATE)
+    {
+      /* Replace the top (DEMANGLE_COMPONENT_QUAL_NAME) node with a
+	 DEMANGLE_COMPONENT_NAME node containing the whole name.  */
+      if (!replace_typedefs_template (info, buf, comp, ret_comp, finder, data))
+	return;
+      inspect_type (info, ret_comp, finder, data);
+    }
+  else if (comp->type == DEMANGLE_COMPONENT_NAME)
     {
       buf.write (comp->u.s_name.s, comp->u.s_name.len);
 
@@ -506,16 +575,15 @@ replace_typedefs (struct demangle_parse_info *info,
 
 /* Parse STRING and convert it to canonical form, resolving any
    typedefs.  If parsing fails, or if STRING is already canonical,
-   return the empty string.  Otherwise return the canonical form.  If
+   return nullptr.  Otherwise return the canonical form.  If
    FINDER is not NULL, then type components are passed to FINDER to be
    looked up.  DATA is passed verbatim to FINDER.  */
 
-std::string
+gdb::unique_xmalloc_ptr<char>
 cp_canonicalize_string_full (const char *string,
 			     canonicalization_ftype *finder,
 			     void *data)
 {
-  std::string ret;
   unsigned int estimated_len;
   std::unique_ptr<demangle_parse_info> info;
 
@@ -531,41 +599,42 @@ cp_canonicalize_string_full (const char *string,
 							    estimated_len);
       gdb_assert (us);
 
-      ret = us.get ();
       /* Finally, compare the original string with the computed
 	 name, returning NULL if they are the same.  */
-      if (ret == string)
-	return std::string ();
+      if (strcmp (us.get (), string) == 0)
+	return nullptr;
+
+      return us;
     }
 
-  return ret;
+  return nullptr;
 }
 
 /* Like cp_canonicalize_string_full, but always passes NULL for
    FINDER.  */
 
-std::string
+gdb::unique_xmalloc_ptr<char>
 cp_canonicalize_string_no_typedefs (const char *string)
 {
   return cp_canonicalize_string_full (string, NULL, NULL);
 }
 
 /* Parse STRING and convert it to canonical form.  If parsing fails,
-   or if STRING is already canonical, return the empty string.
+   or if STRING is already canonical, return nullptr.
    Otherwise return the canonical form.  */
 
-std::string
+gdb::unique_xmalloc_ptr<char>
 cp_canonicalize_string (const char *string)
 {
   std::unique_ptr<demangle_parse_info> info;
   unsigned int estimated_len;
 
   if (cp_already_canonical (string))
-    return std::string ();
+    return nullptr;
 
   info = cp_demangled_name_to_comp (string, NULL);
   if (info == NULL)
-    return std::string ();
+    return nullptr;
 
   estimated_len = strlen (string) * 2;
   gdb::unique_xmalloc_ptr<char> us (cp_comp_to_string (info->tree,
@@ -575,15 +644,13 @@ cp_canonicalize_string (const char *string)
     {
       warning (_("internal error: string \"%s\" failed to be canonicalized"),
 	       string);
-      return std::string ();
+      return nullptr;
     }
 
-  std::string ret (us.get ());
+  if (strcmp (us.get (), string) == 0)
+    return nullptr;
 
-  if (ret == string)
-    return std::string ();
-
-  return ret;
+  return us;
 }
 
 /* Convert a mangled name to a demangle_component tree.  *MEMORY is
@@ -1268,18 +1335,18 @@ add_symbol_overload_list_adl_namespace (struct type *type,
   const char *type_name;
   int i, prefix_len;
 
-  while (TYPE_CODE (type) == TYPE_CODE_PTR
+  while (type->code () == TYPE_CODE_PTR
 	 || TYPE_IS_REFERENCE (type)
-         || TYPE_CODE (type) == TYPE_CODE_ARRAY
-         || TYPE_CODE (type) == TYPE_CODE_TYPEDEF)
+         || type->code () == TYPE_CODE_ARRAY
+         || type->code () == TYPE_CODE_TYPEDEF)
     {
-      if (TYPE_CODE (type) == TYPE_CODE_TYPEDEF)
-	type = check_typedef(type);
+      if (type->code () == TYPE_CODE_TYPEDEF)
+	type = check_typedef (type);
       else
 	type = TYPE_TARGET_TYPE (type);
     }
 
-  type_name = TYPE_NAME (type);
+  type_name = type->name ();
 
   if (type_name == NULL)
     return;
@@ -1297,7 +1364,7 @@ add_symbol_overload_list_adl_namespace (struct type *type,
     }
 
   /* Check public base type */
-  if (TYPE_CODE (type) == TYPE_CODE_STRUCT)
+  if (type->code () == TYPE_CODE_STRUCT)
     for (i = 0; i < TYPE_N_BASECLASSES (type); i++)
       {
 	if (BASETYPE_VIA_PUBLIC (type, i))
@@ -1451,7 +1518,7 @@ cp_lookup_rtti_type (const char *name, const struct block *block)
 
   rtti_type = check_typedef (SYMBOL_TYPE (rtti_sym));
 
-  switch (TYPE_CODE (rtti_type))
+  switch (rtti_type->code ())
     {
     case TYPE_CODE_STRUCT:
       break;
@@ -1605,15 +1672,6 @@ gdb_demangle (const char *name, int options)
 #endif
 
   return result;
-}
-
-/* See cp-support.h.  */
-
-int
-gdb_sniff_from_mangled_name (const char *mangled, char **demangled)
-{
-  *demangled = gdb_demangle (mangled, DMGL_PARAMS | DMGL_ANSI);
-  return *demangled != NULL;
 }
 
 /* See cp-support.h.  */
@@ -2118,18 +2176,6 @@ test_cp_remove_params ()
 
 #endif /* GDB_SELF_CHECK */
 
-/* Don't allow just "maintenance cplus".  */
-
-static  void
-maint_cplus_command (const char *arg, int from_tty)
-{
-  printf_unfiltered (_("\"maintenance cplus\" must be followed "
-		       "by the name of a command.\n"));
-  help_list (maint_cplus_cmd_list,
-	     "maintenance cplus ",
-	     all_commands, gdb_stdout);
-}
-
 /* This is a front end for cp_find_first_component, for unit testing.
    Be careful when using it: see the NOTE above
    cp_find_first_component.  */
@@ -2163,15 +2209,15 @@ info_vtbl_command (const char *arg, int from_tty)
   cplus_print_vtable (value);
 }
 
+void _initialize_cp_support ();
 void
-_initialize_cp_support (void)
+_initialize_cp_support ()
 {
-  add_prefix_cmd ("cplus", class_maintenance,
-		  maint_cplus_command,
-		  _("C++ maintenance commands."),
-		  &maint_cplus_cmd_list,
-		  "maintenance cplus ",
-		  0, &maintenancelist);
+  add_basic_prefix_cmd ("cplus", class_maintenance,
+			_("C++ maintenance commands."),
+			&maint_cplus_cmd_list,
+			"maintenance cplus ",
+			0, &maintenancelist);
   add_alias_cmd ("cp", "cplus",
 		 class_maintenance, 1,
 		 &maintenancelist);

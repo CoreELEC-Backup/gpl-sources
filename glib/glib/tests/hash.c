@@ -591,7 +591,7 @@ test_hash_misc (void)
   gint value = 120;
   gint *pvalue;
   GList *keys, *values;
-  gint keys_len, values_len;
+  gsize keys_len, values_len;
   GHashTableIter iter;
   gpointer ikey, ivalue;
   int result_array[10000];
@@ -1362,7 +1362,7 @@ struct _GHashTable
 
   GHashFunc        hash_func;
   GEqualFunc       key_equal_func;
-  volatile gint    ref_count;
+  gint             ref_count;  /* (atomic) */
 
 #ifndef G_DISABLE_ASSERT
   int              version;

@@ -42,16 +42,8 @@ tui_cmd_window::resize (int height_, int width_, int origin_x, int origin_y)
 {
   width = width_;
   height = height_;
-  if (height > 1)
-    {
-      /* Note this differs from the base class implementation, because
-	 this window can't be boxed.  */
-      viewport_height = height - 1;
-    }
-  else
-    viewport_height = 1;
-  origin.x = origin_x;
-  origin.y = origin_y;
+  x = origin_x;
+  y = origin_y;
 
   if (handle == nullptr)
     make_window ();
@@ -66,7 +58,7 @@ tui_cmd_window::resize (int height_, int width_, int origin_x, int origin_y)
 #ifdef HAVE_WRESIZE
       wresize (handle.get (), height, width);
 #endif
-      mvwin (handle.get (), origin.y, origin.x);
+      mvwin (handle.get (), y, x);
       wmove (handle.get (), 0, 0);
     }
 }
@@ -78,7 +70,7 @@ tui_refresh_cmd_win (void)
 {
   WINDOW *w = TUI_CMD_WIN->handle.get ();
 
-  wrefresh (w);
+  tui_wrefresh (w);
 
   /* FIXME: It's not clear why this is here.
      It was present in the original tui_puts code and is kept in order to

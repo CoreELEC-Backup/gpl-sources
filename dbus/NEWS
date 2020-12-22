@@ -1,3 +1,212 @@
+dbus 1.13.18 (2020-07-02)
+=========================
+
+The “carnivorous border” release.
+
+Maybe security fixes:
+
+• On Unix, avoid a use-after-free if two usernames have the same
+  numeric uid. In older versions this could lead to a crash (denial of
+  service) or other undefined behaviour, possibly including incorrect
+  authorization decisions if <policy group=...> is used.
+  Like Unix filesystems, D-Bus' model of identity cannot distinguish
+  between users of different names with the same numeric uid, so this
+  configuration is not advisable on systems where D-Bus will be used.
+  Thanks to Daniel Onaca.
+  (dbus#305, dbus!166; Simon McVittie)
+
+Other fixes:
+
+• On Solaris and its derivatives, if a cmsg header is truncated, ensure
+  that we do not overrun the buffer used for fd-passing, even if the
+  kernel tells us to.
+  (dbus#304, dbus!165; Andy Fiddaman)
+
+• When built with CMake, use GNUInstallDirs' special-cases for prefixes
+  /, /usr and /opt/*
+  (dbus!155, Ralf Habacker)
+
+• When built with CMake on Linux, allow systemd-specific features to be
+  enabled, for feature parity with Autotools
+  (dbus!155, Ralf Habacker)
+
+• When built with CMake, install the same example files as with Autotools
+  (dbus!155, Ralf Habacker)
+
+• Correct the doc-comment for DBUS_ERROR_SPAWN_NO_MEMORY
+  (dbus!163, Marc-André Lureau)
+
+dbus 1.13.16 (2020-06-02)
+=========================
+
+The “ominous mushroom hat” release.
+
+Denial of service fixes:
+
+• CVE-2020-12049: If a message contains more file descriptors than can
+  be sent, close those that did get through before reporting error.
+  Previously, a local attacker could cause the system dbus-daemon (or
+  another system service with its own DBusServer) to run out of file
+  descriptors, by repeatedly connecting to the server and sending fds that
+  would get leaked.
+  Thanks to Kevin Backhouse of GitHub Security Lab.
+  (dbus#294, GHSL-2020-057; Simon McVittie)
+
+Enhancements:
+
+• The API reference manual can be built as a Qt compiled help file if
+  qhelpgenerator(-qt5) is available. This is controlled by
+  --enable-qt-help and --with-qchdir in the Autotools build, or
+  -DENABLE_QT_HELP and -DINSTALL_QCH_DIR in CMake.
+  (dbus!150, Ralf Habacker)
+
+Fixes:
+
+• When built for Windows, return all autolaunch error information in
+  the DBusError rather than printing some of it to stderr
+  (dbus#191, dbus!131; Ralf Habacker)
+
+• When built for Windows, don't truncate long log messages
+  (dbus!134, Ralf Habacker)
+
+• When built using CMake for a Unix platform, dbus-cleanup-sockets and
+  dbus-uuidgen are now included (dbus!154, Ralf Habacker)
+
+• When built for Windows with verbose mode enabled, don't print debugging
+  messages related to poll() emulation into a fixed-size buffer that
+  could overflow (dbus!125, Ralf Habacker)
+
+• Adjust .desktop file parser to avoid a Coverity false positive
+  (dbus!146, Coverity CID 354884; Ralf Habacker)
+
+• Print shell-test diagnostics to stderr, avoiding warnings or errors
+  from strict TAP parsers (dbus!157, Félix Piédallu)
+
+Tests and CI enhancements:
+
+• When the CI cross-builds Windows binaries on Linux, run unit tests
+  using Wine (dbus#296, dbus!158; Ralf Habacker)
+
+• Really build x86_64 Windows binaries in Gitlab-CI, instead of building
+  i686 binaries a second time (Ralf Habacker)
+
+• When tests will be run using Wine, use STABS debug symbol format so
+  that Wine can display backtraces (dbus#133, dbus!104; Ralf Habacker)
+
+dbus 1.13.14 (2020-04-21)
+=========================
+
+The “mystery allium” release.
+
+Dependencies:
+
+• On Unix platforms, if getpwnam_r() and getgrnam_r() are implemented,
+  they must be POSIX-conformant. The non-POSIX signature seen in ancient
+  Solaris versions will no longer work. (dbus!11, Simon McVittie)
+
+Enhancements:
+
+• D-Bus Specification 0.36:
+  · Fix a typo in an annotated hexdump of part of a message
+    (dbus!152, Zygmunt Krynicki)
+
+• On Linux, use getrandom(2) in preference to /dev/urandom
+  (dbus!147, Natanael Copa)
+
+• Add a --sender option to dbus-send, which requests a name and holds it
+  until the signal has been sent. (dbus!116, Christopher Morin)
+
+Fixes:
+
+• Fix a crash when the dbus-daemon is terminated while one or more
+  monitors are active (dbus#291, dbus!140; Simon McVittie)
+
+• Fix several test failures if the build-time tests were run as uid 0.
+  Note that running the tests with elevated privileges is likely to be
+  insecure, and should only be attempted in an expendable container or
+  virtual machine. (dbus!117, Simon McVittie)
+
+• Fix an assertion failure if a client encounters an out-of-memory
+  condition while sending its response to the "OK" authentication
+  message, and processing of the "OK" message is subsequently retried
+  when more memory is available (dbus!119, Simon McVittie)
+
+• Don't leak struct addrinfo if we run out of memory during a TCP
+  connect()
+  (dbus!143, dbus!144, Coverity CID 354880; Ralf Habacker, Simon McVittie)
+
+• On Linux with SELinux, don't assume that the system policy has the
+  "dbus" security class or the associated AV
+  (dbus#198, dbus!128; Laurent Bigonville)
+
+• Handle dbus_connection_set_change_sigpipe() in a thread-safe way
+  (dbus!132; Simon McVittie, Ralf Habacker)
+
+• On Unix, use POSIX <poll.h> in preference to <sys/poll.h>
+  (dbus!148, Natanael Copa)
+
+• When building with CMake, cope with libX11 in a non-standard location
+  (dbus!129, Tuomo Rinne)
+
+• On Windows with verbose mode enabled and outputting to the debug port,
+  use a dynamically-allocated buffer to avoid potential stack buffer
+  overflows in long messages (dbus#45, dbus!133; Ralf Habacker)
+
+• The dbus-send(1) man page now documents --bus and --peer instead of
+  the old --address synonym for --peer, which has been deprecated since
+  the introduction of --bus and --peer in 1.7.6
+  (fd.o #48816, dbus!115; Chris Morin)
+
+• Fix a wrong environment variable name in dbus-daemon(1)
+  (dbus#275, dbus!122; Mubin, Philip Withnall)
+
+• Fix formatting of dbus_message_append_args example
+  (dbus!126, Felipe Franciosi)
+
+Internal changes:
+
+• Move more test-only code from dbus/ to tests/
+  (dbus!120, dbus!121, dbus!153; Simon McVittie)
+
+• Improve diagnostics if memory or fd leaks are detected
+  (dbus!118, dbus!120; Simon McVittie)
+
+• Move from Debian 9 to Debian 10 for most continuous integration jobs
+  (dbus!151, Simon McVittie)
+
+• On Windows, improve embedded version information
+  (dbus!136, dbus!138, dbus!139; Ralf Habacker)
+
+• Indentation fixes (dbus!149, Taras Zaporozhets)
+
+dbus 1.13.12 (2019-06-11)
+=========================
+
+The “patio squirrel” release.
+
+Security fixes:
+
+• CVE-2019-12749: Do not attempt to carry out DBUS_COOKIE_SHA1
+  authentication for identities that differ from the user running the
+  DBusServer. Previously, a local attacker could manipulate symbolic
+  links in their own home directory to bypass authentication and connect
+  to a DBusServer with elevated privileges. The standard system and
+  session dbus-daemons in their default configuration were immune to this
+  attack because they did not allow DBUS_COOKIE_SHA1, but third-party
+  users of DBusServer such as Upstart could be vulnerable.
+  Thanks to Joe Vennix of Apple Information Security.
+  (dbus#269, Simon McVittie)
+
+Enhancements:
+
+• dbus-daemon <allow> and <deny> rules can now specify a
+  send_destination_prefix attribute, which is like a combination of
+  send_destination and the arg0namespace keyword in match rules: a rule
+  with send_destination_prefix="com.example.Foo" matches messages sent to
+  any destination that is in the queue to own well-known names like
+  com.example.Foo or com.example.Foo.A.B (but not com.example.Foobar).
+  (dbus!85, Adrian Szyndela)
+
 dbus 1.13.10 (2019-05-13)
 =========================
 

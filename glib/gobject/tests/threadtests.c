@@ -27,8 +27,8 @@
 #include <glib.h>
 #include <glib-object.h>
 
-static volatile int mtsafe_call_counter = 0; /* multi thread safe call counter */
-static int          unsafe_call_counter = 0; /* single-threaded call counter */
+static int mtsafe_call_counter = 0; /* multi thread safe call counter, must be accessed atomically */
+static int unsafe_call_counter = 0; /* single-threaded call counter */
 static GCond sync_cond;
 static GMutex sync_mutex;
 
@@ -159,7 +159,7 @@ static void
 prop_tester_init (PropTester* t)
 {
   if (t->name == NULL)
-    ; /* neds unit test framework initialization: g_test_bug ("race initializing properties"); */
+    { } /* needs unit test framework initialization: g_test_bug ("race initializing properties"); */
 }
 static void
 prop_tester_set_property (GObject        *object,

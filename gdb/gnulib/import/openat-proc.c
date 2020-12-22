@@ -1,6 +1,6 @@
 /* Create /proc/self/fd-related names for subfiles of open directories.
 
-   Copyright (C) 2006, 2009-2016 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2009-2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 /* Written by Paul Eggert.  */
 
@@ -73,8 +73,9 @@ openat_proc_name (char buf[OPENAT_BUFFER_SIZE], int fd, char const *file)
            problem is exhibited on code that built on Solaris 8 and
            running on Solaris 10.  */
 
-        int proc_self_fd = open ("/proc/self/fd",
-                                 O_SEARCH | O_DIRECTORY | O_NOCTTY | O_NONBLOCK);
+        int proc_self_fd =
+          open ("/proc/self/fd",
+                O_SEARCH | O_DIRECTORY | O_NOCTTY | O_NONBLOCK | O_CLOEXEC);
         if (proc_self_fd < 0)
           proc_status = -1;
         else

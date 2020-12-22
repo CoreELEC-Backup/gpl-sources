@@ -129,6 +129,11 @@ bool CAddon::ReloadSettings()
   return LoadSettings(true);
 }
 
+void CAddon::ResetSettings()
+{
+  m_settings.reset();
+}
+
 bool CAddon::LoadUserSettings()
 {
   if (!SettingsInitialized())

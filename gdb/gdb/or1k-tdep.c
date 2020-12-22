@@ -35,7 +35,7 @@
 #include "arch-utils.h"
 #include "frame-unwind.h"
 #include "frame-base.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "trad-frame.h"
 #include "regset.h"
 #include "remote.h"
@@ -245,7 +245,7 @@ or1k_return_value (struct gdbarch *gdbarch, struct value *functype,
 		   gdb_byte *readbuf, const gdb_byte *writebuf)
 {
   enum bfd_endian byte_order = gdbarch_byte_order (gdbarch);
-  enum type_code rv_type = TYPE_CODE (valtype);
+  enum type_code rv_type = valtype->code ();
   unsigned int rv_size = TYPE_LENGTH (valtype);
   int bpw = (gdbarch_tdep (gdbarch))->bytes_per_word;
 
@@ -633,9 +633,9 @@ or1k_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
       struct value *arg = args[argnum];
       struct type *arg_type = check_typedef (value_type (arg));
       int len = TYPE_LENGTH (arg_type);
-      enum type_code typecode = TYPE_CODE (arg_type);
+      enum type_code typecode = arg_type->code ();
 
-      if (TYPE_VARARGS (func_type) && argnum >= TYPE_NFIELDS (func_type))
+      if (TYPE_VARARGS (func_type) && argnum >= func_type->num_fields ())
 	break; /* end or regular args, varargs go to stack.  */
 
       /* Extract the value, either a reference or the data.  */
@@ -723,7 +723,7 @@ or1k_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
       struct value *arg = args[argnum];
       struct type *arg_type = check_typedef (value_type (arg));
       int len = TYPE_LENGTH (arg_type);
-      enum type_code typecode = TYPE_CODE (arg_type);
+      enum type_code typecode = arg_type->code ();
 
       if ((TYPE_CODE_STRUCT == typecode) || (TYPE_CODE_UNION == typecode)
 	  || (len > bpw * 2))
@@ -755,7 +755,7 @@ or1k_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
       struct value *arg = args[argnum];
       struct type *arg_type = check_typedef (value_type (arg));
       int len = TYPE_LENGTH (arg_type);
-      enum type_code typecode = TYPE_CODE (arg_type);
+      enum type_code typecode = arg_type->code ();
       /* The EABI passes structures that do not fit in a register by
          reference.  In all other cases, pass the structure by value.  */
       if ((TYPE_CODE_STRUCT == typecode) || (TYPE_CODE_UNION == typecode)
@@ -1269,8 +1269,9 @@ or1k_dump_tdep (struct gdbarch *gdbarch, struct ui_file *file)
 }
 
 
+void _initialize_or1k_tdep ();
 void
-_initialize_or1k_tdep (void)
+_initialize_or1k_tdep ()
 {
   /* Register this architecture.  */
   gdbarch_register (bfd_arch_or1k, or1k_gdbarch_init, or1k_dump_tdep);

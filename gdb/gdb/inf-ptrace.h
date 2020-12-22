@@ -43,17 +43,6 @@ struct inf_ptrace_target : public inf_child_target
 
   void create_inferior (const char *, const std::string &,
 			char **, int) override;
-#ifdef PT_GET_PROCESS_STATE
-  int follow_fork (int, int) override;
-
-  int insert_fork_catchpoint (int) override;
-
-  int remove_fork_catchpoint (int) override;
-
-  void post_startup_inferior (ptid_t) override;
-
-  void post_attach (int) override;
-#endif
 
   void mourn_inferior () override;
 
@@ -68,19 +57,19 @@ struct inf_ptrace_target : public inf_child_target
 					ULONGEST offset, ULONGEST len,
 					ULONGEST *xfered_len) override;
 
-#if defined (PT_IO) && defined (PIOD_READ_AUXV)
-  int auxv_parse (gdb_byte **readptr,
-		  gdb_byte *endptr, CORE_ADDR *typep, CORE_ADDR *valp) override;
-#endif
-
 protected:
   /* Cleanup the inferior after a successful ptrace detach.  */
   void detach_success (inferior *inf);
 };
 
+#ifndef __NetBSD__
 /* Return which PID to pass to ptrace in order to observe/control the
-   tracee identified by PTID.  */
+   tracee identified by PTID.
+
+   Unlike most other Operating Systems, NetBSD tracks both pid and lwp
+   and avoids this function.  */
 
 extern pid_t get_ptrace_pid (ptid_t);
+#endif
 
 #endif

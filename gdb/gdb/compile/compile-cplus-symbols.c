@@ -30,7 +30,7 @@
 #include "value.h"
 #include "exceptions.h"
 #include "gdbtypes.h"
-#include "dwarf2loc.h"
+#include "dwarf2/loc.h"
 #include "cp-support.h"
 #include "gdbcmd.h"
 #include "compile-c.h"
@@ -73,9 +73,9 @@ convert_one_symbol (compile_cplus_instance *instance,
       switch (SYMBOL_CLASS (sym.symbol))
 	{
 	case LOC_TYPEDEF:
-	  if (TYPE_CODE (SYMBOL_TYPE (sym.symbol)) == TYPE_CODE_TYPEDEF)
+	  if (SYMBOL_TYPE (sym.symbol)->code () == TYPE_CODE_TYPEDEF)
 	    kind = GCC_CP_SYMBOL_TYPEDEF;
-	  else  if (TYPE_CODE (SYMBOL_TYPE (sym.symbol)) == TYPE_CODE_NAMESPACE)
+	  else  if (SYMBOL_TYPE (sym.symbol)->code () == TYPE_CODE_NAMESPACE)
 	    return;
 	  break;
 
@@ -94,7 +94,7 @@ convert_one_symbol (compile_cplus_instance *instance,
 	  break;
 
 	case LOC_CONST:
-	  if (TYPE_CODE (SYMBOL_TYPE (sym.symbol)) == TYPE_CODE_ENUM)
+	  if (SYMBOL_TYPE (sym.symbol)->code () == TYPE_CODE_ENUM)
 	    {
 	      /* Already handled by convert_enum.  */
 	      return;

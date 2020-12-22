@@ -164,10 +164,10 @@ extern void ada_print_type (struct type *, const char *, struct ui_file *, int,
 extern void ada_print_typedef (struct type *type, struct symbol *new_symbol,
 			       struct ui_file *stream);
 
-extern void ada_val_print (struct type *, int, CORE_ADDR,
-			   struct ui_file *, int,
-			   struct value *,
-			   const struct value_print_options *);
+/* Implement la_value_print_inner for Ada.  */
+
+extern void ada_value_print_inner (struct value *, struct ui_file *, int,
+				   const struct value_print_options *);
 
 extern void ada_value_print (struct value *, struct ui_file *,
 			     const struct value_print_options *);
@@ -234,6 +234,11 @@ extern struct bound_minimal_symbol ada_lookup_simple_minsym (const char *);
 
 extern int ada_scan_number (const char *, int, LONGEST *, int *);
 
+extern struct value *ada_value_primitive_field (struct value *arg1,
+						int offset,
+						int fieldno,
+						struct type *arg_type);
+
 extern struct type *ada_parent_type (struct type *);
 
 extern int ada_is_ignored_field (struct type *, int);
@@ -255,7 +260,7 @@ extern int ada_is_tagged_type (struct type *, int);
 
 extern int ada_is_tag_type (struct type *);
 
-extern const char *ada_tag_name (struct value *);
+extern gdb::unique_xmalloc_ptr<char> ada_tag_name (struct value *);
 
 extern struct value *ada_tag_value_at_base_address (struct value *obj);
 
@@ -276,16 +281,15 @@ extern struct type *ada_aligned_type (struct type *);
 extern const gdb_byte *ada_aligned_value_addr (struct type *,
 					       const gdb_byte *);
 
-extern int ada_is_fixed_point_type (struct type *);
+extern int ada_is_gnat_encoded_fixed_point_type (struct type *);
 
 extern int ada_is_system_address_type (struct type *);
 
-extern struct value *ada_delta (struct type *);
+extern struct value *gnat_encoded_fixed_point_delta (struct type *);
 
 extern struct value *ada_scaling_factor (struct type *);
 
-extern int ada_which_variant_applies (struct type *, struct type *,
-				      const gdb_byte *);
+extern int ada_which_variant_applies (struct type *, struct value *);
 
 extern struct type *ada_to_fixed_type (struct type *, const gdb_byte *,
 				       CORE_ADDR, struct value *,
@@ -371,9 +375,10 @@ extern struct ada_task_info *ada_get_task_info_from_ptid (ptid_t ptid);
 
 extern int ada_get_task_number (thread_info *thread);
 
-typedef void (ada_task_list_iterator_ftype) (struct ada_task_info *task);
+typedef gdb::function_view<void (struct ada_task_info *task)>
+  ada_task_list_iterator_ftype;
 extern void iterate_over_live_ada_tasks
-  (ada_task_list_iterator_ftype *iterator);
+  (ada_task_list_iterator_ftype iterator);
 
 extern const char *ada_get_tcb_types_info (void);
 

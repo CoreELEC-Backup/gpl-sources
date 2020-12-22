@@ -254,7 +254,7 @@ static void
 debug_qf_expand_symtabs_matching
   (struct objfile *objfile,
    gdb::function_view<expand_symtabs_file_matcher_ftype> file_matcher,
-   const lookup_name_info &lookup_name,
+   const lookup_name_info *lookup_name,
    gdb::function_view<expand_symtabs_symbol_matcher_ftype> symbol_matcher,
    gdb::function_view<expand_symtabs_exp_notify_ftype> expansion_notify,
    enum search_domain kind)
@@ -362,6 +362,7 @@ static const struct quick_symbol_functions debug_sym_quick_functions =
   debug_qf_forget_cached_source_info,
   debug_qf_map_symtabs_matching_filename,
   debug_qf_lookup_symbol,
+  NULL,
   debug_qf_print_stats,
   debug_qf_dump,
   debug_qf_expand_symtabs_for_function,
@@ -474,7 +475,7 @@ debug_sym_offsets (struct objfile *objfile,
   debug_data->real_sf->sym_offsets (objfile, info);
 }
 
-static struct symfile_segment_data *
+static symfile_segment_data_up
 debug_sym_segments (bfd *abfd)
 {
   /* This API function is annoying, it doesn't take a "this" pointer.
@@ -620,9 +621,7 @@ objfile_set_sym_fns (struct objfile *objfile, const struct sym_fns *sf)
 static void
 set_debug_symfile (const char *args, int from_tty, struct cmd_list_element *c)
 {
-  struct program_space *pspace;
-
-  ALL_PSPACES (pspace)
+  for (struct program_space *pspace : program_spaces)
     for (objfile *objfile : pspace->objfiles ())
       {
 	if (debug_symfile)
@@ -645,8 +644,9 @@ show_debug_symfile (struct ui_file *file, int from_tty,
   fprintf_filtered (file, _("Symfile debugging is %s.\n"), value);
 }
 
+void _initialize_symfile_debug ();
 void
-_initialize_symfile_debug (void)
+_initialize_symfile_debug ()
 {
   add_setshow_boolean_cmd ("symfile", no_class, &debug_symfile, _("\
 Set debugging of the symfile functions."), _("\

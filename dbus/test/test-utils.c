@@ -1,6 +1,7 @@
 /*
- * Copyright 2002-2008 Red Hat Inc.
+ * Copyright 2002-2009 Red Hat Inc.
  * Copyright 2011-2017 Collabora Ltd.
+ * Copyright 2017 Endless Mobile, Inc.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -35,14 +36,25 @@
 #include <locale.h>
 #endif
 
+#include <dbus/dbus-sysdeps.h>
+
 #ifdef DBUS_UNIX
+# include <sys/types.h>
+# include <unistd.h>
+
 # include <dbus/dbus-sysdeps-unix.h>
+#else
+# include <dbus/dbus-sysdeps-win.h>
+#endif
+
+#ifdef __linux__
+/* Necessary for the Linux-specific fd leak checking code only */
+#include <dirent.h>
+#include <errno.h>
 #endif
 
 #include "dbus/dbus-message-internal.h"
-#include "dbus/dbus-test-tap.h"
 
-#ifdef DBUS_ENABLE_EMBEDDED_TESTS
 /*
  * Like strdup(), but crash on out-of-memory, and pass through NULL
  * unchanged (the "0" in the name is meant to be a mnemonic for this,
@@ -63,7 +75,6 @@ strdup0_or_die (const char *str)
 
   return ret;
 }
-#endif
 
 typedef struct
 {
@@ -454,7 +465,188 @@ test_pending_call_store_reply (DBusPendingCall *pc,
   _dbus_assert (*message_p != NULL);
 }
 
-#ifdef DBUS_ENABLE_EMBEDDED_TESTS
+#ifdef DBUS_UNIX
+
+/*
+ * Set uid to a machine-readable authentication identity (numeric Unix
+ * uid or ConvertSidToStringSid-style Windows SID) that is likely to exist,
+ * and differs from the identity of the current process.
+ *
+ * @param uid Populated with a machine-readable authentication identity
+ *    on success
+ * @returns #FALSE if no memory
+ */
+dbus_bool_t
+_dbus_test_append_different_uid (DBusString *uid)
+{
+  if (geteuid () == 0)
+    return _dbus_string_append (uid, "65534");
+  else
+    return _dbus_string_append (uid, "0");
+}
+
+/*
+ * Set uid to a human-readable authentication identity (login name)
+ * that is likely to exist, and differs from the identity of the current
+ * process. This function currently only exists on Unix platforms.
+ *
+ * @param uid Populated with a machine-readable authentication identity
+ *    on success
+ * @returns #FALSE if no memory
+ */
+dbus_bool_t
+_dbus_test_append_different_username (DBusString *username)
+{
+  if (geteuid () == 0)
+    return _dbus_string_append (username, "nobody");
+  else
+    return _dbus_string_append (username, "root");
+}
+
+#else /* !defined(DBUS_UNIX) */
+
+#define ANONYMOUS_SID "S-1-5-7"
+#define LOCAL_SYSTEM_SID "S-1-5-18"
+
+dbus_bool_t
+_dbus_test_append_different_uid (DBusString *uid)
+{
+  char *sid = NULL;
+  dbus_bool_t ret;
+
+  if (!_dbus_getsid (&sid, _dbus_getpid ()))
+    return FALSE;
+
+  if (strcmp (sid, ANONYMOUS_SID) == 0)
+    ret = _dbus_string_append (uid, LOCAL_SYSTEM_SID);
+  else
+    ret = _dbus_string_append (uid, ANONYMOUS_SID);
+
+  LocalFree (sid);
+  return ret;
+}
+
+#endif /* !defined(DBUS_UNIX) */
+
+#ifdef __linux__
+struct DBusInitialFDs {
+    fd_set set;
+};
+#endif
+
+DBusInitialFDs *
+_dbus_check_fdleaks_enter (void)
+{
+#ifdef __linux__
+  DIR *d;
+  DBusInitialFDs *fds;
+
+  /* this is plain malloc so it won't interfere with leak checking */
+  fds = malloc (sizeof (DBusInitialFDs));
+  _dbus_assert (fds != NULL);
+
+  /* This works on Linux only */
+
+  if ((d = opendir ("/proc/self/fd")))
+    {
+      struct dirent *de;
+
+      while ((de = readdir(d)))
+        {
+          long l;
+          char *e = NULL;
+          int fd;
+
+          if (de->d_name[0] == '.')
+            continue;
+
+          errno = 0;
+          l = strtol (de->d_name, &e, 10);
+          _dbus_assert (errno == 0 && e && !*e);
+
+          fd = (int) l;
+
+          if (fd < 3)
+            continue;
+
+          if (fd == dirfd (d))
+            continue;
+
+          if (fd >= FD_SETSIZE)
+            {
+              _dbus_verbose ("FD %d unexpectedly large; cannot track whether "
+                             "it is leaked\n", fd);
+              continue;
+            }
+
+          FD_SET (fd, &fds->set);
+        }
+
+      closedir (d);
+    }
+
+  return fds;
+#else
+  return NULL;
+#endif
+}
+
+void
+_dbus_check_fdleaks_leave (DBusInitialFDs *fds,
+                           const char     *context)
+{
+#ifdef __linux__
+  DIR *d;
+
+  /* This works on Linux only */
+
+  if ((d = opendir ("/proc/self/fd")))
+    {
+      struct dirent *de;
+
+      while ((de = readdir(d)))
+        {
+          long l;
+          char *e = NULL;
+          int fd;
+
+          if (de->d_name[0] == '.')
+            continue;
+
+          errno = 0;
+          l = strtol (de->d_name, &e, 10);
+          _dbus_assert (errno == 0 && e && !*e);
+
+          fd = (int) l;
+
+          if (fd < 3)
+            continue;
+
+          if (fd == dirfd (d))
+            continue;
+
+          if (fd >= FD_SETSIZE)
+            {
+              _dbus_verbose ("FD %d unexpectedly large; cannot track whether "
+                             "it is leaked\n", fd);
+              continue;
+            }
+
+          if (FD_ISSET (fd, &fds->set))
+            continue;
+
+          _dbus_test_fatal ("file descriptor %i leaked in %s.", fd, context);
+        }
+
+      closedir (d);
+    }
+
+  free (fds);
+#else
+  _dbus_assert (fds == NULL);
+#endif
+}
+
 /*
  * _dbus_test_main:
  * @argc: number of command-line arguments
@@ -579,7 +771,7 @@ _dbus_test_main (int                  argc,
         _dbus_test_check_memleaks (tests[i].name);
 
       if (flags & DBUS_TEST_FLAGS_CHECK_FD_LEAKS)
-        _dbus_check_fdleaks_leave (initial_fds);
+        _dbus_check_fdleaks_leave (initial_fds, tests[i].name);
     }
 
   free (test_data_dir);
@@ -588,4 +780,11 @@ _dbus_test_main (int                  argc,
   return _dbus_test_done_testing ();
 }
 
+/* If embedded tests are enabled, the TAP helpers have to be in the
+ * shared library because some of the embedded tests call them. If not,
+ * implement them here. We #include the file here instead of adding it
+ * to SOURCES because Automake versions older than 1.16 can't cope with
+ * expanding directory variables in SOURCES when using subdir-objects. */
+#ifndef DBUS_ENABLE_EMBEDDED_TESTS
+#include "dbus/dbus-test-tap.c"
 #endif

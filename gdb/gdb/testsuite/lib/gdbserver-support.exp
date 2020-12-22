@@ -64,6 +64,10 @@ proc gdb_target_cmd_ext { targetname serialport {additional_text ""} } {
 	    -re "Couldn't establish connection to remote.*$gdb_prompt $" {
 		verbose "Connection failed"
 	    }
+	    -re "Non-stop mode requested, but remote does not support non-stop.*$gdb_prompt $" {
+		verbose "remote does not support non-stop"
+		return 1
+	    }
 	    -re "Remote MIPS debugging.*$additional_text.*$gdb_prompt" {
 		verbose "Set target to $targetname"
 		return 0
@@ -134,13 +138,15 @@ proc find_gdbserver { } {
     return [target_info gdb_server_prog]
   }
 
-  set gdbserver "${GDB}server"
-  if { [file isdirectory $gdbserver] } {
-    append gdbserver "/gdbserver"
-  }
+  set toplevel [file join [file dirname $GDB] .. gdbserver]
+  foreach gdbserver [list "${GDB}server" $toplevel] {
+      if { [file isdirectory $gdbserver] } {
+	  append gdbserver "/gdbserver"
+      }
 
-  if { [file executable $gdbserver] } {
-    return $gdbserver
+      if { [file executable $gdbserver] } {
+	  return $gdbserver
+      }
   }
 
   return ""
@@ -425,21 +431,11 @@ if { [info procs gdbserver_orig_gdb_exit] == "" } {
     rename mi_gdb_exit gdbserver_orig_mi_gdb_exit
 }
 
-proc gdbserver_gdb_exit { is_mi } {
+# Cleanup gdbserver $server_spawn_id
+
+proc gdbserver_exit { is_mi } {
     global gdb_spawn_id server_spawn_id
     global gdb_prompt
-    global gdbserver_reconnect_p
-
-    # Leave GDBserver running if we're exiting GDB in order to
-    # reconnect to the same instance of GDBserver again.
-    if {[info exists gdbserver_reconnect_p] && $gdbserver_reconnect_p} {
-	if { $is_mi } {
-	    gdbserver_orig_mi_gdb_exit
-	} else {
-	    gdbserver_orig_gdb_exit
-	}
-	return
-    }
 
     if {[info exists gdb_spawn_id] && [info exists server_spawn_id]} {
 	# GDB may be terminated in an expected way or an unexpected way,
@@ -463,10 +459,34 @@ proc gdbserver_gdb_exit { is_mi } {
 		    wait -i $expect_out(spawn_id)
 		    unset server_spawn_id
 		}
+               timeout {
+                   warning "Timed out waiting for EOF in server after $monitor_exit"
+               }
 	    }
 	}
     }
     close_gdbserver
+}
+
+# Local version of gdb_exit that also cleans up gdbserver $server_spawn_id.
+
+proc gdbserver_gdb_exit { is_mi } {
+    global gdb_spawn_id server_spawn_id
+    global gdb_prompt
+    global gdbserver_reconnect_p
+
+    # Leave GDBserver running if we're exiting GDB in order to
+    # reconnect to the same instance of GDBserver again.
+    if {[info exists gdbserver_reconnect_p] && $gdbserver_reconnect_p} {
+	if { $is_mi } {
+	    gdbserver_orig_mi_gdb_exit
+	} else {
+	    gdbserver_orig_gdb_exit
+	}
+	return
+    }
+
+    gdbserver_exit $is_mi
 
     if { $is_mi } {
 	gdbserver_orig_mi_gdb_exit

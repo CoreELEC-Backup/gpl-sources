@@ -1,5 +1,5 @@
-# isnanl.m4 serial 19
-dnl Copyright (C) 2007-2016 Free Software Foundation, Inc.
+# isnanl.m4 serial 21
+dnl Copyright (C) 2007-2020 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -68,7 +68,10 @@ AC_DEFUN([gl_HAVE_ISNANL_NO_LIBM],
       AC_LINK_IFELSE(
         [AC_LANG_PROGRAM(
            [[#include <math.h>
-             #if __GNUC__ >= 4
+             #ifndef __has_builtin
+             # define __has_builtin(name) 0
+             #endif
+             #if __GNUC__ >= 4 && (!defined __clang__ || __has_builtin (__builtin_isnanl))
              # undef isnanl
              # define isnanl(x) __builtin_isnanl ((long double)(x))
              #elif defined isnan
@@ -93,7 +96,10 @@ AC_DEFUN([gl_HAVE_ISNANL_IN_LIBM],
       AC_LINK_IFELSE(
         [AC_LANG_PROGRAM(
            [[#include <math.h>
-             #if __GNUC__ >= 4
+             #ifndef __has_builtin
+             # define __has_builtin(name) 0
+             #endif
+             #if __GNUC__ >= 4 && (!defined __clang__ || __has_builtin (__builtin_isnanl))
              # undef isnanl
              # define isnanl(x) __builtin_isnanl ((long double)(x))
              #elif defined isnan
@@ -123,7 +129,10 @@ AC_DEFUN([gl_FUNC_ISNANL_WORKS],
 #include <float.h>
 #include <limits.h>
 #include <math.h>
-#if __GNUC__ >= 4
+#ifndef __has_builtin
+# define __has_builtin(name) 0
+#endif
+#if __GNUC__ >= 4 && (!defined __clang__ || __has_builtin (__builtin_isnanl))
 # undef isnanl
 # define isnanl(x) __builtin_isnanl ((long double)(x))
 #elif defined isnan
@@ -231,6 +240,18 @@ int main ()
 }]])],
         [gl_cv_func_isnanl_works=yes],
         [gl_cv_func_isnanl_works=no],
-        [gl_cv_func_isnanl_works="guessing yes"])
+        [case "$host_os" in
+           mingw*) # Guess yes on mingw, no on MSVC.
+             AC_EGREP_CPP([Known], [
+#ifdef __MINGW32__
+ Known
+#endif
+               ],
+               [gl_cv_func_isnanl_works="guessing yes"],
+               [gl_cv_func_isnanl_works="guessing no"])
+             ;;
+           *) gl_cv_func_isnanl_works="guessing yes" ;;
+         esac
+        ])
     ])
 ])

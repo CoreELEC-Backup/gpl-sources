@@ -1,5 +1,5 @@
 /* BFD back-end for mmo objects (MMIX-specific object-format).
-   Copyright (C) 2001-2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2020 Free Software Foundation, Inc.
    Written by Hans-Peter Nilsson (hp@bitrange.com).
    Infrastructure and other bits originally copied from srec.c and
    binary.c.
@@ -386,7 +386,7 @@ static INLINE bfd_byte *mmo_get_loc (asection *, bfd_vma, int);
 static void mmo_xore_64 (asection *, bfd_vma vma, bfd_vma value);
 static void mmo_xore_32 (asection *, bfd_vma vma, unsigned int);
 static void mmo_xore_16 (asection *, bfd_vma vma, unsigned int);
-static const bfd_target *mmo_object_p (bfd *);
+static bfd_cleanup mmo_object_p (bfd *);
 static void mmo_map_set_sizes (bfd *, asection *, void *);
 static bfd_boolean mmo_get_symbols (bfd *);
 static bfd_boolean mmo_create_symbol (bfd *, const char *, bfd_vma,
@@ -500,7 +500,7 @@ mmo_init (void)
 
 /* Check whether an existing file is an mmo file.  */
 
-static const bfd_target *
+static bfd_cleanup
 mmo_object_p (bfd *abfd)
 {
   struct stat statbuf;
@@ -556,7 +556,7 @@ mmo_object_p (bfd *abfd)
   if (! bfd_default_set_arch_mach (abfd, bfd_arch_mmix, 0))
     goto bad_format_free;
 
-  return abfd->xvec;
+  return _bfd_no_cleanup;
 
  bad_format_free:
   free (abfd->tdata.mmo_data->lop_stab_symbol);
@@ -579,7 +579,7 @@ mmo_mkobject (bfd *abfd)
 
       /* All fields are zero-initialized, so we don't have to explicitly
 	 initialize most.  */
-      tdata_type *tdata = (tdata_type *) bfd_zmalloc (sizeof (tdata_type));
+      tdata_type *tdata = (tdata_type *) bfd_zalloc (abfd, sizeof (tdata_type));
       if (tdata == NULL)
 	return FALSE;
 
@@ -1588,7 +1588,7 @@ mmo_scan (bfd *abfd)
   unsigned int lineno = 1;
   bfd_boolean error = FALSE;
   bfd_vma vma = 0;
-  asection *sec = bfd_make_section_old_way (abfd, MMO_TEXT_SECTION_NAME);
+  asection *sec = NULL;
   asection *non_spec_sec = NULL;
   bfd_vma non_spec_vma = 0;
   bfd_size_type nbytes_read = 0;
@@ -1646,6 +1646,8 @@ mmo_scan (bfd *abfd)
 		goto error_return;
 
 	      vma &= ~3;
+	      if (sec == NULL)
+		sec = bfd_make_section_old_way (abfd, MMO_TEXT_SECTION_NAME);
 	      mmo_xore_32 (sec, vma, bfd_get_32 (abfd, buf));
 	      vma += 4;
 	      lineno++;
@@ -2038,6 +2040,8 @@ mmo_scan (bfd *abfd)
       else
 	{
 	  /* This wasn't a lopcode, so store it in the current section.  */
+	  if (sec == NULL)
+	    sec = bfd_make_section_old_way (abfd, MMO_TEXT_SECTION_NAME);
 	  mmo_xore_32 (sec, vma & ~3, bfd_get_32 (abfd, buf));
 	  vma += 4;
 	  vma &= ~3;
@@ -2074,13 +2078,12 @@ mmo_scan (bfd *abfd)
   if (sec != NULL
       && (bfd_section_flags (sec) & SEC_HAS_CONTENTS)
       && !bfd_set_section_flags (sec, (bfd_section_flags (sec)
-				       | SEC_ALLOC | SEC_LOAD)))
+				       | SEC_ALLOC | SEC_LOAD | SEC_DATA)))
     error = TRUE;
 
   /* Free whatever resources we took.  */
   for (i = 0; i < sizeof (file_names) / sizeof (file_names[0]); i++)
-    if (file_names[i])
-      free (file_names[i]);
+    free (file_names[i]);
   return ! error;
 }
 
@@ -2935,7 +2938,8 @@ mmo_write_symbols_and_terminator (bfd *abfd)
   if (table == NULL)
     return FALSE;
 
-  memcpy (table, orig_table, count * sizeof (asymbol *));
+  if (count != 0)
+    memcpy (table, orig_table, count * sizeof (asymbol *));
 
   /* Move :Main (if there is one) to the first position.  This is
      necessary to get the same layout of the trie-tree when linking as

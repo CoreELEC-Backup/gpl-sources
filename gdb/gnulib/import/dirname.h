@@ -1,6 +1,6 @@
 /*  Take file names apart into directory and base names.
 
-    Copyright (C) 1998, 2001, 2003-2006, 2009-2016 Free Software Foundation,
+    Copyright (C) 1998, 2001, 2003-2006, 2009-2020 Free Software Foundation,
     Inc.
 
     This program is free software: you can redistribute it and/or modify
@@ -14,14 +14,14 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 #ifndef DIRNAME_H_
 # define DIRNAME_H_ 1
 
 # include <stdbool.h>
 # include <stddef.h>
-# include "dosname.h"
+# include "filename.h"
 
 # ifndef DIRECTORY_SEPARATOR
 #  define DIRECTORY_SEPARATOR '/'
@@ -36,7 +36,7 @@ extern "C" {
 #endif
 
 # if GNULIB_DIRNAME
-char *base_name (char const *file);
+char *base_name (char const *file) _GL_ATTRIBUTE_MALLOC;
 char *dir_name (char const *file);
 # endif
 

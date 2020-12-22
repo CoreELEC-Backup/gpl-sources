@@ -32,59 +32,59 @@ typedef struct
   char *filename;
   char *hostname;
   char *expected_result;
-  GConvertError expected_error; /* If failed */
+  gint expected_error; /* If failed */
 } FileToUriTest;
 
 FileToUriTest
 file_to_uri_tests[] = {
-  { "/etc", NULL, "file:///etc"},
-  { "/etc", "", "file:///etc"},
-  { "/etc", "otherhost", "file://otherhost/etc"},
+  { "/etc", NULL, "file:///etc", 0 },
+  { "/etc", "", "file:///etc", 0 },
+  { "/etc", "otherhost", "file://otherhost/etc", 0 },
 #ifdef G_OS_WIN32
-  { "/etc", "localhost", "file:///etc"},
-  { "c:\\windows", NULL, "file:///c:/windows"},
-  { "c:\\windows", "localhost", "file:///c:/windows"},
-  { "c:\\windows", "otherhost", "file://otherhost/c:/windows"},
-  { "\\\\server\\share\\dir", NULL, "file:////server/share/dir"},
-  { "\\\\server\\share\\dir", "localhost", "file:////server/share/dir"},
+  { "/etc", "localhost", "file:///etc", 0 },
+  { "c:\\windows", NULL, "file:///c:/windows", 0 },
+  { "c:\\windows", "localhost", "file:///c:/windows", 0 },
+  { "c:\\windows", "otherhost", "file://otherhost/c:/windows", 0 },
+  { "\\\\server\\share\\dir", NULL, "file:////server/share/dir", 0 },
+  { "\\\\server\\share\\dir", "localhost", "file:////server/share/dir", 0 },
 #else
-  { "/etc", "localhost", "file://localhost/etc"},
+  { "/etc", "localhost", "file://localhost/etc", 0 },
   { "c:\\windows", NULL, NULL, G_CONVERT_ERROR_NOT_ABSOLUTE_PATH}, /* it's important to get this error on Unix */
   { "c:\\windows", "localhost", NULL, G_CONVERT_ERROR_NOT_ABSOLUTE_PATH},
   { "c:\\windows", "otherhost", NULL, G_CONVERT_ERROR_NOT_ABSOLUTE_PATH},
 #endif
   { "etc", "localhost", NULL, G_CONVERT_ERROR_NOT_ABSOLUTE_PATH},
 #ifndef G_PLATFORM_WIN32
-  { "/etc/\xE5\xE4\xF6", NULL, "file:///etc/%E5%E4%F6" },
-  { "/etc/\xC3\xB6\xC3\xA4\xC3\xA5", NULL, "file:///etc/%C3%B6%C3%A4%C3%A5"},
+  { "/etc/\xE5\xE4\xF6", NULL, "file:///etc/%E5%E4%F6", 0 },
+  { "/etc/\xC3\xB6\xC3\xA4\xC3\xA5", NULL, "file:///etc/%C3%B6%C3%A4%C3%A5", 0 },
 #endif
   { "/etc", "\xC3\xB6\xC3\xA4\xC3\xA5", NULL, G_CONVERT_ERROR_ILLEGAL_SEQUENCE},
   { "/etc", "\xE5\xE4\xF6", NULL, G_CONVERT_ERROR_ILLEGAL_SEQUENCE},
-  { "/etc/file with #%", NULL, "file:///etc/file%20with%20%23%25"},
+  { "/etc/file with #%", NULL, "file:///etc/file%20with%20%23%25", 0 },
   { "", NULL, NULL, G_CONVERT_ERROR_NOT_ABSOLUTE_PATH},
   { "", "", NULL, G_CONVERT_ERROR_NOT_ABSOLUTE_PATH},
   { "", "localhost", NULL, G_CONVERT_ERROR_NOT_ABSOLUTE_PATH},
   { "", "otherhost", NULL, G_CONVERT_ERROR_NOT_ABSOLUTE_PATH},
-  { "/0123456789", NULL, "file:///0123456789"},
-  { "/ABCDEFGHIJKLMNOPQRSTUVWXYZ", NULL, "file:///ABCDEFGHIJKLMNOPQRSTUVWXYZ"},
-  { "/abcdefghijklmnopqrstuvwxyz", NULL, "file:///abcdefghijklmnopqrstuvwxyz"},
-  { "/-_.!~*'()", NULL, "file:///-_.!~*'()"},
+  { "/0123456789", NULL, "file:///0123456789", 0 },
+  { "/ABCDEFGHIJKLMNOPQRSTUVWXYZ", NULL, "file:///ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0 },
+  { "/abcdefghijklmnopqrstuvwxyz", NULL, "file:///abcdefghijklmnopqrstuvwxyz", 0 },
+  { "/-_.!~*'()", NULL, "file:///-_.!~*'()", 0 },
 #ifdef G_OS_WIN32
   /* As '\\' is a path separator on Win32, it gets turned into '/' in the URI */
-  { "/\"#%<>[\\]^`{|}\x7F", NULL, "file:///%22%23%25%3C%3E%5B/%5D%5E%60%7B%7C%7D%7F"},
+  { "/\"#%<>[\\]^`{|}\x7F", NULL, "file:///%22%23%25%3C%3E%5B/%5D%5E%60%7B%7C%7D%7F", 0 },
 #else
   /* On Unix, '\\' is a normal character in the file name */
-  { "/\"#%<>[\\]^`{|}\x7F", NULL, "file:///%22%23%25%3C%3E%5B%5C%5D%5E%60%7B%7C%7D%7F"},
+  { "/\"#%<>[\\]^`{|}\x7F", NULL, "file:///%22%23%25%3C%3E%5B%5C%5D%5E%60%7B%7C%7D%7F", 0 },
 #endif
-  { "/;@+$,", NULL, "file:///%3B@+$,"},
+  { "/;@+$,", NULL, "file:///%3B@+$,", 0 },
   /* This and some of the following are of course as such illegal file names on Windows,
    * and would not occur in real life.
    */
-  { "/:", NULL, "file:///:"},
-  { "/?&=", NULL, "file:///%3F&="},
+  { "/:", NULL, "file:///:", 0 },
+  { "/?&=", NULL, "file:///%3F&=", 0 },
   { "/", "0123456789-", NULL, G_CONVERT_ERROR_ILLEGAL_SEQUENCE},
-  { "/", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "file://ABCDEFGHIJKLMNOPQRSTUVWXYZ/"},
-  { "/", "abcdefghijklmnopqrstuvwxyz", "file://abcdefghijklmnopqrstuvwxyz/"},
+  { "/", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "file://ABCDEFGHIJKLMNOPQRSTUVWXYZ/", 0 },
+  { "/", "abcdefghijklmnopqrstuvwxyz", "file://abcdefghijklmnopqrstuvwxyz/", 0 },
   { "/", "_.!~*'()", NULL, G_CONVERT_ERROR_ILLEGAL_SEQUENCE},
   { "/", "\"#%<>[\\]^`{|}\x7F", NULL, G_CONVERT_ERROR_ILLEGAL_SEQUENCE},
   { "/", ";?&=+$,", NULL, G_CONVERT_ERROR_ILLEGAL_SEQUENCE},
@@ -100,31 +100,32 @@ typedef struct
   char *uri;
   char *expected_filename;
   char *expected_hostname;
-  GConvertError expected_error; /* If failed */
+  gint expected_error; /* If failed */
 } FileFromUriTest;
 
 FileFromUriTest
 file_from_uri_tests[] = {
-  { "file:///etc", "/etc"},
-  { "file:/etc", "/etc"},
+  { "file:///etc", "/etc", NULL, 0 },
+  { "FILE:///etc", "/etc", NULL, 0 },
+  { "file:/etc", "/etc", NULL, 0 },
 #ifdef G_OS_WIN32
   /* On Win32 we don't return "localhost" hostames, just in case
    * it isn't recognized anyway.
    */
-  { "file://localhost/etc", "/etc", NULL},
-  { "file://localhost/etc/%23%25%20file", "/etc/#% file", NULL},
-  { "file://localhost/\xE5\xE4\xF6", "/\xe5\xe4\xf6", NULL},
-  { "file://localhost/%E5%E4%F6", "/\xe5\xe4\xf6", NULL},
+  { "file://localhost/etc", "/etc", NULL, 0 },
+  { "file://localhost/etc/%23%25%20file", "/etc/#% file", NULL, 0 },
+  { "file://localhost/\xE5\xE4\xF6", "/\xe5\xe4\xf6", NULL, 0 },
+  { "file://localhost/%E5%E4%F6", "/\xe5\xe4\xf6", NULL, 0 },
 #else
-  { "file://localhost/etc", "/etc", "localhost"},
-  { "file://localhost/etc/%23%25%20file", "/etc/#% file", "localhost"},
-  { "file://localhost/\xE5\xE4\xF6", "/\xe5\xe4\xf6", "localhost"},
-  { "file://localhost/%E5%E4%F6", "/\xe5\xe4\xf6", "localhost"},
+  { "file://localhost/etc", "/etc", "localhost", 0 },
+  { "file://localhost/etc/%23%25%20file", "/etc/#% file", "localhost", 0 },
+  { "file://localhost/\xE5\xE4\xF6", "/\xe5\xe4\xf6", "localhost", 0 },
+  { "file://localhost/%E5%E4%F6", "/\xe5\xe4\xf6", "localhost", 0 },
 #endif
-  { "file://otherhost/etc", "/etc", "otherhost"},
-  { "file://otherhost/etc/%23%25%20file", "/etc/#% file", "otherhost"},
+  { "file://otherhost/etc", "/etc", "otherhost", 0 },
+  { "file://otherhost/etc/%23%25%20file", "/etc/#% file", "otherhost", 0 },
   { "file://%C3%B6%C3%A4%C3%A5/etc", NULL, NULL, G_CONVERT_ERROR_BAD_URI},
-  { "file:////etc/%C3%B6%C3%C3%C3%A5", "//etc/\xc3\xb6\xc3\xc3\xc3\xa5", NULL},
+  { "file:////etc/%C3%B6%C3%C3%C3%A5", "//etc/\xc3\xb6\xc3\xc3\xc3\xa5", NULL, 0 },
   { "file://\xE5\xE4\xF6/etc", NULL, NULL, G_CONVERT_ERROR_BAD_URI},
   { "file://%E5%E4%F6/etc", NULL, NULL, G_CONVERT_ERROR_BAD_URI},
   { "file:///some/file#bad", NULL, NULL, G_CONVERT_ERROR_BAD_URI},
@@ -132,25 +133,25 @@ file_from_uri_tests[] = {
   { "", NULL, NULL, G_CONVERT_ERROR_BAD_URI},
   { "file:test", NULL, NULL, G_CONVERT_ERROR_BAD_URI},
   { "http://www.yahoo.com/", NULL, NULL, G_CONVERT_ERROR_BAD_URI},
-  { "file:////etc", "//etc"},
-  { "file://///etc", "///etc"},
+  { "file:////etc", "//etc", NULL, 0 },
+  { "file://///etc", "///etc", NULL, 0 },
 #ifdef G_OS_WIN32
   /* URIs with backslashes come from some nonstandard application, but accept them anyhow */
-  { "file:///c:\\foo", "c:\\foo"},
-  { "file:///c:/foo\\bar", "c:\\foo\\bar"},
+  { "file:///c:\\foo", "c:\\foo", NULL, 0 },
+  { "file:///c:/foo\\bar", "c:\\foo\\bar", NULL, 0 },
   /* Accept also the old Netscape drive-letter-and-vertical bar convention */
-  { "file:///c|/foo", "c:\\foo"},
-  { "file:////server/share/dir", "\\\\server\\share\\dir"},
-  { "file://localhost//server/share/foo", "\\\\server\\share\\foo"},
-  { "file://otherhost//server/share/foo", "\\\\server\\share\\foo", "otherhost"},
+  { "file:///c|/foo", "c:\\foo", NULL, 0 },
+  { "file:////server/share/dir", "\\\\server\\share\\dir", NULL, 0 },
+  { "file://localhost//server/share/foo", "\\\\server\\share\\foo", NULL, 0 },
+  { "file://otherhost//server/share/foo", "\\\\server\\share\\foo", "otherhost", 0 },
 #else
-  { "file:///c:\\foo", "/c:\\foo"},
-  { "file:///c:/foo", "/c:/foo"},
-  { "file:////c:/foo", "//c:/foo"},
+  { "file:///c:\\foo", "/c:\\foo", NULL, 0 },
+  { "file:///c:/foo", "/c:/foo", NULL, 0 },
+  { "file:////c:/foo", "//c:/foo",  NULL, 0 },
 #endif
   { "file://0123456789/", NULL, NULL, G_CONVERT_ERROR_BAD_URI},
-  { "file://ABCDEFGHIJKLMNOPQRSTUVWXYZ/", "/", "ABCDEFGHIJKLMNOPQRSTUVWXYZ"},
-  { "file://abcdefghijklmnopqrstuvwxyz/", "/", "abcdefghijklmnopqrstuvwxyz"},
+  { "file://ABCDEFGHIJKLMNOPQRSTUVWXYZ/", "/", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0 },
+  { "file://abcdefghijklmnopqrstuvwxyz/", "/", "abcdefghijklmnopqrstuvwxyz", 0 },
   { "file://-_.!~*'()/", NULL, NULL, G_CONVERT_ERROR_BAD_URI},
   { "file://\"<>[\\]^`{|}\x7F/", NULL, NULL, G_CONVERT_ERROR_BAD_URI},
   { "file://;?&=+$,/", NULL, NULL, G_CONVERT_ERROR_BAD_URI},
@@ -165,7 +166,7 @@ file_from_uri_tests[] = {
 static void
 run_file_to_uri_tests (void)
 {
-  int i;
+  gsize i;
   gchar *res;
   GError *error;
 
@@ -189,7 +190,7 @@ run_file_to_uri_tests (void)
 static void
 run_file_from_uri_tests (void)
 {
-  int i;
+  gsize i;
   gchar *res;
   gchar *hostname;
   GError *error;
@@ -269,7 +270,7 @@ safe_strcmp_hostname (const gchar *a, const gchar *b)
 static void
 run_file_roundtrip_tests (void)
 {
-  int i;
+  gsize i;
   gchar *uri, *hostname, *res;
   GError *error;
 
@@ -549,7 +550,7 @@ typedef struct {
   GUriFlags flags;
   /* Outputs */
   gboolean expected_success;
-  GUriError expected_error_code;  /* unused if @expected_success is true */
+  gint expected_error_code;       /* unused if @expected_success is true */
   const UriParts expected_parts;  /* unused if @expected_success is false */
 } UriAbsoluteTest;
 
@@ -757,6 +758,10 @@ static const UriAbsoluteTest absolute_tests[] = {
     { NULL, NULL, NULL, -1, NULL, NULL, NULL } },
   { "http://[fe80::dead:beef%25em1%00]/", G_URI_FLAGS_NONE, FALSE, G_URI_ERROR_BAD_HOST,
     { NULL, NULL, NULL, -1, NULL, NULL, NULL } },
+
+  /* Invalid IDN hostname */
+  { "http://xn--mixed-\xc3\xbcp/", G_URI_FLAGS_NONE, FALSE, G_URI_ERROR_BAD_HOST,
+    { NULL, NULL, NULL, -1, NULL, NULL, NULL } },
 };
 
 static void
@@ -889,7 +894,10 @@ static const UriRelativeTest relative_tests[] = {
   { "http:g", "http:g",
     { "http", NULL, NULL, -1, "g", NULL, NULL } },
   { "http://a/../..", "http://a/",
-    { "http", NULL, "a", -1, "/", NULL, NULL } }
+    { "http", NULL, "a", -1, "/", NULL, NULL } },
+  { "ScHeMe://User:P%61ss@HOST.%63om:1234/path/./from/../to%7d/item%2dobj?qu%65ry=something#fr%61gment",
+    "scheme://User:Pass@HOST.com:1234/path/to%7D/item-obj?query=something#fragment",
+    { "scheme", "User:Pass", "HOST.com", 1234, "/path/to}/item-obj", "query=something", "fragment" } },
 };
 static int num_relative_tests = G_N_ELEMENTS (relative_tests);
 
@@ -1213,6 +1221,20 @@ test_uri_split (void)
   g_assert_cmpstr (path, ==, "/%C3%89t%C3%A9%2Bhiver");
   g_free (path);
 
+  g_uri_split ("file:///path/to/some%20file",
+               G_URI_FLAGS_NONE,
+               NULL,
+               NULL,
+               NULL,
+               NULL,
+               &path,
+               NULL,
+               NULL,
+               &error);
+  g_assert_no_error (error);
+  g_assert_cmpstr (path, ==, "/path/to/some file");
+  g_free (path);
+
   g_uri_split ("http://h%01st/path#%C3%89t%C3%A9%2Bhiver",
                G_URI_FLAGS_ENCODED_FRAGMENT,
                NULL,
@@ -1369,6 +1391,47 @@ test_uri_split (void)
   g_assert_error (error, G_URI_ERROR, G_URI_ERROR_BAD_PASSWORD);
   g_clear_error (&error);
 
+  /* Path not started correctly */
+  g_uri_split("scheme://hostname:123path?query#fragment",
+              G_URI_FLAGS_NONE,
+              &scheme,
+              &userinfo,
+              &host,
+              &port,
+              &path,
+              &query,
+              &fragment,
+              &error);
+  g_assert_error (error, G_URI_ERROR, G_URI_ERROR_BAD_PORT);
+  g_clear_error (&error);
+
+  /* Brackets that don't close */
+  g_uri_split("scheme://[01:23:45:67:89:ab:cd:ef:123/path",
+              G_URI_FLAGS_NONE,
+              &scheme,
+              &userinfo,
+              &host,
+              &port,
+              &path,
+              &query,
+              &fragment,
+              &error);
+  g_assert_error (error, G_URI_ERROR, G_URI_ERROR_BAD_HOST);
+  g_clear_error (&error);
+
+  /* IPv6 hostname without brackets */
+  g_uri_split("scheme://01:23:45:67:89:ab:cd:ef:123/path",
+              G_URI_FLAGS_NONE,
+              &scheme,
+              &userinfo,
+              &host,
+              &port,
+              &path,
+              &query,
+              &fragment,
+              &error);
+  g_assert_error (error, G_URI_ERROR, G_URI_ERROR_BAD_PORT);
+  g_clear_error (&error);
 }
 
 static void
@@ -1422,6 +1485,25 @@ test_uri_is_valid (void)
   g_clear_error (&error);
 
   g_assert_true (g_uri_is_valid ("data:,Hello", G_URI_FLAGS_NONE, &error));
+
+  g_assert_true (g_uri_is_valid ("B:\\foo.txt", G_URI_FLAGS_NONE, &error));
+  g_assert_true (g_uri_is_valid ("B:/foo.txt", G_URI_FLAGS_NONE, &error));
+  g_assert_true (g_uri_is_valid ("B://foo.txt", G_URI_FLAGS_NONE, &error));
+  g_assert_true (g_uri_is_valid ("B:foo.txt", G_URI_FLAGS_NONE, &error));
+
+  g_assert_true (g_uri_is_valid ("fd://0", G_URI_FLAGS_NONE, &error));
+  g_assert_true (g_uri_is_valid ("AB:\\foo.txt", G_URI_FLAGS_NONE, &error));
+  g_assert_true (g_uri_is_valid ("AB:/foo.txt", G_URI_FLAGS_NONE, &error));
+  g_assert_true (g_uri_is_valid ("AB://foo.txt", G_URI_FLAGS_NONE, &error));
+  g_assert_true (g_uri_is_valid ("AB:foo.txt", G_URI_FLAGS_NONE, &error));
+
+  g_assert_true (g_uri_is_valid ("ABC:/foo.txt", G_URI_FLAGS_NONE, &error));
+  g_assert_true (g_uri_is_valid ("ABC://foo.txt", G_URI_FLAGS_NONE, &error));
+  g_assert_true (g_uri_is_valid ("ABC:foo.txt", G_URI_FLAGS_NONE, &error));
+
+  g_assert_true (g_uri_is_valid ("ABCD:/foo.txt", G_URI_FLAGS_NONE, &error));
+  g_assert_true (g_uri_is_valid ("ABCD://foo.txt", G_URI_FLAGS_NONE, &error));
+  g_assert_true (g_uri_is_valid ("ABCD:foo.txt", G_URI_FLAGS_NONE, &error));
 }
 
 static const struct
@@ -1474,6 +1556,9 @@ static const struct
     { "foo=bar+%26+baz&saisons=%C3%89t%C3%A9%2Bhiver", "&", G_URI_PARAMS_NONE,
       2, { "foo", "bar+&+baz", "saisons", "Été+hiver", NULL, },
       2, { "foo", "bar+&+baz", "saisons", "Été+hiver", NULL, }},
+    { "token=exp=123~acl=/QualityLevels(*~hmac=0cb", "&", G_URI_PARAMS_NONE,
+      1, { "token", "exp=123~acl=/QualityLevels(*~hmac=0cb", NULL, },
+      1, { "token", "exp=123~acl=/QualityLevels(*~hmac=0cb", NULL, }},
   };
 
 static void
@@ -1492,7 +1577,7 @@ test_uri_iter_params (gconstpointer test_data)
       g_test_message ("URI %" G_GSIZE_FORMAT ": %s", i, params_tests[i].uri);
 
       g_assert (params_tests[i].expected_n_params < 0 ||
-                params_tests[i].expected_n_params <= G_N_ELEMENTS (params_tests[i].expected_param_key_values) / 2);
+                params_tests[i].expected_n_params <= (gssize) G_N_ELEMENTS (params_tests[i].expected_param_key_values) / 2);
 
       /* The tests get run twice: once with the length unspecified, using a
        * nul-terminated string; and once with the length specified and a copy of
@@ -1559,7 +1644,7 @@ test_uri_parse_params (gconstpointer test_data)
       g_test_message ("URI %" G_GSIZE_FORMAT ": %s", i, params_tests[i].uri);
 
       g_assert (params_tests[i].expected_n_params < 0 ||
-                params_tests[i].expected_n_params <= G_N_ELEMENTS (params_tests[i].expected_param_key_values) / 2);
+                params_tests[i].expected_n_params <= (gssize) G_N_ELEMENTS (params_tests[i].expected_param_key_values) / 2);
 
       /* The tests get run twice: once with the length unspecified, using a
        * nul-terminated string; and once with the length specified and a copy of
@@ -1591,7 +1676,7 @@ test_uri_parse_params (gconstpointer test_data)
           g_assert_no_error (err);
           g_assert_cmpint (g_hash_table_size (params), ==, params_tests[i].expected_n_params);
 
-          for (j = 0; j < params_tests[i].expected_n_params; j += 2)
+          for (j = 0; j < (gsize) params_tests[i].expected_n_params; j += 2)
             g_assert_cmpstr (g_hash_table_lookup (params, params_tests[i].expected_param_key_values[j]), ==,
                              params_tests[i].expected_param_key_values[j + 1]);
         }
@@ -1708,6 +1793,222 @@ test_uri_join_split_round_trip (void)
     }
 }
 
+static const struct
+{
+  /* Inputs */
+  const gchar *base;
+  const gchar *uri;
+  GUriFlags flags;
+  /* Outputs */
+  const gchar *uri_string;
+  const gchar *path;
+  int port;
+} normalize_parse_tests[] =
+  {
+    { NULL, "http://foo/path with spaces", G_URI_FLAGS_ENCODED,
+      "http://foo/path%20with%20spaces", "/path%20with%20spaces", -1 },
+    { NULL, "http://foo/path with spaces 2", G_URI_FLAGS_ENCODED_PATH,
+      "http://foo/path%20with%20spaces%202", "/path%20with%20spaces%202", -1 },
+    { NULL, "http://foo/%aa", G_URI_FLAGS_ENCODED,
+      "http://foo/%AA", "/%AA", -1 },
+    { NULL, "http://foo/p\xc3\xa4th/", G_URI_FLAGS_ENCODED | G_URI_FLAGS_PARSE_RELAXED,
+      "http://foo/p%C3%A4th/", "/p%C3%A4th/", -1 },
+    { NULL, "http://foo", G_URI_FLAGS_NONE,
+      "http://foo", "", -1 },
+    { NULL, "http://foo", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "http://foo/", "/", 80 },
+    { NULL, "nothttp://foo", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "nothttp://foo", "", -1 },
+    { NULL, "http://foo:80", G_URI_FLAGS_NONE,
+      "http://foo:80", "", 80 },
+    { NULL, "http://foo:80", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "http://foo/", "/", 80 },
+    { NULL, "http://foo:8080", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "http://foo:8080/", "/", 8080 },
+    { NULL, "https://foo:443", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "https://foo/", "/", 443 },
+    { NULL, "https://foo:943", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "https://foo:943/", "/", 943 },
+    { NULL, "ws://foo", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "ws://foo/", "/", 80 },
+    { NULL, "wss://foo:443", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "wss://foo/", "/", 443 },
+    { NULL, "ftp://foo", G_URI_FLAGS_NONE,
+      "ftp://foo", "", -1 },
+    { NULL, "ftp://foo", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "ftp://foo", "", 21 },
+    { NULL, "ftp://foo:21", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "ftp://foo", "", 21 },
+    { NULL, "ftp://foo:2100", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "ftp://foo:2100", "", 2100 },
+    { NULL, "nothttp://foo:80", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "nothttp://foo:80", "", 80 },
+    { "http://foo", "//bar", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "http://bar/", "/", 80 },
+    { "http://foo", "//bar:80", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "http://bar/", "/", 80 },
+    { "nothttp://foo", "//bar:80", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "nothttp://bar:80", "", 80 },
+    { "http://foo", "//bar", G_URI_FLAGS_NONE,
+      "http://bar", "", -1 },
+    { "ScHeMe://User:P%61ss@HOST.%63om:1234/path",
+      "ScHeMe://User:P%61ss@HOST.%63om:1234/path/./from/../to%7d/item%2dobj?qu%65ry=something#fr%61gment",
+      G_URI_FLAGS_SCHEME_NORMALIZE,
+      "scheme://User:Pass@HOST.com:1234/path/to%7D/item-obj?query=something#fragment",
+      "/path/to}/item-obj", 1234 },
+  };
+
+static const struct
+{
+  /* Inputs */
+  const gchar *uri;
+  GUriFlags flags;
+  /* Outputs */
+  const char *scheme;
+  const gchar *path;
+  int port;
+} normalize_split_tests[] =
+  {
+    { "HTTP://foo", G_URI_FLAGS_ENCODED,
+      "http", "", -1 },
+    { "HTTP://foo", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "http", "/", 80 },
+    { "http://foo:80/", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "http", "/", 80 },
+    { "http://foo:8080/bar", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "http", "/bar", 8080 },
+    { "ws://foo", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "ws", "/", 80 },
+    { "https://foo", G_URI_FLAGS_ENCODED,
+      "https", "", -1 },
+    { "https://foo", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "https", "/", 443 },
+    { "https://foo:443/", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "https", "/", 443 },
+    { "wss://foo", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "wss", "/", 443 },
+    { "ftp://foo", G_URI_FLAGS_ENCODED,
+      "ftp", "", -1 },
+    { "ftp://foo", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "ftp", "", 21 },
+    { "ftp://foo:21", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "ftp", "", 21 },
+    { "scheme://foo", G_URI_FLAGS_SCHEME_NORMALIZE,
+      "scheme", "", -1 },
+  };
+
+static const struct
+{
+  /* Inputs */
+  GUriFlags flags;
+  const gchar *scheme;
+  const gchar *host;
+  int port;
+  const gchar *path;
+  /* Outputs */
+  const gchar *uri;
+} normalize_join_tests[] =
+  {
+    { G_URI_FLAGS_NONE, "http", "foo", -1, "",
+      "http://foo" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "http", "foo", -1, "",
+      "http://foo/" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "http", "foo", 80, "",
+      "http://foo/" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "http", "foo", 8080, "",
+      "http://foo:8080/" },
+    { G_URI_FLAGS_NONE, "http", "foo", 80, "",
+      "http://foo:80" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "ws", "foo", 80, "",
+      "ws://foo/" },
+    { G_URI_FLAGS_NONE, "https", "foo", -1, "",
+      "https://foo" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "https", "foo", -1, "",
+      "https://foo/" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "https", "foo", 443, "",
+      "https://foo/" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "https", "foo", 943, "",
+      "https://foo:943/" },
+    { G_URI_FLAGS_NONE, "https", "foo", 443, "",
+      "https://foo:443" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "wss", "foo", 443, "",
+      "wss://foo/" },
+    { G_URI_FLAGS_NONE, "ftp", "foo", -1, "",
+      "ftp://foo" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "ftp", "foo", -1, "",
+      "ftp://foo" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "ftp", "foo", 21, "",
+      "ftp://foo" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "ftp", "foo", 2020, "",
+      "ftp://foo:2020" },
+    { G_URI_FLAGS_NONE, "ftp", "foo", 21, "",
+      "ftp://foo:21" },
+    { G_URI_FLAGS_SCHEME_NORMALIZE, "scheme", "foo", 80, "",
+      "scheme://foo:80" },
+  };
+
+static void
+test_uri_normalize (void)
+{
+  gsize i;
+  int port;
+  char *path;
+  char *uri_string;
+
+  for (i = 0; i < G_N_ELEMENTS (normalize_parse_tests); ++i)
+    {
+      GUri *uri, *base = NULL;
+
+      if (normalize_parse_tests[i].base)
+        base = g_uri_parse (normalize_parse_tests[i].base, normalize_parse_tests[i].flags, NULL);
+
+      uri = g_uri_parse_relative (base,
+                                  normalize_parse_tests[i].uri,
+                                  normalize_parse_tests[i].flags,
+                                  NULL);
+      uri_string = g_uri_to_string (uri);
+
+      g_assert_nonnull (uri);
+      g_assert_cmpstr (g_uri_get_path (uri), ==, normalize_parse_tests[i].path);
+      g_assert_cmpint (g_uri_get_port (uri), ==, normalize_parse_tests[i].port);
+      g_assert_cmpstr (uri_string, ==, normalize_parse_tests[i].uri_string);
+
+      g_free (uri_string);
+      g_uri_unref (uri);
+      if (base)
+        g_uri_unref (base);
+    }
+
+  for (i = 0; i < G_N_ELEMENTS (normalize_split_tests); ++i)
+    {
+      char *scheme;
+
+      /* Testing a codepath where scheme is NULL but internally we still normalize it. */
+      g_assert_true (g_uri_split (normalize_split_tests[i].uri, normalize_split_tests[i].flags,
+                                  NULL, NULL, NULL, &port, &path, NULL, NULL, NULL));
+      g_assert_cmpstr (path, ==, normalize_split_tests[i].path);
+      g_assert_cmpint (port, ==, normalize_split_tests[i].port);
+      g_free (path);
+
+      g_assert_true (g_uri_split (normalize_split_tests[i].uri, normalize_split_tests[i].flags,
+                                  &scheme, NULL, NULL, &port, &path, NULL, NULL, NULL));
+      g_assert_cmpstr (scheme, ==, normalize_split_tests[i].scheme);
+      g_assert_cmpstr (path, ==, normalize_split_tests[i].path);
+      g_assert_cmpint (port, ==, normalize_split_tests[i].port);
+      g_free (scheme);
+      g_free (path);
+    }
+
+  for (i = 0; i < G_N_ELEMENTS (normalize_join_tests); ++i)
+    {
+      uri_string = g_uri_join (normalize_join_tests[i].flags, normalize_join_tests[i].scheme, NULL,
+                               normalize_join_tests[i].host, normalize_join_tests[i].port,
+                               normalize_join_tests[i].path, NULL, NULL);
+      g_assert_cmpstr (uri_string, ==, normalize_join_tests[i].uri);
+      g_free (uri_string);
+    }
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -1733,6 +2034,7 @@ main (int   argc,
   g_test_add_func ("/uri/to-string", test_uri_to_string);
   g_test_add_func ("/uri/join", test_uri_join);
   g_test_add_func ("/uri/join-split-round-trip", test_uri_join_split_round_trip);
+  g_test_add_func ("/uri/normalize", test_uri_normalize);
   g_test_add_data_func ("/uri/iter-params/nul-terminated", GINT_TO_POINTER (TRUE), test_uri_iter_params);
   g_test_add_data_func ("/uri/iter-params/length", GINT_TO_POINTER (FALSE), test_uri_iter_params);
   g_test_add_data_func ("/uri/parse-params/nul-terminated", GINT_TO_POINTER (TRUE), test_uri_parse_params);

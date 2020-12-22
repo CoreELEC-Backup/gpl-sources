@@ -181,12 +181,11 @@ static enum print_stop_action
 signal_catchpoint_print_it (bpstat bs)
 {
   struct breakpoint *b = bs->breakpoint_at;
-  ptid_t ptid;
   struct target_waitstatus last;
   const char *signal_name;
   struct ui_out *uiout = current_uiout;
 
-  get_last_target_status (&ptid, &last);
+  get_last_target_status (nullptr, nullptr, &last);
 
   signal_name = signal_to_name_or_int (last.value.sig);
 
@@ -425,8 +424,9 @@ initialize_signal_catchpoint_ops (void)
   ops->explains_signal = signal_catchpoint_explains_signal;
 }
 
+void _initialize_break_catch_sig ();
 void
-_initialize_break_catch_sig (void)
+_initialize_break_catch_sig ()
 {
   initialize_signal_catchpoint_ops ();
 

@@ -24,7 +24,7 @@
 #include "frame-unwind.h"
 #include "frame-base.h"
 #include "trad-frame.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "symtab.h"
 #include "inferior.h"
 #include "gdbtypes.h"
@@ -2236,7 +2236,7 @@ nios2_get_longjmp_target (struct frame_info *frame, CORE_ADDR *pc)
 static ULONGEST
 nios2_type_align (struct gdbarch *gdbarch, struct type *type)
 {
-  switch (TYPE_CODE (type))
+  switch (type->code ())
     {
     case TYPE_CODE_PTR:
     case TYPE_CODE_FUNC:
@@ -2390,8 +2390,9 @@ nios2_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
   return gdbarch;
 }
 
+void _initialize_nios2_tdep ();
 void
-_initialize_nios2_tdep (void)
+_initialize_nios2_tdep ()
 {
   gdbarch_register (bfd_arch_nios2, nios2_gdbarch_init, NULL);
   initialize_tdesc_nios2 ();

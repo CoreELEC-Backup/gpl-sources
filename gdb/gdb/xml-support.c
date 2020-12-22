@@ -977,13 +977,11 @@ xml_fetch_content_from_file (const char *filename, void *baton)
     {
       char *fullname = concat (dirname, "/", filename, (char *) NULL);
 
-      if (fullname == NULL)
-	malloc_failure (0);
-      file = gdb_fopen_cloexec (fullname, FOPEN_RT);
+      file = gdb_fopen_cloexec (fullname, FOPEN_RB);
       xfree (fullname);
     }
   else
-    file = gdb_fopen_cloexec (filename, FOPEN_RT);
+    file = gdb_fopen_cloexec (filename, FOPEN_RB);
 
   if (file == NULL)
     return {};
@@ -1010,8 +1008,10 @@ xml_fetch_content_from_file (const char *filename, void *baton)
   return text;
 }
 
+void _initialize_xml_support ();
+void _initialize_xml_support ();
 void
-_initialize_xml_support (void)
+_initialize_xml_support ()
 {
   add_setshow_boolean_cmd ("xml", class_maintenance, &debug_xml,
 			   _("Set XML parser debugging."),

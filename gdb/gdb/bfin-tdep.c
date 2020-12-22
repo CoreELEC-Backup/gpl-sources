@@ -31,7 +31,7 @@
 #include "dis-asm.h"
 #include "sim-regno.h"
 #include "gdb/sim-bfin.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "symtab.h"
 #include "elf-bfd.h"
 #include "elf/bfin.h"
@@ -833,8 +833,9 @@ bfin_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
   return gdbarch;
 }
 
+void _initialize_bfin_tdep ();
 void
-_initialize_bfin_tdep (void)
+_initialize_bfin_tdep ()
 {
   register_gdbarch_init (bfd_arch_bfin, bfin_gdbarch_init);
 }

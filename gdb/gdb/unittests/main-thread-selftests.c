@@ -21,7 +21,7 @@
 #include "gdbsupport/selftest.h"
 #include "gdbsupport/block-signals.h"
 #include "run-on-main-thread.h"
-#include "event-loop.h"
+#include "gdbsupport/event-loop.h"
 #if CXX_STD_THREAD
 #include <thread>
 #endif
@@ -70,6 +70,7 @@ run_tests ()
 }
 }
 
+void _initialize_main_thread_selftests ();
 void
 _initialize_main_thread_selftests ()
 {

@@ -543,7 +543,7 @@ list_arg_or_local (const struct frame_arg *arg, enum what_to_list what,
 	      get_no_prettyformat_print_options (&opts);
 	      opts.deref_ref = 1;
 	      common_val_print (arg->val, &stb, 0, &opts,
-				language_def (SYMBOL_LANGUAGE (arg->sym)));
+				language_def (arg->sym->language ()));
 	    }
 	  catch (const gdb_exception_error &except)
 	    {
@@ -634,9 +634,8 @@ list_args_or_locals (const frame_print_options &fp_opts,
 	      struct frame_arg arg, entryarg;
 
 	      if (SYMBOL_IS_ARGUMENT (sym))
-		sym2 = lookup_symbol (sym->linkage_name (),
-				      block, VAR_DOMAIN,
-				      NULL).symbol;
+		sym2 = lookup_symbol_search_name (sym->search_name (),
+						  block, VAR_DOMAIN).symbol;
 	      else
 		sym2 = sym;
 	      gdb_assert (sym2 != NULL);
@@ -650,9 +649,9 @@ list_args_or_locals (const frame_print_options &fp_opts,
 		{
 		case PRINT_SIMPLE_VALUES:
 		  type = check_typedef (sym2->type);
-		  if (TYPE_CODE (type) != TYPE_CODE_ARRAY
-		      && TYPE_CODE (type) != TYPE_CODE_STRUCT
-		      && TYPE_CODE (type) != TYPE_CODE_UNION)
+		  if (type->code () != TYPE_CODE_ARRAY
+		      && type->code () != TYPE_CODE_STRUCT
+		      && type->code () != TYPE_CODE_UNION)
 		    {
 		case PRINT_ALL_VALUES:
 		  if (SYMBOL_IS_ARGUMENT (sym))

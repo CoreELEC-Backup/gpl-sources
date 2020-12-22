@@ -1,5 +1,5 @@
 /* CTF string table management.
-   Copyright (C) 2019 Free Software Foundation, Inc.
+   Copyright (C) 2019-2020 Free Software Foundation, Inc.
 
    This file is part of libctf.
 
@@ -427,7 +427,7 @@ ctf_str_write_strtab (ctf_file_t *fp)
   nullstr = ctf_dynhash_lookup (fp->ctf_str_atoms, "");
   if (!nullstr)
     {
-      ctf_dprintf ("Internal error: null string not found in strtab.\n");
+      ctf_err_warn (fp, 0, ECTF_INTERNAL, _("null string not found in strtab"));
       strtab.cts_strs = NULL;
       return strtab;
     }

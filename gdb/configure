@@ -2279,23 +2279,6 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-if test x"${enable_gdb}" != x"no" -a x"${enable_src_release_build}" != x"yes"; then
-  # For this branch, we do not support building GDB in-tree.
-  # Try to detect whether we are in this situation or not by
-  # searching for a couple of known files in the source directory.
-  if test -f gnulib/update-gnulib.sh -a -f gdb/ChangeLog; then
-    as_fn_error $? "GDB must be configured and built in a directory separate from its sources.
-
-To do so, create a dedicated directory for your GDB build and invoke
-the configure script from that directory:
-
-      $ mkdir build
-      $ cd build
-      $ <full path to your sources>/gdb-VERSION/configure [etc...]
-      $ make" "$LINENO" 5
-  fi
-fi
-
 progname=$0
 # if PWD already has a value, it is probably wrong.
 if test -n "$PWD" ; then PWD=`${PWDCMD-pwd}`; fi
@@ -2798,7 +2781,7 @@ host_libs="intl libiberty opcodes bfd readline tcl tk itcl libgui zlib libbacktr
 # binutils, gas and ld appear in that order because it makes sense to run
 # "make check" in that particular order.
 # If --enable-gold is used, "gold" may replace "ld".
-host_tools="texinfo flex bison binutils gas ld fixincludes gcc cgen sid sim gdb gprof etc expect dejagnu m4 utils guile fastjar gnattools libcc1 gotools"
+host_tools="texinfo flex bison binutils gas ld fixincludes gcc cgen sid sim gdb gdbserver gprof etc expect dejagnu m4 utils guile fastjar gnattools libcc1 gotools"
 
 # these libraries are built for the target environment, and are built after
 # the host libraries and the host tools (which may be a cross compiler)
@@ -3505,6 +3488,25 @@ case "${target}" in
     ;;
 esac
 
+# Only allow gdbserver on some systems.
+if test -d ${srcdir}/gdbserver; then
+    if test x$enable_gdbserver = x; then
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for gdbserver support" >&5
+$as_echo_n "checking for gdbserver support... " >&6; }
+	if (srcdir=${srcdir}/gdbserver; \
+		. ${srcdir}/configure.srv; \
+		test -n "$UNSUPPORTED")
+	then
+	    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	    noconfigdirs="$noconfigdirs gdbserver"
+	else
+	    { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	fi
+    fi
+fi
+
 # Disable libgo for some systems where it is known to not work.
 # For testing, you can easily override this with --enable-libgo.
 if test x$enable_libgo = x; then
@@ -3823,6 +3825,9 @@ case "${target}" in
   nfp-*-*)
     noconfigdirs="$noconfigdirs ld gas gdb gprof sim"
     noconfigdirs="$noconfigdirs $target_libraries"
+    ;;
+  pdp11-*-*)
+    noconfigdirs="$noconfigdirs gdb gprof"
     ;;
   powerpc-*-aix*)
     # copied from rs6000-*-* entry
@@ -7223,13 +7228,17 @@ esac
 CONFIGURE_GDB_TK=`echo ${GDB_TK} | sed s/-all-/-configure-/g`
 INSTALL_GDB_TK=`echo ${GDB_TK} | sed s/-all-/-install-/g`
 
-# gdb depends on gnulib, but as nothing else does, only include it if
-# gdb is built.
-if echo " ${configdirs} " | grep " gdb " > /dev/null 2>&1 ; then
-  # The Makefile provides the ordering, so it's enough here to add
-  # gnulib to the list.
-  configdirs="${configdirs} gnulib"
-fi
+# gdb and gdbserver depend on gnulib and gdbsupport, but as nothing
+# else does, only include them if one of these is built.  The Makefile
+# provides the ordering, so it's enough here to add to the list.
+case " ${configdirs} " in
+  *\ gdb\ *)
+    configdirs="${configdirs} gnulib gdbsupport"
+    ;;
+  *\ gdbserver\ *)
+    configdirs="${configdirs} gnulib gdbsupport"
+    ;;
+esac
 
 # Strip out unwanted targets.
 

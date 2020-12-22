@@ -376,7 +376,7 @@ ada_get_task_info_from_ptid (ptid_t ptid)
    terminated yet.  */
 
 void
-iterate_over_live_ada_tasks (ada_task_list_iterator_ftype *iterator)
+iterate_over_live_ada_tasks (ada_task_list_iterator_ftype iterator)
 {
   struct ada_tasks_inferior_data *data;
 
@@ -430,10 +430,10 @@ read_fat_string_value (char *dest, struct value *val, int max_len)
       array_fieldno = ada_get_field_index (type, "P_ARRAY", 0);
       bounds_fieldno = ada_get_field_index (type, "P_BOUNDS", 0);
 
-      bounds_type = TYPE_FIELD_TYPE (type, bounds_fieldno);
-      if (TYPE_CODE (bounds_type) == TYPE_CODE_PTR)
+      bounds_type = type->field (bounds_fieldno).type ();
+      if (bounds_type->code () == TYPE_CODE_PTR)
         bounds_type = TYPE_TARGET_TYPE (bounds_type);
-      if (TYPE_CODE (bounds_type) != TYPE_CODE_STRUCT)
+      if (bounds_type->code () != TYPE_CODE_STRUCT)
         error (_("Unknown task name format. Aborting"));
       upper_bound_fieldno = ada_get_field_index (bounds_type, "UB0", 0);
 
@@ -679,7 +679,8 @@ read_atcb (CORE_ADDR task_id, struct ada_task_info *task_info)
 		  task_name = p + 2;
 
 	      /* Copy the task name.  */
-	      strncpy (task_info->name, task_name, sizeof (task_info->name));
+	      strncpy (task_info->name, task_name,
+		       sizeof (task_info->name) - 1);
 	      task_info->name[sizeof (task_info->name) - 1] = 0;
 	    }
 	  else
@@ -889,18 +890,19 @@ ada_tasks_inferior_data_sniffer (struct ada_tasks_inferior_data *data)
 	  struct type *eltype = NULL;
 	  struct type *idxtype = NULL;
 
-	  if (TYPE_CODE (type) == TYPE_CODE_ARRAY)
+	  if (type->code () == TYPE_CODE_ARRAY)
 	    eltype = check_typedef (TYPE_TARGET_TYPE (type));
 	  if (eltype != NULL
-	      && TYPE_CODE (eltype) == TYPE_CODE_PTR)
-	    idxtype = check_typedef (TYPE_INDEX_TYPE (type));
+	      && eltype->code () == TYPE_CODE_PTR)
+	    idxtype = check_typedef (type->index_type ());
 	  if (idxtype != NULL
-	      && !TYPE_LOW_BOUND_UNDEFINED (idxtype)
-	      && !TYPE_HIGH_BOUND_UNDEFINED (idxtype))
+	      && idxtype->bounds ()->low.kind () != PROP_UNDEFINED
+	      && idxtype->bounds ()->high.kind () != PROP_UNDEFINED)
 	    {
 	      data->known_tasks_element = eltype;
 	      data->known_tasks_length =
-		TYPE_HIGH_BOUND (idxtype) - TYPE_LOW_BOUND (idxtype) + 1;
+		(idxtype->bounds ()->high.const_val ()
+		 - idxtype->bounds ()->low.const_val () + 1);
 	      return;
 	    }
 	}
@@ -932,7 +934,7 @@ ada_tasks_inferior_data_sniffer (struct ada_tasks_inferior_data *data)
 	  /* Validate.  */
 	  struct type *type = check_typedef (SYMBOL_TYPE (sym));
 
-	  if (TYPE_CODE (type) == TYPE_CODE_PTR)
+	  if (type->code () == TYPE_CODE_PTR)
 	    {
 	      data->known_tasks_element = type;
 	      return;
@@ -1128,7 +1130,7 @@ print_ada_task_info (struct ui_out *uiout,
       if (uiout->is_mi_like_p ())
         {
 	  thread_info *thread = (ada_task_is_alive (task_info)
-				 ? find_thread_ptid (task_info->ptid)
+				 ? find_thread_ptid (inf, task_info->ptid)
 				 : nullptr);
 
 	  if (thread != NULL)
@@ -1343,7 +1345,7 @@ task_command_1 (const char *taskno_str, int from_tty, struct inferior *inf)
      computed if target_get_ada_task_ptid has not been implemented for
      our target (yet).  Rather than cause an assertion error in that case,
      it's nicer for the user to just refuse to perform the task switch.  */
-  thread_info *tp = find_thread_ptid (task_info->ptid);
+  thread_info *tp = find_thread_ptid (inf, task_info->ptid);
   if (tp == NULL)
     error (_("Unable to compute thread ID for task %s.\n"
              "Cannot switch to this task."),
@@ -1432,9 +1434,7 @@ ada_tasks_new_objfile_observer (struct objfile *objfile)
     {
       /* All objfiles are being cleared, so we should clear all
 	 our caches for all program spaces.  */
-      struct program_space *pspace;
-
-      for (pspace = program_spaces; pspace != NULL; pspace = pspace->next)
+      for (struct program_space *pspace : program_spaces)
         ada_tasks_invalidate_pspace_data (pspace);
     }
   else
@@ -1455,8 +1455,9 @@ ada_tasks_new_objfile_observer (struct objfile *objfile)
       ada_tasks_invalidate_inferior_data (inf);
 }
 
+void _initialize_tasks ();
 void
-_initialize_tasks (void)
+_initialize_tasks ()
 {
   /* Attach various observers.  */
   gdb::observers::normal_stop.attach (ada_tasks_normal_stop_observer);

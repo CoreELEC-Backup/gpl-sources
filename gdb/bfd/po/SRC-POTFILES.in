@@ -3,7 +3,6 @@ aix5ppc-core.c
 aout-cris.c
 aout-ns32k.c
 aout-target.h
-aout-tic30.c
 aout32.c
 aout64.c
 aoutx.h
@@ -32,7 +31,6 @@ coff-stgo32.c
 coff-tic30.c
 coff-tic4x.c
 coff-tic54x.c
-coff-tic80.c
 coff-x86_64.c
 coff-z80.c
 coff-z8k.c
@@ -100,7 +98,6 @@ cpu-ns32k.c
 cpu-or1k.c
 cpu-pdp11.c
 cpu-pj.c
-cpu-plugin.c
 cpu-powerpc.c
 cpu-pru.c
 cpu-riscv.c
@@ -117,7 +114,6 @@ cpu-tic30.c
 cpu-tic4x.c
 cpu-tic54x.c
 cpu-tic6x.c
-cpu-tic80.c
 cpu-tilegx.c
 cpu-tilepro.c
 cpu-v850.c
@@ -238,6 +234,7 @@ elf32-xc16x.c
 elf32-xgate.c
 elf32-xstormy16.c
 elf32-xtensa.c
+elf32-z80.c
 elf32.c
 elf64-alpha.c
 elf64-bpf.c
@@ -317,7 +314,6 @@ pe-arm-wince.c
 pe-arm.c
 pe-i386.c
 pe-mcore.c
-pe-ppc.c
 pe-sh.c
 pe-x86_64.c
 pef-traceback.h
@@ -328,7 +324,6 @@ pei-arm.c
 pei-i386.c
 pei-ia64.c
 pei-mcore.c
-pei-ppc.c
 pei-sh.c
 pei-x86_64.c
 peicode.h

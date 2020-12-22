@@ -2334,7 +2334,7 @@ rust_parser::convert_ast_to_expression (const struct rust_op *operation,
 		   call expression.  */
 		rust_op_vector *params = operation->right.params;
 
-		if (TYPE_CODE (type) != TYPE_CODE_NAMESPACE)
+		if (type->code () != TYPE_CODE_NAMESPACE)
 		  {
 		    if (!rust_tuple_struct_type_p (type))
 		      error (_("Type %s is not a tuple struct"), varname);
@@ -2413,8 +2413,8 @@ rust_parser::convert_ast_to_expression (const struct rust_op *operation,
 	      error (_("No symbol '%s' in current context"), varname);
 
 	    if (!want_type
-		&& TYPE_CODE (type) == TYPE_CODE_STRUCT
-		&& TYPE_NFIELDS (type) == 0)
+		&& type->code () == TYPE_CODE_STRUCT
+		&& type->num_fields () == 0)
 	      {
 		/* A unit-like struct.  */
 		write_exp_elt_opcode (pstate, OP_AGGREGATE);
@@ -2470,7 +2470,7 @@ rust_parser::convert_ast_to_expression (const struct rust_op *operation,
 	if (type == NULL)
 	  error (_("Could not find type '%s'"), operation->left.sval.ptr);
 
-	if (TYPE_CODE (type) != TYPE_CODE_STRUCT
+	if (type->code () != TYPE_CODE_STRUCT
 	    || rust_tuple_type_p (type)
 	    || rust_tuple_struct_type_p (type))
 	  error (_("Struct expression applied to non-struct type"));
@@ -2725,8 +2725,8 @@ rust_lex_tests (void)
 {
   int i;
 
-  // Set up dummy "parser", so that rust_type works.
-  struct parser_state ps (&rust_language_defn, target_gdbarch (),
+  /* Set up dummy "parser", so that rust_type works.  */
+  struct parser_state ps (language_def (language_rust), target_gdbarch (),
 			  nullptr, 0, 0, nullptr, 0, nullptr);
   rust_parser parser (&ps);
 
@@ -2826,8 +2826,9 @@ rust_lex_tests (void)
 
 #endif /* GDB_SELF_TEST */
 
+void _initialize_rust_exp ();
 void
-_initialize_rust_exp (void)
+_initialize_rust_exp ()
 {
   int code = regcomp (&number_regex, number_regex_text, REG_EXTENDED);
   /* If the regular expression was incorrect, it was a programming

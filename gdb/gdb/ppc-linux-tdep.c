@@ -250,8 +250,8 @@ ppc_linux_return_value (struct gdbarch *gdbarch, struct value *function,
 			struct type *valtype, struct regcache *regcache,
 			gdb_byte *readbuf, const gdb_byte *writebuf)
 {  
-  if ((TYPE_CODE (valtype) == TYPE_CODE_STRUCT
-       || TYPE_CODE (valtype) == TYPE_CODE_UNION)
+  if ((valtype->code () == TYPE_CODE_STRUCT
+       || valtype->code () == TYPE_CODE_UNION)
       && !((TYPE_LENGTH (valtype) == 16 || TYPE_LENGTH (valtype) == 8)
 	   && TYPE_VECTOR (valtype)))
     return RETURN_VALUE_STRUCT_CONVENTION;
@@ -2155,8 +2155,9 @@ ppc_linux_init_abi (struct gdbarch_info info,
   ppc_init_linux_record_tdep (&ppc64_linux_record_tdep, 8);
 }
 
+void _initialize_ppc_linux_tdep ();
 void
-_initialize_ppc_linux_tdep (void)
+_initialize_ppc_linux_tdep ()
 {
   /* Register for all sub-families of the POWER/PowerPC: 32-bit and
      64-bit PowerPC, and the older rs6k.  */

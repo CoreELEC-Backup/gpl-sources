@@ -1,4 +1,4 @@
-This is readline.info, produced by makeinfo version 6.5 from rlman.texi.
+This is readline.info, produced by makeinfo version 6.7 from rlman.texi.
 
 This manual describes the GNU Readline Library (version 8.0, 30 November
 2018), a library which aids in the consistency of user interface across
@@ -5120,3 +5120,8 @@ Node: Concept Index194158
 Node: Function and Variable Index195679
 
 End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

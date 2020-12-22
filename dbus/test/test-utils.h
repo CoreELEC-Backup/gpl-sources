@@ -1,6 +1,7 @@
 /*
- * Copyright 2002-2008 Red Hat Inc.
+ * Copyright 2002-2009 Red Hat Inc.
  * Copyright 2011-2017 Collabora Ltd.
+ * Copyright 2017 Endless Mobile, Inc.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -36,6 +37,8 @@
 #include <dbus/dbus-mainloop.h>
 #include <dbus/dbus-internals.h>
 #include <dbus/dbus-types.h>
+
+#include "dbus/dbus-test-tap.h"
 
 typedef DBusLoop TestMainContext;
 
@@ -87,5 +90,18 @@ int _dbus_test_main (int                  argc,
                      DBusTestFlags        flags,
                      void               (*test_pre_hook) (void),
                      void               (*test_post_hook) (void));
+
+_DBUS_WARN_UNUSED_RESULT
+dbus_bool_t _dbus_test_append_different_uid (DBusString *uid);
+
+#ifdef DBUS_UNIX
+_DBUS_WARN_UNUSED_RESULT
+dbus_bool_t _dbus_test_append_different_username (DBusString *username);
+#endif
+
+typedef struct DBusInitialFDs DBusInitialFDs;
+DBusInitialFDs *_dbus_check_fdleaks_enter (void);
+void            _dbus_check_fdleaks_leave (DBusInitialFDs *fds,
+                                           const char     *context);
 
 #endif

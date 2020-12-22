@@ -1,5 +1,5 @@
 /* AVR-specific support for 32-bit ELF
-   Copyright (C) 1999-2019 Free Software Foundation, Inc.
+   Copyright (C) 1999-2020 Free Software Foundation, Inc.
    Contributed by Denis Chertykov <denisc@overta.ru>
 
    This file is part of BFD, the Binary File Descriptor library.
@@ -106,9 +106,9 @@ struct elf32_avr_link_hash_table
 
 /* Various hash macros and functions.  */
 #define avr_link_hash_table(p) \
-  /* PR 3874: Check that we have an AVR style hash table before using it.  */\
-  (elf_hash_table_id ((struct elf_link_hash_table *) ((p)->hash)) \
-  == AVR_ELF_DATA ? ((struct elf32_avr_link_hash_table *) ((p)->hash)) : NULL)
+  ((is_elf_hash_table ((p)->hash)					\
+    && elf_hash_table_id (elf_hash_table (p)) == AVR_ELF_DATA)		\
+   ? (struct elf32_avr_link_hash_table *) (p)->hash : NULL)
 
 #define avr_stub_hash_entry(ent) \
   ((struct elf32_avr_stub_hash_entry *)(ent))
@@ -767,7 +767,7 @@ elf_avr_new_section_hook (bfd *abfd, asection *sec)
   if (!sec->used_by_bfd)
     {
       struct elf_avr_section_data *sdata;
-      bfd_size_type amt = sizeof (*sdata);
+      size_t amt = sizeof (*sdata);
 
       sdata = bfd_zalloc (abfd, amt);
       if (sdata == NULL)
@@ -858,10 +858,8 @@ elf32_avr_link_hash_table_free (bfd *obfd)
     = (struct elf32_avr_link_hash_table *) obfd->link.hash;
 
   /* Free the address mapping table.  */
-  if (htab->amt_stub_offsets != NULL)
-    free (htab->amt_stub_offsets);
-  if (htab->amt_destination_addr != NULL)
-    free (htab->amt_destination_addr);
+  free (htab->amt_stub_offsets);
+  free (htab->amt_destination_addr);
 
   bfd_hash_table_free (&htab->bstab);
   _bfd_elf_link_hash_table_free (obfd);
@@ -875,7 +873,7 @@ static struct bfd_link_hash_table *
 elf32_avr_link_hash_table_create (bfd *abfd)
 {
   struct elf32_avr_link_hash_table *htab;
-  bfd_size_type amt = sizeof (*htab);
+  size_t amt = sizeof (*htab);
 
   htab = bfd_zmalloc (amt);
   if (htab == NULL)
@@ -1054,7 +1052,7 @@ avr_final_link_relocate (reloc_howto_type *		    howto,
       if (srel > ((1 << 7) - 1) || (srel < - (1 << 7)))
 	return bfd_reloc_overflow;
       x = bfd_get_16 (input_bfd, contents);
-      x = (x & 0xfc07) | (((srel >> 1) << 3) & 0x3f8);
+      x = (x & 0xfc07) | (((srel >> 1) * 8) & 0x3f8);
       bfd_put_16 (input_bfd, x, contents);
       break;
 
@@ -3166,21 +3164,17 @@ elf32_avr_relax_section (bfd *abfd,
 	}
     }
 
-  if (internal_relocs != NULL
-      && elf_section_data (sec)->relocs != internal_relocs)
+  if (elf_section_data (sec)->relocs != internal_relocs)
     free (internal_relocs);
 
   return TRUE;
 
  error_return:
-  if (isymbuf != NULL
-      && symtab_hdr->contents != (unsigned char *) isymbuf)
+  if (symtab_hdr->contents != (unsigned char *) isymbuf)
     free (isymbuf);
-  if (contents != NULL
-      && elf_section_data (sec)->this_hdr.contents != contents)
+  if (elf_section_data (sec)->this_hdr.contents != contents)
     free (contents);
-  if (internal_relocs != NULL
-      && elf_section_data (sec)->relocs != internal_relocs)
+  if (elf_section_data (sec)->relocs != internal_relocs)
     free (internal_relocs);
 
   return FALSE;
@@ -3273,10 +3267,8 @@ elf32_avr_get_relocated_section_contents (bfd *output_bfd,
 					isymbuf, sections))
 	goto error_return;
 
-      if (sections != NULL)
-	free (sections);
-      if (isymbuf != NULL
-	  && symtab_hdr->contents != (unsigned char *) isymbuf)
+      free (sections);
+      if (symtab_hdr->contents != (unsigned char *) isymbuf)
 	free (isymbuf);
       if (elf_section_data (input_section)->relocs != internal_relocs)
 	free (internal_relocs);
@@ -3285,13 +3277,10 @@ elf32_avr_get_relocated_section_contents (bfd *output_bfd,
   return data;
 
  error_return:
-  if (sections != NULL)
-    free (sections);
-  if (isymbuf != NULL
-      && symtab_hdr->contents != (unsigned char *) isymbuf)
+  free (sections);
+  if (symtab_hdr->contents != (unsigned char *) isymbuf)
     free (isymbuf);
-  if (internal_relocs != NULL
-      && elf_section_data (input_section)->relocs != internal_relocs)
+  if (elf_section_data (input_section)->relocs != internal_relocs)
     free (internal_relocs);
   return NULL;
 }
@@ -3494,7 +3483,7 @@ elf32_avr_setup_section_lists (bfd *output_bfd,
   unsigned int top_id, top_index;
   asection *section;
   asection **input_list, **list;
-  bfd_size_type amt;
+  size_t amt;
   struct elf32_avr_link_hash_table *htab = avr_link_hash_table (info);
 
   if (htab == NULL || htab->no_stubs)
@@ -3558,7 +3547,7 @@ get_local_syms (bfd *input_bfd, struct bfd_link_info *info)
   unsigned int bfd_indx;
   Elf_Internal_Sym *local_syms, **all_local_syms;
   struct elf32_avr_link_hash_table *htab = avr_link_hash_table (info);
-  bfd_size_type amt;
+  size_t amt;
 
   if (htab == NULL)
     return -1;
@@ -4050,7 +4039,7 @@ avr_elf32_load_records_from_section (bfd *abfd, asection *sec)
   ptr++;
   flags = *((bfd_byte *) ptr);
   ptr++;
-  record_count = *((uint16_t *) ptr);
+  record_count = bfd_get_16 (abfd, ptr);
   ptr+=2;
   BFD_ASSERT (ptr - contents == AVR_PROPERTY_SECTION_HEADER_SIZE);
 
@@ -4117,7 +4106,7 @@ avr_elf32_load_records_from_section (bfd *abfd, asection *sec)
 	    }
 	}
 
-      address = *((uint32_t *) ptr);
+      address = bfd_get_32 (abfd, ptr);
       ptr += 4;
       size -= 4;
 
@@ -4159,7 +4148,7 @@ avr_elf32_load_records_from_section (bfd *abfd, asection *sec)
 	  /* Just a 4-byte fill to load.  */
 	  if (size < 4)
 	    goto load_failed;
-	  r_list->records [i].data.org.fill = *((uint32_t *) ptr);
+	  r_list->records [i].data.org.fill = bfd_get_32 (abfd, ptr);
 	  ptr += 4;
 	  size -= 4;
 	  break;
@@ -4167,7 +4156,7 @@ avr_elf32_load_records_from_section (bfd *abfd, asection *sec)
 	  /* Just a 4-byte alignment to load.  */
 	  if (size < 4)
 	    goto load_failed;
-	  r_list->records [i].data.align.bytes = *((uint32_t *) ptr);
+	  r_list->records [i].data.align.bytes = bfd_get_32 (abfd, ptr);
 	  ptr += 4;
 	  size -= 4;
 	  /* Just initialise PRECEDING_DELETED field, this field is
@@ -4178,9 +4167,9 @@ avr_elf32_load_records_from_section (bfd *abfd, asection *sec)
 	  /* A 4-byte alignment, and a 4-byte fill to load.  */
 	  if (size < 8)
 	    goto load_failed;
-	  r_list->records [i].data.align.bytes = *((uint32_t *) ptr);
+	  r_list->records [i].data.align.bytes = bfd_get_32 (abfd, ptr);
 	  ptr += 4;
-	  r_list->records [i].data.align.fill = *((uint32_t *) ptr);
+	  r_list->records [i].data.align.fill = bfd_get_32 (abfd, ptr);
 	  ptr += 4;
 	  size -= 8;
 	  /* Just initialise PRECEDING_DELETED field, this field is

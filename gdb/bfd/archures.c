@@ -1,5 +1,5 @@
 /* BFD library support routines for architectures.
-   Copyright (C) 1990-2019 Free Software Foundation, Inc.
+   Copyright (C) 1990-2020 Free Software Foundation, Inc.
    Hacked by John Gilmore and Steve Chamberlain of Cygnus Support.
 
    This file is part of BFD, the Binary File Descriptor library.
@@ -211,10 +211,6 @@ DESCRIPTION
 .  bfd_arch_k1om,      {* Intel K1OM.  *}
 .#define bfd_mach_k1om			(1 << 6)
 .#define bfd_mach_k1om_intel_syntax	(bfd_mach_k1om | bfd_mach_i386_intel_syntax)
-.#define bfd_mach_i386_nacl		(1 << 7)
-.#define bfd_mach_i386_i386_nacl	(bfd_mach_i386_i386 | bfd_mach_i386_nacl)
-.#define bfd_mach_x86_64_nacl		(bfd_mach_x86_64 | bfd_mach_i386_nacl)
-.#define bfd_mach_x64_32_nacl		(bfd_mach_x64_32 | bfd_mach_i386_nacl)
 .  bfd_arch_iamcu,     {* Intel MCU.  *}
 .#define bfd_mach_iamcu			(1 << 8)
 .#define bfd_mach_i386_iamcu		(bfd_mach_i386_i386 | bfd_mach_iamcu)
@@ -232,7 +228,6 @@ DESCRIPTION
 .#define bfd_mach_h8300sx	6
 .#define bfd_mach_h8300sxn	7
 .  bfd_arch_pdp11,     {* DEC PDP-11.  *}
-.  bfd_arch_plugin,
 .  bfd_arch_powerpc,   {* PowerPC.  *}
 .#define bfd_mach_ppc		32
 .#define bfd_mach_ppc64		64
@@ -355,7 +350,6 @@ DESCRIPTION
 .#define bfd_mach_tic4x		40
 .  bfd_arch_tic54x,    {* Texas Instruments TMS320C54X.  *}
 .  bfd_arch_tic6x,     {* Texas Instruments TMS320C6X.  *}
-.  bfd_arch_tic80,     {* TI TMS320c80 (MVP).  *}
 .  bfd_arch_v850,      {* NEC V850.  *}
 .  bfd_arch_v850_rh850,{* NEC V850 (using RH850 ABI).  *}
 .#define bfd_mach_v850		1
@@ -417,6 +411,7 @@ DESCRIPTION
 .#define bfd_mach_iq10		2
 .  bfd_arch_bpf,       {* Linux eBPF.  *}
 .#define bfd_mach_bpf		1
+.#define bfd_mach_xbpf		2
 .  bfd_arch_epiphany,  {* Adapteva EPIPHANY.  *}
 .#define bfd_mach_epiphany16	1
 .#define bfd_mach_epiphany32	2
@@ -506,10 +501,25 @@ DESCRIPTION
 .  bfd_arch_xtensa,    {* Tensilica's Xtensa cores.  *}
 .#define bfd_mach_xtensa	1
 .  bfd_arch_z80,
-.#define bfd_mach_z80strict	1 {* No undocumented opcodes.  *}
-.#define bfd_mach_z80		3 {* With ixl, ixh, iyl, and iyh.  *}
-.#define bfd_mach_z80full	7 {* All undocumented instructions.  *}
-.#define bfd_mach_r800		11 {* R800: successor with multiplication.  *}
+.{* Zilog Z80 without undocumented opcodes.  *}
+.#define bfd_mach_z80strict	1
+.{* Zilog Z180: successor with additional instructions, but without
+. halves of ix and iy.  *}
+.#define bfd_mach_z180		2
+.{* Zilog Z80 with ixl, ixh, iyl, and iyh.  *}
+.#define bfd_mach_z80		3
+.{* Zilog eZ80 (successor of Z80 & Z180) in Z80 (16-bit address) mode.  *}
+.#define bfd_mach_ez80_z80	4
+.{* Zilog eZ80 (successor of Z80 & Z180) in ADL (24-bit address) mode.  *}
+.#define bfd_mach_ez80_adl	5
+.{* Z80N *}
+.#define bfd_mach_z80n		6
+.{* Zilog Z80 with all undocumented instructions.  *}
+.#define bfd_mach_z80full	7
+.{* GameBoy Z80 (reduced instruction set).  *}
+.#define bfd_mach_gbz80		8
+.{* ASCII R800: successor with multiplication.  *}
+.#define bfd_mach_r800		11
 .  bfd_arch_lm32,      {* Lattice Mico32.  *}
 .#define bfd_mach_lm32		1
 .  bfd_arch_microblaze,{* Xilinx MicroBlaze.  *}
@@ -520,6 +530,7 @@ DESCRIPTION
 .#define bfd_mach_tilegx32	2
 .  bfd_arch_aarch64,   {* AArch64.  *}
 .#define bfd_mach_aarch64 0
+.#define bfd_mach_aarch64_8R	1
 .#define bfd_mach_aarch64_ilp32	32
 .  bfd_arch_nios2,     {* Nios II.  *}
 .#define bfd_mach_nios2		0
@@ -543,6 +554,7 @@ DESCRIPTION
 .#define bfd_mach_ck803		5
 .#define bfd_mach_ck807		6
 .#define bfd_mach_ck810		7
+.#define bfd_mach_ck860		8
 .  bfd_arch_last
 .  };
 */
@@ -651,7 +663,6 @@ extern const bfd_arch_info_type bfd_ns32k_arch;
 extern const bfd_arch_info_type bfd_or1k_arch;
 extern const bfd_arch_info_type bfd_pdp11_arch;
 extern const bfd_arch_info_type bfd_pj_arch;
-extern const bfd_arch_info_type bfd_plugin_arch;
 extern const bfd_arch_info_type bfd_powerpc_archs[];
 #define bfd_powerpc_arch bfd_powerpc_archs[0]
 extern const bfd_arch_info_type bfd_pru_arch;
@@ -668,7 +679,6 @@ extern const bfd_arch_info_type bfd_tic30_arch;
 extern const bfd_arch_info_type bfd_tic4x_arch;
 extern const bfd_arch_info_type bfd_tic54x_arch;
 extern const bfd_arch_info_type bfd_tic6x_arch;
-extern const bfd_arch_info_type bfd_tic80_arch;
 extern const bfd_arch_info_type bfd_tilegx_arch;
 extern const bfd_arch_info_type bfd_tilepro_arch;
 extern const bfd_arch_info_type bfd_v850_arch;
@@ -756,7 +766,6 @@ static const bfd_arch_info_type * const bfd_archures_list[] =
     &bfd_tic4x_arch,
     &bfd_tic54x_arch,
     &bfd_tic6x_arch,
-    &bfd_tic80_arch,
     &bfd_tilegx_arch,
     &bfd_tilepro_arch,
     &bfd_v850_arch,
@@ -843,7 +852,7 @@ bfd_arch_list (void)
   const char **name_ptr;
   const char **name_list;
   const bfd_arch_info_type * const *app;
-  bfd_size_type amt;
+  size_t amt;
 
   /* Determine the number of architectures.  */
   vec_length = 0;

@@ -1,5 +1,5 @@
 /* BFD back-end for IBM RS/6000 "XCOFF" files.
-   Copyright (C) 1990-2019 Free Software Foundation, Inc.
+   Copyright (C) 1990-2020 Free Software Foundation, Inc.
    Written by Metin G. Ozisik, Mimi Phuong-Thao Vo, and John Gilmore.
    Archive support from Damon A. Permezel.
    Contributed by IBM Corporation and Cygnus Support.
@@ -38,7 +38,7 @@ extern bfd_boolean _bfd_xcoff_is_local_label_name (bfd *, const char *);
 extern reloc_howto_type *_bfd_xcoff_reloc_type_lookup
   (bfd *, bfd_reloc_code_real_type);
 extern bfd_boolean _bfd_xcoff_slurp_armap (bfd *);
-extern const bfd_target *_bfd_xcoff_archive_p (bfd *);
+extern bfd_cleanup _bfd_xcoff_archive_p (bfd *);
 extern void * _bfd_xcoff_read_ar_hdr (bfd *);
 extern bfd *_bfd_xcoff_openr_next_archived_file (bfd *, bfd *);
 extern int _bfd_xcoff_stat_arch_elt (bfd *, struct stat *);
@@ -77,7 +77,7 @@ void xcoff_rtype2howto (arelent *, struct internal_reloc *);
 #define coff_mkobject _bfd_xcoff_mkobject
 #define coff_bfd_is_local_label_name _bfd_xcoff_is_local_label_name
 #ifdef AIX_CORE
-extern const bfd_target * rs6000coff_core_p (bfd *abfd);
+extern bfd_cleanup rs6000coff_core_p (bfd *abfd);
 extern bfd_boolean rs6000coff_core_file_matches_executable_p
   (bfd *cbfd, bfd *ebfd);
 extern char *rs6000coff_core_file_failing_command (bfd *abfd);
@@ -323,7 +323,7 @@ bfd_boolean
 _bfd_xcoff_mkobject (bfd *abfd)
 {
   coff_data_type *coff;
-  bfd_size_type amt = sizeof (struct xcoff_tdata);
+  size_t amt = sizeof (struct xcoff_tdata);
 
   abfd->tdata.xcoff_obj_data = (struct xcoff_tdata *) bfd_zalloc (abfd, amt);
   if (abfd->tdata.xcoff_obj_data == NULL)
@@ -652,7 +652,7 @@ _bfd_xcoff_swap_aux_out (bfd *abfd, void * inp, int type, int in_class,
 		ext->x_sym.x_misc.x_lnsz.x_size);
     }
 
-end:
+ end:
   return bfd_coff_auxesz (abfd);
 }
 
@@ -1260,18 +1260,25 @@ _bfd_xcoff_slurp_armap (bfd *abfd)
 	return FALSE;
 
       GET_VALUE_IN_FIELD (sz, hdr.size, 10);
+      if (sz + 1 < 5)
+	{
+	  bfd_set_error (bfd_error_bad_value);
+	  return FALSE;
+	}
 
       /* Read in the entire symbol table.  */
-      contents = (bfd_byte *) bfd_alloc (abfd, sz);
+      contents = (bfd_byte *) _bfd_alloc_and_read (abfd, sz + 1, sz);
       if (contents == NULL)
 	return FALSE;
-      if (bfd_bread (contents, sz, abfd) != sz)
-	return FALSE;
+
+      /* Ensure strings are NULL terminated so we don't wander off the
+	 end of the buffer.  */
+      contents[sz] = 0;
 
       /* The symbol table starts with a four byte count.  */
       c = H_GET_32 (abfd, contents);
 
-      if (c * 4 >= sz)
+      if (c >= sz / 4)
 	{
 	  bfd_set_error (bfd_error_bad_value);
 	  return FALSE;
@@ -1315,18 +1322,25 @@ _bfd_xcoff_slurp_armap (bfd *abfd)
 	return FALSE;
 
       GET_VALUE_IN_FIELD (sz, hdr.size, 10);
+      if (sz + 1 < 9)
+	{
+	  bfd_set_error (bfd_error_bad_value);
+	  return FALSE;
+	}
 
       /* Read in the entire symbol table.  */
-      contents = (bfd_byte *) bfd_alloc (abfd, sz);
+      contents = (bfd_byte *) _bfd_alloc_and_read (abfd, sz + 1, sz);
       if (contents == NULL)
 	return FALSE;
-      if (bfd_bread (contents, sz, abfd) != sz)
-	return FALSE;
+
+      /* Ensure strings are NULL terminated so we don't wander off the
+	 end of the buffer.  */
+      contents[sz] = 0;
 
       /* The symbol table starts with an eight byte count.  */
       c = H_GET_64 (abfd, contents);
 
-      if (c * 8 >= sz)
+      if (c >= sz / 8)
 	{
 	  bfd_set_error (bfd_error_bad_value);
 	  return FALSE;
@@ -1366,12 +1380,12 @@ _bfd_xcoff_slurp_armap (bfd *abfd)
 
 /* See if this is an XCOFF archive.  */
 
-const bfd_target *
+bfd_cleanup
 _bfd_xcoff_archive_p (bfd *abfd)
 {
   struct artdata *tdata_hold;
   char magic[SXCOFFARMAG];
-  bfd_size_type amt = SXCOFFARMAG;
+  size_t amt = SXCOFFARMAG;
 
   if (bfd_bread (magic, amt, abfd) != amt)
     {
@@ -1467,7 +1481,7 @@ _bfd_xcoff_archive_p (bfd *abfd)
       return NULL;
     }
 
-  return abfd->xvec;
+  return _bfd_no_cleanup;
 }
 
 /* Read the archive header in an XCOFF archive.  */
@@ -1477,32 +1491,23 @@ _bfd_xcoff_read_ar_hdr (bfd *abfd)
 {
   bfd_size_type namlen;
   struct areltdata *ret;
-  bfd_size_type amt = sizeof (struct areltdata);
-
-  ret = (struct areltdata *) bfd_zmalloc (amt);
-  if (ret == NULL)
-    return NULL;
+  bfd_size_type amt;
 
   if (! xcoff_big_format_p (abfd))
     {
       struct xcoff_ar_hdr hdr;
       struct xcoff_ar_hdr *hdrp;
 
-      if (bfd_bread (&hdr, (bfd_size_type) SIZEOF_AR_HDR, abfd)
-	  != SIZEOF_AR_HDR)
-	{
-	  free (ret);
-	  return NULL;
-	}
+      if (bfd_bread (&hdr, SIZEOF_AR_HDR, abfd) != SIZEOF_AR_HDR)
+	return NULL;
 
       GET_VALUE_IN_FIELD (namlen, hdr.namlen, 10);
-      amt = SIZEOF_AR_HDR + namlen + 1;
-      hdrp = (struct xcoff_ar_hdr *) bfd_alloc (abfd, amt);
-      if (hdrp == NULL)
-	{
-	  free (ret);
-	  return NULL;
-	}
+      amt = sizeof (struct areltdata) + SIZEOF_AR_HDR + namlen + 1;
+      ret = (struct areltdata *) bfd_malloc (amt);
+      if (ret == NULL)
+	return ret;
+
+      hdrp = (struct xcoff_ar_hdr *) (ret + 1);
       memcpy (hdrp, &hdr, SIZEOF_AR_HDR);
       if (bfd_bread ((char *) hdrp + SIZEOF_AR_HDR, namlen, abfd) != namlen)
 	{
@@ -1520,21 +1525,16 @@ _bfd_xcoff_read_ar_hdr (bfd *abfd)
       struct xcoff_ar_hdr_big hdr;
       struct xcoff_ar_hdr_big *hdrp;
 
-      if (bfd_bread (&hdr, (bfd_size_type) SIZEOF_AR_HDR_BIG, abfd)
-	  != SIZEOF_AR_HDR_BIG)
-	{
-	  free (ret);
-	  return NULL;
-	}
+      if (bfd_bread (&hdr, SIZEOF_AR_HDR_BIG, abfd) != SIZEOF_AR_HDR_BIG)
+	return NULL;
 
       GET_VALUE_IN_FIELD (namlen, hdr.namlen, 10);
-      amt = SIZEOF_AR_HDR_BIG + namlen + 1;
-      hdrp = (struct xcoff_ar_hdr_big *) bfd_alloc (abfd, amt);
-      if (hdrp == NULL)
-	{
-	  free (ret);
-	  return NULL;
-	}
+      amt = sizeof (struct areltdata) + SIZEOF_AR_HDR_BIG + namlen + 1;
+      ret = (struct areltdata *) bfd_malloc (amt);
+      if (ret == NULL)
+	return ret;
+
+      hdrp = (struct xcoff_ar_hdr_big *) (ret + 1);
       memcpy (hdrp, &hdr, SIZEOF_AR_HDR_BIG);
       if (bfd_bread ((char *) hdrp + SIZEOF_AR_HDR_BIG, namlen, abfd) != namlen)
 	{
@@ -2101,6 +2101,13 @@ xcoff_write_archive_contents_old (bfd *abfd)
 	      bfd_set_error (bfd_error_system_call);
 	      return FALSE;
 	    }
+	  if ((abfd->flags & BFD_DETERMINISTIC_OUTPUT) != 0)
+	    {
+	      s.st_mtime = 0;
+	      s.st_uid = 0;
+	      s.st_gid = 0;
+	      s.st_mode = 0644;
+	    }
 
 	  ahdrp = bfd_zalloc (sub, sizeof (*ahdrp));
 	  if (ahdrp == NULL)
@@ -2320,6 +2327,13 @@ xcoff_write_archive_contents_big (bfd *abfd)
 	    {
 	      bfd_set_error (bfd_error_system_call);
 	      return FALSE;
+	    }
+	  if ((abfd->flags & BFD_DETERMINISTIC_OUTPUT) != 0)
+	    {
+	      s.st_mtime = 0;
+	      s.st_uid = 0;
+	      s.st_gid = 0;
+	      s.st_mode = 0644;
 	    }
 
 	  ahdrp = bfd_zalloc (current_bfd, sizeof (*ahdrp));
@@ -2566,11 +2580,13 @@ _bfd_xcoff_sizeof_headers (bfd *abfd,
       /* Sum.  */
       for (sub = info->input_bfds; sub != NULL; sub = sub->link.next)
 	for (s = sub->sections; s != NULL; s = s->next)
-	  {
-	    struct nbr_reloc_lineno *e = &n_rl[s->output_section->index];
-	    e->reloc_count += s->reloc_count;
-	    e->lineno_count += s->lineno_count;
-	  }
+	  if (s->output_section->owner == abfd
+	      && !bfd_section_removed_from_list (abfd, s->output_section))
+	    {
+	      struct nbr_reloc_lineno *e = &n_rl[s->output_section->index];
+	      e->reloc_count += s->reloc_count;
+	      e->lineno_count += s->lineno_count;
+	    }
 
       /* Add the size of a section for each section with an overflow.  */
       for (s = abfd->sections; s != NULL; s = s->next)
@@ -3389,7 +3405,8 @@ xcoff_ppc_relocate_section (bfd *output_bfd,
 		  (info, h->root.root.string,
 		   input_bfd, input_section,
 		   rel->r_vaddr - input_section->vma,
-		   info->unresolved_syms_in_objects == RM_GENERATE_ERROR);
+		   info->unresolved_syms_in_objects == RM_DIAGNOSE &&
+		       !info->warn_unresolved_syms);
 
 	      if (h->root.type == bfd_link_hash_defined
 		  || h->root.type == bfd_link_hash_defweak)

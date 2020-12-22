@@ -1,3 +1,7 @@
+
+
+/* The leading newlines here are intentional, do not remove.  They are used to
+   test that the source highlighter doesn't strip them.  */
 /* Copyright 2018-2020 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
@@ -14,6 +18,21 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 #define SOME_MACRO 23
+
+enum etype
+{
+  VALUE_ONE = 1,
+  VALUE_TWO = 2
+};
+
+struct some_struct
+{
+  int int_field;
+  char *string_field;
+  enum etype e_field;
+};
+
+struct some_struct struct_value = { 23, "skidoo", VALUE_TWO };
 
 int some_called_function (void)
 {

@@ -15,6 +15,8 @@
 
 load_lib "ada.exp"
 
+if { [skip_ada_tests] } { return -1 }
+
 standard_ada_testfile foo
 
 if {[gdb_compile_ada "${srcfile}" "${binfile}" executable [list debug ]] != "" } {
@@ -56,7 +58,7 @@ gdb_test "print obj.a" " = 48" \
 
 gdb_test "continue" \
          ".*Breakpoint $decimal, pck.assign \\(.*\\).*" \
-         "continue to bottom assign breakpoint (2nd time)"
+         "continue to bottom assign breakpoint, 2nd time"
 
 gdb_test "print obj.x" " = 6" \
          "Print field existing only in bottom component"

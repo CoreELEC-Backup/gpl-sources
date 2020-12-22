@@ -15,6 +15,8 @@
 
 load_lib "ada.exp"
 
+if { [skip_ada_tests] } { return -1 }
+
 standard_ada_testfile main_p324_051
 
 if {[gdb_compile_ada "${srcfile}" "${binfile}" executable [list debug]] != "" } {
@@ -26,5 +28,5 @@ clean_restart ${testfile}
 set bp_location [gdb_get_line_number "STOP" ${testdir}/main_p324_051.adb]
 runto "main_p324_051.adb:$bp_location"
 
-gdb_test "print assign_arr_input.u2 := (0.25,0.5,0.75)" \
+gdb_test "print assign_arr_input.u2 :=(0.25,0.5,0.75)" \
          " = \\(0\\.25, 0\\.5, 0\\.75\\)"

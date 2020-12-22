@@ -15,6 +15,8 @@
 
 load_lib "ada.exp"
 
+if { [skip_ada_tests] } { return -1 }
+
 standard_ada_testfile foo
 
 if {[gdb_compile_ada "${srcfile}" "${binfile}" executable [list debug]] != "" } {
@@ -30,4 +32,4 @@ runto "foo.adb:$bp_location"
 # class-wide.
 
 gdb_test "p ident (ident (my_parameter))" \
-         "= \\(one => 1, two => 2, three => 3\\)"
+         "= \\(one => 1, two => 2, three => 3\\)" "value of ident"

@@ -249,6 +249,8 @@ sparc64nbsd_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
 {
   struct gdbarch_tdep *tdep = gdbarch_tdep (gdbarch);
 
+  nbsd_init_abi (info, gdbarch);
+
   tdep->gregset = &sparc64nbsd_gregset;
   tdep->sizeof_gregset = 160;
 
@@ -268,8 +270,9 @@ sparc64nbsd_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
     (gdbarch, svr4_lp64_fetch_link_map_offsets);
 }
 
+void _initialize_sparc64nbsd_tdep ();
 void
-_initialize_sparc64nbsd_tdep (void)
+_initialize_sparc64nbsd_tdep ()
 {
   gdbarch_register_osabi (bfd_arch_sparc, bfd_mach_sparc_v9,
 			  GDB_OSABI_NETBSD, sparc64nbsd_init_abi);

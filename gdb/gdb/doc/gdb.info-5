@@ -1,4 +1,4 @@
-This is gdb.info, produced by makeinfo version 6.5 from gdb.texinfo.
+This is gdb.info, produced by makeinfo version 6.7 from gdb.texinfo.
 
 Copyright (C) 1988-2020 Free Software Foundation, Inc.
 
@@ -21,7 +21,7 @@ END-INFO-DIR-ENTRY
    This file documents the GNU debugger GDB.
 
    This is the Tenth Edition, of 'Debugging with GDB: the GNU
-Source-Level Debugger' for GDB (GDB) Version 9.1.
+Source-Level Debugger' for GDB (GDB) Version 10.1.
 
    Copyright (C) 1988-2020 Free Software Foundation, Inc.
 
@@ -35,6 +35,739 @@ with the Back-Cover Texts as in (a) below.
    (a) The FSF's Back-Cover Text is: "You are free to copy and modify
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
+
+
+File: gdb.info,  Node: Guile API,  Next: Guile Auto-loading,  Prev: Guile Commands,  Up: Guile
+
+23.3.3 Guile API
+----------------
+
+You can get quick online help for GDB's Guile API by issuing the command
+'help guile', or by issuing the command ',help' from an interactive
+Guile session.  Furthermore, most Guile procedures provided by GDB have
+doc strings which can be obtained with ',describe PROCEDURE-NAME' or ',d
+PROCEDURE-NAME' from the Guile interactive prompt.
+
+* Menu:
+
+* Basic Guile::              Basic Guile Functions
+* Guile Configuration::      Guile configuration variables
+* GDB Scheme Data Types::    Scheme representations of GDB objects
+* Guile Exception Handling:: How Guile exceptions are translated
+* Values From Inferior In Guile:: Guile representation of values
+* Arithmetic In Guile::      Arithmetic in Guile
+* Types In Guile::           Guile representation of types
+* Guile Pretty Printing API:: Pretty-printing values with Guile
+* Selecting Guile Pretty-Printers:: How GDB chooses a pretty-printer
+* Writing a Guile Pretty-Printer:: Writing a pretty-printer
+* Commands In Guile::        Implementing new commands in Guile
+* Parameters In Guile::      Adding new GDB parameters
+* Progspaces In Guile::      Program spaces
+* Objfiles In Guile::        Object files in Guile
+* Frames In Guile::          Accessing inferior stack frames from Guile
+* Blocks In Guile::          Accessing blocks from Guile
+* Symbols In Guile::         Guile representation of symbols
+* Symbol Tables In Guile::   Guile representation of symbol tables
+* Breakpoints In Guile::     Manipulating breakpoints using Guile
+* Lazy Strings In Guile::    Guile representation of lazy strings
+* Architectures In Guile::   Guile representation of architectures
+* Disassembly In Guile::     Disassembling instructions from Guile
+* I/O Ports in Guile::       GDB I/O ports
+* Memory Ports in Guile::    Accessing memory through ports and bytevectors
+* Iterators In Guile::       Basic iterator support
+
+
+File: gdb.info,  Node: Basic Guile,  Next: Guile Configuration,  Up: Guile API
+
+23.3.3.1 Basic Guile
+....................
+
+At startup, GDB overrides Guile's 'current-output-port' and
+'current-error-port' to print using GDB's output-paging streams.  A
+Guile program which outputs to one of these streams may have its output
+interrupted by the user (*note Screen Size::).  In this situation, a
+Guile 'signal' exception is thrown with value 'SIGINT'.
+
+   Guile's history mechanism uses the same naming as GDB's, namely the
+user of dollar-variables (e.g., $1, $2, etc.).  The results of
+evaluations in Guile and in GDB are counted separately, '$1' in Guile is
+not the same value as '$1' in GDB.
+
+   GDB is not thread-safe.  If your Guile program uses multiple threads,
+you must be careful to only call GDB-specific functions in the GDB
+thread.
+
+   Some care must be taken when writing Guile code to run in GDB.  Two
+things are worth noting in particular:
+
+   * GDB installs handlers for 'SIGCHLD' and 'SIGINT'.  Guile code must
+     not override these, or even change the options using 'sigaction'.
+     If your program changes the handling of these signals, GDB will
+     most likely stop working correctly.  Note that it is unfortunately
+     common for GUI toolkits to install a 'SIGCHLD' handler.
+
+   * GDB takes care to mark its internal file descriptors as
+     close-on-exec.  However, this cannot be done in a thread-safe way
+     on all platforms.  Your Guile programs should be aware of this and
+     should both create new file descriptors with the close-on-exec flag
+     set and arrange to close unneeded file descriptors before starting
+     a child process.
+
+   GDB introduces a new Guile module, named 'gdb'.  All methods and
+classes added by GDB are placed in this module.  GDB does not
+automatically 'import' the 'gdb' module, scripts must do this
+themselves.  There are various options for how to import a module, so
+GDB leaves the choice of how the 'gdb' module is imported to the user.
+To simplify interactive use, it is recommended to add one of the
+following to your ~/.gdbinit.
+
+     guile (use-modules (gdb))
+
+     guile (use-modules ((gdb) #:renamer (symbol-prefix-proc 'gdb:)))
+
+   Which one to choose depends on your preference.  The second one adds
+'gdb:' as a prefix to all module functions and variables.
+
+   The rest of this manual assumes the 'gdb' module has been imported
+without any prefix.  See the Guile documentation for 'use-modules' for
+more information (*note (guile)Using Guile Modules::).
+
+   Example:
+
+     (gdb) guile (value-type (make-value 1))
+     ERROR: Unbound variable: value-type
+     Error while executing Scheme code.
+     (gdb) guile (use-modules (gdb))
+     (gdb) guile (value-type (make-value 1))
+     int
+     (gdb)
+
+   The '(gdb)' module provides these basic Guile functions.
+
+ -- Scheme Procedure: execute command [#:from-tty boolean] [#:to-string
+          boolean]
+     Evaluate COMMAND, a string, as a GDB CLI command.  If a GDB
+     exception happens while COMMAND runs, it is translated as described
+     in *note Guile Exception Handling: Guile Exception Handling.
+
+     FROM-TTY specifies whether GDB ought to consider this command as
+     having originated from the user invoking it interactively.  It must
+     be a boolean value.  If omitted, it defaults to '#f'.
+
+     By default, any output produced by COMMAND is sent to GDB's
+     standard output (and to the log output if logging is turned on).
+     If the TO-STRING parameter is '#t', then output will be collected
+     by 'execute' and returned as a string.  The default is '#f', in
+     which case the return value is unspecified.  If TO-STRING is '#t',
+     the GDB virtual terminal will be temporarily set to unlimited width
+     and height, and its pagination will be disabled; *note Screen
+     Size::.
+
+ -- Scheme Procedure: history-ref number
+     Return a value from GDB's value history (*note Value History::).
+     The NUMBER argument indicates which history element to return.  If
+     NUMBER is negative, then GDB will take its absolute value and count
+     backward from the last element (i.e., the most recent element) to
+     find the value to return.  If NUMBER is zero, then GDB will return
+     the most recent element.  If the element specified by NUMBER
+     doesn't exist in the value history, a 'gdb:error' exception will be
+     raised.
+
+     If no exception is raised, the return value is always an instance
+     of '<gdb:value>' (*note Values From Inferior In Guile::).
+
+     _Note:_ GDB's value history is independent of Guile's.  '$1' in
+     GDB's value history contains the result of evaluating an expression
+     from GDB's command line and '$1' from Guile's history contains the
+     result of evaluating an expression from Guile's command line.
+
+ -- Scheme Procedure: history-append! value
+     Append VALUE, an instance of '<gdb:value>', to GDB's value history.
+     Return its index in the history.
+
+     Putting into history values returned by Guile extensions will allow
+     the user convenient access to those values via CLI history
+     facilities.
+
+ -- Scheme Procedure: parse-and-eval expression
+     Parse EXPRESSION as an expression in the current language, evaluate
+     it, and return the result as a '<gdb:value>'.  The EXPRESSION must
+     be a string.
+
+     This function can be useful when implementing a new command (*note
+     Commands In Guile::), as it provides a way to parse the command's
+     arguments as an expression.  It is also is useful when computing
+     values.  For example, it is the only way to get the value of a
+     convenience variable (*note Convenience Vars::) as a '<gdb:value>'.
+
+
+File: gdb.info,  Node: Guile Configuration,  Next: GDB Scheme Data Types,  Prev: Basic Guile,  Up: Guile API
+
+23.3.3.2 Guile Configuration
+............................
+
+GDB provides these Scheme functions to access various configuration
+parameters.
+
+ -- Scheme Procedure: data-directory
+     Return a string containing GDB's data directory.  This directory
+     contains GDB's ancillary files.
+
+ -- Scheme Procedure: guile-data-directory
+     Return a string containing GDB's Guile data directory.  This
+     directory contains the Guile modules provided by GDB.
+
+ -- Scheme Procedure: gdb-version
+     Return a string containing the GDB version.
+
+ -- Scheme Procedure: host-config
+     Return a string containing the host configuration.  This is the
+     string passed to '--host' when GDB was configured.
+
+ -- Scheme Procedure: target-config
+     Return a string containing the target configuration.  This is the
+     string passed to '--target' when GDB was configured.
+
+
+File: gdb.info,  Node: GDB Scheme Data Types,  Next: Guile Exception Handling,  Prev: Guile Configuration,  Up: Guile API
+
+23.3.3.3 GDB Scheme Data Types
+..............................
+
+The values exposed by GDB to Guile are known as "GDB objects".  There
+are several kinds of GDB object, and each is disjoint from all other
+types known to Guile.
+
+ -- Scheme Procedure: gdb-object-kind object
+     Return the kind of the GDB object, e.g., '<gdb:breakpoint>', as a
+     symbol.
+
+   GDB defines the following object types:
+
+'<gdb:arch>'
+     *Note Architectures In Guile::.
+
+'<gdb:block>'
+     *Note Blocks In Guile::.
+
+'<gdb:block-symbols-iterator>'
+     *Note Blocks In Guile::.
+
+'<gdb:breakpoint>'
+     *Note Breakpoints In Guile::.
+
+'<gdb:command>'
+     *Note Commands In Guile::.
+
+'<gdb:exception>'
+     *Note Guile Exception Handling::.
+
+'<gdb:frame>'
+     *Note Frames In Guile::.
+
+'<gdb:iterator>'
+     *Note Iterators In Guile::.
+
+'<gdb:lazy-string>'
+     *Note Lazy Strings In Guile::.
+
+'<gdb:objfile>'
+     *Note Objfiles In Guile::.
+
+'<gdb:parameter>'
+     *Note Parameters In Guile::.
+
+'<gdb:pretty-printer>'
+     *Note Guile Pretty Printing API::.
+
+'<gdb:pretty-printer-worker>'
+     *Note Guile Pretty Printing API::.
+
+'<gdb:progspace>'
+     *Note Progspaces In Guile::.
+
+'<gdb:symbol>'
+     *Note Symbols In Guile::.
+
+'<gdb:symtab>'
+     *Note Symbol Tables In Guile::.
+
+'<gdb:sal>'
+     *Note Symbol Tables In Guile::.
+
+'<gdb:type>'
+     *Note Types In Guile::.
+
+'<gdb:field>'
+     *Note Types In Guile::.
+
+'<gdb:value>'
+     *Note Values From Inferior In Guile::.
+
+   The following GDB objects are managed internally so that the Scheme
+function 'eq?' may be applied to them.
+
+'<gdb:arch>'
+'<gdb:block>'
+'<gdb:breakpoint>'
+'<gdb:frame>'
+'<gdb:objfile>'
+'<gdb:progspace>'
+'<gdb:symbol>'
+'<gdb:symtab>'
+'<gdb:type>'
+
+
+File: gdb.info,  Node: Guile Exception Handling,  Next: Values From Inferior In Guile,  Prev: GDB Scheme Data Types,  Up: Guile API
+
+23.3.3.4 Guile Exception Handling
+.................................
+
+When executing the 'guile' command, Guile exceptions uncaught within the
+Guile code are translated to calls to the GDB error-reporting mechanism.
+If the command that called 'guile' does not handle the error, GDB will
+terminate it and report the error according to the setting of the 'guile
+print-stack' parameter.
+
+   The 'guile print-stack' parameter has three settings:
+
+'none'
+     Nothing is printed.
+
+'message'
+     An error message is printed containing the Guile exception name,
+     the associated value, and the Guile call stack backtrace at the
+     point where the exception was raised.  Example:
+
+          (gdb) guile (display foo)
+          ERROR: In procedure memoize-variable-access!:
+          ERROR: Unbound variable: foo
+          Error while executing Scheme code.
+
+'full'
+     In addition to an error message a full backtrace is printed.
+
+          (gdb) set guile print-stack full
+          (gdb) guile (display foo)
+          Guile Backtrace:
+          In ice-9/boot-9.scm:
+           157: 10 [catch #t #<catch-closure 2c76e20> ...]
+          In unknown file:
+             ?: 9 [apply-smob/1 #<catch-closure 2c76e20>]
+          In ice-9/boot-9.scm:
+           157: 8 [catch #t #<catch-closure 2c76d20> ...]
+          In unknown file:
+             ?: 7 [apply-smob/1 #<catch-closure 2c76d20>]
+             ?: 6 [call-with-input-string "(display foo)" ...]
+          In ice-9/boot-9.scm:
+          2320: 5 [save-module-excursion #<procedure 2c2dc30 ... ()>]
+          In ice-9/eval-string.scm:
+            44: 4 [read-and-eval #<input: string 27cb410> #:lang ...]
+            37: 3 [lp (display foo)]
+          In ice-9/eval.scm:
+           387: 2 [eval # ()]
+           393: 1 [eval #<memoized foo> ()]
+          In unknown file:
+             ?: 0 [memoize-variable-access! #<memoized foo> ...]
+
+          ERROR: In procedure memoize-variable-access!:
+          ERROR: Unbound variable: foo
+          Error while executing Scheme code.
+
+   GDB errors that happen in GDB commands invoked by Guile code are
+converted to Guile exceptions.  The type of the Guile exception depends
+on the error.
+
+   Guile procedures provided by GDB can throw the standard Guile
+exceptions like 'wrong-type-arg' and 'out-of-range'.
+
+   User interrupt (via 'C-c' or by typing 'q' at a pagination prompt) is
+translated to a Guile 'signal' exception with value 'SIGINT'.
+
+   GDB Guile procedures can also throw these exceptions:
+
+'gdb:error'
+     This exception is a catch-all for errors generated from within GDB.
+
+'gdb:invalid-object'
+     This exception is thrown when accessing Guile objects that wrap
+     underlying GDB objects have become invalid.  For example, a
+     '<gdb:breakpoint>' object becomes invalid if the user deletes it
+     from the command line.  The object still exists in Guile, but the
+     object it represents is gone.  Further operations on this
+     breakpoint will throw this exception.
+
+'gdb:memory-error'
+     This exception is thrown when an operation tried to access invalid
+     memory in the inferior.
+
+'gdb:pp-type-error'
+     This exception is thrown when a Guile pretty-printer passes a bad
+     object to GDB.
+
+   The following exception-related procedures are provided by the
+'(gdb)' module.
+
+ -- Scheme Procedure: make-exception key args
+     Return a '<gdb:exception>' object given by its KEY and ARGS, which
+     are the standard Guile parameters of an exception.  See the Guile
+     documentation for more information (*note (guile)Exceptions::).
+
+ -- Scheme Procedure: exception? object
+     Return '#t' if OBJECT is a '<gdb:exception>' object.  Otherwise
+     return '#f'.
+
+ -- Scheme Procedure: exception-key exception
+     Return the ARGS field of a '<gdb:exception>' object.
+
+ -- Scheme Procedure: exception-args exception
+     Return the ARGS field of a '<gdb:exception>' object.
+
+
+File: gdb.info,  Node: Values From Inferior In Guile,  Next: Arithmetic In Guile,  Prev: Guile Exception Handling,  Up: Guile API
+
+23.3.3.5 Values From Inferior In Guile
+......................................
+
+GDB provides values it obtains from the inferior program in an object of
+type '<gdb:value>'.  GDB uses this object for its internal bookkeeping
+of the inferior's values, and for fetching values when necessary.
+
+   GDB does not memoize '<gdb:value>' objects.  'make-value' always
+returns a fresh object.
+
+     (gdb) guile (eq? (make-value 1) (make-value 1))
+     $1 = #f
+     (gdb) guile (equal? (make-value 1) (make-value 1))
+     $1 = #t
+
+   A '<gdb:value>' that represents a function can be executed via
+inferior function call with 'value-call'.  Any arguments provided to the
+call must match the function's prototype, and must be provided in the
+order specified by that prototype.
+
+   For example, 'some-val' is a '<gdb:value>' instance representing a
+function that takes two integers as arguments.  To execute this
+function, call it like so:
+
+     (define result (value-call some-val 10 20))
+
+   Any values returned from a function call are '<gdb:value>' objects.
+
+   Note: Unlike Python scripting in GDB, inferior values that are simple
+scalars cannot be used directly in Scheme expressions that are valid for
+the value's data type.  For example, '(+ (parse-and-eval "int_variable")
+2)' does not work.  And inferior values that are structures or instances
+of some class cannot be accessed using any special syntax, instead
+'value-field' must be used.
+
+   The following value-related procedures are provided by the '(gdb)'
+module.
+
+ -- Scheme Procedure: value? object
+     Return '#t' if OBJECT is a '<gdb:value>' object.  Otherwise return
+     '#f'.
+
+ -- Scheme Procedure: make-value value [#:type type]
+     Many Scheme values can be converted directly to a '<gdb:value>'
+     with this procedure.  If TYPE is specified, the result is a value
+     of this type, and if VALUE can't be represented with this type an
+     exception is thrown.  Otherwise the type of the result is
+     determined from VALUE as described below.
+
+     *Note Architectures In Guile::, for a list of the builtin types for
+     an architecture.
+
+     Here's how Scheme values are converted when TYPE argument to
+     'make-value' is not specified:
+
+     Scheme boolean
+          A Scheme boolean is converted the boolean type for the current
+          language.
+
+     Scheme integer
+          A Scheme integer is converted to the first of a C 'int',
+          'unsigned int', 'long', 'unsigned long', 'long long' or
+          'unsigned long long' type for the current architecture that
+          can represent the value.
+
+          If the Scheme integer cannot be represented as a target
+          integer an 'out-of-range' exception is thrown.
+
+     Scheme real
+          A Scheme real is converted to the C 'double' type for the
+          current architecture.
+
+     Scheme string
+          A Scheme string is converted to a string in the current target
+          language using the current target encoding.  Characters that
+          cannot be represented in the current target encoding are
+          replaced with the corresponding escape sequence.  This is
+          Guile's 'SCM_FAILED_CONVERSION_ESCAPE_SEQUENCE' conversion
+          strategy (*note (guile)Strings::).
+
+          Passing TYPE is not supported in this case, if it is provided
+          a 'wrong-type-arg' exception is thrown.
+
+     '<gdb:lazy-string>'
+          If VALUE is a '<gdb:lazy-string>' object (*note Lazy Strings
+          In Guile::), then the 'lazy-string->value' procedure is
+          called, and its result is used.
+
+          Passing TYPE is not supported in this case, if it is provided
+          a 'wrong-type-arg' exception is thrown.
+
+     Scheme bytevector
+          If VALUE is a Scheme bytevector and TYPE is provided, VALUE
+          must be the same size, in bytes, of values of type TYPE, and
+          the result is essentially created by using 'memcpy'.
+
+          If VALUE is a Scheme bytevector and TYPE is not provided, the
+          result is an array of type 'uint8' of the same length.
+
+ -- Scheme Procedure: value-optimized-out? value
+     Return '#t' if the compiler optimized out VALUE, thus it is not
+     available for fetching from the inferior.  Otherwise return '#f'.
+
+ -- Scheme Procedure: value-address value
+     If VALUE is addressable, returns a '<gdb:value>' object
+     representing the address.  Otherwise, '#f' is returned.
+
+ -- Scheme Procedure: value-type value
+     Return the type of VALUE as a '<gdb:type>' object (*note Types In
+     Guile::).
+
+ -- Scheme Procedure: value-dynamic-type value
+     Return the dynamic type of VALUE.  This uses C++ run-time type
+     information (RTTI) to determine the dynamic type of the value.  If
+     the value is of class type, it will return the class in which the
+     value is embedded, if any.  If the value is of pointer or reference
+     to a class type, it will compute the dynamic type of the referenced
+     object, and return a pointer or reference to that type,
+     respectively.  In all other cases, it will return the value's
+     static type.
+
+     Note that this feature will only work when debugging a C++ program
+     that includes RTTI for the object in question.  Otherwise, it will
+     just return the static type of the value as in 'ptype foo'.  *Note
+     ptype: Symbols.
+
+ -- Scheme Procedure: value-cast value type
+     Return a new instance of '<gdb:value>' that is the result of
+     casting VALUE to the type described by TYPE, which must be a
+     '<gdb:type>' object.  If the cast cannot be performed for some
+     reason, this method throws an exception.
+
+ -- Scheme Procedure: value-dynamic-cast value type
+     Like 'value-cast', but works as if the C++ 'dynamic_cast' operator
+     were used.  Consult a C++ reference for details.
+
+ -- Scheme Procedure: value-reinterpret-cast value type
+     Like 'value-cast', but works as if the C++ 'reinterpret_cast'
+     operator were used.  Consult a C++ reference for details.
+
+ -- Scheme Procedure: value-dereference value
+     For pointer data types, this method returns a new '<gdb:value>'
+     object whose contents is the object pointed to by VALUE.  For
+     example, if 'foo' is a C pointer to an 'int', declared in your C
+     program as
+
+          int *foo;
+
+     then you can use the corresponding '<gdb:value>' to access what
+     'foo' points to like this:
+
+          (define bar (value-dereference foo))
+
+     The result 'bar' will be a '<gdb:value>' object holding the value
+     pointed to by 'foo'.
+
+     A similar function 'value-referenced-value' exists which also
+     returns '<gdb:value>' objects corresponding to the values pointed
+     to by pointer values (and additionally, values referenced by
+     reference values).  However, the behavior of 'value-dereference'
+     differs from 'value-referenced-value' by the fact that the behavior
+     of 'value-dereference' is identical to applying the C unary
+     operator '*' on a given value.  For example, consider a reference
+     to a pointer 'ptrref', declared in your C++ program as
+
+          typedef int *intptr;
+          ...
+          int val = 10;
+          intptr ptr = &val;
+          intptr &ptrref = ptr;
+
+     Though 'ptrref' is a reference value, one can apply the method
+     'value-dereference' to the '<gdb:value>' object corresponding to it
+     and obtain a '<gdb:value>' which is identical to that corresponding
+     to 'val'.  However, if you apply the method
+     'value-referenced-value', the result would be a '<gdb:value>'
+     object identical to that corresponding to 'ptr'.
+
+          (define scm-ptrref (parse-and-eval "ptrref"))
+          (define scm-val (value-dereference scm-ptrref))
+          (define scm-ptr (value-referenced-value scm-ptrref))
+
+     The '<gdb:value>' object 'scm-val' is identical to that
+     corresponding to 'val', and 'scm-ptr' is identical to that
+     corresponding to 'ptr'.  In general, 'value-dereference' can be
+     applied whenever the C unary operator '*' can be applied to the
+     corresponding C value.  For those cases where applying both
+     'value-dereference' and 'value-referenced-value' is allowed, the
+     results obtained need not be identical (as we have seen in the
+     above example).  The results are however identical when applied on
+     '<gdb:value>' objects corresponding to pointers ('<gdb:value>'
+     objects with type code 'TYPE_CODE_PTR') in a C/C++ program.
+
+ -- Scheme Procedure: value-referenced-value value
+     For pointer or reference data types, this method returns a new
+     '<gdb:value>' object corresponding to the value referenced by the
+     pointer/reference value.  For pointer data types,
+     'value-dereference' and 'value-referenced-value' produce identical
+     results.  The difference between these methods is that
+     'value-dereference' cannot get the values referenced by reference
+     values.  For example, consider a reference to an 'int', declared in
+     your C++ program as
+
+          int val = 10;
+          int &ref = val;
+
+     then applying 'value-dereference' to the '<gdb:value>' object
+     corresponding to 'ref' will result in an error, while applying
+     'value-referenced-value' will result in a '<gdb:value>' object
+     identical to that corresponding to 'val'.
+
+          (define scm-ref (parse-and-eval "ref"))
+          (define err-ref (value-dereference scm-ref))      ;; error
+          (define scm-val (value-referenced-value scm-ref)) ;; ok
+
+     The '<gdb:value>' object 'scm-val' is identical to that
+     corresponding to 'val'.
+
+ -- Scheme Procedure: value-field value field-name
+     Return field FIELD-NAME from '<gdb:value>' object VALUE.
+
+ -- Scheme Procedure: value-subscript value index
+     Return the value of array VALUE at index INDEX.  The VALUE argument
+     must be a subscriptable '<gdb:value>' object.
+
+ -- Scheme Procedure: value-call value arg-list
+     Perform an inferior function call, taking VALUE as a pointer to the
+     function to call.  Each element of list ARG-LIST must be a
+     <gdb:value> object or an object that can be converted to a value.
+     The result is the value returned by the function.
+
+ -- Scheme Procedure: value->bool value
+     Return the Scheme boolean representing '<gdb:value>' VALUE.  The
+     value must be "integer like".  Pointers are ok.
+
+ -- Scheme Procedure: value->integer
+     Return the Scheme integer representing '<gdb:value>' VALUE.  The
+     value must be "integer like".  Pointers are ok.
+
+ -- Scheme Procedure: value->real
+     Return the Scheme real number representing '<gdb:value>' VALUE.
+     The value must be a number.
+
+ -- Scheme Procedure: value->bytevector
+     Return a Scheme bytevector with the raw contents of '<gdb:value>'
+     VALUE.  No transformation, endian or otherwise, is performed.
+
+ -- Scheme Procedure: value->string value [#:encoding encoding]
+          [#:errors errors] [#:length length]
+     If VALUE> represents a string, then this method converts the
+     contents to a Guile string.  Otherwise, this method will throw an
+     exception.
+
+     Values are interpreted as strings according to the rules of the
+     current language.  If the optional length argument is given, the
+     string will be converted to that length, and will include any
+     embedded zeroes that the string may contain.  Otherwise, for
+     languages where the string is zero-terminated, the entire string
+     will be converted.
+
+     For example, in C-like languages, a value is a string if it is a
+     pointer to or an array of characters or ints of type 'wchar_t',
+     'char16_t', or 'char32_t'.
+
+     If the optional ENCODING argument is given, it must be a string
+     naming the encoding of the string in the '<gdb:value>', such as
+     '"ascii"', '"iso-8859-6"' or '"utf-8"'.  It accepts the same
+     encodings as the corresponding argument to Guile's
+     'scm_from_stringn' function, and the Guile codec machinery will be
+     used to convert the string.  If ENCODING is not given, or if
+     ENCODING is the empty string, then either the 'target-charset'
+     (*note Character Sets::) will be used, or a language-specific
+     encoding will be used, if the current language is able to supply
+     one.
+
+     The optional ERRORS argument is one of '#f', 'error' or
+     'substitute'.  'error' and 'substitute' must be symbols.  If ERRORS
+     is not specified, or if its value is '#f', then the default
+     conversion strategy is used, which is set with the Scheme function
+     'set-port-conversion-strategy!'.  If the value is ''error' then an
+     exception is thrown if there is any conversion error.  If the value
+     is ''substitute' then any conversion error is replaced with
+     question marks.  *Note (guile)Strings::.
+
+     If the optional LENGTH argument is given, the string will be
+     fetched and converted to the given length.  The length must be a
+     Scheme integer and not a '<gdb:value>' integer.
+
+ -- Scheme Procedure: value->lazy-string value [#:encoding encoding]
+          [#:length length]
+     If this '<gdb:value>' represents a string, then this method
+     converts VALUE to a '<gdb:lazy-string' (*note Lazy Strings In
+     Guile::).  Otherwise, this method will throw an exception.
+
+     If the optional ENCODING argument is given, it must be a string
+     naming the encoding of the '<gdb:lazy-string'.  Some examples are:
+     '"ascii"', '"iso-8859-6"' or '"utf-8"'.  If the ENCODING argument
+     is an encoding that GDB does not recognize, GDB will raise an
+     error.
+
+     When a lazy string is printed, the GDB encoding machinery is used
+     to convert the string during printing.  If the optional ENCODING
+     argument is not provided, or is an empty string, GDB will
+     automatically select the encoding most suitable for the string
+     type.  For further information on encoding in GDB please see *note
+     Character Sets::.
+
+     If the optional LENGTH argument is given, the string will be
+     fetched and encoded to the length of characters specified.  If the
+     LENGTH argument is not provided, the string will be fetched and
+     encoded until a null of appropriate width is found.  The length
+     must be a Scheme integer and not a '<gdb:value>' integer.
+
+ -- Scheme Procedure: value-lazy? value
+     Return '#t' if VALUE has not yet been fetched from the inferior.
+     Otherwise return '#f'.  GDB does not fetch values until necessary,
+     for efficiency.  For example:
+
+          (define myval (parse-and-eval "somevar"))
+
+     The value of 'somevar' is not fetched at this time.  It will be
+     fetched when the value is needed, or when the 'fetch-lazy'
+     procedure is invoked.
+
+ -- Scheme Procedure: make-lazy-value type address
+     Return a '<gdb:value>' that will be lazily fetched from the target.
+     The object of type '<gdb:type>' whose value to fetch is specified
+     by its TYPE and its target memory ADDRESS, which is a Scheme
+     integer.
+
+ -- Scheme Procedure: value-fetch-lazy! value
+     If VALUE is a lazy value ('(value-lazy? value)' is '#t'), then the
+     value is fetched from the inferior.  Any errors that occur in the
+     process will produce a Guile exception.
+
+     If VALUE is not a lazy value, this method has no effect.
+
+     The result of this function is unspecified.
+
+ -- Scheme Procedure: value-print value
+     Return the string representation (print form) of '<gdb:value>'
+     VALUE.
 
 
 File: gdb.info,  Node: Arithmetic In Guile,  Next: Types In Guile,  Prev: Values From Inferior In Guile,  Up: Guile API
@@ -1112,8 +1845,8 @@ File: gdb.info,  Node: Progspaces In Guile,  Next: Objfiles In Guile,  Prev: Par
 
 A program space, or "progspace", represents a symbolic view of an
 address space.  It consists of all of the objfiles of the program.
-*Note Objfiles In Guile::.  *Note program spaces: Inferiors and
-Programs, for more details about program spaces.
+*Note Objfiles In Guile::.  *Note program spaces: Inferiors Connections
+and Programs, for more details about program spaces.
 
    Each progspace is represented by an instance of the '<gdb:progspace>'
 smob.  *Note GDB Scheme Data Types::.
@@ -1133,7 +1866,7 @@ smob.  *Note GDB Scheme Data Types::.
  -- Scheme Procedure: current-progspace
      This function returns the program space of the currently selected
      inferior.  There is always a current progspace, this never returns
-     '#f'.  *Note Inferiors and Programs::.
+     '#f'.  *Note Inferiors Connections and Programs::.
 
  -- Scheme Procedure: progspaces
      Return a list of all the progspaces currently known to GDB.
@@ -2333,18 +3066,32 @@ object.  One can then read/write memory using that object.
      Return the size of the read buffer of '<gdb:memory-port>'
      MEMORY-PORT.
 
+     This procedure is deprecated and will be removed in GDB 11.  It
+     returns 0 when using Guile 2.2 or later.
+
  -- Scheme Procedure: set-memory-port-read-buffer-size! memory-port size
      Set the size of the read buffer of '<gdb:memory-port>' MEMORY-PORT
      to SIZE.  The result is unspecified.
+
+     This procedure is deprecated and will be removed in GDB 11.  When
+     GDB is built with Guile 2.2 or later, you can call 'setvbuf'
+     instead (*note 'setvbuf': (guile)Buffering.).
 
  -- Scheme Procedure: memory-port-write-buffer-size memory-port
      Return the size of the write buffer of '<gdb:memory-port>'
      MEMORY-PORT.
 
+     This procedure is deprecated and will be removed in GDB 11.  It
+     returns 0 when GDB is built with Guile 2.2 or later.
+
  -- Scheme Procedure: set-memory-port-write-buffer-size! memory-port
           size
      Set the size of the write buffer of '<gdb:memory-port>' MEMORY-PORT
      to SIZE.  The result is unspecified.
+
+     This procedure is deprecated and will be removed in GDB 11.  When
+     GDB is built with Guile 2.2 or later, you can call 'setvbuf'
+     instead.
 
    A memory port is closed like any other port, with 'close-port'.
 
@@ -2648,7 +3395,11 @@ readable, GDB will evaluate it as a script in the specified extension
 language.
 
    If this file does not exist, then GDB will look for SCRIPT-NAME file
-in all of the directories as specified below.
+in all of the directories as specified below.  (On MS-Windows/MS-DOS,
+the drive letter of the executable's leading directories is converted to
+a one-letter subdirectory, i.e. 'd:/usr/bin/' is converted to
+'/d/usr/bin/', because Windows filesystems disallow colons in file
+names.)
 
    Note that loading of these files requires an accordingly configured
 'auto-load safe-path' (*note Auto-loading safe path::).
@@ -2881,7 +3632,7 @@ multi-word commands.  For example, GDB provides the 'tty' alias of the
 
    You can define a new alias with the 'alias' command.
 
-'alias [-a] [--] ALIAS = COMMAND'
+'alias [-a] [--] ALIAS = COMMAND [DEFAULT-ARGS...]'
 
    ALIAS specifies the name of the new alias.  Each word of ALIAS must
 consist of letters, numbers, dashes and underscores.
@@ -2889,12 +3640,26 @@ consist of letters, numbers, dashes and underscores.
    COMMAND specifies the name of an existing command that is being
 aliased.
 
+   COMMAND can also be the name of an existing alias.  In this case,
+COMMAND cannot be an alias that has default arguments.
+
    The '-a' option specifies that the new alias is an abbreviation of
-the command.  Abbreviations are not shown in command lists displayed by
-the 'help' command.
+the command.  Abbreviations are not used in command completion.
 
    The '--' option specifies the end of options, and is useful when
 ALIAS begins with a dash.
+
+   You can specify DEFAULT-ARGS for your alias.  These DEFAULT-ARGS will
+be automatically added before the alias arguments typed explicitly on
+the command line.
+
+   For example, the below defines an alias 'btfullall' that shows all
+local variables and all frame arguments:
+     (gdb) alias btfullall = backtrace -full -frame-arguments all
+
+   For more information about DEFAULT-ARGS, see *note Automatically
+prepend default arguments to user-defined aliases: Command aliases
+default args.
 
    Here is a simple example showing how to make an abbreviation of a
 command so that there is less to type.  Suppose you were tired of typing
@@ -3107,6 +3872,8 @@ layouts:
 
    * assembly and registers.
 
+   These are the standard layouts, but other layouts can be defined.
+
    A status line above the command window shows the following
 information:
 
@@ -3304,11 +4071,59 @@ window management.
 'info win'
      List and give the size of all displayed windows.
 
+'tui new-layout NAME WINDOW WEIGHT [WINDOW WEIGHT...]'
+     Create a new TUI layout.  The new layout will be named NAME, and
+     can be accessed using the 'layout' command (see below).
+
+     Each WINDOW parameter is either the name of a window to display, or
+     a window description.  The windows will be displayed from top to
+     bottom in the order listed.
+
+     The names of the windows are the same as the ones given to the
+     'focus' command (see below); additional, the 'status' window can be
+     specified.  Note that, because it is of fixed height, the weight
+     assigned to the status window is of no importance.  It is
+     conventional to use '0' here.
+
+     A window description looks a bit like an invocation of 'tui
+     new-layout', and is of the form {['-horizontal']WINDOW WEIGHT
+     [WINDOW WEIGHT...]}.
+
+     This specifies a sub-layout.  If '-horizontal' is given, the
+     windows in this description will be arranged side-by-side, rather
+     than top-to-bottom.
+
+     Each WEIGHT is an integer.  It is the weight of this window
+     relative to all the other windows in the layout.  These numbers are
+     used to calculate how much of the screen is given to each window.
+
+     For example:
+
+          (gdb) tui new-layout example src 1 regs 1 status 0 cmd 1
+
+     Here, the new layout is called 'example'.  It shows the source and
+     register windows, followed by the status window, and then finally
+     the command window.  The non-status windows all have the same
+     weight, so the terminal will be split into three roughly equal
+     sections.
+
+     Here is a more complex example, showing a horizontal layout:
+
+          (gdb) tui new-layout example {-horizontal src 1 asm 1} 2 status 0 cmd 1
+
+     This will result in side-by-side source and assembly windows; with
+     the status and command window being beneath these, filling the
+     entire width of the terminal.  Because they have weight 2, the
+     source and assembly windows will be twice the height of the command
+     window.
+
 'layout NAME'
-     Changes which TUI windows are displayed.  In each layout the
-     command window is always displayed, the NAME parameter controls
-     which additional windows are displayed, and can be any of the
-     following:
+     Changes which TUI windows are displayed.  The NAME parameter
+     controls which layout is shown.  It can be either one of the
+     built-in layout names, or the name of a layout defined by the user
+     using 'tui new-layout'.
+
+     The built-in layouts are as follows:
 
      'next'
           Display the next layout.
@@ -3902,10 +4717,10 @@ of available top-level thread groups can be obtained using
 '-list-thread-groups --available'.  In general, the content of a thread
 group may be only retrieved only after attaching to that thread group.
 
-   Thread groups are related to inferiors (*note Inferiors and
-Programs::).  Each inferior corresponds to a thread group of a special
-type 'process', and some additional operations are permitted on such
-thread groups.
+   Thread groups are related to inferiors (*note Inferiors Connections
+and Programs::).  Each inferior corresponds to a thread group of a
+special type 'process', and some additional operations are permitted on
+such thread groups.
 
 
 File: gdb.info,  Node: GDB/MI Command Syntax,  Next: GDB/MI Compatibility with CLI,  Prev: GDB/MI General Design,  Up: GDB/MI
@@ -4153,10 +4968,9 @@ is recommended that front ends request a specific version of MI when
 launching GDB (e.g.  '--interpreter=mi2') to make sure they get an
 interpreter with the MI version they expect.
 
-   The following table gives a summary of the the released versions of
-the MI interface: the version number, the version of GDB in which it
-first appeared and the breaking changes compared to the previous
-version.
+   The following table gives a summary of the released versions of the
+MI interface: the version number, the version of GDB in which it first
+appeared and the breaking changes compared to the previous version.
 
 MI   GDB  Breaking changes
 versionversion
@@ -4296,9 +5110,9 @@ activity (e.g., target stopped).
 
 '*running,thread-id="THREAD"'
      The target is now running.  The THREAD field can be the global
-     thread ID of the the thread that is now running, and it can be
-     'all' if all threads are running.  The frontend should assume that
-     no interaction with a running thread is possible after this
+     thread ID of the thread that is now running, and it can be 'all' if
+     all threads are running.  The frontend should assume that no
+     interaction with a running thread is possible after this
      notification is produced.  The frontend should not assume that this
      notification is output only once for any command.  GDB may emit
      this notification several times, either for different threads,
@@ -7845,619 +8659,4 @@ be used to instantiate this class for a varobj:
      (gdb)
      -var-set-visualizer V "lambda val: SomeClass()"
      ^done
-
-
-File: gdb.info,  Node: GDB/MI Data Manipulation,  Next: GDB/MI Tracepoint Commands,  Prev: GDB/MI Variable Objects,  Up: GDB/MI
-
-27.16 GDB/MI Data Manipulation
-==============================
-
-This section describes the GDB/MI commands that manipulate data: examine
-memory and registers, evaluate expressions, etc.
-
-   For details about what an addressable memory unit is, *note
-addressable memory unit::.
-
-The '-data-disassemble' Command
--------------------------------
-
-Synopsis
-........
-
-      -data-disassemble
-         [ -s START-ADDR -e END-ADDR ]
-       | [ -a ADDR ]
-       | [ -f FILENAME -l LINENUM [ -n LINES ] ]
-       -- MODE
-
-Where:
-
-'START-ADDR'
-     is the beginning address (or '$pc')
-'END-ADDR'
-     is the end address
-'ADDR'
-     is an address anywhere within (or the name of) the function to
-     disassemble.  If an address is specified, the whole function
-     surrounding that address will be disassembled.  If a name is
-     specified, the whole function with that name will be disassembled.
-'FILENAME'
-     is the name of the file to disassemble
-'LINENUM'
-     is the line number to disassemble around
-'LINES'
-     is the number of disassembly lines to be produced.  If it is -1,
-     the whole function will be disassembled, in case no END-ADDR is
-     specified.  If END-ADDR is specified as a non-zero value, and LINES
-     is lower than the number of disassembly lines between START-ADDR
-     and END-ADDR, only LINES lines are displayed; if LINES is higher
-     than the number of lines between START-ADDR and END-ADDR, only the
-     lines up to END-ADDR are displayed.
-'MODE'
-     is one of:
-        * 0 disassembly only
-        * 1 mixed source and disassembly (deprecated)
-        * 2 disassembly with raw opcodes
-        * 3 mixed source and disassembly with raw opcodes (deprecated)
-        * 4 mixed source and disassembly
-        * 5 mixed source and disassembly with raw opcodes
-
-     Modes 1 and 3 are deprecated.  The output is "source centric" which
-     hasn't proved useful in practice.  *Note Machine Code::, for a
-     discussion of the difference between '/m' and '/s' output of the
-     'disassemble' command.
-
-Result
-......
-
-The result of the '-data-disassemble' command will be a list named
-'asm_insns', the contents of this list depend on the MODE used with the
-'-data-disassemble' command.
-
-   For modes 0 and 2 the 'asm_insns' list contains tuples with the
-following fields:
-
-'address'
-     The address at which this instruction was disassembled.
-
-'func-name'
-     The name of the function this instruction is within.
-
-'offset'
-     The decimal offset in bytes from the start of 'func-name'.
-
-'inst'
-     The text disassembly for this 'address'.
-
-'opcodes'
-     This field is only present for modes 2, 3 and 5.  This contains the
-     raw opcode bytes for the 'inst' field.
-
-   For modes 1, 3, 4 and 5 the 'asm_insns' list contains tuples named
-'src_and_asm_line', each of which has the following fields:
-
-'line'
-     The line number within 'file'.
-
-'file'
-     The file name from the compilation unit.  This might be an absolute
-     file name or a relative file name depending on the compile command
-     used.
-
-'fullname'
-     Absolute file name of 'file'.  It is converted to a canonical form
-     using the source file search path (*note Specifying Source
-     Directories: Source Path.) and after resolving all the symbolic
-     links.
-
-     If the source file is not found this field will contain the path as
-     present in the debug information.
-
-'line_asm_insn'
-     This is a list of tuples containing the disassembly for 'line' in
-     'file'.  The fields of each tuple are the same as for
-     '-data-disassemble' in MODE 0 and 2, so 'address', 'func-name',
-     'offset', 'inst', and optionally 'opcodes'.
-
-   Note that whatever included in the 'inst' field, is not manipulated
-directly by GDB/MI, i.e., it is not possible to adjust its format.
-
-GDB Command
-...........
-
-The corresponding GDB command is 'disassemble'.
-
-Example
-.......
-
-Disassemble from the current value of '$pc' to '$pc + 20':
-
-     (gdb)
-     -data-disassemble -s $pc -e "$pc + 20" -- 0
-     ^done,
-     asm_insns=[
-     {address="0x000107c0",func-name="main",offset="4",
-     inst="mov  2, %o0"},
-     {address="0x000107c4",func-name="main",offset="8",
-     inst="sethi  %hi(0x11800), %o2"},
-     {address="0x000107c8",func-name="main",offset="12",
-     inst="or  %o2, 0x140, %o1\t! 0x11940 <_lib_version+8>"},
-     {address="0x000107cc",func-name="main",offset="16",
-     inst="sethi  %hi(0x11800), %o2"},
-     {address="0x000107d0",func-name="main",offset="20",
-     inst="or  %o2, 0x168, %o4\t! 0x11968 <_lib_version+48>"}]
-     (gdb)
-
-   Disassemble the whole 'main' function.  Line 32 is part of 'main'.
-
-     -data-disassemble -f basics.c -l 32 -- 0
-     ^done,asm_insns=[
-     {address="0x000107bc",func-name="main",offset="0",
-     inst="save  %sp, -112, %sp"},
-     {address="0x000107c0",func-name="main",offset="4",
-     inst="mov   2, %o0"},
-     {address="0x000107c4",func-name="main",offset="8",
-     inst="sethi %hi(0x11800), %o2"},
-     [...]
-     {address="0x0001081c",func-name="main",offset="96",inst="ret "},
-     {address="0x00010820",func-name="main",offset="100",inst="restore "}]
-     (gdb)
-
-   Disassemble 3 instructions from the start of 'main':
-
-     (gdb)
-     -data-disassemble -f basics.c -l 32 -n 3 -- 0
-     ^done,asm_insns=[
-     {address="0x000107bc",func-name="main",offset="0",
-     inst="save  %sp, -112, %sp"},
-     {address="0x000107c0",func-name="main",offset="4",
-     inst="mov  2, %o0"},
-     {address="0x000107c4",func-name="main",offset="8",
-     inst="sethi  %hi(0x11800), %o2"}]
-     (gdb)
-
-   Disassemble 3 instructions from the start of 'main' in mixed mode:
-
-     (gdb)
-     -data-disassemble -f basics.c -l 32 -n 3 -- 1
-     ^done,asm_insns=[
-     src_and_asm_line={line="31",
-     file="../../../src/gdb/testsuite/gdb.mi/basics.c",
-     fullname="/absolute/path/to/src/gdb/testsuite/gdb.mi/basics.c",
-     line_asm_insn=[{address="0x000107bc",
-     func-name="main",offset="0",inst="save  %sp, -112, %sp"}]},
-     src_and_asm_line={line="32",
-     file="../../../src/gdb/testsuite/gdb.mi/basics.c",
-     fullname="/absolute/path/to/src/gdb/testsuite/gdb.mi/basics.c",
-     line_asm_insn=[{address="0x000107c0",
-     func-name="main",offset="4",inst="mov  2, %o0"},
-     {address="0x000107c4",func-name="main",offset="8",
-     inst="sethi  %hi(0x11800), %o2"}]}]
-     (gdb)
-
-The '-data-evaluate-expression' Command
----------------------------------------
-
-Synopsis
-........
-
-      -data-evaluate-expression EXPR
-
-   Evaluate EXPR as an expression.  The expression could contain an
-inferior function call.  The function call will execute synchronously.
-If the expression contains spaces, it must be enclosed in double quotes.
-
-GDB Command
-...........
-
-The corresponding GDB commands are 'print', 'output', and 'call'.  In
-'gdbtk' only, there's a corresponding 'gdb_eval' command.
-
-Example
-.......
-
-In the following example, the numbers that precede the commands are the
-"tokens" described in *note GDB/MI Command Syntax: GDB/MI Command
-Syntax.  Notice how GDB/MI returns the same tokens in its output.
-
-     211-data-evaluate-expression A
-     211^done,value="1"
-     (gdb)
-     311-data-evaluate-expression &A
-     311^done,value="0xefffeb7c"
-     (gdb)
-     411-data-evaluate-expression A+3
-     411^done,value="4"
-     (gdb)
-     511-data-evaluate-expression "A + 3"
-     511^done,value="4"
-     (gdb)
-
-The '-data-list-changed-registers' Command
-------------------------------------------
-
-Synopsis
-........
-
-      -data-list-changed-registers
-
-   Display a list of the registers that have changed.
-
-GDB Command
-...........
-
-GDB doesn't have a direct analog for this command; 'gdbtk' has the
-corresponding command 'gdb_changed_register_list'.
-
-Example
-.......
-
-On a PPC MBX board:
-
-     (gdb)
-     -exec-continue
-     ^running
-
-     (gdb)
-     *stopped,reason="breakpoint-hit",disp="keep",bkptno="1",frame={
-     func="main",args=[],file="try.c",fullname="/home/foo/bar/try.c",
-     line="5",arch="powerpc"}
-     (gdb)
-     -data-list-changed-registers
-     ^done,changed-registers=["0","1","2","4","5","6","7","8","9",
-     "10","11","13","14","15","16","17","18","19","20","21","22","23",
-     "24","25","26","27","28","30","31","64","65","66","67","69"]
-     (gdb)
-
-The '-data-list-register-names' Command
----------------------------------------
-
-Synopsis
-........
-
-      -data-list-register-names [ ( REGNO )+ ]
-
-   Show a list of register names for the current target.  If no
-arguments are given, it shows a list of the names of all the registers.
-If integer numbers are given as arguments, it will print a list of the
-names of the registers corresponding to the arguments.  To ensure
-consistency between a register name and its number, the output list may
-include empty register names.
-
-GDB Command
-...........
-
-GDB does not have a command which corresponds to
-'-data-list-register-names'.  In 'gdbtk' there is a corresponding
-command 'gdb_regnames'.
-
-Example
-.......
-
-For the PPC MBX board:
-     (gdb)
-     -data-list-register-names
-     ^done,register-names=["r0","r1","r2","r3","r4","r5","r6","r7",
-     "r8","r9","r10","r11","r12","r13","r14","r15","r16","r17","r18",
-     "r19","r20","r21","r22","r23","r24","r25","r26","r27","r28","r29",
-     "r30","r31","f0","f1","f2","f3","f4","f5","f6","f7","f8","f9",
-     "f10","f11","f12","f13","f14","f15","f16","f17","f18","f19","f20",
-     "f21","f22","f23","f24","f25","f26","f27","f28","f29","f30","f31",
-     "", "pc","ps","cr","lr","ctr","xer"]
-     (gdb)
-     -data-list-register-names 1 2 3
-     ^done,register-names=["r1","r2","r3"]
-     (gdb)
-
-The '-data-list-register-values' Command
-----------------------------------------
-
-Synopsis
-........
-
-      -data-list-register-values
-         [ --skip-unavailable ] FMT [ ( REGNO )*]
-
-   Display the registers' contents.  The format according to which the
-registers' contents are to be returned is given by FMT, followed by an
-optional list of numbers specifying the registers to display.  A missing
-list of numbers indicates that the contents of all the registers must be
-returned.  The '--skip-unavailable' option indicates that only the
-available registers are to be returned.
-
-   Allowed formats for FMT are:
-
-'x'
-     Hexadecimal
-'o'
-     Octal
-'t'
-     Binary
-'d'
-     Decimal
-'r'
-     Raw
-'N'
-     Natural
-
-GDB Command
-...........
-
-The corresponding GDB commands are 'info reg', 'info all-reg', and (in
-'gdbtk') 'gdb_fetch_registers'.
-
-Example
-.......
-
-For a PPC MBX board (note: line breaks are for readability only, they
-don't appear in the actual output):
-
-     (gdb)
-     -data-list-register-values r 64 65
-     ^done,register-values=[{number="64",value="0xfe00a300"},
-     {number="65",value="0x00029002"}]
-     (gdb)
-     -data-list-register-values x
-     ^done,register-values=[{number="0",value="0xfe0043c8"},
-     {number="1",value="0x3fff88"},{number="2",value="0xfffffffe"},
-     {number="3",value="0x0"},{number="4",value="0xa"},
-     {number="5",value="0x3fff68"},{number="6",value="0x3fff58"},
-     {number="7",value="0xfe011e98"},{number="8",value="0x2"},
-     {number="9",value="0xfa202820"},{number="10",value="0xfa202808"},
-     {number="11",value="0x1"},{number="12",value="0x0"},
-     {number="13",value="0x4544"},{number="14",value="0xffdfffff"},
-     {number="15",value="0xffffffff"},{number="16",value="0xfffffeff"},
-     {number="17",value="0xefffffed"},{number="18",value="0xfffffffe"},
-     {number="19",value="0xffffffff"},{number="20",value="0xffffffff"},
-     {number="21",value="0xffffffff"},{number="22",value="0xfffffff7"},
-     {number="23",value="0xffffffff"},{number="24",value="0xffffffff"},
-     {number="25",value="0xffffffff"},{number="26",value="0xfffffffb"},
-     {number="27",value="0xffffffff"},{number="28",value="0xf7bfffff"},
-     {number="29",value="0x0"},{number="30",value="0xfe010000"},
-     {number="31",value="0x0"},{number="32",value="0x0"},
-     {number="33",value="0x0"},{number="34",value="0x0"},
-     {number="35",value="0x0"},{number="36",value="0x0"},
-     {number="37",value="0x0"},{number="38",value="0x0"},
-     {number="39",value="0x0"},{number="40",value="0x0"},
-     {number="41",value="0x0"},{number="42",value="0x0"},
-     {number="43",value="0x0"},{number="44",value="0x0"},
-     {number="45",value="0x0"},{number="46",value="0x0"},
-     {number="47",value="0x0"},{number="48",value="0x0"},
-     {number="49",value="0x0"},{number="50",value="0x0"},
-     {number="51",value="0x0"},{number="52",value="0x0"},
-     {number="53",value="0x0"},{number="54",value="0x0"},
-     {number="55",value="0x0"},{number="56",value="0x0"},
-     {number="57",value="0x0"},{number="58",value="0x0"},
-     {number="59",value="0x0"},{number="60",value="0x0"},
-     {number="61",value="0x0"},{number="62",value="0x0"},
-     {number="63",value="0x0"},{number="64",value="0xfe00a300"},
-     {number="65",value="0x29002"},{number="66",value="0x202f04b5"},
-     {number="67",value="0xfe0043b0"},{number="68",value="0xfe00b3e4"},
-     {number="69",value="0x20002b03"}]
-     (gdb)
-
-The '-data-read-memory' Command
--------------------------------
-
-This command is deprecated, use '-data-read-memory-bytes' instead.
-
-Synopsis
-........
-
-      -data-read-memory [ -o BYTE-OFFSET ]
-        ADDRESS WORD-FORMAT WORD-SIZE
-        NR-ROWS NR-COLS [ ASCHAR ]
-
-where:
-
-'ADDRESS'
-     An expression specifying the address of the first memory word to be
-     read.  Complex expressions containing embedded white space should
-     be quoted using the C convention.
-
-'WORD-FORMAT'
-     The format to be used to print the memory words.  The notation is
-     the same as for GDB's 'print' command (*note Output Formats: Output
-     Formats.).
-
-'WORD-SIZE'
-     The size of each memory word in bytes.
-
-'NR-ROWS'
-     The number of rows in the output table.
-
-'NR-COLS'
-     The number of columns in the output table.
-
-'ASCHAR'
-     If present, indicates that each row should include an ASCII dump.
-     The value of ASCHAR is used as a padding character when a byte is
-     not a member of the printable ASCII character set (printable ASCII
-     characters are those whose code is between 32 and 126,
-     inclusively).
-
-'BYTE-OFFSET'
-     An offset to add to the ADDRESS before fetching memory.
-
-   This command displays memory contents as a table of NR-ROWS by
-NR-COLS words, each word being WORD-SIZE bytes.  In total, 'NR-ROWS *
-NR-COLS * WORD-SIZE' bytes are read (returned as 'total-bytes').  Should
-less than the requested number of bytes be returned by the target, the
-missing words are identified using 'N/A'.  The number of bytes read from
-the target is returned in 'nr-bytes' and the starting address used to
-read memory in 'addr'.
-
-   The address of the next/previous row or page is available in
-'next-row' and 'prev-row', 'next-page' and 'prev-page'.
-
-GDB Command
-...........
-
-The corresponding GDB command is 'x'.  'gdbtk' has 'gdb_get_mem' memory
-read command.
-
-Example
-.......
-
-Read six bytes of memory starting at 'bytes+6' but then offset by '-6'
-bytes.  Format as three rows of two columns.  One byte per word.
-Display each word in hex.
-
-     (gdb)
-     9-data-read-memory -o -6 -- bytes+6 x 1 3 2
-     9^done,addr="0x00001390",nr-bytes="6",total-bytes="6",
-     next-row="0x00001396",prev-row="0x0000138e",next-page="0x00001396",
-     prev-page="0x0000138a",memory=[
-     {addr="0x00001390",data=["0x00","0x01"]},
-     {addr="0x00001392",data=["0x02","0x03"]},
-     {addr="0x00001394",data=["0x04","0x05"]}]
-     (gdb)
-
-   Read two bytes of memory starting at address 'shorts + 64' and
-display as a single word formatted in decimal.
-
-     (gdb)
-     5-data-read-memory shorts+64 d 2 1 1
-     5^done,addr="0x00001510",nr-bytes="2",total-bytes="2",
-     next-row="0x00001512",prev-row="0x0000150e",
-     next-page="0x00001512",prev-page="0x0000150e",memory=[
-     {addr="0x00001510",data=["128"]}]
-     (gdb)
-
-   Read thirty two bytes of memory starting at 'bytes+16' and format as
-eight rows of four columns.  Include a string encoding with 'x' used as
-the non-printable character.
-
-     (gdb)
-     4-data-read-memory bytes+16 x 1 8 4 x
-     4^done,addr="0x000013a0",nr-bytes="32",total-bytes="32",
-     next-row="0x000013c0",prev-row="0x0000139c",
-     next-page="0x000013c0",prev-page="0x00001380",memory=[
-     {addr="0x000013a0",data=["0x10","0x11","0x12","0x13"],ascii="xxxx"},
-     {addr="0x000013a4",data=["0x14","0x15","0x16","0x17"],ascii="xxxx"},
-     {addr="0x000013a8",data=["0x18","0x19","0x1a","0x1b"],ascii="xxxx"},
-     {addr="0x000013ac",data=["0x1c","0x1d","0x1e","0x1f"],ascii="xxxx"},
-     {addr="0x000013b0",data=["0x20","0x21","0x22","0x23"],ascii=" !\"#"},
-     {addr="0x000013b4",data=["0x24","0x25","0x26","0x27"],ascii="$%&'"},
-     {addr="0x000013b8",data=["0x28","0x29","0x2a","0x2b"],ascii="()*+"},
-     {addr="0x000013bc",data=["0x2c","0x2d","0x2e","0x2f"],ascii=",-./"}]
-     (gdb)
-
-The '-data-read-memory-bytes' Command
--------------------------------------
-
-Synopsis
-........
-
-      -data-read-memory-bytes [ -o OFFSET ]
-        ADDRESS COUNT
-
-where:
-
-'ADDRESS'
-     An expression specifying the address of the first addressable
-     memory unit to be read.  Complex expressions containing embedded
-     white space should be quoted using the C convention.
-
-'COUNT'
-     The number of addressable memory units to read.  This should be an
-     integer literal.
-
-'OFFSET'
-     The offset relative to ADDRESS at which to start reading.  This
-     should be an integer literal.  This option is provided so that a
-     frontend is not required to first evaluate address and then perform
-     address arithmetics itself.
-
-   This command attempts to read all accessible memory regions in the
-specified range.  First, all regions marked as unreadable in the memory
-map (if one is defined) will be skipped.  *Note Memory Region
-Attributes::.  Second, GDB will attempt to read the remaining regions.
-For each one, if reading full region results in an errors, GDB will try
-to read a subset of the region.
-
-   In general, every single memory unit in the region may be readable or
-not, and the only way to read every readable unit is to try a read at
-every address, which is not practical.  Therefore, GDB will attempt to
-read all accessible memory units at either beginning or the end of the
-region, using a binary division scheme.  This heuristic works well for
-reading across a memory map boundary.  Note that if a region has a
-readable range that is neither at the beginning or the end, GDB will not
-read it.
-
-   The result record (*note GDB/MI Result Records::) that is output of
-the command includes a field named 'memory' whose content is a list of
-tuples.  Each tuple represent a successfully read memory block and has
-the following fields:
-
-'begin'
-     The start address of the memory block, as hexadecimal literal.
-
-'end'
-     The end address of the memory block, as hexadecimal literal.
-
-'offset'
-     The offset of the memory block, as hexadecimal literal, relative to
-     the start address passed to '-data-read-memory-bytes'.
-
-'contents'
-     The contents of the memory block, in hex.
-
-GDB Command
-...........
-
-The corresponding GDB command is 'x'.
-
-Example
-.......
-
-     (gdb)
-     -data-read-memory-bytes &a 10
-     ^done,memory=[{begin="0xbffff154",offset="0x00000000",
-                   end="0xbffff15e",
-                   contents="01000000020000000300"}]
-     (gdb)
-
-The '-data-write-memory-bytes' Command
---------------------------------------
-
-Synopsis
-........
-
-      -data-write-memory-bytes ADDRESS CONTENTS
-      -data-write-memory-bytes ADDRESS CONTENTS [COUNT]
-
-where:
-
-'ADDRESS'
-     An expression specifying the address of the first addressable
-     memory unit to be written.  Complex expressions containing embedded
-     white space should be quoted using the C convention.
-
-'CONTENTS'
-     The hex-encoded data to write.  It is an error if CONTENTS does not
-     represent an integral number of addressable memory units.
-
-'COUNT'
-     Optional argument indicating the number of addressable memory units
-     to be written.  If COUNT is greater than CONTENTS' length, GDB will
-     repeatedly write CONTENTS until it fills COUNT memory units.
-
-GDB Command
-...........
-
-There's no corresponding GDB command.
-
-Example
-.......
-
-     (gdb)
-     -data-write-memory-bytes &a "aabbccdd"
-     ^done
-     (gdb)
-
-     (gdb)
-     -data-write-memory-bytes &a "aabbccdd" 16e
-     ^done
-     (gdb)
 

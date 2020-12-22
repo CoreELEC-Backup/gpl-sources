@@ -145,17 +145,22 @@ gcore_command (const char *args, int from_tty)
 		      "Opening corefile '%s' for output.\n",
 		      corefilename.get ());
 
-  /* Open the output file.  */
-  gdb_bfd_ref_ptr obfd (create_gcore_bfd (corefilename.get ()));
+  if (target_supports_dumpcore ())
+    target_dumpcore (corefilename.get ());
+  else
+    {
+      /* Open the output file.  */
+      gdb_bfd_ref_ptr obfd (create_gcore_bfd (corefilename.get ()));
 
-  /* Arrange to unlink the file on failure.  */
-  gdb::unlinker unlink_file (corefilename.get ());
+      /* Arrange to unlink the file on failure.  */
+      gdb::unlinker unlink_file (corefilename.get ());
 
-  /* Call worker function.  */
-  write_gcore_file (obfd.get ());
+      /* Call worker function.  */
+      write_gcore_file (obfd.get ());
 
-  /* Succeeded.  */
-  unlink_file.keep ();
+      /* Succeeded.  */
+      unlink_file.keep ();
+    }
 
   fprintf_filtered (gdb_stdout, "Saved corefile %s\n", corefilename.get ());
 }
@@ -282,7 +287,7 @@ call_target_sbrk (int sbrk_arg)
   else
     return (bfd_vma) 0;
 
-  gdbarch = get_objfile_arch (sbrk_objf);
+  gdbarch = sbrk_objf->arch ();
   target_sbrk_arg = value_from_longest (builtin_type (gdbarch)->builtin_int, 
 					sbrk_arg);
   gdb_assert (target_sbrk_arg);
@@ -590,8 +595,9 @@ gcore_memory_sections (bfd *obfd)
   return 1;
 }
 
+void _initialize_gcore ();
 void
-_initialize_gcore (void)
+_initialize_gcore ()
 {
   add_com ("generate-core-file", class_files, gcore_command, _("\
 Save a core file with the current state of the debugged process.\n\

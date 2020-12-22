@@ -66,9 +66,9 @@ custom_marshal_VOID__INVOCATIONHINT (GClosure     *closure,
 static GType
 test_enum_get_type (void)
 {
-  static volatile gsize g_define_type_id__volatile = 0;
+  static gsize static_g_define_type_id = 0;
 
-  if (g_once_init_enter (&g_define_type_id__volatile))
+  if (g_once_init_enter (&static_g_define_type_id))
     {
       static const GEnumValue values[] = {
         { TEST_ENUM_NEGATIVE, "TEST_ENUM_NEGATIVE", "negative" },
@@ -79,18 +79,18 @@ test_enum_get_type (void)
       };
       GType g_define_type_id =
         g_enum_register_static (g_intern_static_string ("TestEnum"), values);
-      g_once_init_leave (&g_define_type_id__volatile, g_define_type_id);
+      g_once_init_leave (&static_g_define_type_id, g_define_type_id);
     }
 
-  return g_define_type_id__volatile;
+  return static_g_define_type_id;
 }
 
 static GType
 test_unsigned_enum_get_type (void)
 {
-  static volatile gsize g_define_type_id__volatile = 0;
+  static gsize static_g_define_type_id = 0;
 
-  if (g_once_init_enter (&g_define_type_id__volatile))
+  if (g_once_init_enter (&static_g_define_type_id))
     {
       static const GEnumValue values[] = {
         { TEST_UNSIGNED_ENUM_FOO, "TEST_UNSIGNED_ENUM_FOO", "foo" },
@@ -99,10 +99,10 @@ test_unsigned_enum_get_type (void)
       };
       GType g_define_type_id =
         g_enum_register_static (g_intern_static_string ("TestUnsignedEnum"), values);
-      g_once_init_leave (&g_define_type_id__volatile, g_define_type_id);
+      g_once_init_leave (&static_g_define_type_id, g_define_type_id);
     }
 
-  return g_define_type_id__volatile;
+  return static_g_define_type_id;
 }
 
 typedef enum {
@@ -134,6 +134,47 @@ static GType flags_type;
 
 static guint simple_id;
 static guint simple2_id;
+
+typedef struct {
+  GTypeInterface g_iface;
+} FooInterface;
+
+GType foo_get_type (void);
+
+G_DEFINE_INTERFACE (Foo, foo, G_TYPE_OBJECT)
+
+static void
+foo_default_init (FooInterface *iface)
+{
+}
+
+typedef struct {
+  GObject parent;
+} Baa;
+
+typedef struct {
+  GObjectClass parent_class;
+} BaaClass;
+
+static void
+baa_init_foo (FooInterface *iface)
+{
+}
+
+GType baa_get_type (void);
+
+G_DEFINE_TYPE_WITH_CODE (Baa, baa, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (foo_get_type (), baa_init_foo))
+
+static void
+baa_init (Baa *baa)
+{
+}
+
+static void
+baa_class_init (BaaClass *class)
+{
+}
 
 typedef struct _Test Test;
 typedef struct _TestClass TestClass;
@@ -256,6 +297,14 @@ test_class_init (TestClass *klass)
                 NULL, NULL,
                 NULL,
                 G_TYPE_UINT,
+                0);
+  g_signal_new ("generic-marshaller-interface-return",
+                G_TYPE_FROM_CLASS (klass),
+                G_SIGNAL_RUN_LAST,
+                0,
+                NULL, NULL,
+                NULL,
+                foo_get_type (),
                 0);
   s = g_signal_new ("va-marshaller-uint-return",
                 G_TYPE_FROM_CLASS (klass),
@@ -754,6 +803,35 @@ test_generic_marshaller_signal_uint_return (void)
   g_object_unref (test);
 }
 
+static gpointer
+on_generic_marshaller_interface_return (Test *test)
+{
+  return g_object_new (baa_get_type (), NULL);
+}
+
+static void
+test_generic_marshaller_signal_interface_return (void)
+{
+  Test *test;
+  guint id;
+  gpointer retval;
+
+  test = g_object_new (test_get_type (), NULL);
+
+  /* Test return value -30 */
+  id = g_signal_connect (test,
+                         "generic-marshaller-interface-return",
+                         G_CALLBACK (on_generic_marshaller_interface_return),
+                         NULL);
+  g_signal_emit_by_name (test, "generic-marshaller-interface-return", &retval);
+  g_assert_true (g_type_check_instance_is_a ((GTypeInstance*)retval, foo_get_type ()));
+  g_object_unref (retval);
+
+  g_signal_handler_disconnect (test, id);
+
+  g_object_unref (test);
+}
+
 static const GSignalInvocationHint dont_use_this = { 0, };
 
 static void
@@ -1082,6 +1160,7 @@ test_introspection (void)
     "generic-marshaller-int-return",
     "va-marshaller-int-return",
     "generic-marshaller-uint-return",
+    "generic-marshaller-interface-return",
     "va-marshaller-uint-return",
     "variant-changed-no-slot",
     "variant-changed",
@@ -1495,6 +1574,7 @@ main (int argc,
   g_test_add_func ("/gobject/signals/generic-marshaller-enum-return-unsigned", test_generic_marshaller_signal_enum_return_unsigned);
   g_test_add_func ("/gobject/signals/generic-marshaller-int-return", test_generic_marshaller_signal_int_return);
   g_test_add_func ("/gobject/signals/generic-marshaller-uint-return", test_generic_marshaller_signal_uint_return);
+  g_test_add_func ("/gobject/signals/generic-marshaller-interface-return", test_generic_marshaller_signal_interface_return);
   g_test_add_func ("/gobject/signals/custom-marshaller", test_custom_marshaller);
   g_test_add_func ("/gobject/signals/connect", test_connect);
   g_test_add_func ("/gobject/signals/emission-hook", test_emission_hook);

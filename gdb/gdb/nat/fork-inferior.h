@@ -21,6 +21,9 @@
 #define NAT_FORK_INFERIOR_H
 
 #include <string>
+#include "gdbsupport/function-view.h"
+
+struct process_stratum_target;
 
 /* Number of traps that happen between exec'ing the shell to run an
    inferior and when we finally get to the inferior code, not counting
@@ -40,7 +43,7 @@
 extern pid_t fork_inferior (const char *exec_file_arg,
 			    const std::string &allargs,
 			    char **env, void (*traceme_fun) (),
-			    void (*init_trace_fun) (int),
+			    gdb::function_view<void (int)> init_trace_fun,
 			    void (*pre_trace_fun) (),
 			    const char *shell_file_arg,
 			    void (*exec_fun) (const char *file,
@@ -50,7 +53,8 @@ extern pid_t fork_inferior (const char *exec_file_arg,
 /* Accept NTRAPS traps from the inferior.
 
    Return the ptid of the inferior being started.  */
-extern ptid_t startup_inferior (pid_t pid, int ntraps,
+extern ptid_t startup_inferior (process_stratum_target *proc_target,
+				pid_t pid, int ntraps,
 				struct target_waitstatus *mystatus,
 				ptid_t *myptid);
 

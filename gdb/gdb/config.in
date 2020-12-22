@@ -36,6 +36,9 @@
 /* Define to BFD's default target vector. */
 #undef DEFAULT_BFD_VEC
 
+/* Handle .ctf type-info sections */
+#undef ENABLE_LIBCTF
+
 /* Define to 1 if translation of program messages to the user's native
    language is requested. */
 #undef ENABLE_NLS
@@ -108,10 +111,6 @@
 /* Define to 1 if you have the declaration of `getthrds', and to 0 if you
    don't. */
 #undef HAVE_DECL_GETTHRDS
-
-/* Define to 1 if you have the declaration of `ptrace', and to 0 if you don't.
-   */
-#undef HAVE_DECL_PTRACE
 
 /* Define to 1 if you have the declaration of `snprintf', and to 0 if you
    don't. */
@@ -226,6 +225,9 @@
 
 /* Define if you have the babeltrace library. */
 #undef HAVE_LIBBABELTRACE
+
+/* Define to 1 if debuginfod is enabled. */
+#undef HAVE_LIBDEBUGINFOD
 
 /* Define if you have the expat library. */
 #undef HAVE_LIBEXPAT
@@ -470,12 +472,6 @@
 /* Define to 1 if `td_pcb' is a member of `struct thread'. */
 #undef HAVE_STRUCT_THREAD_TD_PCB
 
-/* Define to 1 if `fs_base' is a member of `struct user_regs_struct'. */
-#undef HAVE_STRUCT_USER_REGS_STRUCT_FS_BASE
-
-/* Define to 1 if `gs_base' is a member of `struct user_regs_struct'. */
-#undef HAVE_STRUCT_USER_REGS_STRUCT_GS_BASE
-
 /* Define to 1 if you have the <sys/debugreg.h> header file. */
 #undef HAVE_SYS_DEBUGREG_H
 
@@ -572,6 +568,9 @@
 /* Define to 1 if you have the `wresize' function. */
 #undef HAVE_WRESIZE
 
+/* Define to 1 if you have the <ws2tcpip.h> header file. */
+#undef HAVE_WS2TCPIP_H
+
 /* Define to 1 if you have the `XML_StopParser' function. */
 #undef HAVE_XML_STOPPARSER
 
@@ -648,6 +647,10 @@
 
 /* Define as the return type of ptrace. */
 #undef PTRACE_TYPE_RET
+
+/* Define if the python lib directory should be relocated when GDB is moved.
+   */
+#undef PYTHON_LIBDIR_RELOCATABLE
 
 /* Define if the python directory should be relocated when GDB is moved. */
 #undef PYTHON_PATH_RELOCATABLE
@@ -752,6 +755,10 @@
 /* Define if the PPC simulator is being linked in. */
 #undef WITH_PPC_SIM
 
+/* Directory containing Python's standard libraries from --with-python-libdir.
+   */
+#undef WITH_PYTHON_LIBDIR
+
 /* Define if --with-python provides a path, either directly or via
    python-config.py --exec-prefix. */
 #undef WITH_PYTHON_PATH
@@ -791,6 +798,9 @@
 
 /* Define to 1 if you need to in order for `stat' and other things to work. */
 #undef _POSIX_SOURCE
+
+/* Use structured /proc on Solaris. */
+#undef _STRUCTURED_PROC
 
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const

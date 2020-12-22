@@ -1,5 +1,5 @@
 /* Generic BFD library interface and support routines.
-   Copyright (C) 1990-2019 Free Software Foundation, Inc.
+   Copyright (C) 1990-2020 Free Software Foundation, Inc.
    Written by Cygnus Support.
 
    This file is part of BFD, the Binary File Descriptor library.
@@ -84,12 +84,6 @@ CODE_FRAGMENT
 .
 .  {* A unique identifier of the BFD  *}
 .  unsigned int id;
-.
-.  {* The format which belongs to the BFD. (object, core, etc.)  *}
-.  ENUM_BITFIELD (bfd_format) format : 3;
-.
-.  {* The direction with which the BFD was opened.  *}
-.  ENUM_BITFIELD (bfd_direction) direction : 2;
 .
 .  {* Format_specific flags.  *}
 .  flagword flags;
@@ -194,6 +188,12 @@ CODE_FRAGMENT
 .   | BFD_PLUGIN | BFD_TRADITIONAL_FORMAT | BFD_DETERMINISTIC_OUTPUT \
 .   | BFD_COMPRESS_GABI | BFD_CONVERT_ELF_COMMON | BFD_USE_ELF_STT_COMMON)
 .
+.  {* The format which belongs to the BFD. (object, core, etc.)  *}
+.  ENUM_BITFIELD (bfd_format) format : 3;
+.
+.  {* The direction with which the BFD was opened.  *}
+.  ENUM_BITFIELD (bfd_direction) direction : 2;
+.
 .  {* Is the file descriptor being cached?  That is, can it be closed as
 .     needed, and re-opened when accessed later?  *}
 .  unsigned int cacheable : 1;
@@ -245,13 +245,16 @@ CODE_FRAGMENT
 .  {* Set if this is a slim LTO object not loaded with a compiler plugin.  *}
 .  unsigned int lto_slim_object : 1;
 .
+.  {* Do not attempt to modify this file.  Set when detecting errors
+.     that BFD is not prepared to handle for objcopy/strip.  *}
+.  unsigned int read_only : 1;
+.
 .  {* Set to dummy BFD created when claimed by a compiler plug-in
 .     library.  *}
 .  bfd *plugin_dummy_bfd;
 .
-.  {* Currently my_archive is tested before adding origin to
-.     anything. I believe that this can become always an add of
-.     origin, with origin set to 0 for non archive files.  *}
+.  {* The offset of this bfd in the file, typically 0 if it is not
+.     contained in an archive.  *}
 .  ufile_ptr origin;
 .
 .  {* The origin in the archive of the proxy entry.  This will
@@ -283,7 +286,7 @@ CODE_FRAGMENT
 .
 .  {* Symbol table for output BFD (with symcount entries).
 .     Also used by the linker to cache input BFD symbols.  *}
-.  struct bfd_symbol  **outsymbols;
+.  struct bfd_symbol **outsymbols;
 .
 .  {* Used for input and output.  *}
 .  unsigned int symcount;
@@ -293,6 +296,11 @@ CODE_FRAGMENT
 .
 .  {* Pointer to structure which contains architecture information.  *}
 .  const struct bfd_arch_info *arch_info;
+.
+.  {* Cached length of file for bfd_get_size.  0 until bfd_get_size is
+.     called, 1 if stat returns an error or the file size is too large to
+.     return in ufile_ptr.  Both 0 and 1 should be treated as "unknown".  *}
+.  ufile_ptr size;
 .
 .  {* Stuff only useful for archives.  *}
 .  void *arelt_data;
@@ -783,8 +791,8 @@ bfd_errmsg (bfd_error_type error_tag)
       char *buf;
       const char *msg = bfd_errmsg (input_error);
 
-      if (asprintf (&buf, _(bfd_errmsgs [error_tag]), input_bfd->filename, msg)
-	  != -1)
+      if (asprintf (&buf, _(bfd_errmsgs [error_tag]),
+		    bfd_get_filename (input_bfd), msg) != -1)
 	return buf;
 
       /* Ick, what to do on out of memory?  */
@@ -1110,10 +1118,10 @@ _bfd_doprnt (FILE *stream, const char *format, union _bfd_doprnt_args *args)
 		  else if (abfd->my_archive
 			   && !bfd_is_thin_archive (abfd->my_archive))
 		    result = fprintf (stream, "%s(%s)",
-				      abfd->my_archive->filename,
-				      abfd->filename);
+				      bfd_get_filename (abfd->my_archive),
+				      bfd_get_filename (abfd));
 		  else
-		    result = fprintf (stream, "%s", abfd->filename);
+		    result = fprintf (stream, "%s", bfd_get_filename (abfd));
 		}
 	      else
 		PRINT_TYPE (void *, p);
@@ -2058,7 +2066,8 @@ DESCRIPTION
 .	BFD_SEND (abfd, _bfd_debug_info_accumulate, (abfd, section))
 .
 .#define bfd_stat_arch_elt(abfd, stat) \
-.	BFD_SEND (abfd, _bfd_stat_arch_elt,(abfd, stat))
+.	BFD_SEND (abfd->my_archive ? abfd->my_archive : abfd, \
+.		  _bfd_stat_arch_elt, (abfd, stat))
 .
 .#define bfd_update_armap_timestamp(abfd) \
 .	BFD_SEND (abfd, _bfd_update_armap_timestamp, (abfd))
@@ -2162,14 +2171,15 @@ bfd_record_phdr (bfd *abfd,
 		 bfd_boolean flags_valid,
 		 flagword flags,
 		 bfd_boolean at_valid,
-		 bfd_vma at,
+		 bfd_vma at,  /* Bytes.  */
 		 bfd_boolean includes_filehdr,
 		 bfd_boolean includes_phdrs,
 		 unsigned int count,
 		 asection **secs)
 {
   struct elf_segment_map *m, **pm;
-  bfd_size_type amt;
+  size_t amt;
+  unsigned int opb = bfd_octets_per_byte (abfd, NULL);
 
   if (bfd_get_flavour (abfd) != bfd_target_elf_flavour)
     return TRUE;
@@ -2182,7 +2192,7 @@ bfd_record_phdr (bfd *abfd,
 
   m->p_type = type;
   m->p_flags = flags;
-  m->p_paddr = at;
+  m->p_paddr = at * opb;
   m->p_flags_valid = flags_valid;
   m->p_paddr_valid = at_valid;
   m->includes_filehdr = includes_filehdr;
@@ -2481,8 +2491,7 @@ bfd_demangle (bfd *abfd, const char *name, int options)
 
   res = cplus_demangle (name, options);
 
-  if (alloc != NULL)
-    free (alloc);
+  free (alloc);
 
   if (res == NULL)
     {
@@ -2540,59 +2549,60 @@ void
 bfd_update_compression_header (bfd *abfd, bfd_byte *contents,
 			       asection *sec)
 {
-  if ((abfd->flags & BFD_COMPRESS) != 0)
+  if ((abfd->flags & BFD_COMPRESS) == 0)
+    abort ();
+
+  switch (bfd_get_flavour (abfd))
     {
-      if (bfd_get_flavour (abfd) == bfd_target_elf_flavour)
+    case bfd_target_elf_flavour:
+      if ((abfd->flags & BFD_COMPRESS_GABI) != 0)
 	{
-	  if ((abfd->flags & BFD_COMPRESS_GABI) != 0)
+	  const struct elf_backend_data *bed = get_elf_backend_data (abfd);
+	  struct bfd_elf_section_data * esd = elf_section_data (sec);
+
+	  /* Set the SHF_COMPRESSED bit.  */
+	  elf_section_flags (sec) |= SHF_COMPRESSED;
+
+	  if (bed->s->elfclass == ELFCLASS32)
 	    {
-	      const struct elf_backend_data *bed
-		= get_elf_backend_data (abfd);
-
-	      /* Set the SHF_COMPRESSED bit.  */
-	      elf_section_flags (sec) |= SHF_COMPRESSED;
-
-	      if (bed->s->elfclass == ELFCLASS32)
-		{
-		  Elf32_External_Chdr *echdr
-		    = (Elf32_External_Chdr *) contents;
-		  bfd_put_32 (abfd, ELFCOMPRESS_ZLIB, &echdr->ch_type);
-		  bfd_put_32 (abfd, sec->size, &echdr->ch_size);
-		  bfd_put_32 (abfd, 1 << sec->alignment_power,
-			      &echdr->ch_addralign);
-		  /* bfd_log2 (alignof (Elf32_Chdr)) */
-		  bfd_set_section_alignment (sec, 2);
-		}
-	      else
-		{
-		  Elf64_External_Chdr *echdr
-		    = (Elf64_External_Chdr *) contents;
-		  bfd_put_32 (abfd, ELFCOMPRESS_ZLIB, &echdr->ch_type);
-		  bfd_put_32 (abfd, 0, &echdr->ch_reserved);
-		  bfd_put_64 (abfd, sec->size, &echdr->ch_size);
-		  bfd_put_64 (abfd, 1 << sec->alignment_power,
-			      &echdr->ch_addralign);
-		  /* bfd_log2 (alignof (Elf64_Chdr)) */
-		  bfd_set_section_alignment (sec, 3);
-		}
+	      Elf32_External_Chdr *echdr = (Elf32_External_Chdr *) contents;
+	      bfd_put_32 (abfd, ELFCOMPRESS_ZLIB, &echdr->ch_type);
+	      bfd_put_32 (abfd, sec->size, &echdr->ch_size);
+	      bfd_put_32 (abfd, 1 << sec->alignment_power,
+			  &echdr->ch_addralign);
+	      /* bfd_log2 (alignof (Elf32_Chdr)) */
+	      bfd_set_section_alignment (sec, 2);
+	      esd->this_hdr.sh_addralign = 4;
 	    }
 	  else
 	    {
-	      /* Clear the SHF_COMPRESSED bit.  */
-	      elf_section_flags (sec) &= ~SHF_COMPRESSED;
-
-	      /* Write the zlib header.  It should be "ZLIB" followed by
-		 the uncompressed section size, 8 bytes in big-endian
-		 order.  */
-	      memcpy (contents, "ZLIB", 4);
-	      bfd_putb64 (sec->size, contents + 4);
-	      /* No way to keep the original alignment, just use 1 always. */
-	      bfd_set_section_alignment (sec, 0);
+	      Elf64_External_Chdr *echdr = (Elf64_External_Chdr *) contents;
+	      bfd_put_32 (abfd, ELFCOMPRESS_ZLIB, &echdr->ch_type);
+	      bfd_put_32 (abfd, 0, &echdr->ch_reserved);
+	      bfd_put_64 (abfd, sec->size, &echdr->ch_size);
+	      bfd_put_64 (abfd, 1 << sec->alignment_power,
+			  &echdr->ch_addralign);
+	      /* bfd_log2 (alignof (Elf64_Chdr)) */
+	      bfd_set_section_alignment (sec, 3);
+	      esd->this_hdr.sh_addralign = 8;
 	    }
+	  break;
 	}
+
+      /* Clear the SHF_COMPRESSED bit.  */
+      elf_section_flags (sec) &= ~SHF_COMPRESSED;
+      /* Fall through.  */
+
+    default:
+      /* Write the zlib header.  It should be "ZLIB" followed by
+	 the uncompressed section size, 8 bytes in big-endian
+	 order.  */
+      memcpy (contents, "ZLIB", 4);
+      bfd_putb64 (sec->size, contents + 4);
+      /* No way to keep the original alignment, just use 1 always. */
+      bfd_set_section_alignment (sec, 0);
+      break;
     }
-  else
-    abort ();
 }
 
 /*
@@ -2770,7 +2780,7 @@ bfd_convert_section_contents (bfd *ibfd, sec_ptr isec, bfd *obfd,
       || bfd_get_flavour (obfd) != bfd_target_elf_flavour)
     return TRUE;
 
-  /* Do nothing if ELF classes of input and output are the same. */
+  /* Do nothing if ELF classes of input and output are the same.  */
   if (get_elf_backend_data (ibfd)->s->elfclass
       == get_elf_backend_data (obfd)->s->elfclass)
     return TRUE;
@@ -2784,10 +2794,16 @@ bfd_convert_section_contents (bfd *ibfd, sec_ptr isec, bfd *obfd,
   if ((ibfd->flags & BFD_DECOMPRESS))
     return TRUE;
 
-  /* Do nothing if the input section isn't a SHF_COMPRESSED section. */
+  /* Do nothing if the input section isn't a SHF_COMPRESSED section.  */
   ihdr_size = bfd_get_compression_header_size (ibfd, isec);
   if (ihdr_size == 0)
     return TRUE;
+
+  /* PR 25221.  Check for corrupt input sections.  */
+  if (ihdr_size > bfd_get_section_limit (ibfd, isec))
+    /* FIXME: Issue a warning about a corrupt
+       compression header size field ?  */
+    return FALSE;
 
   contents = *ptr;
 
@@ -2804,6 +2820,12 @@ bfd_convert_section_contents (bfd *ibfd, sec_ptr isec, bfd *obfd,
       ohdr_size = sizeof (Elf64_External_Chdr);
 
       use_memmove = FALSE;
+    }
+  else if (ihdr_size != sizeof (Elf64_External_Chdr))
+    {
+      /* FIXME: Issue a warning about a corrupt
+	 compression header size field ?  */
+      return FALSE;
     }
   else
     {

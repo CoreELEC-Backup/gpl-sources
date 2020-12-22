@@ -197,7 +197,7 @@ a .gdbinit.  For example:
 
 GDB_PARALLEL
 
-To use parallel testing mode without using the the Makefile, set
+To use parallel testing mode without using the Makefile, set
 GDB_PARALLEL on the runtest command line to "yes".  Before starting
 the tests, you must ensure that the directories cache, outputs, and
 temp in the test suite build directory are either empty or have been
@@ -351,6 +351,13 @@ Examples:
 
 	make -j10 check-read1 TESTS="*/paginate-*.exp"
 	make -j10 check READ1="1"
+
+Note: While the intention is to detect races and make otherwise passing tests
+fail, it can also have the effect of making otherwise failing tests pass.
+This happens f.i. if the test is trying to match a gdb prompt using an end of
+input marker "${gdb_prompt} $" and there is output after the gdb prompt.  This
+may either pass or fail in normal operation, but using check-read1 will ensure
+that it passes.
 
 Testsuite Configuration
 ***********************

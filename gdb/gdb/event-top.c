@@ -25,7 +25,7 @@
 #include "infrun.h"
 #include "target.h"
 #include "terminal.h"
-#include "event-loop.h"
+#include "gdbsupport/event-loop.h"
 #include "event-top.h"
 #include "interps.h"
 #include <signal.h>
@@ -39,8 +39,9 @@
 #include "maint.h"
 #include "gdbsupport/buffer.h"
 #include "ser-event.h"
-#include "gdb_select.h"
+#include "gdbsupport/gdb_select.h"
 #include "gdbsupport/gdb-sigmask.h"
+#include "async-event.h"
 
 /* readline include files.  */
 #include "readline/readline.h"
@@ -881,7 +882,7 @@ handle_sigsegv (int sig)
   install_handle_sigsegv ();
 
   if (thread_local_segv_handler == nullptr)
-    abort ();
+    abort ();			/* ARI: abort */
   thread_local_segv_handler (sig);
 }
 
@@ -1137,12 +1138,16 @@ async_disconnect (gdb_client_data arg)
       exception_print (gdb_stderr, exception);
     }
 
-  try
+  for (inferior *inf : all_inferiors ())
     {
-      pop_all_targets ();
-    }
-  catch (const gdb_exception &exception)
-    {
+      switch_to_inferior_no_thread (inf);
+      try
+	{
+	  pop_all_targets ();
+	}
+      catch (const gdb_exception &exception)
+	{
+	}
     }
 
   signal (SIGHUP, SIG_DFL);	/*FIXME: ???????????  */

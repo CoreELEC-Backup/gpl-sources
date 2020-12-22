@@ -119,6 +119,10 @@ endif
 install-data-local:: doxygen.stamp
 	$(MKDIR_P) $(DESTDIR)$(apidir)
 	$(INSTALL_DATA) api/html/* $(DESTDIR)$(apidir)
+if DBUS_QTHELP_DOCS_ENABLED
+	$(MKDIR_P) $(DESTDIR)$(qchdir)
+	$(INSTALL_DATA) $(DOXYGEN_QCH_FILE) $(DESTDIR)$(qchdir)
+endif
 if DBUS_DUCKTYPE_DOCS_ENABLED
 	$(AM_V_at)for x in $(YELP_STATIC_HTML); do \
 		if test -e "$$x"; then \
@@ -138,6 +142,8 @@ uninstall-local::
 	rm -f $(DESTDIR)$(docdir)/*.txt
 	rm -f $(DESTDIR)$(htmldir)/*.png
 	rm -f $(DESTDIR)$(htmldir)/*.svg
+	rm -f $(DESTDIR)$(apidir)/*.qhp
+	rm -f $(DESTDIR)$(qchdir)/dbus-*.qch
 	rmdir --ignore-fail-on-non-empty $(DESTDIR)$(apidir) || \
 		rmdir $(DESTDIR)$(apidir)
 endif

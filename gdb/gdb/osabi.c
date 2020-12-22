@@ -72,6 +72,7 @@ static const struct osabi_names gdb_osabi_names[] =
   { "DJGPP", NULL },
   { "QNX-Neutrino", NULL },
   { "Cygwin", NULL },
+  { "Windows", NULL },
   { "AIX", NULL },
   { "DICOS", NULL },
   { "Darwin", NULL },
@@ -653,8 +654,9 @@ show_osabi (struct ui_file *file, int from_tty, struct cmd_list_element *c,
 		      gdbarch_osabi_name (GDB_OSABI_DEFAULT));
 }
 
+void _initialize_gdb_osabi ();
 void
-_initialize_gdb_osabi (void)
+_initialize_gdb_osabi ()
 {
   if (strcmp (gdb_osabi_names[GDB_OSABI_INVALID].pretty, "<invalid>") != 0)
     internal_error

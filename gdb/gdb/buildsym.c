@@ -120,7 +120,7 @@ buildsym_compunit::get_macro_table ()
 {
   if (m_pending_macros == nullptr)
     m_pending_macros = new_macro_table (&m_objfile->per_bfd->storage_obstack,
-					&m_objfile->per_bfd->macro_cache,
+					&m_objfile->per_bfd->string_cache,
 					m_compunit_symtab);
   return m_pending_macros;
 }
@@ -135,7 +135,7 @@ add_symbol_to_list (struct symbol *symbol, struct pending **listhead)
   struct pending *link;
 
   /* If this is an alias for another symbol, don't add it.  */
-  if (symbol->name && symbol->name[0] == '#')
+  if (symbol->linkage_name () && symbol->linkage_name ()[0] == '#')
     return;
 
   /* We keep PENDINGSIZE symbols in each link of the list.  If we
@@ -213,7 +213,7 @@ buildsym_compunit::finish_block_internal
      CORE_ADDR start, CORE_ADDR end,
      int is_global, int expandable)
 {
-  struct gdbarch *gdbarch = get_objfile_arch (m_objfile);
+  struct gdbarch *gdbarch = m_objfile->arch ();
   struct pending *next, *next1;
   struct block *block;
   struct pending_block *pblock;
@@ -254,7 +254,7 @@ buildsym_compunit::finish_block_internal
       SYMBOL_BLOCK_VALUE (symbol) = block;
       BLOCK_FUNCTION (block) = symbol;
 
-      if (TYPE_NFIELDS (ftype) <= 0)
+      if (ftype->num_fields () <= 0)
 	{
 	  /* No parameter type information is recorded with the
 	     function's type.  Set that from the type of the
@@ -271,9 +271,10 @@ buildsym_compunit::finish_block_internal
 	    }
 	  if (nparams > 0)
 	    {
-	      TYPE_NFIELDS (ftype) = nparams;
-	      TYPE_FIELDS (ftype) = (struct field *)
-		TYPE_ALLOC (ftype, nparams * sizeof (struct field));
+	      ftype->set_num_fields (nparams);
+	      ftype->set_fields
+		((struct field *)
+		 TYPE_ALLOC (ftype, nparams * sizeof (struct field)));
 
 	      iparams = 0;
 	      /* Here we want to directly access the dictionary, because
@@ -285,7 +286,7 @@ buildsym_compunit::finish_block_internal
 
 		  if (SYMBOL_IS_ARGUMENT (sym))
 		    {
-		      TYPE_FIELD_TYPE (ftype, iparams) = SYMBOL_TYPE (sym);
+		      ftype->field (iparams).set_type (SYMBOL_TYPE (sym));
 		      TYPE_FIELD_ARTIFICIAL (ftype, iparams) = 0;
 		      iparams++;
 		    }
@@ -666,15 +667,9 @@ buildsym_compunit::pop_subfile ()
 
 void
 buildsym_compunit::record_line (struct subfile *subfile, int line,
-				CORE_ADDR pc)
+				CORE_ADDR pc, bool is_stmt)
 {
   struct linetable_entry *e;
-
-  /* Ignore the dummy line number in libg.o */
-  if (line == 0xffff)
-    {
-      return;
-    }
 
   /* Make sure line vector exists and is big enough.  */
   if (!subfile->line_vector)
@@ -687,7 +682,7 @@ buildsym_compunit::record_line (struct subfile *subfile, int line,
       m_have_line_numbers = true;
     }
 
-  if (subfile->line_vector->nitems + 1 >= subfile->line_vector_length)
+  if (subfile->line_vector->nitems >= subfile->line_vector_length)
     {
       subfile->line_vector_length *= 2;
       subfile->line_vector = (struct linetable *)
@@ -710,38 +705,23 @@ buildsym_compunit::record_line (struct subfile *subfile, int line,
      end of sequence markers.  All we lose is the ability to set
      breakpoints at some lines which contain no instructions
      anyway.  */
-  if (line == 0 && subfile->line_vector->nitems > 0)
+  if (line == 0)
     {
-      e = subfile->line_vector->item + subfile->line_vector->nitems - 1;
-      while (subfile->line_vector->nitems > 0 && e->pc == pc)
+      while (subfile->line_vector->nitems > 0)
 	{
-	  e--;
+	  e = subfile->line_vector->item + subfile->line_vector->nitems - 1;
+	  if (e->pc != pc)
+	    break;
 	  subfile->line_vector->nitems--;
 	}
     }
 
   e = subfile->line_vector->item + subfile->line_vector->nitems++;
   e->line = line;
+  e->is_stmt = is_stmt ? 1 : 0;
   e->pc = pc;
 }
 
-/* Needed in order to sort line tables from IBM xcoff files.  Sigh!  */
-
-static bool
-lte_is_less_than (const linetable_entry &ln1, const linetable_entry &ln2)
-{
-  /* Note: this code does not assume that CORE_ADDRs can fit in ints.
-     Please keep it that way.  */
-  if (ln1.pc < ln2.pc)
-    return true;
-
-  if (ln1.pc > ln2.pc)
-    return false;
-
-  /* If pc equal, sort by line.  I'm not sure whether this is optimum
-     behavior (see comment at struct linetable in symtab.h).  */
-  return ln1.line < ln2.line;
-}
 
 /* Subroutine of end_symtab to simplify it.  Look for a subfile that
    matches the main source file's basename.  If there is only one, and
@@ -959,14 +939,27 @@ buildsym_compunit::end_symtab_with_blockvector (struct block *static_block,
 	  linetablesize = sizeof (struct linetable) +
 	    subfile->line_vector->nitems * sizeof (struct linetable_entry);
 
-	  /* Like the pending blocks, the line table may be
-	     scrambled in reordered executables.  Sort it if
-	     OBJF_REORDERED is true.  */
+	  const auto lte_is_less_than
+	    = [] (const linetable_entry &ln1,
+		  const linetable_entry &ln2) -> bool
+	      {
+		if (ln1.pc == ln2.pc
+		    && ((ln1.line == 0) != (ln2.line == 0)))
+		  return ln1.line == 0;
+
+		return (ln1.pc < ln2.pc);
+	      };
+
+	  /* Like the pending blocks, the line table may be scrambled in
+	     reordered executables.  Sort it if OBJF_REORDERED is true.  It
+	     is important to preserve the order of lines at the same
+	     address, as this maintains the inline function caller/callee
+	     relationships, this is why std::stable_sort is used.  */
 	  if (m_objfile->flags & OBJF_REORDERED)
-	    std::sort (subfile->line_vector->item,
-		       subfile->line_vector->item
-			 + subfile->line_vector->nitems,
-		       lte_is_less_than);
+	    std::stable_sort (subfile->line_vector->item,
+			      subfile->line_vector->item
+			      + subfile->line_vector->nitems,
+			      lte_is_less_than);
 	}
 
       /* Allocate a symbol table if necessary.  */

@@ -251,8 +251,6 @@ darwin_current_sos (void)
       CORE_ADDR path_addr;
       struct mach_o_header_external hdr;
       unsigned long hdr_val;
-      gdb::unique_xmalloc_ptr<char> file_path;
-      int errcode;
 
       /* Read image info from inferior.  */
       if (target_read_memory (iinfo, buf, image_info_size))
@@ -275,9 +273,9 @@ darwin_current_sos (void)
       if (hdr_val == BFD_MACH_O_MH_EXECUTE)
         continue;
 
-      target_read_string (path_addr, &file_path,
-			  SO_NAME_MAX_PATH_SIZE - 1, &errcode);
-      if (errcode)
+      gdb::unique_xmalloc_ptr<char> file_path
+	= target_read_string (path_addr, SO_NAME_MAX_PATH_SIZE - 1);
+      if (file_path == nullptr)
 	break;
 
       /* Create and fill the new so_list element.  */
@@ -436,7 +434,7 @@ darwin_get_dyld_bfd ()
     return NULL;
 
   /* Create a bfd for the interpreter.  */
-  gdb_bfd_ref_ptr dyld_bfd (gdb_bfd_open (interp_name, gnutarget, -1));
+  gdb_bfd_ref_ptr dyld_bfd (gdb_bfd_open (interp_name, gnutarget));
   if (dyld_bfd != NULL)
     {
       gdb_bfd_ref_ptr sub
@@ -662,15 +660,16 @@ darwin_bfd_open (const char *pathname)
   /* The current filename for fat-binary BFDs is a name generated
      by BFD, usually a string containing the name of the architecture.
      Reset its value to the actual filename.  */
-  bfd_set_filename (res.get (), xstrdup (pathname));
+  bfd_set_filename (res.get (), pathname);
 
   return res;
 }
 
 struct target_so_ops darwin_so_ops;
 
+void _initialize_darwin_solib ();
 void
-_initialize_darwin_solib (void)
+_initialize_darwin_solib ()
 {
   darwin_so_ops.relocate_section_addresses = darwin_relocate_section_addresses;
   darwin_so_ops.free_so = darwin_free_so;

@@ -1,4 +1,4 @@
-This is stabs.info, produced by makeinfo version 6.5 from stabs.texinfo.
+This is stabs.info, produced by makeinfo version 6.7 from stabs.texinfo.
 
 Copyright (C) 1992-2020 Free Software Foundation, Inc.  Contributed by
 Cygnus Support.  Written by Julia Menapace, Jim Kingdon, and David
@@ -4577,3 +4577,8 @@ Node: GNU Free Documentation License150189
 Node: Symbol Types Index175349
 
 End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

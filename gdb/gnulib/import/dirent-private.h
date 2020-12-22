@@ -1,5 +1,5 @@
 /* Private details of the DIR type.
-   Copyright (C) 2011-2016 Free Software Foundation, Inc.
+   Copyright (C) 2011-2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -12,13 +12,17 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 #ifndef _DIRENT_PRIVATE_H
 #define _DIRENT_PRIVATE_H 1
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+
+/* Don't assume that UNICODE is not defined.  */
+#undef WIN32_FIND_DATA
+#define WIN32_FIND_DATA WIN32_FIND_DATAA
 
 struct gl_directory
 {

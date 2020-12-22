@@ -302,20 +302,6 @@ extern struct value *allocate_computed_value (struct type *type,
 					      const struct lval_funcs *funcs,
 					      void *closure);
 
-/* Helper function to check the validity of some bits of a value.
-
-   If TYPE represents some aggregate type (e.g., a structure), return 1.
-   
-   Otherwise, any of the bytes starting at OFFSET and extending for
-   TYPE_LENGTH(TYPE) bytes are invalid, print a message to STREAM and
-   return 0.  The checking is done using FUNCS.
-   
-   Otherwise, return 1.  */
-
-extern int valprint_check_validity (struct ui_file *stream, struct type *type,
-				    LONGEST embedded_offset,
-				    const struct value *val);
-
 extern struct value *allocate_optimized_out_value (struct type *type);
 
 /* If VALUE is lval_computed, return its lval_funcs structure.  */
@@ -488,7 +474,9 @@ extern struct value *coerce_ref_if_computed (const struct value *arg);
 
 /* Setup a new value type and enclosing value type for dereferenced value VALUE.
    ENC_TYPE is the new enclosing type that should be set.  ORIGINAL_TYPE and
-   ORIGINAL_VAL are the type and value of the original reference or pointer.
+   ORIGINAL_VAL are the type and value of the original reference or
+   pointer.  ORIGINAL_VALUE_ADDRESS is the address within VALUE, that is
+   the address that was dereferenced.
 
    Note, that VALUE is modified by this function.
 
@@ -497,7 +485,8 @@ extern struct value *coerce_ref_if_computed (const struct value *arg);
 extern struct value * readjust_indirect_value_type (struct value *value,
 						    struct type *enc_type,
 						    const struct type *original_type,
-						    const struct value *original_val);
+						    struct value *original_val,
+						    CORE_ADDR original_value_address);
 
 /* Convert a REF to the object referenced.  */
 
@@ -651,6 +640,27 @@ extern CORE_ADDR unpack_pointer (struct type *type, const gdb_byte *valaddr);
 extern LONGEST unpack_field_as_long (struct type *type,
 				     const gdb_byte *valaddr,
 				     int fieldno);
+
+/* Unpack a bitfield of the specified FIELD_TYPE, from the object at
+   VALADDR, and store the result in *RESULT.
+   The bitfield starts at BITPOS bits and contains BITSIZE bits; if
+   BITSIZE is zero, then the length is taken from FIELD_TYPE.
+
+   Extracting bits depends on endianness of the machine.  Compute the
+   number of least significant bits to discard.  For big endian machines,
+   we compute the total number of bits in the anonymous object, subtract
+   off the bit count from the MSB of the object to the MSB of the
+   bitfield, then the size of the bitfield, which leaves the LSB discard
+   count.  For little endian machines, the discard count is simply the
+   number of bits from the LSB of the anonymous object to the LSB of the
+   bitfield.
+
+   If the field is signed, we also do sign extension.  */
+
+extern LONGEST unpack_bits_as_long (struct type *field_type,
+				    const gdb_byte *valaddr,
+				    LONGEST bitpos, LONGEST bitsize);
+
 extern int unpack_value_field_as_long (struct type *type, const gdb_byte *valaddr,
 				LONGEST embedded_offset, int fieldno,
 				const struct value *val, LONGEST *result);
@@ -722,10 +732,6 @@ extern int symbol_read_needs_frame (struct symbol *);
 extern struct value *read_var_value (struct symbol *var,
 				     const struct block *var_block,
 				     struct frame_info *frame);
-
-extern struct value *default_read_var_value (struct symbol *var,
-					     const struct block *var_block,
-					     struct frame_info *frame);
 
 extern struct value *allocate_value (struct type *type);
 extern struct value *allocate_value_lazy (struct type *type);
@@ -1097,13 +1103,6 @@ extern void value_print_array_elements (struct value *val,
 extern std::vector<value_ref_ptr> value_release_to_mark
     (const struct value *mark);
 
-extern void val_print (struct type *type,
-		       LONGEST embedded_offset, CORE_ADDR address,
-		       struct ui_file *stream, int recurse,
-		       struct value *val,
-		       const struct value_print_options *options,
-		       const struct language_defn *language);
-
 extern void common_val_print (struct value *val,
 			      struct ui_file *stream, int recurse,
 			      const struct value_print_options *options,
@@ -1145,8 +1144,20 @@ extern struct value *varying_to_slice (struct value *);
 
 extern struct value *value_slice (struct value *, int, int);
 
+/* Create a complex number.  The type is the complex type; the values
+   are cast to the underlying scalar type before the complex number is
+   created.  */
+
 extern struct value *value_literal_complex (struct value *, struct value *,
 					    struct type *);
+
+/* Return the real part of a complex value.  */
+
+extern struct value *value_real_part (struct value *value);
+
+/* Return the imaginary part of a complex value.  */
+
+extern struct value *value_imaginary_part (struct value *value);
 
 extern struct value *find_function_in_inferior (const char *,
 						struct objfile **);
@@ -1199,14 +1210,6 @@ extern struct type *result_type_of_xmethod (struct value *method,
 
 extern struct value *call_xmethod (struct value *method,
 				   gdb::array_view<value *> argv);
-
-/* Given a discriminated union type and some corresponding value
-   contents, this will return the field index of the currently active
-   variant.  This will throw an exception if no active variant can be
-   found.  */
-
-extern int value_union_variant (struct type *union_type,
-				const gdb_byte *contents);
 
 /* Destroy the values currently allocated.  This is called when GDB is
    exiting (e.g., on quit_force).  */

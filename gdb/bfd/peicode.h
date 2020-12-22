@@ -1,5 +1,5 @@
 /* Support for the generic parts of PE/PEI, for BFD.
-   Copyright (C) 1995-2019 Free Software Foundation, Inc.
+   Copyright (C) 1995-2020 Free Software Foundation, Inc.
    Written by Cygnus Solutions.
 
    This file is part of BFD, the Binary File Descriptor library.
@@ -122,7 +122,7 @@ typedef struct
 pe_ILF_vars;
 #endif /* COFF_IMAGE_WITH_PE */
 
-const bfd_target *coff_real_object_p
+bfd_cleanup coff_real_object_p
   (bfd *, unsigned, struct internal_filehdr *, struct internal_aouthdr *);
 
 #ifndef NO_COFF_RELOCS
@@ -257,7 +257,7 @@ static bfd_boolean
 pe_mkobject (bfd * abfd)
 {
   pe_data_type *pe;
-  bfd_size_type amt = sizeof (pe_data_type);
+  size_t amt = sizeof (pe_data_type);
 
   abfd->tdata.pe_obj_data = (struct pe_tdata *) bfd_zalloc (abfd, amt);
 
@@ -622,6 +622,7 @@ pe_ILF_make_a_section (pe_ILF_vars * vars,
 {
   asection_ptr sec;
   flagword     flags;
+  intptr_t alignment;
 
   sec = bfd_make_section_old_way (vars->abfd, name);
   if (sec == NULL)
@@ -652,20 +653,18 @@ pe_ILF_make_a_section (pe_ILF_vars * vars,
   if (size & 1)
     vars->data --;
 
-# if (GCC_VERSION >= 3000)
   /* PR 18758: See note in pe_ILF_buid_a_bfd.  We must make sure that we
-     preserve host alignment requirements.  We test 'size' rather than
-     vars.data as we cannot perform binary arithmetic on pointers.  We assume
-     that vars.data was sufficiently aligned upon entry to this function.
-     The BFD_ASSERTs in this functions will warn us if we run out of room,
-     but we should already have enough padding built in to ILF_DATA_SIZE.  */
-  {
-    unsigned int alignment = __alignof__ (struct coff_section_tdata);
-
-    if (size & (alignment - 1))
-      vars->data += alignment - (size & (alignment - 1));
-  }
+     preserve host alignment requirements.  The BFD_ASSERTs in this
+     functions will warn us if we run out of room, but we should
+     already have enough padding built in to ILF_DATA_SIZE.  */
+#if GCC_VERSION >= 3000
+  alignment = __alignof__ (struct coff_section_tdata);
+#else
+  alignment = 8;
 #endif
+  vars->data
+    = (bfd_byte *) (((intptr_t) vars->data + alignment - 1) & -alignment);
+
   /* Create a coff_section_tdata structure for our use.  */
   sec->used_by_bfd = (struct coff_section_tdata *) vars->data;
   vars->data += sizeof (struct coff_section_tdata);
@@ -779,6 +778,7 @@ pe_ILF_build_a_bfd (bfd *	    abfd,
   asection_ptr		   id4, id5, id6 = NULL, text = NULL;
   coff_symbol_type **	   imp_sym;
   unsigned int		   imp_index;
+  intptr_t alignment;
 
   /* Decode and verify the types field of the ILF structure.  */
   import_type = types & 0x3;
@@ -874,23 +874,17 @@ pe_ILF_build_a_bfd (bfd *	    abfd,
 
   /* The remaining space in bim->buffer is used
      by the pe_ILF_make_a_section() function.  */
-# if (GCC_VERSION >= 3000)
+
   /* PR 18758: Make sure that the data area is sufficiently aligned for
-     pointers on the host.  __alignof__ is a gcc extension, hence the test
-     above.  For other compilers we will have to assume that the alignment is
-     unimportant, or else extra code can be added here and in
-     pe_ILF_make_a_section.
-
-     Note - we cannot test 'ptr' directly as it is illegal to perform binary
-     arithmetic on pointers, but we know that the strings section is the only
-     one that might end on an unaligned boundary.  */
-  {
-    unsigned int alignment = __alignof__ (char *);
-
-    if (SIZEOF_ILF_STRINGS & (alignment - 1))
-      ptr += alignment - (SIZEOF_ILF_STRINGS & (alignment - 1));
-  }
+     struct coff_section_tdata.  __alignof__ is a gcc extension, hence
+     the test of GCC_VERSION.  For other compilers we assume 8 byte
+     alignment.  */
+#if GCC_VERSION >= 3000
+  alignment = __alignof__ (struct coff_section_tdata);
+#else
+  alignment = 8;
 #endif
+  ptr = (bfd_byte *) (((intptr_t) ptr + alignment - 1) & -alignment);
 
   vars.data = ptr;
   vars.abfd = abfd;
@@ -1133,8 +1127,7 @@ pe_ILF_build_a_bfd (bfd *	    abfd,
   return TRUE;
 
  error_return:
-  if (vars.bim->buffer != NULL)
-    free (vars.bim->buffer);
+  free (vars.bim->buffer);
   free (vars.bim);
   return FALSE;
 }
@@ -1142,7 +1135,7 @@ pe_ILF_build_a_bfd (bfd *	    abfd,
 /* We have detected a Image Library Format archive element.
    Decode the element and return the appropriate target.  */
 
-static const bfd_target *
+static bfd_cleanup
 pe_ILF_object_p (bfd * abfd)
 {
   bfd_byte	  buffer[14];
@@ -1273,15 +1266,9 @@ pe_ILF_object_p (bfd * abfd)
   /* ptr += 2; */
 
   /* Now read in the two strings that follow.  */
-  ptr = (bfd_byte *) bfd_alloc (abfd, size);
+  ptr = (bfd_byte *) _bfd_alloc_and_read (abfd, size, size);
   if (ptr == NULL)
     return NULL;
-
-  if (bfd_bread (ptr, size, abfd) != size)
-    {
-      bfd_release (abfd, ptr);
-      return NULL;
-    }
 
   symbol_name = (char *) ptr;
   /* See PR 20905 for an example of where the strnlen is necessary.  */
@@ -1306,7 +1293,7 @@ pe_ILF_object_p (bfd * abfd)
       return NULL;
     }
 
-  return abfd->xvec;
+  return _bfd_no_cleanup;
 }
 
 static void
@@ -1356,8 +1343,7 @@ pe_bfd_read_buildid (bfd *abfd)
   /* Read the whole section. */
   if (!bfd_malloc_and_get_section (abfd, section, &data))
     {
-      if (data != NULL)
-	free (data);
+      free (data);
       return;
     }
 
@@ -1396,9 +1382,11 @@ pe_bfd_read_buildid (bfd *abfd)
 	  break;
 	}
     }
+
+  free (data);
 }
 
-static const bfd_target *
+static bfd_cleanup
 pe_bfd_object_p (bfd * abfd)
 {
   bfd_byte buffer[6];
@@ -1406,9 +1394,9 @@ pe_bfd_object_p (bfd * abfd)
   struct external_PEI_IMAGE_hdr image_hdr;
   struct internal_filehdr internal_f;
   struct internal_aouthdr internal_a;
-  file_ptr opt_hdr_size;
+  bfd_size_type opt_hdr_size;
   file_ptr offset;
-  const bfd_target *result;
+  bfd_cleanup result;
 
   /* Detect if this a Microsoft Import Library Format element.  */
   /* First read the beginning of the header.  */
@@ -1492,12 +1480,11 @@ pe_bfd_object_p (bfd * abfd)
       if (amt < sizeof (PEAOUTHDR))
 	amt = sizeof (PEAOUTHDR);
 
-      opthdr = bfd_zalloc (abfd, amt);
+      opthdr = _bfd_alloc_and_read (abfd, amt, opt_hdr_size);
       if (opthdr == NULL)
 	return NULL;
-      if (bfd_bread (opthdr, opt_hdr_size, abfd)
-	  != (bfd_size_type) opt_hdr_size)
-	return NULL;
+      if (amt > opt_hdr_size)
+	memset (opthdr + opt_hdr_size, 0, amt - opt_hdr_size);
 
       bfd_set_error (bfd_error_no_error);
       bfd_coff_swap_aouthdr_in (abfd, opthdr, & internal_a);

@@ -232,7 +232,7 @@ moxie_skip_prologue (struct gdbarch *gdbarch, CORE_ADDR pc)
 	  sym = lookup_symbol (func_name, NULL, VAR_DOMAIN, NULL).symbol;
 	  /* Don't use line number debug info for assembly source
 	     files.  */
-	  if (sym && SYMBOL_LANGUAGE (sym) != language_asm)
+	  if (sym && sym->language () != language_asm)
 	    {
 	      sal = find_pc_line (func_addr, 0);
 	      if (sal.end && sal.end < func_end)
@@ -1103,8 +1103,9 @@ moxie_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
 
 /* Register this machine's init routine.  */
 
+void _initialize_moxie_tdep ();
 void
-_initialize_moxie_tdep (void)
+_initialize_moxie_tdep ()
 {
   register_gdbarch_init (bfd_arch_moxie, moxie_gdbarch_init);
 }

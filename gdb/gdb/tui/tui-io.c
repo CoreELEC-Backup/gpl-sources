@@ -21,7 +21,7 @@
 
 #include "defs.h"
 #include "target.h"
-#include "event-loop.h"
+#include "gdbsupport/event-loop.h"
 #include "event-top.h"
 #include "command.h"
 #include "top.h"
@@ -131,10 +131,6 @@ static FILE *tui_old_rl_outstream;
 static int tui_readline_pipe[2];
 #endif
 
-/* The last gdb prompt that was registered in readline.
-   This may be the main gdb prompt or a secondary prompt.  */
-static char *tui_rl_saved_prompt;
-
 /* Print a character in the curses command window.  The output is
    buffered.  It is up to the caller to refresh the screen if
    necessary.  */
@@ -142,35 +138,21 @@ static char *tui_rl_saved_prompt;
 static void
 do_tui_putc (WINDOW *w, char c)
 {
-  static int tui_skip_line = -1;
+  /* Expand TABs, since ncurses on MS-Windows doesn't.  */
+  if (c == '\t')
+    {
+      int col;
 
-  /* Catch annotation and discard them.  We need two \032 and discard
-     until a \n is seen.  */
-  if (c == '\032')
-    {
-      tui_skip_line++;
-    }
-  else if (tui_skip_line != 1)
-    {
-      tui_skip_line = -1;
-      /* Expand TABs, since ncurses on MS-Windows doesn't.  */
-      if (c == '\t')
+      col = getcurx (w);
+      do
 	{
-	  int col;
-
-	  col = getcurx (w);
-	  do
-	    {
-	      waddch (w, ' ');
-	      col++;
-	    }
-	  while ((col % 8) != 0);
+	  waddch (w, ' ');
+	  col++;
 	}
-      else
-	waddch (w, c);
+      while ((col % 8) != 0);
     }
-  else if (c == '\n')
-    tui_skip_line = -1;
+  else
+    waddch (w, c);
 }
 
 /* Update the cached value of the command window's start line based on
@@ -538,7 +520,7 @@ tui_redisplay_readline (void)
   if (tui_current_key_mode == TUI_SINGLE_KEY_MODE)
     prompt = "";
   else
-    prompt = tui_rl_saved_prompt;
+    prompt = rl_display_prompt;
   
   c_pos = -1;
   c_line = -1;
@@ -606,11 +588,6 @@ tui_redisplay_readline (void)
 static void
 tui_prep_terminal (int notused1)
 {
-  /* Save the prompt registered in readline to correctly display it.
-     (we can't use gdb_prompt() due to secondary prompts and can't use
-     rl_prompt because it points to an alloca buffer).  */
-  xfree (tui_rl_saved_prompt);
-  tui_rl_saved_prompt = rl_prompt != NULL ? xstrdup (rl_prompt) : NULL;
 }
 
 /* Readline callback to restore the terminal.  It is called once each
@@ -769,6 +746,10 @@ tui_setup_io (int mode)
 
   if (mode)
     {
+      /* Ensure that readline has been initialized before saving any
+	 of its variables.  */
+      tui_ensure_readline_initialized ();
+
       /* Redirect readline to TUI.  */
       tui_old_rl_redisplay_function = rl_redisplay_function;
       tui_old_rl_deprep_terminal = rl_deprep_term_function;
@@ -959,10 +940,12 @@ tui_dispatch_ctrl_char (unsigned int ch)
   return 0;
 }
 
-/* Get a character from the command window.  This is called from the
-   readline package.  */
+/* Main worker for tui_getc.  Get a character from the command window.
+   This is called from the readline package, but wrapped in a
+   try/catch by tui_getc.  */
+
 static int
-tui_getc (FILE *fp)
+tui_getc_1 (FILE *fp)
 {
   int ch;
   WINDOW *w;
@@ -1045,54 +1028,25 @@ tui_getc (FILE *fp)
   return ch;
 }
 
-/* See tui-io.h.  */
+/* Get a character from the command window.  This is called from the
+   readline package.  */
 
-gdb::unique_xmalloc_ptr<char>
-tui_expand_tabs (const char *string)
+static int
+tui_getc (FILE *fp)
 {
-  int n_adjust, ncol;
-  const char *s;
-  char *ret, *q;
-
-  /* 1. How many additional characters do we need?  */
-  for (ncol = 0, n_adjust = 0, s = string; s; )
+  try
     {
-      s = strpbrk (s, "\t");
-      if (s)
-	{
-	  ncol += (s - string) + n_adjust;
-	  /* Adjustment for the next tab stop, minus one for the TAB
-	     we replace with spaces.  */
-	  n_adjust += 8 - (ncol % 8) - 1;
-	  s++;
-	}
+      return tui_getc_1 (fp);
     }
-
-  /* Allocate the copy.  */
-  ret = q = (char *) xmalloc (strlen (string) + n_adjust + 1);
-
-  /* 2. Copy the original string while replacing TABs with spaces.  */
-  for (ncol = 0, s = string; s; )
+  catch (const gdb_exception &ex)
     {
-      const char *s1 = strpbrk (s, "\t");
-      if (s1)
-	{
-	  if (s1 > s)
-	    {
-	      strncpy (q, s, s1 - s);
-	      q += s1 - s;
-	      ncol += s1 - s;
-	    }
-	  do {
-	    *q++ = ' ';
-	    ncol++;
-	  } while ((ncol % 8) != 0);
-	  s1++;
-	}
-      else
-	strcpy (q, s);
-      s = s1;
-    }
+      /* Just in case, don't ever let an exception escape to readline.
+	 This shouldn't ever happen, but if it does, print the
+	 exception instead of just crashing GDB.  */
+      exception_print (gdb_stderr, ex);
 
-  return gdb::unique_xmalloc_ptr<char> (ret);
+      /* If we threw an exception, it's because we recognized the
+	 character.  */
+      return 0;
+    }
 }

@@ -425,8 +425,9 @@ i386_gnu_dr_get_control (void)
 }
 #endif /* i386_DEBUG_STATE */
 
+void _initialize_i386gnu_nat ();
 void
-_initialize_i386gnu_nat (void)
+_initialize_i386gnu_nat ()
 {
 #ifdef i386_DEBUG_STATE
   x86_dr_low.set_control = i386_gnu_dr_set_control;
@@ -437,6 +438,8 @@ _initialize_i386gnu_nat (void)
   x86_dr_low.get_control = i386_gnu_dr_get_control;
   x86_set_debug_register_length (4);
 #endif /* i386_DEBUG_STATE */
+
+  gnu_target = &the_i386_gnu_nat_target;
 
   /* Register the target.  */
   add_inf_child_target (&the_i386_gnu_nat_target);

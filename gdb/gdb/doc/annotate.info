@@ -1,4 +1,4 @@
-This is annotate.info, produced by makeinfo version 6.5 from
+This is annotate.info, produced by makeinfo version 6.7 from
 annotate.texinfo.
 
 Copyright (C) 1994-2020 Free Software Foundation, Inc.
@@ -1191,3 +1191,8 @@ Node: Multi-threaded Apps22407
 Node: GNU Free Documentation License23267
 
 End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

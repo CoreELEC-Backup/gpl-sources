@@ -283,11 +283,12 @@ void g_warn_message           (const char     *domain,
                                const char     *func,
                                const char     *warnexpr) G_ANALYZER_NORETURN;
 GLIB_DEPRECATED
+G_NORETURN
 void g_assert_warning         (const char *log_domain,
 			       const char *file,
 			       const int   line,
 		               const char *pretty_function,
-		               const char *expression) G_GNUC_NORETURN;
+		               const char *expression);
 
 GLIB_AVAILABLE_IN_2_56
 void g_log_structured_standard (const gchar    *log_domain,
@@ -399,7 +400,7 @@ void g_log_structured_standard (const gchar    *log_domain,
                                        format)
 #endif
 #else   /* no varargs macros */
-static void g_error (const gchar *format, ...) G_GNUC_NORETURN G_ANALYZER_NORETURN;
+static G_NORETURN void g_error (const gchar *format, ...) G_ANALYZER_NORETURN;
 static void g_critical (const gchar *format, ...) G_ANALYZER_NORETURN;
 
 static inline void
@@ -478,7 +479,7 @@ g_debug (const gchar *format,
 #if defined(G_HAVE_ISO_VARARGS) && !G_ANALYZER_ANALYZING
 #define g_warning_once(...) \
   G_STMT_START { \
-    static volatile int G_PASTE (_GWarningOnceBoolean, __LINE__) = 0; \
+    static int G_PASTE (_GWarningOnceBoolean, __LINE__) = 0;  /* (atomic) */ \
     if (g_atomic_int_compare_and_exchange (&G_PASTE (_GWarningOnceBoolean, __LINE__), \
                                            0, 1)) \
       g_warning (__VA_ARGS__); \
@@ -487,7 +488,7 @@ g_debug (const gchar *format,
 #elif defined(G_HAVE_GNUC_VARARGS)  && !G_ANALYZER_ANALYZING
 #define g_warning_once(format...) \
   G_STMT_START { \
-    static volatile int G_PASTE (_GWarningOnceBoolean, __LINE__) = 0; \
+    static int G_PASTE (_GWarningOnceBoolean, __LINE__) = 0;  /* (atomic) */ \
     if (g_atomic_int_compare_and_exchange (&G_PASTE (_GWarningOnceBoolean, __LINE__), \
                                            0, 1)) \
       g_warning (format); \

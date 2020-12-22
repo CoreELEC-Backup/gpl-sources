@@ -150,7 +150,7 @@ const struct regset arm_fbsd_vfpregset =
     regcache_supply_regset, regcache_collect_regset
   };
 
-/* Implement the "regset_from_core_section" gdbarch method.  */
+/* Implement the "iterate_over_regset_sections" gdbarch method.  */
 
 static void
 arm_fbsd_iterate_over_regset_sections (struct gdbarch *gdbarch,
@@ -235,8 +235,9 @@ arm_fbsd_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
   set_gdbarch_software_single_step (gdbarch, arm_software_single_step);
 }
 
+void _initialize_arm_fbsd_tdep ();
 void
-_initialize_arm_fbsd_tdep (void)
+_initialize_arm_fbsd_tdep ()
 {
   gdbarch_register_osabi (bfd_arch_arm, 0, GDB_OSABI_FREEBSD,
 			  arm_fbsd_init_abi);

@@ -1,6 +1,6 @@
 ## Process this file with automake to generate Makefile.in
 #
-#   Copyright (C) 2012-2019 Free Software Foundation, Inc.
+#   Copyright (C) 2012-2020 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ ZLIBINC = @zlibinc@
 WARN_CFLAGS = @WARN_CFLAGS@
 NO_WERROR = @NO_WERROR@
 AM_CFLAGS = $(WARN_CFLAGS) $(ZLIBINC)
-AM_CPPFLAGS = -DBINDIR='"$(bindir)"' -DLIBDIR='"$(libdir)"'
+AM_CPPFLAGS = -DBINDIR='"$(bindir)"' -DLIBDIR='"$(libdir)"' @LARGEFILE_CPPFLAGS@
 if PLUGINS
 bfdinclude_HEADERS += $(INCDIR)/plugin-api.h
 LIBDL = @lt_cv_dlopen_libs@
@@ -144,7 +144,6 @@ ALL_MACHINES = \
 	cpu-or1k.lo \
 	cpu-pdp11.lo \
 	cpu-pj.lo \
-	cpu-plugin.lo \
 	cpu-powerpc.lo \
 	cpu-pru.lo \
 	cpu-rs6000.lo \
@@ -160,7 +159,6 @@ ALL_MACHINES = \
 	cpu-tic4x.lo \
 	cpu-tic54x.lo \
 	cpu-tic6x.lo \
-	cpu-tic80.lo \
 	cpu-tilegx.lo \
 	cpu-tilepro.lo \
 	cpu-v850.lo \
@@ -230,7 +228,6 @@ ALL_MACHINES_CFILES = \
 	cpu-or1k.c \
 	cpu-pdp11.c \
 	cpu-pj.c \
-	cpu-plugin.c \
 	cpu-powerpc.c \
 	cpu-pru.c \
 	cpu-rs6000.c \
@@ -246,7 +243,6 @@ ALL_MACHINES_CFILES = \
 	cpu-tic4x.c \
 	cpu-tic54x.c \
 	cpu-tic6x.c \
-	cpu-tic80.c \
 	cpu-tilegx.c \
 	cpu-tilepro.c \
 	cpu-v850.c \
@@ -266,7 +262,6 @@ ALL_MACHINES_CFILES = \
 BFD32_BACKENDS = \
 	aout-cris.lo \
 	aout-ns32k.lo \
-	aout-tic30.lo \
 	aout32.lo \
 	cf-i386lynx.lo \
 	coff-go32.lo \
@@ -278,7 +273,6 @@ BFD32_BACKENDS = \
 	coff-tic30.lo \
 	coff-tic4x.lo \
 	coff-tic54x.lo \
-	coff-tic80.lo \
 	coff-z80.lo \
 	coff-z8k.lo \
 	coffgen.lo \
@@ -357,6 +351,7 @@ BFD32_BACKENDS = \
 	elf32-xgate.lo \
 	elf32-xstormy16.lo \
 	elf32-xtensa.lo \
+	elf32-z80.lo \
 	elf32.lo \
 	elflink.lo \
 	elfxx-sparc.lo \
@@ -375,14 +370,12 @@ BFD32_BACKENDS = \
 	pe-arm.lo \
 	pe-i386.lo \
 	pe-mcore.lo \
-	pe-ppc.lo \
 	pe-sh.lo \
 	pef.lo \
 	pei-arm-wince.lo \
 	pei-arm.lo \
 	pei-i386.lo \
 	pei-mcore.lo \
-	pei-ppc.lo \
 	pei-sh.lo \
 	peigen.lo \
 	plugin.lo \
@@ -402,7 +395,6 @@ BFD32_BACKENDS = \
 BFD32_BACKENDS_CFILES = \
 	aout-cris.c \
 	aout-ns32k.c \
-	aout-tic30.c \
 	aout32.c \
 	cf-i386lynx.c \
 	coff-go32.c \
@@ -414,7 +406,6 @@ BFD32_BACKENDS_CFILES = \
 	coff-tic30.c \
 	coff-tic4x.c \
 	coff-tic54x.c \
-	coff-tic80.c \
 	coff-z80.c \
 	coff-z8k.c \
 	coffgen.c \
@@ -493,6 +484,7 @@ BFD32_BACKENDS_CFILES = \
 	elf32-xgate.c \
 	elf32-xstormy16.c \
 	elf32-xtensa.c \
+	elf32-z80.c \
 	elf32.c \
 	elflink.c \
 	elfxx-sparc.c \
@@ -511,14 +503,12 @@ BFD32_BACKENDS_CFILES = \
 	pe-arm.c \
 	pe-i386.c \
 	pe-mcore.c \
-	pe-ppc.c \
 	pe-sh.c \
 	pef.c \
 	pei-arm-wince.c \
 	pei-arm.c \
 	pei-i386.c \
 	pei-mcore.c \
-	pei-ppc.c \
 	pei-sh.c \
 	plugin.c \
 	ppcboot.c \
@@ -831,63 +821,46 @@ endif
 endif
 
 elf32-target.h : elfxx-target.h
-	rm -f elf32-target.h
-	$(SED) -e s/NN/32/g < $(srcdir)/elfxx-target.h > elf32-target.new
-	mv -f elf32-target.new elf32-target.h
+	$(SED) -e s/NN/32/g < $< > $@
 
 elf64-target.h : elfxx-target.h
-	rm -f elf64-target.h
-	$(SED) -e s/NN/64/g < $(srcdir)/elfxx-target.h > elf64-target.new
-	mv -f elf64-target.new elf64-target.h
+	$(SED) -e s/NN/64/g < $< > $@
 
 elf32-aarch64.c : elfnn-aarch64.c
-	rm -f elf32-aarch64.c
-	echo "#line 1 \"$(srcdir)/elfnn-aarch64.c\"" > elf32-aarch64.new
-	$(SED) -e s/NN/32/g < $(srcdir)/elfnn-aarch64.c >> elf32-aarch64.new
-	mv -f elf32-aarch64.new elf32-aarch64.c
+	echo "#line 1 \"elfnn-aarch64.c\"" > $@
+	$(SED) -e s/NN/32/g < $< >> $@
 
 elf64-aarch64.c : elfnn-aarch64.c
-	rm -f elf64-aarch64.c
-	echo "#line 1 \"$(srcdir)/elfnn-aarch64.c\"" > elf64-aarch64.new
-	$(SED) -e s/NN/64/g < $(srcdir)/elfnn-aarch64.c >> elf64-aarch64.new
-	mv -f elf64-aarch64.new elf64-aarch64.c
+	echo "#line 1 \"elfnn-aarch64.c\"" > $@
+	$(SED) -e s/NN/64/g < $< >> $@
 
 elf32-ia64.c : elfnn-ia64.c
-	rm -f elf32-ia64.c
-	$(SED) -e s/NN/32/g < $(srcdir)/elfnn-ia64.c > elf32-ia64.new
-	mv -f elf32-ia64.new elf32-ia64.c
+	echo "#line 1 \"elfnn-ia64.c\"" > $@
+	$(SED) -e s/NN/32/g < $< >> $@
 
 elf64-ia64.c : elfnn-ia64.c
-	rm -f elf64-ia64.c
-	$(SED) -e s/NN/64/g < $(srcdir)/elfnn-ia64.c > elf64-ia64.new
-	mv -f elf64-ia64.new elf64-ia64.c
+	echo "#line 1 \"elfnn-ia64.c\"" > $@
+	$(SED) -e s/NN/64/g < $< >> $@
 
 elf32-riscv.c : elfnn-riscv.c
-	rm -f elf32-riscv.c
-	echo "#line 1 \"$(srcdir)/elfnn-riscv.c\"" > elf32-riscv.new
-	sed -e s/NN/32/g < $(srcdir)/elfnn-riscv.c >> elf32-riscv.new
-	mv -f elf32-riscv.new elf32-riscv.c
+	echo "#line 1 \"elfnn-riscv.c\"" > $@
+	$(SED) -e s/NN/32/g < $< >> $@
 
 elf64-riscv.c : elfnn-riscv.c
-	rm -f elf64-riscv.c
-	echo "#line 1 \"$(srcdir)/elfnn-riscv.c\"" > elf64-riscv.new
-	sed -e s/NN/64/g < $(srcdir)/elfnn-riscv.c >> elf64-riscv.new
-	mv -f elf64-riscv.new elf64-riscv.c
+	echo "#line 1 \"elfnn-riscv.c\"" > $@
+	$(SED) -e s/NN/64/g < $< >> $@
 
 peigen.c : peXXigen.c
-	rm -f peigen.c
-	$(SED) -e s/XX/pe/g < $(srcdir)/peXXigen.c > peigen.new
-	mv -f peigen.new peigen.c
+	echo "#line 1 \"peXXigen.c\"" > $@
+	$(SED) -e s/XX/pe/g < $< >> $@
 
 pepigen.c : peXXigen.c
-	rm -f pepigen.c
-	$(SED) -e s/XX/pep/g < $(srcdir)/peXXigen.c > pepigen.new
-	mv -f pepigen.new pepigen.c
+	echo "#line 1 \"peXXigen.c\"" > $@
+	$(SED) -e s/XX/pep/g < $< >> $@
 
 pex64igen.c: peXXigen.c
-	rm -f pex64igen.c
-	$(SED) -e s/XX/pex64/g < $(srcdir)/peXXigen.c > pex64igen.new
-	mv -f pex64igen.new pex64igen.c
+	echo "#line 1 \"peXXigen.c\"" > $@
+	$(SED) -e s/XX/pex64/g < $< >> $@
 
 BFD_H_DEPS= $(INCDIR)/ansidecl.h $(INCDIR)/symcat.h $(INCDIR)/diagnostics.h
 LOCAL_H_DEPS= libbfd.h sysdep.h config.h bfd_stdint.h

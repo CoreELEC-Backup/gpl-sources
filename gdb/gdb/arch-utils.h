@@ -228,6 +228,10 @@ extern int default_insn_is_call (struct gdbarch *, CORE_ADDR);
 extern int default_insn_is_ret (struct gdbarch *, CORE_ADDR);
 extern int default_insn_is_jump (struct gdbarch *, CORE_ADDR);
 
+/* Default implementation of gdbarch_program_breakpoint_here_p.  */
+extern bool default_program_breakpoint_here_p (struct gdbarch *gdbarch,
+					       CORE_ADDR addr);
+
 /* Do-nothing version of vsyscall_range.  Returns false.  */
 
 extern int default_vsyscall_range (struct gdbarch *gdbarch, struct mem_range *range);
@@ -276,4 +280,16 @@ extern ULONGEST default_type_align (struct gdbarch *gdbarch,
 extern std::string default_get_pc_address_flags (frame_info *frame,
 						 CORE_ADDR pc);
 
+/* Default implementation of gdbarch read_core_file_mappings method.  */
+extern void default_read_core_file_mappings (struct gdbarch *gdbarch,
+					     struct bfd *cbfd,
+					     gdb::function_view<void (ULONGEST count)>
+					       pre_loop_cb,
+					     gdb::function_view<void (int num,
+								      ULONGEST start,
+								      ULONGEST end,
+								      ULONGEST file_ofs,
+								      const char *filename,
+								      const void *other)>
+					       loop_cb);
 #endif /* ARCH_UTILS_H */

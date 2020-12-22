@@ -690,7 +690,7 @@ m32r_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
   for (argnum = 0, stack_offset = 0; argnum < nargs; argnum++)
     {
       type = value_type (args[argnum]);
-      typecode = TYPE_CODE (type);
+      typecode = type->code ();
       len = TYPE_LENGTH (type);
 
       memset (valbuf, 0, sizeof (valbuf));
@@ -911,8 +911,9 @@ m32r_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
   return gdbarch;
 }
 
+void _initialize_m32r_tdep ();
 void
-_initialize_m32r_tdep (void)
+_initialize_m32r_tdep ()
 {
   register_gdbarch_init (bfd_arch_m32r, m32r_gdbarch_init);
 }

@@ -34,7 +34,7 @@
 #include "dis-asm.h"
 #include "user-regs.h"
 #include "elf-bfd.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "remote.h"
 #include "target-descriptions.h"
 
@@ -1402,13 +1402,13 @@ nds32_check_calling_use_fpr (struct type *type)
   while (1)
     {
       t = check_typedef (t);
-      typecode = TYPE_CODE (t);
+      typecode = t->code ();
       if (typecode != TYPE_CODE_STRUCT)
 	break;
-      else if (TYPE_NFIELDS (t) != 1)
+      else if (t->num_fields () != 1)
 	return 0;
       else
-	t = TYPE_FIELD_TYPE (t, 0);
+	t = t->field (0).type ();
     }
 
   return typecode == TYPE_CODE_FLT;
@@ -1496,7 +1496,7 @@ nds32_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
 	 and pushes all unnamed arguments in stack.  */
 
       if (abi_use_fpr && TYPE_VARARGS (func_type)
-	  && i >= TYPE_NFIELDS (func_type))
+	  && i >= func_type->num_fields ())
 	goto use_stack;
 
       /* Try to use FPRs to pass arguments only when
@@ -2096,8 +2096,9 @@ nds32_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
   return gdbarch;
 }
 
+void _initialize_nds32_tdep ();
 void
-_initialize_nds32_tdep (void)
+_initialize_nds32_tdep ()
 {
   /* Initialize gdbarch.  */
   register_gdbarch_init (bfd_arch_nds32, nds32_gdbarch_init);

@@ -30,13 +30,51 @@
 
 #include "gdb_curses.h"
 
+/* This is true if we're currently suppressing output, via
+   wnoutrefresh.  This is needed in case we create a new window while
+   in this mode.  */
+
+static bool suppress_output;
+
+/* See tui-data.h.  */
+
+tui_suppress_output::tui_suppress_output ()
+  : m_saved_suppress (suppress_output)
+{
+  suppress_output = true;
+
+  for (const auto &win : all_tui_windows ())
+    win->no_refresh ();
+}
+
+/* See tui-data.h.  */
+
+tui_suppress_output::~tui_suppress_output ()
+{
+  suppress_output = m_saved_suppress;
+  if (!suppress_output)
+    doupdate ();
+
+  for (const auto &win : all_tui_windows ())
+    win->refresh_window ();
+}
+
 /* See tui-data.h.  */
 
 void
-tui_gen_win_info::refresh_window ()
+tui_wrefresh (WINDOW *win)
+{
+  if (!suppress_output)
+    wrefresh (win);
+}
+
+/* See tui-data.h.  */
+
+void
+tui_win_info::refresh_window ()
 {
   if (handle != NULL)
-    wrefresh (handle.get ());
+    tui_wrefresh (handle.get ());
 }
 
 /* Draw a border arround the window.  */
@@ -55,9 +93,10 @@ box_win (struct tui_win_info *win_info,
 
   /* tui_apply_style resets the style entirely, so be sure to call it
      before applying ATTRS.  */
-  tui_apply_style (win, (highlight_flag
-			 ? tui_active_border_style.style ()
-			 : tui_border_style.style ()));
+  if (cli_styling)
+    tui_apply_style (win, (highlight_flag
+			   ? tui_active_border_style.style ()
+			   : tui_border_style.style ()));
   wattron (win, attrs);
 #ifdef HAVE_WBORDER
   wborder (win, tui_border_vline, tui_border_vline,
@@ -74,13 +113,13 @@ box_win (struct tui_win_info *win_info,
       int max_len = win_info->width - 2 - 2;
 
       if (win_info->title.size () <= max_len)
-	mvwaddstr (win, 0, 3, win_info->title.c_str ());
+	mvwaddstr (win, 0, 2, win_info->title.c_str ());
       else
 	{
 	  std::string truncated
 	    = "..." + win_info->title.substr (win_info->title.size ()
 					      - max_len + 3);
-	  mvwaddstr (win, 0, 3, truncated.c_str ());
+	  mvwaddstr (win, 0, 2, truncated.c_str ());
 	}
     }
   wattroff (win, attrs);
@@ -127,28 +166,25 @@ tui_win_info::check_and_display_highlight_if_needed ()
     }
 }
 
-
-void
-tui_gen_win_info::make_window ()
-{
-  handle.reset (newwin (height, width, origin.y, origin.x));
-  if (handle != NULL)
-    scrollok (handle.get (), TRUE);
-}
-
 void
 tui_win_info::make_window ()
 {
-  tui_gen_win_info::make_window ();
-  if (handle != NULL && can_box ())
-    box_win (this, false);
+  handle.reset (newwin (height, width, y, x));
+  if (handle != NULL)
+    {
+      if (suppress_output)
+	wnoutrefresh (handle.get ());
+      scrollok (handle.get (), TRUE);
+      if (can_box ())
+	box_win (this, false);
+    }
 }
 
 /* We can't really make windows visible, or invisible.  So we have to
    delete the entire window when making it visible, and create it
    again when making it visible.  */
 void
-tui_gen_win_info::make_visible (bool visible)
+tui_win_info::make_visible (bool visible)
 {
   if (is_visible () == visible)
     return;
@@ -157,15 +193,6 @@ tui_gen_win_info::make_visible (bool visible)
     make_window ();
   else
     handle.reset (nullptr);
-}
-
-/* See tui-wingeneral.h.  */
-
-void
-tui_make_all_invisible (void)
-{
-  for (tui_win_info *win_info : all_tui_windows ())
-    win_info->make_visible (false);
 }
 
 /* Function to refresh all the windows currently displayed.  */

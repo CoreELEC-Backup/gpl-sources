@@ -52,16 +52,6 @@
 
 static void maintenance_do_deprecate (const char *, int);
 
-/* Access the maintenance subcommands.  */
-
-static void
-maintenance_command (const char *args, int from_tty)
-{
-  printf_unfiltered (_("\"maintenance\" must be followed by "
-		       "the name of a maintenance command.\n"));
-  help_list (maintenancelist, "maintenance ", all_commands, gdb_stdout);
-}
-
 #ifndef _WIN32
 static void
 maintenance_dump_me (const char *args, int from_tty)
@@ -137,32 +127,6 @@ maintenance_space_display (const char *args, int from_tty)
     printf_unfiltered ("\"maintenance space\" takes a numeric argument.\n");
   else
     set_per_command_space (strtol (args, NULL, 10));
-}
-
-/* The "maintenance info" command is defined as a prefix, with
-   allow_unknown 0.  Therefore, its own definition is called only for
-   "maintenance info" with no args.  */
-
-static void
-maintenance_info_command (const char *arg, int from_tty)
-{
-  printf_unfiltered (_("\"maintenance info\" must be followed "
-		       "by the name of an info command.\n"));
-  help_list (maintenanceinfolist, "maintenance info ", all_commands,
-	     gdb_stdout);
-}
-
-/* The "maintenance check" command is defined as a prefix, with
-   allow_unknown 0.  Therefore, its own definition is called only for
-   "maintenance check" with no args.  */
-
-static void
-maintenance_check_command (const char *arg, int from_tty)
-{
-  printf_unfiltered (_("\"maintenance check\" must be followed "
-		       "by the name of a check command.\n"));
-  help_list (maintenancechecklist, "maintenance check ", all_commands,
-	     gdb_stdout);
 }
 
 /* Mini tokenizing lexer for 'maint info sections' command.  */
@@ -281,37 +245,16 @@ maint_print_section_info (const char *name, flagword flags,
   printf_filtered ("\n");
 }
 
-/* Information passed between the "maintenance info sections" command, and
-   the worker function that prints each section.  */
-struct maint_print_section_data
+/* Return the number of digits required to display COUNT in decimal.
+
+   Used when pretty printing index numbers to ensure all of the indexes line
+   up.*/
+
+static int
+index_digits (int count)
 {
-  /* The GDB objfile we're printing this section for.  */
-  struct objfile *objfile;
-
-  /* The argument string passed by the user to the top level maintenance
-     info sections command.  Used for filtering which sections are
-     printed.  */
-  const char *arg;
-
-  /* The number of digits in the highest section index for all sections
-     from the bfd object associated with OBJFILE.  Used when pretty
-     printing the index number to ensure all of the indexes line up.  */
-  int index_digits;
-
-  /* Constructor.  */
-  maint_print_section_data (struct objfile *objfile, const char *arg,
-			    bfd *abfd)
-    : objfile (objfile),
-      arg(arg)
-  {
-    int section_count = gdb_bfd_count_sections (abfd);
-    index_digits = ((int) log10 ((float) section_count)) + 1;
-  }
-
-private:
-  maint_print_section_data () = delete;
-  maint_print_section_data (const maint_print_section_data &) = delete;
-};
+  return ((int) log10 ((float) count)) + 1;
+}
 
 /* Helper function to pretty-print the section index of ASECT from ABFD.
    The INDEX_DIGITS is the number of digits in the largest index that will
@@ -328,21 +271,20 @@ print_section_index (bfd *abfd,
   printf_filtered ("%-*s", (index_digits + 4), result.c_str ());
 }
 
-/* Print information about ASECT from ABFD.  DATUM holds a pointer to a
-   maint_print_section_data object.  The section will be printed using the
-   VMA's from the bfd, which will not be the relocated addresses for bfds
-   that should be relocated.  The information must be printed with the
-   same layout as PRINT_OBJFILE_SECTION_INFO below.  */
+/* Print information about ASECT from ABFD.  The section will be printed using
+   the VMA's from the bfd, which will not be the relocated addresses for bfds
+   that should be relocated.  The information must be printed with the same
+   layout as PRINT_OBJFILE_SECTION_INFO below.
+
+   ARG is the argument string passed by the user to the top level maintenance
+   info sections command.  Used for filtering which sections are printed.  */
 
 static void
-print_bfd_section_info (bfd *abfd,
-			asection *asect,
-			void *datum)
+print_bfd_section_info (bfd *abfd, asection *asect, const char *arg,
+			int index_digits)
 {
   flagword flags = bfd_section_flags (asect);
   const char *name = bfd_section_name (asect);
-  maint_print_section_data *print_data = (maint_print_section_data *) datum;
-  const char *arg = print_data->arg;
 
   if (arg == NULL || *arg == '\0'
       || match_substring (arg, name)
@@ -354,7 +296,7 @@ print_bfd_section_info (bfd *abfd,
 
       addr = bfd_section_vma (asect);
       endaddr = addr + bfd_section_size (asect);
-      print_section_index (abfd, asect, print_data->index_digits);
+      print_section_index (abfd, asect, index_digits);
       maint_print_section_info (name, flags, addr, endaddr,
 				asect->filepos, addr_size);
     }
@@ -363,26 +305,26 @@ print_bfd_section_info (bfd *abfd,
 /* Print information about ASECT which is GDB's wrapper around a section
    from ABFD.  The information must be printed with the same layout as
    PRINT_BFD_SECTION_INFO above.  PRINT_DATA holds information used to
-   filter which sections are printed, and for formatting the output.  */
+   filter which sections are printed, and for formatting the output.
+
+   ARG is the argument string passed by the user to the top level maintenance
+   info sections command.  Used for filtering which sections are printed.  */
 
 static void
-print_objfile_section_info (bfd *abfd,
-			    struct obj_section *asect,
-			    maint_print_section_data *print_data)
+print_objfile_section_info (bfd *abfd, struct obj_section *asect,
+			    const char *arg, int index_digits)
 {
   flagword flags = bfd_section_flags (asect->the_bfd_section);
   const char *name = bfd_section_name (asect->the_bfd_section);
-  const char *string = print_data->arg;
 
-  if (string == NULL || *string == '\0'
-      || match_substring (string, name)
-      || match_bfd_flags (string, flags))
+  if (arg == NULL || *arg == '\0'
+      || match_substring (arg, name)
+      || match_bfd_flags (arg, flags))
     {
       struct gdbarch *gdbarch = gdbarch_from_bfd (abfd);
       int addr_size = gdbarch_addr_bit (gdbarch) / 8;
 
-      print_section_index (abfd, asect->the_bfd_section,
-			   print_data->index_digits);
+      print_section_index (abfd, asect->the_bfd_section, index_digits);
       maint_print_section_info (name, flags,
 				obj_section_addr (asect),
 				obj_section_endaddr (asect),
@@ -412,26 +354,25 @@ maint_obj_section_from_bfd_section (bfd *abfd,
   return osect;
 }
 
-/* Print information about ASECT from ABFD.  DATUM holds a pointer to a
-   maint_print_section_data object.  Where possible the information for
-   ASECT will print the relocated addresses of the section.  */
+/* Print information about ASECT from ABFD.  Where possible the information for
+   ASECT will print the relocated addresses of the section.
+
+   ARG is the argument string passed by the user to the top level maintenance
+   info sections command.  Used for filtering which sections are printed.  */
 
 static void
-print_bfd_section_info_maybe_relocated (bfd *abfd,
-					asection *asect,
-					void *datum)
+print_bfd_section_info_maybe_relocated (bfd *abfd, asection *asect,
+					objfile *objfile, const char *arg,
+					int index_digits)
 {
-  maint_print_section_data *print_data = (maint_print_section_data *) datum;
-  objfile *objfile = print_data->objfile;
-
   gdb_assert (objfile->sections != NULL);
   obj_section *osect
     = maint_obj_section_from_bfd_section (abfd, asect, objfile);
 
   if (osect->the_bfd_section == NULL)
-    print_bfd_section_info (abfd, asect, datum);
+    print_bfd_section_info (abfd, asect, arg, index_digits);
   else
-    print_objfile_section_info (abfd, osect, print_data);
+    print_objfile_section_info (abfd, osect, arg, index_digits);
 }
 
 /* Implement the "maintenance info sections" command.  */
@@ -466,24 +407,26 @@ maintenance_info_sections (const char *arg, int from_tty)
 	  else if (ofile->obfd != exec_bfd)
 	    continue;
 
-	  maint_print_section_data print_data (ofile, arg, ofile->obfd);
+	  int section_count = gdb_bfd_count_sections (ofile->obfd);
 
-	  bfd_map_over_sections (ofile->obfd,
-				 print_bfd_section_info_maybe_relocated,
-				 (void *) &print_data);
+	  for (asection *sect : gdb_bfd_sections (ofile->obfd))
+	    print_bfd_section_info_maybe_relocated
+	      (ofile->obfd, sect, ofile, arg, index_digits (section_count));
 	}
     }
 
   if (core_bfd)
     {
-      maint_print_section_data print_data (nullptr, arg, core_bfd);
-
       printf_filtered (_("Core file:\n"));
       printf_filtered ("    `%s', ", bfd_get_filename (core_bfd));
       wrap_here ("        ");
       printf_filtered (_("file type %s.\n"), bfd_get_target (core_bfd));
-      bfd_map_over_sections (core_bfd, print_bfd_section_info,
-			     (void *) &print_data);
+
+      int section_count = gdb_bfd_count_sections (core_bfd);
+
+      for (asection *sect : gdb_bfd_sections (core_bfd))
+	print_bfd_section_info (core_bfd, sect, arg,
+				index_digits (section_count));
     }
 }
 
@@ -509,19 +452,6 @@ maintenance_print_architecture (const char *args, int from_tty)
 	perror_with_name (_("maintenance print architecture"));
       gdbarch_dump (gdbarch, &file);
     }
-}
-
-/* The "maintenance print" command is defined as a prefix, with
-   allow_unknown 0.  Therefore, its own definition is called only for
-   "maintenance print" with no args.  */
-
-static void
-maintenance_print_command (const char *arg, int from_tty)
-{
-  printf_unfiltered (_("\"maintenance print\" must be followed "
-		       "by the name of a print command.\n"));
-  help_list (maintenanceprintlist, "maintenance print ", all_commands,
-	     gdb_stdout);
 }
 
 /* The "maintenance translate-address" command converts a section and address
@@ -589,7 +519,7 @@ maintenance_translate_address (const char *arg, int from_tty)
 	  gdb_assert (sect->objfile && objfile_name (sect->objfile));
 	  obj_name = objfile_name (sect->objfile);
 
-	  if (MULTI_OBJFILE_P ())
+	  if (current_program_space->multi_objfile_p ())
 	    printf_filtered (_("%s + %s in section %s of %s\n"),
 			     symbol_name, symbol_offset,
 			     section_name, obj_name);
@@ -739,21 +669,6 @@ maintenance_do_deprecate (const char *text, int deprecate)
 struct cmd_list_element *maintenance_set_cmdlist;
 struct cmd_list_element *maintenance_show_cmdlist;
 
-static void
-maintenance_set_cmd (const char *args, int from_tty)
-{
-  printf_unfiltered (_("\"maintenance set\" must be followed "
-		       "by the name of a set command.\n"));
-  help_list (maintenance_set_cmdlist, "maintenance set ", all_commands,
-	     gdb_stdout);
-}
-
-static void
-maintenance_show_cmd (const char *args, int from_tty)
-{
-  cmd_show_list (maintenance_show_cmdlist, from_tty, "");
-}
-
 /* "maintenance with" command.  */
 
 static void
@@ -845,12 +760,7 @@ maintenance_set_profile_cmd (const char *args, int from_tty,
 }
 #endif
 
-static int n_worker_threads = 0;
-
-bool worker_threads_disabled ()
-{
-  return n_worker_threads == 0;
-}
+static int n_worker_threads = -1;
 
 /* Update the thread pool for the desired number of threads.  */
 static void
@@ -1102,14 +1012,6 @@ set_per_command_cmd (const char *args, int from_tty)
       }
 }
 
-/* Command "show per-command" displays summary of all the current
-   "show per-command " settings.  */
-
-static void
-show_per_command_cmd (const char *args, int from_tty)
-{
-  cmd_show_list (per_command_showlist, from_tty, "");
-}
 
 
 /* The "maintenance selftest" command.  */
@@ -1118,7 +1020,8 @@ static void
 maintenance_selftest (const char *args, int from_tty)
 {
 #if GDB_SELF_TEST
-  selftests::run_tests (args);
+  gdb_argv argv (args);
+  selftests::run_tests (argv.as_array_view ());
 #else
   printf_filtered (_("\
 Selftests have been disabled for this build.\n"));
@@ -1140,24 +1043,25 @@ Selftests have been disabled for this build.\n"));
 }
 
 
+void _initialize_maint_cmds ();
 void
-_initialize_maint_cmds (void)
+_initialize_maint_cmds ()
 {
   struct cmd_list_element *cmd;
 
-  add_prefix_cmd ("maintenance", class_maintenance, maintenance_command, _("\
+  add_basic_prefix_cmd ("maintenance", class_maintenance, _("\
 Commands for use by GDB maintainers.\n\
 Includes commands to dump specific internal GDB structures in\n\
 a human readable form, to cause GDB to deliberately dump core, etc."),
-		  &maintenancelist, "maintenance ", 0,
-		  &cmdlist);
+			&maintenancelist, "maintenance ", 0,
+			&cmdlist);
 
   add_com_alias ("mt", "maintenance", class_maintenance, 1);
 
-  add_prefix_cmd ("info", class_maintenance, maintenance_info_command, _("\
+  add_basic_prefix_cmd ("info", class_maintenance, _("\
 Commands for showing internal info about the program being debugged."),
-		  &maintenanceinfolist, "maintenance info ", 0,
-		  &maintenancelist);
+			&maintenanceinfolist, "maintenance info ", 0,
+			&maintenancelist);
   add_alias_cmd ("i", "info", class_maintenance, 1, &maintenancelist);
 
   add_cmd ("sections", class_maintenance, maintenance_info_sections, _("\
@@ -1172,24 +1076,24 @@ implies all sections).  In addition, the special argument\n\
 lists all sections from all object files, including shared libraries."),
 	   &maintenanceinfolist);
 
-  add_prefix_cmd ("print", class_maintenance, maintenance_print_command,
-		  _("Maintenance command for printing GDB internal state."),
-		  &maintenanceprintlist, "maintenance print ", 0,
-		  &maintenancelist);
+  add_basic_prefix_cmd ("print", class_maintenance,
+			_("Maintenance command for printing GDB internal state."),
+			&maintenanceprintlist, "maintenance print ", 0,
+			&maintenancelist);
 
-  add_prefix_cmd ("set", class_maintenance, maintenance_set_cmd, _("\
+  add_basic_prefix_cmd ("set", class_maintenance, _("\
 Set GDB internal variables used by the GDB maintainer.\n\
 Configure variables internal to GDB that aid in GDB's maintenance"),
-		  &maintenance_set_cmdlist, "maintenance set ",
-		  0/*allow-unknown*/,
-		  &maintenancelist);
+			&maintenance_set_cmdlist, "maintenance set ",
+			0/*allow-unknown*/,
+			&maintenancelist);
 
-  add_prefix_cmd ("show", class_maintenance, maintenance_show_cmd, _("\
+  add_show_prefix_cmd ("show", class_maintenance, _("\
 Show GDB internal variables used by the GDB maintainer.\n\
 Configure variables internal to GDB that aid in GDB's maintenance"),
-		  &maintenance_show_cmdlist, "maintenance show ",
-		  0/*allow-unknown*/,
-		  &maintenancelist);
+		       &maintenance_show_cmdlist, "maintenance show ",
+		       0/*allow-unknown*/,
+		       &maintenancelist);
 
   cmd = add_cmd ("with", class_maintenance, maintenance_with_cmd, _("\
 Like \"with\", but works with \"maintenance set\" variables.\n\
@@ -1236,10 +1140,10 @@ Per-command statistics settings."),
 		    &per_command_setlist, "maintenance set per-command ",
 		    1/*allow-unknown*/, &maintenance_set_cmdlist);
 
-  add_prefix_cmd ("per-command", class_maintenance, show_per_command_cmd, _("\
+  add_show_prefix_cmd ("per-command", class_maintenance, _("\
 Show per-command statistics settings."),
-		    &per_command_showlist, "maintenance show per-command ",
-		    0/*allow-unknown*/, &maintenance_show_cmdlist);
+		       &per_command_showlist, "maintenance show per-command ",
+		       0/*allow-unknown*/, &maintenance_show_cmdlist);
 
   add_setshow_boolean_cmd ("time", class_maintenance,
 			   &per_command_time, _("\
@@ -1303,10 +1207,10 @@ Print the internal architecture configuration.\n\
 Takes an optional file parameter."),
 	   &maintenanceprintlist);
 
-  add_prefix_cmd ("check", class_maintenance, maintenance_check_command, _("\
+  add_basic_prefix_cmd ("check", class_maintenance, _("\
 Commands for checking internal gdb state."),
-		  &maintenancechecklist, "maintenance check ", 0,
-		  &maintenancelist);
+			&maintenancechecklist, "maintenance check ", 0,
+			&maintenancelist);
 
   add_cmd ("translate-address", class_maintenance,
 	   maintenance_translate_address,

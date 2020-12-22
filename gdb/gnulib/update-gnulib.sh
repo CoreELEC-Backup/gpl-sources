@@ -32,12 +32,14 @@
 IMPORTED_GNULIB_MODULES="\
     alloca \
     canonicalize-lgpl \
+    count-one-bits \
     dirent \
     dirfd \
     errno \
     fnmatch-gnu \
     frexpl \
     getcwd \
+    gettimeofday \
     glob \
     inet_ntop
     inttypes \
@@ -68,7 +70,7 @@ IMPORTED_GNULIB_MODULES="\
 "
 
 # The gnulib commit ID to use for the update.
-GNULIB_COMMIT_SHA1="38237baf99386101934cd93278023aa4ae523ec0"
+GNULIB_COMMIT_SHA1="4e3f2d4cfdba14e1d89479362061a9280f2f22b6"
 
 # The expected version number for the various auto tools we will
 # use after the import.
@@ -164,16 +166,20 @@ fi
 # Apply our local patches.
 apply_patches ()
 {
-    patch -p3 -f -i "$1"
+    patch -p2 -f -i "$1"
     if [ $? -ne 0 ]; then
         echo "Failed to apply some patches.  Aborting."
         exit 1
     fi
 }
 
-apply_patches "patches/0001-Fix-PR-gdb-23558-Use-system-s-getcwd-when-cross-comp.patch"
-apply_patches "patches/0002-mkostemp-mkostemps-Fix-compilation-error-in-C-mode-o.patch"
-apply_patches "patches/0003-Fix-glob-c-Coverity-issues.patch"
+apply_patches "patches/0001-use-windows-stat"
+# The following two patches are specific imports of two commits
+# already in gnulib's master. We import those patches individually
+# because we want to avoid doing a standard gnulib update, which
+# would be too disruptive for a release branch.
+apply_patches "patches/0002-stat-fstat-windows-older-vista"
+apply_patches "patches/0003-stat-fstat-windows-old-mingw"
 
 # Regenerate all necessary files...
 aclocal &&

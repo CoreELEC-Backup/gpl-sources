@@ -15,6 +15,8 @@
 
 load_lib "ada.exp"
 
+if { [skip_ada_tests] } { return -1 }
+
 standard_ada_testfile foo
 
 if {[gdb_compile_ada "${srcfile}" "${binfile}" executable [list debug]] != "" } {
@@ -64,7 +66,7 @@ gdb_test "print my_object" \
 
 gdb_test "print my_object.ptr" \
          "\\(foo.table_access\\) $hex" \
-         "print My_P_Object.Ptr when no longer null"
+         "print my_object.ptr when no longer null"
 
 gdb_test "print my_object.ptr.all" \
          "= \\(13, 21, 34\\)"

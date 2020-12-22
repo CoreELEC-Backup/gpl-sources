@@ -28,13 +28,33 @@ struct frame_info;
 
 /* Locator window class.  */
 
-struct tui_locator_window : public tui_gen_win_info
+struct tui_locator_window : public tui_win_info
 {
-  tui_locator_window ()
-    : tui_gen_win_info (LOCATOR_WIN)
+  tui_locator_window () = default;
+
+  const char *name () const override
   {
-    full_name[0] = 0;
-    proc_name[0] = 0;
+    return STATUS_NAME;
+  }
+
+  int max_height () const override
+  {
+    return 1;
+  }
+
+  int min_height () const override
+  {
+    return 1;
+  }
+
+  bool can_box () const override
+  {
+    return false;
+  }
+
+  bool can_focus () const override
+  {
+    return false;
   }
 
   void rerender () override;
@@ -44,9 +64,8 @@ struct tui_locator_window : public tui_gen_win_info
      Returns true if any of the locator's fields were actually
      changed, and false otherwise.  */
   bool set_locator_info (struct gdbarch *gdbarch,
-			 const char *fullname,
-			 const char *procname,
-			 int lineno, CORE_ADDR addr);
+			 const struct symtab_and_line &sal,
+			 const char *procname);
 
   /* Set the full_name portion of the locator.  */
   void set_locator_fullname (const char *fullname);
@@ -58,6 +77,16 @@ struct tui_locator_window : public tui_gen_win_info
   /* Architecture associated with code at this location.  */
   struct gdbarch *gdbarch = nullptr;
 
+protected:
+
+  void do_scroll_vertical (int n) override
+  {
+  }
+
+  void do_scroll_horizontal (int n) override
+  {
+  }
+
 private:
 
   /* Create the status line to display as much information as we can
@@ -67,8 +96,8 @@ private:
   std::string make_status_line () const;
 };
 
-extern void tui_update_locator_fullname (const char *);
+extern void tui_update_locator_fullname (struct symtab *symtab);
 extern void tui_show_locator_content (void);
-extern int tui_show_frame_info (struct frame_info *);
+extern bool tui_show_frame_info (struct frame_info *);
 
 #endif /* TUI_TUI_STACK_H */

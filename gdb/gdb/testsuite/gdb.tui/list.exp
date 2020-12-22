@@ -15,7 +15,7 @@
 
 # Ensure that "list" will switch to the source view.
 
-load_lib "tuiterm.exp"
+tuiterm_env
 
 standard_testfile tui-layout.c
 
@@ -26,12 +26,17 @@ if {[build_executable "failed to prepare" ${testfile} ${srcfile}] == -1} {
 Term::clean_restart 24 80 $testfile
 if {![Term::enter_tui]} {
     unsupported "TUI not supported"
+    return
 }
 
-Term::check_contents "initial source listing" "No Source Available"
+Term::check_contents "initial source listing" "21 *return 0"
 
 Term::command "layout asm"
 Term::check_contents "asm window shows main" "$hex <main>"
 
 Term::command "list main"
 Term::check_contents "list main" "21 *return 0"
+# The following 'focus next' must be immediately after 'list main' to
+# ensure that GDB has a valid idea of what is currently focused.
+Term::command "focus next"
+Term::check_contents "focus next" "Focus set to cmd window"

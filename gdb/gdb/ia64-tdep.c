@@ -330,7 +330,7 @@ ia64_register_reggroup_p (struct gdbarch *gdbarch, int regnum,
   if (group == all_reggroup)
     return 1;
   vector_p = TYPE_VECTOR (register_type (gdbarch, regnum));
-  float_p = TYPE_CODE (register_type (gdbarch, regnum)) == TYPE_CODE_FLT;
+  float_p = register_type (gdbarch, regnum)->code () == TYPE_CODE_FLT;
   raw_p = regnum < NUM_IA64_RAW_REGS;
   if (group == float_reggroup)
     return float_p;
@@ -1212,7 +1212,7 @@ static int
 ia64_convert_register_p (struct gdbarch *gdbarch, int regno, struct type *type)
 {
   return (regno >= IA64_FR0_REGNUM && regno <= IA64_FR127_REGNUM
-	  && TYPE_CODE (type) == TYPE_CODE_FLT
+	  && type->code () == TYPE_CODE_FLT
 	  && type != ia64_ext_type (gdbarch));
 }
 
@@ -2713,7 +2713,7 @@ ia64_find_unwind_table (struct objfile *objfile, unw_word_t ip,
   ehdr = elf_tdata (bfd)->elf_header;
   phdr = elf_tdata (bfd)->phdr;
 
-  load_base = ANOFFSET (objfile->section_offsets, SECT_OFF_TEXT (objfile));
+  load_base = objfile->text_section_offset ();
 
   for (i = 0; i < ehdr->e_phnum; ++i)
     {
@@ -2764,7 +2764,7 @@ ia64_find_unwind_table (struct objfile *objfile, unw_word_t ip,
 
   dip->start_ip = p_text->p_vaddr + load_base;
   dip->end_ip = dip->start_ip + p_text->p_memsz;
-  dip->gp = ia64_find_global_pointer (get_objfile_arch (objfile), ip);
+  dip->gp = ia64_find_global_pointer (objfile->arch (), ip);
   dip->format = UNW_INFO_FORMAT_REMOTE_TABLE;
   dip->u.rti.name_ptr = (unw_word_t) bfd_get_filename (bfd);
   dip->u.rti.segbase = segbase;
@@ -3149,9 +3149,9 @@ ia64_use_struct_convention (struct type *type)
 
   /* Don't use the struct convention for anything but structure,
      union, or array types.  */
-  if (!(TYPE_CODE (type) == TYPE_CODE_STRUCT
-	|| TYPE_CODE (type) == TYPE_CODE_UNION
-	|| TYPE_CODE (type) == TYPE_CODE_ARRAY))
+  if (!(type->code () == TYPE_CODE_STRUCT
+	|| type->code () == TYPE_CODE_UNION
+	|| type->code () == TYPE_CODE_ARRAY))
     return 0;
 
   /* HFAs are structures (or arrays) consisting entirely of floating
@@ -3173,8 +3173,8 @@ ia64_use_struct_convention (struct type *type)
 static int
 ia64_struct_type_p (const struct type *type)
 {
-  return (TYPE_CODE (type) == TYPE_CODE_STRUCT
-          || TYPE_CODE (type) == TYPE_CODE_UNION);
+  return (type->code () == TYPE_CODE_STRUCT
+          || type->code () == TYPE_CODE_UNION);
 }
 
 static void
@@ -3320,7 +3320,7 @@ ia64_return_value (struct gdbarch *gdbarch, struct value *function,
 static int
 is_float_or_hfa_type_recurse (struct type *t, struct type **etp)
 {
-  switch (TYPE_CODE (t))
+  switch (t->code ())
     {
     case TYPE_CODE_FLT:
       if (*etp)
@@ -3340,9 +3340,9 @@ is_float_or_hfa_type_recurse (struct type *t, struct type **etp)
       {
 	int i;
 
-	for (i = 0; i < TYPE_NFIELDS (t); i++)
+	for (i = 0; i < t->num_fields (); i++)
 	  if (!is_float_or_hfa_type_recurse
-	      (check_typedef (TYPE_FIELD_TYPE (t, i)), etp))
+	      (check_typedef (t->field (i).type ()), etp))
 	    return 0;
 	return 1;
       }
@@ -3374,7 +3374,7 @@ is_float_or_hfa_type (struct type *t)
 static int
 slot_alignment_is_next_even (struct type *t)
 {
-  switch (TYPE_CODE (t))
+  switch (t->code ())
     {
     case TYPE_CODE_INT:
     case TYPE_CODE_FLT:
@@ -3389,9 +3389,9 @@ slot_alignment_is_next_even (struct type *t)
       {
 	int i;
 
-	for (i = 0; i < TYPE_NFIELDS (t); i++)
+	for (i = 0; i < t->num_fields (); i++)
 	  if (slot_alignment_is_next_even
-	      (check_typedef (TYPE_FIELD_TYPE (t, i))))
+	      (check_typedef (t->field (i).type ())))
 	    return 1;
 	return 0;
       }
@@ -3699,7 +3699,7 @@ ia64_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
       if ((nslots & 1) && slot_alignment_is_next_even (type))
 	nslots++;
 
-      if (TYPE_CODE (type) == TYPE_CODE_FUNC)
+      if (type->code () == TYPE_CODE_FUNC)
 	nfuncargs++;
 
       nslots += (len + 7) / 8;
@@ -3740,9 +3740,9 @@ ia64_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
       len = TYPE_LENGTH (type);
 
       /* Special handling for function parameters.  */
-      if (len == 8 
-          && TYPE_CODE (type) == TYPE_CODE_PTR 
-	  && TYPE_CODE (TYPE_TARGET_TYPE (type)) == TYPE_CODE_FUNC)
+      if (len == 8
+          && type->code () == TYPE_CODE_PTR
+          && TYPE_TARGET_TYPE (type)->code () == TYPE_CODE_FUNC)
 	{
 	  gdb_byte val_buf[8];
 	  ULONGEST faddr = extract_unsigned_integer (value_contents (arg),
@@ -4012,8 +4012,9 @@ ia64_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
   return gdbarch;
 }
 
+void _initialize_ia64_tdep ();
 void
-_initialize_ia64_tdep (void)
+_initialize_ia64_tdep ()
 {
   gdbarch_register (bfd_arch_ia64, ia64_gdbarch_init, NULL);
 }

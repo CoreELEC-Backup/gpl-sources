@@ -29,7 +29,7 @@
 #include "value.h"
 #include "exceptions.h"
 #include "gdbtypes.h"
-#include "dwarf2loc.h"
+#include "dwarf2/loc.h"
 
 
 
@@ -99,7 +99,7 @@ convert_one_symbol (compile_c_instance *context,
 	  break;
 
 	case LOC_CONST:
-	  if (TYPE_CODE (SYMBOL_TYPE (sym.symbol)) == TYPE_CODE_ENUM)
+	  if (SYMBOL_TYPE (sym.symbol)->code () == TYPE_CODE_ENUM)
 	    {
 	      /* Already handled by convert_enum.  */
 	      return;
@@ -497,14 +497,14 @@ generate_vla_size (compile_instance *compiler,
   if (TYPE_IS_REFERENCE (type))
     type = check_typedef (TYPE_TARGET_TYPE (type));
 
-  switch (TYPE_CODE (type))
+  switch (type->code ())
     {
     case TYPE_CODE_RANGE:
       {
-	if (TYPE_HIGH_BOUND_KIND (type) == PROP_LOCEXPR
-	    || TYPE_HIGH_BOUND_KIND (type) == PROP_LOCLIST)
+	if (type->bounds ()->high.kind () == PROP_LOCEXPR
+	    || type->bounds ()->high.kind () == PROP_LOCLIST)
 	  {
-	    const struct dynamic_prop *prop = &TYPE_RANGE_DATA (type)->high;
+	    const struct dynamic_prop *prop = &type->bounds ()->high;
 	    std::string name = c_get_range_decl_name (prop);
 
 	    dwarf2_compile_property_to_c (stream, name.c_str (),
@@ -516,7 +516,7 @@ generate_vla_size (compile_instance *compiler,
 
     case TYPE_CODE_ARRAY:
       generate_vla_size (compiler, stream, gdbarch, registers_used, pc,
-			 TYPE_INDEX_TYPE (type), sym);
+			 type->index_type (), sym);
       generate_vla_size (compiler, stream, gdbarch, registers_used, pc,
 			 TYPE_TARGET_TYPE (type), sym);
       break;
@@ -526,10 +526,10 @@ generate_vla_size (compile_instance *compiler,
       {
 	int i;
 
-	for (i = 0; i < TYPE_NFIELDS (type); ++i)
-	  if (!field_is_static (&TYPE_FIELD (type, i)))
+	for (i = 0; i < type->num_fields (); ++i)
+	  if (!field_is_static (&type->field (i)))
 	    generate_vla_size (compiler, stream, gdbarch, registers_used, pc,
-			       TYPE_FIELD_TYPE (type, i), sym);
+			       type->field (i).type (), sym);
       }
       break;
     }

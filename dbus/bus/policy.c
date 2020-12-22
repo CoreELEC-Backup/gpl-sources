@@ -1018,7 +1018,7 @@ bus_client_policy_check_can_send (BusClientPolicy *policy,
             }
         }
 
-      if (rule->d.send.destination != NULL)
+      if (rule->d.send.destination != NULL && !rule->d.send.destination_is_prefix)
         {
           /* receiver can be NULL for messages that are sent to the
            * message bus itself, we check the strings in that case as
@@ -1044,9 +1044,9 @@ bus_client_policy_check_can_send (BusClientPolicy *policy,
             {
               DBusString str;
               BusService *service;
-              
+
               _dbus_string_init_const (&str, rule->d.send.destination);
-              
+
               service = bus_registry_lookup (registry, &str);
               if (service == NULL)
                 {
@@ -1055,9 +1055,46 @@ bus_client_policy_check_can_send (BusClientPolicy *policy,
                   continue;
                 }
 
-              if (!bus_service_has_owner (service, receiver))
+              if (!bus_service_owner_in_queue (service, receiver))
                 {
-                  _dbus_verbose ("  (policy) skipping rule because dest %s isn't owned by receiver\n",
+                  _dbus_verbose ("  (policy) skipping rule because receiver isn't primary or queued owner of name %s\n",
+                                 rule->d.send.destination);
+                  continue;
+                }
+            }
+        }
+
+      if (rule->d.send.destination != NULL && rule->d.send.destination_is_prefix)
+        {
+          /* receiver can be NULL - the same as in !send.destination_is_prefix */
+          if (receiver == NULL)
+            {
+              const char *destination = dbus_message_get_destination (message);
+              DBusString dest_name;
+
+              if (destination == NULL)
+                {
+                  _dbus_verbose ("  (policy) skipping rule because message has no dest\n");
+                  continue;
+                }
+
+              _dbus_string_init_const (&dest_name, destination);
+
+              if (!_dbus_string_starts_with_words_c_str (&dest_name,
+                                                         rule->d.send.destination,
+                                                         '.'))
+                {
+                  _dbus_verbose ("  (policy) skipping rule because message dest doesn't have prefix %s\n",
+                                 rule->d.send.destination);
+                  continue;
+                }
+            }
+          else
+            {
+              if (!bus_connection_is_queued_owner_by_prefix (receiver,
+                                                             rule->d.send.destination))
+                {
+                  _dbus_verbose ("  (policy) skipping rule because recipient isn't primary or queued owner of any name below %s\n",
                                  rule->d.send.destination);
                   continue;
                 }
@@ -1270,9 +1307,9 @@ bus_client_policy_check_can_receive (BusClientPolicy *policy,
                   continue;
                 }
 
-              if (!bus_service_has_owner (service, sender))
+              if (!bus_service_owner_in_queue (service, sender))
                 {
-                  _dbus_verbose ("  (policy) skipping rule because origin %s isn't owned by sender\n",
+                  _dbus_verbose ("  (policy) skipping rule because sender isn't primary or queued owner of %s\n",
                                  rule->d.receive.origin);
                   continue;
                 }
@@ -1341,15 +1378,9 @@ bus_rules_check_can_own (DBusList *rules,
         }
       else if (rule->d.own.prefix)
         {
-          const char *data;
-          char next_char;
-          if (!_dbus_string_starts_with_c_str (service_name,
-                                               rule->d.own.service_name))
-            continue;
-
-          data = _dbus_string_get_const_data (service_name);
-          next_char = data[strlen (rule->d.own.service_name)];
-          if (next_char != '\0' && next_char != '.')
+          if (!_dbus_string_starts_with_words_c_str (service_name,
+                                                     rule->d.own.service_name,
+                                                     '.'))
             continue;
         }
 
@@ -1375,4 +1406,3 @@ bus_policy_check_can_own (BusPolicy  *policy,
   return bus_rules_check_can_own (policy->default_rules, service_name);
 }
 #endif /* DBUS_ENABLE_EMBEDDED_TESTS */
-

@@ -1,5 +1,5 @@
 /* BFD back-end for ARM COFF files.
-   Copyright (C) 1990-2019 Free Software Foundation, Inc.
+   Copyright (C) 1990-2020 Free Software Foundation, Inc.
    Written by Cygnus Support.
 
    This file is part of BFD, the Binary File Descriptor library.
@@ -924,7 +924,7 @@ static struct bfd_link_hash_table *
 coff_arm_link_hash_table_create (bfd * abfd)
 {
   struct coff_arm_link_hash_table * ret;
-  bfd_size_type amt = sizeof (struct coff_arm_link_hash_table);
+  size_t amt = sizeof (struct coff_arm_link_hash_table);
 
   ret = bfd_zmalloc (amt);
   if (ret == NULL)
@@ -1026,7 +1026,7 @@ find_thumb_glue (struct bfd_link_info *info,
 {
   char *tmp_name;
   struct coff_link_hash_entry *myh;
-  bfd_size_type amt = strlen (name) + strlen (THUMB2ARM_GLUE_ENTRY_NAME) + 1;
+  size_t amt = strlen (name) + strlen (THUMB2ARM_GLUE_ENTRY_NAME) + 1;
 
   tmp_name = bfd_malloc (amt);
 
@@ -1055,7 +1055,7 @@ find_arm_glue (struct bfd_link_info *info,
 {
   char *tmp_name;
   struct coff_link_hash_entry * myh;
-  bfd_size_type amt = strlen (name) + strlen (ARM2THUMB_GLUE_ENTRY_NAME) + 1;
+  size_t amt = strlen (name) + strlen (ARM2THUMB_GLUE_ENTRY_NAME) + 1;
 
   tmp_name = bfd_malloc (amt);
 
@@ -1154,7 +1154,7 @@ static const insn32 t2a6_bx_insn    = 0xe12fff1e;
 
 /* The standard COFF backend linker does not cope with the special
    Thumb BRANCH23 relocation.  The alternative would be to split the
-   BRANCH23 into seperate HI23 and LO23 relocations. However, it is a
+   BRANCH23 into separate HI23 and LO23 relocations. However, it is a
    bit simpler simply providing our own relocation driver.  */
 
 /* The reloc processing routine for the ARM/Thumb COFF linker.  NOTE:
@@ -1840,7 +1840,7 @@ record_arm_to_thumb_glue (struct bfd_link_info *	info,
   struct bfd_link_hash_entry *	    bh;
   struct coff_arm_link_hash_table * globals;
   bfd_vma val;
-  bfd_size_type amt;
+  size_t amt;
 
   globals = coff_arm_hash_table (info);
 
@@ -1896,7 +1896,7 @@ record_thumb_to_arm_glue (struct bfd_link_info *	info,
   struct bfd_link_hash_entry *	     bh;
   struct coff_arm_link_hash_table *  globals;
   bfd_vma val;
-  bfd_size_type amt;
+  size_t amt;
 
   globals = coff_arm_hash_table (info);
 
@@ -2210,7 +2210,8 @@ coff_arm_merge_private_bfd_data (bfd * ibfd, struct bfd_link_info *info)
 	    {
 	      _bfd_error_handler
 		/* xgettext: c-format */
-		(_("error: %pB is compiled for APCS-%d, whereas %pB is compiled for APCS-%d"),
+		(_("error: %pB is compiled for APCS-%d, "
+		   "whereas %pB is compiled for APCS-%d"),
 		 ibfd, APCS_26_FLAG (ibfd) ? 26 : 32,
 		 obfd, APCS_26_FLAG (obfd) ? 26 : 32
 		 );
@@ -2223,14 +2224,16 @@ coff_arm_merge_private_bfd_data (bfd * ibfd, struct bfd_link_info *info)
 	    {
 	      if (APCS_FLOAT_FLAG (ibfd))
 		/* xgettext: c-format */
-		_bfd_error_handler (_("\
-error: %pB passes floats in float registers, whereas %pB passes them in integer registers"),
-				    ibfd, obfd);
+		_bfd_error_handler
+		  (_("error: %pB passes floats in float registers, "
+		     "whereas %pB passes them in integer registers"),
+		   ibfd, obfd);
 	      else
 		/* xgettext: c-format */
-		_bfd_error_handler (_("\
-error: %pB passes floats in integer registers, whereas %pB passes them in float registers"),
-				    ibfd, obfd);
+		_bfd_error_handler
+		  (_("error: %pB passes floats in integer registers, "
+		     "whereas %pB passes them in float registers"),
+		   ibfd, obfd);
 
 	      bfd_set_error (bfd_error_wrong_format);
 	      return FALSE;
@@ -2240,14 +2243,16 @@ error: %pB passes floats in integer registers, whereas %pB passes them in float 
 	    {
 	      if (PIC_FLAG (ibfd))
 		/* xgettext: c-format */
-		_bfd_error_handler (_("\
-error: %pB is compiled as position independent code, whereas target %pB is absolute position"),
-				    ibfd, obfd);
+		_bfd_error_handler
+		  (_("error: %pB is compiled as position independent code, "
+		     "whereas target %pB is absolute position"),
+		   ibfd, obfd);
 	      else
 		/* xgettext: c-format */
-		_bfd_error_handler (_("\
-error: %pB is compiled as absolute position code, whereas target %pB is position independent"),
-				    ibfd, obfd);
+		_bfd_error_handler
+		  (_("error: %pB is compiled as absolute position code, "
+		     "whereas target %pB is position independent"),
+		   ibfd, obfd);
 
 	      bfd_set_error (bfd_error_wrong_format);
 	      return FALSE;
@@ -2272,14 +2277,15 @@ error: %pB is compiled as absolute position code, whereas target %pB is position
 	    {
 	      if (INTERWORK_FLAG (ibfd))
 		/* xgettext: c-format */
-		_bfd_error_handler (_("\
-warning: %pB supports interworking, whereas %pB does not"),
+		_bfd_error_handler (_("warning: %pB supports interworking, "
+				      "whereas %pB does not"),
 				    ibfd, obfd);
 	      else
 		/* xgettext: c-format */
-		_bfd_error_handler (_("\
-warning: %pB does not support interworking, whereas %pB does"),
-				    ibfd, obfd);
+		_bfd_error_handler
+		  (_("warning: %pB does not support interworking, "
+		     "whereas %pB does"),
+		   ibfd, obfd);
 	    }
 	}
       else
@@ -2428,9 +2434,11 @@ coff_arm_copy_private_bfd_data (bfd * src, bfd * dest)
 	      if (INTERWORK_FLAG (dest))
 		{
 		  /* xgettext:c-format */
-		  _bfd_error_handler (_("\
-warning: clearing the interworking flag of %pB because non-interworking code in %pB has been linked with it"),
-				      dest, src);
+		  _bfd_error_handler
+		    (_("warning: clearing the interworking flag of %pB "
+		       "because non-interworking code in %pB has been "
+		       "linked with it"),
+		     dest, src);
 		}
 
 	      SET_INTERWORK_FLAG (dest, 0);

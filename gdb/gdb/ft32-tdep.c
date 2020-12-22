@@ -299,7 +299,7 @@ ft32_skip_prologue (struct gdbarch *gdbarch, CORE_ADDR pc)
 	  /* Found a function.  */
 	  sym = lookup_symbol (func_name, NULL, VAR_DOMAIN, NULL).symbol;
 	  /* Don't use line number debug info for assembly source files.  */
-	  if ((sym != NULL) && SYMBOL_LANGUAGE (sym) != language_asm)
+	  if ((sym != NULL) && sym->language () != language_asm)
 	    {
 	      sal = find_pc_line (func_addr, 0);
 	      if (sal.end && sal.end < func_end)
@@ -616,8 +616,9 @@ ft32_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
 
 /* Register this machine's init routine.  */
 
+void _initialize_ft32_tdep ();
 void
-_initialize_ft32_tdep (void)
+_initialize_ft32_tdep ()
 {
   register_gdbarch_init (bfd_arch_ft32, ft32_gdbarch_init);
 }

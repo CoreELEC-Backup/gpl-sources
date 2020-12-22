@@ -126,7 +126,7 @@ struct _GDateTime
   /* 1 is 0001-01-01 in Proleptic Gregorian */
   gint32 days;
 
-  volatile gint ref_count;
+  gint ref_count;  /* (atomic) */
 };
 
 /* Time conversion {{{1 */
@@ -1383,15 +1383,15 @@ parse_iso8601_timezone (const gchar *text, gsize length, gssize *tz_offset)
     return NULL;
 
   *tz_offset = i;
-  tz = g_time_zone_new (text + i);
+  tz = g_time_zone_new_identifier (text + i);
 
   /* Double-check that the GTimeZone matches our interpretation of the timezone.
    * This can fail because our interpretation is less strict than (for example)
    * parse_time() in gtimezone.c, which restricts the range of the parsed
    * integers. */
-  if (g_time_zone_get_offset (tz, 0) != offset_sign * (offset_hours * 3600 + offset_minutes * 60))
+  if (tz == NULL || g_time_zone_get_offset (tz, 0) != offset_sign * (offset_hours * 3600 + offset_minutes * 60))
     {
-      g_time_zone_unref (tz);
+      g_clear_pointer (&tz, g_time_zone_unref);
       return NULL;
     }
 
@@ -2018,8 +2018,8 @@ g_date_time_add_full (GDateTime *datetime,
 /* Compare, difference, hash, equal {{{1 */
 /**
  * g_date_time_compare:
- * @dt1: (not nullable): first #GDateTime to compare
- * @dt2: (not nullable): second #GDateTime to compare
+ * @dt1: (type GDateTime) (not nullable): first #GDateTime to compare
+ * @dt2: (type GDateTime) (not nullable): second #GDateTime to compare
  *
  * A comparison function for #GDateTimes that is suitable
  * as a #GCompareFunc. Both #GDateTimes must be non-%NULL.
@@ -2074,7 +2074,7 @@ g_date_time_difference (GDateTime *end,
 
 /**
  * g_date_time_hash:
- * @datetime: (not nullable): a #GDateTime
+ * @datetime: (type GDateTime) (not nullable): a #GDateTime
  *
  * Hashes @datetime into a #guint, suitable for use within #GHashTable.
  *
@@ -2092,8 +2092,8 @@ g_date_time_hash (gconstpointer datetime)
 
 /**
  * g_date_time_equal:
- * @dt1: (not nullable): a #GDateTime
- * @dt2: (not nullable): a #GDateTime
+ * @dt1: (type GDateTime) (not nullable): a #GDateTime
+ * @dt2: (type GDateTime) (not nullable): a #GDateTime
  *
  * Checks to see if @dt1 and @dt2 are equal.
  *

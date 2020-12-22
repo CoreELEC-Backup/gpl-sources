@@ -543,9 +543,6 @@ bus_connections_unref (BusConnections *connections)
 
       _dbus_assert (connections->n_incomplete == 0);
 
-      /* drop all monitors */
-      _dbus_list_clear (&connections->monitors);
-
       /* drop all real connections */
       while (connections->completed != NULL)
         {
@@ -560,6 +557,10 @@ bus_connections_unref (BusConnections *connections)
         }
 
       _dbus_assert (connections->n_completed == 0);
+
+      /* disconnecting all the connections should have emptied the list of
+       * monitors (each link is removed in bus_connection_disconnected) */
+      _dbus_assert (connections->monitors == NULL);
 
       bus_expire_list_free (connections->pending_replies);
       
@@ -1444,6 +1445,46 @@ bus_connection_get_n_match_rules (DBusConnection *connection)
   _dbus_assert (d != NULL);
   
   return d->n_match_rules;
+}
+
+/**
+ * Checks whether the connection owns any name with a given prefix,
+ * regardless of whether the type of ownership is primary or queued.
+ *
+ * @note A name matches to a prefix if it is equal to the prefix,
+ * or if it starts with the prefix followed by a dot. This is the same
+ * rule as the 'own_prefix' checking rule.
+ *
+ * @param connection the connection
+ * @param name_prefix the prefix
+ * @returns #TRUE if the connection owns at least one name with the prefix,
+ * regardless of the type of ownership
+ */
+dbus_bool_t
+bus_connection_is_queued_owner_by_prefix (DBusConnection *connection,
+                                          const char *name_prefix)
+{
+  BusConnectionData *d;
+  DBusList *link;
+
+  d = BUS_CONNECTION_DATA (connection);
+  _dbus_assert (d != NULL);
+
+  link = _dbus_list_get_first_link (&d->services_owned);
+  while (link != NULL)
+    {
+      BusService *service = link->data;
+      DBusString str;
+
+      _dbus_string_init_const (&str, bus_service_get_name (service));
+
+      if (_dbus_string_starts_with_words_c_str (&str, name_prefix, '.'))
+        return TRUE;
+
+      link = _dbus_list_get_next_link (&d->services_owned, link);
+    }
+
+  return FALSE;
 }
 
 void

@@ -90,6 +90,9 @@ btrace_this_cpu (void)
 		cpu.model += (cpuid >> 12) & 0xf0;
 	    }
 	}
+      else if (ebx == signature_AMD_ebx && ecx == signature_AMD_ecx
+	       && edx == signature_AMD_edx)
+	cpu.vendor = CV_AMD;
     }
 
   return cpu;
@@ -406,6 +409,9 @@ cpu_supports_bts (void)
 
     case CV_INTEL:
       return intel_supports_bts (&cpu);
+
+    case CV_AMD:
+      return 0;
     }
 }
 
@@ -889,7 +895,7 @@ linux_read_pt (struct btrace_data_pt *btrace,
       return BTRACE_ERR_NONE;
     }
 
-  internal_error (__FILE__, __LINE__, _("Unkown btrace read type."));
+  internal_error (__FILE__, __LINE__, _("Unknown btrace read type."));
 }
 
 /* See linux-btrace.h.  */

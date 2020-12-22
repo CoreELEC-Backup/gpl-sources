@@ -392,10 +392,6 @@ execute_cmd_post_hook (struct cmd_list_element *c)
 void
 execute_control_commands (struct command_line *cmdlines, int from_tty)
 {
-  /* Set the instream to 0, indicating execution of a
-     user-defined function.  */
-  scoped_restore restore_instream
-    = make_scoped_restore (&current_ui->instream, nullptr);
   scoped_restore save_async = make_scoped_restore (&current_ui->async, 0);
   scoped_restore save_nesting
     = make_scoped_restore (&command_nest_depth, command_nest_depth + 1);
@@ -463,6 +459,11 @@ execute_user_command (struct cmd_list_element *c, const char *args)
 
   if (user_args_stack.size () > max_user_call_depth)
     error (_("Max user call depth exceeded -- command aborted."));
+
+  /* Set the instream to nullptr, indicating execution of a
+     user-defined function.  */
+  scoped_restore restore_instream
+    = make_scoped_restore (&current_ui->instream, nullptr);
 
   execute_control_commands (cmdlines, 0);
 }
@@ -974,7 +975,7 @@ process_next_line (const char *p, struct command_line **command,
       /* Resolve command abbreviations (e.g. 'ws' for 'while-stepping').  */
       const char *cmd_name = p;
       struct cmd_list_element *cmd
-	= lookup_cmd_1 (&cmd_name, cmdlist, NULL, 1);
+	= lookup_cmd_1 (&cmd_name, cmdlist, NULL, NULL, 1);
       cmd_name = skip_spaces (cmd_name);
       bool inline_cmd = *cmd_name != '\0';
 
@@ -1331,7 +1332,7 @@ validate_comname (const char **comname)
       std::string prefix (*comname, last_word - 1);
       const char *tem = prefix.c_str ();
 
-      c = lookup_cmd (&tem, cmdlist, "", 0, 1);
+      c = lookup_cmd (&tem, cmdlist, "", NULL, 0, 1);
       if (c->prefixlist == NULL)
 	error (_("\"%s\" is not a prefix command."), prefix.c_str ());
 
@@ -1387,7 +1388,7 @@ do_define_command (const char *comname, int from_tty,
 
   /* Look it up, and verify that we got an exact match.  */
   tem = comname;
-  c = lookup_cmd (&tem, *list, "", -1, 1);
+  c = lookup_cmd (&tem, *list, "", NULL, -1, 1);
   if (c && strcmp (comname, c->name) != 0)
     c = 0;
 
@@ -1432,7 +1433,7 @@ do_define_command (const char *comname, int from_tty,
     {
       /* Look up cmd it hooks, and verify that we got an exact match.  */
       tem = comname + hook_name_size;
-      hookc = lookup_cmd (&tem, *list, "", -1, 0);
+      hookc = lookup_cmd (&tem, *list, "", NULL, -1, 0);
       if (hookc && strcmp (comname + hook_name_size, hookc->name) != 0)
 	hookc = 0;
       if (!hookc && commands == nullptr)
@@ -1518,7 +1519,7 @@ document_command (const char *comname, int from_tty)
   list = validate_comname (&comname);
 
   tem = comname;
-  c = lookup_cmd (&tem, *list, "", 0, 1);
+  c = lookup_cmd (&tem, *list, "", NULL, 0, 1);
 
   if (c->theclass != class_user)
     error (_("Command \"%s\" is built-in."), comfull);
@@ -1528,8 +1529,7 @@ document_command (const char *comname, int from_tty)
   counted_command_line doclines = read_command_lines (prompt.c_str (),
 						      from_tty, 0, 0);
 
-  if (c->doc)
-    xfree ((char *) c->doc);
+  xfree ((char *) c->doc);
 
   {
     struct command_line *cl1;
@@ -1567,7 +1567,7 @@ define_prefix_command (const char *comname, int from_tty)
 
   /* Look it up, and verify that we got an exact match.  */
   tem = comname;
-  c = lookup_cmd (&tem, *list, "", -1, 1);
+  c = lookup_cmd (&tem, *list, "", NULL, -1, 1);
   if (c != nullptr && strcmp (comname, c->name) != 0)
     c = nullptr;
 
@@ -1667,8 +1667,9 @@ show_user_1 (struct cmd_list_element *c, const char *prefix, const char *name,
 
 }
 
+void _initialize_cli_script ();
 void
-_initialize_cli_script (void)
+_initialize_cli_script ()
 {
   struct cmd_list_element *c;
 

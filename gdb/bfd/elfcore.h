@@ -1,5 +1,5 @@
 /* ELF core file support for BFD.
-   Copyright (C) 1995-2019 Free Software Foundation, Inc.
+   Copyright (C) 1995-2020 Free Software Foundation, Inc.
 
    This file is part of BFD, the Binary File Descriptor library.
 
@@ -61,9 +61,9 @@ elf_core_file_matches_executable_p (bfd *core_bfd, bfd *exec_bfd)
   corename = elf_tdata (core_bfd)->core->program;
   if (corename != NULL)
     {
-      const char* execname = strrchr (exec_bfd->filename, '/');
+      const char* execname = strrchr (bfd_get_filename (exec_bfd), '/');
 
-      execname = execname ? execname + 1 : exec_bfd->filename;
+      execname = execname ? execname + 1 : bfd_get_filename (exec_bfd);
 
       if (strcmp (execname, corename) != 0)
 	return FALSE;
@@ -83,7 +83,7 @@ elf_core_file_matches_executable_p (bfd *core_bfd, bfd *exec_bfd)
     that allow standard bfd access to the general registers (.reg) and the
     floating point registers (.reg2).  */
 
-const bfd_target *
+bfd_cleanup
 elf_core_file_p (bfd *abfd)
 {
   Elf_External_Ehdr x_ehdr;	/* Elf file header, external form.  */
@@ -314,11 +314,11 @@ elf_core_file_p (bfd *abfd)
 
   /* Save the entry point from the ELF header.  */
   abfd->start_address = i_ehdrp->e_entry;
-  return abfd->xvec;
+  return _bfd_no_cleanup;
 
-wrong:
+ wrong:
   bfd_set_error (bfd_error_wrong_format);
-fail:
+ fail:
   return NULL;
 }
 
@@ -335,6 +335,7 @@ NAME(_bfd_elf, core_find_build_id)
   Elf_Internal_Ehdr i_ehdr;	/* Elf file header, internal form.   */
   Elf_Internal_Phdr *i_phdr;
   unsigned int i;
+  size_t amt;
 
   /* Seek to the position of the segment at OFFSET.  */
   if (bfd_seek (abfd, offset, SEEK_SET) != 0)
@@ -384,8 +385,12 @@ NAME(_bfd_elf, core_find_build_id)
     goto fail;
 
   /* Read in program headers.  */
-  i_phdr = (Elf_Internal_Phdr *) bfd_alloc2 (abfd, i_ehdr.e_phnum,
-					     sizeof (*i_phdr));
+  if (_bfd_mul_overflow (i_ehdr.e_phnum, sizeof (*i_phdr), &amt))
+    {
+      bfd_set_error (bfd_error_file_too_big);
+      goto fail;
+    }
+  i_phdr = (Elf_Internal_Phdr *) bfd_alloc (abfd, amt);
   if (i_phdr == NULL)
     goto fail;
 
@@ -414,8 +419,8 @@ NAME(_bfd_elf, core_find_build_id)
      build-id was found.  */
   goto fail;
 
-wrong:
+ wrong:
   bfd_set_error (bfd_error_wrong_format);
-fail:
+ fail:
   return FALSE;
 }

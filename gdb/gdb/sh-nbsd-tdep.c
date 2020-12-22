@@ -26,6 +26,7 @@
 #include "osabi.h"
 
 #include "sh-tdep.h"
+#include "nbsd-tdep.h"
 #include "solib-svr4.h"
 #include "gdbarch.h"
 
@@ -63,6 +64,7 @@ shnbsd_init_abi (struct gdbarch_info info,
                   struct gdbarch *gdbarch)
 {
   struct gdbarch_tdep *tdep = gdbarch_tdep (gdbarch);
+  nbsd_init_abi (info, gdbarch);
 
   tdep->core_gregmap = (struct sh_corefile_regmap *)regmap;
   tdep->sizeof_gregset = 84;
@@ -71,8 +73,9 @@ shnbsd_init_abi (struct gdbarch_info info,
     (gdbarch, svr4_ilp32_fetch_link_map_offsets);
 }
 
+void _initialize_shnbsd_tdep ();
 void
-_initialize_shnbsd_tdep (void)
+_initialize_shnbsd_tdep ()
 {
   gdbarch_register_osabi (bfd_arch_sh, 0, GDB_OSABI_NETBSD,
 			  shnbsd_init_abi);

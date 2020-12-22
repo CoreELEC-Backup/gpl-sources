@@ -1,5 +1,5 @@
 /* Object file "section" support for the BFD library.
-   Copyright (C) 1990-2019 Free Software Foundation, Inc.
+   Copyright (C) 1990-2020 Free Software Foundation, Inc.
    Written by Cygnus Support.
 
    This file is part of BFD, the Binary File Descriptor library.
@@ -154,6 +154,10 @@ CODE_FRAGMENT
 .  {* A unique sequence number.  *}
 .  unsigned int id;
 .
+.  {* A unique section number which can be used by assembler to
+.     distinguish different sections with the same section name.  *}
+.  unsigned int section_id;
+.
 .  {* Which section in the bfd; 0..n-1 as sections are created in a bfd.  *}
 .  unsigned int index;
 .
@@ -286,6 +290,10 @@ CODE_FRAGMENT
 .     going through the first-pass output, trusting that someone
 .     else up the line will take care of it later.  *}
 .#define SEC_LINKER_CREATED           0x100000
+.
+.  {* This section contains a section ID to distinguish different
+.     sections with the same section name.  *}
+.#define SEC_ASSEMBLER_SECTION_ID     0x100000
 .
 .  {* This section should not be subject to garbage collection.
 .     Also set to inform the linker that this section should not be
@@ -536,11 +544,17 @@ CODE_FRAGMENT
 .  {* Early in the link process, map_head and map_tail are used to build
 .     a list of input sections attached to an output section.  Later,
 .     output sections use these fields for a list of bfd_link_order
-.     structs.  *}
+.     structs.  The linked_to_symbol_name field is for ELF assembler
+.     internal use.  *}
 .  union {
 .    struct bfd_link_order *link_order;
 .    struct bfd_section *s;
+.    const char *linked_to_symbol_name;
 .  } map_head, map_tail;
+. {* Points to the output section this section is already assigned to, if any.
+.    This is used when support for non-contiguous memory regions is enabled.  *}
+. struct bfd_section *already_assigned;
+.
 .} asection;
 .
 .{* Relax table contains information about instructions which can
@@ -674,7 +688,9 @@ CODE_FRAGMENT
 .static inline bfd_boolean
 .bfd_is_const_section (const asection *sec)
 .{
-.  return sec >= bfd_abs_section_ptr && sec <= bfd_ind_section_ptr;
+.  return (sec >= _bfd_std_section
+.          && sec < _bfd_std_section + (sizeof (_bfd_std_section)
+.                                       / sizeof (_bfd_std_section[0])));
 .}
 .
 .{* Return TRUE if input section SEC has been discarded.  *}
@@ -688,41 +704,42 @@ CODE_FRAGMENT
 .}
 .
 .#define BFD_FAKE_SECTION(SEC, SYM, NAME, IDX, FLAGS)			\
-.  {* name, id,  index, next, prev, flags, user_set_vma,            *}	\
-.  {  NAME, IDX, 0,     NULL, NULL, FLAGS, 0,				\
+.  {* name, id,  section_id, index, next, prev, flags, user_set_vma, *}	\
+.  {  NAME, IDX, 0,          0,     NULL, NULL, FLAGS, 0,		\
 .									\
-.  {* linker_mark, linker_has_input, gc_mark, decompress_status,    *}	\
+.  {* linker_mark, linker_has_input, gc_mark, decompress_status,     *}	\
 .     0,           0,                1,       0,			\
 .									\
-.  {* segment_mark, sec_info_type, use_rela_p,                      *}	\
+.  {* segment_mark, sec_info_type, use_rela_p,                       *}	\
 .     0,            0,             0,					\
 .									\
-.  {* sec_flg0, sec_flg1, sec_flg2, sec_flg3, sec_flg4, sec_flg5,   *}	\
+.  {* sec_flg0, sec_flg1, sec_flg2, sec_flg3, sec_flg4, sec_flg5,    *}	\
 .     0,        0,        0,        0,        0,        0,		\
 .									\
-.  {* vma, lma, size, rawsize, compressed_size, relax, relax_count, *}	\
+.  {* vma, lma, size, rawsize, compressed_size, relax, relax_count,  *}	\
 .     0,   0,   0,    0,       0,               0,     0,		\
 .									\
-.  {* output_offset, output_section, alignment_power,               *}	\
+.  {* output_offset, output_section, alignment_power,                *}	\
 .     0,             &SEC,           0,					\
 .									\
-.  {* relocation, orelocation, reloc_count, filepos, rel_filepos,   *}	\
+.  {* relocation, orelocation, reloc_count, filepos, rel_filepos,    *}	\
 .     NULL,       NULL,        0,           0,       0,			\
 .									\
-.  {* line_filepos, userdata, contents, lineno, lineno_count,       *}	\
+.  {* line_filepos, userdata, contents, lineno, lineno_count,        *}	\
 .     0,            NULL,     NULL,     NULL,   0,			\
 .									\
-.  {* entsize, kept_section, moving_line_filepos,		     *}	\
-.     0,       NULL,	      0,					\
+.  {* entsize, kept_section, moving_line_filepos,                    *}	\
+.     0,       NULL,         0,						\
 .									\
-.  {* target_index, used_by_bfd, constructor_chain, owner,          *}	\
+.  {* target_index, used_by_bfd, constructor_chain, owner,           *}	\
 .     0,            NULL,        NULL,              NULL,		\
 .									\
-.  {* symbol,                    symbol_ptr_ptr,                    *}	\
+.  {* symbol,                    symbol_ptr_ptr,                     *}	\
 .     (struct bfd_symbol *) SYM, &SEC.symbol,				\
 .									\
-.  {* map_head, map_tail                                            *}	\
-.     { NULL }, { NULL }						\
+.  {* map_head, map_tail, already_assigned                           *}	\
+.     { NULL }, { NULL }, NULL						\
+.									\
 .    }
 .
 .{* We use a macro to initialize the static asymbol structures because

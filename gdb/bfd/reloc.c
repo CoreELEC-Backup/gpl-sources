@@ -1,5 +1,5 @@
 /* BFD support for handling relocation entries.
-   Copyright (C) 1990-2019 Free Software Foundation, Inc.
+   Copyright (C) 1990-2020 Free Software Foundation, Inc.
    Written by Cygnus Support.
 
    This file is part of BFD, the Binary File Descriptor library.
@@ -432,8 +432,9 @@ DESCRIPTION
 .
 */
 
-/* N_ONES produces N one bits, without overflowing machine arithmetic.  */
-#define N_ONES(n) (((((bfd_vma) 1 << ((n) - 1)) - 1) << 1) | 1)
+/* N_ONES produces N one bits, without undefined behaviour for N
+   between zero and the number of bits in a bfd_vma.  */
+#define N_ONES(n) ((n) == 0 ? 0 : ((bfd_vma) 1 << ((n) - 1) << 1) - 1)
 
 /*
 FUNCTION
@@ -465,6 +466,9 @@ bfd_check_overflow (enum complain_overflow how,
 {
   bfd_vma fieldmask, addrmask, signmask, ss, a;
   bfd_reloc_status_type flag = bfd_reloc_ok;
+
+  if (bitsize == 0)
+    return flag;
 
   /* Note: BITSIZE should always be <= ADDRSIZE, but in case it's not,
      we'll be permissive: extra bits in the field mask will
@@ -3025,13 +3029,13 @@ ENUMX
 ENUMX
   BFD_RELOC_PPC64_DTPREL34
 ENUMX
-  BFD_RELOC_PPC64_GOT_TLSGD34
+  BFD_RELOC_PPC64_GOT_TLSGD_PCREL34
 ENUMX
-  BFD_RELOC_PPC64_GOT_TLSLD34
+  BFD_RELOC_PPC64_GOT_TLSLD_PCREL34
 ENUMX
-  BFD_RELOC_PPC64_GOT_TPREL34
+  BFD_RELOC_PPC64_GOT_TPREL_PCREL34
 ENUMX
-  BFD_RELOC_PPC64_GOT_DTPREL34
+  BFD_RELOC_PPC64_GOT_DTPREL_PCREL34
 ENUMX
   BFD_RELOC_PPC64_TLS_PCREL
 ENUMDOC
@@ -6363,6 +6367,11 @@ ENUMX
   BFD_RELOC_MSP430_PREL31
 ENUMX
   BFD_RELOC_MSP430_SYM_DIFF
+ENUMX
+  BFD_RELOC_MSP430_SET_ULEB128
+ENUMX
+  BFD_RELOC_MSP430_SUB_ULEB128
+
 ENUMDOC
   msp430 specific relocation codes
 
@@ -6556,6 +6565,8 @@ ENUMX
 ENUMX
   BFD_RELOC_XTENSA_DIFF32
 ENUMDOC
+  Xtensa relocations for backward compatibility.  These have been replaced
+  by BFD_RELOC_XTENSA_PDIFF and BFD_RELOC_XTENSA_NDIFF.
   Xtensa relocations to mark the difference of two local symbols.
   These are only needed to support linker relaxation and can be ignored
   when not relaxing.  The field is set to the value of the difference
@@ -6668,11 +6679,61 @@ ENUMX
   BFD_RELOC_XTENSA_TLS_CALL
 ENUMDOC
   Xtensa TLS relocations.
+ENUM
+  BFD_RELOC_XTENSA_PDIFF8
+ENUMX
+  BFD_RELOC_XTENSA_PDIFF16
+ENUMX
+  BFD_RELOC_XTENSA_PDIFF32
+ENUMX
+  BFD_RELOC_XTENSA_NDIFF8
+ENUMX
+  BFD_RELOC_XTENSA_NDIFF16
+ENUMX
+  BFD_RELOC_XTENSA_NDIFF32
+ENUMDOC
+  Xtensa relocations to mark the difference of two local symbols.
+  These are only needed to support linker relaxation and can be ignored
+  when not relaxing.  The field is set to the value of the difference
+  assuming no relaxation.  The relocation encodes the position of the
+  subtracted symbol so the linker can determine whether to adjust the field
+  value.  PDIFF relocations are used for positive differences, NDIFF
+  relocations are used for negative differences.  The difference value
+  is treated as unsigned with these relocation types, giving full
+  8/16 value ranges.
 
 ENUM
   BFD_RELOC_Z80_DISP8
 ENUMDOC
   8 bit signed offset in (ix+d) or (iy+d).
+ENUM
+  BFD_RELOC_Z80_BYTE0
+ENUMDOC
+  First 8 bits of multibyte (32, 24 or 16 bit) value.
+ENUM
+  BFD_RELOC_Z80_BYTE1
+ENUMDOC
+  Second 8 bits of multibyte (32, 24 or 16 bit) value.
+ENUM
+  BFD_RELOC_Z80_BYTE2
+ENUMDOC
+  Third 8 bits of multibyte (32 or 24 bit) value.
+ENUM
+  BFD_RELOC_Z80_BYTE3
+ENUMDOC
+  Fourth 8 bits of multibyte (32 bit) value.
+ENUM
+  BFD_RELOC_Z80_WORD0
+ENUMDOC
+  Lowest 16 bits of multibyte (32 or 24 bit) value.
+ENUM
+  BFD_RELOC_Z80_WORD1
+ENUMDOC
+  Highest 16 bits of multibyte (32 or 24 bit) value.
+ENUM
+  BFD_RELOC_Z80_16_BE
+ENUMDOC
+  Like BFD_RELOC_16 but big-endian.
 
 ENUM
   BFD_RELOC_Z8K_DISP7
@@ -8446,7 +8507,7 @@ bfd_generic_get_relocated_section_contents (bfd *abfd,
   free (reloc_vector);
   return data;
 
-error_return:
+ error_return:
   free (reloc_vector);
   return NULL;
 }

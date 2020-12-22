@@ -110,14 +110,14 @@ void
 print_offset_data::update (struct type *type, unsigned int field_idx,
 			   struct ui_file *stream)
 {
-  if (field_is_static (&TYPE_FIELD (type, field_idx)))
+  if (field_is_static (&type->field (field_idx)))
     {
       print_spaces_filtered (indentation, stream);
       return;
     }
 
-  struct type *ftype = check_typedef (TYPE_FIELD_TYPE (type, field_idx));
-  if (TYPE_CODE (type) == TYPE_CODE_UNION)
+  struct type *ftype = check_typedef (type->field (field_idx).type ());
+  if (type->code () == TYPE_CODE_UNION)
     {
       /* Since union fields don't have the concept of offsets, we just
 	 print their sizes.  */
@@ -368,15 +368,6 @@ typedef_print (struct type *type, struct symbol *newobj, struct ui_file *stream)
   LA_PRINT_TYPEDEF (type, newobj, stream);
 }
 
-/* The default way to print a typedef.  */
-
-void
-default_print_typedef (struct type *type, struct symbol *new_symbol,
-		       struct ui_file *stream)
-{
-  error (_("Language not supported."));
-}
-
 /* Print a description of a type TYPE in the form of a declaration of a
    variable named VARSTRING.  (VARSTRING is demangled if necessary.)
    Output goes to STREAM (via stdio).
@@ -515,7 +506,7 @@ whatis_exp (const char *exp, int show)
 	     Use check_typedef to resolve stubs, but ignore its result
 	     because we do not want to dig past all typedefs.  */
 	  check_typedef (type);
-	  if (TYPE_CODE (type) == TYPE_CODE_TYPEDEF)
+	  if (type->code () == TYPE_CODE_TYPEDEF)
 	    type = TYPE_TARGET_TYPE (type);
 
 	  /* If the expression is actually a type, then there's no
@@ -540,16 +531,16 @@ whatis_exp (const char *exp, int show)
   get_user_print_options (&opts);
   if (val != NULL && opts.objectprint)
     {
-      if (((TYPE_CODE (type) == TYPE_CODE_PTR) || TYPE_IS_REFERENCE (type))
-	  && (TYPE_CODE (TYPE_TARGET_TYPE (type)) == TYPE_CODE_STRUCT))
+      if (((type->code () == TYPE_CODE_PTR) || TYPE_IS_REFERENCE (type))
+	  && (TYPE_TARGET_TYPE (type)->code () == TYPE_CODE_STRUCT))
         real_type = value_rtti_indirect_type (val, &full, &top, &using_enc);
-      else if (TYPE_CODE (type) == TYPE_CODE_STRUCT)
+      else if (type->code () == TYPE_CODE_STRUCT)
 	real_type = value_rtti_type (val, &full, &top, &using_enc);
     }
 
   if (flags.print_offsets
-      && (TYPE_CODE (type) == TYPE_CODE_STRUCT
-	  || TYPE_CODE (type) == TYPE_CODE_UNION))
+      && (type->code () == TYPE_CODE_STRUCT
+	  || type->code () == TYPE_CODE_UNION))
     fprintf_filtered (gdb_stdout, "/* offset    |  size */  ");
 
   printf_filtered ("type = ");
@@ -615,11 +606,11 @@ print_type_scalar (struct type *type, LONGEST val, struct ui_file *stream)
 
   type = check_typedef (type);
 
-  switch (TYPE_CODE (type))
+  switch (type->code ())
     {
 
     case TYPE_CODE_ENUM:
-      len = TYPE_NFIELDS (type);
+      len = type->num_fields ();
       for (i = 0; i < len; i++)
 	{
 	  if (TYPE_FIELD_ENUMVAL (type, i) == val)
@@ -715,20 +706,6 @@ struct cmd_list_element *setprinttypelist;
 
 struct cmd_list_element *showprinttypelist;
 
-static void
-set_print_type (const char *arg, int from_tty)
-{
-  printf_unfiltered (
-     "\"set print type\" must be followed by the name of a subcommand.\n");
-  help_list (setprintlist, "set print type ", all_commands, gdb_stdout);
-}
-
-static void
-show_print_type (const char *args, int from_tty)
-{
-  cmd_show_list (showprinttypelist, from_tty, "");
-}
-
 static bool print_methods = true;
 
 static void
@@ -798,8 +775,9 @@ show_print_type_nested_types  (struct ui_file *file, int from_tty,
     }
 }
 
+void _initialize_typeprint ();
 void
-_initialize_typeprint (void)
+_initialize_typeprint ()
 {
   struct cmd_list_element *c;
 
@@ -826,12 +804,14 @@ Available FLAGS are:\n\
 Only one level of typedefs is unrolled.  See also \"ptype\"."));
   set_cmd_completer (c, expression_completer);
 
-  add_prefix_cmd ("type", no_class, show_print_type,
-		  _("Generic command for showing type-printing settings."),
-		  &showprinttypelist, "show print type ", 0, &showprintlist);
-  add_prefix_cmd ("type", no_class, set_print_type,
-		  _("Generic command for setting how types print."),
-		  &setprinttypelist, "set print type ", 0, &setprintlist);
+  add_show_prefix_cmd ("type", no_class,
+		       _("Generic command for showing type-printing settings."),
+		       &showprinttypelist, "show print type ", 0,
+		       &showprintlist);
+  add_basic_prefix_cmd ("type", no_class,
+			_("Generic command for setting how types print."),
+			&setprinttypelist, "set print type ", 0,
+			&setprintlist);
 
   add_setshow_boolean_cmd ("methods", no_class, &print_methods,
 			   _("\

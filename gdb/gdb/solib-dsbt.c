@@ -681,8 +681,6 @@ dsbt_current_sos (void)
 	 this in the list of shared objects.  */
       if (dsbt_index != 0)
 	{
-	  int errcode;
-	  gdb::unique_xmalloc_ptr<char> name_buf;
 	  struct int_elf32_dsbt_loadmap *loadmap;
 	  struct so_list *sop;
 	  CORE_ADDR addr;
@@ -703,12 +701,11 @@ dsbt_current_sos (void)
 	  addr = extract_unsigned_integer (lm_buf.l_name,
 					   sizeof (lm_buf.l_name),
 					   byte_order);
-	  target_read_string (addr, &name_buf, SO_NAME_MAX_PATH_SIZE - 1,
-			      &errcode);
+	  gdb::unique_xmalloc_ptr<char> name_buf
+	    = target_read_string (addr, SO_NAME_MAX_PATH_SIZE - 1);
 
-	  if (errcode != 0)
-	    warning (_("Can't read pathname for link map entry: %s."),
-		     safe_strerror (errcode));
+	  if (name_buf == nullptr)
+	    warning (_("Can't read pathname for link map entry."));
 	  else
 	    {
 	      if (solib_dsbt_debug)
@@ -911,8 +908,7 @@ dsbt_relocate_main_executable (void)
   info->main_executable_lm_info = new lm_info_dsbt;
   info->main_executable_lm_info->map = ldm;
 
-  gdb::unique_xmalloc_ptr<struct section_offsets> new_offsets
-    (XCNEWVEC (struct section_offsets, symfile_objfile->num_sections));
+  section_offsets new_offsets (symfile_objfile->section_offsets.size ());
   changed = 0;
 
   ALL_OBJFILE_OSECTIONS (symfile_objfile, osect)
@@ -926,7 +922,7 @@ dsbt_relocate_main_executable (void)
       /* Current address of section.  */
       addr = obj_section_addr (osect);
       /* Offset from where this section started.  */
-      offset = ANOFFSET (symfile_objfile->section_offsets, osect_idx);
+      offset = symfile_objfile->section_offsets[osect_idx];
       /* Original address prior to any past relocations.  */
       orig_addr = addr - offset;
 
@@ -935,10 +931,10 @@ dsbt_relocate_main_executable (void)
 	  if (ldm->segs[seg].p_vaddr <= orig_addr
 	      && orig_addr < ldm->segs[seg].p_vaddr + ldm->segs[seg].p_memsz)
 	    {
-	      new_offsets->offsets[osect_idx]
+	      new_offsets[osect_idx]
 		= ldm->segs[seg].addr - ldm->segs[seg].p_vaddr;
 
-	      if (new_offsets->offsets[osect_idx] != offset)
+	      if (new_offsets[osect_idx] != offset)
 		changed = 1;
 	      break;
 	    }
@@ -946,7 +942,7 @@ dsbt_relocate_main_executable (void)
     }
 
   if (changed)
-    objfile_relocate (symfile_objfile, new_offsets.get ());
+    objfile_relocate (symfile_objfile, new_offsets);
 
   /* Now that symfile_objfile has been relocated, we can compute the
      GOT value and stash it away.  */
@@ -1023,8 +1019,9 @@ show_dsbt_debug (struct ui_file *file, int from_tty,
 
 struct target_so_ops dsbt_so_ops;
 
+void _initialize_dsbt_solib ();
 void
-_initialize_dsbt_solib (void)
+_initialize_dsbt_solib ()
 {
   dsbt_so_ops.relocate_section_addresses = dsbt_relocate_section_addresses;
   dsbt_so_ops.free_so = dsbt_free_so;

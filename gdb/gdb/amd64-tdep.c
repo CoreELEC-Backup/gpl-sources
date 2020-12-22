@@ -546,19 +546,19 @@ static void amd64_classify (struct type *type, enum amd64_reg_class theclass[2])
 static bool
 amd64_has_unaligned_fields (struct type *type)
 {
-  if (TYPE_CODE (type) == TYPE_CODE_STRUCT
-      || TYPE_CODE (type) == TYPE_CODE_UNION)
+  if (type->code () == TYPE_CODE_STRUCT
+      || type->code () == TYPE_CODE_UNION)
     {
-      for (int i = 0; i < TYPE_NFIELDS (type); i++)
+      for (int i = 0; i < type->num_fields (); i++)
 	{
-	  struct type *subtype = check_typedef (TYPE_FIELD_TYPE (type, i));
+	  struct type *subtype = check_typedef (type->field (i).type ());
 	  int bitpos = TYPE_FIELD_BITPOS (type, i);
 	  int align = type_align(subtype);
 
 	  /* Ignore static fields, empty fields (for example nested
 	     empty structures), and bitfields (these are handled by
 	     the caller).  */
-	  if (field_is_static (&TYPE_FIELD (type, i))
+	  if (field_is_static (&type->field (i))
 	      || (TYPE_FIELD_BITSIZE (type, i) == 0
 		  && TYPE_LENGTH (subtype) == 0)
 	      || TYPE_FIELD_PACKED (type, i))
@@ -587,7 +587,7 @@ amd64_classify_aggregate_field (struct type *type, int i,
 				enum amd64_reg_class theclass[2],
 				unsigned int bitoffset)
 {
-  struct type *subtype = check_typedef (TYPE_FIELD_TYPE (type, i));
+  struct type *subtype = check_typedef (type->field (i).type ());
   int bitpos = bitoffset + TYPE_FIELD_BITPOS (type, i);
   int pos = bitpos / 64;
   enum amd64_reg_class subclass[2];
@@ -600,15 +600,15 @@ amd64_classify_aggregate_field (struct type *type, int i,
 
   /* Ignore static fields, or empty fields, for example nested
      empty structures.*/
-  if (field_is_static (&TYPE_FIELD (type, i)) || bitsize == 0)
+  if (field_is_static (&type->field (i)) || bitsize == 0)
     return;
 
-  if (TYPE_CODE (subtype) == TYPE_CODE_STRUCT
-      || TYPE_CODE (subtype) == TYPE_CODE_UNION)
+  if (subtype->code () == TYPE_CODE_STRUCT
+      || subtype->code () == TYPE_CODE_UNION)
     {
       /* Each field of an object is classified recursively.  */
       int j;
-      for (j = 0; j < TYPE_NFIELDS (subtype); j++)
+      for (j = 0; j < subtype->num_fields (); j++)
 	amd64_classify_aggregate_field (subtype, j, theclass, bitpos);
       return;
     }
@@ -667,7 +667,7 @@ amd64_classify_aggregate (struct type *type, enum amd64_reg_class theclass[2])
         calculated according to the classes of the fields in the
         eightbyte: */
 
-  if (TYPE_CODE (type) == TYPE_CODE_ARRAY)
+  if (type->code () == TYPE_CODE_ARRAY)
     {
       struct type *subtype = check_typedef (TYPE_TARGET_TYPE (type));
 
@@ -681,10 +681,10 @@ amd64_classify_aggregate (struct type *type, enum amd64_reg_class theclass[2])
       int i;
 
       /* Structure or union.  */
-      gdb_assert (TYPE_CODE (type) == TYPE_CODE_STRUCT
-		  || TYPE_CODE (type) == TYPE_CODE_UNION);
+      gdb_assert (type->code () == TYPE_CODE_STRUCT
+		  || type->code () == TYPE_CODE_UNION);
 
-      for (i = 0; i < TYPE_NFIELDS (type); i++)
+      for (i = 0; i < type->num_fields (); i++)
 	amd64_classify_aggregate_field (type, i, theclass, 0);
     }
 
@@ -708,7 +708,7 @@ amd64_classify_aggregate (struct type *type, enum amd64_reg_class theclass[2])
 static void
 amd64_classify (struct type *type, enum amd64_reg_class theclass[2])
 {
-  enum type_code code = TYPE_CODE (type);
+  enum type_code code = type->code ();
   int len = TYPE_LENGTH (type);
 
   theclass[0] = theclass[1] = AMD64_NO_CLASS;
@@ -1465,7 +1465,7 @@ fixup_displaced_copy (struct gdbarch *gdbarch,
     }
 }
 
-struct displaced_step_closure *
+displaced_step_closure_up
 amd64_displaced_step_copy_insn (struct gdbarch *gdbarch,
 				CORE_ADDR from, CORE_ADDR to,
 				struct regcache *regs)
@@ -1474,8 +1474,8 @@ amd64_displaced_step_copy_insn (struct gdbarch *gdbarch,
   /* Extra space for sentinels so fixup_{riprel,displaced_copy} don't have to
      continually watch for running off the end of the buffer.  */
   int fixup_sentinel_space = len;
-  amd64_displaced_step_closure *dsc
-    = new amd64_displaced_step_closure (len + fixup_sentinel_space);
+  std::unique_ptr<amd64_displaced_step_closure> dsc
+    (new amd64_displaced_step_closure (len + fixup_sentinel_space));
   gdb_byte *buf = &dsc->insn_buf[0];
   struct amd64_insn *details = &dsc->insn_details;
 
@@ -1500,7 +1500,7 @@ amd64_displaced_step_copy_insn (struct gdbarch *gdbarch,
 
   /* Modify the insn to cope with the address where it will be executed from.
      In particular, handle any rip-relative addressing.	 */
-  fixup_displaced_copy (gdbarch, dsc, from, to, regs);
+  fixup_displaced_copy (gdbarch, dsc.get (), from, to, regs);
 
   write_memory (to, buf, len);
 
@@ -1511,7 +1511,8 @@ amd64_displaced_step_copy_insn (struct gdbarch *gdbarch,
       displaced_step_dump_bytes (gdb_stdlog, buf, len);
     }
 
-  return dsc;
+  /* This is a work around for a problem with g++ 4.8.  */
+  return displaced_step_closure_up (dsc.release ());
 }
 
 static int
@@ -2361,6 +2362,9 @@ amd64_x32_analyze_stack_align (CORE_ADDR pc, CORE_ADDR current_pc,
       pushq %rbp        0x55
       movl %esp, %ebp   0x89 0xe5 (or 0x8b 0xec)
 
+   The `endbr64` instruction can be found before these sequences, and will be
+   skipped if found.
+
    Any function that doesn't start with one of these sequences will be
    assumed to have no prologue and thus no valid frame pointer in
    %rbp.  */
@@ -2371,6 +2375,8 @@ amd64_analyze_prologue (struct gdbarch *gdbarch,
 			struct amd64_frame_cache *cache)
 {
   enum bfd_endian byte_order = gdbarch_byte_order (gdbarch);
+  /* The `endbr64` instruction.  */
+  static const gdb_byte endbr64[4] = { 0xf3, 0x0f, 0x1e, 0xfa };
   /* There are two variations of movq %rsp, %rbp.  */
   static const gdb_byte mov_rsp_rbp_1[3] = { 0x48, 0x89, 0xe5 };
   static const gdb_byte mov_rsp_rbp_2[3] = { 0x48, 0x8b, 0xec };
@@ -2390,6 +2396,20 @@ amd64_analyze_prologue (struct gdbarch *gdbarch,
     pc = amd64_analyze_stack_align (pc, current_pc, cache);
 
   op = read_code_unsigned_integer (pc, 1, byte_order);
+
+  /* Check for the `endbr64` instruction, skip it if found.  */
+  if (op == endbr64[0])
+    {
+      read_code (pc + 1, buf, 3);
+
+      if (memcmp (buf, &endbr64[1], 3) == 0)
+	pc += 4;
+
+      op = read_code_unsigned_integer (pc, 1, byte_order);
+    }
+
+  if (current_pc <= pc)
+    return current_pc;
 
   if (op == 0x55)		/* pushq %rbp */
     {
@@ -2413,7 +2433,7 @@ amd64_analyze_prologue (struct gdbarch *gdbarch,
 	  return pc + 4;
 	}
 
-      /* For X32, also check for `movq %esp, %ebp'.  */
+      /* For X32, also check for `movl %esp, %ebp'.  */
       if (gdbarch_ptr_bit (gdbarch) == 32)
 	{
 	  if (memcmp (buf, mov_esp_ebp_1, 2) == 0
@@ -2527,12 +2547,13 @@ amd64_skip_prologue (struct gdbarch *gdbarch, CORE_ADDR start_pc)
 	= skip_prologue_using_sal (gdbarch, func_addr);
       struct compunit_symtab *cust = find_pc_compunit_symtab (func_addr);
 
-      /* Clang always emits a line note before the prologue and another
-	 one after.  We trust clang to emit usable line notes.  */
+      /* LLVM backend (Clang/Flang) always emits a line note before the
+         prologue and another one after.  We trust clang to emit usable
+         line notes.  */
       if (post_prologue_pc
 	  && (cust != NULL
 	      && COMPUNIT_PRODUCER (cust) != NULL
-	      && startswith (COMPUNIT_PRODUCER (cust), "clang ")))
+	      && producer_is_llvm (COMPUNIT_PRODUCER (cust))))
         return std::max (start_pc, post_prologue_pc);
     }
 
@@ -3334,8 +3355,9 @@ amd64_target_description (uint64_t xcr0, bool segments)
   return *tdesc;
 }
 
+void _initialize_amd64_tdep ();
 void
-_initialize_amd64_tdep (void)
+_initialize_amd64_tdep ()
 {
   gdbarch_register_osabi (bfd_arch_i386, bfd_mach_x86_64, GDB_OSABI_NONE,
  			  amd64_none_init_abi);

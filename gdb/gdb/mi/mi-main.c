@@ -33,7 +33,7 @@
 #include "ui-out.h"
 #include "mi-out.h"
 #include "interps.h"
-#include "event-loop.h"
+#include "gdbsupport/event-loop.h"
 #include "event-top.h"
 #include "gdbcore.h"		/* For write_memory().  */
 #include "value.h"
@@ -390,17 +390,14 @@ mi_cmd_exec_interrupt (const char *command, char **argv, int argc)
     }
 }
 
-/* Callback for iterate_over_inferiors which starts the execution
-   of the given inferior.
+/* Start the execution of the given inferior.
 
-   ARG is a pointer to an integer whose value, if non-zero, indicates
-   that the program should be stopped when reaching the main subprogram
-   (similar to what the CLI "start" command does).  */
+   START_P indicates whether the program should be stopped when reaching the
+   main subprogram (similar to what the CLI "start" command does).  */
 
-static int
-run_one_inferior (struct inferior *inf, void *arg)
+static void
+run_one_inferior (inferior *inf, bool start_p)
 {
-  int start_p = *(int *) arg;
   const char *run_cmd = start_p ? "start" : "run";
   struct target_ops *run_target = find_run_target ();
   int async_p = mi_async && run_target->can_async_p ();
@@ -414,14 +411,9 @@ run_one_inferior (struct inferior *inf, void *arg)
       switch_to_thread (tp);
     }
   else
-    {
-      set_current_inferior (inf);
-      switch_to_no_thread ();
-      set_current_program_space (inf->pspace);
-    }
+    switch_to_inferior_no_thread (inf);
   mi_execute_cli_command (run_cmd, async_p,
 			  async_p ? "&" : NULL);
-  return 0;
 }
 
 void
@@ -466,7 +458,8 @@ mi_cmd_exec_run (const char *command, char **argv, int argc)
     {
       scoped_restore_current_pspace_and_thread restore_pspace_thread;
 
-      iterate_over_inferiors (run_one_inferior, &start_p);
+      for (inferior *inf : all_inferiors ())
+	run_one_inferior (inf, start_p);
     }
   else
     {
@@ -637,16 +630,13 @@ struct print_one_inferior_data
   const std::set<int> *inferiors;
 };
 
-static int
-print_one_inferior (struct inferior *inferior, void *xdata)
+static void
+print_one_inferior (struct inferior *inferior, bool recurse,
+		    const std::set<int> &ids)
 {
-  struct print_one_inferior_data *top_data
-    = (struct print_one_inferior_data *) xdata;
   struct ui_out *uiout = current_uiout;
 
-  if (top_data->inferiors->empty ()
-      || (top_data->inferiors->find (inferior->pid)
-	  != top_data->inferiors->end ()))
+  if (ids.empty () || (ids.find (inferior->pid) != ids.end ()))
     {
       struct collect_cores_data data;
       ui_out_emit_tuple tuple_emitter (uiout, NULL);
@@ -679,11 +669,9 @@ print_one_inferior (struct inferior *inferior, void *xdata)
 	    uiout->field_signed (NULL, b);
 	}
 
-      if (top_data->recurse)
+      if (recurse)
 	print_thread_info (uiout, NULL, inferior->pid);
     }
-
-  return 0;
 }
 
 /* Output a field named 'cores' with a list as the value.  The
@@ -857,18 +845,14 @@ mi_cmd_list_thread_groups (const char *command, char **argv, int argc)
     }
   else
     {
-      struct print_one_inferior_data data;
-
-      data.recurse = recurse;
-      data.inferiors = &ids;
-
       /* Local thread groups.  Either no explicit ids -- and we
 	 print everything, or several explicit ids.  In both cases,
 	 we print more than one group, and have to use 'groups'
 	 as the top-level element.  */
       ui_out_emit_list list_emitter (uiout, "groups");
       update_thread_list ();
-      iterate_over_inferiors (print_one_inferior, &data);
+      for (inferior *inf : all_inferiors ())
+	print_one_inferior (inf, recurse, ids);
     }
 }
 
@@ -1136,9 +1120,7 @@ output_register (struct frame_info *frame, int regnum, int format,
 
   get_formatted_print_options (&opts, format);
   opts.deref_ref = 1;
-  val_print (value_type (val),
-	     value_embedded_offset (val), 0,
-	     &stb, 0, val, &opts, current_language);
+  common_val_print (val, &stb, 0, &opts, current_language);
   uiout->field_stream ("value", stb);
 }
 
@@ -1723,23 +1705,11 @@ mi_cmd_add_inferior (const char *command, char **argv, int argc)
   current_uiout->field_fmt ("inferior", "i%d", inf->num);
 }
 
-/* Callback used to find the first inferior other than the current
-   one.  */
-
-static int
-get_other_inferior (struct inferior *inf, void *arg)
-{
-  if (inf == current_inferior ())
-    return 0;
-
-  return 1;
-}
-
 void
 mi_cmd_remove_inferior (const char *command, char **argv, int argc)
 {
   int id;
-  struct inferior *inf;
+  struct inferior *inf_to_remove;
 
   if (argc != 1)
     error (_("-remove-inferior should be passed a single argument"));
@@ -1747,18 +1717,23 @@ mi_cmd_remove_inferior (const char *command, char **argv, int argc)
   if (sscanf (argv[0], "i%d", &id) != 1)
     error (_("the thread group id is syntactically invalid"));
 
-  inf = find_inferior_id (id);
-  if (!inf)
+  inf_to_remove = find_inferior_id (id);
+  if (inf_to_remove == NULL)
     error (_("the specified thread group does not exist"));
 
-  if (inf->pid != 0)
+  if (inf_to_remove->pid != 0)
     error (_("cannot remove an active inferior"));
 
-  if (inf == current_inferior ())
+  if (inf_to_remove == current_inferior ())
     {
       struct thread_info *tp = 0;
-      struct inferior *new_inferior
-	= iterate_over_inferiors (get_other_inferior, NULL);
+      struct inferior *new_inferior = NULL;
+
+      for (inferior *inf : all_inferiors ())
+	{
+	  if (inf != inf_to_remove)
+	    new_inferior = inf;
+	}
 
       if (new_inferior == NULL)
 	error (_("Cannot remove last inferior"));
@@ -1773,7 +1748,7 @@ mi_cmd_remove_inferior (const char *command, char **argv, int argc)
       set_current_program_space (new_inferior->pspace);
     }
 
-  delete_inferior (inf);
+  delete_inferior (inf_to_remove);
 }
 
 
@@ -2483,9 +2458,9 @@ print_variable_or_computed (const char *expression, enum print_values values)
       type = check_typedef (value_type (val));
       type_print (value_type (val), "", &stb, -1);
       uiout->field_stream ("type", stb);
-      if (TYPE_CODE (type) != TYPE_CODE_ARRAY
-	  && TYPE_CODE (type) != TYPE_CODE_STRUCT
-	  && TYPE_CODE (type) != TYPE_CODE_UNION)
+      if (type->code () != TYPE_CODE_ARRAY
+	  && type->code () != TYPE_CODE_STRUCT
+	  && type->code () != TYPE_CODE_UNION)
 	{
 	  struct value_print_options opts;
 
@@ -2753,8 +2728,9 @@ mi_cmd_complete (const char *command, char **argv, int argc)
 }
 
 
+void _initialize_mi_main ();
 void
-_initialize_mi_main (void)
+_initialize_mi_main ()
 {
   struct cmd_list_element *c;
 

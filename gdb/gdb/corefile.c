@@ -141,7 +141,7 @@ validate_files (void)
 
 /* See gdbsupport/common-inferior.h.  */
 
-char *
+const char *
 get_exec_file (int err)
 {
   if (exec_filename)
@@ -151,7 +151,6 @@ get_exec_file (int err)
 
   error (_("No executable file specified.\n\
 Use the \"file\" or \"exec-file\" command."));
-  return NULL;
 }
 
 
@@ -329,33 +328,6 @@ read_code_unsigned_integer (CORE_ADDR memaddr, int len,
   return extract_unsigned_integer (buf, len, byte_order);
 }
 
-void
-read_memory_string (CORE_ADDR memaddr, char *buffer, int max_len)
-{
-  char *cp;
-  int i;
-  int cnt;
-
-  cp = buffer;
-  while (1)
-    {
-      if (cp - buffer >= max_len)
-	{
-	  buffer[max_len - 1] = '\0';
-	  break;
-	}
-      cnt = max_len - (cp - buffer);
-      if (cnt > 8)
-	cnt = 8;
-      read_memory (memaddr + (int) (cp - buffer), (gdb_byte *) cp, cnt);
-      for (i = 0; i < cnt && *cp; i++, cp++)
-	;			/* null body */
-
-      if (i < cnt && !*cp)
-	break;
-    }
-}
-
 CORE_ADDR
 read_memory_typed_address (CORE_ADDR addr, struct type *type)
 {
@@ -416,7 +388,7 @@ write_memory_signed_integer (CORE_ADDR addr, int len,
 
 /* The current default bfd target.  Points to storage allocated for
    gnutarget_string.  */
-char *gnutarget;
+const char *gnutarget;
 
 /* Same thing, except it is "auto" not NULL for the default case.  */
 static char *gnutarget_string;
@@ -473,14 +445,14 @@ complete_set_gnutarget (struct cmd_list_element *cmd,
 void
 set_gnutarget (const char *newtarget)
 {
-  if (gnutarget_string != NULL)
-    xfree (gnutarget_string);
+  xfree (gnutarget_string);
   gnutarget_string = xstrdup (newtarget);
   set_gnutarget_command (NULL, 0, NULL);
 }
 
+void _initialize_core ();
 void
-_initialize_core (void)
+_initialize_core ()
 {
   struct cmd_list_element *c;
 

@@ -176,11 +176,21 @@ source_cache::ensure (struct symtab *s)
 	}
     }
 
-  std::string contents = get_plain_source_lines (s, fullname);
+  std::string contents;
+  try
+    {
+      contents = get_plain_source_lines (s, fullname);
+    }
+  catch (const gdb_exception_error &e)
+    {
+      /* If 's' is not found, an exception is thrown.  */
+      return false;
+    }
 
-#ifdef HAVE_SOURCE_HIGHLIGHT
   if (source_styling && gdb_stdout->can_emit_style_escape ())
     {
+#ifdef HAVE_SOURCE_HIGHLIGHT
+      bool already_styled = false;
       const char *lang_name = get_language_name (SYMTAB_LANGUAGE (s));
       if (lang_name != nullptr)
 	{
@@ -202,6 +212,7 @@ source_cache::ensure (struct symtab *s)
 	      std::ostringstream output;
 	      highlighter->highlight (input, output, lang_name, fullname);
 	      contents = output.str ();
+	      already_styled = true;
 	    }
 	  catch (...)
 	    {
@@ -213,8 +224,16 @@ source_cache::ensure (struct symtab *s)
 		 un-highlighted text. */
 	    }
 	}
-    }
+
+      if (!already_styled)
 #endif /* HAVE_SOURCE_HIGHLIGHT */
+	{
+	  gdb::optional<std::string> ext_contents;
+	  ext_contents = ext_lang_colorize (fullname, contents);
+	  if (ext_contents.has_value ())
+	    contents = std::move (*ext_contents);
+	}
+    }
 
   source_text result = { std::move (fullname), std::move (contents) };
   m_source_map.push_back (std::move (result));
@@ -231,26 +250,20 @@ bool
 source_cache::get_line_charpos (struct symtab *s,
 				const std::vector<off_t> **offsets)
 {
-  try
-    {
-      std::string fullname = symtab_to_fullname (s);
+  std::string fullname = symtab_to_fullname (s);
 
-      auto iter = m_offset_cache.find (fullname);
-      if (iter == m_offset_cache.end ())
-	{
-	  ensure (s);
-	  iter = m_offset_cache.find (fullname);
-	  /* cache_source_text ensured this was entered.  */
-	  gdb_assert (iter != m_offset_cache.end ());
-	}
-
-      *offsets = &iter->second;
-      return true;
-    }
-  catch (const gdb_exception_error &e)
+  auto iter = m_offset_cache.find (fullname);
+  if (iter == m_offset_cache.end ())
     {
-      return false;
+      if (!ensure (s))
+	return false;
+      iter = m_offset_cache.find (fullname);
+      /* cache_source_text ensured this was entered.  */
+      gdb_assert (iter != m_offset_cache.end ());
     }
+
+  *offsets = &iter->second;
+  return true;
 }
 
 /* A helper function that extracts the desired source lines from TEXT,
@@ -329,6 +342,7 @@ static void extract_lines_test ()
 }
 #endif
 
+void _initialize_source_cache ();
 void
 _initialize_source_cache ()
 {

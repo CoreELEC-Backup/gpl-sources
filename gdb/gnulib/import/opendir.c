@@ -1,5 +1,5 @@
 /* Start reading the entries of a directory.
-   Copyright (C) 2006-2016 Free Software Foundation, Inc.
+   Copyright (C) 2006-2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 #include <config.h>
 
@@ -43,6 +43,16 @@
 #ifdef __KLIBC__
 # include <io.h>
 # include <fcntl.h>
+#endif
+
+#if defined _WIN32 && ! defined __CYGWIN__
+/* Don't assume that UNICODE is not defined.  */
+# undef WIN32_FIND_DATA
+# define WIN32_FIND_DATA WIN32_FIND_DATAA
+# undef GetFullPathName
+# define GetFullPathName GetFullPathNameA
+# undef FindFirstFile
+# define FindFirstFile FindFirstFileA
 #endif
 
 DIR *

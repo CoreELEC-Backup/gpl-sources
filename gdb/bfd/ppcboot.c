@@ -1,5 +1,5 @@
 /* BFD back-end for PPCbug boot records.
-   Copyright (C) 1996-2019 Free Software Foundation, Inc.
+   Copyright (C) 1996-2020 Free Software Foundation, Inc.
    Written by Michael Meissner, Cygnus Support, <meissner@cygnus.com>
 
    This file is part of BFD, the Binary File Descriptor library.
@@ -102,7 +102,7 @@ ppcboot_mkobject (bfd *abfd)
 {
   if (!ppcboot_get_tdata (abfd))
     {
-      bfd_size_type amt = sizeof (ppcboot_data_t);
+      size_t amt = sizeof (ppcboot_data_t);
       ppcboot_set_tdata (abfd, bfd_zalloc (abfd, amt));
     }
 
@@ -130,7 +130,7 @@ ppcboot_set_arch_mach (bfd *abfd,
    was not defaulted.  That is, it must be explicitly specified as
    being ppcboot.  */
 
-static const bfd_target *
+static bfd_cleanup
 ppcboot_object_p (bfd *abfd)
 {
   struct stat statbuf;
@@ -207,7 +207,7 @@ ppcboot_object_p (bfd *abfd)
   memcpy (&tdata->header, &hdr, sizeof (ppcboot_hdr_t));
 
   ppcboot_set_arch_mach (abfd, bfd_arch_powerpc, 0L);
-  return abfd->xvec;
+  return _bfd_no_cleanup;
 }
 
 #define ppcboot_close_and_cleanup _bfd_generic_close_and_cleanup
@@ -276,7 +276,7 @@ ppcboot_canonicalize_symtab (bfd *abfd, asymbol **alocation)
   asection *sec = ppcboot_get_tdata (abfd)->sec;
   asymbol *syms;
   unsigned int i;
-  bfd_size_type amt = PPCBOOT_SYMS * sizeof (asymbol);
+  size_t amt = PPCBOOT_SYMS * sizeof (asymbol);
 
   syms = (asymbol *) bfd_alloc (abfd, amt);
   if (syms == NULL)

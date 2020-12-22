@@ -19,6 +19,8 @@ if {[skip_shlib_tests]} {
 
 load_lib "ada.exp"
 
+if { [skip_ada_tests] } { return -1 }
+
 standard_ada_testfile foo
 
 set ofile ${binfile}.o
@@ -59,6 +61,12 @@ set gnatbind [find_ada_tool gnatbind]
 set gnatlink [find_ada_tool gnatlink]
 
 with_cwd $outdir {
+    # Test if gnatbind is supported
+    set status [remote_exec host "$gnatbind --version"]
+    if {[lindex $status 0] == -1} {
+	unsupported "gnatbind foo"
+	return -1
+    }
     # Bind.
     set status [remote_exec host "$gnatbind -shared foo"]
     if {[lindex $status 0] == 0} {
@@ -68,6 +76,12 @@ with_cwd $outdir {
 	return -1
     }
 
+    # Test if gnatlink is supported
+    set status [remote_exec host "$gnatlink --version"]
+    if {[lindex $status 0] == -1} {
+	unsupported "gnatlink foo"
+	return -1
+    }
     # Finally, link.
     if {[istarget "*-*-mingw*"]
 	|| [istarget *-*-cygwin*]

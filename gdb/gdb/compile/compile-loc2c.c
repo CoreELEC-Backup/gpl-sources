@@ -19,15 +19,16 @@
 
 #include "defs.h"
 #include "dwarf2.h"
-#include "dwarf2expr.h"
-#include "dwarf2loc.h"
+#include "dwarf2/expr.h"
+#include "dwarf2/loc.h"
+#include "dwarf2/read.h"
 #include "ui-file.h"
 #include "utils.h"
 #include "compile-internal.h"
 #include "compile-c.h"
 #include "compile.h"
 #include "block.h"
-#include "dwarf2-frame.h"
+#include "dwarf2/frame.h"
 #include "gdbsupport/gdb_vecs.h"
 #include "value.h"
 #include "gdbarch.h"
@@ -582,7 +583,8 @@ do_compile_dwarf_expr_to_c (int indent, string_file *stream,
 			    unsigned int addr_size,
 			    const gdb_byte *op_ptr, const gdb_byte *op_end,
 			    CORE_ADDR *initial,
-			    struct dwarf2_per_cu_data *per_cu)
+			    dwarf2_per_cu_data *per_cu,
+			    dwarf2_per_objfile *per_objfile)
 {
   /* We keep a counter so that labels and other objects we create have
      unique names.  */
@@ -718,7 +720,7 @@ do_compile_dwarf_expr_to_c (int indent, string_file *stream,
 	     index, not an address.  We don't support things like
 	     branching between the address and the TLS op.  */
 	  if (op_ptr >= op_end || *op_ptr != DW_OP_GNU_push_tls_address)
-	    uoffset += dwarf2_per_cu_text_offset (per_cu);
+	    uoffset += per_objfile->objfile->text_section_offset ();
 	  push (indent, stream, uoffset);
 	  break;
 
@@ -895,7 +897,7 @@ do_compile_dwarf_expr_to_c (int indent, string_file *stream,
 					sym, pc,
 					arch, registers_used, addr_size,
 					datastart, datastart + datalen,
-					NULL, per_cu);
+					NULL, per_cu, per_objfile);
 
 	    pushf (indent, stream, "%s + %s", fb_name, hex_string (offset));
 	  }
@@ -1076,7 +1078,7 @@ do_compile_dwarf_expr_to_c (int indent, string_file *stream,
 					    sym, pc, arch, registers_used,
 					    addr_size,
 					    cfa_start, cfa_end,
-					    &text_offset, per_cu);
+					    &text_offset, per_cu, per_objfile);
 		pushf (indent, stream, "%s", cfa_name);
 	      }
 	  }
@@ -1122,11 +1124,12 @@ compile_dwarf_expr_to_c (string_file *stream, const char *result_name,
 			 struct gdbarch *arch, unsigned char *registers_used,
 			 unsigned int addr_size,
 			 const gdb_byte *op_ptr, const gdb_byte *op_end,
-			 struct dwarf2_per_cu_data *per_cu)
+			 dwarf2_per_cu_data *per_cu,
+			 dwarf2_per_objfile *per_objfile)
 {
   do_compile_dwarf_expr_to_c (2, stream, GCC_UINTPTR, result_name, sym, pc,
 			      arch, registers_used, addr_size, op_ptr, op_end,
-			      NULL, per_cu);
+			      NULL, per_cu, per_objfile);
 }
 
 /* See compile.h.  */
@@ -1139,9 +1142,11 @@ compile_dwarf_bounds_to_c (string_file *stream,
 			   struct gdbarch *arch, unsigned char *registers_used,
 			   unsigned int addr_size,
 			   const gdb_byte *op_ptr, const gdb_byte *op_end,
-			   struct dwarf2_per_cu_data *per_cu)
+			   dwarf2_per_cu_data *per_cu,
+			   dwarf2_per_objfile *per_objfile)
 {
   do_compile_dwarf_expr_to_c (2, stream, "unsigned long ", result_name,
 			      sym, pc, arch, registers_used,
-			      addr_size, op_ptr, op_end, NULL, per_cu);
+			      addr_size, op_ptr, op_end, NULL, per_cu,
+			      per_objfile);
 }

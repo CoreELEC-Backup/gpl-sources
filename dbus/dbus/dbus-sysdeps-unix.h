@@ -105,6 +105,7 @@ typedef struct DBusGroupInfo DBusGroupInfo;
  */
 struct DBusUserInfo
 {
+  size_t      refcount;       /**< Reference count */
   dbus_uid_t  uid;            /**< UID */
   dbus_gid_t  primary_gid;    /**< GID */
   dbus_gid_t *group_ids;      /**< Groups IDs, *including* above primary group */
@@ -118,6 +119,7 @@ struct DBusUserInfo
  */
 struct DBusGroupInfo
 {
+  size_t      refcount;       /**< Reference count */
   dbus_gid_t  gid;            /**< GID */
   char       *groupname;      /**< Group name */
 };

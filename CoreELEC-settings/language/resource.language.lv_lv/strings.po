@@ -355,7 +355,7 @@ msgid "Keyboard"
 msgstr "Klaviatūra"
 
 msgctxt "#32010"
-msgid "Keyboard Layout"
+msgid "BusyBox Console Keyboard Layout"
 msgstr "Klaviatūras izkārtojums"
 
 msgctxt "#32012"

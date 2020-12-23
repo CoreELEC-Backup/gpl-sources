@@ -355,7 +355,7 @@ msgid "Keyboard"
 msgstr "Teclado"
 
 msgctxt "#32010"
-msgid "Keyboard Layout"
+msgid "BusyBox Console Keyboard Layout"
 msgstr "Leiaute do Teclado"
 
 msgctxt "#32012"

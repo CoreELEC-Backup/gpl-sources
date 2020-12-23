@@ -366,10 +366,7 @@ class system:
                 self.oe.execute('setxkbmap ' + ' '.join(parameters))
             elif self.nox_keyboard_layouts == True:
                 self.oe.dbg_log('system::set_keyboard_layout', str(self.struct['keyboard']['settings']['KeyboardLayout1']['value']), self.oe.LOGINFO)
-                parameter = self.struct['keyboard']['settings']['KeyboardLayout1']['value']
-                command = 'loadkmap < `ls -1 %s/*/%s.bmap`' % (self.NOX_KEYBOARD_INFO, parameter)
-                self.oe.dbg_log('system::set_keyboard_layout', command, self.oe.LOGINFO)
-                self.oe.execute(command)
+                self.oe.set_config_ini("keymap", self.struct['keyboard']['settings']['KeyboardLayout1']['value'])
             self.oe.dbg_log('system::set_keyboard_layout', 'exit_function', self.oe.LOGDEBUG)
         except Exception as e:
             self.oe.dbg_log('system::set_keyboard_layout', 'ERROR: (' + repr(e) + ')')

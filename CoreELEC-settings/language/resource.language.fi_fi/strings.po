@@ -355,7 +355,7 @@ msgid "Keyboard"
 msgstr "Näppäimistö"
 
 msgctxt "#32010"
-msgid "Keyboard Layout"
+msgid "BusyBox Console Keyboard Layout"
 msgstr "Näppäimistöasetukset"
 
 msgctxt "#32012"

@@ -355,7 +355,7 @@ msgid "Keyboard"
 msgstr "Tangentbord"
 
 msgctxt "#32010"
-msgid "Keyboard Layout"
+msgid "BusyBox Console Keyboard Layout"
 msgstr "Tangentbordslayout"
 
 msgctxt "#32012"

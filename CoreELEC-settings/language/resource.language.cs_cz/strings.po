@@ -361,7 +361,7 @@ msgid "Keyboard"
 msgstr "Klávesnice"
 
 msgctxt "#32010"
-msgid "Keyboard Layout"
+msgid "BusyBox Console Keyboard Layout"
 msgstr "Rozložení klávesnice"
 
 msgctxt "#32012"

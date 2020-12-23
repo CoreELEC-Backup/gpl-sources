@@ -355,7 +355,7 @@ msgid "Keyboard"
 msgstr "Клавиатура"
 
 msgctxt "#32010"
-msgid "Keyboard Layout"
+msgid "BusyBox Console Keyboard Layout"
 msgstr "Клавиатурна подредба"
 
 msgctxt "#32012"

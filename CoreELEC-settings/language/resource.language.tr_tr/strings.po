@@ -355,7 +355,7 @@ msgid "Keyboard"
 msgstr "Klavye"
 
 msgctxt "#32010"
-msgid "Keyboard Layout"
+msgid "BusyBox Console Keyboard Layout"
 msgstr "Klavye Düzeni"
 
 msgctxt "#32012"

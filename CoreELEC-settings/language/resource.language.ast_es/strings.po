@@ -355,7 +355,7 @@ msgid "Keyboard"
 msgstr "Tecláu"
 
 msgctxt "#32010"
-msgid "Keyboard Layout"
+msgid "BusyBox Console Keyboard Layout"
 msgstr "Distribución de tecláu"
 
 msgctxt "#32012"

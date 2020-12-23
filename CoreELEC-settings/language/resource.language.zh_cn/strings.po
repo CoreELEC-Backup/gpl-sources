@@ -355,7 +355,7 @@ msgid "Keyboard"
 msgstr "键盘"
 
 msgctxt "#32010"
-msgid "Keyboard Layout"
+msgid "BusyBox Console Keyboard Layout"
 msgstr "键盘布局"
 
 msgctxt "#32012"

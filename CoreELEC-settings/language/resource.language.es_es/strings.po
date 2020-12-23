@@ -377,7 +377,7 @@ msgid "Keyboard"
 msgstr "Teclado"
 
 msgctxt "#32010"
-msgid "Keyboard Layout"
+msgid "BusyBox Console Keyboard Layout"
 msgstr "Disposición de teclado"
 
 msgctxt "#32012"

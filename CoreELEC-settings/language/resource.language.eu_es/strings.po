@@ -355,7 +355,7 @@ msgid "Keyboard"
 msgstr "Teklatua"
 
 msgctxt "#32010"
-msgid "Keyboard Layout"
+msgid "BusyBox Console Keyboard Layout"
 msgstr "Teklatu-mota"
 
 msgctxt "#32012"

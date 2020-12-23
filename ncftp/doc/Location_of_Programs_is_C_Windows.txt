@@ -1,0 +1,5 @@
+The executables (ncftp.exe, ncftpget.exe, ncftpput.exe, etc.) are installed in %windir%, e.g., C:\Windows or C:\Winnt.  This directory was chosen solely for the reason that it is in the Path environment variable, so that the programs can be easily invoked from with Command Prompt without typing the full pathname.
+
+You may move them to another directory if desired.  There is no dependence on the installation directory.
+
+ 

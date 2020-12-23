@@ -1,0 +1,70 @@
+# Hungary / Budapest
+#
+# A.multiplex UHF-38:
+[CHANNEL]
+        DELIVERY_SYSTEM = DVBT
+        FREQUENCY = 610000000
+        BANDWIDTH_HZ = 8000000
+        CODE_RATE_HP = 3/4
+        CODE_RATE_LP = NONE
+        MODULATION = QAM/64
+        TRANSMISSION_MODE = 8K
+        GUARD_INTERVAL = 1/4
+        HIERARCHY = NONE
+        INVERSION = AUTO
+
+#
+# B.multiplex UHF-55:
+[CHANNEL]
+        DELIVERY_SYSTEM = DVBT
+        FREQUENCY = 746000000
+        BANDWIDTH_HZ = 8000000
+        CODE_RATE_HP = 3/4
+        CODE_RATE_LP = NONE
+        MODULATION = QAM/64
+        TRANSMISSION_MODE = 8K
+        GUARD_INTERVAL = 1/4
+        HIERARCHY = NONE
+        INVERSION = AUTO
+
+#
+# C.multiplex UHF-58:
+[CHANNEL]
+        DELIVERY_SYSTEM = DVBT
+        FREQUENCY = 770000000
+        BANDWIDTH_HZ = 8000000
+        CODE_RATE_HP = 3/4
+        CODE_RATE_LP = NONE
+        MODULATION = QAM/64
+        TRANSMISSION_MODE = 8K
+        GUARD_INTERVAL = 1/4
+        HIERARCHY = NONE
+        INVERSION = AUTO
+
+#
+# D.multiplex UHF-41:
+[CHANNEL]
+        DELIVERY_SYSTEM = DVBT
+        FREQUENCY = 634000000
+        BANDWIDTH_HZ = 8000000
+        CODE_RATE_HP = 3/4
+        CODE_RATE_LP = NONE
+        MODULATION = QAM/64
+        TRANSMISSION_MODE = 8K
+        GUARD_INTERVAL = 1/4
+        HIERARCHY = NONE
+        INVERSION = AUTO
+
+#
+# E.multiplex UHF-24:
+[CHANNEL]
+        DELIVERY_SYSTEM = DVBT
+        FREQUENCY = 498000000
+        BANDWIDTH_HZ = 8000000
+        CODE_RATE_HP = 3/4
+        CODE_RATE_LP = NONE
+        MODULATION = QAM/64
+        TRANSMISSION_MODE = 8K
+        GUARD_INTERVAL = 1/4
+        HIERARCHY = NONE
+        INVERSION = AUTO

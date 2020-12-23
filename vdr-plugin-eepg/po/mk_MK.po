@@ -1,0 +1,77 @@
+# Macedonian translations for vdr-eepg package.
+# Copyright (C) 2012 THE vdr-eepg'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the VDR package.
+# Dimitar Petrovski <dimeptr@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: vdr-eepg 0.0.6pre\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2012-11-20 23:13+0100\n"
+"PO-Revision-Date: 2012-10-29 13:44+0100\n"
+"Last-Translator: Dimitar Petrovski <dimeptr@gmail.com>\n"
+"Language-Team: Macedonian\n"
+"Language: mk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Parses Extended EPG data"
+msgstr "Анализира Опширни ЕПГ податоци"
+
+msgid "PremiereEPG"
+msgstr "Премиер ЕПГ"
+
+msgid "off"
+msgstr "исклучено"
+
+msgid "Tag option events"
+msgstr "Таг за опцоини настани"
+
+msgid "Show order information"
+msgstr "Прикажи информации за нарачка"
+
+msgid "Show rating information"
+msgstr "Прикажи информации за рејтинг"
+
+msgid "Fix EPG data"
+msgstr "Поправи ЕПГ податоци"
+
+msgid "General"
+msgstr "Општо"
+
+msgid "Display summary message"
+msgstr "Прикажи сумарна порака"
+
+msgid "Replace empty Short Text with Category - Genre"
+msgstr "Замени празен Краток Текст со Категорија - Жанр"
+
+msgid "Try to fix CharSet for events"
+msgstr "Пробај да го поправиш сетот на карактери за настаните"
+
+msgid "Level of logging verbosity"
+msgstr "Ниво на логирање"
+
+msgid "Process EIT info with EEPG"
+msgstr "Процесирај ЕИТ информации со ЕЕПГ"
+
+msgid "Ordernumber"
+msgstr "Бр. на нарачка"
+
+msgid "Price"
+msgstr "Цена"
+
+msgid "Ordering"
+msgstr "Нарачка"
+
+msgid "SMS"
+msgstr "СМС"
+
+msgid "WWW"
+msgstr "WWW"
+
+msgid "Rating"
+msgstr "Рејтинг"
+
+msgid "years"
+msgstr "години"

@@ -1,0 +1,211 @@
+# VDR plugin language source file.
+# Copyright (C) 2007-2019 Rolf Ahrenberg
+# This file is distributed under the same license as the satip package.
+# Rolf Ahrenberg, 2015-2019
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: vdr-satip 2.4.0\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2019-10-27 19:12+0200\n"
+"PO-Revision-Date:  2019-10-27 10:27+0200\n"
+"Last-Translator: Rolf Ahrenberg\n"
+"Language-Team: Finnish <vdr@linuxtv.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "PAT (0x00)"
+msgstr "PAT (0x00)"
+
+msgid "NIT (0x40)"
+msgstr "NIT (0x40)"
+
+msgid "SDT (0x42)"
+msgstr "SDT (0x42)"
+
+msgid "EIT (0x4E/0x4F/0x5X/0x6X)"
+msgstr "EIT (0x4E/0x4F/0x5X/0x6X)"
+
+msgid "TDT (0x70)"
+msgstr "TDT (0x70)"
+
+msgid "SAT>IP information not available!"
+msgstr "SAT>IP-tietoja ei saatavilla!"
+
+msgid "SAT>IP Devices"
+msgstr "SAT>IP-laitteet"
+
+msgid "SAT>IP Server"
+msgstr "SAT>IP-palvelin"
+
+msgid "Address"
+msgstr "Osoite"
+
+msgid "Model"
+msgstr "Malli"
+
+msgid "Description"
+msgstr "Kuvaus"
+
+msgid "CI extension"
+msgstr "CI-laajennos"
+
+msgid "Creation date"
+msgstr "Luontiajankohta"
+
+msgid "SAT>IP Device Status"
+msgstr "SAT>IP-laitteiden tiedot"
+
+msgid "SAT>IP Information"
+msgstr "SAT>IP-tiedot"
+
+msgid "General"
+msgstr "Yleiset"
+
+msgid "Pids"
+msgstr "Pidit"
+
+msgid "Filters"
+msgstr "Suodattimet"
+
+msgid "Bits/bytes"
+msgstr "Bitit/tavut"
+
+msgid "off"
+msgstr "ei käytössä"
+
+msgid "low"
+msgstr "matala"
+
+msgid "normal"
+msgstr "normaali"
+
+msgid "high"
+msgstr "korkea"
+
+msgid "Unicast"
+msgstr "Unicast"
+
+msgid "Multicast"
+msgstr "Multicast"
+
+msgid "RTP-over-TCP"
+msgstr "RTP-over-TCP"
+
+msgid "Button$Devices"
+msgstr "Laitteet"
+
+msgid "Operating mode"
+msgstr "Laitteiden toimintatapa"
+
+msgid ""
+"Define the used operating mode for all SAT>IP devices:\n"
+"\n"
+"off - devices are disabled\n"
+"low - devices are working at the lowest priority\n"
+"normal - devices are working within normal parameters\n"
+"high - devices are working at the highest priority"
+msgstr ""
+"Määrittele toimintamoodi SAT>IP-laitteille:\n"
+"ei käytössä - laitteet ovat pois käytöstä\n"
+"matala - laitteet toimivat matalalla prioriteetilla\n"
+"normaali - laitteet toimivat normaalilla prioriteetilla\n"
+"korkea - laitteet toimivat korkealla prioriteetilla"
+
+msgid "Enable CI extension"
+msgstr "Käytä CI-laajennosta"
+
+msgid ""
+"Define whether a CI extension shall be used.\n"
+"\n"
+"This setting enables integrated CI/CAM handling found in some SAT>IP hardware (e.g. Digital Devices OctopusNet)."
+msgstr ""
+"Määrittele CI-laajennoksen käyttöönotto\n"
+"\n"
+"Tällä asetuksella saadaan otettua käyttöön SAT>IP-laitteiden sisäinen CI-paikka (esim. Digital Devices OctopusNet)."
+
+msgid "CI/CAM"
+msgstr "CI/CAM"
+
+msgid ""
+"Define a desired CAM type for the CI slot.\n"
+"\n"
+"The '---' option lets SAT>IP hardware do the auto-selection."
+msgstr ""
+"Määrittele haluttu CAM-tyyppi CI-paikalle.\n"
+"\n"
+"Vaihtoehto '---' antaa SAT>IP-laitteen valita automaattisesti käytetyn CI-paikan."
+
+msgid "Enable EPG scanning"
+msgstr "Käytä ohjelmaoppaan taustapäivitystä"
+
+msgid ""
+"Define whether the EPG background scanning shall be used.\n"
+"\n"
+"This setting disables the automatic EIT scanning functionality for all SAT>IP devices."
+msgstr ""
+"Määrittele ohjelmaoppaan taustapäivityksen olemassaolo.\n"
+"\n"
+"Tällä asetuksella saadaan otettua automaattinen EIT-datan päivitys pois päältä kaikilta SAT>IP-laitteilta."
+
+msgid "Disabled sources"
+msgstr "Käytöstä poistetut lähteet"
+
+msgid "none"
+msgstr "tyhjä"
+
+msgid ""
+"Define number of sources to be disabled.\n"
+"\n"
+"SAT>IP servers might not have all satellite positions available and such sources can be blacklisted here."
+msgstr ""
+"Määrittele käytöstä poistettavien lähteiden lukumäärä.\n"
+"\n"
+"SAT>IP-palvelimilla ei välttämättä ole kaikkia ohjelmalähteitä tarjolla."
+
+msgid "Define a source to be blacklisted."
+msgstr "Määrittele käytöstä"
+
+msgid "Disabled filters"
+msgstr "Käytöstä poistetut suodattimet"
+
+msgid ""
+"Define number of section filters to be disabled.\n"
+"\n"
+"Certain section filters might cause some unwanted behaviour to VDR such as time being falsely synchronized. By blacklisting the filters here, useful section data can be left intact for VDR to process."
+msgstr ""
+"Määrittele käytöstä poistettavien suodattimien lukumäärä sektioille.\n"
+"\n"
+"Tietyt sektiot saattavat aiheuttaa virheellistä toimintaa VDR:ssä, esimerkiksi asettavat väärän kellonajan, ja näiden poistaminen auttaa VDR:ää toimimaan kunnolla jäljelle jäävien sektioiden kanssa."
+
+msgid "Filter"
+msgstr "Suodatin"
+
+msgid "Define an ill-behaving filter to be blacklisted."
+msgstr "Määrittele käytöstä poistettava suodatin, joka lisätään mustalle listalle."
+
+msgid "Transport mode"
+msgstr "Siirtoyhteystapa"
+
+msgid ""
+"Define which transport mode shall be used.\n"
+"\n"
+"Unicast, Multicast, RTP-over-TCP"
+msgstr ""
+"Määrittele käytettävä siirtoyhteystapa.\n"
+"\n"
+"Unicast, Multicast, RTP-over-TCP"
+
+msgid "Enable frontend reuse"
+msgstr "Uusiokäytä virittimiä"
+
+msgid "Define whether reusing a frontend for multiple channels in a transponder should be enabled."
+msgstr "Määrittele virittien uusiokäyttö kanaville, jotka ovat samalla transponderilla."
+
+msgid "Active SAT>IP servers:"
+msgstr "Aktiiviset SAT>IP-palvelimet:"
+
+msgid "Help"
+msgstr "Opaste"

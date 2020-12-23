@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="audiodecoder.timidity"
+  version="3.0.0"
+  name="Timidity Audio Decoder"
+  provider-name="spiff">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="kodi.audiodecoder"
+    name="mid"
+    tags="true"
+    extension=".mid|.kar"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="de_DE">MIDI Software synthesizer</summary>
+    <summary lang="en_GB">MIDI Software synthesizer</summary>
+    <description lang="de_DE">TiMidity ist ein Software-Synthesizer, der MIDI-Dateien ohne Hardware-Synthesizer abspielen kann.
+
+Um TiMidity verwenden zu können, benötigen Sie eine funktionierende Konfigurationsdatei timidity.cfg oder Sound-Schriftarten. Kopieren Sie diese Dateien in das Verzeichnis, das Sie speichern möchten, und wählen Sie sie in den Add-On-Einstellungen aus.</description>
+    <description lang="en_GB">TiMidity is a software synthesizer that can play MIDI files without a hardware synthesizer.
+
+To use TiMidity you need a working timidity.cfg config file or sound fonts. Copy this files into the directory you intend to store and select it in the Add-on Settings.</description>
+    <platform>@PLATFORM@</platform>
+    <license>GPL-2.0-or-later</license>
+    <source>https://github.com/xbmc/audiodecoder.timidity</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

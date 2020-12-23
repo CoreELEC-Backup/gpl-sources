@@ -1,0 +1,6 @@
+nettle
+gas-preprocessor
+gnutls
+zlib
+libzvbi
+libxml2

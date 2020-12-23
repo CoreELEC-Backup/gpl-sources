@@ -1,0 +1,1325 @@
+# VDR plugin language source file.
+# Copyright (C) 2007 Klaus Schmidinger <kls@cadsoft.de>
+# This file is distributed under the same license as the VDR package.
+# Arnold Niessen <niessen@iae.nl> <arnold.niessen@philips.com>, 2001
+# Hans Dingemans <hans.dingemans@tacticalops.nl>, 2003
+# Maarten Wisse <Maarten.Wisse@urz.uni-hd.de>, 2005
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VDR 1.5.7\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2017-06-15 11:15+0200\n"
+"PO-Revision-Date: 2007-08-14 20:21+0200\n"
+"Last-Translator: Maarten Wisse <Maarten.Wisse@urz.uni-hd.de>\n"
+"Language-Team: Dutch <vdr@linuxtv.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Channel groups"
+msgstr "Kanaal groepen"
+
+msgid "Button$Select"
+msgstr "Selecteer"
+
+msgid "Channel group used by:"
+msgstr "Kanaalgroep gebruikt door:"
+
+msgid "Edit$Delete group?"
+msgstr "Groep wissen?"
+
+msgid "Edit channel group"
+msgstr "Bewerk kanaalgroep"
+
+msgid "Group name"
+msgstr "Groep naam"
+
+msgid "Button$Invert selection"
+msgstr "Selectie omdraaien"
+
+msgid "Button$All yes"
+msgstr "Alles ja"
+
+msgid "Button$All no"
+msgstr "Alles nee"
+
+msgid "Group name is empty!"
+msgstr "Groep naam is leeg!"
+
+msgid "Group name already exists!"
+msgstr "Groep naam bestaat al!"
+
+msgid "Direct access to epgsearch's conflict check menu"
+msgstr "Directe toegang tot epgsearch's conflict controle menu"
+
+msgid "Timer conflicts"
+msgstr "Timer conflicten"
+
+msgid "Conflict info in main menu"
+msgstr "Conflict info tonen in hoofdmenu"
+
+msgid "next"
+msgstr "volgende"
+
+#, c-format
+msgid "timer conflict at %s! Show it?"
+msgstr "Timerconflict op %s! Tonen?"
+
+#, c-format
+msgid "%d timer conflicts! First at %s. Show them?"
+msgstr "%d timer conflicten! eerste op %s. Tonen?"
+
+msgid "search the EPG for repeats and more"
+msgstr "Zoek in de EPG naar herhalingen en meer"
+
+msgid "Program guide"
+msgstr "Programmagids"
+
+#, fuzzy
+msgid "search timer update running"
+msgstr "Verversen zoektimer gereed!"
+
+msgid "Direct access to epgsearch's search menu"
+msgstr "Direct toegang tot epgsearch's zoek menu"
+
+msgid "Search"
+msgstr "Zoek"
+
+msgid "EpgSearch-Search in main menu"
+msgstr "EpgSearch-Search in hoofdmenu"
+
+msgid "Button$Help"
+msgstr "Help"
+
+msgid "Standard"
+msgstr "Standaard"
+
+msgid "Button$Commands"
+msgstr "Commando's"
+
+msgid "Button$Search"
+msgstr "Zoek"
+
+msgid "never"
+msgstr "nooit"
+
+msgid "always"
+msgstr "altijd"
+
+msgid "smart"
+msgstr "slim"
+
+msgid "before user-def. times"
+msgstr "vóór gebruiker-gedef. tijden"
+
+msgid "after user-def. times"
+msgstr "ná gebruiker-gedef. tijden"
+
+msgid "before 'next'"
+msgstr ""
+
+msgid "General"
+msgstr "Algemeen"
+
+msgid "EPG menus"
+msgstr "EPG menu's"
+
+msgid "User-defined EPG times"
+msgstr "Gebruiker-gedefinieerde EPG tijden"
+
+msgid "Timer programming"
+msgstr "Timer programmering"
+
+msgid "Search and search timers"
+msgstr "Zoek en zoektimers"
+
+msgid "Timer conflict checking"
+msgstr "Timer conflict controle"
+
+msgid "Email notification"
+msgstr "E-mail notificatie"
+
+msgid "Hide main menu entry"
+msgstr "Verberg vermelding in hoofdmenu"
+
+msgid "Help$Hides the main menu entry and may be useful if this plugin is used to replace the original 'Schedule' entry."
+msgstr "Verbergt de vermelding in het hoofdmenu en kan van pas komen als deze plugin wordt gebruikt om de originele programmagids te vervangen."
+
+msgid "Main menu entry"
+msgstr "Hoofdmenu vermelding"
+
+msgid "Help$The name of the main menu entry which defaults to 'Programm guide'."
+msgstr "De naam van de regel in het hoofdmenu welke gerelateerd is aan 'programmagids'"
+
+msgid "Replace original schedule"
+msgstr "Originele 'Programmagids' vervangen"
+
+msgid "Help$When VDR is patched to allow this plugin to replace the original 'Schedule' entry, you can de/activate this replacement here."
+msgstr "Als VDR gepatcht is om deze plugin de originele 'Programmagids' menu te laten vervangen dan kan dat hier ge(de)activeerd worden"
+
+msgid "Start menu"
+msgstr "Startmenu"
+
+msgid "Help$Choose between 'Overview - Now' and 'Schedule' as start menu when this plugin is called."
+msgstr "Maak een keuze tussen 'Overzicht', 'Nu' en 'programmagids' als startmenu wanneer plugin wordt geactiveerd."
+
+msgid "Ok key"
+msgstr "OK toets"
+
+msgid ""
+"Help$Choose here the behaviour of key 'Ok'. You can use it to display the summary or to switch to the corresponding channel.\n"
+"Note: the functionality of key 'blue' (Switch/Info/Search) depends on this setting."
+msgstr ""
+"Kies hier het gedrag van de 'OK' toets. Hij kan gebruikt worden om een samenvatting te tonen of om te schakelen naar het betreffende kanaal.\n"
+"Letop: de functionaliteit van de 'BLAUW' toets (Schakel/Info/Zoek) is afhankelijk van deze instelling."
+
+msgid "Red key"
+msgstr "Rode toets"
+
+msgid ""
+"Help$Choose which standard function ('Record' or 'Commands') you like to have on the red key.\n"
+"(Can be toggled with key '0')"
+msgstr ""
+"Kies welke standaard functie (Opname of Commando's) aan de rode toets moet worden toegewezen.\n"
+"(Kan worden omgeschakeld met de '0' toets)"
+
+msgid "Blue key"
+msgstr "Blauwe toets"
+
+msgid ""
+"Help$Choose which standard function ('Switch'/'Info' or 'Search') you like to have on the blue key.\n"
+"(Can be toggled with key '0')"
+msgstr ""
+"Kies welke standaard functie ('Schakel'/'Info' of 'Zoek') aan de blauwe toets moet worden toegewezen.\n"
+"(Kan worden omgeschakeld met de '0' toets)"
+
+msgid "Show progress in 'Now'"
+msgstr "Toon voortgang in 'Nu'"
+
+msgid "Help$Shows a progressbar in 'Overview - Now' that informs about the remaining time of the current event."
+msgstr "Toont een voortschreidingsbalk in 'Overzicht - Nu' welke de resterende tijd van het huidige programma weergeeft."
+
+msgid "Show channel numbers"
+msgstr "Toon kanaal nummers"
+
+msgid ""
+"Help$Display channel numbers in 'Overview - Now'.\n"
+"\n"
+"(To completely define your own menu look please inspect the MANUAL)"
+msgstr ""
+"Toon kanaal nummers in 'Overzicht - Nu.\n"
+"\n"
+"(Raadpleeg de MANUAL om het hele menu naar eigen inzicht te veranderen)"
+
+msgid "Show channel separators"
+msgstr "Toon kanaal scheidingstekens"
+
+msgid "Help$Display VDR channel groups as separators between your channels in 'Overview - Now'."
+msgstr "Toon VDR kanaal groepen als scheidingstekens tussen de kanalen in 'Overzicht - Nu'."
+
+msgid "Show day separators"
+msgstr "Toon schedingstekens tussen dagovergangen"
+
+msgid "Help$Display a separator line at day break in 'Schedule'."
+msgstr "Toon een scheidingsteken tussen dagovergangen in 'Programmaoverzicht'"
+
+msgid "Show radio channels"
+msgstr "Toon radiokanalen"
+
+msgid "Help$Show also radio channels."
+msgstr "Toon ook radiokanalen"
+
+msgid "Limit channels from 1 to"
+msgstr "Beperk aantal kanalenvan 1 tot"
+
+msgid "Help$If you have a large channel set you can speed up things when you limit the displayed channels with this setting. Use '0' to disable the limit."
+msgstr "Als er sprake is van een groot aantal kanalen dan kan de snelheid worden bevorderd als het aantal kanalen wordt beperkt. Gebruik '0' om de limitering op te heffen"
+
+msgid "'One press' timer creation"
+msgstr "Maak met één toetsdruk een nieuwe timer aan"
+
+msgid "Help$When a timer is created with 'Record' you can choose between an immediate creation of the timer or the display of the timer edit menu."
+msgstr "Als er een timer is gemaakt met 'Opname' dan kan er gekozen worden de timer direct aan te maken of eerst het 'Wijzig timer' menu te tonen."
+
+msgid "Show channels without EPG"
+msgstr "Toon kanalen zonder EPG"
+
+msgid "Help$Choose 'yes' here if you want to display channels without EPG in 'Overview - Now'. 'Ok' on these entries switches the channel."
+msgstr "Kies 'ja' als er in 'Overzicht - Nu' kanalen zonder EPG moeten worden getoond. 'OK' op deze regels schakelt het kanaal in"
+
+msgid "Time interval for FRew/FFwd [min]"
+msgstr "Tijd interval voor FRew/FFwd [min]"
+
+msgid ""
+"Help$Choose here the time interval which should be used for jumping through the EPG by pressing FRew/FFwd.\n"
+"\n"
+"(If you don't have those keys, you can toggle to this functionality pressing '0' and get '<<' and '>>' on the keys green and yellow)"
+msgstr ""
+"Kies hier het tijdsinterval wat gebruikt wordt om met FRew/FFwd door de EPG te springen.\n"
+"\n"
+"(Als deze toetsen niet beschikbaar druk dan eerst op de '0' toets en daarna op 'Groen' en 'Geel' om heen en terug te springem"
+
+msgid "Toggle Green/Yellow"
+msgstr "Groen/Geel verwisselen"
+
+msgid "Help$Specify if green and yellow shall also be switched when pressing '0'."
+msgstr "Geef aan of 'Groen' en 'Geel' ook moeten worden geschakeld als op '0' wordt gedrukt"
+
+msgid "Show favorites menu"
+msgstr "Toon favorieten menu"
+
+msgid ""
+"Help$A favorites menu can display a list of your favorite broadcasts. Enable this if you want an additional menu besides 'Now' and 'Next'\n"
+"Any search can be used as a favorite. You only have to set the option 'Use in favorites menu' when editing a search."
+msgstr ""
+"Een favorieten menu kan een lijst van favoriete uitzendingen tonen. Activeer dit als er extra menu's naast 'Nu' en 'Next' gewenst zijn\n"
+"Iedere willekeurige zoekactie kan ingezet worden als favoriet\n"
+"Daarvoor hoeft enkel de optie 'Gebruik in favorieten menu' geactiveerd te worden tijdens het aanmaken of wijzigen van een zoekactie."
+
+msgid "for the next ... hours"
+msgstr "de komende ... uur"
+
+msgid "Help$This value controls the timespan used to display your favorites."
+msgstr "Deze waarde regelt het interval dat wordt gebruikt voor het tonen van de favorieten"
+
+msgid "Use user-defined time"
+msgstr "Gebruik gebruiker's tijd"
+
+msgid "Help$Besides 'Now' and 'Next' you can specify up to 4 other times in the EPG which can be used by repeatedly pressing the green key, e.g. 'prime time', 'late night',..."
+msgstr "Naast 'Nu' en 'Straks' kunnen nog 4 andere tijden in de EPG worden gespeficiteerd. Deze kunnen worden benaderd door herhaaldelijk op de 'Groene'toets te drukken, bv 'prime time', 'late night'..."
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Help$This is the description for your user-defined time as it will appear as label on the green button."
+msgstr "Dit is de beschrijving van de gebruiker-gedefinieerde tijd zoals het als label bij de toets 'Groen' verschijnt"
+
+msgid "Time"
+msgstr "Tijd"
+
+msgid "Help$Specify the user-defined time here in 'HH:MM'."
+msgstr "Specificeer hier de gebruiker-gedefinieerde tijd als 'HH:MM'"
+
+msgid "Use VDR's timer edit menu"
+msgstr "Gebruik VDR's timer bewerkingsmenu"
+
+msgid ""
+"Help$This plugin has its own timer edit menu extending the original one with some extra functionality like\n"
+"- an additional directory entry\n"
+"- user-defined days of week for repeating timers\n"
+"- adding an episode name\n"
+"- support for EPG variables (see MANUAL)"
+msgstr ""
+"Deze plugin beschikt over zijn eigen timer bewerkingsmenu die de originele uitbreid met extra functionaliteit zoals\n"
+"- een extra regel voor een map\n"
+"- gebruiker-gedefinieerde dagen van de week voor herhaal-timers\n"
+"- toevoegen van een 'episode naam'\n"
+"- ondersteuning voor EPG variabelen (see MANUAL)"
+
+msgid "Default recording dir"
+msgstr "Standaard map voor opnames"
+
+msgid "Help$When creating a timer you can specify here a default recording directory."
+msgstr "Bij het aanmaken van een timer kan hier de standaard opname map worden opgegeven"
+
+msgid "Add episode to manual timers"
+msgstr "Voeg episode toe aan handmatige timers"
+
+msgid ""
+"Help$If you create a timer for a series, you can automatically add the episode name.\n"
+"\n"
+"- never: no addition\n"
+"- always: always add episode name if present\n"
+"- smart: add only if event lasts less than 80 mins."
+msgstr ""
+"Als er een herhaaltimer wordt aangemaakt voor series, dan kan er automatisch de episode naam worden toegevoegd.\n"
+"\n"
+"- nooit: voeg niets toe\n"
+"- altijd: voeg altijd de episode naam toe indien aanwezig\n"
+"- smart: voeg alleen toe wanneer programma minder dan 80 min duurt."
+
+msgid "Default timer check method"
+msgstr "Standaard timer controle methode"
+
+msgid ""
+"Help$Manual timers can be checked for EPG changes. Here you can setup the default check method for each channel. Choose between\n"
+"\n"
+"- no checking\n"
+"- by event ID: checks by an event ID supplied by the channel provider.\n"
+"- by channel and time: check by the duration match."
+msgstr ""
+"Handmatige timers kunnen worden gecontroleerd op EPG veranderingen. Hier kan de standaard methode voor ieder kanaal ingesteld worden. Kies uit\n"
+"\n"
+"- geen controle\n"
+"- op event-ID: kontroleert m.b.v. een event-ID meegzonden door de TV Provider.\n"
+"- op kanaal an tijd: controleer of de tijdsduur overeenkomt."
+
+msgid "Button$Setup"
+msgstr "Instellingen"
+
+msgid "Use search timers"
+msgstr "Gebruik zoektimers"
+
+msgid "Help$'Search timers' can be used to automatically create timers for events that match your search criterions."
+msgstr "Zoektimers kunnen worden gebruikt om automatisch timers te maken o.b.v. programma's die voldoen aan bepaalde zoekcriteria."
+
+msgid "  Update interval [min]"
+msgstr "  Update interval [min]"
+
+msgid "Help$Specify here the time intervall to be used when searching for events in the background."
+msgstr "Geef hier het tijdsinterval op dat wordt gebruikt om op de achtergrond te zoeken naar programma's"
+
+msgid "  SVDRP port"
+msgstr "  SVDRP poort"
+
+msgid "Help$Programming of new timers or timer changes is done with SVDRP. The default value should be correct, so change it only if you know what you are doing."
+msgstr "Het programmeren of wijzigen van timers wordt gedaan met SVDRP. De standaard waarde moet goed staan, dus wijzig dit allen als er echt reden toe is."
+
+msgid "Help$Specify here the default priority of timers created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Bepaal hier de standaard prioriteit van timers aangemaakt met deze plugin. Deze waarde kan ook worden aangepast voor iedere afzonderlijke zoekactie"
+
+msgid "Help$Specify here the default lifetime of timers/recordings created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Bepaal hier de standaard levensduur van timers/opnames aangemaakt door deze plugin. Deze waarde kan ook worden aangepast voor iedere afzonderlijke zoekactie"
+
+msgid "Help$Specify here the default start recording margin of timers/recordings created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Bepaal hier de standaard start opname-marge van timers/opnames aangemaakt door deze plugin. Deze waarde kan ook worden aangepast voor iedere afzonderlijke zoekactie"
+
+msgid "Help$Specify here the default stop recording margin of timers/recordings created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Bepaal hier de standaard stop opname-marge van timers/opnames aangemaakt door deze plugin. Deze waarde kan ook worden aangepast voor iedere afzonderlijke zoekactie"
+
+msgid "No announcements when replaying"
+msgstr "Geen meldingen tijdens afspelen"
+
+msgid "Help$Set this to 'yes' if you don't like to get any announcements of broadcasts if you currently replay anything."
+msgstr "Kies 'ja' indien er geen meldingen van toekomstige uitzendingen gewenst zijn als er op dat moment iets wordt afgespeeld"
+
+msgid "Recreate timers after deletion"
+msgstr "Maak timer opnieuw aan na verwijderen"
+
+msgid "Help$Set this to 'yes' if you want timers to be recreated with the next search timer update after deleting them."
+msgstr "Kies 'ja' als timers na het verwijderen opnieuw moeten worden aangemaakt met een nieuwe zoek-timer update"
+
+msgid "Check if EPG exists for ... [h]"
+msgstr ""
+
+#, fuzzy
+msgid "Help$Specify how many hours of future EPG there should be and get warned else after a search timer update."
+msgstr "Kies 'ja' als de conflict controle moet worden uitgevoerd na het verversen van iedere zoek-timer"
+
+#, fuzzy
+msgid "Warn by OSD"
+msgstr "Alleen aankondigen (geen timer)"
+
+#, fuzzy
+msgid "Help$Set this to 'yes' if you want get warnings from the EPG check via OSD."
+msgstr "Kies 'ja' indien er een notificatie e-mail verstuurd moet worden bij timer conflicten"
+
+#, fuzzy
+msgid "Warn by mail"
+msgstr "Alleen aankondigen (geen timer)"
+
+#, fuzzy
+msgid "Help$Set this to 'yes' if you want get warnings from the EPG check by mail."
+msgstr "kies 'ja' indien uw abonnement authenticatie vereist voor het verzenden van e-mails."
+
+#, fuzzy
+msgid "Channel group to check"
+msgstr "Kanaal groep"
+
+#, fuzzy
+msgid "Help$Specify the channel group to check."
+msgstr "Geef de naam op van het sjabloon"
+
+msgid "Ignore PayTV channels"
+msgstr "Negeer PayTV kanalen"
+
+msgid "Help$Set this to 'yes' if don't want to see events on PayTV channels when searching for repeats."
+msgstr "Kies 'ja' als er geen programma's van payTV kanalen mogen worden getoond tijdens het zoeken naar herhalingen"
+
+msgid "Search templates"
+msgstr "Zoek sjabloon"
+
+msgid "Help$Here you can setup templates for your searches."
+msgstr "Hier kunnen sjablonen worden aangemaakt voor zoekacties."
+
+msgid "Blacklists"
+msgstr "Blacklists"
+
+msgid "Help$Here you can setup blacklists which can be used within a search to exclude events you don't like."
+msgstr "Hier kunnen 'Blacklists' worden aangemaakt die kunnen worden gebruikt om programma's uit te sluiten van zoekactie's "
+
+msgid "Help$Here you can setup channel groups which can be used within a search. These are different to VDR channel groups and represent a set of arbitrary channels, e.g. 'FreeTV'."
+msgstr "Hier kunnen groepen van kanalen worden opgegeven die kunnen worden gebruikt binnen een zoekactie. Deze groepen wijken af van de VDR kanaal groepen en bestaan uit willekeurig kanalen zoals 'FreeTV."
+
+msgid "Ignore below priority"
+msgstr "Negeer onder de prioriteit"
+
+msgid "Help$If a timer with priority below the given value will fail it will not be classified as important. Only important conflicts will produce an OSD message about the conflict after an automatic conflict check."
+msgstr "Als een timer met een prioriteit onder de gegeven waarde mislukt dan wordt hij niet gemerkt als 'belangrijk'. Alleen belangrijke conflicten zullen een OSD melding tot gevolg hebben."
+
+msgid "Ignore conflict duration less ... min."
+msgstr "Negeer conflictduur van minder dan ... min."
+
+msgid "Help$If a conflicts duration is less then the given number of minutes it will not be classified as important. Only important conflicts will produce an OSD message about the conflict after an automatic conflict check."
+msgstr "Indien de duur van conflict(en) kleiner is dan het gegeven aantal minuten dan worden deze niet gemerkt als 'belangrijk' Alleen belangrijke conflicten zullen een OSD melding tot gevolg hebben."
+
+msgid "Only check within next ... days"
+msgstr "Controleer alleen vóór de volgende ... dagen"
+
+msgid "Help$This value reduces the conflict check to the given range of days. All other conflicts are classified as 'not yet important'."
+msgstr "Deze waarde beperkt de conflict controle tot het gegeven aantal dagen. Alle andere conflicten worden als 'nog niet belangrijk' bestempeld."
+
+msgid "Check also remote conflicts"
+msgstr ""
+
+msgid "Help$Set this to 'yes' if the conflict check should be done for timers set on remote hosts. This needs SVDRPPeering to be set in vdr and Plugin epgsearch running on the remote host."
+msgstr ""
+
+msgid "--- Automatic checking ---"
+msgstr "--- Automatische controle ---"
+
+msgid "After each timer programming"
+msgstr "Na iedere aangemaakte timer"
+
+msgid "Help$Set this to 'yes' if the conflict check should be performed after each manual timer programming. In the case of a conflict you get immediately a message that informs you about it. The message is only displayed if this timer is involved in any conflict."
+msgstr "Kies 'ja' als de conflict controle bij iedere handmatig aangemaakte timer moet worden uitgevoerd. In het geval van een conflict verschijnt er direct een waarschuwing. Deze waarschuwing wordt alleen getoond als de timer betrokken is bij een willekeurig conflict."
+
+msgid "When a recording starts"
+msgstr "Wanneer een opname start"
+
+msgid "Help$Set this to 'yes' if the conflict check should be performed when a recording starts. In the case of a conflict you get immediately a message that informs you about it. The message is only displayed if the conflict is within the next 2 hours."
+msgstr "Kies 'ja' als de conflict controle moet worden uitgevoerd bij iedere startende opname. In het geval van een conflict verschijnt er direct een waarschuwing. Deze waarschuwing wordt alleen getoond als de timer betrokken is bij een willekeurig conflict."
+
+msgid "After each search timer update"
+msgstr "Na het verversen van iedere zoek-timer"
+
+msgid "Help$Set this to 'yes' if the conflict check should be performed after each search timer update."
+msgstr "Kies 'ja' als de conflict controle moet worden uitgevoerd na het verversen van iedere zoek-timer"
+
+msgid "every ... minutes"
+msgstr "iedere ... minuten"
+
+msgid ""
+"Help$Specify here the time intervall to be used for an automatic conflict check in the background.\n"
+"('0' disables an automatic check)"
+msgstr "Bepaal hier de tijdsduur gebruikt voor de automatische conflict controle in de achtergrond"
+
+msgid "if conflicts within next ... minutes"
+msgstr "indien conflict optreed binnen ... minuten"
+
+msgid "Help$If the next conflict will appear in the given number of minutes you can specify here a shorter check intervall to get more OSD notifications about it."
+msgstr "Als het volgende conflict binnen het gegeven aantal minuten optreedt dan kan hier een korter interval worden gespecificeerd om meer OSD notificaties te verkrijgen."
+
+msgid "Avoid notification when replaying"
+msgstr "Vermijdt notificatie tijdens afspelen"
+
+msgid "Help$Set this to 'yes' if the don't want to get OSD messages about conflicts if you currently replay something. Nevertheless messages will be displayed if the first upcoming conflict is within the next 2 hours."
+msgstr "Kies 'ja' indien er geen OSD berichten mogen verschijnen tijdens het afspelen. Desondanks zullen berichten wel verschijnen indien het volgende conflict binnen 2 uur optreedt"
+
+msgid "Search timer notification"
+msgstr "Zoektimer notificatie"
+
+msgid "Help$Set this to 'yes' if you want to get an email notification about the search timers that where programmed automatically in the background."
+msgstr "Kies 'ja' wanneer er een notificatie e-mail verstuurd moet worden over zoektimers die automatisch op de achtergrond werden aangenaakt."
+
+msgid "Time between mails [h]"
+msgstr ""
+
+msgid ""
+"Help$Specifiy how much time in [h] you would\n"
+"like to have atleast between two mails.\n"
+"With '0' you get a new mail after each\n"
+"search timer update with new results."
+msgstr ""
+
+msgid "Timer conflict notification"
+msgstr "Timer conflict notificatie"
+
+msgid "Help$Set this to 'yes' if you want to get an email notification about the timer conflicts."
+msgstr "Kies 'ja' indien er een notificatie e-mail verstuurd moet worden bij timer conflicten"
+
+msgid "Send to"
+msgstr "Zend naar"
+
+msgid "Help$Specify the email address where notifications should be sent to."
+msgstr "Geef het e-mail adres op waar de notificaties naartoe gestuurd moeen worden"
+
+msgid "Mail method"
+msgstr "Mail methode"
+
+msgid ""
+"Help$Specify here the method to use when sending mails.\n"
+"You can choose between\n"
+" - 'sendmail': requires a properly configured email system\n"
+" - 'SendEmail.pl': simple script for mail delivery"
+msgstr ""
+
+msgid "--- Email account ---"
+msgstr "--- E-mail gebruiker ---"
+
+msgid "Email address"
+msgstr "E-mail adres"
+
+msgid "Help$Specify the email address where notifications should be sent from."
+msgstr "Geef het e-mail adres op waar vandaan de e-mail notificaties verzonden worden"
+
+msgid "SMTP server"
+msgstr "SMTP server"
+
+msgid "Help$Specify the SMTP server that should deliver the notifications. If it's using a port different from the default(25) append the port with \":port\"."
+msgstr "Geef de SMTP server voor het verzenden van de notificaties. Indien een andere dan de standaard poort (25) wordt gebruik voeg dan toe \":port\""
+
+msgid "Use SMTP authentication"
+msgstr "Gebruik SMTP authenticatie"
+
+msgid "Help$Set this to 'yes' if your account needs authentication to send mails."
+msgstr "kies 'ja' indien uw abonnement authenticatie vereist voor het verzenden van e-mails."
+
+msgid "Auth user"
+msgstr "Auth gebruiker"
+
+msgid "Help$Specify the auth user, if this account needs authentication for SMTP."
+msgstr "Geef de e-mail gebruikernaam op, indien SMTP authenticatie voor het abonnement vereist is."
+
+msgid "Auth password"
+msgstr "Auth wachtwoord"
+
+msgid "Help$Specify the auth password, if this account needs authentication for SMTP."
+msgstr "Geef het e-mail wachtwoord op, indien SMTP authenticatie voor het abonnement vereist is."
+
+msgid "Mail account check failed!"
+msgstr "Mail abonnement verificatie mislukt!"
+
+msgid "Button$Test"
+msgstr "Test"
+
+#, fuzzy
+msgid "$ abcdefghijklmnopqrstuvwxyz0123456789-.,#~\\^$[]|()*+?{}/:%@&_"
+msgstr " abcdefghijklmnopqrstuvwxyz0123456789-.,#~\\^$[]|()*+?{}/:%@&"
+
+msgid "Start/Stop time has changed"
+msgstr ""
+
+msgid "Title/episode has changed"
+msgstr ""
+
+msgid "No new timers were added."
+msgstr "Geen nieuwe timers aangemaakt"
+
+msgid "No timers were modified."
+msgstr "Er zijn geen timers aangepast"
+
+msgid "No timers were deleted."
+msgstr "Er zijn geen timers gewist"
+
+msgid "No new events to announce."
+msgstr ""
+
+msgid "This version of EPGSearch does not support this service!"
+msgstr "Deze versie van EPGSearch ondersteunt deze mogelijkheid niet!"
+
+msgid "EPGSearch does not exist!"
+msgstr "EPGsearch is niet aanwezig!"
+
+#, c-format
+msgid "%d new broadcast"
+msgstr "%d nieuwe uitzending"
+
+msgid "Button$by channel"
+msgstr "per kanaal"
+
+msgid "Button$by time"
+msgstr "op tijd"
+
+msgid "Button$Episode"
+msgstr "Aflevering"
+
+msgid "Button$Title"
+msgstr "Titel"
+
+msgid "announce details"
+msgstr "vermeldt details"
+
+msgid "announce again"
+msgstr "vermeldt nogmaals"
+
+msgid "with next update"
+msgstr "bij volgende herziening"
+
+msgid "again from"
+msgstr "nogmaals vanaf"
+
+msgid "Search timer"
+msgstr "Zoektimer"
+
+msgid "Edit blacklist"
+msgstr "Wijzig blacklist"
+
+msgid "phrase"
+msgstr "uitdruk"
+
+msgid "all words"
+msgstr "alle woorden"
+
+msgid "at least one word"
+msgstr "tenminste een woord"
+
+msgid "match exactly"
+msgstr "precies passend"
+
+msgid "regular expression"
+msgstr "reguliere uitdrukking"
+
+msgid "fuzzy"
+msgstr "fuzzy"
+
+msgid "user-defined"
+msgstr "gebruiker-gedefinieerd"
+
+msgid "interval"
+msgstr "interval"
+
+msgid "channel group"
+msgstr "kanaalgroep"
+
+msgid "only FTA"
+msgstr "alleen FTA"
+
+msgid "Search term"
+msgstr "Zoekterm"
+
+msgid "Search mode"
+msgstr "Zoekinstellingen"
+
+msgid "Tolerance"
+msgstr "Tolerantie"
+
+msgid "Match case"
+msgstr "Case sensitive"
+
+msgid "Use title"
+msgstr "Gebruik titel"
+
+msgid "Use subtitle"
+msgstr "Gebruik ondertitel"
+
+msgid "Use description"
+msgstr "Gebruik beschrijving"
+
+msgid "Use extended EPG info"
+msgstr "Gebruik uitgebreide EPG info"
+
+msgid "Ignore missing categories"
+msgstr "Negeer ontbrekende categoriëen"
+
+msgid "Use channel"
+msgstr "Gebruik kanaal"
+
+msgid "  from channel"
+msgstr "  van kanaal"
+
+msgid "  to channel"
+msgstr "  tot kanaal"
+
+msgid "Channel group"
+msgstr "Kanaal groep"
+
+msgid "Use time"
+msgstr "Gebruik tijd"
+
+msgid "  Start after"
+msgstr "  Start na"
+
+msgid "  Start before"
+msgstr "  Start voor"
+
+msgid "Use duration"
+msgstr "Gebruik tijdsduur"
+
+msgid "  Min. duration"
+msgstr "  Min. duur"
+
+msgid "  Max. duration"
+msgstr "  Max. tijdsduur"
+
+msgid "Use day of week"
+msgstr "Gebruik dag van de week"
+
+msgid "Day of week"
+msgstr "Dag van de week"
+
+msgid "Use global"
+msgstr ""
+
+msgid "Button$Templates"
+msgstr "Sjablonen"
+
+msgid "*** Invalid Channel ***"
+msgstr "*** Ongeldig Kanaal ***"
+
+msgid "Please check channel criteria!"
+msgstr "AUB kanaal criteria nakijken"
+
+msgid "Edit$Delete blacklist?"
+msgstr "Verwijder blacklist?"
+
+msgid "Repeats"
+msgstr "Herhalingen"
+
+msgid "Create search"
+msgstr "Maak een zoekactie aan"
+
+msgid "Search in recordings"
+msgstr "Zoek in opname's"
+
+msgid "Mark as 'already recorded'?"
+msgstr "Markeer als 'reeds opgenomen'?"
+
+msgid "Add/Remove to/from switch list?"
+msgstr ""
+
+msgid "Create blacklist"
+msgstr "Maak nieuwe blacklist"
+
+msgid "EPG Commands"
+msgstr "EPG commando's"
+
+msgid "Epgsearch: RemoteTimerModifications failed"
+msgstr ""
+
+msgid "Already running!"
+msgstr "Reeds actief!"
+
+msgid "Add to switch list?"
+msgstr "Voeg toe aan schakellijst?"
+
+msgid "Delete from switch list?"
+msgstr "Verwijder van schakellijst?"
+
+msgid "Button$Details"
+msgstr "Details"
+
+msgid "Button$Filter"
+msgstr "Filter"
+
+msgid "Button$Show all"
+msgstr "Toon alles"
+
+msgid "conflicts"
+msgstr "conflicten"
+
+msgid "no conflicts!"
+msgstr "geen conflicten!"
+
+msgid "no important conflicts!"
+msgstr "geen belangrijke conflicten!"
+
+msgid "C"
+msgstr "C"
+
+msgid "Button$Repeats"
+msgstr "Herhalingen"
+
+msgid "no check"
+msgstr "geen controle"
+
+msgid "by channel and time"
+msgstr "op kanaal en tijd"
+
+msgid "by event ID"
+msgstr "op event-ID"
+
+msgid "Select directory"
+msgstr "Selecteer map"
+
+msgid "Button$Level"
+msgstr "Niveau"
+
+msgid "Event"
+msgstr "Gebeurtenis"
+
+msgid "Favorites"
+msgstr "Favorieten"
+
+msgid "Search results"
+msgstr "Zoekresultaten"
+
+msgid "Timer conflict! Show?"
+msgstr "Timerconflict! Tonen?"
+
+msgid "Directory"
+msgstr "Map"
+
+msgid "Channel"
+msgstr "Kanaal"
+
+msgid "Childlock"
+msgstr "Kinderslot"
+
+msgid "Record on"
+msgstr ""
+
+msgid "Timer check"
+msgstr "Timercontrole"
+
+msgid "recording with device"
+msgstr "neemt op met kaart"
+
+msgid "Button$With subtitle"
+msgstr "Met ondertitel"
+
+msgid "Button$Without subtitle"
+msgstr "Zonder ondertitel"
+
+msgid "Timer has been deleted"
+msgstr ""
+
+msgid "Button$Extended"
+msgstr "Uitgebreid"
+
+msgid "Button$Simple"
+msgstr "Eenvoudig"
+
+msgid "Use blacklists"
+msgstr "Gebruik blacklists"
+
+msgid "Edit$Search text too short - use anyway?"
+msgstr "Zoektekst te kort - toch gebruiken?"
+
+#, fuzzy
+msgid "Button$Orphaned"
+msgstr "per kanaal"
+
+msgid "Button$by name"
+msgstr "op naam"
+
+msgid "Button$by date"
+msgstr "op datum"
+
+msgid "Button$Delete all"
+msgstr "Verwijder alles"
+
+msgid "Recordings"
+msgstr "Opnames"
+
+msgid "Edit$Delete entry?"
+msgstr "Verwijder regel?"
+
+msgid "Edit$Delete all entries?"
+msgstr "Verwijder alle regels?"
+
+msgid "Summary"
+msgstr "Samenvatting"
+
+msgid "Auxiliary info"
+msgstr "Reserve info"
+
+msgid "Button$Aux info"
+msgstr "Res. info"
+
+msgid "Search actions"
+msgstr "Zoekcriteria acties"
+
+msgid "Execute search"
+msgstr "Voer zoekcriterium uit"
+
+msgid "Use as search timer on/off"
+msgstr "Gebruik als zoek-timer aan/uit"
+
+msgid "Trigger search timer update"
+msgstr "Start verversen zoektimer"
+
+msgid "Show recordings done"
+msgstr "Tonen opnames gereed"
+
+msgid "Show timers created"
+msgstr "Toon aangemaakte timers"
+
+msgid "Create a copy"
+msgstr "Maak een kopie"
+
+msgid "Use as template"
+msgstr "Gebruik als sjabloon"
+
+msgid "Show switch list"
+msgstr "Toon schakellijst"
+
+msgid "Show blacklists"
+msgstr "Toon blacklists"
+
+msgid "Delete created timers?"
+msgstr "Verwijder aangemaakte timers?"
+
+msgid "Timer conflict check"
+msgstr "Timerconflict controle"
+
+msgid "Disable associated timers too?"
+msgstr "Schakel gemeenschappelijke timers ook uit?"
+
+msgid "Activate associated timers too?"
+msgstr "Activeer gemeenschappelijke timers ook?"
+
+msgid "Search timers activated in setup."
+msgstr "Zoektimers geactiveerd in instellingen"
+
+msgid "Run search timer update?"
+msgstr "Start verversen zoektimer? "
+
+msgid "Copy this entry?"
+msgstr "Kopiëer deze regel?"
+
+msgid "Copy"
+msgstr "Kopiëer"
+
+msgid "Copy this entry to templates?"
+msgstr "Kopiëer deze regel naar sjablonen"
+
+msgid "Delete all timers created from this search?"
+msgstr "Verwijder alle timers aangemaakt door dit zoekcriterium?"
+
+msgid "Button$Actions"
+msgstr "Acties"
+
+msgid "Search entries"
+msgstr "Zoekregels"
+
+msgid "active"
+msgstr "actief"
+
+msgid "Edit$Delete search?"
+msgstr "Zoekcriterium wissen?"
+
+msgid "Edit search"
+msgstr "Bewerk zoekcriteria"
+
+msgid "Record"
+msgstr "Opnemen"
+
+#, fuzzy
+msgid "Announce by OSD"
+msgstr "Alleen aankondigen (geen timer)"
+
+msgid "Switch only"
+msgstr "Alleen schakelen"
+
+#, fuzzy
+msgid "Announce and switch"
+msgstr "Alleen aankondigen (geen timer)"
+
+#, fuzzy
+msgid "Announce by mail"
+msgstr "Alleen aankondigen (geen timer)"
+
+msgid "Inactive record"
+msgstr ""
+
+msgid "only globals"
+msgstr ""
+
+msgid "Selection"
+msgstr "Selectie"
+
+msgid "all"
+msgstr "alles"
+
+msgid "count recordings"
+msgstr "tel opnames"
+
+msgid "count days"
+msgstr "tel dagen"
+
+msgid "if present"
+msgstr ""
+
+#, fuzzy
+msgid "same day"
+msgstr "Eerste dag"
+
+#, fuzzy
+msgid "same week"
+msgstr "Dag van de week"
+
+msgid "same month"
+msgstr ""
+
+msgid "Template name"
+msgstr "Naam van sjabloon"
+
+msgid "Help$Specify the name of the template."
+msgstr "Geef de naam op van het sjabloon"
+
+msgid "Help$Specify here the term to search for."
+msgstr "Vul hier de zoekterm in."
+
+msgid ""
+"Help$The following search modes exist:\n"
+"\n"
+"- phrase: searches for sub terms\n"
+"- all words: all single words must appear\n"
+"- at least one word: at least one single word must appear\n"
+"- match exactly: must match exactly\n"
+"- regular expression: match a regular expression\n"
+"- fuzzy searching: searches approximately"
+msgstr ""
+"Er kan gekozen worden uit de volgende zoekinstellingen:\n"
+"- alle woorden: alle los voorkomende woorden moeten gevonden worden\n"
+"- minstens één woord: minstens én woord moet worden gevonden\n"
+"- past precies: de hele zoekterm komt exact overeen\n"
+"- reguliere expressie: resultaat past bij uitkomst expressie\n"
+"- 'fuzzy' zoeken: zoek naar mogelijke matches"
+
+msgid "Help$This sets the tolerance of fuzzy searching. The value represents the allowed errors."
+msgstr "Hier wordt de tolerantie van de 'fuzzy'zoekactie opgegeven. De waarde vertegenwoordigd de toegestane fouten"
+
+msgid "Help$Set this to 'Yes' if your search should match the case."
+msgstr "Kies 'ja' idien de zoekactie case-sensitive moet zijn"
+
+msgid "Help$Set this to 'Yes' if you like to search in the title of an event."
+msgstr "Kies 'ja' indien de zoekactie moet zoeken in de titel van het programma"
+
+msgid "Help$Set this to 'Yes' if you like to search in the episode of an event."
+msgstr "Kies 'ja' indien de zoakactie moet zoeken in de aflevering van een programma"
+
+msgid "Help$Set this to 'Yes' if you like to search in the summary of an event."
+msgstr "Kies 'ja' indien de zoekactie moet zoeken in de samenvatting van een programma."
+
+#, fuzzy
+msgid "Use content descriptor"
+msgstr "Gebruik beschrijving"
+
+#, fuzzy
+msgid "Help$Set this to 'Yes' if you want to search the contents by a descriptor."
+msgstr "Kies 'ja' indien de zoekactie moet zoeken in de titel van het programma"
+
+msgid "Help$The summary of an event, can contain additional information like 'Genre', 'Category', 'Year',... called 'EPG categories' within EPGSearch. External EPG providers often deliver this information. This allows refining a search and other nice things, like searching for the 'tip of the day'. To use it set this to 'Yes'."
+msgstr "De samenvatting van een programma kan extra informatie bevatten zoals 'Genre', 'Jaar',... binnen EPGsearch 'EPG categoriëen' genoemd.  "
+
+msgid "Help$The file epgsearchcats.conf specifies the search mode for this entry. One can search by text or by value. You can also edit a list of predefined values in this file that can be selected here."
+msgstr "Het bestand epgsearchcats.conf omschrijft de zoekinstellingen voor deze regel. Men kan zoeken op tekst of waarde. Er kan ook een lijst van voorgedefinieerde waarden geselecteerd en aangepast worden"
+
+msgid "Help$If a selected category is not part of the summary of an event this normally excludes this event from the search results. To avoid this, set this option to 'Yes', but please handle this with care to avoid a huge amount of results."
+msgstr "Als een gekozen categorie geen onderdeel is van een samenvatting van een programma, dan zal dit programma niet verschijnen in de zoekresultaten. Om dit te voorkomen kan deze optie worden ingesteld, maar het kan leiden tot heel veel resultaten!"
+
+msgid "Use in favorites menu"
+msgstr "Gebruik in favorieten menu"
+
+msgid "Result menu layout"
+msgstr "Uiterlijk menu resultaten"
+
+msgid "Use as search timer"
+msgstr "Gebruik als zoektimer"
+
+msgid "Action"
+msgstr "Actie"
+
+msgid "Switch ... minutes before start"
+msgstr "Schakel ... minuten voor start"
+
+msgid "Unmute sound"
+msgstr ""
+
+#, fuzzy
+msgid "Ask ... minutes before start"
+msgstr "Schakel ... minuten voor start"
+
+msgid "  Series recording"
+msgstr "  Serie's opnemen"
+
+msgid "Delete recordings after ... days"
+msgstr "Verwijder opnames na ... dagen"
+
+msgid "Keep ... recordings"
+msgstr "Bewaar ... opnames"
+
+msgid "Pause when ... recordings exist"
+msgstr "Pauzeer wanneer ... opnames bestaan"
+
+msgid "Avoid repeats"
+msgstr "Vermijdt herhalingen"
+
+msgid "Allowed repeats"
+msgstr "Toegestane herhalingen"
+
+msgid "Only repeats within ... days"
+msgstr "Alleen herhalingen binnen ... dagen"
+
+msgid "Compare title"
+msgstr "Vergelijk titel"
+
+msgid "Compare subtitle"
+msgstr "Vergelijk ondertiteling"
+
+msgid "Compare summary"
+msgstr "Vergelijk samenvatting"
+
+#, fuzzy
+msgid "Min. match in %"
+msgstr "  Min. duur"
+
+#, fuzzy
+msgid "Compare date"
+msgstr "Vergelijk titel"
+
+msgid "Compare categories"
+msgstr "vergelijk categoriëen"
+
+msgid "VPS"
+msgstr "VPS"
+
+msgid "Auto delete"
+msgstr "Automatisch wissen"
+
+msgid "after ... recordings"
+msgstr "na ... opnames"
+
+msgid "after ... days after first rec."
+msgstr "na ... dagen na eerste opname"
+
+msgid "Edit user-defined days of week"
+msgstr "Bewerk door gebruiker gedefinieerde dagen van de week"
+
+msgid "Compare"
+msgstr "Vergelijk"
+
+msgid "Select blacklists"
+msgstr "Kies blacklists"
+
+msgid "Values for EPG category"
+msgstr ""
+
+msgid "Button$Apply"
+msgstr "Toepassen"
+
+msgid "less"
+msgstr "minder"
+
+msgid "less or equal"
+msgstr "minder of gelijk"
+
+msgid "greater"
+msgstr "meer"
+
+msgid "greater or equal"
+msgstr "meer of gelijk"
+
+msgid "equal"
+msgstr "gelijk"
+
+msgid "not equal"
+msgstr "niet geljk"
+
+msgid "Activation of search timer"
+msgstr "Activering van zoektimer"
+
+msgid "First day"
+msgstr ""
+
+msgid "Last day"
+msgstr "Eerste dag"
+
+msgid "Button$all channels"
+msgstr "alle kanalen"
+
+msgid "Button$only FTA"
+msgstr "alleen FTA"
+
+msgid "Button$Timer preview"
+msgstr "Timer preview"
+
+msgid "Blacklist results"
+msgstr "Blacklists resultaten"
+
+msgid "found recordings"
+msgstr "gevonden opname's"
+
+msgid "Error while accessing recording!"
+msgstr "Fout tijdens benaderen opnames!"
+
+msgid "Button$Default"
+msgstr ""
+
+msgid "Edit$Delete template?"
+msgstr "Verwijder sjabloon?"
+
+msgid "Overwrite existing entries?"
+msgstr "Overschrijf bestaande invoer?"
+
+msgid "Edit entry"
+msgstr "Wijzig invoer"
+
+#, fuzzy
+msgid "Switch"
+msgstr "Alleen schakelen"
+
+msgid "Announce only"
+msgstr "Alleen aankondigen (geen timer)"
+
+#, fuzzy
+msgid "Announce ... minutes before start"
+msgstr "Schakel ... minuten voor start"
+
+msgid "action at"
+msgstr "actie op"
+
+msgid "Switch list"
+msgstr "Schakellijst"
+
+msgid "Edit template"
+msgstr "Wijzig sjabloon"
+
+msgid "Timers"
+msgstr "Timers"
+
+msgid ">>> no info! <<<"
+msgstr ">>> geen info! <<<"
+
+msgid "Overview"
+msgstr "Overzicht"
+
+msgid "Button$Favorites"
+msgstr "Favorieten"
+
+msgid "Quick search for broadcasts"
+msgstr "Snel zoeken naar uitzendingen"
+
+msgid "Quick search"
+msgstr "Snel zoeken"
+
+msgid "Show in main menu"
+msgstr "Toon vermelding in hoofdmenu"
+
+#, c-format
+msgid "%d new broadcast(s) found! Show them?"
+msgstr "%d nieuwe uitzending(en) gevonden! Tonen?"
+
+msgid "Search timer update done!"
+msgstr "Verversen zoektimer gereed!"
+
+#, c-format
+msgid "small EPG content on:%s"
+msgstr ""
+
+msgid "VDR EPG check warning"
+msgstr ""
+
+#, c-format
+msgid "Switch to (%d) '%s'?"
+msgstr ""
+
+msgid "Programming timer failed!"
+msgstr "Programmeren timer mislukt!"
+
+#~ msgid "in %02ldd"
+#~ msgstr "in %02ldd"
+
+#~ msgid "in %02ldh"
+#~ msgstr "in %02ldh"
+
+#~ msgid "in %02ldm"
+#~ msgstr "in %02ldm"
+
+#, fuzzy
+#~ msgid "Compare expression"
+#~ msgstr "reguliere uitdrukking"

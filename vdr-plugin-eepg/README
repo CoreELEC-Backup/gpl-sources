@@ -1,0 +1,147 @@
+
+This is the Extended EPG (EEPG) "plugin" for the Video Disk Recorder (VDR).
+
+Written by:                  Dingo35
+
+Mainnained by:               Dimitar Petrovski <dimeptr@gmail.com>
+
+Project's homepage:          http://projects.vdr-developer.org/projects/plg-eepg
+
+Latest stable version available at:       
+    http://projects.vdr-developer.org/git/vdr-plugin-eepg.git/snapshot/vdr-plugin-eepg-master.tar.bz2
+Latest experimental version available at: 
+    http://projects.vdr-developer.org/git/vdr-plugin-eepg.git/snapshot/vdr-plugin-eepg-experimental.tar.bz2
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+See the file COPYING for more information.
+
+----------------------------------------------------------------------
+
+Description:
+
+This plugin parses the extended (2 to 10 day) EPG data which is send by 
+providers on their portal channels. This EEPG data is transmitted in a 
+non-standard format on a non-standard PID.
+
+Currently the following EEPG formats are supported:
+* Mediahighway 1 (CanaalDigitaalNL, CSat, Cyfra+)
+* Mediahighway 2 (Digital+)
+* Sky Italy
+* Sky UK
+* Freesat
+* Freeview
+* Premiere
+* NagraGuide (CanaalDigitaalNL, only in test)
+* NA Dish and BEV
+
+INSTALL
+Unpack, make and make plugins like any other plugin. Call like any other
+On the first run, in the vdr-plugins directory a subdirectory eepg is created
+where all necessary files are created.
+One can define equivalent channels in the eepg.equiv file to "copy" 
+EEPG data to other channels. 
+E.g., CanaalDigitaalNL still sends Dorcel EEPG data on S19.2E, which can be used
+for Dorcel on S13.0E.
+Some sample eepg.equiv files are included.
+
+Scripts
+The provided scripts in the package can also help generate the eepg.equiv file.
+For more information see README in scripts/
+
+USE
+The plugin has no mainmenu entry, and only a few settings for Premiere. 
+When one of VDR's devices is tuned to a transponder (by tuning, a recording or 
+an EPG scan triggered by VDR), the plugin scans all channels on the transponder
+for the supported EEPG formats. When all of the supported formats are detected, 
+all available EEPG data is loaded into the schedule of VDR.
+Additionally, the EEPG data is loaded into additional channels if they are specified 
+in the eepg.equiv file (not for Premiere).
+Everything is done automatically and transparently, all is done concurrently
+with recordings and live viewings.
+Freesat and Premiere are loading their EEPG info continuously.
+
+The plugin is designed to use as less recources as possible: it only uses 1 Pid
+(especially important to users of FF cards, which have a max. of 32 Pids), 
+and allocates and frees memory according to its needs.
+
+If one needs to reload EEPG data periodically, it is sufficient to create
+a cron job which tunes to the proper channel through the SVDRP interface.
+In practice, viewing and tuning to your favourite channels reloads the EEPG data daily,
+which is often enough since EEPG data is valid for 2 - 10 days.
+
+New, unknown EEPG transponders will be detected automatically (MHW1, MHW2, Freesat) or 
+have to be added (Sky uses different huffman decoding tables for every country).
+
+Currently known transponders that send EEPG data:
+* Sky Italia       S13.0E:11881V (OpenTV)
+* Sky UK           S28.2E:11778V (OpenTV)
+* Cyfra+           S13.0E:10719V (Mediahighway 1)
+* CSat             S19.2E:12363V (Mediahighway 1)
+* Canal DigitaalNL S19.2E:12515H (Mediahighway 1, NagraGuide)
+* Digital+         S19.2E:10847V (Mediahighway 2)
+* Premiere         Sport Portal, Premiere Direkt Portal
+* Freesat          all freesat channels
+* Dish and BEV     S119.0W:12472H S91.0W12224R
+
+Please note that the NagraGuide broadcasts of Canal DigitaalNL are stil in betatest; 
+therefore its information is not always reliable. It seems that sometimes, when no summaries 
+are available for certain titles, random summaries are chosen by the broadcaster.
+This could, of course, also be a bug, since the protocol of NagraGuide is not published.
+It can be further investigated only when NagraGuide is taken into production, and 
+certified receivers will be able to decode Nagra... in the mean time YOU can already
+enjoy the 7-day EEPG schedule!
+The unreliability of Nagra is compensated by having Mediahighway 1 overwrite Nagra-events it 
+detects.
+
+For Premiere, the plugin can tag option events i.e. the same event with the same time on
+different channels e.g. F1 sub channels. The tagging format (e.g. before or
+after event name) can be selected in the plugin setup menu.
+In addition there are two switches in the plugin setup menu to control inclusion
+of order and parental rating information into the event description.
+The plugin setup menu is only for Premiere protocol!
+
+Optionally EEPG can try to fix the charset of providers that send the EPG data with no 
+or incorrect Charset. In order for EEPG to try to fix the charset the option must be 
+selected from the menu.
+This is a workaround fix which does double conversion and depends on
+already know data for providers that send incorrect charset.
+The real solution is for Providers to follow the standards and not to do this in the first place.
+
+The themes of the EPG events can be translated. For MHW a translation file is used, and for OTV the 
+theme file should be translated.
+See example english translation files in: extra/en-themes/*.*
+This files should be placed in eepg plugin config directory.
+
+THANKS
+This code is based on:
+* Premiere plugin (C) 2005-2007 Stefan Huelswitt <s.huelswitt@gmx.de>
+* mhwepg program  (C) 2002, 2003 Jean-Claude Repetto <mhwepg@repetto.org>
+* LoadEpg plugin written by Luca De Pieri <dpluca@libero.it>
+* Freesat patch written by dom /at/ suborbital.org.uk
+* Dish/BEV patch written by 
+* cAddEventThread from EPGFixer plugin by Matti Lehtimaki matti.lehtimaki /at/ gmail.com
+Thanks to mrgandalf, and the others who helped map NA eit.
+Thanks to VDR User for testing and providing makequiv.sh script for S72.7W channels.
+Thanks to cheesemonster for providing a patch to fix multipe device problems
+Thanks to Tony Houghton and Stuart Morris for testing Freeview HD
+Thanks to Matthias Feistel for the wrong lock sequence fix
+
+We wish to thank all authors for the great work they have been doing, decoding
+this EEPG data; this plugin tries to combine the best of all worlds.
+Specific improvement has been done on Mediahigway 1 protocol: all software known
+tries to combine titles and summaries on the basis of the event-id, but several 
+channels can use the same event-id at the same time. This leads in practice to
+20-25% erroneous summaries. The plugin uses the same technique as more simple
+satellite receivers, which take into account the order in which titles
+and summaries are sent. This leads to 99-100% accuracy.
+Also, the "number of replays" technique for CSAT is implemented correctly; not all
+software supported this information, which leads to loss of 80-90% of the EEPG 
+information.
+
+
+KNOWN BUGS
+-Equivalents file is not used for Premiere.
+

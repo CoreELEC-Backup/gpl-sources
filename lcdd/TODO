@@ -1,0 +1,60 @@
+NOTE: Use of this TODO list is obsolete! A list of things to be done is
+automatically created by Doxygen. You may create the Doxygen documentation
+yourself by running the doxygen command from the docs/ directory.
+
+Ideas for new features can be entered at the IdeaTorrent:
+http://sourceforge.net/apps/ideatorrent/lcdproc/
+
+------------------------------------------------------------------------------
+
+Stuff planned for future releases...  (in no particular order)
+Feel free to help out with any of this stuff!  :)
+Please send a message to the mailing list if you have any question.
+
+Things for the short term
+=========================
+- Use non-standard serial baud rates (57600 and higher) only optional.
+
+
+Things for the longer term
+==========================
+
+lcdproc client
+--------------
+
+- allow more than one instance of a screen with different configuration
+  sections (implementation should be possible similar to the one with
+  the drivers in LCDd where File=... points to the original driver file)
+- more options in the config file (clocks with offsets from localtime, ...)
+- more options changeable in the lcdproc client menu
+- rewrite machine_get_fs() in machine_Linux.c to use functions from mntent.h
+- get rid of MTAB_FILE compile time definition (for Linux & SunOS)
+
+
+lcdexec client
+--------------
+
+more flexbibility: do not just only execute commands, but
+maybe also display their result in a screen, get a command's
+parameters interactively using the builtin input menus,
+confirmation of commands, jumping between commands depending
+on the output of a command (wizards), ...
+
+
+Client driver
+-------------
+
+An LCDproc client can connect, request the "client" driver, then get
+all screen information sent to it!  This allows things such as logging
+in remotely and starting up a curses display of LCDproc.  It also
+gives another method for writing drivers.  In a sense, it could even
+let you write and link in new drivers without having to recompile and
+restart LCDproc...
+
+Another bonus is that LCDproc will come with a client which can, for
+example, start up a "client" driver to send "keypresses" from the
+command line.  Or,
+
+	lcdtool -key A
+
+would have the same result as pressing a key on the keypad.

@@ -1,0 +1,12 @@
+Note:
+This is a dummy README needed by some maintainers that use the git
+repository to fetch epgsearch. In the official or beta tar balls it
+is replaced by a symbolic link to
+
+./doc/en/epgsearch.1.txt
+
+which is not part of the git repository since it is built from the
+sources (via 'make docs').
+
+If its in the way, just remove it.
+

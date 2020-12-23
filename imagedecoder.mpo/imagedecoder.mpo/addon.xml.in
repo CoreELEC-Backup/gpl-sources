@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="imagedecoder.mpo"
+  version="2.0.1"
+  name="MPO image decoder"
+  provider-name="spiff">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="kodi.imagedecoder"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"
+    extension=".mpo"
+    mimetype="image/mpo"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Multi Picture Object (MPO) image decoder</summary>
+    <summary lang="de_DE">Multi Picture Object (MPO) Bilddekodierer</summary>
+    <description lang="en_GB">An addon to decode MPO (multiple picture object) files. These are used mainly for 3D cameras and the Nintendo 3DS.</description>
+    <description lang="de_DE">Ein Addon zum Dekodieren von MPO-Dateien (Multiple Picture Object). Diese werden hauptsächlich für 3D-Kameras und den Nintendo 3DS verwendet.</description>
+    <platform>@PLATFORM@</platform>
+    <license>GPL-2.0-or-later</license>
+    <source>https://github.com/xbmc/imagedecoder.mpo</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

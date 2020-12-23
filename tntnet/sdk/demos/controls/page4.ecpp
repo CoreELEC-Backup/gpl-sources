@@ -1,0 +1,16 @@
+<%args>
+bool logout;
+</%args>
+<%request scope="global">
+std::string message;
+</%request>
+<%cpp>
+  if (logout)
+  {
+    request.clearSession();
+    message = "user logged out";
+  }
+</%cpp>
+<h1>This is page 4</h1>
+
+<input type="submit" name="logout" value="logout">

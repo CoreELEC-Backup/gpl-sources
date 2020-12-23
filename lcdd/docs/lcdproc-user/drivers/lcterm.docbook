@@ -1,0 +1,41 @@
+<sect1 id="lcterm-howto">
+<title>The lcterm Driver</title>
+
+<para>
+This section talks about using LCDproc with serial LCD displays from
+<ulink url="http://www.neumark.de/">Helmut Neumark Elektronik</ulink>.
+</para>
+
+<!-- ## HNE LCTerm driver ## -->
+<sect2 id="lcterm-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="lcterm-config-section">
+<title>[lcterm]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+  Default: <filename>/dev/lcd</filename>
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+  Default: <literal>16x2</literal>.
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

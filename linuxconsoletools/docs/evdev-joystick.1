@@ -1,0 +1,75 @@
+.TH evdev-joystick 1 "Apr 19, 2016" evdev-joystick
+.SH NAME
+evdev\-joystick \- joystick calibration program
+.SH SYNOPSIS
+.B evdev\-joystick \-\-help
+.br
+.B evdev\-joystick \-\-listdevs
+.br
+.B evdev\-joystick \-\-showcal \fR<\fIdevice\(hypath\fP>\fP
+.br
+.B evdev\-joystick \-\-evdev \fR\fIdevice\(hypath\fP>
+.RB [ \-\-axis
+.RI < axis >]
+.RB [ \-\-deadzone
+.RI < value >]
+.RB [ \-\-fuzz
+.RI < value >]
+.SH DESCRIPTION
+.B evdev\-joystick
+calibrates joysticks.
+Calibrating a joystick ensures the positions on the various axes are
+correctly interpreted.
+.SH OPTIONS
+.TP
+.BR \-\-h ", " \-\-help
+Print out a summary of available options.
+.TP
+.BR \-\-l ", " \-\-listdevs
+List all joystick devices found.
+.TP
+.BR \-\-s ", " \-\-showcal " <" \fIdevice\(hypath\fP >
+Show the current calibration for the specified \fIdevice\fP.
+.TP
+.BR \-\-e ", " \-\-evdev " <" \fIdevice\(hypath\fP >
+Specify the joystick \fIdevice\fP to modify.
+.TP
+.BR \-\-a ", " \-\-axis " <" \fIaxis\fP >
+Specify the \fIaxis\fP to modify (by default, all axes are
+calibrated).
+.TP
+.BR \-\-d ", " \-\-deadzone " <" \fIvalue\fP >
+Change the deadzone for the current joystick.
+.TP
+.BR \-\-f ", " \-\-fuzz " <" \fIvalue\fP >
+Change the fuzz for the current joystick.
+.SH CALIBRATION
+Using the Linux input system, joysticks are expected to produce values
+between \-32767 and 32767 for axes, with 0 meaning the joystick is
+centred.
+Thus, full\(hyleft should produce \-32767 on the X axis, full\(hyright
+32767 on the X axis, full\(hyforward \-32767 on the Y axis, and so on.
+.PP
+Many joysticks and gamepads (especially older ones) are slightly
+mis\(hyaligned; as a result they may not use the full range of values
+(for the extremes of the axes), or more annoyingly they may not give 0
+when centred.
+Calibrating a joystick provides the kernel with information on a
+joystick's real behaviour, which allows the kernel to correct various
+joysticks' deficiencies and produce consistent output as far as
+joystick\(hyusing software is concerned.
+.PP
+\fBjstest\fP(1) is useful to determine whether a joystick is
+calibrated: when run, it should produce all 0s when the joystick is at
+rest, and each axis should be able to produce the values \-32767 and
+32767.
+Analog joysticks should produce values in between 0 and the extremes,
+but this is not necessary; digital directional pads work fine with
+only the three values.
+.SH SEE ALSO
+\fBffset\fP(1), \fBjstest\fP(1).
+.SH AUTHORS
+.B evdev\-joystick
+was written by Stephen Anthony, based on VDrift's G25manage tool.
+.PP
+This manual page was written by Stephen Kitt <steve@sk2.org>.

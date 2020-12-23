@@ -1,0 +1,13 @@
+--- device.c.orig	2008-03-28 11:47:25.000000000 +0100
++++ device.c	2008-03-28 11:47:09.000000000 +0100
+@@ -375,8 +375,8 @@
+                }
+             }
+          }
+-     if (!NumUsableSlots)
+-        return NULL; // no CAM is able to decrypt this channel
++//     if (!NumUsableSlots)
++//        return NULL; // no CAM is able to decrypt this channel
+      }
+ 
+   bool NeedsDetachReceivers = false;

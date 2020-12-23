@@ -1,0 +1,34 @@
+# hconsole input file to build disk/gemdos.prg with AHCC
+#
+# usage:
+# 1. symlink ahcc_p.ttp program, include and lib directories for AHCC
+#    under the same directory where this script and sources are
+# 2. run:
+#    hconsole.py ./ahcc-gemdos -- --machine tt -s 14 -m --tos etos512.img .
+#
+# Notes:
+# - EmuTOS 512k is needed for EmuCON console
+# - AHCC requires 030 machine (alternatively you can use AHCCST)
+
+# boot faster (1s instead of >10s) and show EmuCON output on console
+setopt --statusbar off --fast-forward yes --fastfdc on --conout 2
+
+# wait for EmuTOS to boot
+sleep 2
+
+# Invoke EmuCON with ^Z: Control down, press Z, Control up
+keydown 29
+keypress Z
+keyup 29
+
+# output command to re-build test.prg
+text ahcc_p.ttp gemdos.prj
+# press Return to execute it
+keypress 28
+
+# wait build to finish
+sleep 5
+
+# kill hatari
+kill
+quit

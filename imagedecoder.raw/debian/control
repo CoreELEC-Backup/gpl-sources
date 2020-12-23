@@ -1,0 +1,22 @@
+Source: kodi-imagedecoder-raw
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake,
+               kodi-addon-dev, libraw-dev, libturbojpeg0-dev
+Standards-Version: 4.1.2
+Section: libs
+Homepage: https://kodi.tv
+
+Package: kodi-imagedecoder-raw
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: RAW image decoder for Kodi
+  RAW image decoder for Kodi
+
+Package: kodi-imagedecoder-raw-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for RAW image decoder for Kodi
+  debug symbols for RAW image decoder for Kodi

@@ -1,0 +1,94 @@
+<sect1 id="lcdm001-howto">
+<title>The lcdm001 Driver</title>
+
+<para>
+This section talks about using LCDproc with serial LCD displays from
+<ulink url="http://www.kernelconcepts.de/">kernel concepts</ulink>.
+</para>
+
+<!-- ## LCDM001 driver ## -->
+<sect2 id="lcdm001-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="lcdm001-config-section">
+<title>[lcdm001]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+  Default: <filename>/dev/lcd</filename>
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>PauseKey</property> =
+    <parameter><replaceable>KEY</replaceable></parameter>
+  </term>
+  <term>
+    <property>BackKey</property> =
+    <parameter><replaceable>KEY</replaceable></parameter>
+  </term>
+  <term>
+    <property>ForwardKey</property> =
+    <parameter><replaceable>KEY</replaceable></parameter>
+  </term>
+  <term>
+    <property>MainMenuKey</property> =
+    <parameter><replaceable>KEY</replaceable></parameter>
+  </term>
+  <listitem>
+    <para>
+    keypad settings
+    </para>
+    <informaltable>
+    <tgroup cols="3">
+      <thead>
+        <row>
+	  <entry>key name</entry>
+	  <entry>function (normal context)</entry>
+	  <entry>function (menu context)</entry>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <entry>PauseKey</entry>
+          <entry>Pause/Continue</entry>
+          <entry>Enter/select</entry>
+        </row>
+        <row>
+          <entry>BackKey</entry>
+          <entry>Back(Go to previous screen)</entry>
+          <entry>Up/Left</entry>
+        </row>
+        <row>
+          <entry>ForwardKey</entry>
+          <entry>Forward(Go to next screen)</entry>
+          <entry>Down/Right</entry>
+        </row>
+        <row>
+          <entry>MainMenuKey</entry>
+          <entry>Open main menu</entry>
+          <entry>Exit/Cancel</entry>
+        </row>
+     </tbody>
+    </tgroup>
+    </informaltable>
+    <para>
+      You can rearrange the settings here.
+    </para>
+  </listitem>
+</varlistentry>
+</variablelist>
+
+<para>If your device is broken, have a look at server/drivers/lcdm001.h</para>
+
+</sect3>
+
+</sect2>
+
+</sect1>

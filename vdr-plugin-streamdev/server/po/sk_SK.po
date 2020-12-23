@@ -1,0 +1,97 @@
+# VDR streamdev plugin language source file.
+# Copyright (C) 2009 streamdev development team. See http://streamdev.vdr-developer.org
+# This file is distributed under the same license as the VDR streamdev package.
+# Milan Hrala <hrala.milan@gmail.com>, 2009
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: streamdev_SK\n"
+"Report-Msgid-Bugs-To: <vdrdev@schmirler.de>\n"
+"POT-Creation-Date: 2014-05-05 22:46+0200\n"
+"PO-Revision-Date: 2013-11-22 23:39+0100\n"
+"Last-Translator: Milan Hrala <hrala.milan@gmail.com>\n"
+"Language-Team: Slovak <hrala.milan@gmail.com>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+
+msgid "Streaming active"
+msgstr "Streamovanie aktívne"
+
+msgid "Streamdev Connections"
+msgstr "Streamdev spojenia"
+
+msgid "Disconnect"
+msgstr "Odpoji»"
+
+msgid "Suspend"
+msgstr "Pozastavi»"
+
+msgid "Common Settings"
+msgstr "V¹eobecné nastavenia"
+
+msgid "Hide Mainmenu Entry"
+msgstr "Schova» v hlavnom menu"
+
+msgid "Start with Live TV suspended"
+msgstr "Pozastavi» Live TV pri ¹tarte"
+
+msgid "Maximum Number of Clients"
+msgstr "Maximály poèet klientov"
+
+msgid "Live TV buffer delay (ms)"
+msgstr ""
+
+msgid "VDR-to-VDR Server"
+msgstr "Prenos z VDR do VDR"
+
+msgid "Start VDR-to-VDR Server"
+msgstr "Spusti» prenos z VDR do VDR"
+
+msgid "VDR-to-VDR Server Port"
+msgstr "Port servera prenosu z VDR do VDR"
+
+msgid "Bind to IP"
+msgstr "Viaza» na IP"
+
+msgid "Legacy Client Priority"
+msgstr "Dodatoèná priorita klienta"
+
+msgid "Client may suspend"
+msgstr "Klient mô¾e server pozastavi»"
+
+msgid "Loop Prevention"
+msgstr "Prevencia sluèky"
+
+msgid "HTTP Server"
+msgstr "HTTP server "
+
+msgid "Start HTTP Server"
+msgstr "Spusti» HTTP Server"
+
+msgid "HTTP Server Port"
+msgstr "Port HTTP servera"
+
+msgid "Priority"
+msgstr "Priorita"
+
+msgid "HTTP Streamtype"
+msgstr "Typ HTTP streamu"
+
+msgid "Multicast Streaming Server"
+msgstr "Streamovanie Multicastového servera"
+
+msgid "Start IGMP Server"
+msgstr "Spusti» IGMP Server"
+
+msgid "Multicast Client Port"
+msgstr "Port Multicast klienta"
+
+msgid "Multicast Streamtype"
+msgstr "Typ Multicast streamu"
+
+msgid "VDR Streaming Server"
+msgstr "VDR server streamovania"

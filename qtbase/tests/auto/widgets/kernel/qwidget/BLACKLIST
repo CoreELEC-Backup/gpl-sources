@@ -1,0 +1,51 @@
+# OSX QTBUG-25300 QTBUG-45502
+[normalGeometry]
+ubuntu-16.04
+[saveRestoreGeometry]
+opensuse-leap
+ubuntu-16.04
+b2qt
+opensuse-42.3
+[restoreVersion1Geometry]
+ubuntu-16.04
+[updateWhileMinimized]
+ubuntu-18.04
+rhel-7.4
+ubuntu-16.04
+rhel-7.6
+[focusProxyAndInputMethods]
+rhel-7.6
+opensuse-leap
+ubuntu
+[raise]
+opensuse-leap
+# QTBUG-68175
+opensuse-42.3
+[childEvents]
+osx ci
+[renderInvisible]
+osx-10.12
+osx-10.11
+osx-10.14
+[optimizedResizeMove]
+osx
+[optimizedResize_topLevel]
+osx
+[render_systemClip]
+osx
+[showMinimizedKeepsFocus]
+osx-10.12 ci
+osx-10.13 ci
+[maskedUpdate]
+opensuse
+opensuse-leap
+[moveInResizeEvent]
+ubuntu-16.04
+[multipleToplevelFocusCheck]
+rhel-7.6
+opensuse-leap
+ubuntu
+[windowState]
+# QTBUG-75270
+winrt
+

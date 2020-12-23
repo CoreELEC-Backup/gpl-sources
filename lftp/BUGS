@@ -1,0 +1,5 @@
+This file describes some limitations or misfeatures lftp has.
+
+* FISH upload to Digital Unix V5.1 does not work correctly (dd bug?).
+
+* glob does not work with aliases.

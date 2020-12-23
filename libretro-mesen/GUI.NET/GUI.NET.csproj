@@ -1,0 +1,2048 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{08D83A7E-52A9-451E-A53A-1A7946F8BB77}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mesen.GUI</RootNamespace>
+    <AssemblyName>Mesen</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>..\bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\bin\Any CPU\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>..\bin\Any CPU\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PGO Profile|x64'">
+    <OutputPath>..\bin\x64\PGO Profile\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PGO Profile|x86'">
+    <OutputPath>..\bin\x86\PGO Profile\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PGO Profile|AnyCPU'">
+    <OutputPath>..\bin\Any CPU\PGO Profile\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PGO Optimize|x64'">
+    <OutputPath>..\bin\x64\PGO Profile\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PGO Optimize|x86'">
+    <OutputPath>..\bin\x86\PGO Profile\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PGO Optimize|AnyCPU'">
+    <OutputPath>..\bin\Any CPU\PGO Profile\</OutputPath>
+    <DefineConstants>TRACE;HIDETESTMENU</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Libretro|x64'">
+    <OutputPath>bin\x64\Libretro\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Libretro|x86'">
+    <OutputPath>bin\x86\Libretro\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Libretro|AnyCPU'">
+    <OutputPath>bin\Libretro\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.7.4137.9688, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\BouncyCastle.Crypto.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Google.Apis, Version=1.13.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Google.Apis.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.13.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Google.Apis.Auth.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.13.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Google.Apis.Auth.PlatformServices.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.13.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Google.Apis.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Google.Apis.Drive.v3, Version=1.13.0.483, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Google.Apis.Drive.v3.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.13.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Google.Apis.PlatformServices.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Zlib.Portable, Version=1.11.0.0, Culture=neutral, PublicKeyToken=431cba815f6a8b5b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Zlib.Portable.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BiosHelper.cs" />
+    <Compile Include="CommandLineHelper.cs" />
+    <Compile Include="Config\DebuggerShortcutsConfig.cs" />
+    <Compile Include="Config\GameSpecificInfo.cs" />
+    <Compile Include="Config\HistoryViewerInfo.cs" />
+    <Compile Include="Config\MovieRecordInfo.cs" />
+    <Compile Include="Config\ConfigAttributes.cs" />
+    <Compile Include="Config\AviRecordInfo.cs" />
+    <Compile Include="Config\DebugInfo.cs" />
+    <Compile Include="Config\EmulationInfo.cs" />
+    <Compile Include="Config\KeyPresets.cs" />
+    <Compile Include="Config\PreferenceInfo.cs" />
+    <Compile Include="Config\VideoInfo.cs" />
+    <Compile Include="Config\CheatInfo.cs" />
+    <Compile Include="Config\InputInfo.cs" />
+    <Compile Include="Config\ClientConnection.cs" />
+    <Compile Include="Config\Configuration.cs" />
+    <Compile Include="Config\FileAssociationHelper.cs" />
+    <Compile Include="Config\ImageExtensions.cs" />
+    <Compile Include="Config\AudioInfo.cs" />
+    <Compile Include="Config\PlayerProfile.cs" />
+    <Compile Include="Config\ConfigManager.cs" />
+    <Compile Include="Config\ServerInfo.cs" />
+    <Compile Include="Config\GameDipswitchDefinition.cs" />
+    <Compile Include="Controls\BaseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlAutoGrowLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlHorizontalTrackbar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlHorizontalTrackbar.Designer.cs">
+      <DependentUpon>ctrlHorizontalTrackbar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlLinkLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlLoadingRom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlLoadingRom.Designer.cs">
+      <DependentUpon>ctrlLoadingRom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlMesenContextMenuStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlMesenMenuStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlMesenPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlMesenToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlNsfPlayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlNsfPlayer.Designer.cs">
+      <DependentUpon>ctrlNsfPlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlRecentGame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlRecentGame.Designer.cs">
+      <DependentUpon>ctrlRecentGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlRecentGames.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlRecentGames.Designer.cs">
+      <DependentUpon>ctrlRecentGames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MesenNumericUpDown.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CursorManager.cs" />
+    <Compile Include="Controls\ctrlRiskyOption.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlRiskyOption.Designer.cs">
+      <DependentUpon>ctrlRiskyOption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlSplitContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlTrackbar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlTrackbar.Designer.cs">
+      <DependentUpon>ctrlTrackbar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlRenderer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlRenderer.Designer.cs">
+      <DependentUpon>ctrlRenderer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Debugger\Breakpoint.cs" />
+    <Compile Include="Debugger\BreakpointManager.cs" />
+    <Compile Include="Debugger\ChrByteColorProvider.cs" />
+    <Compile Include="Debugger\ByteColorProvider.cs" />
+    <Compile Include="Debugger\CodeInfo.cs" />
+    <Compile Include="Debugger\CodeTooltipManager.cs" />
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlEnvelopeInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlEnvelopeInfo.Designer.cs">
+      <DependentUpon>ctrlEnvelopeInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlLengthCounterInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlLengthCounterInfo.Designer.cs">
+      <DependentUpon>ctrlLengthCounterInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlDmcInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlDmcInfo.Designer.cs">
+      <DependentUpon>ctrlDmcInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlFrameCounterInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlFrameCounterInfo.Designer.cs">
+      <DependentUpon>ctrlFrameCounterInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlNoiseInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlNoiseInfo.Designer.cs">
+      <DependentUpon>ctrlNoiseInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlTriangleInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlTriangleInfo.Designer.cs">
+      <DependentUpon>ctrlTriangleInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\BaseScrollableTextboxUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\CodeViewerActions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\CodeViewerActions.Designer.cs">
+      <DependentUpon>CodeViewerActions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ComboBoxWithSeparator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlBreakpoints.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlBreakpoints.Designer.cs">
+      <DependentUpon>ctrlBreakpoints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlCallstack.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlCallstack.Designer.cs">
+      <DependentUpon>ctrlCallstack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlAddressList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlAddressList.Designer.cs">
+      <DependentUpon>ctrlAddressList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlCharacterMapping.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlCharacterMapping.Designer.cs">
+      <DependentUpon>ctrlCharacterMapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlCharacterMappings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlCharacterMappings.Designer.cs">
+      <DependentUpon>ctrlCharacterMappings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlCodeScrollbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlColorPicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlDbgShortcuts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlDbgShortcuts.Designer.cs">
+      <DependentUpon>ctrlDbgShortcuts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlEventViewerListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlEventViewerListView.Designer.cs">
+      <DependentUpon>ctrlEventViewerListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlFindOccurrences.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlFindOccurrences.Designer.cs">
+      <DependentUpon>ctrlFindOccurrences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlFlagStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlFlagStatus.Designer.cs">
+      <DependentUpon>ctrlFlagStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlImagePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlImagePanel.Designer.cs">
+      <DependentUpon>ctrlImagePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlImageViewer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlLabelList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlLabelList.Designer.cs">
+      <DependentUpon>ctrlLabelList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlFunctionList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlFunctionList.Designer.cs">
+      <DependentUpon>ctrlFunctionList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlControllerInput.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlEventViewerPpuView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlEventViewerPpuView.Designer.cs">
+      <DependentUpon>ctrlEventViewerPpuView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlScanlineCycleSelect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlScanlineCycleSelect.Designer.cs">
+      <DependentUpon>ctrlScanlineCycleSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlSearchResult.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlSearchResult.Designer.cs">
+      <DependentUpon>ctrlSearchResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlTextHooker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlTextHooker.Designer.cs">
+      <DependentUpon>ctrlTextHooker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlProfiler.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlProfiler.Designer.cs">
+      <DependentUpon>ctrlProfiler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlMemoryAccessCounters.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlMemoryAccessCounters.Designer.cs">
+      <DependentUpon>ctrlMemoryAccessCounters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlMemoryMapping.cs" />
+    <Compile Include="Debugger\Controls\ctrlPaletteViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlPaletteViewer.Designer.cs">
+      <DependentUpon>ctrlPaletteViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlSourceViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlSourceViewer.Designer.cs">
+      <DependentUpon>ctrlSourceViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlSpriteViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlSpriteViewer.Designer.cs">
+      <DependentUpon>ctrlSpriteViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlChrViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlChrViewer.Designer.cs">
+      <DependentUpon>ctrlChrViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlConsoleStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlConsoleStatus.Designer.cs">
+      <DependentUpon>ctrlConsoleStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlDebuggerCode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlDebuggerCode.Designer.cs">
+      <DependentUpon>ctrlDebuggerCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlHexViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlHexViewer.Designer.cs">
+      <DependentUpon>ctrlHexViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlNametableViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlNametableViewer.Designer.cs">
+      <DependentUpon>ctrlNametableViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlScrollableTextbox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlScrollableTextbox.designer.cs">
+      <DependentUpon>ctrlScrollableTextbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlSquareInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ApuViewer\ctrlSquareInfo.Designer.cs">
+      <DependentUpon>ctrlSquareInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlTextbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlTextbox.Designer.cs">
+      <DependentUpon>ctrlTextbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlTilePalette.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlTilePalette.Designer.cs">
+      <DependentUpon>ctrlTilePalette.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlWatch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\Controls\ctrlWatch.Designer.cs">
+      <DependentUpon>ctrlWatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\Controls\ICodeViewer.cs" />
+    <Compile Include="Debugger\ctrlPaletteDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\ctrlPaletteDisplay.Designer.cs">
+      <DependentUpon>ctrlPaletteDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\DbgImporter.cs" />
+    <Compile Include="Debugger\DebugWindowManager.cs" />
+    <Compile Include="Debugger\DebugWorkspaceManager.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\AutocompleteItem.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\AutocompleteMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\Bookmarks.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\Char.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\CommandManager.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\Commands.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\DocumentMap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\EncodingDetector.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\ExportToHTML.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\ExportToRTF.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\FastColoredTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\FileTextSource.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\FindForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\FindForm.designer.cs">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\GoToForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\GoToForm.designer.cs">
+      <DependentUpon>GoToForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\Hints.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\Hotkeys.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\HotkeysEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\HotkeysEditorForm.designer.cs">
+      <DependentUpon>HotkeysEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\LimitedStack.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\Line.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\LinesAccessor.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\MacrosManager.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\MonoUtility.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\NativeMethods.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\NativeMethodsWrapper.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\Place.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\PlatformType.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\Range.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\ReplaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\ReplaceForm.designer.cs">
+      <DependentUpon>ReplaceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\Ruler.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\Ruler.designer.cs">
+      <DependentUpon>Ruler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\Style.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\SyntaxDescriptor.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\SyntaxHighlighter.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\TextSource.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\TypeDescriptor.cs" />
+    <Compile Include="Debugger\FastColoredTextBox\UnfocusablePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Debugger\FastColoredTextBox\VisualMarker.cs" />
+    <Compile Include="Debugger\FontDialogHelper.cs" />
+    <Compile Include="Debugger\frmApuViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmApuViewer.Designer.cs">
+      <DependentUpon>frmApuViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmAssembler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmAssembler.Designer.cs">
+      <DependentUpon>frmAssembler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmExternalEditorConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmExternalEditorConfig.Designer.cs">
+      <DependentUpon>frmExternalEditorConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmGoToAll.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmGoToAll.Designer.cs">
+      <DependentUpon>frmGoToAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmProfiler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmProfiler.Designer.cs">
+      <DependentUpon>frmProfiler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmSetScriptTimeout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmSetScriptTimeout.Designer.cs">
+      <DependentUpon>frmSetScriptTimeout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmBreakOn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmBreakOn.Designer.cs">
+      <DependentUpon>frmBreakOn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmCodePreviewTooltip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmCodePreviewTooltip.Designer.cs">
+      <DependentUpon>frmCodePreviewTooltip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmDbgPreferences.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmDbgPreferences.Designer.cs">
+      <DependentUpon>frmDbgPreferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmDebuggerColors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmDebuggerColors.Designer.cs">
+      <DependentUpon>frmDebuggerColors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmEventViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmEventViewer.Designer.cs">
+      <DependentUpon>frmEventViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmDbgShortcutGetKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmDbgShortcutGetKey.Designer.cs">
+      <DependentUpon>frmDbgShortcutGetKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmImportSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmImportSettings.Designer.cs">
+      <DependentUpon>frmImportSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmOpCodeTooltip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmOpCodeTooltip.Designer.cs">
+      <DependentUpon>frmOpCodeTooltip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmMemoryViewerColors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmMemoryViewerColors.Designer.cs">
+      <DependentUpon>frmMemoryViewerColors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmAssemblerColors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmAssemblerColors.Designer.cs">
+      <DependentUpon>frmAssemblerColors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmCodeTooltip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmCodeTooltip.Designer.cs">
+      <DependentUpon>frmCodeTooltip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmEditHeader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmEditHeader.Designer.cs">
+      <DependentUpon>frmEditHeader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmEditLabel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmEditLabel.Designer.cs">
+      <DependentUpon>frmEditLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmBreakpoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmBreakpoint.Designer.cs">
+      <DependentUpon>frmBreakpoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmDebugger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmDebugger.Designer.cs">
+      <DependentUpon>frmDebugger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmBreakIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmBreakIn.Designer.cs">
+      <DependentUpon>frmBreakIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmFindOccurrences.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmFindOccurrences.Designer.cs">
+      <DependentUpon>frmFindOccurrences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmFadeSpeed.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmFadeSpeed.Designer.cs">
+      <DependentUpon>frmFadeSpeed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmGoToLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmGoToLine.Designer.cs">
+      <DependentUpon>frmGoToLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmMemoryViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmMemoryViewer.Designer.cs">
+      <DependentUpon>frmMemoryViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmTextHooker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmTextHooker.Designer.cs">
+      <DependentUpon>frmTextHooker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmPpuViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmPpuViewer.Designer.cs">
+      <DependentUpon>frmPpuViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmScript.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmScript.Designer.cs">
+      <DependentUpon>frmScript.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmSelectColor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmSelectColor.Designer.cs">
+      <DependentUpon>frmSelectColor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmTraceLogger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmTraceLogger.Designer.cs">
+      <DependentUpon>frmTraceLogger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\frmWatchWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\frmWatchWindow.Designer.cs">
+      <DependentUpon>frmWatchWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debugger\HdPackCopyHelper.cs" />
+    <Compile Include="Debugger\HexBox\BuiltInContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Debugger\HexBox\ByteCharConverters.cs" />
+    <Compile Include="Debugger\HexBox\ByteCollection.cs" />
+    <Compile Include="Debugger\HexBox\BytePositionInfo.cs" />
+    <Compile Include="Debugger\HexBox\DataBlock.cs" />
+    <Compile Include="Debugger\HexBox\DataMap.cs" />
+    <Compile Include="Debugger\HexBox\DynamicByteProvider.cs" />
+    <Compile Include="Debugger\HexBox\FileDataBlock.cs" />
+    <Compile Include="Debugger\HexBox\FindOptions.cs" />
+    <Compile Include="Debugger\HexBox\HexBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Debugger\HexBox\HexCasing.cs" />
+    <Compile Include="Debugger\HexBox\IByteColorProvider.cs" />
+    <Compile Include="Debugger\HexBox\IByteProvider.cs" />
+    <Compile Include="Debugger\HexBox\MemoryDataBlock.cs" />
+    <Compile Include="Debugger\HexBox\NativeMethods.cs" />
+    <Compile Include="Debugger\HexBox\StaticByteProvider.cs" />
+    <Compile Include="Debugger\HexBox\TblByteCharConverter.cs" />
+    <Compile Include="Debugger\HexBox\Util.cs" />
+    <Compile Include="Debugger\HexConverter.cs" />
+    <Compile Include="Debugger\LabelManager.cs" />
+    <Compile Include="Debugger\NesasmFnsImporter.cs" />
+    <Compile Include="Debugger\MesenLabelFile.cs" />
+    <Compile Include="Debugger\PpuViewerHelper.cs" />
+    <Compile Include="Debugger\TblLoader.cs" />
+    <Compile Include="Debugger\TextboxHistory.cs" />
+    <Compile Include="Debugger\TooltipForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugger\WatchManager.cs" />
+    <Compile Include="Debugger\WindowRefreshManager.cs" />
+    <Compile Include="Forms\BaseConfigForm.Designer.cs">
+      <DependentUpon>BaseConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Cheats\ctrlCheatFinder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Cheats\ctrlCheatFinder.Designer.cs">
+      <DependentUpon>ctrlCheatFinder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Cheats\FceuxCheatLoader.cs" />
+    <Compile Include="Forms\Cheats\frmCheat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Cheats\frmCheat.Designer.cs">
+      <DependentUpon>frmCheat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Cheats\frmCheatImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Cheats\frmCheatImport.Designer.cs">
+      <DependentUpon>frmCheatImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Cheats\frmCheatImportFromDb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Cheats\frmCheatImportFromDb.Designer.cs">
+      <DependentUpon>frmCheatImportFromDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Cheats\MesenCheatExporter.cs" />
+    <Compile Include="Forms\Cheats\NestopiaCheatLoader.cs" />
+    <Compile Include="Forms\Config\BaseInputConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\BaseInputConfigControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlPachinkoConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlPachinkoConfig.Designer.cs">
+      <DependentUpon>ctrlPachinkoConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlBandaiMicrophone.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlBandaiMicrophone.Designer.cs">
+      <DependentUpon>ctrlBandaiMicrophone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlVirtualBoyConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlVirtualBoyConfig.Designer.cs">
+      <DependentUpon>ctrlVirtualBoyConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmPachinkoConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmPachinkoConfig.Designer.cs">
+      <DependentUpon>frmPachinkoConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmMouseConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmMouseConfig.Designer.cs">
+      <DependentUpon>frmMouseConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmBandaiMicrophone.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmBandaiMicrophone.Designer.cs">
+      <DependentUpon>frmBandaiMicrophone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmVirtualBoyConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmVirtualBoyConfig.Designer.cs">
+      <DependentUpon>frmVirtualBoyConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\ctrlDipSwitch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\ctrlDipSwitch.Designer.cs">
+      <DependentUpon>ctrlDipSwitch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\ctrlEmulatorShortcuts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\ctrlEmulatorShortcuts.Designer.cs">
+      <DependentUpon>ctrlEmulatorShortcuts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlSuborKeyboardConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlSuborKeyboardConfig.Designer.cs">
+      <DependentUpon>ctrlSuborKeyboardConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlFamilyBasicKeyboardConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlFamilyBasicKeyboardConfig.Designer.cs">
+      <DependentUpon>ctrlFamilyBasicKeyboardConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\ctrlKeyBindingHint.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\ctrlKeyBindingHint.Designer.cs">
+      <DependentUpon>ctrlKeyBindingHint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlJissenMahjongConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlJissenMahjongConfig.Designer.cs">
+      <DependentUpon>ctrlJissenMahjongConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\ctrlPathSelection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\ctrlPathSelection.Designer.cs">
+      <DependentUpon>ctrlPathSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlPartytapConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlPartytapConfig.Designer.cs">
+      <DependentUpon>ctrlPartytapConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlExcitingBoxingConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlExcitingBoxingConfig.Designer.cs">
+      <DependentUpon>ctrlExcitingBoxingConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlStandardController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlStandardController.Designer.cs">
+      <DependentUpon>ctrlStandardController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmSuborKeyboardConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmSuborKeyboardConfig.Designer.cs">
+      <DependentUpon>frmSuborKeyboardConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmJissenMahjongConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmJissenMahjongConfig.Designer.cs">
+      <DependentUpon>frmJissenMahjongConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmFamilyBasicKeyboardConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmFamilyBasicKeyboardConfig.Designer.cs">
+      <DependentUpon>frmFamilyBasicKeyboardConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmPartytapConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmPartytapConfig.Designer.cs">
+      <DependentUpon>frmPartytapConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmExcitingBoxingConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmExcitingBoxingConfig.Designer.cs">
+      <DependentUpon>frmExcitingBoxingConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmPowerPadConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmPowerPadConfig.Designer.cs">
+      <DependentUpon>frmPowerPadConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmControllerConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmControllerConfig.Designer.cs">
+      <DependentUpon>frmControllerConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\frmCopyFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\frmCopyFiles.Designer.cs">
+      <DependentUpon>frmCopyFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\frmGetKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\frmGetKey.Designer.cs">
+      <DependentUpon>frmGetKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\frmInputConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\frmInputConfig.Designer.cs">
+      <DependentUpon>frmInputConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\frmAudioConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\frmAudioConfig.Designer.cs">
+      <DependentUpon>frmAudioConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\frmEmulationConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\frmEmulationConfig.Designer.cs">
+      <DependentUpon>frmEmulationConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\frmPreferences.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\frmPreferences.Designer.cs">
+      <DependentUpon>frmPreferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\frmVideoConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\frmVideoConfig.Designer.cs">
+      <DependentUpon>frmVideoConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Cheats\frmCheatList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Cheats\frmCheatList.Designer.cs">
+      <DependentUpon>frmCheatList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\frmGameConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\frmGameConfig.Designer.cs">
+      <DependentUpon>frmGameConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlPowerPadConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\ctrlPowerPadConfig.Designer.cs">
+      <DependentUpon>ctrlPowerPadConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmZapperConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\Controllers\frmZapperConfig.Designer.cs">
+      <DependentUpon>frmZapperConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EntityBinder.cs" />
+    <Compile Include="Forms\frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAbout.Designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmConfigWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmConfigWizard.Designer.cs">
+      <DependentUpon>frmConfigWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDownloadProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDownloadProgress.Designer.cs">
+      <DependentUpon>frmDownloadProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmFullscreenRenderer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmHelp.Designer.cs">
+      <DependentUpon>frmHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmHistoryViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmHistoryViewer.Designer.cs">
+      <DependentUpon>frmHistoryViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmInputBarcode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmInputBarcode.Designer.cs">
+      <DependentUpon>frmInputBarcode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLogWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLogWindow.Designer.cs">
+      <DependentUpon>frmLogWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmMain.File.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.Game.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.Options.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.Tests.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.Tools.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.Help.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmRecordMovie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmRecordMovie.Designer.cs">
+      <DependentUpon>frmRecordMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmRecordAvi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmRecordAvi.Designer.cs">
+      <DependentUpon>frmRecordAvi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSelectExportRange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSelectExportRange.Designer.cs">
+      <DependentUpon>frmSelectExportRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSelectRom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSelectRom.Designer.cs">
+      <DependentUpon>frmSelectRom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmUpdatePrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmUpdatePrompt.Designer.cs">
+      <DependentUpon>frmUpdatePrompt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GraphicsExtensions.cs" />
+    <Compile Include="Forms\HdPackEditor\frmHdPackEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HdPackEditor\frmHdPackEditor.Designer.cs">
+      <DependentUpon>frmHdPackEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MesenMsgBox.cs" />
+    <Compile Include="Forms\NetPlay\frmClientConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NetPlay\frmClientConfig.Designer.cs">
+      <DependentUpon>frmClientConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NetPlay\frmPlayerProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NetPlay\frmPlayerProfile.Designer.cs">
+      <DependentUpon>frmPlayerProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NetPlay\frmServerConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NetPlay\frmServerConfig.Designer.cs">
+      <DependentUpon>frmServerConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OpenSaveFileDialogExtensions.cs" />
+    <Compile Include="Forms\ResourceHelper.cs" />
+    <Compile Include="Forms\ResourcePath.cs" />
+    <Compile Include="GoogleDriveIntegration\CloudSyncHelper.cs" />
+    <Compile Include="GoogleDriveIntegration\GoogleDriveAccessor.cs" />
+    <Compile Include="GoogleDriveIntegration\MesenCodeReceiver.cs" />
+    <Compile Include="ImageExtensions.cs" />
+    <Compile Include="InteropEmu.cs" />
+    <Compile Include="MonoToolStripHelper.cs" />
+    <Compile Include="ThemeHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceManager.cs" />
+    <Compile Include="RuntimeChecker.cs" />
+    <Compile Include="SingleInstance.cs" />
+    <Compile Include="TestRunner.cs" />
+    <None Include="Resources\MoveDown.png" />
+    <None Include="Resources\MoveUp.png" />
+    <None Include="Resources\NudDownArrowDarkTheme.png" />
+    <None Include="Resources\DownArrowDarkTheme.png" />
+    <None Include="Resources\NudUpArrowDarkTheme.png" />
+    <None Include="Resources\PerfTracker.png" />
+    <None Include="Resources\Zoom2x.png" />
+    <None Include="Resources\Expand.png" />
+    <None Include="Resources\Collapse.png" />
+    <None Include="Resources\RegisterIcon.png" />
+    <None Include="Resources\JumpTarget.png" />
+    <None Include="Resources\Cut.png" />
+    <None Include="Resources\HistoryViewer.png" />
+    <None Include="Resources\VsButton4.png" />
+    <None Include="Resources\VsButton3.png" />
+    <None Include="Resources\VsButton2.png" />
+    <None Include="Resources\VsButton1.png" />
+    <None Include="Resources\NudUpArrow.png" />
+    <None Include="Resources\NudDownArrow.png" />
+    <None Include="Dependencies\LuaScripts\NtscSafeArea.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\VerticalLayout.png" />
+    <None Include="Dependencies\LuaScripts\DmcCapture.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\LuaScripts\DrawMode.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\LuaScripts\GameBoyMode.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\LuaScripts\Grid.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\LuaScripts\LogParallax.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\LuaScripts\ModifyScreen.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\LuaScripts\ReverseMode.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\LuaScripts\SpriteBox.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\SwitchView.png" />
+    <None Include="Resources\SelectAll.png" />
+    <None Include="Resources\Paste.png" />
+    <None Include="Resources\EditLabel.png" />
+    <None Include="Resources\UnidentifiedData.png" />
+    <None Include="Resources\VerifiedData.png" />
+    <None Include="Resources\NesEventViewer.png" />
+    <None Include="Resources\NavigateBack.png" />
+    <None Include="Resources\NavigateForward.png" />
+    <None Include="Resources\RunPpuFrame.png" />
+    <None Include="Resources\RunPpuCycle.png" />
+    <None Include="Resources\RunPpuScanline.png" />
+    <None Include="Resources\Tape.png" />
+    <None Include="Resources\DownArrowWin10.png" />
+    <None Include="app.manifest" />
+    <None Include="Resources\Exclamation.png" />
+    <None Include="Resources\Comment.png" />
+    <EmbeddedResource Include="Controls\ctrlRecentGame.resx">
+      <DependentUpon>ctrlRecentGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MesenNumericUpDown.resx">
+      <DependentUpon>MesenNumericUpDown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ApuViewer\ctrlEnvelopeInfo.resx">
+      <DependentUpon>ctrlEnvelopeInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ApuViewer\ctrlLengthCounterInfo.resx">
+      <DependentUpon>ctrlLengthCounterInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ApuViewer\ctrlDmcInfo.resx">
+      <DependentUpon>ctrlDmcInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ApuViewer\ctrlFrameCounterInfo.resx">
+      <DependentUpon>ctrlFrameCounterInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ApuViewer\ctrlNoiseInfo.resx">
+      <DependentUpon>ctrlNoiseInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ApuViewer\ctrlTriangleInfo.resx">
+      <DependentUpon>ctrlTriangleInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ApuViewer\ctrlSquareInfo.resx">
+      <DependentUpon>ctrlSquareInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\CodeViewerActions.resx">
+      <DependentUpon>CodeViewerActions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlCharacterMapping.resx">
+      <DependentUpon>ctrlCharacterMapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlCharacterMappings.resx">
+      <DependentUpon>ctrlCharacterMappings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlDbgShortcuts.resx">
+      <DependentUpon>ctrlDbgShortcuts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlEventViewerListView.resx">
+      <DependentUpon>ctrlEventViewerListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlFindOccurrences.resx">
+      <DependentUpon>ctrlFindOccurrences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlFlagStatus.resx">
+      <DependentUpon>ctrlFlagStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlEventViewerPpuView.resx">
+      <DependentUpon>ctrlEventViewerPpuView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlImagePanel.resx">
+      <DependentUpon>ctrlImagePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlScanlineCycleSelect.resx">
+      <DependentUpon>ctrlScanlineCycleSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlSearchResult.resx">
+      <DependentUpon>ctrlSearchResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlTextHooker.resx">
+      <DependentUpon>ctrlTextHooker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlSourceViewer.resx">
+      <DependentUpon>ctrlSourceViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmExternalEditorConfig.resx">
+      <DependentUpon>frmExternalEditorConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmGoToAll.resx">
+      <DependentUpon>frmGoToAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmProfiler.resx">
+      <DependentUpon>frmProfiler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmSetScriptTimeout.resx">
+      <DependentUpon>frmSetScriptTimeout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmTextHooker.resx">
+      <DependentUpon>frmTextHooker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmWatchWindow.resx">
+      <DependentUpon>frmWatchWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dependencies\LuaScripts\Example.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="Resources\PipetteSmall.png" />
+    <None Include="Resources\Enum.png" />
+    <None Include="Resources\Script.png" />
+    <None Include="Resources\Function.png" />
+    <None Include="Resources\Undo.png" />
+    <None Include="Resources\ShuffleEnabled.png" />
+    <None Include="Resources\RepeatEnabled.png" />
+    <None Include="Resources\Repeat.png" />
+    <None Include="Resources\Shuffle.png" />
+    <None Include="Resources\WasdKeys.png" />
+    <None Include="Resources\wasd.png" />
+    <None Include="Resources\PsIcon.png" />
+    <None Include="Resources\XbIcon.png" />
+    <None Include="Resources\StepBack.png" />
+    <None Include="Resources\HdPack.png" />
+    <None Include="Resources\VideoFilter.png" />
+    <None Include="Resources\PowerCycle.png" />
+    <None Include="Resources\MesenIconSmall.png" />
+    <EmbeddedResource Include="Controls\ctrlHorizontalTrackbar.resx">
+      <DependentUpon>ctrlHorizontalTrackbar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlLoadingRom.resx">
+      <DependentUpon>ctrlLoadingRom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlNsfPlayer.resx">
+      <DependentUpon>ctrlNsfPlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlRecentGames.resx">
+      <DependentUpon>ctrlRecentGames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlRiskyOption.resx">
+      <DependentUpon>ctrlRiskyOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlTrackbar.resx">
+      <DependentUpon>ctrlTrackbar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlRenderer.resx">
+      <DependentUpon>ctrlRenderer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlBreakpoints.resx">
+      <DependentUpon>ctrlBreakpoints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlCallstack.resx">
+      <DependentUpon>ctrlCallstack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlAddressList.resx">
+      <DependentUpon>ctrlAddressList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlLabelList.resx">
+      <DependentUpon>ctrlLabelList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlFunctionList.resx">
+      <DependentUpon>ctrlFunctionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlProfiler.resx">
+      <DependentUpon>ctrlProfiler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlMemoryAccessCounters.resx">
+      <DependentUpon>ctrlMemoryAccessCounters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlPaletteViewer.resx">
+      <DependentUpon>ctrlPaletteViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlSpriteViewer.resx">
+      <DependentUpon>ctrlSpriteViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlChrViewer.resx">
+      <DependentUpon>ctrlChrViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlConsoleStatus.resx">
+      <DependentUpon>ctrlConsoleStatus.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlDebuggerCode.resx">
+      <DependentUpon>ctrlDebuggerCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlHexViewer.resx">
+      <DependentUpon>ctrlHexViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlNametableViewer.resx">
+      <DependentUpon>ctrlNametableViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlScrollableTextbox.resx">
+      <DependentUpon>ctrlScrollableTextbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlTilePalette.resx">
+      <DependentUpon>ctrlTilePalette.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\Controls\ctrlWatch.resx">
+      <DependentUpon>ctrlWatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\ctrlPaletteDisplay.resx">
+      <DependentUpon>ctrlPaletteDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\FastColoredTextBox\FastColoredTextBox.resx">
+      <DependentUpon>FastColoredTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\FastColoredTextBox\FindForm.resx">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\FastColoredTextBox\GoToForm.resx">
+      <DependentUpon>GoToForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\FastColoredTextBox\HotkeysEditorForm.resx">
+      <DependentUpon>HotkeysEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\FastColoredTextBox\ReplaceForm.resx">
+      <DependentUpon>ReplaceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmApuViewer.resx">
+      <DependentUpon>frmApuViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmAssembler.resx">
+      <DependentUpon>frmAssembler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmBreakOn.resx">
+      <DependentUpon>frmBreakOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmCodePreviewTooltip.resx">
+      <DependentUpon>frmCodePreviewTooltip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmDbgPreferences.resx">
+      <DependentUpon>frmDbgPreferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmDebuggerColors.resx">
+      <DependentUpon>frmDebuggerColors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmEventViewer.resx">
+      <DependentUpon>frmEventViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmDbgShortcutGetKey.resx">
+      <DependentUpon>frmDbgShortcutGetKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmImportSettings.resx">
+      <DependentUpon>frmImportSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmOpCodeTooltip.resx">
+      <DependentUpon>frmOpCodeTooltip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmMemoryViewerColors.resx">
+      <DependentUpon>frmMemoryViewerColors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmAssemblerColors.resx">
+      <DependentUpon>frmAssemblerColors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmCodeTooltip.resx">
+      <DependentUpon>frmCodeTooltip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmEditHeader.resx">
+      <DependentUpon>frmEditHeader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmEditLabel.resx">
+      <DependentUpon>frmEditLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmBreakpoint.resx">
+      <DependentUpon>frmBreakpoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmDebugger.resx">
+      <DependentUpon>frmDebugger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmBreakIn.resx">
+      <DependentUpon>frmBreakIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmFindOccurrences.resx">
+      <DependentUpon>frmFindOccurrences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmFadeSpeed.resx">
+      <DependentUpon>frmFadeSpeed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmGoToLine.resx">
+      <DependentUpon>frmGoToLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmMemoryViewer.resx">
+      <DependentUpon>frmMemoryViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmPpuViewer.resx">
+      <DependentUpon>frmPpuViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmScript.resx">
+      <DependentUpon>frmScript.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmSelectColor.resx">
+      <DependentUpon>frmSelectColor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\frmTraceLogger.resx">
+      <DependentUpon>frmTraceLogger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugger\HexBox\HexBox.resx" />
+    <EmbeddedResource Include="Forms\BaseConfigForm.resx">
+      <DependentUpon>BaseConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseInputForm.resx">
+      <DependentUpon>BaseInputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Cheats\ctrlCheatFinder.resx">
+      <DependentUpon>ctrlCheatFinder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Cheats\frmCheat.resx">
+      <DependentUpon>frmCheat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Cheats\frmCheatImport.resx">
+      <DependentUpon>frmCheatImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Cheats\frmCheatImportFromDb.resx">
+      <DependentUpon>frmCheatImportFromDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\BaseInputConfigForm.resx">
+      <DependentUpon>BaseInputConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\ctrlPachinkoConfig.resx">
+      <DependentUpon>ctrlPachinkoConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\ctrlBandaiMicrophone.resx">
+      <DependentUpon>ctrlBandaiMicrophone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\ctrlVirtualBoyConfig.resx">
+      <DependentUpon>ctrlVirtualBoyConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmPachinkoConfig.resx">
+      <DependentUpon>frmPachinkoConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmMouseConfig.resx">
+      <DependentUpon>frmMouseConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmBandaiMicrophone.resx">
+      <DependentUpon>frmBandaiMicrophone.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmVirtualBoyConfig.resx">
+      <DependentUpon>frmVirtualBoyConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\ctrlDipSwitch.resx">
+      <DependentUpon>ctrlDipSwitch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\ctrlEmulatorShortcuts.resx">
+      <DependentUpon>ctrlEmulatorShortcuts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\ctrlSuborKeyboardConfig.resx">
+      <DependentUpon>ctrlSuborKeyboardConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\ctrlFamilyBasicKeyboardConfig.resx">
+      <DependentUpon>ctrlFamilyBasicKeyboardConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\ctrlKeyBindingHint.resx">
+      <DependentUpon>ctrlKeyBindingHint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\ctrlJissenMahjongConfig.resx">
+      <DependentUpon>ctrlJissenMahjongConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\ctrlPathSelection.resx">
+      <DependentUpon>ctrlPathSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\ctrlPartytapConfig.resx">
+      <DependentUpon>ctrlPartytapConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\ctrlExcitingBoxingConfig.resx">
+      <DependentUpon>ctrlExcitingBoxingConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\ctrlStandardController.resx">
+      <DependentUpon>ctrlStandardController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmSuborKeyboardConfig.resx">
+      <DependentUpon>frmSuborKeyboardConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmJissenMahjongConfig.resx">
+      <DependentUpon>frmJissenMahjongConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmFamilyBasicKeyboardConfig.resx">
+      <DependentUpon>frmFamilyBasicKeyboardConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmPartytapConfig.resx">
+      <DependentUpon>frmPartytapConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmExcitingBoxingConfig.resx">
+      <DependentUpon>frmExcitingBoxingConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmPowerPadConfig.resx">
+      <DependentUpon>frmPowerPadConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmControllerConfig.resx">
+      <DependentUpon>frmControllerConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\frmCopyFiles.resx">
+      <DependentUpon>frmCopyFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\frmEmulationConfig.resx">
+      <DependentUpon>frmEmulationConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\frmGetKey.resx">
+      <DependentUpon>frmGetKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\frmInputConfig.resx">
+      <DependentUpon>frmInputConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\frmAudioConfig.resx">
+      <DependentUpon>frmAudioConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\frmPreferences.resx">
+      <DependentUpon>frmPreferences.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\frmVideoConfig.resx">
+      <DependentUpon>frmVideoConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Cheats\frmCheatList.resx">
+      <DependentUpon>frmCheatList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\frmGameConfig.resx">
+      <DependentUpon>frmGameConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\ctrlPowerPadConfig.resx">
+      <DependentUpon>ctrlPowerPadConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\Controllers\frmZapperConfig.resx">
+      <DependentUpon>frmZapperConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAbout.resx">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmConfigWizard.resx">
+      <DependentUpon>frmConfigWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDownloadProgress.resx">
+      <DependentUpon>frmDownloadProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmHelp.resx">
+      <DependentUpon>frmHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmHistoryViewer.resx">
+      <DependentUpon>frmHistoryViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmInputBarcode.resx">
+      <DependentUpon>frmInputBarcode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLogWindow.resx">
+      <DependentUpon>frmLogWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmRecordMovie.resx">
+      <DependentUpon>frmRecordMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmRecordAvi.resx">
+      <DependentUpon>frmRecordAvi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSelectExportRange.resx">
+      <DependentUpon>frmSelectExportRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSelectRom.resx">
+      <DependentUpon>frmSelectRom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmUpdatePrompt.resx">
+      <DependentUpon>frmUpdatePrompt.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HdPackEditor\frmHdPackEditor.resx">
+      <DependentUpon>frmHdPackEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NetPlay\frmClientConfig.resx">
+      <DependentUpon>frmClientConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NetPlay\frmPlayerProfile.resx">
+      <DependentUpon>frmPlayerProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NetPlay\frmServerConfig.resx">
+      <DependentUpon>frmServerConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Dependencies\Font.24.spritefont">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\Font.64.spritefont">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Dependencies\CharacterMappings.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dependencies\BouncyCastle.Crypto.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Google.Apis.Auth.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Google.Apis.Auth.PlatformServices.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Google.Apis.Core.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Google.Apis.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Google.Apis.Drive.v3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Google.Apis.PlatformServices.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\MesenCheatDb.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\MesenDB.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Newtonsoft.Json.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\resources.en.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Dependencies\resources.es.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\resources.fr.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Dependencies\resources.ja.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Dependencies\resources.ru.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Dependencies\resources.uk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\resources.pt.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Dependencies\resources.ca.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Dependencies\resources.it.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Dependencies\DipswitchDefinitions.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Dependencies\resources.zh.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Zlib.Portable.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icon.ico" />
+    <None Include="Resources\CommandLine.png" />
+    <None Include="Resources\Copy.png" />
+    <None Include="Resources\StepOut.png" />
+    <None Include="Resources\StepInto.png" />
+    <None Include="Resources\StepOver.png" />
+    <None Include="Resources\find.png" />
+    <None Include="Resources\SplitView.png" />
+    <None Include="Resources\font.png" />
+    <None Include="Resources\Edit.png" />
+    <None Include="Resources\pencil.png" />
+    <None Include="Resources\pipette.png" />
+    <None Include="Resources\VideoRecorder.png" />
+    <None Include="Resources\Donate.png" />
+    <None Include="Resources\Dice.png" />
+    <None Include="Resources\Warning.png" />
+    <None Include="Resources\Import.png" />
+    <None Include="Resources\Export.png" />
+    <None Include="Resources\NsfBackground.png" />
+    <None Include="Resources\PrevTrack.png" />
+    <None Include="Resources\NextTrack.png" />
+    <None Include="Resources\LogWindow.png" />
+    <None Include="Resources\Record.png" />
+    <None Include="Resources\microphone.png" />
+    <None Include="Resources\DownArrow.png" />
+    <None Include="Resources\accept.png" />
+    <None Include="Resources\Add.png" />
+    <None Include="Resources\CheatCode.png" />
+    <None Include="Resources\bug.png" />
+    <None Include="Resources\Chip.png" />
+    <None Include="Resources\Breakpoint.png" />
+    <None Include="Resources\BreakpointDisabled.png" />
+    <None Include="Resources\BreakpointEnableDisable.png" />
+    <None Include="Resources\ArrowKeys.png" />
+    <None Include="Resources\Barcode.png" />
+    <None Include="Resources\CloseWhite.png" />
+    <Content Include="Resources\coins.png" />
+    <None Include="Resources\DipSwitches.png" />
+    <None Include="Resources\MesenIcon.png" />
+    <None Include="Resources\system-software-update.png" />
+    <None Include="Resources\view-refresh.png" />
+    <None Include="Resources\appointment-new.png" />
+    <None Include="Resources\view-fullscreen.png" />
+    <None Include="Resources\network-workgroup.png" />
+    <None Include="Resources\folder-open.png" />
+    <None Include="Resources\image-x-generic.png" />
+    <None Include="Resources\system-log-out.png" />
+    <None Include="Resources\media-playback-stop.png" />
+    <None Include="Resources\media-playback-start.png" />
+    <None Include="Resources\media-playback-pause.png" />
+    <None Include="Resources\media-eject.png" />
+    <None Include="Resources\audio-x-generic.png" />
+    <None Include="Resources\emblem-system.png" />
+    <None Include="Resources\camera-photo.png" />
+    <None Include="Resources\media-floppy.png" />
+    <None Include="Resources\input-gaming.png" />
+    <None Include="Resources\applications-multimedia.png" />
+    <None Include="Resources\internet-web-browser.png" />
+    <None Include="Resources\help-browser.png" />
+    <EmbeddedResource Include="$(OutputPath)Dependencies.zip">
+      <Link>Dependencies\Dependencies.zip</Link>
+    </EmbeddedResource>
+    <None Include="Resources\Close.png" />
+    <None Include="Resources\PreviousArrow.png" />
+    <None Include="Resources\NextArrow.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>mkdir "Dependencies"
+
+if "x86" == "$(PlatformName)" copy "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\pgort140.dll" "pgort140.dll"
+
+if "x64" == "$(PlatformName)" copy "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\amd64\pgort140.dll" "pgort140.dll"
+
+if "PGO Optimize" == "$(ConfigurationName)" (
+copy "$(SolutionDir)bin\x86\PGO Profile\MesenCore.dll" "Dependencies\MesenCore.x86.dll"
+
+copy "$(SolutionDir)bin\x64\PGO Profile\MesenCore.dll" "Dependencies\MesenCore.x64.dll"
+)
+if NOT "PGO Optimize" == "$(ConfigurationName)" (
+copy "$(SolutionDir)bin\x86\$(ConfigurationName)\MesenCore.dll" "Dependencies\MesenCore.x86.dll"
+
+copy "$(SolutionDir)bin\x64\$(ConfigurationName)\MesenCore.dll" "Dependencies\MesenCore.x64.dll"
+)
+copy "MesenUpdater.exe" "Dependencies\MesenUpdater.exe"
+call DependencyPacker.exe
+</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

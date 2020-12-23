@@ -1,0 +1,1367 @@
+VDR Plugin 'epgsearch' Revision History
+---------------------------------------
+
+2018-04-16; Version 2.4.0
+new:
+- Create man pages only once. by jasminj@vdr-portal.de
+- Remove useless member "useEpisode" from cBlacklist by jasminj@vdr-portal.de
+- Remove useless member "useEpisode" from cBlacklist by jasminj@vdr-portal.de
+- Remove useless "LOCK_CHANNELS_READ" in cBlacklist run by jasminj@vdr-portal.de
+- Change shell in docsrc2*.sh to /bin/bash, suggested by TomJoad@vdr-portal.de
+- Added operator to cListObject derived classes by jasminj@vdr-portal.de
+- Add patches/vdr.epgsearch-exttimeredit-2.3.5.diff by Dietmar Spingler <d_spingler@gmx.de>
+- Adapt new makefile style of VDR 2.3.6 by TomJoad@vdr-portal.de
+- Use vdr timerids instead of index by TomJoad@vdr-portal.de
+- Fix many lock sequences by TomJoad@vdr-portal.de
+- New vdr.epgsearch-exttimeredit-2.3.6.diff (thx to Claus Muus)
+- Add conflict check for remote timers by Johann Friedrichs <johann.friedrichs@web.de>
+- Search timers should create only local timers
+- Use namespace for svdrpclient
+- Add icon for inactive timer
+- Use separate thread for recdone processing
+- get rid of some casts
+- unified indentation
+- Preserve timerflags in searchtimerupdate
+
+2017-05-xx; Version 2.3.1 - development release
+new:
+- Commit vdr-2.3.2-epgsearch-1.0.1.beta5~git20150715_v2.diff by fnu@vdr-portal.de
+  based on inputs from kamel5, mini73 & TomJoad @ vdr-portal.de
+  => http://www.vdr-portal.de/board17-developer/board97-vdr-core/p1284612-produktive-problem-und-pluginl%C3%B6sungen-f%C3%BCr-vdr-2-3-2-und-h%C3%B6her/#post1284612
+- Commit 0004-Added-patches-vdr.epgsearch-exttimeredit-2.3.3.diff.diff by jasminj@vdr-portal.de
+  => http://www.vdr-portal.de/board17-developer/board21-vdr-plugins/p1289938-epgsearch-f%C3%BCr-vdr-2-3-x/#post1289938
+- Commit 0005-epgsearch-inactive-records-v2.diff by jasminj@vdr-portal.de
+  => http://www.vdr-portal.de/board17-developer/board21-vdr-plugins/p1289983-epgsearch-f%C3%BCr-vdr-2-3-x/#post1289983
+- Commit 0001-Fix-warning-in-pending_notifications.c.diff by jasminj@vdr-portal.de
+- Commit 0002-Fixed-warnings-in-man-page-generation.diff by jasminj@vdr-portal.de
+  => http://www.vdr-portal.de/board17-developer/board21-vdr-plugins/p1289704-epgsearch-f%C3%BCr-vdr-2-3-x/#post1289704
+- Commit 0003-Use-HandleRemoteTimerModifications-instead-of-Handle.diff by jasminj@vdr-portal.de
+  => http://www.vdr-portal.de/board17-developer/board21-vdr-plugins/p1289764-epgsearch-f%C3%BCr-vdr-2-3-x/#post1289764
+- Commit menu_category_recsdone.diff by tomas & louis @vdr-portal.de
+  http://www.vdr-portal.de/board1-news/board2-vdr-news/p1271995-skindesigner-1-0-0-neuer-default-skin-estuary4vdr/#post1271995
+- Commit 0001-revert-seperate-status-thread.diff by TomJoad@vdr-portal.de
+- Commit 0002-fix-incorrect-lock-sequences.diff by TomJoad@vdr-portal.de
+- Commit 0003-revert-now-obsolete-pointer-params.diff by TomJoad@vdr-portal.de
+- Commit 0004-some-small-fixes.diff by TomJoad@vdr-portal.de
+  http://www.vdr-portal.de/board17-developer/board21-vdr-plugins/p1291452-epgsearch-f%C3%BCr-vdr-2-3-x/#post1291452
+- Drop legacy code prior VDR 2.3.x
+- Commit 0001-fixed-unresponsive-vdr.diff by TomJoad@vdr-portal.de
+- Commit 0002-removed-variableduplications.diff by TomJoad@vdr-portal.de
+- Commit 0003-more-cleanups.diff by TomJoad@vdr-portal.de
+- Commit 0004-Remote-timers-in-menu-myedittimer.diff by TomJoad@vdr-portal.de
+  http://www.vdr-portal.de/board17-developer/board21-vdr-plugins/p1291771-epgsearch-f%C3%BCr-vdr-2-3-x/#post1291771
+- Commit fixblacklist_handling.diff by TomJoad@vdr-portal.de
+  http://www.vdr-portal.de/board16-video-disk-recorder/board99-distributionen/board107-mld/p1292085-epgsearch-in-verbindung-mit-epgd-epg2vdr-live-absturz-unter-vdr-2-3-4/#post1292085
+- Commit epgsearch_min_max_from_stl.diff  by jasminj@vdr-portal.de
+  http://www.vdr-portal.de/board17-developer/board21-vdr-plugins/p1292145-epgsearch-f%C3%BCr-vdr-2-3-x/#post1292145
+
+2013-03-xx; Version 1.0.1 - maintenance release
+new:
+- new Makefile style as introduced in vdr-1.7.36, the old Makefile still exists as 
+  Makefile.before.1.7.36 for previous vdr builds. Many thanks to Copperhead, Stefan 
+  Hofmann and Christopher Reimer for their work.
+- implement device bonding in conflict checker, thanks to Joachim Wilke for providing a patch
+- new service interface "Epgsearch-enablesearchtimers-v1.0" to switch the search timers 
+  background update on/off. Updated the sample in source/vdr-epgsearchclient-0.0.2.tgz 
+  to use the new service.
+- new format specifier like %02i in the epgsearchcats.conf, thanks to Joe_D for providing
+  a patch ('man 5 epgsearchcats.conf' for more information).
+- in the menu 'recordings done' you can now toggle the blue key to 'Orphaned' to show
+  recordings with vanished search timers.
+- when channel separators are displayed the filling '-' can cause problems in the output
+  of graphlcd. Set PLUGIN_EPGSEARCH_SEP_ITEMS=--- in your Make.config to avoid this. Most
+  skins (except classic, st:tng)  will translate '---' into a single line anyway 
+  (Feature #857, thanks to 'KeineAhnung' for providing a patch)
+- search timers are now processed by their descending timer priority. Search timers with the same priority
+  are sorted by their search term. Thanks to Anonym for providing a patch 
+- new bugtracker at http://projects.vdr-developer.org/projects/plg-epgsearch - thanks to Tobias Grimm
+- dropped old code for vdr < 1.6.0, thanks to Ville Skyttä for whole pile of patches
+- updated MainMenuHooks patch to 1.0.1
+- czech translation, thanks to Radek Stastny
+
+fixes:
+- fixed a memory leak, thanks to Sundararaj Reel for the patch
+- fixed a crash when editing blacklists
+
+
+2011-09-11; Version 1.0.0
+new:
+- supports vdr-1.6.0 to vdr-1.7.21
+- avoid repeats with new 'compare date' entry: compare two events by their date to ignore
+  repeats within the same day, week or month
+- global blacklists: blacklists for search timers can now be global to exclude
+  generally unwanted events (like on my double SD/HD channels). Default mode for search
+  timers is now 'only global', but can be  set to 'none' to ignore also global blacklists.
+- new setup variable epgsearch.ConflCheckCmd (no gui for this, so edit setup.conf!), that
+  allows executing a command for each timer causing a conflict, see the MANUAL for details.
+- vdr-1.7.15 has changed the SVDRP default port to 6419, please update this in epgsearch's
+  setup menu too!
+- there is now an official git repository for epgsearch, that contains the latest
+  development.
+  First usage:
+    git clone git://projects.vdr-developer.org/vdr-plugin-epgsearch.git
+  Keep up-to-date with:
+    git pull
+  Web-git:
+    http://projects.vdr-developer.org/git/?p=vdr-plugin-epgsearch.git
+  many thanks to the maintainers of projects.vdr-developer.org, especially Tobias
+  Grimm
+- directory entries from VDR's folders.conf are now also read and offered in the
+  directory selection of the timer menu.
+- Search timer support for content descriptors as introduced in vdr-1.7.11. This lets you
+  search for broadcasts by their type, like "Movie/Drama", "Documentation",...
+- Search timers now have a new action "Announce and switch". This announces the
+  event via OSD right before it starts and lets you switch to its channel with 'Ok'.
+  Switch timers now have the same option.
+- in addition to the announcements via OSD new events can now also be reported by mail.
+  To do so, there's a new search timer action "Announce by mail". You also have to update
+  your mail template file epgsearchupdmail.templ (s. the updated html sample in the conf
+  directory and/or read the MANUAL '13. Email notification').
+- The time in hours between the search timer mails can now be configured in the
+  setup to avoid flooding your inbox. epgsearch buffers the contents of the pending mails
+  in the new file pendingnotifications.conf.
+- New setup option to check if there is EPG content for the next x hours. If not
+  you get warned by OSD and/or mail (Setup -> Search and search timers), suggested by
+  Andreas Mair.
+- new internal variables:
+  * %day%, %month% and %year% which return the numeric day, month and year
+    (with century) of an event
+  * %chgrp% returns the VDR channel group name corresponding to an event
+  * %liveeventid% returns the encoded event ID as used in the frontend 'live' to add
+    direct links e.g. in the search timer mails (see sample conf/epgsearchupdmail-html.templ).
+  * %timer.liveid% returns the encoded timer ID as used in the frontend 'live' to add
+    direct links e.g. in the search timer mails.
+  * %date_iso% and %date_iso_now% return the (current) date in 'YYYY-MM-DD' format,
+    suggested by Andreas Mair.
+  * %search.series% returns 1 or 0 depending on the flag "series recording" of a search and
+    can be used in the directory entry of a search or its depending variables.
+- new command 'connect' within internal variables: with this command you can connect to
+  a TCP service, pass data and assign the result to a variable. See the MANUAL for
+  details.
+- new command 'length' within internal variables: this returns the length of the given arguments
+- in memory to pat: french translation update, thanks to Patrice Staudt
+- italian translation update, thanks to Diego Pierotto
+- finnish translation update, thanks to Rolf Ahrenberg and Ville Skyttä
+- new lithuanian translation, thanks to Valdemaras Pipiras
+- new slovak translation, thanks to Milan Hrala
+- new SVDRP command 'MENU [NOW|PRG|SUM]' to call one of the main OSD menus or
+  the summary of the current event. If any epgsearch menu is open a subsequent
+  SVDRP call will close it again.
+- changed the maximum number of days for a timer conflict check from 99 to 14
+- patch by Jörg Wendel for new graphtft patch
+- Two events with both empty episode names are now handled different within the
+  feature 'Avoid repeats'. This will result in more recordings, but ensures not to
+  miss one only because of a buggy EPG.
+- searchtimers: if a timers filename results in an empty string or contains
+  "!^invalid^!" it will be skipped for programming now.
+- Avoid repeats: The option 'Yes' for 'Compare subtitle' is now replaced with 'if present'.
+  With this setting epgsearch will classify two events only as equal if
+  their episode names match and are not empty.
+- epgsearch now uses the shutdown handler (introduced in vdr 1.5.1) to prevent a
+  search timer update to be interrupted.
+- the SVDRP command UPDS for triggering search timer updates has now a new option
+  'SCAN' that will execute an EPG scan before the search timer update actually starts.
+- when deleting a search timer now its list of created timers is also cleared,
+  suggested by Sundararaj Reel
+- moved 'file' and 'directory' to the top in the timer edit menu, since at least in
+  my case its the most common entry to change, e.g. to select a folder for the recording.
+- auto enable Wareagle icons if VDRSymbols font is used (can be overwritten with
+  WarEagleIcons=0 in epgsearchmenu.conf), suggested by Ronny Kornexl
+- the correct content encoding for mail notifications is now automatically detected
+- epgsearch now autodetects an installed pin plugin or graphtft, also the optional libraries
+  libpcre und libtre (can be turned off by commenting AUTOCONFIG in the Makefile)
+- new patch vdr.epgsearch-exttimeredit.diff:
+  this patch against VDR integrates epgsearch's timer edit menu to VDR's timer menu, thanks
+  S:oren@vdr-portal for providing it.
+- some speed enhancements, thanks to Tobias Bratfisch for providing patches
+- if the VPS time differs from the start time of an event the VPS marker is now  'v'
+  instead of 'V'
+- the first run of the background threads (searchtimer, switchtimer, conflict check) is now
+  triggered by the first call to cPlugin::MainThreadHook instead of waiting 20s after
+  VDRs startup.
+- The update check for manual timers does now ignore timers whose start or stop time was edited
+  by the user.
+- default path to sendmail is now '/usr/sbin/sendmail' and can be configured in the Makefile,
+  thanks to Ville Skyttä for providing a patch.
+- externally triggered search timer updates (via service interface or SVDRP) will now
+  automatically activate the setting "Use search timers" in the setup.
+- epgsearch now also checks the recordings length among the correct start and stop time of a timer
+  when testing for complete recordings. 98% and more are handled as complete.
+- switch timers are now also visible in all search results EPG menus
+- Avoid repeats: in 'compare summary' one can now adjust the required match, default is 90%.
+- if there is no subtitle the filename now defaults to YYYY.MM.DD-HH.MM-Weekday to ease
+  sorting in some frontends, thanks to Dominic Evans for providing a patch
+- should now compile in FreeBSD, thanks to Juergen Lock for providing a patch
+- new SVDRP command UPDT to reload the list of search timers in epgsearch.conf
+
+fixes:
+- fixed a crash when pressing 'Ok' in an empty timers done menu
+- fixed a crash when using the progressbar and events with 0 duration exist, thanks
+  to egal@vdrportal
+- when an incomplete recording triggers a search timer update for a search timer
+  with 'avoid repeats' now running events are ignored for the repeats.
+- now using cCondWait::Wait instead of cCondWait:SleepMs to avoid shutdown problems,
+  thanks to e9hack@vdrportal for providing a patch
+- fixed line breaks in SVDRP command LSTT, thanks to Andreas Mair for providing a
+  patch
+- improved response time when canceling the search timer thread
+- fixed a segfault occurring when navigating to a userdefined epg menu that has expired
+  in the meantime, thanks to Mike Constabel for reporting
+- the day selection menu in the timer edit menu was hidden
+- if an event was matched by multiple search timers with 'announce only' setting, it was
+  also listed more than once. Thanks to Andreas Mair for reporting.
+- fixed a bug in search timer announcements concerning the display of the corresponding
+  search timer
+- fixed some memory leaks, thanks to Bittor Corl for providing a patch
+- some fixes to compile with gcc-4.4, thanks to firefly@vdrportal for providing a patch
+- fixed wrong man section of some man pages, thanks to Ville Skyttä for providing a patch
+- some fixes regarding libtre includes, thanks to Ville Skyttä for providing a patch
+- fix UTF8-character handling in timer file names, thanks to Rolf Ahrenberg for providing
+  a patch
+- fixed a crash when adding huge episode names to the timer's file name, thanks to Lari
+  Tuononen for reporting
+- make sure only one regular expression library is linked against epgsearch, thanks to
+  Ville Skyttä for providing a patch.
+- some providers have strange EPG time changes only by some seconds. epgsearch now ignores
+  changes less than 60s and does not touch the corresponding timer or report by mail,
+  thanks to cmichel@mantis for reporting
+- possible fix of the old problem with a crash in libpcre, thanks to Andreas Cz. for the
+  patch and to Stefan Bauer for pointing me to it.
+- fix a crash when toggling between with/without subtitle in timer info view for events
+  that have (very) long "short" texts, thanks to Ville Skyttä for providing a patch.
+- fixed file descriptor handling when there are errors in SVDRP communication, thanks to
+  Teemu Rantanen for providing a patch.
+- fixed the service interface for switchtimers because of wrong parameter handling, thanks
+  to gnapheus@vdrportal for reporting.
+- fixed case insensitve searching when Utf-8 characters are involved, thanks to Ville
+  Skyttä for reporting
+- fixed check of complete VPS recordings, thanks to durchflieger@vdr-portal for providing
+  a patch.
+
+
+2008-04-29: Version 0.9.24
+new:
+- support for vdr-1.6.x/1.7.x
+- speedup in searching and search timer updates (about 25%)
+- speedup in EPG menues, thanks to patch authors from http://www.open7x0.org
+- support for VDRSymbols font (activate it with 'WarEagle=1' in epgsearchmenu.conf)
+- the EPG command 'Search in recordings' now evaluates the info.vdr instead of the
+  recordings path name and also does fuzzy searching, suggested by Mase@vdrportal
+- search timers with action 'switch only' and switch timers now have an additional
+  option 'unmute sound' which unmutes audio at the event, if it was off, suggested
+  by Michael Brückner
+- the timer update notification mails supports now an additional variable
+  %timer.modreason%, that holds the reason for a timer update in plain text (see
+  epgsearchupdmail(-html).templ for a sample)
+- support for a conf.d mechanism (s. MANUAL -> 14. The conf.d subdirectory), suggested
+  by Mike Constabel.
+- new SVDRP command 'LSCC' that returns the results of a timer conflict
+  check. See the MANUAL for details about the format of the result list.
+- new patch against VDR (vdr-1.5.17-progressbar-support-0.0.1.diff) that adds support
+  for graphical progressbars in skins classic and st:tng, thanks to zulu@vdrportal
+- '0' in the menu of done recordings now toggles the display of the episode name only
+- the favorites menu can now also be displayed after 'Overview - Now' via setup,
+  suggested by Bittor Corl
+- menu of recordings done now sorts the date top down
+- support for new info key behaviour in vdr-1.5.13
+- changes for builtin graphtft-patch (when using VDR-extension-patch you need > v.37)
+- updated the timercmd-patch for vdr-1.5.12 (patches/timercmd-0.1_1.5.12.diff)
+- added patches/README.patches to describe the existing patches
+- update of 'undoneepgsearch.sh', a script to remove recordings from the done file via
+  reccmds.conf, thanks to Viking@vdrportal.
+- update of finnish translation, thanks to Rolf Ahrenberg
+- full spanish translation, many thanks to agusmir, dragondefuego, GenaroL, lopezm and
+  nachofr from todopvr.com, and especially to bittor
+- update of italian translation, thanks to Diego Pierotto
+- update of dutch translation, thanks to carel@bugtracker
+- the setup option "No announcements when replaying" is now ignored, if the search timer
+  update was triggered manually, suggested by Andreas Mair.
+
+fixes:
+- shifting the time display: the start time now only gets displayed in
+  'Overview - Now' instead of a progressbar, if there's not already a start time
+  in the menu template ('%time%') as in the default template,
+  thanks to Getty@vdrportal for reporting
+- fixed some issues regarding GPL, thanks to Thomas Günther for reporting
+- fixed a crash when no EPG is present, thanks to Petri Helin for providing a patch
+- the default value for maximum duration is now '23:59' to avoid problems with
+  external tools, thanks to ralf-naujokat@bugtracker for reporting (bug-id #371)
+- after an EPG change of less then 10 minutes epgsearch modified a timer instead of
+  creating a new one. This caused problems with events with less then 10 minutes. The
+  tolerance is therefore now min(<event duration>, 10 min). Thanks to Janne Liimatainen
+  for reporting.
+- fixed some translations, thanks to ramirez@vdrportal for reporting
+- speed improvement when scrolling through EPG menus, thanks to ramirez@vdrportal for
+  reporting
+- fixed a crash, when SIGINT is signaled while background threads startup
+- channel group separators in 'Overview Now/Next/...' are now hidden if they are
+  empty like in ':@30', thanks to Ulf Kiener for providing a patch
+- fixed a crash in the setup of the addon plugins when VDR is patched with the ext-patch
+  and active LIEMIKUUTIO
+- 'avoid repeats' combined with 'pause on ... recordings' created to less timers, thanks
+  to spockele@vdrportal for reporting
+- fixed some compiler warnings with g++ 4.3
+- fine-tuning fuzzy matching of descriptions, thanks to Alf Fahland for providing a patch
+- fixed a problem with pipes in the pattern of blacklists, thanks to Andreas Mair for
+  reporting.
+- fixed labeling the green/yellow color keys after toggling the keys in menu 'Schedule',
+  thanks to Andreas Mair for reporting.
+- fixed evaluation of compiler flags like WITHOUT_EPGSEARCHONLY,...
+
+2007-09-02: Version 0.9.23
+new:
+- full support for new i18n system in vdr>=1.5.7, but keeps fully backwards
+  compatible
+- when using extended EPG categories one can now also compare by value, e.g.
+  to search for events after some year.
+  Therefore new searchmodes (10 which means '<', 11 which means '<=', ...)
+  were introduced in the file epgsearchcats.conf. Example:
+
+    # 'until year'
+    3|Year|until year||11
+    # 'from year'
+    12|Year|from year||13
+
+  One could use this also to search for a specific season of a series, if this
+  data is part of the EPG. See the section <epgsearchcats.conf> in the documentation
+  for a complete list of all search modes.
+- The edit menu for search timers has now a switch 'Ignore missing categories' for
+  extended EPG categories. If set to 'Yes' this tells epgsearch that a missing EPG
+  category should not exclude an event from the results. Caution: Using this without
+  any other criterions could flood your timers.
+- Search timers have now an 'auto delete' feature. The edit menu therefor provides:
+    * after x recordings, or
+    * after x days after first recording
+  Only complete recordings are counted. The deletion of the search timer is executed
+  directly after the end of the corresponding recording
+- new action "Create a copy" in menu Search/Actions to create and edit a copy of the
+  current search, suggested by Michael Brückner.
+- the option "use as search timer" has now a third value 'user defined' besides 'yes'
+  and 'no', that allows specifying a time margin where the search timer is active,
+  suggested by jo01@vdrportal
+- the progressbar now displays the start time instead of an empty bar, when
+  shifting to future events, thanks to zulu@vdrportal for providing a patch.
+- menu "show timers created" shows now summary for the timers done with 'Ok'.
+  Also the shortcuts '1..9' for the EPG-commands are available.
+- built-in pin-plugin patch (no more need to patch epgsearch). Activate
+  it by compiling with 'USE_PINPLUGIN' in VDR's Make.config (as already done in
+  VDR extension patch)
+- built-in graphtft-plugin patch (no more need to patch epgsearch). Activate
+  it by compiling with 'USE_GRAPHTFT' in VDR's Make.config (as already done in
+  VDR extension patch)
+- update of finnish translation, thanks to Rolf Ahrenberg
+- update of french translation, thanks to Patrice Staudt
+- added file README.Translators with notes for translators
+fixes:
+- fixed a bug in timer creation after navigating through the summary menu,
+  thanks to Rolf Ahrenberg for reporting
+- Label "Record" or "Timer" in menu summary fixed with respect to existing timer.
+- fixed switch timers in the case when EPG has changed, thanks to Juergen Urban
+  for providing a patch
+- fixed some compiler warnings in g++-4.2, thanks to Michael Brückner for reporting
+- added "," to the allowed characters for a search timer, thanks to Mike Constabel for
+  reporting.
+
+2007-05-27: Version 0.9.22
+new:
+- new option in timer conflict check "When a recording starts":
+  This performs a conflict check when any recording starts and informs
+  about it via OSD if the conflict is within the next 2h. So also timers not
+  created with epgsearch are checked, the same for instant recordings.
+- new service interface "Epgsearch-services-v1.0": This allows other plugins
+  to access and manage many components of epgsearch as searchtimers, setup
+  values,... and execute tasks like searching for repeats (Have a look at
+  services.h for more information).
+- new project homepage: http://winni.vdr-developer.org/epgsearch, many thanks
+  to Thomas Keil, sorry, only german at the moment ;)
+- update for finnish translation, thanks to Rolf Ahrenberg
+fixes:
+- complete rewrite of the summary menu and its navigation to avoid problems
+  with skins and fix some other bugs.
+- when testing for repeats now also the comparison with the done-file only
+  checks the alphanumeric portions of title and episode
+- fixed another issue with quotes when calling commands for EPG events
+- some license changes and additions for integration in Debian repositories
+- fixed a bug in displayed time, when using user defined times and shifting
+  with FRew/FFwd, thanks to Torsten Weigelt for reporting
+- the aux info about the channel was not added in 'one press timer creation'.
+  Thanks to Rolf Ahrenberg for providing a patch.
+
+2007-04-29: Version 0.9.21
+new:
+- support for the new MainMenuHooksPatch. This replaces the
+  vdr-replace-schedulemenu patch. The new patch is used by other plugins too,
+  so from now on only one patch is needed. The old patch is still supported,
+  but this will be removed in the next releases.
+- announcements of broadcasts via OSD have been completely redesigned. Instead
+  of displaying them event by event, you get now
+  "x new broadcast(s) found! Show them?". Pressing 'Ok' shows a menu of all
+  events with the usual functions as in other EPG menus. With "Edit" you can
+  modify the announce settings (like "announce again: yes/no" or announce again
+  after day x).
+- timer conflict notifications via OSD can now be suppressed while replaying.
+  Nevertheless, if a conflict comes up within the next 2 hours the message gets
+  still displayed.
+- all addon plugins (epgsearchonly, quickepgsearch, conflictcheckonly) now
+  have a setup option to toggle the main menu entry on/off, thanks to Tobias
+  Grimm for providing a patch.
+- channel name in aux info of manual timers, thanks to Rolf Ahrenberg for
+  providing a patch.
+- new script undoneepgsearch.sh to undo a timer within the recordings menu,
+  more info at:
+  http://www.vdr-portal.de/board/thread.php?postid=574109#post574109
+  Thanks to the author Christian Jacobsen
+- update for french translation, thanks to Patrice
+  Staudt
+- update for finnish translation, thanks to Rolf Ahrenberg
+- menu 'timer conflicts details' now also shows the date of the conflict in
+  menu title, suggested by Rusk@vdrportal.
+- the password for mail authentication is now hidden in the OSD, i.e.
+  represented with '***...'
+- the setup for mail notifications now also has a "Send to" address, because
+  some providers don't allow the same address for sender and recipient.
+  If "Send to" is not set, epgsearch automatically uses the sender address as
+  recipient.
+- when testing for repeats (with feature 'Avoid repeats') epgsearch now only
+  compares the alphanumeric portions of title and episode and ignores the case
+  too. Suggested by chello@vdrportal.
+- thanks to Rolf Ahrenberg for finnish translation update
+- added '&' to the set of valid chars for search terms
+fixes:
+- the tags stored in the aux info of the timers created with search timers
+  conform now to correct XML syntax (no capitals, no blanks). E.g. "Search timer"
+  will be changed to "searchtimer". So don't wonder if the first search timer
+  update will modify all existent timers created with search timers. Thanks to
+  Rolf Ahrenberg for reporting.
+- update of recordingdone.sh because of the previous changes, thanks to
+  Mike Constabel for providing a patch
+- fixed a segfault in the case of misconfigured extended EPG categories.
+- scrolling text items now works again, if your skin supports this.
+  Thanks to ufauser@vdrportal for reporting.
+- setup option "Use search timers" now always gets automatically enabled, if
+  one toggles a search to 'active' or manually starts a search timer update.
+- fixed handling of double quotes in title/episode when passed to userdefined
+  EPG commands, thanks to Mike Constabel for reporting.
+- fixed menu handling in search timer templates menu, thanks to wombel@vdrportal
+  for reporting.
+
+2007-01-30: Version 0.9.20
+new:
+- support for vdr-1.5.0. Note: the CA support in the timer conflict check is
+  highly experimental because I have no CAMs to test it!
+- epgsearch can now also modify manual timers according to EPG changes. When
+  using epgsearch's own timer edit menu you can select between
+  * no check
+  * by event ID
+  * by channel/time
+  Please refer to the README (1.4.4 Setup/Timer Programming/Default timer check
+  method) for further notes.
+- the timespan used in the favorites menu can now be adjusted via
+  setup. Default is 24h.
+- Event announcements: If the user presses one of the keys 'Ok', '0', ... '9'
+  while the announcement of an event is displayed, he will be asked if further
+  announcements of this event should be disabled for ever (user hit '0' or
+  'Ok') or for the next 'x' days (user hit '1' to '9'). After pressing 'Ok'
+  again, this setting will be stored.
+- With the new setup option "No announcements when replaying" you can now
+  suppress any announcements of broadcasts when you currently replay
+  anything. Suggested by Andreas Mair.
+- Besides the done file for recordings there is now a done file for timers
+  (timersdone.conf). This allows deleting timers without getting them again
+  with the next search timer update. With the new menu 'Show timers created'
+  in Search/Actions one can edit this list. The whole feature can be disabled
+  in the search timers setup. Note: the done list is only populated with
+  timers that were newly created with this release.
+- new addon plugin 'quickepgsearch': it creates a main menu entry 'Quick
+  search' and can be used to search for any event in the EPG. Include it with
+  '-Pquickepgsearch' , suggested by SurfaceCleanerZ@vdrportal.
+- new setup option "Limit channels from 1 to" to speed up epgsearchs call. If
+  the current channel is above the limit, all channels will be
+  displayed. Suggested by Uwe@vdrportal.
+- new SVDRP commands:
+  * 'LSRD' returns a list of all recording directories used
+    in existing recordings, timers, search timers or as specified in
+    epgsearchdirs.conf
+  * 'LSTT [ID]' to list all search templates, or the one with the passed ID
+    (format is the same as epgsearch.conf)
+  * 'NEWT <settings>' to add a new search template
+    REMARK: the value of element ID is ignored. epgsearch will always
+    assign the next free ID
+  * 'DELT <ID>' to delete the search template with ID
+  * 'EDIT <settings>' to modify an existing search template
+  * 'DEFT [ID]' returns the ID of the default search template. When passing an
+    ID it activates the corresponding template as default.
+- modified SVDRP commands:
+  * 'DELS [ID] [DELT]' now also deletes created timers for search with ID when
+    passing the optional 'DELT'.
+- you can now also use sendmail for mail delivery besides the script
+  sendemail.pl (-> setup), suggested by Patrick Cernko
+- new variables:
+  * '%timespan%' to be used in menus or mails. It will be replaced
+    with the timespan from now to the begin of an event (e.g. 'in 15m'). It is
+    now used in the default menu template of the favorites menu, where the date
+    field was removed.
+  * '%length%' for the length of a broadcast in seconds.
+- thanks to Rolf Ahrenberg for finnish translation update
+fixes:
+- manually created timers are now neither deleted nor modified by any search
+  timers.
+- the addon conflictcheckonly was compiled even if WITHOUT_CONFLICTCHECKONLY
+  was defined in the Makefile, thanks to Ronny Kornexl for reporting.
+- search term and directory support now the characters 'ß' (only for language
+  german) and '@'.
+- 'avoid repeats' had a bug (in some special cases) that created a timer for any
+  later repeat instead of the first event.
+- a search with "Use day of week" AND "Use time" where "Start before" is after
+  midnight now also matches events on the next day til "Start
+  before". E.g. "Start after 22:00" and "Start before 03:00" on monday will
+  also match an event at 01:00 at tuesday.
+- already recording timers are now modified only, if the timers stop time has
+  changed (e.g. by an EPG update), thanks to Mike Constabel for reporting.
+- fixed a bug in evaluation of user variables, thanks to Mike Constabel for
+  reporting and remote debugging
+- fixed a bug in conflict mail notification concerning timers without assigned
+  events
+
+2006-10-27: Version 0.9.19
+new:
+- if search results of different searches intersect, now only the search that
+  initially created a corresponding timer may modify it.
+- new variables:
+  * '%search.query%' to be used in the recording directory of a search
+    timer. Will be substituted to the query of a search timer.
+  * '%videodir%' VDR video directory (e.g. /video)
+  * '%plugconfdir%' VDR plugin config directory (e.g. /etc/vdr/plugins)
+  * '%epgsearchdir%' epgsearchs config directory
+    (e.g. /etc/vdr/plugins/epgsearch)
+- the syntax of the 'system' command within a user variable has changed to be
+  more flexible. It's now:
+  %uservar%=system(/path/to/script[, parameters])
+  where the optional 'parameters' can now be any expression using other
+  variables except directly using conditional expressions or other system
+  calls.
+- update for french translation, thanks to Patrice Staudt
+fixes:
+- VPS timers created by search timers are now always updated to their VPS time,
+  even if the user has changed start/stop time.
+- after editing the setup any menu templates defined in epgsearchmenu.conf
+  were reset to defaults, thanks to s.krueger@vdrportal for reporting.
+- existing VDR serial timers are not modified anymore to regular timers by the
+  search timer update.
+
+2006-10-01: Version 0.9.18
+new:
+- IMPORTANT!!! PLEASE READ THIS!: epgsearch expects its conf files now in a
+  separate configuration directory 'epgsearch' and not in the general plugin
+  configuration directory as with previous versions! Please create this
+  directory in your plugins configuration directory and move all
+  epgsearch-files to it before running this version. Like this:
+
+  mkdir /etc/vdr/plugins/epgsearch
+  mv /etc/vdr/plugins/epgsearch*.* /etc/vdr/plugins/epgsearch
+  mv /etc/vdr/plugins/.epgsearch* /etc/vdr/plugins/epgsearch
+
+  This is only important if you don't already use epgsearchs '--config' or
+  '-c' parameter.
+
+- new 'Favorites menu' besides 'Now' and 'Next': This menu can show a list of
+  all your favorite broadcasts for the next 24h. To enable it activate 'Show
+  favorites menu' in the setup. To let epgsearch know what your favorites are
+  create/edit some searches and enable 'Use in favorites menu'.
+- new setup option for timer conflict check: 'After each timer
+  programming'. This performs a conflict check after each manual timer
+  programming and - if the new/modified timer is involved in a conflict - pops
+  up an OSD message about it.
+- new email notifications about search timer updates or timer
+  conflicts with a customizable mail content. Please refer to the MANUAL
+  section 'Email notification' for further details.
+- epgsearch has now a set of man pages. A very BIG thanks to Mike Constabel
+  (vejoun@vdrportal) who did the complete job of rewriting/correcting and
+  formatting the current docs. The man pages cover the README's, MANUAL and a
+  documentation of all conf's that epgsearch uses. Available for german and
+  english. Install them with 'make install-doc' in epgsearch's src-directory.
+- you can now define your own variables to be used in the default recordings
+  directory, search timer recording directory or your own menu
+  templates. Since this is quite complex please refer to the MANUAL section
+  'User defined variables'. Just an example to see what is possible:
+     # Weekday, Date, Time
+     %DateStr%=%time_w% %date% %time%
+     # Themes or Subtitle or Date
+     %ThemesSubtitleDate1%=%Subtitle% ? %Subtitle% : %DateStr%
+     %ThemesSubtitleDate%=%Themes% ? %Themes% : %ThemesSubtitleDate1%
+     # Calls this script to get a recording path
+     %DocuScript%=system(doku.pl,%Title%,%Subtitle%,%Episode%,%Themes%,%Category%,%Genre%)
+     %Docu%=%DocuScript%
+- key 'Ok' can now also be configured to switch to a channel instead of
+  displaying the summary, suggested by malachay@vdrportal.
+- if a timer was created by a search timer then epgsearch's own timer edit
+  menu now displays the name of the search timer in a non selectable item at
+  the bottom of the menu.
+- when an event is announced via search timers you can now create a timer for
+  it, when you press the red key while the announce is visible, suggested by
+  Andreas Mair
+- if search timers are disabled by setup then creating/editing a search timer
+  now automatically activates them in setup, suggested by Andreas Mair.
+- you can now use more than one menu template for search results, please refer
+  to the MANUAL section "Customizing the EPG menus".
+- the check for a complete recording now also accepts short breaks (< 2s,
+  e.g. a channel pid change)
+- new SVDRP commands:
+  * LSTC [channel group name]
+    list all channel groups or if given the one with name 'group name'
+  * NEWC <channel group settings>
+    create a new channel group, format as in epgsearchchangrps.conf
+  * EDIC <channel group settings>
+    modify an existing channel group, format as in epgsearchchangrps.conf
+  * DELC <channel group name>
+    delete an existing channel group
+  * RENC <old channelgroup name|new channel group name>
+    rename an existing channel group
+  * 'LSTB [ID]' to list all blacklists, or the one with the passed ID
+    (format is the same as epgsearchblacklists.conf, see MANUAL)
+  * 'NEWB <settings>' to add a new blacklist
+    REMARK: the value of element ID is ignored. epgsearch will always
+    assign the next free ID
+  * 'DELB <ID>' to delete the blacklist with ID
+  * 'EDIB <settings>' to modify an existing blacklist
+  * 'QRYS < ID(s) >' to get the results for a search with the given
+    ID. Multiple IDs can also be passed and have to be separated with '|'.
+  * 'QRYS <settings>' to get the results for a search with the given
+    search settings.
+  * 'QRYF [hours]' to get the results for the favorites menu. The optional
+    parameter specifies the number of hours to evaluate and defaults to 24h.
+  * 'LSTE [ID] to get the extended EPG categories defined in epgsearchcats.conf
+    or the one with the given ID.
+  * 'MODS ID ON|OFF' turns on/off the option 'Use as search timer'.
+  * 'SETP option' returns the current value of the setup option (see MANUAL).
+- epgsearch has now a bug tracking system (german) and a mailing list
+  (english)
+  http://www.vdr-developer.org/mantisbt
+  http://www.vdr-developer.org/mailman/listinfo/epgsearch
+  thanks to the providers of developer.org
+- new service interface "Epgsearch-switchtimer-v1.0" to access and manage
+  switch timers, thanks to Dirk Leber for his extension.
+- update for french translation (including setup help!), thanks to Patrice
+  Staudt
+- thanks to Rolf Ahrenberg for finnish translation update
+- thanks to Mike Constabel for providing a HTML update mail template
+  (conf/epgsearchupdmail-html.templ)
+fixes:
+- the first day of a repeating timer is now taken into consideration in the
+  timer conflict check, thanks to zimuland@vdrportal for reporting
+- fixed search timer update for VPS timers, thanks to Chello and
+  oholler@vdrportal for reporting.
+- fixed handling of the sign '|' when changing the search type of a search
+  timer, thanks to Chello@vdrportal for reporting
+- changed some default search mode values in the epgsearchcats.conf samples for
+  multiple selection
+- removed extra line feeds in SVDRP response of LSTS, thanks to Andreas Mair
+  for reporting
+- channel criterion 'no pay tv' in search timers was ignored, thanks to
+  Andreas Mair for reporting
+- fixed initial min/max values for search criterion 'duration', thanks to
+  Mike Constabel for reporting
+- fixed a bug when selecting the conflict check 'after each search timer
+  update' in setup, thanks to Ronny Kornexl for reporting
+- some changes for thread safeness
+- added '--remove-destination' to the Makefile as introduced in vdr-1.4.2-3
+
+2006-08-07: Version 0.9.17d (maintenance release)
+fixes:
+- fixed a wrong usage of 'cPlugin::ConfigDirectory' in search timer thread,
+  thanks to Udo Richter and Petri Hintukainen for reporting
+
+2006-06-12: Version 0.9.17c
+fixes:
+- fixed a problem with multiple selection of extended epg category values,
+  thanks to Christian Jacobsen for reporting
+- another compilation fix for linvdr, thanks to toxic-tonic@vdrportal
+
+2006-06-10: Version 0.9.17b
+fixes:
+- fixed some problems with repeating timers in timer conflict check, thanks to
+  Peter Juenger for reporting
+- fixed a crash in timer conflict check when there was an active recording on
+  a device provided by a plugin (e.g. pvr, streamdev), thanks to Gerhard
+  Steiner for reporting.
+
+2006-06-06: Version 0.9.17a
+fixes:
+- menu 'timer conflicts' automatically returned if there where periodic
+  timers, thanks to lostinspc@vdrportal
+- fixed some compiling problems with gcc-2.95 and gcc-4.1.0, thanks to
+  ferdi03@vdrportal, smudo81@vdrportal, toxic-tonic@vdrportal
+
+2006-06-05: Version 0.9.17
+- dropped support for vdr < 1.3.46 :-(
+- changed logic in jumping through menus with user-defined times: you can now
+  also access times on next day, if they are less then 20 hours in the
+  future. Thanks to egal@vdrportal and CKone@vdrportal.
+- epgsearch has now its own timer conflict check which can be customized by
+  setup regarding relevant priorities, the time span to check or the relevant
+  conflict duration. There is also a conflict manager in Search/Actions that
+  can be used to resolve conflicts. Many thanks to Mike Constabel for heavy
+  testing ;-)
+- if there is a timer conflicts notification via OSD, you can now press 'Ok' to
+  go directly to the timer conflicts overview.
+- if you like to have a separate main menu entry for the timer conflict check
+  use '-P conflictcheckonly' which comes as 'mini'-plugin with epgsearch and
+  simply calls epgsearch's conflict menu. conflictcheckonly has a setup option
+  to display an info about the last conflict check directly in its main menu
+  entry.
+- setup is now completely restructured and has now something like an 'online'
+  help.
+- menu 'switch timers' now also displays the channel number
+- input logic for extended EPG categories changed to allow multiple values.
+- added script 'timercmds-auxinfo.sh' that displays the aux info (e.g. the
+  search timer responsible for the timer) in VDR's timer menu (requires the
+  timercmd patch), thanks to the author Mike Constabel
+- user-defined EPG times with empty description get now their associated time
+  as description, suggested by Thiemo Gehrke
+- new service interface "Epgsearch-conflictmenu-v1.0" to call epgsearch's
+  conflict menu from other plugins.
+- new service interface "Epgsearch-lastconflictinfo-v1.0" to get an info about
+  the last conflict check result.
+- epgsearchmenu.conf is not more reloaded with every plugin call, since this is
+  only useful when testing the conf file. To activate the permanent
+  reload again, pass the new start parameter '-r' or '--reloadmenuconf' in
+  your runvdr
+- thanks to Rolf Ahrenberg for finnish translation update
+- added HISTORY.DE (german HISTORY)
+fixes:
+- loading epgsearchmenu.conf now falls back to menu defaults, if the conf file
+  contains any errors.
+- fixed handling of '%' in  LSTS in SVDRP for vdr > 1.3.44, thanks to Mike
+  Constabel
+- fixed loading epgsearchmenu.conf for epgsearchonly and service interface
+  "Epgsearch-searchmenu-v1.0", thanks to Daniel Dorau for reporting.
+- fixed display update in menu 'Search templates', thanks to Mike Constabel
+- fixed a bug when deleting associated timers of a search timer when there
+  are no timers present, thanks to Patrick Koppen for reporting.
+- hopefully fixed a bug when adding a search entry to templates, thanks to
+  Patrick Koppen for reporting.
+
+2006-04-18: Version 0.9.16 (maintenance release)
+fixes:
+- the display of 'Overview - Now' was broken, when using progressbar and
+  channel numbers in default menu look. Thanks to Gerhard Steiner for
+  reporting this one.
+- when using small OSD fonts, the progressbars where flickering because of 1
+  pixel line height. Thanks to holymoly and TomG@vdrportal.
+- support for the APIVERSION define as introduced in vdr-1.3.47
+
+2006-04-14: Version 0.9.15
+new:
+- the EPG menus can now be customized with the file epgsearchmenu.conf (sample
+  file in 'conf' subdirectory), e.g. the entry:
+  MenuWhatsOnNow=%chnr%:3|%progrt2s%:5| %time% %t_status%:8|%category%:6| %title% ~ %subtitle%:35
+  creates a menu line starting with the channel number, followed by a progress
+  bar in text2skin style, the start time, the timer status, the EPG category
+  (like "movie") and finally the title and subtitle.
+  You can customize each menu ('What's on now, next, other times, schedule and
+  search results with a separate line). Please refer to the MANUAL for more
+  information.
+- IMPORTANT change to search timers: epgsearch now removes timers, that are
+  not needed anymore (if vdr >= 1.3.44). These are:
+  * timers, that are no more valid because of EPG changes. This should avoid
+    the double recordings after an EPG change.
+  * timers, that do not match the search criterions after a change of the
+    search timer. So you don't have to remove them manually anymore.
+  If the user has modified start or stop of such a timer, it will be kept.
+- new search mode 'fuzzy' in searches. This performs a fuzzy search
+  applying an algorithm like it's used in agrep. The error tolerance can be
+  set with the edit field 'Tolerance'.
+- added the 'one press' timer creation feature in EPG menus as introduced in
+  vdr-1.3.38 with one small difference: If the event is already running or
+  about to start within MarginStart + 2 minutes, the timer edit menu will be
+  popup to allow editing the file/directory entry, because this cannot be
+  changed when the recording immediately starts. Else, the timer is created
+  immediately. Can be turned off in setup.
+- with the red button in epgsearch's own timer edit menu one can now delete an
+  existing timer, suggested by Rolf Ahrenberg.
+- if the main menu entry is not hidden, its name can now be set by setup.
+  (Note: when changing the name to something different than the default, it is
+  no more dependent on the OSD language)
+- changed the default main menu entry from 'Search' to 'Program guide'
+- some people requested a separate main menu entry for epgsearch's search
+  menu. Therefore I've added a little plugin called 'epgsearchonly' that
+  simply calls epgsearch's search menu. Its main menu entry is
+  'Search'. Compilation of epgsearchonly is automatically done, but can be
+  switched off in the Makefile when uncommenting the line
+  #WITHOUT_EPGSEARCHONLY=1. To use it simply put '-P epgsearchonly' to your
+  VDR start script. (requires >= vdr-1.3.30)
+- new service interface "Epgsearch-searchmenu-v1.0" to call epgsearch's search
+  menu from other plugins.
+- new action 'Delete created timers?' for search entries to delete all timers
+  created from the current search timer. Does not affect recording timers.
+- When deleting a search, you can now decide if all timers created from this
+  search should also be deleted.
+- If the user modifies the start/stop time of a timer created by epgsearch
+  this timer will not be changed anymore(only vdr >= 1.3.44 )
+- If an event is currently recorded, the status flag in the EPG menus is now
+  'R' instead of 'T'
+- Support for wareagle-icon-patch (activate it by adding the line
+  'WarEagleIcons=1' to epgsearchmenu.conf)
+- Progressbar in Now/Next beautified when using setup option 'graphical',
+  inspired by Nordlichts-EPG-Plugin
+- new setup option to show/hide radio channels in the EPG menus, suggested by
+  Patrice Staudt.
+- new service interface "Epgsearch-searchresults-v1.0", that returns a result
+  list of events matching a given search, suggested by Andreas Brugger
+- removed some special setup options, because their function can also be
+  realized with a customized menu now:
+  * "show progress bar in 'Next'", in default menu now off
+  * "display width for progressbar", in default menu now 4
+  * "show short channel name", in default now always short
+  * "Show episode text in schedules", now always displayed
+- update for finnish translation, thanks to Rolf Ahrenberg
+- aux field is now formatted in full XML style (if vdr >= 1.3.44). As a result
+  of this, an updated recordingdone.sh is provided in the 'scripts'
+  subdirectory. Thanks to Mike Constabel for providing a patch.
+- search timer update now always runs in low priority, suggested by Christian
+  Jacobsen
+- new SVDRP command 'FIND'. This allows searching an event and returns a list
+  of results consisting of 'NEWT' lines, that can be used to immediately
+  create a timer for a result. Suggested by Lari Tuononen
+fixes:
+- thanks to Darren Salt for patches for g++ 4.1 and some things concerning
+  thread safeness and code review
+- fixed some memory leaks
+- fixed calling user defined EPG commands, thanks to rzndl@vdrportal
+- fixed blacklist match for search timers, thanks to Christian Jacobsen
+- make sure that the episode name of a timer is less then
+  MAX_SUBTITLE_LENGTH, thanks to Mike Constabel
+- speedup for search timer update
+
+2006-03-05: Version 0.9.14a
+fixes:
+- EPG command 'mark as already recorded' crashed, thanks to Mike Constabel for
+  reporting this
+
+2006-03-04: Version 0.9.14
+new:
+- when disabling/enabling a search timer you can now decide if the associated
+  timers should also be disabled/enabled.
+- new built-in EPG command 'Create blacklist' to create a blacklist from any
+  EPG menu.
+- the summary of an entry in the menu 'recordings done' has now an additional
+  button 'Aux info', that displays the content of the aux field.
+- update for the script recordingdone.sh to work also with vdr-1.3.44, thanks
+  to  Mike Constabel for his changes.
+- conversion scripts for upgrade to vdr-1.3.44: Because of the different
+  handling of auxiliary info (summary -> aux) some features of epgsearch won't
+  work with recordings made before vdr-1.3.44. This applies to the
+  done-Feature and to the automatic deletion of recordings. Without using
+  these scripts you will simply have some more recordings. So you actually
+  don't have to apply them, but when using them, all works fine. Thanks to
+  Mike Constable for providing them.
+  * new script convert_info_vdr.pl. This converts the info file of recordings
+    made before vdr-1.3.44 and moves epgsearch aux data to the new aux field.
+  * new script convert_epgsearchdone_data.pl. This converts the
+    epgsearchdone.data file adding an 'aux' section to it.
+- update for script mtdone2epgsearchdone.sh, thanks to Christian Jacobsen
+- update for french translation, thanks to Patrice Staudt
+- update for finnish translation, thanks to Rolf Ahrenberg
+fixes:
+- done-feature was broken with vdr-1.3.44, thanks to Mike Constabel for
+  reporting this
+- another fix of high cpu load in search timer thread, thanks to
+  sledgehammer@vdrportal for reporting this
+- automatic linking after extracting the tarball removed again, requested by
+  distribution  maintainers.
+- fixed some compiler warnings when using -Wformat=2, thanks to Darren Salt for
+  reporting and providing a patch
+
+2006-02-28: Version 0.9.13
+new:
+- support for vdr-1.3.44: works now, but: because of the summary/aux changes
+  in vdr-1.3.44 the additional info about the search timer, that triggered a
+  timer/recording, or the recording channel is currently not available. This
+  info is now stored in the new aux field of timers/recordings.
+- blacklists: you can now maintain one or more blacklists and select them
+  within a search or search timer. A blacklist works like a normal
+  search and defines events that should be ignored in a search or search
+  timer. Blacklists can be managed from setup or with the new search action
+  'Show blacklists' or directly when editing a search. Within a search you can
+  select one or more or all blacklists. If any search result is also contained
+  in a black list result set it will be skipped.
+- the switchtimer background thread is now only active, while there are any
+  active switch timers.
+- when you unpack the tar file, the necessary link is now automatically
+  created (like text2skin)
+- the result list of repeats of an event now omits the currently running
+  event, suggested by  Ronny Kornexl
+- thanks for beta testing to Mike Constabel
+- update for finnish translation, thanks to Rolf Ahrenberg
+fixes:
+- the setup option 'Add episode to manual timers' was not stored
+
+2006-02-12: Version 0.9.12
+new:
+- new feature 'pause when ... recordings exist" for search timers. If
+  the given number (>0) of recordings exist, then the search timer
+  will not create further timers. After deleting one or more
+  recordings new timers are generated again.
+fixes:
+- fixed a crash when surfing to a channel without epg in schedule
+  menu
+
+2006-02-08: Version 0.9.11a
+fixes:
+- high cpu load fixed
+
+
+2006-02-07: Version 0.9.11
+new:
+- support for vdr-1.3.42
+- new feature switch timers: add an event with the new epg command
+  'Add to switch list' to the switch list and epgsearch will switch
+  the channel one minute before the event starts. The current content
+  of the switch list can be controlled within the search menu with the
+  new action 'Show switch list'. If there is a switch timer for an
+  event its menu item is labeled with 'S', if there is no real timer.
+- switch timers also for search timers: a search timer can now be
+  configured to 'switch only'. Its search results are then added to
+  the switch list and epgsearch will switch to the found events one
+  minute before they start. There will be no real timer for such a
+  search timer.
+- search criterion 'Use channel' has now an additional value 'only
+  FTA' to search in non encrypted channels only
+- new setup option 'Show day separators' for menu 'Schedule', that
+  displays an additional line at day break.
+- epgsearch has now a SVDRP interface with the following commands
+  (requires vdr > 1.3.30):
+  * 'LSTS [ID]' to list all searches, or the one with the passed ID
+    (format is the same as epgsearch.conf, see MANUAL)
+  * 'NEWS <settings>' to add a new search
+    REMARK: the value of element ID is ignored. epgsearch will always
+    assign the next free ID
+  * 'DELS <ID>' to delete the search with ID
+  * 'EDIS <settings>' to modify an existing search
+  * 'UPDS [OSD]' to update the search timers. Passing the optional keyword
+    'OSD' pops up an OSD message after the update has finished.
+  * 'UPDD' to reload the file epgsearchdone.data, e.g. after an
+    external tool has modified it.
+  * 'SETS <ON|OFF>' to activate or cancel the search timer background
+    thread.
+- since setup gets too big it has now the modes 'Standard' and
+  'Extended'(toggled with key 'red'), suggested by Rolf Ahrenberg
+- update for finnish translation, thanks to Rolf Ahrenberg
+- update for italian translation, thanks to reelbox users
+- update for french translation, thanks to Patrice Staudt
+- new dutch translation, thanks to reelbox users
+- using 127.0.0.1 instead of resolving 'localhost' for SVDRP,
+  suggested by Thiemo Gehrke
+- added script recordingdone.sh for your reccmds.conf to add a
+  recording to epgsearch's done file, thanks to Patrice Staudt,
+  Christian Jacobsen and Mike Constabel
+- added script mtdone2epgsearchdone.sh to move recordings from
+  mastertimer's done file to epgsearch's done file, thanks to
+  Christian Jacobsen.
+- thanks to Mike Constabel and Andreas Brugger for testing and bug
+  reports
+fixes:
+- fixed a bug after using templates, thanks to Christian Jacobsen
+
+
+2006-01-15: Version 0.9.10
+new:
+- update of all schedule and search result menus after
+  creating/changing  a timer, as introduced in vdr-1.3.38
+- button 'Record' now labeled with 'Record' or 'Timer' depending on
+  existing timer for the event, as introduced in vdr-1.3.38
+- epgsearch's own timer edit menu now displays the recording device
+  number for a currently recording timer
+- new setup option: 'Add episode to manual timers'
+  affects adding the subtitle to the timer file in manual timer
+  programming. The setting 'smart' skips the subtitle if the event has
+  more that 80 min.
+- search edit menu for search timers changed for future extensions:
+  'Action' now selects the job to do for the search results, currently
+  'record' (default) or 'announce only'
+- thanks to Rolf Ahrenberg for finnish translation update
+fixes:
+- in vdr-1.3.38 some translations were broken
+- updated the timercmds-patches to work with vdr-1.3.38
+
+2006-01-08: Version 0.9.9
+new:
+- support for vdr-1.3.38
+- search templates: the settings of a search are often quite the same
+  as already done with other searches. You can now create templates
+  that can be selected when editing a search (with key blue). A
+  template can also be set as default. A new search will then get the
+  default settings automatically.
+- extended setup with 'search templates' to manage the new templates
+- new action 'Use as template' to copy a search to the templates
+- setup option to display the subtitle in the schedules, thanks to
+  Darren Salt for his patch
+- extension of feature 'Delete recordings after ... days' with 'Keep
+  ... recordings'. This will asure, that last x recordings will not be
+  deleted, even if they are expired.
+fixes:
+- the search timer feature 'Delete recordings after
+  ... days' also deleted recordings that were edited. fixed now.
+
+2005-11-27: Version 0.9.8
+new:
+ATTENTION: this version converts epgsearch.conf (the file that stores
+  the searches) to a NEW FORMAT. A backup of the old file is stored as
+  epgsearch.conf.bak. If you switch back to an older version you have
+  to move the backup file back to epgsearch.conf.
+- new feature 'avoid repeats' for search timers, aka 'done'
+  feature (please read the README before using it!). A special thanks
+  to Mike Constabel (vejoun@vdrportal) for many hours of testing and
+  bug reports.
+    * timer preview
+    * recognition of broken recordings
+    * fuzzy event comparison
+- the menu of search results for a search timer with 'avoid repeats'
+  has an additional mode for key 'blue' to preview the timers, that
+  will be programmed with it.
+- new setup option to display channels without EPG in 'What's on...',
+  idea from 'Nordlicht's EPG plugin'
+- new setup option to show channel separators in 'What's on...',
+  idea from 'Nordlicht's EPG plugin'
+- new feature 'Delete recordings after ... days'. This removes a
+  recording automatically after the given days. It's a nice thing for
+  e.g. news recordings (like Tagesschau), that are only interesting for
+  a few days
+- the timer summary now contains additional information about the
+  event: event title, subtitle (if present) at the top, the name and
+  ID of the search timer, that triggered the timer, and also the
+  recording channel (after the real summary) at the bottom
+- the summary of timers that are manually programmed now also contains
+  info about title, subtitle (if present) and the recording channel
+- 'Execute' in searches menu has been replaced with 'Actions' that
+  list a menu consisting of
+    * Execute search
+    * Use as search timer on/off
+    * Trigger search timer update
+    * Show recordings done
+  You can also use the short keys to trigger the corresponding action
+  without opening this menu
+- introduced a logfile (default file is
+  plugin-configdir/epgsearch.log, but can be specified with
+  commandline option '-l /path/to/logfile'. Commandline option '-v n'
+  specifies the verbose level of the logfile. n=0 means no logging,
+  allowed values are n=0(default),1(standard),2(extended),3(for
+  debug).
+- setup has now a default recording directory entry, that is used in
+  manual timer programming. It supports also entries like
+  '%Category%~%Genre%'. The directory gets automatically replaced with
+  the values of the event (but only if all variables were replaced).
+- depending on the calling menu the event menu (summary) now labels
+  the buttons green/yellow with the previous/next channel or the start
+  of the previous/next event, suggested by Andreas Brugger
+- the channel number is now also listed in menu 'search results', if
+  the setup option 'show channel numbers' is set, suggested by Gerhard
+  Steiner.
+- short keys (1,2,...) to EPG commands are now also available in the
+  EPG summary menu, suggested by Frank Krömmelbein
+- if VDR version >= 1.3.31 then setup has now an option to choose
+  between epgsearch's timer edit menu and VDR's built-in menu (useful
+  when using a patched VDR timer edit menu, suggested by Frank
+  Krömmelbein)
+- if a subtitle is present the menu for manual timer programming now
+  always adds the subtitle to the timer file as default, suggested by
+  Gerhard Steiner
+- optimized the splitting of the directory and file entry when
+  re-editing a timer in manual programming, thanks to Andreas Brugger
+- the EPG menus now always display a subtitle in the form 'title ~
+  subtitle' if present
+- new service 'Epgsearch-updatesearchtimers-v1.0' to trigger a search
+  timer update
+- if a search timer update is triggered from the actions menu then an
+  osd message is displayed when it has finished (also when using the
+  service 'Epgsearch-updatesearchtimers-v1.0' optional)
+- the menu of search timers now displays the number of (active)
+  searchtimers in its title
+- now checking if manual timer programming has failed and display an osd
+  message in that case (needs vdr >= 1.3.30 to work)
+- thanks to Rolf Ahrenberg for updating the finnish translation
+- thanks to Mike Constabel for corrections in READMEs and MANUAL
+fixes:
+- epgsearch now exits to main menu when not called directly via a
+  short key, thanks to Andreas Brugger
+- fixed editing menu search term in english translation
+- fixed sorting search timer list after editing a search timer, thanks
+  to Mike Constabel
+- fixed menu navigation with respect to empty schedules, thanks to
+  Darren Salt for his patch
+- fixed misaligned search entries in searches menu, thanks to Andreas
+  Brugger
+
+2005-09-04: Version 0.9.7
+new:
+- changes in the events summary now also trigger a timer update
+fixes:
+- fixed a memory leak in search timers with regular expressions,
+  thanks to TomG@vdrportal
+- fixed channel name display in color buttons when a channel separator
+  exists, thanks to viking@vdrportal
+
+
+2005-08-27: Version 0.9.6
+
+new:
+- search criterion 'use channel' extended by 'channel groups'. Channel
+  groups can be managed with their own menu and allow a much more
+  flexible way to select channels for the search procedure.
+- epgsearch now exposes its extended timer edit menu and searching the
+  epg as services to other plugins (s. MANUAL or contact me, if you
+  are interested)
+- if a timer is programmed for an event (searchtimer or manual
+  programming) then the summary is now also passed to the timer (allows
+  displaying the summary pressing 'ok' in timer menu), thanks to
+  TomG@vdrportal
+- after toggling the color buttons with '0' in the schedule menu the
+  yellow/green button now move to the schedule of the
+  previous/next channel
+- added a patch from Uwe/egal@vdrportal that replaces vdr's
+  standard schedule menu with the epgsearch plugin. Also big thanks to
+  Uwe for the changes in epgsearch. After patching VDR you have to
+  activate the patch in epgsearch's setup.
+- after editing a new search, its entry now gets correctly sorted in
+  the list of all searches, thanks to Mike Constabel
+- added Gerhard Steiner's timercmd patch for vdr >= 1.3.25
+- a 'back' in the start menu now always closes the osd (should solve
+  some trouble with the submenu patch)
+- events without title are now ignored, regardless of the search
+  criteria, thanks to Mike Constabel
+- new EPG variable '%channel%', that can be used in directory entries
+  and gets replaced with the channels name
+- recording margins in search timers can now be negative (allows
+  intentional cutting the begin/end of recording), suggested by Mike
+  Constabel
+- extended EPG categories are now compared case insensitive
+- updated finnish translation, thanks to Rolf Ahrenberg
+
+fixes:
+- '.epgsearchrc' now too is expected in the config path specified
+  with -c (if given), thanks to Ronny Kornexl
+- fixed programming of timers with empty file and directory, thanks to
+  Andreas Brugger
+- fixed search timer programming in case of midnight between start and
+  stop time
+- fixed directory selection when listing of dirs is empty, thanks to
+  harvey@vdrportal
+- (de)activating a searchtimer with '0' did not store, thanks to Mike
+  Constabel
+- fixed menu navigation (green-yellow-yellow-green displayed the
+  summary instead of 'whats on now'), thanks to Mike Constabel
+
+
+2005-07-02: Version 0.9.5
+- epgsearch has now its own menu for standard timer editing with the
+  following extensions (timer programming is based on SVDRP, so this should
+  be configured!):
+   * additional item 'directory' with selection of existing
+     directories with key 'blue' (also supports EPG
+     variables like "%category%" when using ext. EPG info)
+   * item 'file' can be extended with subtitle (if present) pressing
+     key 'blue'
+   * item 'file' and 'directory' can be reset to standard pressing key
+     'yellow'
+   * when editing weekdays then item 'day' can be customized with a submenu
+     for arbitrary weekdays selection
+- menu 'userdefined days of week' for search timers now starts with
+  'Monday' instead of 'Sunday'
+- menu 'Select directory' now lists distinct items of the following sources:
+   * current recording directories
+   * current timer directories
+   * directories used in search timers
+   * directories specified in epgsearchdirs.conf
+  key 'yellow' can be used to change the depth of the directory listing.
+- Progressbar in 'Next' can now be switched on/off with its own setup item.
+- support for language dependent commands for EPG (default loading
+  uses epgsearchcmds.conf, if there is no epgsearchcmds-XXX.conf,
+  where XXX is the language code as shown in i18n.c, see MANUAL)
+- directly calling a command with key '1'..'9' will now go back to the
+  calling menu after execution instead of displaying menu 'commands'
+- added a commandline option '-c' or '--config' to specify the plugins
+  own config directory (option).
+- added commandline help for 'vdr --help
+- thanks again to Mike Constabel (vejoun@vdrportal) for great beta
+  testing and suggestions, and to Rolf Ahrenberg for finnish translation.
+
+
+2005-05-24: Version 0.9.4
+- support for extended EPG info (categories) in search timers (please
+  refer to the README 'Using extended EPG info').
+- added a submenu to select an existing directory when editing a
+  search timer. This menu can also be extended with entries in the file
+  epgsearchdirs.conf
+- usage of variables like "%Genre%" or "%Category% in the directory
+  entry of a search timer. These are replaced with the current extended
+  EPG info when a timer is created.
+- key '0' in search menu now toggles the flag 'use as search timer'
+- fixed compilation for vdr < 1.3.18 (thanks to TomG@vdrportal)
+- updated script rememberevent.sh (thanks to Ronny Kornexl for
+  complete rewrite and extensions)
+- added script epg2master-timer.sh for the commands menu, that adds an event to
+  master-timer, thanks to the author Christian Jacobsen / Viking (vdrportal)
+- some changes to compile with bigpatch
+- removed font patch for progressbar, since runtime patch seems to
+  work fine
+- added a script timerrep.sh to search the repeats of a timer from timer menu
+  (requires the timercmds.conf-patch from Gerhard Steiner, see dir patches)
+- updated/rearranged README(.DE) and added also a MANUAL (only english) for
+  detailed info about some topics, since README gets too big.
+- Added a description of the format of  epgsearch.conf to MANUAL
+- fixed a bug with buttons display in search timer edit menu
+- a special thanks to Mike Constabel (vejoun@vdrportal) for great beta
+  testing and suggestions, and to Rolf Ahrenberg for finnish translation.
+
+2005-04-14: Version 0.9.3
+- implemented direct SVDRP communication (no more need for
+  svdrpsend. For now, the old external method can still be used when you pass
+  it with -f as parameter, if you omit -f the internal method is used)
+- added buttons '<<' and '>>' in detailed epg view (summary) to jump
+  to the previous/next event of the menu behind (schedule, now, next,
+  ..., search results)
+- new feature to use epgsearch for searching from other plugins
+  or scripts (see the README 'Usage from other plugins or scripts')
+- shifting displayed time with FF, FR or by toggling with '0' is now
+  also available in schedule menu
+- added a setup option to set a default for handling pay tv channels
+  when searching (does not affect search timers)
+- fixed day check in searchtimer scan with respect to changes in
+  vdr-1.3.23
+- changed detection of existing timers to reduce superfluous timer
+  modifications.
+- added channel name and subtitle to parameters for custom commands
+- small change in input logic of 'from channel' when editing a search entry
+- updated screen shots on project homepage
+
+2005-03-20: Version 0.9.2
+- update for vdr-1.3.23
+
+2005-03-19: Version 0.9.1
+- french translation update, thanks to Patrice Staudt
+- fixed a problem with priority and lifetime when modifying a
+  timer
+
+2005-03-19: Version 0.9.0
+- new search mode 'regular expressions' (POSIX(default) or Perl compatible by
+  compiler switch HAVE_PCREPOSIX in the Makefile, see README - Installation)
+- new search mode 'match exactly' to simplify matching of short search terms
+- new option for search timers: 'only annouce' will not add a timer,
+  but display an OSD message about the found event
+- new progressbar in 'what's on next', that displays the time span to
+  the next event (0 minutes(=100%) to max. 30 minutes(=0%))
+- timer conficts can now be checked in the background and are
+  displayed via OSD after each search timer scan (requires a recent
+  timeline plugin running)
+- key blue in search results now toggles between "only FTA" and "all
+  channels" (to hide results from pay tv channels)
+- removed some superfluous search timer modifications
+- finnish translation, thanks to Rolf Ahrenberg
+- updated README and added a description of the search process
+- shifted version number to allow subversions
+
+2005-02-15: Version 0.0.8
+- added support for VPS in search timers
+- channels of search timers are now stored with ID rather than number
+  (avoids editing your searches after channel modifications)
+- corrections in the english version, thanks to Darren Salt
+- fixed a bug in criterion duration
+- fixed channel selection when shifting displayed time, thanks to
+  Ronny Kornexl
+- put some space between progressbar and event info (TtV*) for text2skin 1.0
+- fixed compilaton problems in vdr-1.3.10
+- switch display in search results to 'episode name only' with key
+  yellow
+- fixed width of start time, when displaying channel number, thanks to
+  Gerhard Steiner
+
+2005-01-22: Version 0.0.7
+- Start menu can now be setup between 'schedule' and 'now'
+- runtime patch for progressbar (no need to patch vdr anymore, experimental)
+- Added lifetime, priority and margins for start and stop for
+  searchtimers
+- Added new font-patch for vdr-1.3.18
+- new: italian translation, thanks to Sean Carlos
+- french translation, thanks to Patrice Staudt
+- finnish translation by Rolf Ahrenberg
+- search term can now be empty to search for anything, that matches
+  other criterions searchtimers
+- Fixed editing of criterion 'to channel', thanks to gunnar@vdrportal
+
+2005-01-11: Version 0.0.6
+- now compiles also with vdr-1.3.18
+- Search criterion 'channel' can now be a range of channels (thanks to
+  gunnar@vdrportal)
+- Setup option 'short channel names' for display in 'now',
+  'next',... (only available for >= vdr-1.3.15, thanks to dido@vdrportal)
+- french translation, thanks to Patrice Staudt
+- added external trigger to force a search scan (e.g. at shutdown,
+  thanks to Ronny Kornexl)
+- fixed display of color keys while editing search term and directory
+  (thanks to Ronny Kornexl)
+- recordings found with 'search in recordings' can now be replayed
+  from result list
+- fixed menu switching now-program-now (thanks to dido@vdrportal)
+
+2005-01-03: Version 0.0.5
+- time in 'now', 'next',... can now be shifted with FastFwd and
+  FastRew or with Green/Yellow when toggling with '0' (see README)
+- search results now display 't' ,'T', if there is already a timer for
+  an entry, thanks to LordPSI@vdrportal.
+- translation of new things to finnish (as always thanks to Rolf Ahrenberg)
+- sorting by channel in repeatings should work now, thanks to
+  LordPSI@vdrportal.
+- fixed searching in mode 'one word', thanks to LordPSI@vdrportal
+- fixed key blue and red in an empty search list, thanks to Ronny Kornexl
+- fixed compilation problem with vdr-1.3.10, thanks to
+  rockclimber@vdrportal
+- fixed some function calls to thread safeness (thanks to ?)
+- fixed graphical progressbar, thanks to white_@vdrportal
+- rewritten the README's
+
+2004-11-30: Version 0.0.4
+- New feature 'search timers' (like vdradmins 'auto timers', see the
+  readme, thanks to Rolf Ahrenberg for idea and code review)
+- Progressbar can now be set to graphical bars in setup (you have to
+  apply a vdr-patch for this, see README, thanks to Uwe/egal from vdrportal for
+  creating the needed fonts)
+- Added builtin command to commands menu to create a search from epg entry
+- Added builtin command to commands menu to switch to channel of
+  selected entry
+- Added builtin command to commands menu to search the current epg
+  entry in recordings (thanks to Adreas Kool for his patch)
+- Key "Blue" can now also be customized by setup (switch/search)
+- Key '0' toggles key mapping of red and blue key (thanks to Roman
+  (Uatschitchun) from vdrportal for his idea)
+- Added 'day(s) of week' as search criterion
+- Executing a command on an epg entry now only closes command menu,
+  not the whole plugin
+- Display of channel number in "what's on" controlled by setup
+- fixed column display to prevent cutting of channel name
+- fixed selection of current channel in "what's on now" (thanks to Leo
+  from vdrportal for reporting this)
+- button 'ok' in empty search results jumps back to search list
+
+2004-11-08: Version 0.0.3
+- Added an ASCII-based progress bar to the 'what's on now' view of the
+  schedules. (Usage and display width customizable by setup).
+- Added up to 4 user defined times besides "now" and "next"
+  (you can use this for example for "primetime" or "late night")
+- Renamed plugin main entry from "EPG search" to "Search"
+- Added duration to search criterions
+- Added commands menu in 'search results' list
+- Behaviour of red key is now the same in 'search results' as
+  in main menu of the plugin.
+- Updated history and readme's
+
+2004-09-11: Version 0.0.2
+- New feature for executing commands on epg items (see README)
+- Added script epg2autotimer.sh to create autotimers from epg
+- Added finnish translation (thanks to Rolf Ahrenberg, also for code review)
+- Behaviour of red key can now be switched by setup form "Standard" to
+  "Commands".
+- code is now more structured
+- BUGFIX: Blue key for switching in summary should work now
+  (thanks to Sir James Lachtveel and others for reporting this one)
+2004-08-15: Version 0.0.1
+- Initial revision.

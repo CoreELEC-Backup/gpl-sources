@@ -1,0 +1,82 @@
+VDR Plugin 'epgfixer' Revision History
+--------------------------------------
+
+2014-xx-xx: Version x.x.x
+
+- Fix crash when cloning to a non-existent channel, (thanks to Guy Martin).
+- Fix using channelIDs in EPG cloning (thanks to Guy Martin).
+- Support regular expressions which are used only if the content of another EPG
+  field matches to an additional regular expression.
+- Fix possible null pointer error.
+- Fix header includes.
+- Makefile fixes. Install example config files automatically.
+- Fix crash in config editing menus if using color buttons when config is empty.
+- Fix SVDRP command REL (thanks to Ville Skyttä).
+- Fix LoadConfigFile() return value on success (thanks to Ville Skyttä).
+- Support for new Makefile of VDR >= 1.7.34.
+- Report an error if PCRE library is not available.
+- Fix replacing at the end of string when using s///. Fix variable name clash.
+
+2012-11-28: Version 0.3.1
+
+- Fix memory leak.
+- Drop OBJS dependency from cppcheck target (thanks to Ville Skyttä).
+
+2012-10-11: Version 0.3.0
+
+- Enable JIT compiling in PCRE if supported.
+- Support for channel intervals for channel numbers.
+- Support search-and-replace using Perl-style 's///' operator.
+- Support Perl-style modifiers when using 's///' or 'm//' operators.
+- Fix appending and prepending to EPG fields.
+- Support stripping control characters from EPG data as in VDR-1.7.31.
+
+2012-05-13: Version 0.2.1
+
+- Fix linking when --as-needed is used.
+
+2012-05-13: Version 0.2.0
+
+- Support for ignoring EPG data for selected channels.
+- Support for copying EPG data from one channel to another.
+- Fix character set conversion for selected channels.
+- Fix and improve Makefile (thanks to Ville Skyttä and Rolf Ahrenberg).
+- Fix compiling with g++-4.7.
+- Improve example configuration files.
+
+2012-05-05: Version 0.1.0
+
+- Support for character set conversion for selected channels.
+- Support for stripping HTML entities.
+- Cleaning up code (some cleanup by Rolf Ahrenberg).
+- Supply user with extra information for each setup menu option using Info key.
+
+2012-04-13: Version 0.0.6
+
+- Bug fix release.
+
+2012-04-13: Version 0.0.5
+
+- Support using channel IDs in channel list in addition to channel numbers.
+
+2012-04-12: Version 0.0.4
+
+- Allow enabling regular expressions for only selected channels.
+
+2012-03-25: Version 0.0.3
+
+- Reloading regular expressions and clearing EPG data from setup menu. 
+- Enable internal optimisation of regular expressions in PCRE.
+- Enabling/disabling of regular expressions from setup menu.
+- Editing of regular expressions from setup menu.
+- Cleaning up code (some cleanup by Rolf Ahrenberg).
+
+2012-03-18: Version 0.0.2
+
+- Rewrite to use regular expressions.
+- Include EPG bug fixes from VDR and make them individually selectable 
+  from setup.
+
+2012-03-17: Version 0.0.1
+
+- Initial revision.

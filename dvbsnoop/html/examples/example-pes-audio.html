@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: MPEG Packetized
+		Elementary Stream (PES) - AUDIO</TITLE><META NAME="Author"
+	 CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: MPEG Packetized Elementary Stream (PES)</H1> 
+	 <H2>Audio stream:</H2> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -nph -n 1 -s pes 0x26c      
+dvbsnoop V1.2.39 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+PES-Packet: 00000001   PID: 620 (0x026c), Length: 5198 (0x144e)
+Time received: Wed 2004-02-11  00:31:28.750
+Syncing PES... (336 bytes skipped)
+----------------------------------------------------------
+Packet_start_code_prefix: 000001
+Stream_id: 192 (0xc0)  [= ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PES_packet_length: 5192 (0x1448)
+    reserved1: 2 (0x02)
+    PES_scrambling_control: 0 (0x00)  [= not scrambled]
+    PES_priority: 0 (0x00)
+    data_alignment_indicator: 1 (0x01)
+    copyright: 0 (0x00)
+    original_or_copy: 1 (0x01)
+    PTS_DTS_flags: 2 (0x02)
+    ES_rate_flag: 0 (0x00)
+    additional_copy_info_flag: 0 (0x00)
+    PES_CRC_flag: 0 (0x00)
+    PES_extension_flag: 0 (0x00)
+    PES_header_data_length: 5 (0x05)
+    PTS: 
+        Fixed: 2 (0x02)
+        PTS:
+            bit[32..30]: 2 (0x02)
+            marker_bit: 1 (0x01)
+            bit[29..15]: 26549 (0x67b5)
+            marker_bit: 1 (0x01)
+            bit[14..0]: 28273 (0x6e71)
+            marker_bit: 1 (0x01)
+             ==&gt; PTS: 3017469553 (0xb3daee71)  [= 90 kHz-Timestamp: 9:18:47.439]
+    PES_packet_data_bytes:
+          0000:  ff fc a4 04 9a ec 55 44 33 13 11 11 11 11 11 11 
+          0000:   .  .  .  .  .  .  U  D  3  .  .  .  .  .  .  . 
+          0010:  11 24 92 49 24 92 49 24 92 49 00 00 00 00 00 f5 
+          0010:   .  $  .  I  $  .  I  $  .  I  .  .  .  .  .  . 
+          0020:  00 50 00 00 00 0f 0a 05 94 2d 65 0b 65 c6 19 71 
+          0020:   .  P  .  .  .  .  .  .  .  -  e  .  e  .  .  q 
+          0030:  86 e0 79 b8 1e 7e 07 df 81 f8 a5 8a 29 62 7a 59 
+          0030:   .  .  y  .  .  ~  .  .  .  .  .  .  )  b  z  Y 
+          0040:  9e 96 68 23 82 38 21 82 17 dd 85 f7 61 7e 28 5f 
+          0040:   .  .  h  #  .  8  !  .  .  .  .  .  a  ~  (  _ 
+          0050:  8a 18 22 82 27 e0 7d f8 1f 86 48 61 92 17 e0 8d 
+          0050:   .  .  "  .  '  .  }  .  .  .  H  a  .  .  .  . 
+
+          [...]
+
+          1420:   .  u  '  Z  .  J  7  .  k  X  .  .  .  .  a  . 
+          1430:  31 8c 84 16 b5 ad 8c 7b da d2 12 f7 7c f8 00 00 
+          1430:   1  .  .  .  .  .  .  {  .  .  .  .  |  .  .  . 
+==========================================================
+
+# 
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

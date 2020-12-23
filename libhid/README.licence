@@ -1,0 +1,13 @@
+libhid licence
+==============
+
+Due to the MGE hidparser component, libhid is released under the (viral) GPL
+licence. This is a major inconvenience, of which we are aware. We are
+searching for alternatives, and for time to implement these so that we can
+relicence the library under a free licence, such as BSD or the Artistic
+Licence. If you are interested in faster progress, please consider helping us.
+You can contact us at libhid-devel@lists.alioth.debian.org.
+
+Thanks for your time and consideration.
+
+ -- martin f. krafft <libhid@pobox.madduck.net>  Sun, 17 Apr 2005 20:19:51 +0200

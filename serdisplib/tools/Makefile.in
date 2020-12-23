@@ -1,0 +1,121 @@
+# Makefile for project 'serdisplib', sub-directory tools/
+# (C) 2003-2010 by Wolfgang Astleitner
+
+VERSION=@PACKAGE_VERSION@
+
+SHELL = /bin/sh
+VPATH = @srcdir@
+
+top_srcdir = @top_srcdir@
+srcdir = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+libdir = @libdir@
+mandir = @mandir@
+includedir = @includedir@
+
+CC=@CC@
+AR=@AR@ -r
+LN_S=@LN_S@
+INSTALL=@INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+INSTALL_DATA = @INSTALL_DATA@
+
+#CFLAGS=@CFLAGS@ -ansi -Wall -Wno-implicit -fPIC -I../include -I..
+#CFLAGS=@CFLAGS@ -Wall -Wno-implicit -fPIC -I../include -I..
+CFLAGS=@CFLAGS@ -Wall -fPIC -I../include -I..
+LDFLAGS=@LDFLAGS@
+LIBS=@LIBS@
+
+BINDIR=@bindir@
+
+
+OBJECTS=
+
+PROGRAMS=
+
+LIB_NAME=serdisp
+
+LIB_STATIC=lib$(LIB_NAME).a
+LIB_SHARED=lib$(LIB_NAME).so.$(VERSION)
+
+LIB_DIR=../lib
+
+# link shared or static lib to executables
+ifeq "@use_sharedlib@" "true"
+ LIB_SERDISP=-L$(LIB_DIR) -l$(LIB_NAME)
+ STATIC_LDFLAGS=
+else
+ LIB_SERDISP=$(LIB_DIR)/$(LIB_STATIC)
+ STATIC_LDFLAGS=$(LDFLAGS)
+endif
+
+
+# only compile multidisplay when libgd is available
+ifeq "@has_libgd_headers@" "true"
+  ifeq "@has_libgd_lib@" "true"
+    PROGRAMS += multidisplay
+    OBJ_MULTIDISPLAY = image.o multidisplay.o
+    OBJECTS += $(OBJ_MULTIDISPLAY)
+
+    # special case sun solaris
+    ifeq "@has_libgd_opt_sfw_headers@" "true"
+      CFLAGS += -I/opt/sfw/include
+    endif
+  endif
+endif
+
+ifeq "@WITH_DRIVER_L4M@" "true"
+  PROGRAMS += l4m132c_tool
+  OBJ_L4M132C_TOOL = l4m132c_tool.o common.o
+  OBJECTS += $(OBJ_L4M132C_TOOL)
+endif
+
+ifeq "@WITH_DRIVER_ACOOLSDCM@" "true"
+  PROGRAMS += sdcmegtron_tool
+  OBJ_SDCMEGTRON_TOOL = sdcmegtron_tool.o common.o
+  OBJECTS += $(OBJ_SDCMEGTRON_TOOL)
+endif
+
+#CFLAGS=-ansi -Wall -Wno-implicit -O2
+#CFLAGS=-g -ansi -Wall -Wno-implicit -fPIC -O2 -I../serdisplib -I..
+
+
+.SUFFIXES : .c .o
+
+all: programs
+
+programs: $(PROGRAMS)
+
+.c.o:
+	$(CC) $(CFLAGS) $(DEFINES)  -c $(INCLUDES) $<
+
+multidisplay: $(LIB_DIR)/$(LIB_STATIC) $(OBJECTS)
+	$(CC) -o multidisplay $(OBJ_MULTIDISPLAY) $(LIB_SERDISP) $(STATIC_LDFLAGS) $(LIBS)
+
+l4m132c_tool: $(LIB_DIR)/$(LIB_STATIC) $(OBJECTS)
+	$(CC) -o l4m132c_tool $(OBJ_L4M132C_TOOL) $(LIB_SERDISP) $(STATIC_LDFLAGS)
+
+sdcmegtron_tool: $(LIB_DIR)/$(LIB_STATIC) $(OBJECTS)
+	$(CC) -o sdcmegtron_tool $(OBJ_SDCMEGTRON_TOOL) $(LIB_SERDISP) $(STATIC_LDFLAGS)
+
+clean:
+	/bin/rm -f *.o
+	/bin/rm -f *core* $(PROGRAMS)
+
+distclean: clean
+	/bin/rm -f Makefile
+
+install: $(PROGRAMS)
+	list='$(PROGRAMS)'; \
+	for prog in $$list; do \
+	  $(INSTALL_PROGRAM) $$prog $(bindir)/ ; \
+	done
+
+uninstall: $(PROGRAMS)
+	list='$(PROGRAMS)'; \
+	for prog in $$list; do \
+	  /bin/rm -f $(bindir)/$$prog ; \
+	done

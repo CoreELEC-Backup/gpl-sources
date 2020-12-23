@@ -1,0 +1,96 @@
+# VDR streamdev plugin language source file.
+# Copyright (C) 2008 streamdev development team. See
+# This file is distributed under the same license as the VDR streamdev package.
+# Tomasz Maciej Nowak, 2014
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: vdr-streamdev-server 0.6.1-git\n"
+"Report-Msgid-Bugs-To: <vdrdev@schmirler.de>\n"
+"POT-Creation-Date: 2014-11-20 14:11+0100\n"
+"PO-Revision-Date: 2014-11-24 18:02+0100\n"
+"Last-Translator: Tomasz Maciej Nowak <tomek_n@o2.pl>\n"
+"Language-Team: Polish <vdr@linuxtv.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.10\n"
+
+msgid "Streaming active"
+msgstr "Strumieniowanie aktywne"
+
+msgid "Streamdev Connections"
+msgstr "Po³±czenia Streamdev"
+
+msgid "Disconnect"
+msgstr "Roz³±cz"
+
+msgid "Suspend"
+msgstr "Wstrzymaj"
+
+msgid "Common Settings"
+msgstr "Ustawienia ogólne"
+
+msgid "Hide Mainmenu Entry"
+msgstr "Ukryj pozycjê w g³ównym menu"
+
+msgid "Start with Live TV suspended"
+msgstr "Uruchom ze wstrzyman± telewizj±"
+
+msgid "Maximum Number of Clients"
+msgstr "Maksymalna liczba klientów"
+
+msgid "Live TV buffer delay (ms)"
+msgstr "Bufor opó¼nieñ telewizji (ms)"
+
+msgid "VDR-to-VDR Server"
+msgstr "Serwer VDR do VDR"
+
+msgid "Start VDR-to-VDR Server"
+msgstr "Uruchom serwer VDR do VDR"
+
+msgid "VDR-to-VDR Server Port"
+msgstr "Port serwera VDR do VDR"
+
+msgid "Bind to IP"
+msgstr "Przypisz do adresu"
+
+msgid "Legacy Client Priority"
+msgstr "Priorytet dla starego klienta"
+
+msgid "Client may suspend"
+msgstr "Klient mo¿e wstrzymaæ"
+
+msgid "Loop Prevention"
+msgstr "Zapobieganie pêtli"
+
+msgid "HTTP Server"
+msgstr "Serwer HTTP"
+
+msgid "Start HTTP Server"
+msgstr "Uruchom serwer HTTP"
+
+msgid "HTTP Server Port"
+msgstr "Port serwera HTTP"
+
+msgid "Priority"
+msgstr "Priorytet"
+
+msgid "HTTP Streamtype"
+msgstr "Typ strumienia HTTP"
+
+msgid "Multicast Streaming Server"
+msgstr "Serwer strumienia Multicast"
+
+msgid "Start IGMP Server"
+msgstr "Uruchom serwer Multicast"
+
+msgid "Multicast Client Port"
+msgstr "Port klienta Multicast"
+
+msgid "Multicast Streamtype"
+msgstr "Typ strumienia Multicast"
+
+msgid "VDR Streaming Server"
+msgstr "Serwer strumieniuj±cy VDR"

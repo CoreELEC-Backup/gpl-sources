@@ -1,0 +1,61 @@
+# game.libretro.atari800 language file
+# Addon Name: game.libretro.atari800
+# Addon id: game.libretro.atari800
+# Addon Provider: libretro
+msgid ""
+msgstr ""
+"Project-Id-Version: game.libretro.atari800\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2020-01-30 02:44i\n"
+"PO-Revision-Date: 2020-01-30 02:44i\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Hi-Res Artifacting"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Boot from Cassette"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Internal BASIC (hold OPTION on boot)"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Retroarch Keyboard type"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Video Standard"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Autodetect A5200 CartType"
+msgstr ""
+
+msgctxt "#30007"
+msgid "Joy hack A5200 for robotron"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Internal resolution"
+msgstr ""
+
+msgctxt "#30009"
+msgid "SIO Acceleration"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Atari System"
+msgstr ""

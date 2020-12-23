@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.prboom"
+		name="Doom (PrBoom)"
+		version="2.5.0.15"
+		provider-name="Florian Schulze">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.default" version="1.0.0"/>
+		<import addon="game.controller.keyboard" version="1.0.0"/>
+		<import addon="game.controller.mouse" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms></platforms>
+		<extensions>wad|iwad|pwad|lmp</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Doom (PrBoom) v2.5.0</summary>
+		<description lang="en_GB">PrBoom is a version of the classic 3D shoot&#39;em&#39;up game Doom, originally written by id Software.
+
+To play PrBoom, you need one of the main Doom data files (called the IWAD) from id Software - doom.wad, doom2.wad, tnt.wad or plutonia.wad - or the shareware doom1.wad.
+
+If you don&#39;t own any of the Doom games, get the shareware doom1.wad from doom19s.zip on Doomworld&#39;s shareware download page. http://www.doomworld.com/files/shareware.shtml
+
+Additionally it needs the prboom.wad from https://github.com/libretro/libretro-prboom/raw/master/prboom.wad copied to the game directory.
+
+Supported files: .wad, .iwad, .pwad, .lmp</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.prboom</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

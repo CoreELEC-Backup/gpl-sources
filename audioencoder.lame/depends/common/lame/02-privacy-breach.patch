@@ -1,0 +1,267 @@
+Description: Fix privacy-breach lintian error
+Author: Sebastian Ramacher <sramacher@debian.org>
+Last-Update: 2014-08-30
+
+--- a/doc/html/about.html
++++ b/doc/html/about.html
+@@ -116,9 +116,9 @@ MPEG2 sample rates are 16Khz, 22.05Khz a
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+--- a/doc/html/abr.html
++++ b/doc/html/abr.html
+@@ -90,9 +90,9 @@ than that of CBR for the target bitrate.
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+@@ -109,4 +109,4 @@ href="http://www.brightercreative.co.uk"
+ </div>
+ 
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+--- a/doc/html/cbr.html
++++ b/doc/html/cbr.html
+@@ -82,9 +82,9 @@ without scanning and partially decoding
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+@@ -101,4 +101,4 @@ href="http://www.brightercreative.co.uk"
+ </div>
+ 
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+--- a/doc/html/contact.html
++++ b/doc/html/contact.html
+@@ -104,9 +104,9 @@
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+@@ -123,4 +123,4 @@ href="http://www.brightercreative.co.uk"
+ </div>
+ 
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+--- a/doc/html/contributors.html
++++ b/doc/html/contributors.html
+@@ -169,9 +169,9 @@
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+@@ -188,4 +188,4 @@ href="http://www.brightercreative.co.uk"
+ </div>
+ 
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+--- a/doc/html/detailed.html
++++ b/doc/html/detailed.html
+@@ -1286,9 +1286,9 @@ so using this switch shouldn't cause har
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+--- a/doc/html/history.html
++++ b/doc/html/history.html
+@@ -3522,8 +3522,7 @@ the exe. Thanks to <b>Lars Magne Ingebri
+ <center>
+ <p>
+   <a href="http://validator.w3.org/check?uri=referer">
+-    <img src="http://www.w3.org/Icons/valid-html401"
+-	 alt="Valid HTML 4.01 Transitional" height="31" width="88">
++	  Valid HTML 4.01 Transitional
+   </a>
+ </p>
+ </center>
+--- a/doc/html/index.html
++++ b/doc/html/index.html
+@@ -51,9 +51,9 @@
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+--- a/doc/html/introduction.html
++++ b/doc/html/introduction.html
+@@ -163,9 +163,9 @@ transparency all of the time. This is th
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+--- a/doc/html/links.html
++++ b/doc/html/links.html
+@@ -951,9 +951,9 @@ tests:</i></a></h3>
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+@@ -970,4 +970,4 @@ href="http://www.brightercreative.co.uk"
+ </div>
+ 
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+--- a/doc/html/list.html
++++ b/doc/html/list.html
+@@ -47,9 +47,9 @@
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+@@ -66,4 +66,4 @@ href="http://www.brightercreative.co.uk"
+ </div>
+ 
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+--- a/doc/html/ms_stereo.html
++++ b/doc/html/ms_stereo.html
+@@ -104,9 +104,9 @@ href="http://en.wikipedia.org/wiki/Joint
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+@@ -123,4 +123,4 @@ href="http://www.brightercreative.co.uk"
+ </div>
+ 
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+--- a/doc/html/usage.html
++++ b/doc/html/usage.html
+@@ -118,9 +118,9 @@ sounds transparent. Use lossless codecs
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+--- a/doc/html/vbr.html
++++ b/doc/html/vbr.html
+@@ -61,9 +61,9 @@ file size is quite unpredictable, and ca
+ </div>
+ <div id="footer">
+ 
+-<a href="http://sourceforge.net/projects/lame"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=290&amp;type=12"
+- alt="Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads"
+- border="0" height="30" width="120" /></a>
++<a href="http://sourceforge.net/projects/lame">
++ Get LAME (Lame Aint an MP3 Encoder) at SourceForge.net. Fast, secure and Free Open Source software downloads
++</a>
+ 
+ <a href="http://validator.w3.org/#validate_by_upload"><img src="images/valid-xhtml10.png"
+  alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88" /></a>
+@@ -80,4 +80,4 @@ href="http://www.brightercreative.co.uk"
+ </div>
+ 
+ </body>
+-</html>
+\ No newline at end of file
++</html>

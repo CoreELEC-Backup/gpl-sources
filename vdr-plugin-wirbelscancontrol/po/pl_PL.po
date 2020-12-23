@@ -1,0 +1,126 @@
+# VDR plugin language source file.
+# Copyright (C) 2007 Klaus Schmidinger <kls@cadsoft.de>
+# This file is distributed under the same license as the VDR package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: vdr-wirbelscancontrol 0.0.2\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2011-03-25 17:19+0100\n"
+"PO-Revision-Date: 2011-03-24 17:12+0100\n"
+"Last-Translator: wk <handygewinnspiel@gmx.de>\n"
+"Language-Team:  <vdr@linuxtv.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-5\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Channel Scan"
+msgstr ""
+
+msgid "wirbelscan was not found - pls install."
+msgstr ""
+
+msgid "Your wirbelscan version doesnt"
+msgstr ""
+
+msgid "support services - Please upgrade."
+msgstr ""
+
+msgid "Your wirbelscan version is"
+msgstr ""
+
+msgid "too old - Please upgrade."
+msgstr ""
+
+msgid "Scan"
+msgstr ""
+
+msgid "Store"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "Source Type"
+msgstr ""
+
+msgid "Country"
+msgstr ""
+
+msgid "Inversion"
+msgstr ""
+
+msgid "Scan mode"
+msgstr ""
+
+msgid "Frequency"
+msgstr ""
+
+msgid "Modulation"
+msgstr ""
+
+msgid "FEC HP"
+msgstr ""
+
+msgid "FEC LP"
+msgstr ""
+
+msgid "Bandwidth"
+msgstr ""
+
+msgid "Guard Interval"
+msgstr ""
+
+msgid "Hierarchy"
+msgstr ""
+
+msgid "Trans. Mode"
+msgstr ""
+
+msgid "use NIT"
+msgstr ""
+
+msgid "Symbol Rate"
+msgstr ""
+
+msgid "Satellite"
+msgstr ""
+
+msgid "System"
+msgstr ""
+
+msgid "Polarisation"
+msgstr ""
+
+msgid "FEC"
+msgstr ""
+
+msgid "Rolloff"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Unknown Source ???"
+msgstr ""
+
+msgid "Scan in progress"
+msgstr ""
+
+msgid "Running: 0h 00m 00s"
+msgstr ""
+
+msgid "New channels: 0"
+msgstr ""
+
+msgid "Running:"
+msgstr ""
+
+msgid "Scan finished"
+msgstr ""
+
+msgid "New channels: "
+msgstr ""

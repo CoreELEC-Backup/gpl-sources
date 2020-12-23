@@ -1,0 +1,8 @@
+# In general the /dev/input/event* devices can only be opened by root. This is
+# to prevent keystroke logging security attacks.
+#
+# This rule gives read access to non-root users for the X-Arcade Tankstick.
+#
+# Place this rule in /etc/udev/rules.d/.
+
+SUBSYSTEM=="input", ATTRS{idVendor}=="aa55", ATTRS{idProduct}=="0101", MODE="0664"

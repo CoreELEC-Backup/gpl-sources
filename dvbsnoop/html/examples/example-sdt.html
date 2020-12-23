@@ -1,0 +1,666 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: Service Description
+		Table</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: Service Description Table (SDT)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>~/bin &gt; ./dvbsnoop -n 1 -nph 0x11
+dvbsnoop  Vers. 1.1.10   -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+SECT-Packet: 00000001   PID: 17 (0x0011), Length: 1020 (0x03fc)
+Time received: Tue 2003-11-25  02:15:23.649
+---------------------------------------------------------
+PID:  17 (0x0011)
+SDT-decoding....
+Table_ID: 70 (0x46)  [= service_description_section - other transport stream]
+section_syntax_indicator: 1 (0x01)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+Section_length: 1017 (0x03f9)
+Transport_Stream_ID: 7 (0x0007)
+reserved_3: 3 (0x03)
+Version_number: 9 (0x09)
+Current_next_indicator: 1 (0x01)
+Section_number: 0 (0x00)
+Last_Section_number: 0 (0x00)
+Original_network_ID:  133 (0x0085)  [= BetaTechnik | BetaTechnik]
+reserved_4: 255 (0xff)
+    
+    Service_id: 3971 (0x0f83)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 0 (0x00)
+    EIT_present_following_flag: 0 (0x00)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 22 (0x0016)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 20 (0x14)
+        Service_type: 12 (0x0c)  [= data broadcast service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 6 (0x0006)
+        Service_name: "BData2"  -- Charset: Latin alphabet
+        
+    Service_id: 53 (0x0035)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 1 (0x01)  [= streams [partially] CA controlled]
+    Descriptors_loop_length: 39 (0x0027)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 31 (0x1f)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 8 (0x08)
+        Service_provider_name: "PREMIERE"  -- Charset: Latin alphabet
+        Service_name_length: 20 (0x0014)
+        Service_name: "<EM>PREM</EM>IERE<EM> A</EM>ustria"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 83 (0x53)  [= CA_identifier_descriptor]
+        Descriptor_length: 4 (0x04)
+            CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+            CA_system_ID: 6145 (0x1801)  [= Kudelski SA]
+            
+    Service_id: 772 (0x0304)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 27 (0x001b)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 25 (0x19)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 11 (0x000b)
+        Service_name: "<EM>TV.B</EM>ERLIN"  -- Charset: Latin alphabet
+        
+    Service_id: 514 (0x0202)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 1 (0x01)  [= not running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 31 (0x001f)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 29 (0x1d)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 15 (0x000f)
+        Service_name: "<EM>ONTV</EM> Regional"  -- Charset: Latin alphabet
+        
+    Service_id: 775 (0x0307)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 1 (0x01)  [= not running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 31 (0x001f)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 29 (0x1d)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 15 (0x000f)
+        Service_name: "<EM>F</EM>ranken <EM>SAT</EM>"  -- Charset: Latin alphabet
+        
+    Service_id: 774 (0x0306)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 1 (0x01)  [= not running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 33 (0x0021)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 27 (0x1b)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 13 (0x000d)
+        Service_name: "<EM>GOD </EM>Channel"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 83 (0x53)  [= CA_identifier_descriptor]
+        Descriptor_length: 2 (0x02)
+            CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+            
+    Service_id: 54 (0x0036)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 31 (0x001f)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 29 (0x1d)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 15 (0x000f)
+        Service_name: "<EM>lastmin</EM>ute.de"  -- Charset: Latin alphabet
+        
+    Service_id: 769 (0x0301)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 0 (0x00)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 36 (0x0024)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 30 (0x1e)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 16 (0x0010)
+        Service_name: "TV <EM>TRAVEL</EM> SHOP"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 83 (0x53)  [= CA_identifier_descriptor]
+        Descriptor_length: 2 (0x02)
+            CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+            
+    Service_id: 169 (0x00a9)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 31 (0x001f)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 29 (0x1d)
+        Service_type: 2 (0x02)  [= digital radio sound service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 15 (0x000f)
+        Service_name: "<EM>sunshine</EM> live"  -- Charset: Latin alphabet
+        
+    Service_id: 3979 (0x0f8b)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 0 (0x00)
+    EIT_present_following_flag: 0 (0x00)
+    Running_status: 1 (0x01)  [= not running]
+    Free_CA_mode: 1 (0x01)  [= streams [partially] CA controlled]
+    Descriptors_loop_length: 43 (0x002b)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 37 (0x25)
+        Service_type: 179 (0xb3)  [= User defined]
+        Service_provider_name_length: 8 (0x08)
+        Service_provider_name: "PREMIERE"  -- Charset: Latin alphabet
+        Service_name_length: 26 (0x001a)
+        Service_name: "PREMIERE SPORT INTERACTIVE"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 83 (0x53)  [= CA_identifier_descriptor]
+        Descriptor_length: 2 (0x02)
+            CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+            
+    Service_id: 770 (0x0302)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 1 (0x01)  [= not running]
+    Free_CA_mode: 1 (0x01)  [= streams [partially] CA controlled]
+    Descriptors_loop_length: 39 (0x0027)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 31 (0x1f)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 17 (0x0011)
+        Service_name: "<EM>BD</EM> Partner<EM> TV</EM>"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 83 (0x53)  [= CA_identifier_descriptor]
+        Descriptor_length: 4 (0x04)
+            CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+            CA_system_ID: 6145 (0x1801)  [= Kudelski SA]
+            
+    Service_id: 771 (0x0303)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 1 (0x01)  [= not running]
+    Free_CA_mode: 1 (0x01)  [= streams [partially] CA controlled]
+    Descriptors_loop_length: 26 (0x001a)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 18 (0x12)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 4 (0x0004)
+        Service_name: "BD 1"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 83 (0x53)  [= CA_identifier_descriptor]
+        Descriptor_length: 4 (0x04)
+            CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+            CA_system_ID: 6145 (0x1801)  [= Kudelski SA]
+            
+    Service_id: 773 (0x0305)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 1 (0x01)  [= streams [partially] CA controlled]
+    Descriptors_loop_length: 26 (0x001a)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 18 (0x12)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 4 (0x0004)
+        Service_name: "BD 4"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 83 (0x53)  [= CA_identifier_descriptor]
+        Descriptor_length: 4 (0x04)
+            CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+            CA_system_ID: 6145 (0x1801)  [= Kudelski SA]
+            
+    Service_id: 48 (0x0030)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 31 (0x001f)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 25 (0x19)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 14 (0x0e)
+        Service_provider_name: "ProSiebenSat.1"  -- Charset: Latin alphabet
+        Service_name_length: 8 (0x0008)
+        Service_name: "SAT.1-CH"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 83 (0x53)  [= CA_identifier_descriptor]
+        Descriptor_length: 2 (0x02)
+            CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+            
+    Service_id: 160 (0x00a0)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 30 (0x001e)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 28 (0x1c)
+        Service_type: 2 (0x02)  [= digital radio sound service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 14 (0x000e)
+        Service_name: "<EM>ROCK ANT</EM>ENNE"  -- Charset: Latin alphabet
+        
+    Service_id: 170 (0x00aa)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 32 (0x0020)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 30 (0x1e)
+        Service_type: 2 (0x02)  [= digital radio sound service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 16 (0x0010)
+        Service_name: "<EM>ANTENNE</EM> BAYERN"  -- Charset: Latin alphabet
+        
+    Service_id: 3975 (0x0f87)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 0 (0x00)
+    EIT_present_following_flag: 0 (0x00)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 31 (0x001f)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 20 (0x14)
+        Service_type: 12 (0x0c)  [= data broadcast service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 6 (0x0006)
+        Service_name: "BData4"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 74 (0x4a)  [= linkage_descriptor]
+        Descriptor_length: 7 (0x07)
+        Transport_stream_ID: 3 (0x0003)
+        Original_network_ID: 133 (0x0085)  [= BetaTechnik | BetaTechnik]
+        Service_ID: 247 (0x00f7)  [=  --&gt; refers to PMS program_number]
+        Linkage_type: 144 (0x90)  [= user defined]
+            Private data:
+            
+    Service_id: 658 (0x0292)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 34 (0x0022)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 26 (0x1a)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 8 (0x08)
+        Service_provider_name: "PREMIERE"  -- Charset: Latin alphabet
+        Service_name_length: 15 (0x000f)
+        Service_name: "PREMIERE <EM>INFO</EM>"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 83 (0x53)  [= CA_identifier_descriptor]
+        Descriptor_length: 4 (0x04)
+            CA_system_ID: 6145 (0x1801)  [= Kudelski SA]
+            CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+            
+    Service_id: 161 (0x00a1)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 27 (0x001b)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 25 (0x19)
+        Service_type: 2 (0x02)  [= digital radio sound service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 11 (0x000b)
+        Service_name: "<EM>ERF</EM> Radio"  -- Charset: Latin alphabet
+        
+    Service_id: 660 (0x0294)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 1 (0x01)  [= not running]
+    Free_CA_mode: 1 (0x01)  [= streams [partially] CA controlled]
+    Descriptors_loop_length: 27 (0x001b)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 21 (0x15)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 7 (0x0007)
+        Service_name: "DPC_DVB"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 83 (0x53)  [= CA_identifier_descriptor]
+        Descriptor_length: 2 (0x02)
+            CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+            
+    Service_id: 3976 (0x0f88)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 0 (0x00)
+    EIT_present_following_flag: 0 (0x00)
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 154 (0x009a)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 20 (0x14)
+        Service_type: 12 (0x0c)  [= data broadcast service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 6 (0x0006)
+        Service_name: "BData5"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 100 (0x64)  [= data_broadcast_descriptor]
+        Descriptor_length: 10 (0x0a)
+        Data_broadcast_ID: 5 (0x0005)  [= Multi protocol encapsulation]
+        Component_tag: 1 (0x01)
+        Selector_length: 2 (0x02)
+            Multi_Protocol_Encapsulation [EN 301 192]:
+            MAC_address_range: 6 (0x06)  [= 6,5,4,3,2,1]
+            MAC_ip_mapping_flag: 1 (0x01)
+            alignment_indicator: 0 (0x00)  [= 8 bit]
+            reserved: 7 (0x07)
+            max_sections_per_datagram: 1 (0x01)
+        ISO639_2_language_code:  deu
+        Text_length: 0 (0x00)
+        Text: ""
+        
+        DVB-DescriptorTag: 100 (0x64)  [= data_broadcast_descriptor]
+        Descriptor_length: 10 (0x0a)
+        Data_broadcast_ID: 5 (0x0005)  [= Multi protocol encapsulation]
+        Component_tag: 2 (0x02)
+        Selector_length: 2 (0x02)
+            Multi_Protocol_Encapsulation [EN 301 192]:
+            MAC_address_range: 6 (0x06)  [= 6,5,4,3,2,1]
+            MAC_ip_mapping_flag: 1 (0x01)
+            alignment_indicator: 0 (0x00)  [= 8 bit]
+            reserved: 7 (0x07)
+            max_sections_per_datagram: 1 (0x01)
+        ISO639_2_language_code:  deu
+        Text_length: 0 (0x00)
+        Text: ""
+        
+        DVB-DescriptorTag: 100 (0x64)  [= data_broadcast_descriptor]
+        Descriptor_length: 10 (0x0a)
+        Data_broadcast_ID: 5 (0x0005)  [= Multi protocol encapsulation]
+        Component_tag: 3 (0x03)
+        Selector_length: 2 (0x02)
+            Multi_Protocol_Encapsulation [EN 301 192]:
+            MAC_address_range: 6 (0x06)  [= 6,5,4,3,2,1]
+            MAC_ip_mapping_flag: 1 (0x01)
+            alignment_indicator: 0 (0x00)  [= 8 bit]
+            reserved: 7 (0x07)
+            max_sections_per_datagram: 1 (0x01)
+        ISO639_2_language_code:  deu
+        Text_length: 0 (0x00)
+        Text: ""
+        
+        DVB-DescriptorTag: 100 (0x64)  [= data_broadcast_descriptor]
+        Descriptor_length: 10 (0x0a)
+        Data_broadcast_ID: 5 (0x0005)  [= Multi protocol encapsulation]
+        Component_tag: 4 (0x04)
+        Selector_length: 2 (0x02)
+            Multi_Protocol_Encapsulation [EN 301 192]:
+            MAC_address_range: 6 (0x06)  [= 6,5,4,3,2,1]
+            MAC_ip_mapping_flag: 1 (0x01)
+            alignment_indicator: 0 (0x00)  [= 8 bit]
+            reserved: 7 (0x07)
+            max_sections_per_datagram: 1 (0x01)
+        ISO639_2_language_code:  deu
+        Text_length: 0 (0x00)
+        Text: ""
+        
+        DVB-DescriptorTag: 100 (0x64)  [= data_broadcast_descriptor]
+        Descriptor_length: 10 (0x0a)
+        Data_broadcast_ID: 5 (0x0005)  [= Multi protocol encapsulation]
+        Component_tag: 5 (0x05)
+        Selector_length: 2 (0x02)
+            Multi_Protocol_Encapsulation [EN 301 192]:
+            MAC_address_range: 6 (0x06)  [= 6,5,4,3,2,1]
+            MAC_ip_mapping_flag: 1 (0x01)
+            alignment_indicator: 0 (0x00)  [= 8 bit]
+            reserved: 7 (0x07)
+            max_sections_per_datagram: 1 (0x01)
+        ISO639_2_language_code:  deu
+        Text_length: 0 (0x00)
+        Text: ""
+        
+        DVB-DescriptorTag: 100 (0x64)  [= data_broadcast_descriptor]
+        Descriptor_length: 10 (0x0a)
+        Data_broadcast_ID: 5 (0x0005)  [= Multi protocol encapsulation]
+        Component_tag: 6 (0x06)
+        Selector_length: 2 (0x02)
+            Multi_Protocol_Encapsulation [EN 301 192]:
+            MAC_address_range: 6 (0x06)  [= 6,5,4,3,2,1]
+            MAC_ip_mapping_flag: 1 (0x01)
+            alignment_indicator: 0 (0x00)  [= 8 bit]
+            reserved: 7 (0x07)
+            max_sections_per_datagram: 1 (0x01)
+        ISO639_2_language_code:  deu
+        Text_length: 0 (0x00)
+        Text: ""
+        
+        DVB-DescriptorTag: 100 (0x64)  [= data_broadcast_descriptor]
+        Descriptor_length: 10 (0x0a)
+        Data_broadcast_ID: 5 (0x0005)  [= Multi protocol encapsulation]
+        Component_tag: 7 (0x07)
+        Selector_length: 2 (0x02)
+            Multi_Protocol_Encapsulation [EN 301 192]:
+            MAC_address_range: 6 (0x06)  [= 6,5,4,3,2,1]
+            MAC_ip_mapping_flag: 1 (0x01)
+            alignment_indicator: 0 (0x00)  [= 8 bit]
+            reserved: 7 (0x07)
+            max_sections_per_datagram: 1 (0x01)
+        ISO639_2_language_code:  deu
+        Text_length: 0 (0x00)
+        Text: ""
+        
+        DVB-DescriptorTag: 100 (0x64)  [= data_broadcast_descriptor]
+        Descriptor_length: 10 (0x0a)
+        Data_broadcast_ID: 5 (0x0005)  [= Multi protocol encapsulation]
+        Component_tag: 8 (0x08)
+        Selector_length: 2 (0x02)
+            Multi_Protocol_Encapsulation [EN 301 192]:
+            MAC_address_range: 6 (0x06)  [= 6,5,4,3,2,1]
+            MAC_ip_mapping_flag: 1 (0x01)
+            alignment_indicator: 0 (0x00)  [= 8 bit]
+            reserved: 7 (0x07)
+            max_sections_per_datagram: 1 (0x01)
+        ISO639_2_language_code:  deu
+        Text_length: 0 (0x00)
+        Text: ""
+        
+        DVB-DescriptorTag: 100 (0x64)  [= data_broadcast_descriptor]
+        Descriptor_length: 10 (0x0a)
+        Data_broadcast_ID: 5 (0x0005)  [= Multi protocol encapsulation]
+        Component_tag: 9 (0x09)
+        Selector_length: 2 (0x02)
+            Multi_Protocol_Encapsulation [EN 301 192]:
+            MAC_address_range: 6 (0x06)  [= 6,5,4,3,2,1]
+            MAC_ip_mapping_flag: 1 (0x01)
+            alignment_indicator: 0 (0x00)  [= 8 bit]
+            reserved: 7 (0x07)
+            max_sections_per_datagram: 1 (0x01)
+        ISO639_2_language_code:  deu
+        Text_length: 0 (0x00)
+        Text: ""
+        
+        DVB-DescriptorTag: 100 (0x64)  [= data_broadcast_descriptor]
+        Descriptor_length: 10 (0x0a)
+        Data_broadcast_ID: 5 (0x0005)  [= Multi protocol encapsulation]
+        Component_tag: 10 (0x0a)
+        Selector_length: 2 (0x02)
+            Multi_Protocol_Encapsulation [EN 301 192]:
+            MAC_address_range: 6 (0x06)  [= 6,5,4,3,2,1]
+            MAC_ip_mapping_flag: 1 (0x01)
+            alignment_indicator: 0 (0x00)  [= 8 bit]
+            reserved: 7 (0x07)
+            max_sections_per_datagram: 1 (0x01)
+        ISO639_2_language_code:  deu
+        Text_length: 0 (0x00)
+        Text: ""
+        
+        DVB-DescriptorTag: 100 (0x64)  [= data_broadcast_descriptor]
+        Descriptor_length: 10 (0x0a)
+        Data_broadcast_ID: 5 (0x0005)  [= Multi protocol encapsulation]
+        Component_tag: 11 (0x0b)
+        Selector_length: 2 (0x02)
+            Multi_Protocol_Encapsulation [EN 301 192]:
+            MAC_address_range: 6 (0x06)  [= 6,5,4,3,2,1]
+            MAC_ip_mapping_flag: 1 (0x01)
+            alignment_indicator: 0 (0x00)  [= 8 bit]
+            reserved: 7 (0x07)
+            max_sections_per_datagram: 1 (0x01)
+        ISO639_2_language_code:  deu
+        Text_length: 0 (0x00)
+        Text: ""
+        
+    Service_id: 1635 (0x0663)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 1 (0x01)  [= not running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 24 (0x0018)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 22 (0x16)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 11 (0x0b)
+        Service_provider_name: "BetaDigital"  -- Charset: Latin alphabet
+        Service_name_length: 8 (0x0008)
+        Service_name: "iFoxKids"  -- Charset: Latin alphabet
+        
+    Service_id: 659 (0x0293)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 1 (0x01)  [= not running]
+    Free_CA_mode: 1 (0x01)  [= streams [partially] CA controlled]
+    Descriptors_loop_length: 29 (0x001d)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 21 (0x15)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 12 (0x0c)
+        Service_provider_name: "Bouquet Test"  -- Charset: Latin alphabet
+        Service_name_length: 6 (0x0006)
+        Service_name: "Test 2"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 83 (0x53)  [= CA_identifier_descriptor]
+        Descriptor_length: 4 (0x04)
+            CA_system_ID: 6145 (0x1801)  [= Kudelski SA]
+            CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+            
+    Service_id: 55 (0x0037)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 1 (0x01)  [= not running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 23 (0x0017)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 21 (0x15)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 12 (0x0c)
+        Service_provider_name: "Bouquet Test"  -- Charset: Latin alphabet
+        Service_name_length: 6 (0x0006)
+        Service_name: "Test 3"  -- Charset: Latin alphabet
+        
+    Service_id: 56 (0x0038)  [=  --&gt; refers to PMS program_number]
+    reserved_1: 63 (0x3f)
+    EIT_schedule_flag: 1 (0x01)
+    EIT_present_following_flag: 1 (0x01)
+    Running_status: 1 (0x01)  [= not running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 23 (0x0017)
+        
+        DVB-DescriptorTag: 72 (0x48)  [= service_descriptor]
+        Descriptor_length: 21 (0x15)
+        Service_type: 1 (0x01)  [= digital television service]
+        Service_provider_name_length: 12 (0x0c)
+        Service_provider_name: "Bouquet Test"  -- Charset: Latin alphabet
+        Service_name_length: 6 (0x0006)
+        Service_name: "Test 4"  -- Charset: Latin alphabet
+CRC: 550415263 (0x20ceab9f)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

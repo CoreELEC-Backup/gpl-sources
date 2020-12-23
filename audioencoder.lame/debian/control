@@ -1,0 +1,22 @@
+Source: kodi-audioencoder-lame
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake, kodi-addon-dev, libtool, libmp3lame-dev
+Standards-Version: 4.1.2
+Section: libs
+Homepage: https://kodi.tv
+
+Package: kodi-audioencoder-lame
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FLAC audio encoder for Kodi
+ FLAC audio encoder for Kodi
+
+Package: kodi-audioencoder-lame-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for FLAC audio encoder for Kodi
+ debug symbols for FLAC audio encoder for Kodi
+

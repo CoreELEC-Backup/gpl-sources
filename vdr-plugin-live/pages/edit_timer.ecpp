@@ -1,0 +1,324 @@
+<%pre>
+
+#include <tools.h>
+#include <timers.h>
+#include <setup.h>
+#include <epg_events.h>
+#include <timerconflict.h>
+#include <livefeatures.h>
+#include <epgsearch.h>
+#include <users.h>
+
+#include <vdr/timers.h>
+
+using namespace std;
+using namespace vdrlive;
+
+</%pre>
+<%args>
+	// input parameters
+	string timerid;
+	string epgid;
+	string async;
+	// form parameters
+	tChannelID channel;
+	int active = 1;
+	string title = "";
+	string date = "";
+	bool wday_mon = false;
+	bool wday_tue = false;
+	bool wday_wed = false;
+	bool wday_thu = false;
+	bool wday_fri = false;
+	bool wday_sat = false;
+	bool wday_sun = false;
+	int start_h = 0;
+	int start_m = 0;
+	int end_h = 0;
+	int end_m = 0;
+	bool vps = 0;
+	int priority = 0;
+	int lifetime = 0;
+	string aux = "";
+	string directory = "";
+</%args>
+<%session scope="global">
+bool logged_in(false);
+string edit_timerreferer;
+TimerConflictNotifier timerNotifier;
+</%session>
+<%request scope="page">
+const cTimer* timer;
+</%request>
+<%include>page_init.eh</%include>
+<%cpp>
+	if (!logged_in && LiveSetup().UseAuth()) return reply.redirect("login.html");
+
+	if (!cUser::CurrentUserHasRightTo(UR_EDITTIMERS))
+		throw HtmlError( tr("Sorry, no permission. Please contact your administrator!") );
+
+	bool ajaxReq = !async.empty() && (lexical_cast<int>(async) != 0);
+
+	tChannelID channelid = tChannelID();
+	tEventID eventid = tEventID();
+
+	string message;
+	cMutexLock timersLock( &LiveTimerManager() );
+	SortedTimers& timers = LiveTimerManager().GetTimers();
+
+	timer = 0;
+	if ( !timerid.empty() ) {
+		string tId = SortedTimers::DecodeDomId(timerid);
+		// dsyslog("DEBUG: TIMER: tId = %s", tId.c_str());
+		timer = timers.GetByTimerId(tId);
+		if ( timer == 0 )
+			throw HtmlError( tr("Couldn't find timer. Maybe you mistyped your request?") );
+	}
+
+	if ( request.getMethod() == "POST" ) {
+		uint flags = ( active ? tfActive : 0 ) | ( vps ? tfVps : 0 );
+		string weekdays = string( wday_mon ? "M" : "-" ) + ( wday_tue ? "T" : "-" ) + ( wday_wed ? "W" : "-" )
+							  + ( wday_thu ? "T" : "-" ) + ( wday_fri ? "F" : "-" ) + ( wday_sat ? "S" : "-" )
+							  + ( wday_sun ? "S" : "-" );
+		int start = start_h * 100 + start_m;
+		int stop = end_h * 100 + end_m;
+
+		if (!directory.empty())
+		   title = directory + "~" + title;
+
+		if (title.empty())
+			message = tr("Please set a title for the timer!");
+		else
+		{
+			// TRANSLATORS: only adjust the ordering and separators, don't translate the m's, d's and y's
+			time_t tdate = GetDateFromDatePicker(date, tr("mm/dd/yyyy"));
+			string sdate = DatePickerToC(tdate, "yyyy-mm-dd");
+			LiveTimerManager().UpdateTimer( timer, flags, channel, weekdays, sdate, start, stop, priority, lifetime, title, aux );
+			timerNotifier.SetTimerModification();
+			return reply.redirect(!edit_timerreferer.empty()?edit_timerreferer:"timers.html");
+		}
+	}
+
+	if (message.empty())
+		edit_timerreferer = request.getHeader("Referer:", "timers.html");
+
+	std::unique_ptr< cTimer > eventTimer;
+	if ( timer == 0 && !epgid.empty()) {
+		EpgEvents::DecodeDomId(epgid, channelid, eventid);
+		if ( channelid.Valid() && eventid != 0 ) {
+			cSchedule const* schedule;
+#if VDRVERSNUM >= 20301
+			{
+				LOCK_SCHEDULES_READ;
+				schedule = Schedules->GetSchedule( channelid );
+			}
+#else
+			cSchedulesLock schedLock;
+			cSchedules const* schedules = cSchedules::Schedules( schedLock );
+			schedule = schedules->GetSchedule( channelid );
+#endif
+
+			eventTimer.reset( new cTimer( schedule->GetEvent( eventid ) ) );
+		} else {
+			eventTimer.reset( new cTimer() );
+			eventTimer->SetFlags( tfActive );
+		}
+		timer = eventTimer.get();
+	}
+	if (timer == 0)
+	{
+		eventTimer.reset( new cTimer() );
+		eventTimer->SetFlags( tfActive );
+		timer = eventTimer.get();
+	}
+
+	if ( timer != 0 ) {
+		active = timer->Flags() & tfActive;
+		channel = timer->Channel()->GetChannelID();
+		title = timer->File() ? timer->File() : "";
+		if ( LiveFeatures< features::epgsearch >().Recent() ) {
+			vector< string > directories = StringSplit( title, '~' );
+			if (directories.size() > 1) {
+				directory = directories[0];
+				title = title.substr(directory.size()+1);
+			}
+		}
+		// TRANSLATORS: only adjust the ordering and separators, don't translate the m's, d's and y's
+		date = timer->Day() ? DatePickerToC(timer->Day(), tr("mm/dd/yyyy")) : "";
+		wday_mon = timer->WeekDays() & 0x01;
+		wday_tue = timer->WeekDays() & 0x02;
+		wday_wed = timer->WeekDays() & 0x04;
+		wday_thu = timer->WeekDays() & 0x08;
+		wday_fri = timer->WeekDays() & 0x10;
+		wday_sat = timer->WeekDays() & 0x20;
+		wday_sun = timer->WeekDays() & 0x40;
+		start_h = ( timer->Start() / 100 ) % 100;
+		start_m = timer->Start() % 100;
+		end_h = ( timer->Stop() / 100 ) % 100;
+		end_m = timer->Stop() % 100;
+		vps = timer->Flags() & tfVps;
+		priority = timer->Priority();
+		lifetime = timer->Lifetime();
+		aux = timer->Aux() ? timer->Aux() : "";
+	}
+</%cpp>
+<& pageelems.doc_type &>
+<html>
+	<head>
+		<title>VDR Live - <$ timer ? tr("Edit timer") : tr("New timer") $></title>
+<%cpp>
+	if (!ajaxReq) {
+</%cpp>
+		<& pageelems.stylesheets &>
+		<& pageelems.ajax_js &>
+<%cpp>
+	}
+</%cpp>
+	</head>
+	<body>
+<%cpp>
+	if (!ajaxReq) {
+</%cpp>
+		<& pageelems.logo &>
+		<& menu active=("timers") &>
+<%cpp>
+	}
+</%cpp>
+		<div class="inhalt">
+			<form method="post" name="edit_timer" id="<$ timerid $>" action="edit_timer.ecpp">
+				<input type="hidden" name="timerid" value="<$ timerid $>"/>
+				<input type="hidden" name="aux" value="<$ aux $>"/>
+				<table class="formular" cellpadding="0" cellspacing="0">
+					<tr class="head">
+						<td class="toprow leftcol rightcol" colspan="2"><div class="boxheader"><div><div class="caption"><$ timer ? tr("Edit timer") : tr("New timer") $></div></div></div></td>
+					</tr>
+
+					<tr>
+						<td class="label leftcol"><div class="withmargin"><$ trVDR("Active") $>:</div></td>
+						<td class="rightcol">
+							<div class="dotted">
+								<input id="active_1" name="active" value="1" <{ reply.out() << ( active ? "checked=\"checked\"" : "" ); }> type="radio"></input>
+								<label for="active_1"><$ trVDR("yes") $></label>
+							</div>
+							<div class="dotted">
+								<input id="active_0" name="active" value="0" <{ reply.out() << ( !active ? "checked=\"checked\"" : "" ); }> type="radio"></input>
+								<label for="active_0"><$ trVDR("no") $></label>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="label leftcol"><div class="withmargin"><$ trVDR("Channel") $>:</div></td>
+						<td class="rightcol"><div class="withmargin"><& channels_widget name=("channel") channelid=(true) selected=(channel) &></div></td>
+					</tr>
+
+					<tr>
+						<td class="label leftcol"><div class="withmargin"><$ tr("Title" ) $>:</div></td>
+						<td class="rightcol"><input type="text" name="title" value="<$ title $>" size="80" /></td>
+					</tr>
+<%cpp>
+					if ( LiveFeatures< features::epgsearch >().Recent() ) {
+						RecordingDirs recordingdirs(true);
+</%cpp>
+					<tr>
+						<td class="label leftcol"><div class="withmargin"><$ tr("Directory" ) $>:</div></td>
+						<td class="rightcol"><select name="directory" size="1" id="directory" style="margin-top: 5px">
+						     <option/>
+<%cpp>
+						for (RecordingDirs::iterator rdir = recordingdirs.begin(); rdir != recordingdirs.end(); ++rdir) {
+							std::string dir = *rdir;
+</%cpp>
+							<option value="<$ dir $>"
+%							if (*rdir == directory) {
+							selected="selected"
+%							}
+							><$ dir $></option>
+%						}
+						   </select>
+						</td>
+					</tr>
+<%cpp>
+					}
+</%cpp>
+
+					<tr>
+						<td class="label leftcol"><div class="withmargin"><$ trVDR("Day") $>:</div></td>
+						<td class="rightcol"><input id="date" name="date" type="text" class="DatePicker" value="<$ date $>" /></td>
+					</tr>
+
+					<tr>
+						<td class="label leftcol"><div class="withmargin"><$ tr("Weekday") $>:</div></td>
+						<td class="rightcol">
+							<div class="dotted">
+								<input id="wday_mon" type="checkbox" name="wday_mon" value="1" <{ reply.out() << ( wday_mon ? "checked=\"checked\"" : "" ); }> />
+								<label for="wday_mon"><$ tr("Monday") $></label>
+							</div>
+							<div class="dotted">
+								<input id="wday_tue" type="checkbox" name="wday_tue" value="1" <{ reply.out() << ( wday_tue ? "checked=\"checked\"" : "" ); }> />
+								<label for="wday_tue"><$ tr("Tuesday") $></label>
+							</div>
+							<div class="dotted">
+								<input id="wday_wed" type="checkbox" name="wday_wed" value="1" <{ reply.out() << ( wday_wed ? "checked=\"checked\"" : "" ); }> />
+								<label for="wday_wed"><$ tr("Wednesday") $></label>
+							</div>
+							<div class="dotted">
+								<input id="wday_thu" type="checkbox" name="wday_thu" value="1" <{ reply.out() << ( wday_thu ? "checked=\"checked\"" : "" ); }> />
+								<label for="wday_thu"><$ tr("Thursday") $></label>
+							</div>
+							<div class="dotted">
+								<input id ="wday_fri" type="checkbox" name="wday_fri" value="1" <{ reply.out() << ( wday_fri ? "checked=\"checked\"" : "" ); }> />
+								<label for="wday_fri"><$ tr("Friday") $></label>
+							</div>
+							<div class="dotted">
+								<input id="wday_sat" type="checkbox" name="wday_sat" value="1" <{ reply.out() << ( wday_sat ? "checked=\"checked\"" : "" ); }> />
+								<label for="wday_sat"><$ tr("Saturday") $></label>
+							</div>
+							<div class="dotted">
+								<input id="wday_sun" type="checkbox" name="wday_sun" value="1" <{ reply.out() << ( wday_sun ? "checked=\"checked\"" : "" ); }> />
+								<label for="wday_sun"><$ tr("Sunday") $></label>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="label leftcol"><div class="withmargin"><$ trVDR("Start") $>:</div></td>
+						<td class="rightcol"><input type="text" size="2" maxlength="2" name="start_h" value="<$ ZeroPad(start_h) $>" /> : <input type="text" size="2" maxlength="2" name="start_m" value="<$ ZeroPad(start_m) $>" /></td>
+					</tr>
+
+					<tr>
+						<td class="label leftcol"><div class="withmargin"><$ trVDR("Stop") $>:</div></td>
+						<td class="rightcol"><input type="text" size="2" maxlength="2" name="end_h" value="<$ ZeroPad(end_h) $>" /> : <input type="text" size="2" maxlength="2" name="end_m" value="<$ ZeroPad(end_m) $>" /></td>
+					</tr>
+
+					<tr>
+						<td class="label leftcol"><div class="withmargin"><$ tr("Use VPS") $>:</div></td>
+						<td class="rightcol"><input type="checkbox" name="vps" value="1" <{ reply.out() << ( vps ? "checked=\"checked\"" : "" ); }>/></td>
+					</tr>
+
+					<tr>
+						<td class="label leftcol"><div class="withmargin"><$ trVDR("Priority") $>:</div></td>
+						<td class="rightcol"><input type="text" size="2" maxlength="2" name="priority" value="<$ priority $>" /></td>
+					</tr>
+
+					<tr>
+						<td class="label leftcol"><div class="withmargin"><$ trVDR("Lifetime") $>:</div></td>
+						<td class="rightcol"><input type="text" size="2" maxlength="2" name="lifetime" value="<$ lifetime $>" /></td>
+					</tr>
+
+					<tr>
+						<td class="buttonpanel leftcol rightcol bottomrow" colspan="2">
+							<div class="withmargin">
+							<button class="green" type="submit"><$ tr("Save") $></button>
+							<button type="button" class="red" onclick="history.back()"><$ tr("Cancel") $></button>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="color: red; margin: 0 auto;">
+				<$ message $>
+			</div>
+		</div>
+	</body>
+</html>
+<%include>page_exit.eh</%include>

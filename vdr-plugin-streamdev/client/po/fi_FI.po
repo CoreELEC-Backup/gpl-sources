@@ -1,0 +1,62 @@
+# VDR streamdev plugin language source file.
+# Copyright (C) 2008 streamdev development team. See http://streamdev.vdr-developer.org
+# This file is distributed under the same license as the VDR streamdev package.
+# Rolf Ahrenberg, 2008-
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: streamdev 0.5.0\n"
+"Report-Msgid-Bugs-To: <vdrdev@schmirler.de>\n"
+"POT-Creation-Date: 2015-01-16 22:32+0100\n"
+"PO-Revision-Date: 2008-03-30 02:11+0200\n"
+"Last-Translator: Rolf Ahrenberg\n"
+"Language-Team: Finnish <vdr@linuxtv.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Hide Mainmenu Entry"
+msgstr "Piilota valinta päävalikosta"
+
+msgid "Simultaneously used Devices"
+msgstr "Yhtäaikaiset laitteet"
+
+msgid "Remote IP"
+msgstr "Etäkoneen IP-osoite"
+
+msgid "Remote Port"
+msgstr "Etäkoneen portti"
+
+msgid "Timeout (s)"
+msgstr "Yhteyden aikakatkaisu (s)"
+
+msgid "Filter Streaming"
+msgstr "Suodatetun tiedon suoratoisto"
+
+msgid "Filter SockBufSize"
+msgstr ""
+
+msgid "Live TV Priority"
+msgstr "Live-katselun prioriteetti"
+
+msgid "Minimum Priority"
+msgstr "Pienin prioriteetti"
+
+msgid "Maximum Priority"
+msgstr "Suurin prioriteetti"
+
+msgid "Broadcast Systems / Cost"
+msgstr "Lähetysjärjestelmien suhdeluku"
+
+msgid "VTP Streaming Client"
+msgstr "VTP-suoratoistoasiakas"
+
+msgid "Suspend Server"
+msgstr "Pysäytä palvelin"
+
+msgid "Server is suspended"
+msgstr "Palvelin on pysäytetty"
+
+msgid "Couldn't suspend Server!"
+msgstr "Palvelinta ei onnistuttu pysäyttämään!"

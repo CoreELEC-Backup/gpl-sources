@@ -1,0 +1,36 @@
+
+Getting DVBlast
+===============
+
+Offically released DVBlast versions can be downloaded at:
+ftp://ftp.videolan.org/pub/videolan/dvblast/
+
+DVBlast is developed using git. To get the latest version clone
+the repository at: git://git.videolan.org/dvblast.git
+
+To see the latest developments visit the following url:
+http://git.videolan.org/?p=dvblast.git
+
+Installing DVBlast
+==================
+
+Compile the program with `make` and install with `make install`. Your
+kernel must support DVB S2API which was merged in Linux 2.6.28 and released
+on 24 Dec 2008.
+
+DVBlast 3.X requires biTStream as a build dependancy, and libev as a runtime
+dependancy.
+
+To install biTStream, clone git repository and run `make install`.
+
+    git clone git://git.videolan.org/bitstream.git
+    cd bitstream
+    make install
+
+To install libev, download it from the home page:
+
+    http://libev.schmorp.de
+
+If you wish to support Deltacast ASI cards, you will first need to install
+the Deltacast StreamMaster drivers and SDK, which are downloadable from the
+Deltacast website (login required).

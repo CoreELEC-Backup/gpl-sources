@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="audiodecoder.ssf"
+  version="3.0.0"
+  name="SSF/DSF Audio Decoder"
+  provider-name="spiff">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="kodi.audiodecoder"
+    name="ssf"
+    extension=".ssf|.minissf|.dsf|.minidsf"
+    tags="true"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="de_DE">Sega SSF/DSF Audio Decoder</summary>
+    <summary lang="en_GB">Sega SSF/DSF Audio Decoder</summary>
+    <description lang="de_DE">Das Sega Saturn Sound Format (SSF) und das Dreamcast Sound Format (DSF) ist ein auf PSF basierendes Audioformat. Es speichert Audio, das aus den ROMs von Sega Saturn- und Sega Dreamcast-Spielen gerippt wurde.</description>
+    <description lang="en_GB">Sega Saturn Sound Format (SSF) and Dreamcast Sound Format (DSF) is an audio format based on PSF. It stores audio ripped from the ROMs of Sega Saturn and Sega Dreamcast games.</description>
+    <platform>@PLATFORM@</platform>
+    <license>GPL-2.0-or-later</license>
+    <source>https://github.com/xbmc/audiodecoder.ssf</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

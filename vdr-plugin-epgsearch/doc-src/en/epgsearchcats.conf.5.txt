@@ -1,0 +1,136 @@
+=encoding utf8
+=head1 NAME
+
+F<epgsearchcats.conf> - Configuration of the additional EPG information
+
+=head1 DESCRIPTION
+
+Some EPG providers deliver additional EPG information like the type of
+event, the video and audio format, cast,...
+
+Using tvm2vdr or epg4vdr you can import this into vdr.  To use this
+information with search timers one has to configure it with the file
+epgsearchcats.conf in your plugins config directory.
+
+Sample files for F<epgsearchcats.conf> are delivered with the plugin in
+the directory 'conf'.
+
+Simply copy the one that fits for you to your plugins config directory with
+filename epgsearchcats.conf and then have a look to the search timers
+edit menu (after a restart of VDR).
+
+Since setting up a new F<epgsearchcats.conf> is a lot of work, I've added
+a small tool 'createcats', that makes the biggest part of the job. It
+should have been compiled with the plugin and exists in the sources
+directory.
+
+See C<createcats(1)> for information about how to use it.
+
+B<Internals:> epgsearch scans the summary of an event for the category
+name followed by ': ' for all categories that have a corresponding
+value set in the search timer. The search is case sensitive regarding
+the category name as also the value.
+
+=head1 SYNTAX
+
+ ID|category name(,format)|name in menu|values separated by ','(option)|searchmode(option)
+
+ - 'ID' should be a unique positive integer
+   (changing the id later on will force you to re-edit your search timers!)
+ - 'category name' is the name as delivered by the EPG provider, e.g. 'Genre'
+   you can optionally provide a format specifier for numeric values, e.g.
+   Episode,%02i
+ - 'name in menu' is the name displayed in epgsearch.
+ - 'values' is an optional list of possible values
+ - 'searchmode' specifies the search mode:
+   text comparison:
+    0  - the whole term must appear as substring
+    1  - all single terms (delimiters are ',', ';', '|' or '~')
+         must exist as substrings. This is the default search mode.
+    2  - at least one term (delimiters are ',', ';', '|' or '~')
+         must exist as substring.
+    3  - matches exactly
+    4  - regular expression
+   numerical comparison:
+    10 - less
+    11 - less or equal
+    12 - greater
+    13 - greater or equal
+    14 - equal
+    15 - not equal
+
+=head1 EXAMPLE
+
+(Lines are shortened for correct displaying)
+
+Example for EPG from Hörzu, downloaded from epgdata.com with tvmovie2vdr.
+
+ 1|Category|Kategorie|Information,Kinder,Musik,Serie,Show,Spielfilm,Sport|2
+
+ 2|Genre|Genre|Abenteuer,Action,Wirtschaft,Wissen,Zeichentrick|2
+
+ 3|Format|Video-Format|16:9,4:3|2
+
+ 4|Audio|Audio|Dolby Surround,Dolby,Hoerfilm,Stereo|2
+
+ 5|Year|Jahr||2
+
+ 6|Cast|Besetzung||2
+
+ 7|Director|Regisseur||2
+
+ 8|Moderator|Moderation||2
+
+ 9|Rating|Bewertung|Großartig besonders wertvoll,Annehmbar,Schwach|2
+
+ 10|FSK|FSK|6,12,16,18|2
+
+ 11|Country|Land||2
+
+ 12|Episode|Episode||4
+
+ 13|Themes|Thema||4
+
+=head1 SEE ALSO
+
+C<epgsearch(1)>, C<epgsearchcats.conf(5)>, C<createcats(1)>
+
+=head1 AUTHOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 REPORT BUGS
+
+Bug reports (german):
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailing list:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT and LICENSE
+
+Copyright (C) 2004-2010 Christian Wieninger
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+Or, point your browser to http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+The author can be reached at cwieninger@gmx.de
+
+The project's page is at http://winni.vdr-developer.org/epgsearch
+
+The MD5 code is derived from the RSA Data Security, Inc. MD5 Message-Digest Algorithm.
+

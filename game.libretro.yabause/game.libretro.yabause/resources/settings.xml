@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="yabause_addon_cartridge" values="none|1M_ram|4M_ram" default="none"/>
+		<setting label="30002" type="select" id="yabause_force_hle_bios" values="disabled|enabled" default="disabled"/>
+		<setting label="30003" type="select" id="yabause_frameskip" values="disabled|enabled" default="disabled"/>
+		<setting label="30004" type="select" id="yabause_multitap_port1" values="disabled|enabled" default="disabled"/>
+		<setting label="30005" type="select" id="yabause_multitap_port2" values="disabled|enabled" default="disabled"/>
+		<setting label="30006" type="select" id="yabause_numthreads" values="4|1|2|8|16|32" default="4"/>
+	</category>
+</settings>

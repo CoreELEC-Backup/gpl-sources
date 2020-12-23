@@ -1,0 +1,117 @@
+Changes between 3.4 and 3.5:
+----------------------------
+  * Print bitrate status for each service
+  * Fix passing through the EITp/f without EPG tables (broken in 3.3)
+  * Add new option --udp-lock-timeout
+
+Changes between 3.3 and 3.4:
+----------------------------
+  * Fix segfault with dvblastctl when getting large tables
+  * Fix wrong library version
+
+Changes between 3.2 and 3.3:
+----------------------------
+  * Add support for getting EIT present/following for chosen service in dvblastctl
+  * Add support for getting EIT schedule for chosen service in dvblastctl
+  * Switch default string charset to UTF-8//IGNORE
+  * Add --system-charset/-j option to dvblastctl
+  * Add --timeout/-t option to dvblastctl and set default to 15 seconds
+  * Add --lnb-type universal|old-sky option to dvblast
+  * Add support for multistream-id calculation using --multistream-id-pls-mode,
+    --multistream-id-pls-code and --multistream-id-is-id options
+  * Add --passthrough (to stdout) option
+
+Changes between 3.1 and 3.2:
+----------------------------
+  * Fix HEVC support
+  * Fix memory leak on loading the configuration
+  * Also remap ONID in EIT
+  * Fix segmentation fault when using output charset different from native
+  * Use default charset ISO 6937 for ASCII strings
+  * Add /charset= output option
+  * Fix EIT schedule signaling in SDT
+
+Changes between 3.0 and 3.1:
+----------------------------
+  * Print source address in UDP input
+  * Print actual EITp/f
+  * Add DVB-T2 support with multi PLP
+  * Add ISDB-T support
+  * Add HEVC support
+  * Add ONID remapping
+  * Add PCR even when PCR PID is not selected, but drop non-PCR packets
+  * Extend support for uncommitted DiSEqC switches with up to 16 ports
+  * Fix reload of configuration with tsid=-1
+
+Changes between 2.2 and 3.0:
+----------------------------
+  * Rewrite core to use libev event loop
+  * Optimize allocations with a buffer pool
+  * Add support for building DVBlast on OS X
+  * Add support for uncommitted diseqc switches
+  * Fix ECM pid selection
+  * Add CA device addressing
+  * Add support for remapping ES pids to fixed values globally and per output
+  * Add support for multi-delivery system frontends
+  * Add support for multistream that appeared in Linux 3.6
+  * Add support for Deltacast ASI cards
+  * Add support for stream pass-through from the config file
+  * Add options to periodically print status of bitrate, errors and PIDs
+  * Add output options to set network ID and network name
+  * Switch default string charset to UTF-8
+  * Do not remove padding with ASI
+
+Changes between 2.1 and 2.2:
+----------------------------
+  * Fix a regression that prevented ECM pass-through (-Y) from working.
+  * Handle ECM pids that are described in PMT ES descriptor loop.
+
+Changes between 2.0 and 2.1:
+----------------------------
+  * Fix MMI menus which were accidentally broken in 2.0
+  * Remove ecm and emm output options because they weren't working
+  * Better handling of changed PSI tables with same version number
+
+Changes between 1.2 and 2.0:
+----------------------------
+  * Fix latency and potential packet loss during CAM communication
+  * Add optional kernel patches for lower latency
+  * Smooth packet output with an extra buffer
+  * libdvbpsi runtime is no longer needed; biTStream development library
+    is used instead
+  * Add the ability to bind to a specific network interface
+  * Add a configurable MTU
+  * Add support for NIT in DVB compliance mode
+  * Syslog support with -l option
+  * Override tuning parameters with new options
+  * Output all PMTs with -w, all ESs (even unknown) for a program with -z
+  * Add support for ECM and EMM packets pass-through
+  * Fix diseqc command with high-band tranponders
+  * Add basic support for ATSC
+  * Add support for MRTG statistics
+  * Add detailed information for TS errors
+  * Add support for getting PAT/CAT/NIT/SDT tables in dvblastctl
+  * Add support for getting PMT table for chosen service in dvblastctl
+  * Add support for getting PID information (bps, error counters and more)
+  * Add support for setting service name and provider name per output
+  * Command socket is usable with any input (ASI, DVB, UDP), previously
+    only DVB input worked
+
+Changes between 1.1 and 1.2:
+----------------------------
+  * Support for IPv6 output and duplicate
+  * Support input from Computer Modules ASI card
+  * Support input from (IPv4) RTP / UDP stream
+  * Miscellaneous CAM and demux fixes
+  * Miscellaneous DVB-S2 fixes
+
+Changes between 1.0 and 1.1:
+----------------------------
+
+  * Support for adapters with multiple frontends (-n)
+  * Control of verbosity level with -q
+  * Support for TS over raw UDP with -U or /udp in the config file
+  * EIT, SDT and TDT pass-through for EPG information (-e)
+  * Original TSID kept (randomized TSID via -T)
+  * Miscellaneous CAM, demux and tuning fixes
+  * DVB-S diseqc support

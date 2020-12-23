@@ -1,0 +1,85 @@
+LIBRETRO_COMM_DIR := $(CORE_DIR)/libretro-common
+DEPS_DIR          := $(CORE_DIR)/deps
+INCFLAGS := -I$(DEPS_DIR) -I$(CORE_DIR)/audio -I$(DEPS_DIR)/pugixml -I$(DEPS_DIR)/vorbis -I$(DEPS_DIR)/ogg -I$(DEPS_DIR)/libz -I$(LIBRETRO_COMM_DIR)/include
+
+SOURCES_ASM := 
+
+SOURCES_CXX := $(CORE_DIR)/bg_manager.cpp \
+	$(CORE_DIR)/font.cpp \
+	$(CORE_DIR)/game.cpp \
+	$(CORE_DIR)/game_manager.cpp \
+	$(CORE_DIR)/libretro.cpp \
+	$(CORE_DIR)/render_target.cpp \
+	$(CORE_DIR)/sfx_manager.cpp \
+	$(CORE_DIR)/surface.cpp \
+	$(CORE_DIR)/surface_cache.cpp \
+	$(CORE_DIR)/surface_cluster.cpp \
+	$(CORE_DIR)/tilemap.cpp \
+	$(DEPS_DIR)/pugixml/pugixml.cpp \
+	$(CORE_DIR)/audio/mixer.cpp
+
+SOURCES_C := \
+	$(DEPS_DIR)/ogg/bitwise.c \
+	$(DEPS_DIR)/ogg/framing.c \
+	$(DEPS_DIR)/vorbis/analysis.c \
+	$(DEPS_DIR)/vorbis/barkmel.c \
+	$(DEPS_DIR)/vorbis/bitrate.c \
+	$(DEPS_DIR)/vorbis/block.c \
+	$(DEPS_DIR)/vorbis/codebook.c \
+	$(DEPS_DIR)/vorbis/envelope.c \
+	$(DEPS_DIR)/vorbis/floor0.c \
+	$(DEPS_DIR)/vorbis/floor1.c \
+	$(DEPS_DIR)/vorbis/info.c \
+	$(DEPS_DIR)/vorbis/lookup.c \
+	$(DEPS_DIR)/vorbis/lpc.c \
+	$(DEPS_DIR)/vorbis/lsp.c \
+	$(DEPS_DIR)/vorbis/mapping0.c \
+	$(DEPS_DIR)/vorbis/mdct.c \
+	$(DEPS_DIR)/vorbis/psy.c \
+	$(DEPS_DIR)/vorbis/registry.c \
+	$(DEPS_DIR)/vorbis/res0.c \
+	$(DEPS_DIR)/vorbis/sharedbook.c \
+	$(DEPS_DIR)/vorbis/smallft.c \
+	$(DEPS_DIR)/vorbis/synthesis.c \
+	$(DEPS_DIR)/vorbis/vorbisenc.c \
+	$(DEPS_DIR)/vorbis/vorbisfile.c \
+	$(DEPS_DIR)/vorbis/window.c \
+	$(DEPS_DIR)/libz/adler32.c \
+	$(DEPS_DIR)/libz/compress.c \
+	$(DEPS_DIR)/libz/crc32.c \
+	$(DEPS_DIR)/libz/deflate.c \
+	$(DEPS_DIR)/libz/gzclose.c \
+	$(DEPS_DIR)/libz/gzlib.c \
+	$(DEPS_DIR)/libz/gzread.c \
+	$(DEPS_DIR)/libz/gzwrite.c \
+	$(DEPS_DIR)/libz/infback.c \
+	$(DEPS_DIR)/libz/inffast.c \
+	$(DEPS_DIR)/libz/inflate.c \
+	$(DEPS_DIR)/libz/inftrees.c \
+	$(DEPS_DIR)/libz/trees.c \
+	$(DEPS_DIR)/libz/uncompr.c \
+	$(DEPS_DIR)/libz/zutil.c
+
+SOURCES_C += $(CORE_DIR)/rpng_front.c
+
+ifeq ($(STATIC_LINKING), 1)
+else
+SOURCES_C += \
+				 $(LIBRETRO_COMM_DIR)/file/nbio/nbio_stdio.c \
+				 $(LIBRETRO_COMM_DIR)/audio/conversion/float_to_s16.c \
+				 $(LIBRETRO_COMM_DIR)/audio/conversion/s16_to_float.c \
+				 $(LIBRETRO_COMM_DIR)/audio/audio_mix.c \
+				 $(LIBRETRO_COMM_DIR)/features/features_cpu.c \
+				 $(LIBRETRO_COMM_DIR)/compat/compat_strl.c \
+				 $(LIBRETRO_COMM_DIR)/compat/compat_posix_string.c \
+				 $(LIBRETRO_COMM_DIR)/formats/png/rpng.c \
+				 $(LIBRETRO_COMM_DIR)/streams/file_stream.c \
+				 $(LIBRETRO_COMM_DIR)/streams/trans_stream.c \
+				 $(LIBRETRO_COMM_DIR)/streams/trans_stream_pipe.c \
+				 $(LIBRETRO_COMM_DIR)/streams/trans_stream_zlib.c
+
+ifeq ($(HAVE_NEON),1)
+	SOURCES_ASM += $(LIBRETRO_COMM_DIR)/audio/conversion/float_to_s16_neon.S \
+						$(LIBRETRO_COMM_DIR)/audio/conversion/s16_to_float_neon.S
+endif
+endif

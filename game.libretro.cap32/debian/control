@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-cap32
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-cap32 (>= 4.5.0) | cap32 (>= 4.5.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-cap32
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Amstrad - CPC (Caprice32) core for kodi's retroplayer
+ Amstrad - CPC (Caprice32) core for kodi's retroplayer

@@ -1,0 +1,5 @@
+[B]2013-08-17[/B] Version [B]1.53.1[/B]
+. Updated to 25c0e7c @ 2013-08-14
+
+[B]2013-02-16[/B] Version [B]1.53.0[/B]
+. Initial release: Snes9x v1.53, https://github.com/snes9xgit/snes9x @ c691b61 (2013-01-31)

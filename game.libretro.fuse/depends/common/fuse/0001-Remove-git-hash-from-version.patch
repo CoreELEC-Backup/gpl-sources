@@ -1,0 +1,31 @@
+From 8be3ad02e60b20566738df57d68d59fd53a8466c Mon Sep 17 00:00:00 2001
+From: Garrett Brown <themagnificentmrb@gmail.com>
+Date: Sat, 3 Aug 2019 19:25:51 -0700
+Subject: [PATCH] Remove git hash from version
+
+---
+ src/libretro.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/libretro.c b/src/libretro.c
+index 19948c6..5e50287 100644
+--- a/src/libretro.c
++++ b/src/libretro.c
+@@ -477,13 +477,12 @@ static int get_joystick(unsigned device)
+ static char version[] = PACKAGE_VERSION " " GIT_VERSION;
+ #else
+ extern const char *fuse_githash;
+-static char version[] = PACKAGE_VERSION " .......";
++static char version[] = PACKAGE_VERSION;
+ #endif
+ 
+ void retro_get_system_info(struct retro_system_info *info)
+ {
+ #ifndef GIT_VERSION
+-   memcpy(version + sizeof(PACKAGE_VERSION), fuse_githash, 7);
+ #endif
+    info->library_name = PACKAGE_NAME;
+    info->library_version = version;
+-- 
+2.17.1
+

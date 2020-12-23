@@ -1,0 +1,238 @@
+VDR Plugin 'wirbelscan' Revision History
+----------------------------------------
+
+2006-10-28: Version 0.0.1
+-------------------------------------------------------------------------------
+- Initial revision. Alpha Status up to now.
+
+
+2006-12-01: Version 0.0.2
+-------------------------------------------------------------------------------
+- removed unused header from common.c
+- added missing setup property 'logfile' in setup (menusetup.c)
+- added some internationalization (i18n.c)
+- fixed compiler warning in satfrequencies.c and frequencies.c
+- setting liveView=true if dvb card used is not free;
+  either the only card or receiving/recording. (scanner.c)
+- moved "memset(&frontend_status,0, sizeof(frontend_status));"
+  into GetStatus(void) (scanner.c) to be shure that
+  frontend_status is *always* resetted.
+- while scanning now the channels.conf is cleared 
+  (and refilled after last scan with the old channel data)
+- Added EITScanner.ForceScan(); at the End of dvb scans to
+  enshure Adding channels.
+- now switching to all new transponders after last scan
+- changed transponder scan routines in scanner.c
+- now tuning (by purpose!) to a invalid transponder before
+  tuning to other data; this should enshure that tuning is successful.
+- slightly changed cUpdateThread::Action()
+- osd: remains now open while scanning
+- osd: removed inversion setting dvb-c
+- osd: added symbolrate setting dvb-c
+- osd: added stop scan button
+- speed up dvb-t scan
+- speed up dvb-s scan
+- fixed d(const int level, const char *fmt, ...) for syslog
+
+
+- still Alpha Status.
+
+
+2006-12-XX: Version 0.0.2a
+-------------------------------------------------------------------------------
+- now deleting transponders Searchlist in AfterScan(void)
+- fixed osd handling during scan (OK, Back)
+- scanning not possible if recordings are running.
+- added Channels.SetModified() in AfterScan to avoid duplicate channels. -> has to be checked.
+
+
+
+2007-02-XX: Version 0.0.2b
+-------------------------------------------------------------------------------
+- first SVDRP support: S_TERR, S_CABL, S_SAT, S_PVR, S_STOP
+
+
+2007-09-03: Version 0.0.3-20070903
+-------------------------------------------------------------------------------
+- changed device handling to lowlevel functions
+- new SVDRP functions: M_AUTO, M64, M128, M256, SR_AUTO, SR6900, SR6875 
+- started Internationalization with xgettext as in VDR>=1.5.7
+- fixed compiling on vdr-1.5.x
+- started freq offset support for DVB-T (france)
+- changes to frequency tables (see above and cSatFreqlist)
+- fixed wrong message  in cTerrScanner "C %d has lock.." into "T %d has lock.."
+- fixed wrong internationalization "PVR x50 scan done"
+- PVR x50 support for external input scan
+- new function stopScanners
+- new functions DoScan and DoStop for SVDRP support
+- DVB-C added missing Symbolrate 6111 (only manual mode)
+- now using Skins.QueueMessage instead of Skins.Message
+
+
+
+2008-05-12: Version 0.0.4-20080512
+-------------------------------------------------------------------------------
+- added some Copyright Remark to README as proposed from Debian VDR Packaging Team
+- removed PAL SE1 105250/107500
+  see http://de.wikipedia.org/wiki/Kabelfernsehen:
+  "Der Sonderkanal S01 kann wegen der Überschneidung mit dem UKW-Radio-Frequenzband nicht genutzt werden"
+- added 73.00 MHz for DVB-C PAL
+- italian translations (Diego Pierotto <vdr-italian@tiscali.it>)
+- removed obsolete ptv plugin option
+- minor changes to osd
+- now start searching dvb devices at highest device number (often first device at dvb-c is a full-featured card -> QAM256 problems).
+
+
+
+2008-09-10ff: version 0.0.5-preXX
+-------------------------------------------------------------------------------
+- applied updated italian translations (thanks to Diego Pierotto), renamed "Gringo" to Diego's real name
+- completely restructured dvb scanners
+- no longer deleting channel list during scan, but rather applying receiver
+- added pat, pmt, nit, nit_other, sdt filters (adapted versions of VDRs own scan filters, see <vdr>/{pat,nit,sdt}.c)
+- scans are now handled with state machine which is initialized from transponder lists
+- new dvb wrapper for easier following dvb/vdr variants next versions (not complete up to now)
+   (multiproto jusst, multiproto stoth, vdr-1.6 vs. vdr-1.7, channel syntax vdr-1.7.0 vs vdr-1.7.1, multiproto-wrapper, whatever..)
+- added support for channel names on pvr-x50 channels using VBI network readout (needs libzbvi, which is part of Zapper)
+- support for new pvrinput syntax
+- added cx88_blackbird analogue scan support + input names (still under test)
+- new patch for disabling libzvbi support, if not available/not needed (see sub folder patches)
+- updated satellite lists, now including system and modulation_type
+- new files vbi.{h,c}, scanfilter.{h,c}, dvb_wrapper.{h,c}, statemachine.{h,c}, caDescriptor.{h,c}
+- remove about dlg
+- compiling on 1.7.13, 1.7.14, 1.4.7
+- check compiling
+   1.4.7 *)
+   1.6.0
+   1.7.2 .. 1.7.14
+  *) support may be dropped sometime
+- add: DVB-C SRates 5156, 5483, Finland add QAM128
+- add: preliminary ATSC support
+- add missing default switches
+- fix unsigned vs signed
+- fix floating point comparisons
+- DVB-C scan: FEC_NONE, fix: setting Inversion
+- DVB-T scan: UK changed from TM_2k to TM_8k, fix check DVB-T Bandwidth
+- pvrinput syntax adaption (may change further depending on development of pvrinput)
+- remove files vbi.{h,c} and related autotools setup (zvbi introduced more problems than usability :-( )
+- update README
+- add: S97W0 telstar5, S160E0 Optus D1
+- upd: S30W0 Hispasat 1C/1D
+- upd. S23E5 Astra 1E/1G/3A
+- improve human readability of log output
+- GetFrontendStrength: 'value' is now uint16_t
+- pvrinput syntax changes, remove pvrinput syntax choice
+- improve storing of setup
+- fix color keys on setup page
+- cMenuScanning::SetStr: fix displayed value
+- enhAC3 Tag adds now DPids
+- during scan: update also existing channels, no longer skip those.
+- decrease verbosity on LinkageChannels.
+- gcc-4.5 fix (Edgar Hucek <gimli@dark-green.com>)
+- add wirbelscan service API && add SERVICES.html
+- improve SVDRP interface
+- added descriptors STREAMTYPE_13818_AUDIO_ADTS, STREAMTYPE_14496_AUDIO_LATM
+- vdr-1.7.15 changed SetPid: add Atypes, Dtypes
+- 0.0.5-pre12b
+  - service interface:
+     * add user transponder scan (SUser)
+     * status: add SUser version
+- 0.0.5-pre12c
+  - improve setup storage key handling
+  - move hexdump to common
+  - move SwReceiver to ttext
+  - pvrinput:
+     * scan channel names from cni && teletext
+       (needs pvrinput from 09/2010 and enabling teletext)
+     * add external inputs (svideo, composite,...)
+- 0.0.5-pre12d
+  - bugfix counting queued transponders
+  - bugfix dvb-c auto symbolrates stopped at sr 6900
+  - ttext: timeout counter in seconds.
+  - 0.0.5-pre12d == version 0.0.5
+- 0.0.5-1
+  - bugfix: segfault on vdr-1.6.0
+- 0.0.5-2
+  - bugfix: reading dvb capability flags
+  - improved receiver handling in statemachine.c to avoid loosing control of receiving device
+  - simplified eit scanner && deadlock fix.
+  - throw compilation warning on outdated dvb api 3.2 
+  - throw compilation error on unsupported/outdated dvb api 3.3 
+- 0.0.5-3
+  - cleanup && cosmetics
+  - update README
+
+
+
+2011-02-06: version 0.0.6
+-------------------------------------------------------------------------------
+- whitespace && minor code cleanups.
+- don't throw error on start scan if timers on schedule;
+  check wether next timer is at least 2hours in future and of the same
+  type as the scan requested.
+- pvrinput scan: move channel check for pvrinput into IsPvrinput and
+  fix misuse of sscanf (old plugin param patch only)
+- remove wrong "fuzzy" translations
+
+
+
+2011-03-24: version 0.0.7
+-------------------------------------------------------------------------------
+- 0.0.7-pre01
+  - fix memory leak: ext_math.c:112
+  - fix memory leak: scanner.c:609
+  - remove unused #include videodev.h from countries.c (file used by w_scan and wirbelscan)
+  - replace DeleteAndNull by DELETENULL (defined in <vdr/tools.h>)
+  - replace all remaining 'delete' by 'DELETENULL'
+  - check return value of asprintf in cPluginWirbelscan::Service
+  - countries.c: remove octals.
+  - common.c: change inititialization of char arrays to avoid memset
+  - common.c: hexdump, check for buf != NULL
+  - update S41E9 + rename to S42E0
+  - fix compiling vdr-1.6.0-2
+  - fix SetTerrTransponderDataFromDVB to set DVB-T Bandwidth for VDR > 10712 correctly.
+- 0.0.7-pre02
+  - don't set shortname and provider on analog channels anymore
+  - wirbelscan_services: cast for Bandwidth to avoid float to int conversion, increase service user version to 0002
+  - common.c: FileExists(), dont cast arg1 of stat() to char * (unsafe conversion losses 'const' attribute)
+  - scanfilter.c: cast to unsigned in switch(d->getDescriptorTag())
+  - move setup class 'cWirbelscan' to common.{c,h} and rename to 'wSetup'
+  - move defines from menusetup.h to common.h
+  - disable now pvrinput support by default, enabling needs new command line option '--use-pvrinput'.
+  - disable unused DVB Types in settings menu. Only DVB types with matching devices (pvrinput similar)
+    are now visible in settings menu. This should help newbees finding their settings.
+  - SERVICE and SVDRP connections will now reject DVB/pvrinput without devices; in case of pvrinput also
+    if not explicitly enabled by command line option. 
+  - skip support of VDR Versions before 1.6.0; remove po2i18n.pl, i18n.h, i18n-template.c
+  - remove clean_code folder from dist package
+  - update Makefile; now using LDFLAGS, Make.global and -O3 optimisation, force permissions on make dist.
+  - GetPreferredDevice: dont stop if Device(i) doesnt exist, continue up to MAXDEVICES (was: MAXDVBDEVICES and stopping if Device(i) missed)
+- 0.0.7
+  - 0.0.7 == 0.0.7-pre02
+
+
+2016-xx-xx
+-------------------------------------------------------------------------------
+* pvrinput support is removed, as no analog channels available anymore.
+* build using VDRs Makefile is no longer used by me. It may work or not.
+  Feel free to edit the Makefile stub.
+* version numbering is now YYYY.MM.DD
+* new version dont care about vdr before 2.3 as the changes in VDRs core
+  are too large to keep compat. If using old VDR, use old plugin.
+* also plugin interface changed a bit - considered broken at the moment.
+* now trying to avoid cChannel and cString VDR classes - too deep changes
+  in vdr core.
+* avoid as much as possible vdrs global lists (Channels, Timers, etc.)
+  This one has consequences for the whole plugin - the scan algorithm
+  changed and updates (new channels counting etc.) are not possible any
+  longer during scan.
+* T2: add scan loop
+
+2018-11-04
+-------------------------------------------------------------------------------
+* fix possible segfault, if remotely controlled (thanks to Luca Olivetti)
+* allow operation from positioner (thanks to Luca Olivetti)
+* silence a few useless vdr warnings during scan: "ERROR: channel data results in invalid ID!";
+  as a channel scanner doesnt have any valid channel IDs at the beginning of its work.
+
+  

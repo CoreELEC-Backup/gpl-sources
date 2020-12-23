@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="bluemsx_auto_rewind_cas" values="ON|OFF" default="ON"/>
+		<setting label="30002" type="select" id="bluemsx_cartmapper" values="Auto|Normal|mirrored|basic|0x4000|0xC000|ascii8|ascii8sram|ascii16|ascii16sram|ascii16nf|konami4|konami4nf|konami5|konamisynth|korean80|korean90|korean126|MegaFlashRomScc|MegaFlashRomSccPlus|msxdos2|scc|sccexpanded|sccmirrored|sccplus|snatcher|sdsnatcher|SegaBasic|SG1000|SG1000Castle|SG1000RamA|SG1000RamB|SC3000" default="Auto"/>
+		<setting label="30003" type="select" id="bluemsx_msxtype" values="Auto|MSX|MSXturboR|MSX2|MSX2+|SEGA - SG-1000|SEGA - SC-3000|SEGA - SF-7000|SVI - Spectravideo SVI-318|SVI - Spectravideo SVI-328|SVI - Spectravideo SVI-328 MK2|ColecoVision|Coleco (Spectravideo SVI-603)" default="Auto"/>
+		<setting label="30004" type="select" id="bluemsx_nospritelimits" values="OFF|ON" default="OFF"/>
+		<setting label="30005" type="select" id="bluemsx_overscan" values="disabled|enabled|MSX2" default="disabled"/>
+		<setting label="30006" type="select" id="bluemsx_vdp_synctype" values="Auto|50Hz|60Hz" default="Auto"/>
+		<setting label="30007" type="select" id="bluemsx_ym2413_enable" values="enabled|disabled" default="enabled"/>
+	</category>
+</settings>

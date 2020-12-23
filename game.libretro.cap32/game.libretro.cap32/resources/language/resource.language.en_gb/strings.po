@@ -1,0 +1,61 @@
+# game.libretro.cap32 language file
+# Addon Name: game.libretro.cap32
+# Addon id: game.libretro.cap32
+# Addon Provider: libretro
+msgid ""
+msgstr ""
+"Project-Id-Version: game.libretro.cap32\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2017-02-04 09:56i\n"
+"PO-Revision-Date: 2017-02-04 09:56i\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Advanced > Green Phosphor blueish"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Autorun"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Combo Key"
+msgstr ""
+
+msgctxt "#30004"
+msgid "CPC Language"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Model"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Advanced > Ram size"
+msgstr ""
+
+msgctxt "#30007"
+msgid "User 1 Amstrad Joystick Config"
+msgstr ""
+
+msgctxt "#30008"
+msgid "User 2 Amstrad Joystick Config"
+msgstr ""
+
+msgctxt "#30009"
+msgid "Advanced > Monitor Intensity"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Monitor Type"
+msgstr ""

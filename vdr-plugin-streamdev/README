@@ -1,0 +1,592 @@
+This is a "plugin" for the Video Disk Recorder (VDR).
+
+Written by:                  Sascha Volkenandt <sascha@akv-soft.de>
+Current maintainer:          Frank Schmirler <vdrdev@schmirler.de>
+
+Project's homepage:          http://streamdev.vdr-developer.org/
+Former project homepage:     http://linux.kompiliert.net/
+
+Latest version available at: http://streamdev.vdr-developer.org/
+
+See the file COPYING for license information.
+
+Contents:
+---------
+
+1.   Description
+2.   Installation
+2.1  Compatibility
+2.2  Compiling
+2.3  Updating
+3.   Usage
+3.1  Usage HTTP server
+3.2  Usage IGMP multicast server
+3.3  Usage VDR-to-VDR server
+3.4  Usage VDR-to-VDR client
+4.   Other useful Plugins
+4.1  Plugins for VDR-to-VDR clients
+4.2  Plugins for Server
+4.3  Alternatives
+5.   externremux.sh
+6.   Known Problems
+
+
+1. Description:
+---------------
+
+This PlugIn is a VDR implementation of the VTP (Video Transfer Protocol) 
+Version 0.0.3 (see file PROTOCOL) and a basic HTTP Streaming Protocol.
+
+It consists of a server and a client part, but both parts are compiled together
+with the PlugIn source, but appear as separate PlugIns to VDR. 
+
+The client part acts as a full Input Device, so it can be used in conjunction 
+with a DXR3-Card, XINE, SoftDevice or others to act as a working VDR 
+installation without any DVB-Hardware including EPG-Handling.
+
+The server part acts as a Receiver-Device and works transparently in the 
+background within your running VDR. It can serve multiple clients and it can
+distribute multiple input streams (i.e. from multiple DVB-cards) to multiple 
+clients using the native VTP protocol (for VDR-clients), or using the HTTP 
+protocol supporting clients such as XINE, MPlayer and so on. With XMMS or
+WinAMP, you can also listen to radio channels over a HTTP connection.
+
+It is possible to attach as many clients as the bus and network can handle, as
+long as there is a device which can receive a specific channel. Multiple
+channels homed on the same transponder (which is determined by it's frequency)
+can be broadcasted with a single device.
+
+Additional clients can be programmed using the Protocol Instructions inside
+the PROTOCOL file.
+
+
+2. Installation:
+----------------
+
+Let's say streamdev's version is 0.5.0 and vdr's version is 1.X.X. If you 
+use anything else please exchange the version numbers appropriately (this
+way I don't have to update this section all the times;) ).
+
+After compiling the PlugIn as stated below, start either (or both) parts of it
+by specifying "-P streamdev-client" and/or "-P streamdev-server" on the VDR
+command line.
+
+What's important is that the client requests a channel using its Unique Channel
+ID. So, in order to find the channel at the server, it must have the same ID
+that is used on the client. You can achieve this by putting the server's 
+channels.conf on the client, preferably after scanning.
+
+If you want to drive additional Input-Devices (with different sources) on the 
+client, you can merge the channels.conf files. VDR will detect if the local 
+device or the network device can receive the channels.
+
+Last, but not least you have to copy the streamdev-server folder into the
+"plugins/streamdev-server" subfolder of VDR's config-directory (which is equal
+to your video-directory if not specified otherwise). For example, if you didn't
+specify a separate config-directory, and set your video directory to "/video0",
+the directory has to be copied to /video0/plugins/streamdev-server.
+
+The directory contains a file named streamdevhosts.conf which you must adjust
+to your needs. The syntax is the same as for svdrphosts.conf, so please consult
+VDR's documentation on how to fill that file, if you can't do it on-the-fly.
+
+There's also a sample externremux.sh script in this directory. It is used by
+streamdev's external remux feature. The sample script uses mencoder by default.
+Please check the script for further information. You can specify a different
+script location with the -r parameter. The VDR commandline would then include a
+"-P 'streamdev-server -r /usr/local/bin/remux.sh'". Note the additional quotes,
+as otherwise -r will be passed to VDR and not to streamdev.
+
+
+2.1 Compatibility:
+------------------
+
+This version is not compatible to VDR releases older than 1.7.25. Use one of
+the streamdev-0.5.x releases for older versions.
+
+2.2 Compiling:
+--------------
+
+The Makefiles are for VDR 1.7.36 and above. For VDR 1.7.33 and below, please
+replace the Makefiles in the main directory and in the client/ and server/
+subdirectories with the corresponding Makefile-1.7.33 files. With VDR 1.7.34 and
+1.7.35 YMMV ;)
+
+  cd vdr-1.X.X/PLUGINS/src
+  tar xvfz vdr-streamdev-0.5.0.tgz
+  ln -s streamdev-0.5.0 streamdev
+  cp -r streamdev/streamdev-server VDRCONFDIR/plugins/
+  cd ../..
+  make [options, if necessary] vdr
+  make [options, if necessary] plugins
+
+To build only the plugin, change into the streamdev source folder and issue
+  make
+
+To build only streamdev-server or only streamdev-client, use
+  make server
+  make client
+
+2.3  Updating:
+--------------
+
+If you are updating streamdev from an earlier release, you might have to
+perform some additional steps. Check which version you've been running before,
+then read below for the necessary changes.
+
+* Priorities:
+-------------
+(Affected: 0.5.x and older)
+
+The server-side setting "Suspend behaviour" has been dropped in 0.6.0 in favour
+of priority based precedence. A priority of 0 and above means that clients
+have precedence. A negative priority gives precedence to local live TV on the
+server. So if "Suspend behaviour" was previously set to "Client may suspend" or
+"Never suspended", you will have to configure a negative priority. If the
+"Suspend behaviour" was set to "Always suspended", the default values should do.
+
+Configure the desired priorities for HTTP and IGMP Multicast streaming in the
+settings of streamdev-server. If you haven't updated all your streamdev-clients
+to at least 0.5.2, configure "Legacy Client Priority", too.
+
+In streamdev-client, you should set "Minimum Priority" to -99. Adjust "Live TV
+Priority" if necessary.
+
+* Location of files:
+--------------------
+(Affected: 0.3.x, 0.4.x, 0.4.0pre, 0.5.0pre)
+
+Starting with streamdev 0.5.0, all additional files are kept in a directory
+called "streamdev-server" inside VDR's plugin config directory. It is the new
+default location of externremux.sh and the new place where streamdev-server
+expects the file "streamdevhosts.conf". You will have to move this file to its
+new location:
+
+streamdev 0.3.x:
+  mv VDRCONFDIR/plugins/streamdevhosts.conf VDRCONFDIR/plugins/streamdev-server/
+
+streamdev 0.4.x, 0.4.0pre and 0.5.0pre:
+  mv VDRCONFDIR/plugins/streamdev VDRCONFDIR/plugins/streamdev-server/
+
+Now check the contents of streamdevhosts.conf. Does it contain a "0.0.0.0/0"
+entry? If your VDR machine is connected to the Internet, this line gives
+*anyone* full access to streamdev, unless you took some other measures to
+prevent this (e.g. firewall). You might want to remove this line and enable
+HTTP authentication instead.
+
+* Handling of externremux script:
+---------------------------------
+(Affected: 0.3.x, 0.4.0pre, 0.5.0pre)
+
+Streamdev server's externremux script became responsible for emitting all HTTP
+headers. A quick and dirty extension to your current script would be:
+
+  echo -ne 'Content-type: video/mpeg\r\n'
+  echo -ne '\r\n'
+
+However I encourage you to try the new externremux.sh script shipped with the
+streamdev source distribution.
+
+To emphasize the required change in externremux, the URL path for passing the
+stream through externremux has changed from EXTERN to EXT.
+
+3. Usage:
+---------
+
+Start the server core itself by specifying -Pstreamdev-server on your VDR 
+commandline. To use the client core, specify -Pstreamdev-client. Both parts
+can run in one VDR instance, if necessary.
+
+Precedence between multiple clients and between client and server is controlled
+with priorities. For HTTP and IGMP Multicast, the priority is configured in
+streamdev-server's setup menu. A negative priority gives precedence to local
+live TV on the server. Zero and positive values give precedence to the client.
+
+The priority for VDR clients watching live TV is configured in the plugin setup
+of streamdev-client. For other client tasks (e.g. recording a client side timer)
+the same priority as on the client is used. With the parameter "Legacy client
+Priority" in streamdev-server's setup menu you can configure the priority for
+clients which cannot be configured to use negative priorities. It is used
+when an old client is detected an it requests priority "0".
+
+On the server, the main menu entry "Streamdev Connections" gives you a list
+of currently connected clients. Use the "red" key to terminate a connection.
+Note that depending on connection type and client, the client might re-connect
+sooner or later.
+
+The "blue" key in the server's main menu will suspend live TV on server. An
+image is displayed instead. This would allow a low priority client to switch
+to a different transponder. Enable "Client may suspend" in the server setup
+to allow VDR clients to suspend live TV remotely.
+
+In the server's setup there's also an option to suspend live TV when starting
+the server. The "auto" option will suspend live TV if there's no device with
+an MPEG decoder available which is typically the case on a headless server.
+
+NOTE: Precedence is mainly an issue on One-Card-Systems, since with multiple
+cards there is no need to switch transponders on the primary interface, if one
+of the other cards is idle (i.e. if it is not blocked by a recording). If all
+cards are in use (i.e. when something is recorded, or by multiple clients), this
+applies to Multiple-Card-Systems as well.
+
+If your client suffers from buffer underruns while watching live TV, you can
+configure buffering on the server side. Enter a reasonable value (e.g. 300ms)
+as "Live TV buffer delay (ms)" in the server setup.
+
+3.1 Usage HTTP server:
+----------------------
+
+You can use the HTTP part by accessing the server with a HTTP-capable media
+player (such as XINE, MPlayer, and so on, if you have appropriate MPEG2-codecs
+installed). In the PlugIn's Setup, you can specify the port the server will
+listen to with the parameter "HTTP Server Port". The parameter "HTTP Streamtype"
+allows you to specify a default stream type, which is used if no specific type
+has been requested in the URL (see below). The supported stream types are:
+
+  TS     Transport Stream (i.e. a dump from the device)
+  PES    Packetized Elemetary Stream (VDR's native recording format)
+  ES     Elementary Stream (only Video, if available, otherwise only Audio)
+  EXT    Pass stream through external script (e.g. for converting with mencoder)
+
+Assuming that you leave the default port (3000), point your web browser to
+
+  http://hostname:3000/
+
+You will be presented a menu with links to various channel lists, including M3U
+playlist formats.
+
+If you don't want to use the HTML menu or the M3U playlists, you can access the
+streams directly like this:
+
+  http://hostname:3000/3
+  http://hostname:3000/S19.2E-0-12480-898
+
+The first one will deliver a channel by number on the server, the second one
+will request the channel by unique channel id. Use the special channel number 0
+to see the server's current live TV channel.
+
+In addition, you can specify the desired stream type as a path to the channel.
+
+  http://hostname:3000/TS/3
+  http://hostname:3000/PES/S19.2E-0-12480-898
+
+The first one would deliver the stream in TS, the second one in PES format. 
+Possible values are 'PES', 'TS', 'ES' and 'EXT'. You need to specify the ES
+format explicitly if you want to listen to radio channels. Play them back i.e.
+with mpg123.
+
+  mpg123 http://hostname:3000/ES/200
+
+With 'EXT' you can also add parameters which are passed as arguments to the
+externremux script (e.g. http://hostname:3000/EXT;param1=value1;param2=value2/3)
+Check your externremux.sh script for the parameters it understands. For details
+on how to modify or write your own externremux.sh, please see the chapter upon
+externremux.sh further down.
+
+If you want to access streamdev's HTTP server from the Internet, do *not* grant
+access for anyone by allowing any IP in "streamdevhosts.conf". Instead, pass the
+"-a" commandline option to streamdev-server. It takes a username and a password
+as argument. Clients with an IP not accepted by "streamdevhosts.conf" will then
+have to login. The VDR commandline will have to look like this:
+
+  vdr ... -P 'streamdev-server -a vdr:secret' ...
+
+Note the single quotes, as otherwise "-a" will be passed to VDR and not to
+streamdev-server. The login ("vdr" in the example above) doesn't have to exist
+as a system account.
+
+3.2 Usage IGMP multicast server:
+--------------------------------
+
+IGMP based multicast streaming is often used by settop boxes to receive IP TV.
+Streamdev's multicast server allows you to feed live TV from VDR to such a
+settop box. VLC is known to work well if you look for a software client.
+
+The advantage of multicasting is that the actual stream is sent out only once,
+regardless of how many clients want to receive it. The downside is, that you
+cannot simply multicast across network boundaries. You need multicast routers.
+For multicast streaming over the public Internet you would even need to register
+for your own IP range. So don't even think of multicasting via Internet with
+streamdev! Streamdev will send the stream only to one local ethernet segment and
+all clients must be connected to this same segment. There must not be a router
+in between. Also note that the client must not run on the streamdev-server
+machine.
+
+Each channel is offered on a different multicast IP. Channel 1 is available from
+multicast IP 239.255.0.1, channel 2 from 239.255.0.2 and so on. The upper limit
+is 239.255.254.255 which corresponds to channel 65279 (239.255.255.0/24 is
+reserved according to RFC-2365).
+
+Before you can use streamdev's multicast server, you might need to patch VDR.
+Binding an IGMP socket is a privileged operation, so you must start VDR as root.
+
+The multicast server is disabled by default. Enter the streamdev-server setup
+menu to enable it and - IMPORTANT - bind the multicast server to the IP of your
+VDR server's LAN ethernet card. The multicast server will refuse to start with
+the default bind address "0.0.0.0".
+
+Now edit your streamdevhosts.conf. To allow streaming of all channels, it must
+contain "239.255.0.0/16". Note that you cannot limit connections by client IP
+here. You can however restrict which channels are allowed to be multicasted.
+Enter individual multicast IPs instead of "239.255.0.0/16".
+
+By default, the linux kernel will refuse to join more than 20 multicast groups.
+You might want to increase this up to "number_of_channels + 1". Note that it's
+"number_of_channels", not "maximum_channel_number".
+
+  #First 100 channels:
+  bash# sysctl -w net.ipv4.igmp_max_memberships=101
+
+  #All channels:
+  bash# COUNT=$(grep -c '^[^:]' PATH_TO_YOUR/channels.conf)
+  bash# sysctl -w net.ipv4.igmp_max_memberships=$((COUNT + 1))
+
+You need to run the sysctl command *before* VDR is started. The setting is lost
+after the next reboot. Check the documentation of your Linux distro on how to
+make the setting persist (i.e. have your distro change the value for you as
+part of the boot procedure). Most likely /etc/sysctl.conf is your friend.
+
+A multicast server never knows how many clients are actually receiving a stream.
+If a client signals that it leaves a multicast group, the server has to query
+for other listeners before it can stop the stream. This may delay zapping from
+one transponder to an other. The client will probably requests the new channel
+before the previous stream has been stopped. If there's no free DVB card, VDR
+won't be able to fulfill the request until a DVB card becomes available and the
+client resends the request.
+
+3.3 Usage VDR-to-VDR server:
+----------------------------
+
+You can activate the VDR-to-VDR server part in the PlugIn's Setup Menu. It is
+deactivated by default. The Parameter "VDR-to-VDR Server Port" specifies the 
+port where you want the server to listen for incoming connections. The server
+will be activated when you push the OK button inside the setup menu, so there's
+no need to restart VDR.
+
+If both, streamdev-client and streamdev-server are installed, the additional
+option "Loop prevention" will show up in the streamdev-server setup. If enabled,
+streamdev-client won't be considered when streamdev-server is looking for a
+device which is able to receive some channel. This is required if two or more
+VDRs mutually share their DVB devices through streamdev. Otherwise you would
+end up in a loop.
+
+3.4 Usage VDR-to-VDR client:
+----------------------------
+
+Streamdev-client adds a "Suspend Server" item to VDR's mainmenu. With the
+setup parameter "Hide Mainmenu Entry" you can hide this menu item if you don't
+need it. "Suspend Server" is only useful if the server runs in "Offer suspend
+mode" with "Client may suspend" enabled.
+
+The parameter "Remote IP" uses an IP-Address-Editor, where you can just enter
+the IP number with the number keys on your remote. After three digits (or if 
+the next digit would result in an invalid IP address, or if the first digit is
+0), the current position jumps to the next one. You can change positions with 
+the left and right buttons, and you can cycle the current position using up 
+and down. To confirm the entered address, press OK. So, if you want to enter 
+the IP address "127.0.0.1", just mark the corresponding entry as active and 
+type "127001<OK>" on your remote. If you want to enter "192.168.1.12", type 
+"1921681<Right>12<OK>". 
+
+The parameters "Remote IP" and "Remote Port" in the client's setup specify the 
+address of the remote VDR-to-VDR server to connect to. The client is disabled
+by default, because it wouldn't make much sense to start the client without
+specifying a server anyway. Activate the client by setting "Simultaneously used
+Devices" to at least 1. Streamdev-client will allocate as many VDR devices as
+you configure here. Each of these devices opens one connection to the server
+and becomes associated with one of the server's devices (typically a DVB card)
+on demand.
+
+Only the needed PIDs are transferred, and additional PIDs can be turned on
+during an active transfer. This makes it possible to switch languages, receive
+additional channels on the same transponder and use plugins that use receivers
+themselves (like osdteletext).
+
+So for viewing live TV a single device is sufficient. But if the client needs
+to receive channels from different transponders simultaneously (e.g. for PiP or
+client side recordings) a second device becomes necessary.
+
+To allocate additional devices, just increase the number and push the OK button.
+There's no need to restart VDR. Deleting VDR devices on-the-fly is not possible.
+However requests to switch channels will be refused by redundant devices.
+
+The default timeout of 2 seconds for network operations should be sufficient in
+most cases. Increase "Timeout" if you get frequent timeout errors in the log.
+
+With "Filter Streaming" enabled, the client will receive meta information like
+EPG data and service information, just as if the client had its own DVB card.
+Link channels and even a client-side EPG scan have been reported to work.
+
+If you have TV programs with dynamically changing PIDs (such as some german
+regional programs like NDR), then you need to enable "Filter Streaming" to
+correctly receive them. You also need to set in VDRs DVB setup the option
+"Update channels" to at least "PIDs only" (or "names and PIDs") for this
+to work.
+
+"Filter streaming" uses internally a socketpair(2) to copy meta data to
+VDR. This socketpair may require larger than default buffering. If
+you  see a mesage like the following in syslog,
+
+  cStreamdevFilter::PutSection(Pid:18 Tid: 64): Dropped 2995 bytes, max queue: 328640
+
+then you should increase the streamdev client "FilterSockBufSize" value. A 
+good value is 3072000. You will need to first configure your linux to
+permit such a large buffer size:
+
+  sysctl net.core.wmem_max=3072000
+
+The precedence among multiple client VDRs receiving live TV from the same
+server is controlled with "Live TV Priority".
+
+With "Maximum Priority" and "Minimum Priority" you can keep VDR from considering
+streamdev in certain cases. If for instance you have a streamdev client with its
+own DVB card, VDR might use streamdev for recording. If this is not what you
+want, you could set the maximum priority to 0. As recordings usually have a much
+higher priority (default 50), streamdev is now no longer used for recordings.
+The two parameters define the inclusive range of priorities for which streamdev
+will accept to tune. Setting the minimum priority to a higher value than the
+maximum, you will get two ranges: "up to maximum" and "minimum and above".
+
+You can also configure the "Broadcast Systems / Cost" of the streamdev-client
+device. On a pure streamdev-client only system it doesn't matter what you
+configure here. But if your client is equipped with a DVB card, you should read
+on. VDR always prefers the cheapest device in terms of supported broadcast
+systems and modulations. A DVB-S2 card supports two broadcast systems (DVB-S and
+DVB-S2). The supported modulations are counted as well (QPSK, QAM32/64/128/256,
+VSB8/16, TURBO_FEC). So for a DVB-S2 card which does QPSK you'll get a total
+cost of three. A DVB-C card (one broadcast system) which can do QAM32, QAM64,
+QAM128, QAM256 would give you a total of five. Check your log for "frontend ...
+provides ... with ..." messages to find out the cost of your DVB cards. Then
+pick a suitable value for streamdev-client. With equal costs, VDR will usually
+prefer the DVB card and take streamdev for recordings. If streamdev's costs are
+higher, live TV will use your DVB card until a recordings kicks in. Then the
+recording will take the DVB card and live TV will be shifted to streamdev
+(you'll notice a short interruption of live TV).
+
+To receive channels from multiple servers, create additional instances of the
+streamdev-client plugin. Simply copy (don't link!) the binary to a different
+name (e.g. streamdev-client2):
+
+  cd VDRPLUGINLIBDIR
+  cp libvdr-streamdev-client.so.1.X.X libvdr-streamdev-client2.so.1.X.X
+
+Now add -Pstreamdev-client2 to the VDR commandline. In the VDR plugin setup
+a second streamdev-client entry should show up. Both instances have to be
+configured individually.
+
+
+4. Other useful Plugins:
+------------------------
+
+4.1 Plugins for VDR-to-VDR clients:
+-----------------------------------
+
+The following plugins are useful for VDR-to-VDR clients (i.e. VDRs running the
+streamdev-client):
+
+* remotetimers (http://vdr.schmirler.de/)
+Add, edit, delete timers on client and server
+
+* timersync (http://phivdr.dyndns.org/vdr/vdr-timersync/)
+Automatically syncronizes timer lists of client and server. All recordings will
+be made on the server
+
+* remoteosd (http://vdr.schmirler.de/)
+Provides access to the server's OSD menu
+  
+* epgsync (http://vdr.schmirler.de/)
+Import EPG from server VDR
+
+* femon (http://www.saunalahti.fi/~rahrenbe/vdr/femon/)
+Display signal information from server's DVB card. SVDRP support must be enabled
+in femon's setup
+
+4.2 Plugins for Server:
+-----------------------
+
+* dummydevice (http://phivdr.dyndns.org/vdr/vdr-dummydevice/)
+Recommended on a headless server (i.e. a server with no real output device).
+Without this plugin, a budget DVB card could become VDR's primary device. This
+causes unwanted sideeffects in certain situations.
+
+4.3 Alternatives:
+-----------------
+
+* xineliboutput (http://phivdr.dyndns.org/vdr/vdr-xineliboutput/)
+With its networking option, xineliboutput provides an alternative to streamdev.
+You will get the picture of the server VDR, including its OSD. However you
+won't get independent clients, as they all share the same output.
+
+5. externremux.sh:
+------------------
+
+When selecting streamtype "EXT", the TS stream from VDR is passed through an
+external program for further processing. By default a script installed at
+VDRCONFDIR/plugins/streamdev/externremux.sh is expected, however you may
+specify a different location as parameter -r to the streamdev-server plugin
+(see chapter upon Installation above).
+
+The TS stream is passed to the script on stdin, the resulting stream is expected
+on stdout. The following parameters are passed to the script in the environment:
+
+* Information on the channel:
+  REMUX_CHANNEL_ID    VDR channel ID
+  REMUX_CHANNEL_NAME  Channel name
+  REMUX_VTYPE         Video type (2 for MPEG-2)
+  REMUX_VPID          Video PID (undefined if audio only)
+  REMUX_PPID          PCR PID (undefined if equal to VPID)
+  REMUX_TPID          Teletext PID (undefined if not available)
+  REMUX_APID          Space separated list of audio pids
+  REMUX_ALANG         Space separated list of audio languages
+  REMUX_DPID          Space separated list of dolby pids
+  REMUX_DLANG         Space separated list of dolby languages
+  REMUX_SPID          Space separated list of subtitle pids
+  REMUX_SLANG         Space separated list of subtitle languages
+  REMUX_PARAM_*       All (user supplied) parameters (e.g. REMUX_PARAM_x)
+
+* Information on the connection (CGI like)
+  REMOTE_ADDR         Client IP
+  SERVER_NAME         Local IP
+  SERVER_PORT         Local port
+  SERVER_PROTOCOL     Streamdev protocol (HTTP, VTP, IGMP)
+  SERVER_SOFTWARE     Streamdev version
+  All HTTP headers converted to uppercase, '-' replaced by '_' (e.g. USER_AGENT)
+
+The script should perform the following steps (pseudocode):
+
+  if (SERVER_PROTOCOL == HTTP)
+    write headers (including Content-Type) to STDOUT
+    write empty line to STDOUT
+    if (REQUEST_METHOD == HEAD)
+      exit
+    endif
+  endif
+  while (read STDIN)
+    remux to STDOUT
+  wend
+
+  onSIGINT/SIGKILL: cleanup and exit
+
+
+6. Known Problems:
+------------------
+
+* In VDR before 1.7.30 viewing encrypted channels is an issue as Streamdev
+doesn't provide a (dummy) CAM. So out of the box, VDR won't ever try to receive
+encrypted channels from streamdev. Pick one of the following solutions to work
+around the problem:
+
+1. Force VDR to use streamdev. Open the channels menu on the client (or edit its
+channels.conf if you know how to do this) and set the CA field of all channels
+that only the server can decrypt to streamdev's device index. Usually streamdev
+will get number 9 or 10. Streamdev logs the actual device number when starting
+up. So please consider the logs for the correct value. Remember to fill in
+hexadecimal values if you are using an editor to modify your channels.conf
+(number 10 becomes an "a", number 11 a "b", ...).
+
+2. Apply either patch "patches/vdr-1.6.0-1.7.29-intcamdevices.patch" or patch
+"patches/vdr-1.6.0-1.7.29-ignore_missing_cam.diff" to your client VDR.
+Intcamdevices is the clean solution, but it modifies the VDR API. So you will
+need to recompile all of your plugins. The ignore_missing_cam patch is trivial,
+no need to recompile other plugins. However it is not suitable for clients with
+a DVB card of their own.

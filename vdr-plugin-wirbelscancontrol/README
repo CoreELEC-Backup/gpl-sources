@@ -1,0 +1,62 @@
+This is a "plugin" for the Video Disk Recorder (VDR).
+
+Written by:                  Winfried Koehler <handygewinnspiel AET gmx dOt de>
+
+Project's homepage:          wirbel.htpc-forum.de/wirbelscan/index2.html
+
+Latest version available at: see Projects homepage
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+See the file COPYING for more information.
+
+Description:
+------------------------------------------------------------------------
+This plugin extends the wirbelscan plugin with a main menu entry. It may
+serve also as an example how to control the wirbelscan plugin via it's
+service interface.
+
+Installation:
+------------------------------------------------------------------------
+
+NOTE: this plugin requires wirbelscan-0.0.5-pre12xx or higher.
+
+Unpack both, wirbelscanosd and wirbelscan source code, into VDRs Plugin source folder:
+
+cd $SOURCEDIR/vdr-1.7.15/PLUGINS
+
+tar xfz vdr-wirbelscancontrol-$VERSION.tgz
+ln -s wirbelscancontrol-$VERSION wirbelscancontrol
+
+tar xfz vdr-wirbelscan-$VERSION.tgz
+ln -s wirbelscan-$VERSION wirbelscan
+
+now, it should look like this:
+(..)/vdr-1.7.15/PLUGINS/src/wirbelscan
+(..)/vdr-1.7.15/PLUGINS/src/wirbelscancontrol
+
+
+compile as usual..
+
+cd $SOURCEDIR/vdr-1.7.15
+make plugins
+
+
+How To Use
+------------------------------------------------------------------------
+#0 open main menu && choose 'channel scan'
+#1 define the search in the field 'Source Type'
+#2 choose your country (cable, terr, analog) / satellite
+#2a (optionally): fine tune your scan:
+     - cable / terr inversion, specific modulations or symbol rates
+     - single user transponder scan. With or without finding new transponders from that
+       single transponder
+#3 start scan with red button (you may stop scans at any time again with red button)
+
+
+
+see you at vdr-portal.de
+-wirbel  
+  

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.beetle-gba"
+		name="Nintendo - Game Boy Advance (Beetle GBA)"
+		version="0.9.36.9"
+		provider-name="Forgotten, Mednafen Team">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.gba" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>GBA</platforms>
+		<extensions>gba|agb|bin</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Nintendo - Game Boy Advance (Beetle GBA) v0.9.36</summary>
+		<description lang="en_GB">Beetle GBA is a fork of Mednafen&#39;s GBA core for the libretro project.
+
+Supported files: .gba, .agb, .bin</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.beetle-gba</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.snes9x2002"
+		name="Nintendo - SNES / SFC (Snes9x 2002)"
+		version="7.2.0.12"
+		provider-name="Snes9x Team, PocketSNES Team, Toadking">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.snes" version="1.0.0"/>
+		<import addon="game.controller.snes.mouse" version="1.0.0"/>
+		<import addon="game.controller.snes.multitap" version="1.0.0"/>
+		<import addon="game.controller.snes.super.scope" version="1.0.0"/>
+		<import addon="game.controller.konami.justifier.snes" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>SNES</platforms>
+		<extensions>smc|fig|sfc|gd3|gd7|dx2|bsx|swc</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Nintendo - SNES / SFC (Snes9x 2002) 7.2.0</summary>
+		<description lang="en_GB">Port of SNES9x 1.39 for libretro (was previously called PocketSNES). Heavily optimized for ARM.
+
+Supported files: smc, fig, sfc, gd3, gd7, dx2, bsx, swc, zip</description>
+		<license>Non-commercial</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.snes9x2002</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
+</addon>

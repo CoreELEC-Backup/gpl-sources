@@ -1,0 +1,24 @@
+Wolfgang Astleitner <mrwastl_-AT-_users_-DOT-_sourceforge_-DOT-_net>
+*   Maintainance, API, programming, developing
+
+Contributors:
+
+Jeroen Domburg <jeroen_-AT-_sprite_-DOT-_student_-DOT-_utwente_-DOT-_nl>
+*   PCF8511 support (Nokia 5310, 6310)
+
+Abhishek Dutta <thelinuxmaniac_-AT-_gmail_-DOT-_com>
+*   S1D15G10 support (Nokia 6100, and other Nokia with 132x132 displays)
+
+Frank 'fen' Enderle <fen_-AT-_init-6_-DOT-_org>
+*   alphacool support
+
+jopka_-AT-_kvidex_-DOT-_ru
+*   4DOLED-282815: contribution + additional tests
+
+
+
+Annotation:
+  email-addresses are scrambled to fool robots.
+  To get working a working address simply replace '_-AT-_' through '@' and  '_-DOT-_' through '.'
+
+

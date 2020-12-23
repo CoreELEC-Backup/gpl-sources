@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.mame2000"
+		name="Arcade (MAME 2000)"
+		version="0.37.0.10"
+		provider-name="MAMEdev">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms></platforms>
+		<extensions>zip|ZIP</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Arcade (MAME 2000) 0.37b5</summary>
+		<description lang="en_GB">Supported files: .zip, .ZIP</description>
+		<license>MAME</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.mame2000</source>
+	</extension>
+</addon>

@@ -1,0 +1,160 @@
+# VDR Epgfixer plugin language source file.
+# Copyright (C) 2012 Matti Lehtimäki
+# This file is distributed under the same license as the PACKAGE package.
+# Matti Lehtimäki, 2012-
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: vdr-epgfixer 0.3.1\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2012-08-14 13:49+0300\n"
+"PO-Revision-Date: 2012-05-09 23:20+0300\n"
+"Last-Translator: Matti Lehtimäki <matti.lehtimaki@gmail.com>\n"
+"Language-Team: Finnish <vdr@linuxtv.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Fix bugs in EPG"
+msgstr "Korjaa virheitä EPG:ssä"
+
+msgid "RegexpChars$ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%~\\/?!()[]{}<>$^*.,:;-=#"
+msgstr " abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ0123456789%~\\/?!()[]{}<>$^*.,:;-=#"
+
+msgid "Button$Cancel"
+msgstr "Peru"
+
+msgid "Regular expressions"
+msgstr "Säännölliset lausekkeet"
+
+msgid "Edit regular expressions."
+msgstr "Muokkaa säännöllisiä lausekkeita."
+
+msgid "Character set conversions"
+msgstr "Merkistömuunnokset"
+
+msgid "Edit character set conversions."
+msgstr "Muokkaa merkistömuunnoksia."
+
+msgid "EPG blacklists"
+msgstr "Ohjelmaoppaan mustat listat"
+
+msgid "Edit EPG blacklists."
+msgstr "Muokkaa ohjelmaoppaan mustia listoja. Mustilla listoilla voi estää ohjelmatietojen käsittelyn valituilta kanavilta."
+
+msgid "EPG cloning"
+msgstr "Ohjelmatietojen kopiointi"
+
+msgid "Edit EPG data cloning."
+msgstr "Muokkaa ohjelmatietojen kopiointia. Tällä voit kopioida kanavan ohjelmatiedot toiselle kanavalle."
+
+msgid "--- EPG bugfixes ---"
+msgstr "--- Ohjelmaoppaan korjaukset ---"
+
+msgid "Remove quotes from ShortText"
+msgstr "Poista lainaukset lyhyestä kuvauksesta"
+
+msgid ""
+"EPG bugfix level >= 1: Some channels put the ShortText in quotes and use either the ShortText or the Description field, depending on how long the string is:\n"
+"\n"
+"Title\n"
+"\"ShortText\". Description"
+msgstr ""
+"Ohjelmaoppaan korjaustaso >= 1: Jotkin kanavat laittavat lyhyen kuvauksen lainausmerkkeihin joko lyhyeen kuvaukseen tai kuvaukseen riippuen tekstin pituudesta:\n"
+"\n"
+"Otsikko\n"
+"\"Lyhyt kuvaus\". Kuvaus"
+
+msgid "Move Description from ShortText"
+msgstr "Siirrä kuvaus lyhyeen kuvaukseen"
+
+msgid ""
+"EPG bugfix level >= 1: Some channels put the Description into the ShortText (preceded by a blank) if there is no actual ShortText and the Description is short enough:\n"
+"\n"
+"Title\n"
+" Description"
+msgstr ""
+"Ohjelmaoppaan korjaustaso >= 1: Jotkin kanavat laittavat kuvauksen lyhyeen kuvaukseen (alussa välilyönti) mikäli varsinaista lyhyttä kuvausta ei ole ja kuvaus on tarpeeksi lyhyt:\n"
+"\n"
+"Otsikko\n"
+" Kuvaus"
+
+msgid "Remove repeated title from ShortText"
+msgstr "Poista nimi lyhyestä kuvauksesta"
+
+msgid ""
+"EPG bugfix level >= 1: Sometimes they repeat the Title in the ShortText:\n"
+"\n"
+"Title\n"
+"Title"
+msgstr ""
+"Ohjelmaoppaan korjaustaso >= 1: Joskus otsikko toistetaan lyhyessä kuvauksessa:\n"
+"\n"
+"Otsikko\n"
+"Otsikko"
+
+msgid "Remove double quotes from ShortText"
+msgstr "Poista lainausmerkit lyhyestä kuvauksesta"
+
+msgid ""
+"EPG bugfix level >= 1: Some channels put the ShortText between double quotes, which is nothing but annoying (some even put a '.' after the closing '\"'):\n"
+"\n"
+"Title\n"
+"\"ShortText\"[.]"
+msgstr ""
+"Ohjelmaoppaan korjaustaso >= 1: Jotkin kanavat laittavat lyhyen kuvausksen lainausmerkkeihin, mikä oli ärsyttävää (jotkut jopa laittavat '.' viimeisen '\"' jälkeen):\n"
+"\n"
+"Otsikko\n"
+"\"Lyhyt kuvaus\"[.]"
+
+msgid "Remove useless formatting"
+msgstr "Poista ylimääräinen muotoilu"
+
+msgid "EPG bugfix level >= 2: Some channels apparently try to do some formatting in the texts, which is a bad idea because they have no way of knowing the width of the window that will actually display the text. Remove excess whitespace."
+msgstr "Ohjelmaoppaan korjaustaso >= 2: Jotkin kanavat yrittävät muotoilla tekstejä, mikä on huono idea koska tekstin näyttävän ikkunan leveyttä ei voida tietää. Poista ylimääräiset näkymättömät merkit."
+
+msgid "Move long ShortText to Description"
+msgstr "Siirrä pitkä lyhyt kuvaus kuvaukseksi"
+
+msgid "EPG bugfix level >= 2: Some channels put a whole lot of information in the ShortText and leave the Description totally empty. So if the ShortText length exceeds 40, let's put this into the Description instead."
+msgstr "Ohjelmaoppaan korjaustaso >= 2: Jotkin kanavat laittavat paljon tietoa lyhyeen kuvaukseen ja jättävät kuvauksen tyhjäksi. Mikäli lyhyen kuvauksen pituus on suurempi kuin 40, siirretään lyhyt kuvaus kuvaukseen."
+
+msgid "Prevent equal ShortText and Description"
+msgstr "Estä identtinen kuvaus ja lyhyt kuvaus"
+
+msgid "EPG bugfix level >= 2: Some channels put the same information into ShortText and Description. In that case we delete one of them."
+msgstr "Ohjelmaoppaan korjaustaso >= 2: Jotkin kanavat laittavat saman tiedon lyhyeen kuvaukseen ja kuvaukseen. Poista toinen näistä."
+
+msgid "Replace backticks with single quotes"
+msgstr "Korvaa gravis heittomerkillä"
+
+msgid "EPG bugfix level >= 2: Some channels use the ` (\"backtick\") character, where a ' (single quote) would be normally used. Actually, \"backticks\" in normal text don't make much sense, so let's replace them."
+msgstr "Ohjelmaoppaan korjaustaso >= 2: Jotkin kanavat käyttävät ` (gravis) merkkiä ' (heittomerkki) sijaan. Itse asiassa gravis ei ole järkevä normaalissa tekstissä, joten korvataan ne."
+
+msgid "Fix stream component descriptions"
+msgstr "Korjaa lähetekomponenttien kuvaukset"
+
+msgid "EPG bugfix level = 3: The stream components have a \"description\" field which some channels apparently have no idea of how to set correctly."
+msgstr "Ohjelmaoppaan korjaustaso = 3: Lähetysvirran komponenteissa on \"kuvaus\"-kenttä, jota jotkin kanavat eivät osaa asettaa oikein."
+
+msgid "Strip HTML entities"
+msgstr "Poista HTML-merkit"
+
+msgid "Convert HTML entities from all fields to matching regular characters."
+msgstr "Korvaa HTML merkit kaikista kentistä normaaleilla merkeillä."
+
+msgid "Button$Load"
+msgstr "Lataa"
+
+msgid "Button$Clear EPG"
+msgstr "Tyhjennä EPG"
+
+msgid "Loading configuration files..."
+msgstr "Ladataan asetustiedostoja..."
+
+msgid "Clearing EPG data..."
+msgstr "Tyhjennetään EPG tietoja..."
+
+msgid "Help"
+msgstr "Ohje"

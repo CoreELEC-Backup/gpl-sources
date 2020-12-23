@@ -1,0 +1,573 @@
+library 'serdisplib' Revision History
+-------------------------------------
+
+2010-02-21: v 1.97.9   (= SVN r286)
+- enhancements / bug-removal / changes
+  * testserdisp.c:
+    -> w/h info in test-pattern 'test' may now display up to 4 digits
+    -> new test patterns for displaying gradients:
+       'gradient': display four gradient bars (black to white / red / green / blue)
+       'gradient R', 'gradient G', 'gradient B': red/green/blue gradient
+       'gradient r', 'gradient g', 'gradient b': ditto, but different algorithm
+  * new options:
+    -> DSPAREAWIDTH, DSPAREAHEIGHT (both optional): user definable display area dimension 
+       (used for calculating aspect ratio)
+    -> BRIGHTNESS (values: 0 (dark) to 100 (full brightness))
+       (for all displays/modules with support for 'CONTRAST')
+  * output device:
+    -> usb: additionally accept textual device names like "FTDI/DLP2232M" (additionally to "0x403/0x6010")
+    -> usb: support for protocol differentiation (e.g.: USB@SPI) added.
+            (better differentiation between 'connection types' and 'protocols' in code and messages,
+             removed 'USBSPI' as connection type ('USB@SPI' now to be used instead))
+  * serdisp_control.c:
+    -> additionally accept hexadecimal values for options (if starting with 0x or 0X)
+    -> support added for additional (optional) field 'mid_contrast':
+       (to be able to use a power function based calculation of the contrast values)
+  * serdisp_colour.c / serdisp_tools.c / serdisp_control.c:
+    -> added functions, support, and enhancements for colour depths 18 (RGB666), 24, and 32
+    -> bugfix for macro SD_CS_ISGREY()
+  * serdisp_tools.c:
+    -> support for calculating bounding boxes added (sdtools_calc_bbox())
+    -> support for simple libm-independend replacements for log(), exp(), and pow()
+
+- enhancements to ./configure and Makefiles
+  * new option --enable-libSDL: enable driver 'directgfx' / SDL-output
+  * cleaner linking (only link shared objects that are really required)
+  * removed many bumps that caused problems with opensolaris and freebsd/pcbsd
+  * many cleanups
+
+- display driver bug-removal and enhancements
+  * alphacool:
+    -> usb initialisation problem (every 2nd start no output) solved
+       (but a minor problem where de-initialisation may last some seconds remains)
+  * n6100/s1d15g10:
+    -> initialisation/resetting of scrolling commands added
+  * l4m132c: added support for
+    -> depth=1  (faster output)
+    -> setting of fore/background colours (when using depth=1)
+    -> resolution mode 128x64 (spare pixels are then used for visual IR signal confirmation)
+    -> setting of alarm time (only if supported by firmware of module)
+
+- new displays/controllers:
+  * USB13700-module support
+  * new driver 'directgfx' with support for SDL-output
+  * LC7981-based displays (so far: DG-16080 series)
+  * BL160128A added to ssdoled.c: Bolymin BL160128A colour OLED, 160x128, 18bit
+  * 4DOLED282815 added to ssdoled.c: 4DOLED-282815 colour OLED, 128x128, 18bit
+
+- new tools
+  * l4m132c_tool (standalone tool for l4m132c modules):
+    -> change bootlogo
+    -> set alarm time / alarm days
+    -> set module time
+    -> change contrast/brightness
+  * sdcmegtron_tool (standalone tool for sdcmegtron modules):
+    -> change bootlogo
+    -> save screenshot
+    -> change brightness
+
+- many cleanups and small bugfixes (eg: enforcing/fixing scope visibility limits)
+  * see SVN revision log for detailed information
+
+
+2008-07-31: v1.97.8
+- enhancements / bug-removal / changes
+  * testserdisp.c: changed starting point of moving box in pattern #6
+  * bitbake file is now created automatically using PACKAGE_VERSION
+  * serdisp_control.c: serdisp_clear() is now customisable by the driver
+    (to be able to support 'clear' commands)
+  * testserdisp.c: new test pattern 'gshade' (draws a grey level pattern)
+  * testserdisp.c: new test pattern 'rgbtest' (draws a test pattern (RGB/CMYK) for colour displays)
+  * testserdisp.c: pattern 'p 6' now draws coloured bars in the background on colour displays
+  * testserdisp.c: commands 'sl' and 'sr' no longer crash on erraneous input
+  * testserdisp.c: pattern 'p 0' now draws coloured digits on colour displays
+  * serdisp_connect_usb.c: claiming of interface now immediately after usb_open()
+  * added conversion functions for internal/external represenation of contrast and rotation value
+
+- enhancements to ./configure
+  * drivers are now (de)selectable using --with-drivers=driver1,driver2 or 
+    --with-drivers=all,!unwanteddriver1,!unwanteddriver2
+  * new option --enable-statictools  (default = yes)
+    links testserdisp and multidisplay statically to libserdisp.a (if ==no: dynamically to libserdisp.so)
+
+- display driver bug-removal and enhancements
+  * nokcol driver:
+    -> added 12bit colour modus for S1D15G10-based displays (wow, that was a pain in the a...)
+    -> corrected incorrect setting of contrast for S1D15G10-based displays
+
+  * FTDI support
+    -> enhanced and enabled support for FTDI 2232 and 245 modules
+       (for drivers supporting streaming and if the display/controller is connected to the parallel port)
+    -> two modes are supported for now: SPI (8 and 9bit) and direct IO (up to 8 signal lines)
+
+  * t6963 driver
+    added new item 'scrbuf_bits_used' to struct 'serdisp_s'.
+    'scrbuf_bits_used' replaces field 'fontwidth' which has been removed.
+
+  * l4m driver
+    added support for colour display modules 132x65
+    interfaces are no longer hard-wired but now auto-detected
+
+  * sed153x driver
+    removed nasty typo (introduced in 1.97.5 and undiscovered since then) which rendered
+    - Alps LSU7S1011A display modules and
+    - Optrex 323 display modules
+    unusable when connected using default wiring
+
+  * sed133x driver
+    initialisation rewritten
+    - now bigger panels should work
+    - dual panel displays are now supported (untested)
+    support for s1d13700-based displays added
+
+  * ks0108 driver
+    inverted EN-signal when connected to parport -> improved signal quality (thanks to Alexey Martynov)
+
+  * removal of code-redundancy
+    -> drivers lh155, nokcol, sed133x, and t6963 now use generic set/getpixel_greyhoriz from serdisp_tools.c
+
+- new displays/controllers:
+  * goldelox support for displays that are driven by the GOLDELOX-MD1 module
+  * stv8105 for Osram Pictiva OLED 256x64
+  * Digital Devices 132x65 colour display module
+  * S1D13700-based displays (added to sed133x-driver)
+  * Ericsson T65 (pinout and controller compliant to Ericsson R520)
+
+
+2007-10-08: v1.97.7  (= SVN rev.15)
+- enhancements / bug-removal
+  * serdisp_connect_usb.c:
+    move interface-claiming part into separate function and do the claiming stuff not until the end 
+    of SDCONNusb_open() - now alphacool usb-display works fine with solaris10 and init-problems seem
+    to be fixed
+  * serdisp_connect.h:
+    small hack for c++-based projects: hide label of field 'signals' in struct serdisp_CONN_s
+    (the library will/should always be compiled with gcc, so this hack shouldn't lead to any problems)
+  * fixed erraneous pinouts in PINOUTS (S1D15G10-based displays and PCF8511)
+
+- some preparations for re-merging 1.97.x-tree with devel-tree
+
+- changes in bitbake file for openembedded linux
+  * added do_stage()-section
+  * minor changes
+
+- display driver bug-removal and enhancements
+  * ssdoled driver:
+    -> fixed min/max-contrast settings for Osram Pictiva 128X64 OLED 4bit
+  * nokcol driver:
+    -> x/y startpos offset now variable through options OFFSETX and OFFSETY:
+       Abhishek uses shiftx=0 and shifty=2; my displays use 1/1.
+       so i made both offset settings variable (default: OFFSETX=1;OFFSETY=1)
+
+- new displays/controllers:
+  * linux4media L4M-5Ei usb-device (libusb and ioctl/hiddev)
+    (cool usb-display with IR-sensor that connects as HID-device that is working out of the box when
+     using linux)
+  * alphacool 200x64 and 240x128 usb displays  (libusb)
+
+
+2007-07-31: v1.97.6 (2nd driver backport release)
+- fixed potential linking problem in src/Makefile (thanks to Bernhard Walle):
+  libserdisp.so is now linked against libusb (if --enable-libusb is set)
+
+- enhancements / bug-removal
+  * serdisp_tools.c: corrected bug in sdtools_strncpy() when force-setting string termination
+  * serdisp_tools.c: sdtools_generic_get/setpixel() now capable of depth = {1,2,4,8,12,16}
+  * serdisp_tools.c: get/setpixel-routines for displays with horizontal bit-orders added
+  * serdisp_colour.c: colour routines added, support for handling of self emitting displays (eg. OLEDs)
+  * testserdisp.c: support for OLED-displays (inverse handling of default foreground/background colour)
+  * testserdisp.c: 'test' now displays a colour/greyscale test image if applicable.
+                   to force a black/white test image, 'bwtest' should be used
+                   to force a greyscale or colour test image, 'ctest' should be used
+
+- extended display support
+  * nokcol driver:
+    -> added support for S1D15G10-based displays (green connector, nokia 6100 and co. (130x130 colour displays)
+       contributed by Abhishek Dutta
+    -> driver now uses generic sdtools_generic_get/setpixel() functions
+  * PCD8544 driver:
+    -> added support for PCF8511-based displays (nokia 5310, 6310)
+       contributed by Jeroen Domburg
+
+- backported the following displays/controllers (from current devel version):
+  * Osram Pictiva 96X36 OLED 1bit, 1", monochrome
+  * Osram Pictiva 96X64 OLED 16bit, 1", colour
+  * Osram Pictiva 128X64 OLED 4bit, 2.7", greyscale
+
+- some countless minor changes / code beautifyings
+
+
+2007-03-07: v1.97.5  (driver backport release)
+- adapted some driver specs to current devel version 
+  (following to this all serdisp_specific_*.h were now obsolete and have been removed)
+- backported the following displays/controllers (from current devel version):
+  * lh155-based displays (eg. Sharp M078CKA 240x64) - only 8080-mode supported for now
+  * E08552 96x32 1bit (controller SED1530)
+  * enhanced t6963-driver:
+    -> includes support for parallel-to-serial converters found in some t6963c-based display modules
+    -> support for switchable background light (RD-signal no longer available thus ready-check no longer available when
+       using this mode!)
+  * slightly fastened sed133x-driver: improved clock-cycles from 4 to 3 steps 
+
+
+2007-02-22: v1.97.4  (very small interim error fix release)
+- bug removal in ctinclud drawing routines
+- bug removal in serdisp_messges.h: fixed missing bracketings in some defines
+- bug removal in src/Makefile.in: LIB_NAME=libserdip -> LIB_NAME=serdisp (the former resulted in liblibserdisp.so... )
+- serdisp.spec: dependency changed from libusb to libusb-devel
+- version information in serdisp_control.h now generated using configure
+
+2007-02-11: v1.97.3  (very small interim error fix release)
+- bug removal in n3510i-driver 
+  (descripted here: http://sourceforge.net/tracker/index.php?func=detail&aid=1522810&group_id=98249&atid=620440)
+  allocating an empty struct caused n3510i to fail because of sdtools_malloc() returning 0
+
+
+2006-04-02: v1.97.2  (interim problem solve release)
+- bug(?)/problem removal
+  * usb_bulk_read() causes some problems on certain linux-versions: replaced through usb_clear_halt()
+    (usb_bulk_read() would be the right way to go, but it may cause big problems (no clue why...))
+
+  * $(TARGET_LDFLAGS) included in Makefiles (for cross-compiling)
+
+
+2006-03-27: v1.97
+
+- bug removal
+  * serdisp_connect.c: 
+    section linux-includes: include sys/io.h only if directIO is supported 
+    (otherwise useless or even leading to comp. errors) - thanks to Christoph Haderer for pointing this out
+    bugs removed in SD_CS_IS_*:  | was used instead of &
+    
+  * serdisp_specific_sed133x.c:
+    added an extra NOP at the end of the update-function to avoid erraneous pixels when releasing the parallel port
+
+  * multidisplay
+    corrected a bug resulting in a wrong background colour when in dithering mode (since v.1.96)
+
+- enhancements
+  * a SONAME is now set in libserdisp (enabled only when using linux)
+  
+  * additional functions SDCONN_writedelay() and SDCONN_commit() in serdisp_connect.c
+  
+  * serdisp_nokcol.c: set min/max_contrast borders to useful values for n3510i/n3530
+
+  * serdisp_connect.c: new signal aliasnames: AD0-AD7, BD0-BD7 (BD4-BD7 for usb devices only)
+  
+  * serdisp_specific_ed156x.c: changes to enable generic backlight support
+  
+  * enhanced accuracy for serdisp_ARGB2GREY(): using (77*r + 150*g + 28*b) / 255 instead of (30*r + 59*g + 11*b) / 100.
+    thanks to Michael Reinelt (maintainer of lcd4linux) for pointing this out
+
+  * new connection type: SERDISPCONNTYPE_IOW24: for c't includ display using iowarrior kernel module by codemercs  
+  * USB support via libusb (for now: IO Warrior 24 / c't includ display) - 
+    disabled by default (see README for additional info)
+  
+
+- new displays supported
+  * ericsson r520 displays (101x67, 4 grey levels, i2c. thanks to z01 from lcdinfo-forum for tracing the i2c-traffic)
+  * ks0108-based displays (up to 4 controllers, > 2 controllers when using a multiplexer)
+  * c't includ usb-display (ks0108/io warrior 24-based - www.includ.de)
+
+- multidisplay
+  * removed option -l (threshhold level) because it was useless anyways 
+    (since some changes in the floyd steinberg algorithm)
+  * new option -S (scaling algorithm)
+  * animation support (new option -L <loops>)
+  * graphlcd's .glcd-images supported (single and animated)
+  * multiple image-file support for -f (note that -f should be the last parameter)
+    if more than one image file is given for -f, a slideshow will be done by multidisplay
+  
+- architecture support
+  * linux/mips successfully runs serdisplib. tested by Christoph Haderer (on his Asus WL-500G router).
+    he also created a serdisplib package for openwrt (http://www.openwrt.org)
+
+- limitations:
+  * usb support (libusb) is not working with solaris and freebsd at the moment
+    (solaris: unsolved problems with rights for interface 1)
+
+- postponed to next release v1.98:
+  * GPOs (general purpose objects), eg. symbols, leds, ... that are supported by certain displays
+  * generic FTDI support 
+    (it is working, but some things are still missing and the whole implementation is not tested very well. 
+     so support for FTDI-chips has been disabled in this release)
+
+
+2005-10-19: v1.96
+- many internal changes (again and again):
+  * replaced disp_code through disp_id. disp_id is no longer a unique code but a id used within a driver to differ 
+    display types supported by the driver
+  * removed all display codes (from now on distinguishing between displays using the display name or an alias name)
+  * cleaned up source tree
+  * enabled serdisplib for autoconf (not 100% perfect for now, but working quite fine - tested on linux and solaris)
+  * removed PPEXCL when connecting to the parallel port because that caused problems with lp-based programs connected 
+    to another parallel port (thanks to Michael Reinelt)
+  * replaced dd->curr_reverse / dd->feature_reverse / FEATURE_REVERSE through 
+    dd->curr_invert / dd->feature_invert / FEATURE_INVERT to avoid two names for the same thing 
+    (to guarantee backward compatibility: FEATURE_REVERSE is now a define to FEATURE_INVERT)
+  * serdisp_reset() rewritten. now this function only does a display reset (device reset broke this function sometimes).
+    to do a full reset of device and display use:
+  * serdisp_fullreset(): does a full reset of the device, display, and contrast. 
+    if resetting was successful a new display descriptor is returned.
+
+- deprecated functions / routines:
+  * serdisp_feature() is now deprecated (superseded by serdisp_setopion())
+  
+- new functions / routines:
+  * serdisp_getoption(), serdisp_setoption(), serdisp_isoption(), 
+    serdisp_getoptiondescription(), serdisp_nextoptiondescription() .. get/set/query options
+  * serdisp_getdisplayname(), serdisp_isdisplay(), serdisp_getdisplaydescription(),
+    serdisp_nextdisplaydescription(), serdisp_currdisplaydescription() .. query display informations / settings
+  * serdisp_transcolour(), serdisp_transgrey(),    .. hardware independend colour info to hw dependend format
+    serdisp_lookupcolour(), serdisp_lookupgrey()   .. hardware dependend colour info to independend format
+
+- new defines / macros:
+  * SERDISP_VERSION_GET_MAJOR(versioncode) and SERDISP_VERSION_GET_MINOR(versioncode)
+  * sd_getdebuglevel(), sd_setdebuglevel()  .. get/set the debug level
+  * sd_setlogmedium()  .. set the medium where to output debugging information
+
+- new display category: colour displays
+
+- new displays supported: 
+  * nokia 3510i / 3530 colour displays (98x67, 256 or 4096 colours)
+  * lph7508 displays (100x64 monochrome; using display module kit by pollin)
+  * Hyundai HP12542R displays (128x64 monochrome; using display module kit by pollin) - thanks to cypher_head, I30R6
+
+- testserdisp and multidisplay
+  * version information (new option -V)
+  * extended help showing supported displays and display information
+  * testserdisp now only shows interactive commands that are supported by the active display when entering 'help'
+  * testserdisp: new interactive commands 'i' / 'info' and 'fg'  (enter 'help' for more information)
+  * multidisplay: fixed bug in option -B (backlight on/off)
+
+- .spec file included for generating RPMs for RedHat/Fedora-based distributions (see README for further informations)
+
+
+2005-05-10: v1.95
+- bug removal:
+  * setpixels()
+    erraneous loop-calculations corrected (reported by anonymous person at sourceforge bug forum)
+  * strncpy-calls replaced through sdtools_strncpy using a workaorund to avoid strncpy-bugs
+    strlcpy is used on solaris to avoid strange behaviour of strncpy when n < 4
+    there also seems to be a problem on linux with strncpy ...
+  * corrected a bug in serdisp_blink() - now all displays should be able to blink (by inverting the screen)
+
+- many internal changes
+  * dd now stores colour depth instead of amount of colours
+  * restricted colour depth to a maximum of 8 (may be extended in the future. 
+    at the moment, only colour depth 1 is used anyways)
+  * logical to physical x/y positions are calculated using relocation tables; thus the following was possible:
+    - driver specific get/setpixel functions were replaced through generic set/getpixel functions
+    - optrex 323 support is now accomplished by sed1530 driver 
+      (sed1530 and sed1531 (used by optrex 323) are using the same command set and protocol)
+      new name of module: serdisp_specific_sed153x.c|h
+  * memset instead of loops for serdisp_clearbuffer() and serdisp_rewrite()
+  * many unlisted internal enhancements and code-beautifyings
+  * setpixel()/getpixel(): type change
+    parameter 'colour' changed from int to long, getpixel returns now long instead of int
+    (recompilation the whole stuff should do it. on 32-bit machines, int and long are both 4 byte)
+    background: long is always 4 bytes, int is not (16-bit architectures: 2 byte, 32-bit: 4 byte)
+
+
+- 90 and 270 degree rotations added
+  * now displays may be rotated 0, 90, 180, and 270 degrees
+    eg: a 96x65 display may be used as a 65x96 display if rotated 90 or 270 degrees 
+
+    NOTA BENE: dd->height and dd->width will always return unrotated height and width, 
+               use serdisp_getwidth(dd) and serdisp_getheight(dd) to get width and heigth when display is rotated.
+
+- customisable wirings and options (key-value pairs separated by semi-colons)
+  * serdisp_init() now understands key-value pairs which may contain options (eg. INVERT=YES) and wiring definitions
+  * enhanced serdisp_connect.c which now also supports parallel displays and reading from the parallel port
+    (thanks to Andreas 'powARman' Regel for helping me find and eliminate mistakes)
+  * renamed serdisp_conntype_s.conncode to serdisp_conntype_s.conntype 
+    (defines now are called "CONNTYPE" and not longer "CONNCODE")
+
+- new methods for serdisp_control
+  * serdisp_getpixelaspect()
+    get pixel aspect ratio (useful for displays with non-quadratic pixels)
+  * serdisp_getdepth()
+    get colour depth
+  * serdisp_getversioncode()
+    get version code of serdisplib
+    
+- testserdisp
+  * time measuring (ts=1) 
+  * setpixel()/getpixel() replaced through more generic setcolour()/getcolour
+
+- new displays supported: (serdisplib goes parallel!)
+  * Toshiba TLX-1391 (128x128)
+  * generic T6963-display support (default resolution: 240x128)
+    (thanks to Andreas 'powARman' Regel for testing generic support using his 240x128 display)
+  * SED 1330/1335-based displays
+  * nec 21a ("skyper") display module support (sed1561)
+  * lph7690 display (look at 'pcd8544 driver enhancements' below)
+
+- operating systems and compiler support:
+  * support added for solaris 10 (ecpp only). tested on solaris 10 x86
+  * support for *BSD suspended due to lack of interest (will be resumed if someone finally tests it)
+  * tested with gcc 2.96, gcc 3.x, and gcc 4.0
+  * pointer operations are all 64-bit aware
+    
+- pcd8544 driver enhancements (driver now supports pcd8544 and compliant command sets):
+  * unused signal CS removed (circuits, descriptions, ... have been adapted, too)
+  * added support for lph7690-displays (found in nokia 6210/6310 and others). resolution: 96x60
+      
+- new tool 'multidisplay'
+  * displays pictures (jpg, png for the moment) 
+    auto-scaling and auto-pixel aspect ratio correction
+  * displays messages or files
+  * displays variable command output
+  * picture may be set as background for text output
+  * libgd used for picture processing and generating text-output
+    -> 5 built-in fonts
+    -> support for truetype fonts
+
+
+2004-07-22: v1.94
+
+- new display supported: 
+  * ALPS LSU7S1011A, controller SED1530  (sold by pollin.de)
+
+- start with some internal aggregation and enhancements
+
+
+2004-07-18: v1.93
+
+- serdisplib: version info:
+  * SERDISP_VERSION_MAJOR, SERDISP_VERSION_MINOR:
+    major and minor version number of currently installed serdisplib
+  * SERDISP_VERSION_CODE: version code of currently installed serdisplib
+  * SERDISP_VERSION(a,b): calculates a SERDISP_VERSION_CODE
+
+  eg: #if SERDISP_VERSION_CODE < SERDISP_VERSION(1,93)
+      if (SERDISP_VERSION_CODE >= SERDISP_VERSION(1,92)) ....
+
+- serdisplib: beautifying:
+  * code beautifying and removing warnings in all modules
+
+  * replaced fprintf()-messages through sd_debug() and sd_error() which use syslog()
+    sd_error() also sets an error string (sd_errmsg) which can be used for own error messages
+
+  * sd_runtime_error() returns whether a runtime error occured (eg: ioctl-commands where unsuccessful)
+
+- new display type supported: i2c-displays
+  * ericsson t2x displays (eg: t28)  (101x33 pixels)
+
+- new output device supported:
+  * serial port (only for i2c-displays),
+    either ioctl (eg: /dev/ttyS0) or direct-IO (eg: 0x3f8)
+
+- serdisp_control: new / changed functions:
+  * serdisp_getSDCONN(): get serdisp connect descriptor
+  * serdisp_reset(): resets display (resets sd_runtime_error() and tries to re-init output device)
+  * serdisp_quit(): release output device and close display
+  * serdisp_close(): release output device but do NOT clear and close display
+                     (this may be used for example for programs that display a message and quit)
+
+                     ATTENTION: this does NOT work with serial port in combination with ioctl!
+                                (serial port in combination with direcct-IO works as expected)
+
+- serdisp_control: new elements in display descriptor
+  * delay:  how many nanoseconds to delay after each write-operation
+  * connection_types: which connection types (parport, serport, ..) are supported by display  
+
+- serdisp_specific_*.c
+  * corrected bug in serdisp_feature(): FEATURE_ROTATE now works as expected
+
+- changes to api: 
+  * in the future, more output devices will be supported
+    (besides parport and since this release serport for i2c)
+    thus serdisp_parport.h, PP_open, PP_close and PP_write where replaced through
+    serdisp_connect.h, SDCONN_open, SDCONN_close and SDCONN_write.
+    also the descriptor serdisp_PP_t was renamed to serdisp_CONN_t
+
+    for backward compatibility serdisp_parport.h is still existing and contains defines
+    that resemble the old names (but it is recommended to only use serdisp_connect.h)
+
+    no display descriptor fields should be accessed directly. so ONLY serdisp_close() or
+    serdisp_quit() should be used for shutting down the output device (no more SDCONN_close(dd->sdcd);)
+
+  * SDCONN_read will be used for reading data from the output device (eg: i2c acknowledge bit)
+
+- testserdisp
+  * better/corrected error messages, printing of usage
+  * some cleaning up
+  * additional parameters (type 'help' at the prompt)
+  * test picture is now generated, no more *.xbm are needed
+  * test picture now displayed after starting testserdisp
+  * some more/changed/better test patterns
+
+- serdisp_specific_optrex323.c
+  * #define OPT_MRPROPER no longer activated -> speedup (in some cases enormous speedup)
+    (if you face faulty pixels at the two unused borders, please reactivate)
+
+- Makefile
+  * mkdir -p now used for recursively creating $(DRIVERINCLUDE_PATH)/serdisplib
+    (thanks to Alan Carvalho for this hint)
+
+- serdisplib now compiles under the following operating systems:
+  * linux   (compiles and tested with kernel 2.4.x and 2.6.x)
+
+  * freebsd (compiles, but not tested; only ioctl for now)
+  * openbsd (compiles, but not tested; only ioctl for now)
+  * netbsd  (should compile, could not verify)
+
+
+
+2004-03-22: v1.92
+- changed version numbering back from beta to number format
+- removed common history information from source file
+  history information can now be found here
+- new: serdisp_tools. will contain handy functions
+    sdtools_genericrotate ... (unoptimised) rotation of display
+                              will be unoptimised because it will be nearly
+                              never used anyway
+- changes to api: 
+  * now both, direct outp and ioctl-calls are supported for writing to the 
+    parport
+    instead of a filedesc ('int fd') a struct 'ppd' (parport descriptor)
+    is now used
+    (thus changed: PP_open, PP_close, PP_write, serdisp_init)
+
+  * additional parameter for serdisp_init:  char extra[]
+    can be (char*)0, "" or additional settings (future use)
+    may contain settings like non-standard wiring, non standard dimensions, ...
+
+- now more than 8 pages are supported for monochrome displays
+
+- functions added:
+    serdisp_getpixel      ... gets colour at position (x/y)
+- version information added to serdisp_control.h
+
+- two new fields in dd-struct:  startxcol and startycol (needed for example by nokia 7110)
+
+- new display/controller supported: nokia 7110 (or generic: controller sed1565)
+  "NOKIA7110" (96x65 nokia 7110 display)
+  "SED1565"   (132x65 generic. don't use this with nokia7110, use string above)
+
+- enhanced makefile
+  now both, static and shared library are built when 'make install'
+  include-files are now installed, too
+
+- corrected minor bugs (typos, misleading comments, ... )
+
+
+2004-02-04: v1.9b1
+- corrected some typos
+- tarball now unpacks into separate directory
+
+2004-02-03: v1.9b: first release to the public
+
+2004/Jan    rewrite again. be more modular and generic
+            html-pages for serdisplib went into production (hardware, ...)
+            (http://serdisplib.sourceforge.net)
+
+2003/Dec    rewrite  (support for new display class: += pcd8544-based ones)
+
+2003/July   start of library (only display: optrex 323)
+            library is used only as sub-system for graphlcd for now
+
+
+former version were experimental w/o useful Makefile 
+and stuff like that (first functioning version: ~ july 2003)

@@ -1,0 +1,189 @@
+=encoding utf8
+=head1 NAME
+
+F<epgsearchuservars.conf> - Die Uservariablen
+
+=head1 BESCHREIBUNG
+
+In dieser Datei können Variablen definiert werden die dann in epgsearch
+in allen Feldern, in denen Variablen möglich sind, zur Verfügung stehen.
+
+=head1 FORMAT
+
+Die Variablen selbst sind in dem Format %Variablenname% aufgebaut.
+
+"Variablenname" kann aus alphanumerischen Zeichen bestehen, Leerzeichen
+und Sonderzeichen sind nicht erlaubt.
+
+Zwischen Gross-/und Kleinschreibung wird nicht unterscheiden.
+
+Beispiele für mögliche Namen:
+
+ %Serie% %DokuVar1% %ThemesSubtitleDate1%
+
+=head2 Zuweisung
+
+Die Zuweisung eines Wertes erfolgt so:
+
+ %Serie%=Neue Serie~Krimi
+
+Hier wird der Variablen %Serie% die Zeichenkette "Neue Serie~Krimi" zugewiesen.
+
+Es wird immer eine Zeichenkette zugewiesen. Leerzeichen werden daher auch
+als Leerzeichen mit übernommen.
+
+ %Pfad%=%Serie%
+
+Hier wird der Variablen %Pfad% der Inhalt der Variablen %Serie% zugewiesen.
+
+Das lässt sich beliebig verwenden.
+
+ %Pfad%=%Serie%~Tatort
+
+Pfad enthält hier den String "Neue Serie~Krimi~Tatort".
+
+=head2 Kontroll-Strukturen
+
+Einfache "if then else" Konstrukte sind mögliche.
+
+Innerhalb dieser Konstrukte können keine Strings, wohl aber Variablen
+zugwiesen werden. Leerzeichen werden ignoriert.
+
+ %Foo%=Verschiedenes
+
+ %Variable%=%Pfad% ? %Pfad% : %Foo%
+
+Ist Pfad nicht leer, weise %Variable% den Inhalt aus %Pfad% zu, sonst
+den Inhalt aus %Foo%.
+
+"%Pfad% ?" bedeutet also "nicht leer?". Es sind auch andere Prüfungen
+möglich.
+
+ %Variable%=%Pfad%!=5 ? %Pfad% : %Foo%
+
+"%Pfad%!=5 ?" bedeutet "ist %Pfad% ungleich 5?"
+
+Es können auch Variablen verglichen werden.
+
+ %Fuenf%=5
+
+ %Variable%=%Pfad%!=%Fuenf% ? %Pfad% : %Foo%
+
+
+Folgende Prüfungen sind möglich:
+
+ ==   ist gleich
+ !=   ist nicht gleich
+
+=head2 Systemaufruf
+
+Es können auch externe Programme/Scripte aufgerufen werden. Die zurück-
+gegebene Zeichenkette wird dann einer Variablen zugewiesen.
+
+ %Ergebnis%=system(scriptname,%Variable1% %Variable2% -f %Variable3% --dir=%Variable4% --dummy)
+
+Ruft das Script "scriptname" mit den Parametern "%Variable1%",
+"%Variable2%", usw. auf. Das Ergebnis wird der Variablen %Ergebnis%
+zugewiesen.
+
+Es sind beliebig viele Variablen möglich.
+
+Wenn nötig, umfasst epgsearch die Variablen automatisch mit "".
+
+Das Script darf nur eine Zeichenkette ohne Zeilenumbruch zurückgeben.
+
+Erfolgt keine Rückgabe wird der Variablen %Ergebnis% eine leere Zeichenkette
+zugewiesen.
+
+=head2 Verfügbare Variablen
+
+Folgende Variablen sind bereits intern definiert und können verwendet
+werden.
+
+ %title%          - Title der Sendung
+ %subtitle%       - Subtitle der Sendung
+ %time%           - Startzeit im Format HH:MM
+ %timeend%        - Endzeit im Format HH:MM
+ %date%           - Startzeit im Format TT.MM.YY
+ %datesh%         - Startdatum im Format TT.MM.
+ %time_w%         - Name des Wochentages
+ %time_d%         - Tag der Sendung im Format TT
+ %time_lng%       - Startzeit in Sekunden seit 1970-01-01 00:00
+ %chnr%           - Kanalnummer
+ %chsh%           - Kanalname kurz
+ %chlng%          - Kanalname lang
+ %chdata%         - VDR's interne Kanaldarstellung (z.B. 'S19.2E-1-1101-28106')
+
+ %summary%        - Beschreibung
+ %htmlsummary%    - Beschreibung, alle CR ersetzt durch '<br />'
+ %eventid%        - Event ID
+
+ %colon%          - Das Zeichen ':'
+ %datenow%        - Aktuelles Datum im Format TT.MM.YY
+ %dateshnow%      - Aktuelles Datum im Format TT.MM.
+ %timenow%        - Aktuelle Zeit im Format HH:MM
+ %videodir%       - VDRs Aufnahme-Verzeichnis (z.B. /video)
+ %plugconfdir%    - VDRs Verzeichnis für Plugin-Konfigurationsdateien (z.B. /etc/vdr/plugins)
+ %epgsearchdir%   - epgsearchs Verzeichnis für Konfiguratzionsdateien (z.B. /etc/vdr/plugins/epgsearch)
+
+Desweiteren können die in der Datei F<epgsearchcats.conf> definierten Variablen
+verwendet werden. Siehe dazu C<epgsearchcats.conf(5)>.
+
+=head1 BEISPIELE
+
+ # Wochentag, Datum, Uhrzeit
+ %Datum%=%time_w% %date% %time%
+
+ # Themes oder Subtitle oder Datum
+ %ThemesSubtitleDate1%=%Subtitle% ? %Subtitle% : %Datum%
+ %ThemesSubtitleDate%=%Themes% ? %Themes% : %ThemesSubtitleDate1%
+
+ # Rufe das Script auf das den Aufnahmepfad erzeugt
+ %DokuScript%=system(doku.pl,%Title%,%Subtitle%,%Episode%,%Themes%,%Category%,%Genre%)
+ %Doku%=%DokuScript%
+
+=head1 SIEHE AUCH
+
+C<epgsearch(1)>, C<epgsearchcats.conf(5)>
+
+=head1 AUTOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 FEHLER MELDEN
+
+Fehlerberichte bitte im Bugtracker.
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailinglist:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT and LIZENZ
+
+Copyright © 2004-2010 Christian Wieninger
+
+Dieses Programm ist freie Software. Sie können es unter den Bedingungen
+der GNU General Public License, wie von der Free Software Foundation
+veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 2
+der Lizenz oder (nach Ihrer Option) jeder späteren Version.
+
+Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es
+Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die
+implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN
+ZWECK. Details finden Sie in der GNU General Public License.
+
+Sie sollten ein Exemplar der GNU General Public License zusammen mit
+diesem Programm erhalten haben. Falls nicht, schreiben Sie an die
+Free Software Foundation, Inc. 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+Oder rufen Sie in Ihrem Browser http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+auf.
+
+Der Author kann über cwieninger@gmx.de erreicht werden.
+
+Die Projektseite ist http://winni.vdr-developer.org/epgsearch
+
+Der MD5-Code ist abgeleitet aus dem Message-Digest Algorithm
+von RSA Data Security, Inc..
+

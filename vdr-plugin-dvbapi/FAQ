@@ -1,0 +1,46 @@
+Q: When I start VDR than I need to zap twice to the same channel to have it
+   working.
+
+A: This problem would probably only affect a live streaming plugins.
+   Since version 2.0.0 the plugin is not obtaining PMT data when VDR doesn't
+   provide CA descriptors, to have it done properly, only VDR should provide it.
+   VDR is collecting this data after channel switch and during idle scan.
+
+   If you have this problem, the streaming plugin has to implement VDR's 2.1.4
+   cStatus::ChannelChange() interface which informs about channel changes.
+   After retune the dvbapi plugin will be able to pass complete information
+   to OSCam.
+   Please ask the streaming plugin author to make necessary changes.
+
+
+Q: The plugin is not sending EMMs to my card, and my card is not working
+   after some period.
+
+A: When you're using dvbapi plugin, then EMM (and also ECM) handling is done
+   totally on oscam side. So the EMM doesn't even reach the plugin, because
+   oscam in dvbapi mode is opening demux and filter EMMs, which are then passed
+   to oscam readers.
+   When you enable 128 debug in oscam you'll see that after channel switch it
+   prints eg:
+   [DVBAPI] Demuxer #0 has 6 ecmpids, 2 streampids, 1 ecmfilters and 0 emmfilters
+
+   but after some time oscam is starting to filter EMM and the similar lines
+   appear in the oscam log:
+   [EMM Filter] starting emm filter type UNIQUE, pid: 0x00B6
+   [EMM Filter] starting emm filter type GLOBAL, pid: 0x00B6
+   [EMM Filter] starting emm filter type SHARED, pid: 0x00B7
+
+   and after this it prints the summary:
+   [DVBAPI] Demuxer #0 has 6 ecmpids, 2 streampids, 1 ecmfilters and 14 emmfilters
+   As you can see this time it has 14 emmfilters.
+
+   When oscam is writing EMM to the card, then similar log entries appear:
+   745DD0 r pho [conax] vdr emmtype=shared, len=180, idx=118, cnt=3: written (546 ms)
+
+
+Q: The plugin works fine when I am watching a single channel, but when I am using
+   more cards simultaneously (eg. several adapters are recording, one is used for
+   watching) then live-tv and recordings are "pixelated" and CPU load is high.
+
+A: It could be the problem of your CSA performance, if you're using FFdecsa, then
+   refer to the INSTALL file, 'FFdecsa compilation flags' section.

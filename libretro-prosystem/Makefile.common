@@ -1,0 +1,22 @@
+LIBRETRO_COMM_DIR := $(CORE_DIR)/../libretro-common
+INCFLAGS := -I$(CORE_DIR)
+
+ifneq (,$(findstring msvc2003,$(platform)))
+INCFLAGS += -I$(LIBRETRO_COMM_DIR)/include/compat/msvc
+endif
+
+SOURCES_C := \
+	$(CORE_DIR)/libretro.c \
+	$(CORE_DIR)/Bios.c \
+	$(CORE_DIR)/Cartridge.c \
+	$(CORE_DIR)/Database.c \
+	$(CORE_DIR)/Hash.c \
+	$(CORE_DIR)/Maria.c \
+	$(CORE_DIR)/Memory.c \
+	$(CORE_DIR)/Palette.c \
+	$(CORE_DIR)/Pokey.c \
+	$(CORE_DIR)/ProSystem.c \
+	$(CORE_DIR)/Region.c \
+	$(CORE_DIR)/Riot.c \
+	$(CORE_DIR)/Sally.c \
+	$(CORE_DIR)/Tia.c

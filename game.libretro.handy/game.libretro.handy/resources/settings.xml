@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="handy_gfx_colors" values="16bit|24bit" default="16bit"/>
+		<setting label="30002" type="select" id="handy_rot" values="None|270|90" default="None"/>
+	</category>
+</settings>

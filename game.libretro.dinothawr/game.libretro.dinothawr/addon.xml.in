@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.dinothawr"
+		name="Dinothawr"
+		version="1.0.0.10"
+		provider-name="Themaister, Agnes Heyer">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms></platforms>
+		<extensions>game</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Dinothawr v1.0</summary>
+		<description lang="en_GB">Dinothawr is a block-pushing puzzle game on slippery surfaces. It is your task to free the dinosaur hero&#39;s friends from their ice prison.
+
+Supported files: .game</description>
+		<license>Non-commercial</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.dinothawr</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<fanart>resources/fanart.jpg</fanart>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

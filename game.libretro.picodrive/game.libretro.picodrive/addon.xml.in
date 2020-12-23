@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.picodrive"
+		name="Sega - MS/MD/CD/32X (PicoDrive)"
+		version="1.96.0.16"
+		provider-name="notaz, fdave">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.genesis.6button" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>Genesis|Game Gear|SEGA Master System|Sega CD|Megadrive|Mega CD</platforms>
+		<extensions>bin|gen|smd|md|32x|cue|iso|sms</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Sega - MS/MD/CD/32X (PicoDrive) 1.96</summary>
+		<description lang="en_GB">Picodrive is yet another Megadrive / Genesis / Sega CD / Mega CD / 32X / SMS emulator heavily optimized for ARM.
+
+Authors: Dave (aka fdave, finalburn author) and notaz
+
+Supported files: .bin, .gen, .smd, .md, .32x, .cue, .iso, .sms</description>
+		<license>MAME</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.picodrive</source>
+		<assets>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

@@ -1,0 +1,120 @@
+=head1 NAME
+
+B<createcats> - helps you creating your own F<epgsearchcats.conf>
+
+=head1 SYNOPSIS
+
+B<createcats> [OPTIONS] F</path_to/epg.data>
+
+=head1 DESCRIPTION
+
+This tool is deliverd with the plugin and should exist in the plugins
+source directory after compilation. It helps you in creating your own
+epgsearchcats.conf, if the samples in directory 'conf' don't fit your needs.
+
+createcats takes your epg.data as argument and scans it for suitable
+EPG infos. Such an info is a set of a category name and a coresponding
+value at the beginning of a line (represented with '|') and has the
+form '|category: value', e.g.
+
+ |Genre: Action
+
+So simply call it with
+
+B<createcats> /path_to/epg.data
+
+The output is a file epgsearchcats.conf, that should be copied to your
+plugins config dir. Before using it, you should do some customizing,
+since not all things in the file will be suitable to be used as
+extended EPG info.
+
+=head1 OPTIONS
+
+The full set of arguments is:
+
+usage: B<createcats> [OPTIONS] F</path_to/epg.data>
+
+ -m N, --minappearance=N    the minimum number a category has to appear
+                            to be used
+ -v N, --maxvalues=N        values of a category are omitted if they exceed
+                            this number
+ -l N, --maxlength=N        the maximum length of a text to be accepted
+                            as a category value
+ -h, --help                 this help
+
+Some notes:
+
+=over 4
+
+=item -m N, --minappearance=N
+
+createcats counts how often a category is used in your current
+epg.data. If this is less than N, then this category will not be part
+of the resulting epgsearchcats.conf.
+
+=item -v N, --maxvalues=N
+
+if the number of values for a category is more than N then createcats
+will not output a value list for this category. As a consequence in
+epgsearch the menu item gets an edit item, that can be filled with
+every text. Else, the item gets a selection item, that lets you select
+from a list of values.
+
+=item -l N, --maxlength=N
+
+if the text length of a value is more than N, this value is not part
+of the value list.
+
+=back
+
+B<Hint:> Results are best, if your current EPG is as big as possible. So
+update it, if you are using an external EPG provider, before calling
+createcats.
+
+Please edit this file now, since it will contain also things not suitable.
+
+After that copy it to your plugins config directory.
+
+=head1 SEE ALSO
+
+C<epgsearch(1)>, C<epgsearch(4)>, C<epgsearchcats.conf(5)>
+
+=head1 AUTHOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 REPORT BUGS
+
+Bugreports (german):
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailinglist:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+
+=head1 COPYRIGHT and LICENSE
+
+Copyright (C) 2004-2010 Christian Wieninger
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+Or, point your browser to http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+The author can be reached at cwieninger@gmx.de
+
+The project's page is at http://winni.vdr-developer.org/epgsearch
+
+The MD5 code is derived from the RSA Data Security, Inc. MD5 Message-Digest Algorithm.

@@ -1,0 +1,453 @@
+<chapter id="add-your-driver">
+<title>Adding your driver to LCDproc</title>
+
+<sect1 id="add-your-driver-intro">
+<title>Introduction</title>
+
+<para>
+LCDproc is meant to be modular, it is relatively easy to add new input and
+output drivers to LCDproc.
+</para>
+
+<para>
+This chapter will explain you the major steps and few gotchas of adding your
+own driver to LCDproc. Enjoy!
+</para>
+
+<para>
+Be sure to read <xref linkend="programming"/> and <xref linkend="driver-api"/>
+as well.
+</para>
+
+<para>
+As a starting point you may take a look at the debug driver. It is available
+as <filename>server/drivers/debug.c</filename>.
+</para>
+
+</sect1>
+
+
+<sect1 id="driverrules">
+<title>Rules for accepting new drivers</title>
+
+<para>LCDproc is open source software. Anyone is free to take LCDproc's code, write
+his own driver and publish the modified sources somewhere again. If you want your
+driver to be included in LCDproc's code some conditions have to be met:</para>
+
+<orderedlist>
+<listitem>
+  <para>The hardware (display or enclosing product) is publicly sold
+  <emphasis>OR</emphasis> the schematics and firmware (if required) are publicly
+  available.
+    <footnote><para>Therefore I will not commit drivers for displays ripped out
+    from an old telephone for your private hardware project and are not
+    available otherwise.</para></footnote>
+  </para>
+</listitem>
+<listitem>
+  <para>The driver is released under (L)GPL and has an appropriate
+  copyright notice.</para>
+</listitem>
+<listitem>
+  <para>The submitter is or is acting on behalf of the original driver
+  developer.
+    <footnote><para>I will not submit drivers found somewhere on the internet and
+    submitted without the original developer's written acknowledgement.</para></footnote>
+  </para>
+</listitem>
+<listitem>
+  <para>The driver description contains a valid email address for contacting
+  the submitter or developer.</para>
+</listitem>
+<listitem>
+  <para>The code is commented <emphasis>AND</emphasis> includes appropriate
+  Doxygen comments, especially for internal / non-API functions.</para>
+</listitem>
+<listitem>
+  <para>End user documentation (updates to man pages <emphasis>AND</emphasis>
+  User's Guide in Docbook format) is available.</para>
+</listitem>
+<listitem>
+  <para>Driver options are described in the end user documentation
+  <emphasis>AND</emphasis> <filename>LCDd.conf</filename>.</para>
+</listitem>
+<listitem>
+  <para>The driver adheres to the style guide as described in <xref linkend="code-style"/>.</para>
+</listitem>
+</orderedlist>
+
+</sect1>
+
+
+<sect1 id="autoconfautomake">
+<title>Autoconf, automake, and Everything!</title>
+
+<para>How I Learned to Stop Worrying and Love the Configure Script</para>
+
+<para>
+It was decided pretty early in LCDproc's life to use GNU autoconf and GNU
+automake. This allows LCDproc to be ported to several platforms with much
+less effort. It can be quite daunting to understand how autoconf &amp;
+automake interact with each others and with your code, but don't be
+discouraged. We have taken great care in making this as simple as possible
+for programmers to add their own driver to LCDproc. Hopefully, you'll only
+have to modify two files, one for autoconf and one for automake.
+</para>
+
+<para>
+The first thing you need to do is to find a name for your driver, it should
+be as descriptive as possible; most drivers are named after their respective
+chipset, for example hd44780, mtc_s16209x, sed1330 and stv5730, others are
+named after the company that makes that particular LCD display, for example
+CFontz and MtxOrb. Remember that these names are case sensitive. In this
+chapter, we'll use myDriver (which is an absolute non-descriptive name).
+</para>
+
+<sect2 id="autoconf">
+<title>Autoconf and its friend, acinclude.m4</title>
+
+<para>
+You need to add your driver to function LCD_DRIVERS_SELECT of file
+acinclude.m4. This can be done in three steps.
+</para>
+
+<sect3 id="autoconf-step1">
+<title>Step 1</title>
+<para>
+First you need to add your driver name to the list of possible choices in the help screen.
+</para>
+
+<para>This:</para>
+<screen>
+AC_ARG_ENABLE(drivers,
+	[  --enable-drivers=&lt;list&gt; compile driver for LCDs in &lt;list&gt;.]
+	[                  drivers may be separated with commas.]
+	[                  Possible choices are:]
+	[                    bayrad,CFontz,CFontz633,CFontzPacket,curses,CwLnx,]
+	[                    glcdlib,glk,hd44780,icp_a106,imon,IOWarrior,irman,]
+	[                    joy,lb216,lcdm001,lcterm,lirc,ms6931,mtc_s16209x,]
+	[                    MtxOrb,NoritakeVFD,pyramid,sed1330,sed1520,serialVFD,]
+	[                    sli,stv5730,svga,t6963,text,tyan,ula200,xosd]
+	[                  'all' compiles all drivers;]
+	[                  'all,!xxx,!yyy' de-selects previously selected drivers],
+	drivers="$enableval",
+</screen>
+<para>becomes:</para>
+<screen>
+AC_ARG_ENABLE(drivers,
+	[  --enable-drivers=&lt;list&gt; compile driver for LCDs in &lt;list&gt;.]
+	[                  drivers may be separated with commas.]
+	[                  Possible choices are:]
+	[                    bayrad,CFontz,CFontz633,CFontzPacket,curses,CwLnx,]
+	[                    glcdlib,glk,hd44780,icp_a106,imon,IOWarrior,irman,]
+	[                    joy,lb216,lcdm001,lcterm,lirc,ms6931,mtc_s16209x,]
+	[                    MtxOrb,NoritakeVFD,pyramid,sed1330,sed1520,serialVFD,]
+	[                    sli,stv5730,svga,t6963,text,tyan,ula200,xosd,<emphasis>myDriver</emphasis>]
+	[                  'all' compiles all drivers;]
+	[                  'all,!xxx,!yyy' de-selects previously selected drivers],
+	drivers="$enableval",
+</screen>
+</sect3>
+
+<sect3 id="autoconf-step2">
+<title>Step 2</title>
+
+<para>Second, you need to add your driver to the list of all drivers.</para>
+
+<para>This:</para>
+<screen>
+allDrivers=[bayrad,CFontz,CFontz633,...(big list)...,tyan,ula200,xosd]
+</screen>
+<para>becomes:</para>
+<screen>
+allDrivers=[bayrad,CFontz,CFontz633,...(big list)...,tyan,ula200,xosd,<emphasis>myDriver</emphasis>]
+</screen>
+
+</sect3>
+
+<sect3 id="autoconf-step3">
+<title>Step 3</title>
+
+<para>Then last, you need to add your driver to be big switch-case in this function, see below.</para>
+
+<screen>
+		myDriver)
+			DRIVERS="$DRIVERS myDriver${SO}"
+			actdrivers=["$actdrivers myDriver"]
+			;;
+</screen>
+
+<para>
+If your driver only works in some platform or requires a particular library
+or header, you can add your autoconf test here. You can see how other drivers
+do it, but if you're not sure on how to do this, just send an email to the
+mailing list and we'll make it for you.
+</para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="automake">
+<title>Automake and its friend, Makefile.am</title>
+
+<para>Already half of the job is done! Not to bad, wasn't it? The rest
+should be just as easy. In this section, you'll be adding your driver to the
+file server/drivers/Makefile.am. As you can guess, it's the Makefile for the
+drivers. This can be done in three (or two) simple steps.</para>
+
+<sect3 id="automake-step1">
+<title>Step 1</title>
+
+<para>First, you need to add your driver to the list of drivers in this file,
+this list is called EXTRA_PROGRAMS.</para>
+
+<para>This</para>
+<screen>
+EXTRA_PROGRAMS = bayrad CFontz ...(big list)... ula200 xosd
+</screen>
+<para>becomes</para>
+<screen>
+EXTRA_PROGRAMS = bayrad CFontz ...(big list)... ula200 xosd <emphasis>myDriver</emphasis>
+</screen>
+
+</sect3>
+
+<sect3 id="automake-step2">
+<title>Step 2</title>
+
+<para>This second step is only needed if your driver needs a particular
+library. If it doesn't, you can skip to step 3.</para>
+
+<para>You basically need to put you driver name followed by _LDADD and equal
+this to the name of the library that you need. Usually, these library are
+substituted by a autoconf variable, if you're not comfortable with this, you
+send an email to the mailing list and we'll set this up for you.</para>
+
+<para>For example, we would put this for our fictional driver</para>
+<screen>
+myDriver_LDADD = @SOMESTRANGELIB@
+</screen>
+
+</sect3>
+
+<sect3 id="automake-step3">
+<title>Step 3</title>
+
+<para>
+Last but not least, you need to specify which source files should be
+associated with your driver. You put your driver name followed by
+<literal>_SOURCES</literal> and equal this to a space separated list
+of the source and header files. See below for an example.</para>
+
+<screen>
+myDriver_SOURCES =  lcd.h myDriver.c myDriver.h
+</screen>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="autoconfautomake-test">
+<title>Test your setup</title>
+
+<para>
+You're almost done! You only need to check out if you didn't made any mistake.
+Just run sh autogen.sh to regenerate the configure script and Makefiles,
+then run ./configure --enable-drivers=myDriver and type make.
+If your driver compiles without error, then congratulations, you've just added
+your driver to LCDproc! Remember to submit a patch to the mailing list so that
+we can add it to the standard distribution, but do not forget the documentation.
+</para>
+
+<para>
+If you had an error, just send us an email describing it to the mailing list and we'll try to help you.
+</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="documentation">
+<title>It's all about documentation</title>
+
+<para>
+Please do not forget to also add the required documentation,
+so that your driver can be used from others as well.
+</para>
+
+<sect2 id="documentation-source">
+<title>Within the source code</title>
+
+<para>
+We use Doxygen to document functions and data types. The doxygen documentation
+can be created anytime by changing to the <filename>docs/</filename> directory
+and running <command>doxygen</command>.
+</para>
+<para>
+When documenting your driver's API functions you may use a short hand version
+and add 'API:' to the beginning of your comment and leave out the parameter
+and return value description (as we know what the API is doing). If you use
+some clever algorithm inside a function please add a few words about it.
+</para>
+<note>
+<para>
+Always document functions internal to the driver! We do know what the API
+does (or is expected to do) but we don't know about what your driver does
+internally.
+</para>
+<para>
+Read <xref linkend="code-style-comments"/> on how for format comments.
+</para>
+</note>
+
+</sect2>
+
+
+<sect2 id="documentation-LCDd.conf">
+<title>The configuration file, LCDd.conf</title>
+
+<para>
+Extend the LCDproc server's configuration file with a section that holds
+a standard configuration for your driver together with short descriptions
+of the options used.
+</para>
+
+<screen>
+&hellip;
+<emphasis>
+## MyDriver for MyDevice ##
+[MyDriver]
+
+# Select the output device to use [default: /dev/lcd]
+Device=/dev/ttyS0
+
+# Set the display size [default: 20x4]
+Size=20x4
+</emphasis>
+&hellip;
+</screen>
+
+</sect2>
+
+
+<sect2 id="documentation-manpage">
+<title>The daemon's manual page, LCDd.8</title>
+
+<para>
+Append your driver to the list of drivers in <filename>docs/LCDd.8.in</filename>,
+the manual page of LCD, so that users can find your driver when doing <userinput>man LCDd</userinput>.
+</para>
+
+<screen>
+&hellip;
+.TP
+.B ms6931
+MSI-6931 displays in 1U rack servers by MSI
+.TP
+.B mtc_s16209x
+MTC_S16209x LCD displays by Microtips Technology Inc
+.TP
+.B MtxOrb
+Matrix Orbital displays (except Matrix Orbital GLK displays)
+<emphasis>.TP</emphasis>
+<emphasis>.B MyDriver</emphasis>
+<emphasis>displays connected using MyDevice</emphasis>
+.TP
+.B NoritakeVFD
+Noritake VFD Device CU20045SCPB-T28A
+.TP
+.B pyramid
+LCD displays from Pyramid (http://www.pyramid.de)
+.TP
+.B sed1330
+SED1330/SED1335 (aka S1D13300/S1D13305) based graphical displays
+&hellip;
+</screen>
+
+</sect2>
+
+<sect2 id="documentation-userdocbook">
+<title>The user guide</title>
+
+<sect3 id="userdocbook-file">
+<title>Step 1</title>
+
+<para>
+Please add a file <filename>myDriver.docbook</filename>,
+that describes the configuration of your driver and the hard/software needed,
+to the directory <filename>docs/lcdproc-user/drivers/</filename>.
+</para>
+
+</sect3>
+
+<sect3 id="userdocbook-defentity">
+<title>Step 2</title>
+
+<para>
+Define a Docbook entity for your driver file in <filename>lcdproc-user.docbook</filename>.
+</para>
+
+<screen>
+&hellip;
+&lt;!ENTITY ms6931 SYSTEM "drivers/ms6931.docbook"&gt;
+&lt;!ENTITY mtc_s16209x SYSTEM "drivers/mtc_s16209x.docbook"&gt;
+&lt;!ENTITY MtxOrb SYSTEM "drivers/mtxorb.docbook"&gt;
+<emphasis>&lt;!ENTITY MyDriver SYSTEM "drivers/MyDriver.docbook"&gt;</emphasis>
+&lt;!ENTITY NoritakeVFD SYSTEM "drivers/NoritakeVFD.docbook"&gt;
+&lt;!ENTITY pylcd SYSTEM "drivers/pylcd.docbook"&gt;
+&lt;!ENTITY sed1330 SYSTEM "drivers/sed1330.docbook"&gt;
+&hellip;
+</screen>
+
+</sect3>
+
+<sect3 id="userdocbook-useentity">
+<title>Step 3</title>
+
+<para>
+Add the freshly defined entity to <filename>drivers.docbook</filename>
+to include the documentation of your driver into the
+<emphasis>LCDproc User's Guide</emphasis>.
+</para>
+
+<screen>
+&hellip;
+&amp;ms6931;
+&amp;mtc_s16209x;
+&amp;MtxOrb;
+<emphasis>&amp;MyDriver;</emphasis>
+&amp;NoritakeVFD;
+&amp;pylcd;
+&amp;sed1330;
+&hellip;
+</screen>
+
+</sect3>
+
+<sect3 id="userdocbook-docmakefile">
+<title>Step 4</title>
+
+<para>
+Add the newly defined file <filename>myDriver.docbook</filename>
+to the Makefile in the directory <filename>docs/lcdproc-user/drivers/</filename>.
+</para>
+
+<screen>
+## Process this file with automake to produce Makefile.in
+
+EXTRA_DIST =	bayrad.docbook \
+		CFontz.docbook \
+		...
+		<emphasis>MyDriver.docbook \</emphasis>
+		...
+## EOF
+</screen>
+
+</sect3>
+
+</sect2>
+
+</sect1>
+
+</chapter>

@@ -1,0 +1,107 @@
+<sect1 id="NoritakeVFD-howto">
+<title>The NoritakeVFD Driver</title>
+
+<para>
+This section talks about using LCDproc with text mode VFD displays from
+<ulink url="http://www.noritake-itron.com/">Noritake Itron</ulink>.
+</para>
+
+<!-- ## Noritake VFD driver ## -->
+<sect2 id="NoritakeVFD-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="NoritakeVFD-config-section">
+<title>[NoritakeVFD]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Port where the VFD is. Usual values are <filename>/dev/ttyS0</filename> and <filename>/dev/ttyS1</filename>
+    Default: <filename>/dev/lcd</filename>
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Specifies the size of the LCD.
+    Default: <literal>20x4</literal>
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Brightness</property> =
+    <parameter><replaceable>BRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial brightness [default: <literal>1000</literal>; legal: <literal>0</literal> - <literal>1000</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>OffBrightness</property> =
+    <parameter><replaceable>BRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial off-brightness [default: <literal>0</literal>; legal: <literal>0</literal> - <literal>1000</literal>]
+    This value is used when the display is normally
+    switched off in case LCDd is inactive
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Speed</property> =
+    {
+      <parameter><literal>1200</literal></parameter> |
+      <parameter><literal>2400</literal></parameter> |
+      <emphasis><parameter><literal>9600</literal></parameter></emphasis> |
+      <parameter><literal>19200</literal></parameter> |
+      <parameter><literal>115200</literal></parameter>
+    }
+  </term>
+  <listitem><para>
+    Set the the baud rate to use when communicating with the VFD.
+    If not specified, it defaults to <literal>9600</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Parity</property> =
+    {
+      <emphasis><parameter><literal>0</literal></parameter></emphasis> |
+      <parameter><literal>1</literal></parameter> |
+      <parameter><literal>2</literal></parameter>
+    }
+  </term>
+  <listitem><para>
+    Set the parity for communication with the device to even parity (<literal>2</literal>),
+    odd parity (<literal>1</literal>) or no parity (<literal>0</literal>).
+    If not given, it defaults to <literal>0</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Reboot</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    Reinitialize the VFD [default: <literal>no</literal>; legal: <literal>yes</literal>, <literal>no</literal>]
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

@@ -1,0 +1,81 @@
+# game.libretro.4do language file
+# Addon Name: game.libretro.4do
+# Addon id: game.libretro.4do
+# Addon Provider: libretro
+msgid ""
+msgstr ""
+"Project-Id-Version: game.libretro.4do\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2019-08-24 22:21i\n"
+"PO-Revision-Date: 2019-08-24 22:21i\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Active Input Devices"
+msgstr ""
+
+msgctxt "#30002"
+msgid "BIOS (rom1)"
+msgstr ""
+
+msgctxt "#30003"
+msgid "CPU Overclock"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Threaded DSP"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Font (rom2)"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Graphics Step Y Hack (Samurai Showdown)"
+msgstr ""
+
+msgctxt "#30007"
+msgid "Timing Hack 1 (Crash 'n Burn)"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Timing Hack 3 (Dinopark Tycoon)"
+msgstr ""
+
+msgctxt "#30009"
+msgid "Timing Hack 5 (Microcosm)"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Timing Hack 6 (Alone in the Dark)"
+msgstr ""
+
+msgctxt "#30011"
+msgid "High Resolution"
+msgstr ""
+
+msgctxt "#30012"
+msgid "3DO Debugging Output (stderr)"
+msgstr ""
+
+msgctxt "#30013"
+msgid "MADAM Matrix Engine"
+msgstr ""
+
+msgctxt "#30014"
+msgid "NVRAM Storage"
+msgstr ""
+
+msgctxt "#30015"
+msgid "OperaOS SWI HLE"
+msgstr ""

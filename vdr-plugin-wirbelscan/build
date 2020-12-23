@@ -1,0 +1,64 @@
+#!/bin/bash
+
+HOSTNAME=$(env | grep HOSTNAME | cut -d= -f2 | cut -d. -f1)
+
+if [[ "$HOSTNAME" = "wgs13" ]]
+then
+   CC="g++ -std=c++0x"
+else
+   CC="g++ -std=c++11"
+fi
+
+#CCOPTS="-g -O3 -Wall -Wextra -Wno-unused-parameter -Werror=overloaded-virtual -Wno-parentheses -Wfatal-errors -fPIC -fstack-protector-all -D_FORTIFY_SOURCE=2 -DPLUGIN_NAME_I18N='"wirbelscan"' -D_GNU_SOURCE" 
+CCOPTS="-g -O3 -Wall -Wextra -Wno-unused-parameter -Werror=overloaded-virtual -Wno-parentheses -Wfatal-errors -fPIC -DPLUGIN_NAME_I18N='"wirbelscan"' -D_GNU_SOURCE" 
+INCLUDES="-I../../../include"
+CPPFILES=$(ls *.c)
+LIB=libvdr-wirbelscan.so
+
+
+PWD=$(pwd); VDRDIR=$PWD; for ((it=1; it <= 3 ; it++))
+do
+  VDRDIR=$(dirname $VDRDIR)
+done
+
+
+VDR=$(basename $VDRDIR); VDRVER=${VDR#*-}; LIBDIR="$VDRDIR/PLUGINS/lib"; LIB="${LIB%.so}.so.$VDRVER"
+
+
+
+
+echo -e "\033[1;34m/*********************************************************************"
+echo -e " * building for: vdr-$VDRVER"
+echo -e " * plugin dir  : $LIBDIR"
+echo -e " *********************************************************************/\033[0m"
+
+  
+for file in $CPPFILES
+do
+  OBJ="${file%.c}.o"
+  OBJS="$OBJS $OBJ"
+  rm -f $OBJ
+
+  echo -e "\033[1;34m/*  $file  */\033[0m"
+  echo "$CC $CCOPTS $INCLUDES -c $file"
+  $CC $CCOPTS $INCLUDES -c $file
+  if [ ! -f $OBJ ]
+  then
+    echo -e "\033[0;31mERROR: did not compile..\033[0m"
+    exit
+  fi  
+done
+
+rm -f $LIB
+echo -e "\033[1;34m/*  $LIB  */\033[0m"
+echo "$CC $CCOPTS -shared $OBJS -o $LIB"
+$CC $CCOPTS -shared $OBJS -o $LIB
+if [ ! -f $OBJ ]
+then
+  echo -e "\033[0;31mERROR: did not link..\033[0m"
+  exit
+fi
+
+cp -f $LIB $LIBDIR
+
+echo -e "\033[1;34m hopefully everything done.. \033[0m"

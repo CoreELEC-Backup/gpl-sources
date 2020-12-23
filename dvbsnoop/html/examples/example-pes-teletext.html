@@ -1,0 +1,533 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: MPEG Packetized
+		Elementary Stream (PES) - Teletext</TITLE><META NAME="Author"
+	 CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: MPEG Packetized Elementary Stream (PES) - Teletext</H1> 
+	 <H2>Teletext stream (VideoText data):</H2> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -nph -n 1 -s pes 0x14a
+dvbsnoop V1.2.39 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+PES-Packet: 00000001   PID: 330 (0x014a), Length: 1288 (0x0508)
+Time received: Wed 2004-02-11  00:28:00.665
+----------------------------------------------------------
+Packet_start_code_prefix: 000001
+Stream_id: 189 (0xbd)  [= private_stream_1]
+PES_packet_length: 1282 (0x0502)
+    reserved1: 2 (0x02)
+    PES_scrambling_control: 0 (0x00)  [= not scrambled]
+    PES_priority: 0 (0x00)
+    data_alignment_indicator: 1 (0x01)
+    copyright: 0 (0x00)
+    original_or_copy: 0 (0x00)
+    PTS_DTS_flags: 2 (0x02)
+    ES_rate_flag: 0 (0x00)
+    additional_copy_info_flag: 0 (0x00)
+    PES_CRC_flag: 0 (0x00)
+    PES_extension_flag: 0 (0x00)
+    PES_header_data_length: 36 (0x24)
+    PTS: 
+        Fixed: 2 (0x02)
+        PTS:
+            bit[32..30]: 2 (0x02)
+            marker_bit: 1 (0x01)
+            bit[29..15]: 29905 (0x74d1)
+            marker_bit: 1 (0x01)
+            bit[14..0]: 17704 (0x4528)
+            marker_bit: 1 (0x01)
+             ==&gt; PTS: 3127428392 (0xba68c528)  [= 90 kHz-Timestamp: 9:39:09.204]
+    stuffing bytes:
+          0000:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0000:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0010:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0010:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+    PES_data (private_stream_1):
+        EBU data:
+            data_identifier: 16 (0x10)  [= EBU data EN 300 472 (teletext)]
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 7 (0x07)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 13 (0x000d)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 01 20 20 20 20 20 20 20 75 6e 73 65 72 65 
+                       0000:   .  .  .                       u  n  s  e  r  e 
+                       0010:  72 20 57 65 6c 74 20 28 38 29 20 20 20 20 20 20 
+                       0010:   r     W  e  l  t     (  8  )                   
+                       0020:  20 20 3e 54 49 50 50 20 
+                       0020:         &gt;  T  I  P  P    
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 8 (0x08)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 14 (0x000e)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 01 20 20 20 20 20 20 20 54 68 75 72 6e 20 
+                       0000:   .  .  .                       T  h  u  r  n    
+                       0010:  26 20 54 61 78 69 73 20 20 20 20 20 20 20 20 20 
+                       0010:   &amp;     T  a  x  i  s                            
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 9 (0x09)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 15 (0x000f)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 04 31 30 2e 30 30 20 20 54 77 65 65 6e 69 
+                       0000:   .  .  .  1  0  .  0  0        T  w  e  e  n  i 
+                       0010:  65 73 20 28 38 37 29 20 20 20 20 20 20 20 20 20 
+                       0010:   e  s     (  8  7  )                            
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 10 (0x0a)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 16 (0x0010)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 04 20 20 20 20 20 20 20 46 6c 69 65 67 65 
+                       0000:   .  .  .                       F  l  i  e  g  e 
+                       0010:  6e 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 
+                       0010:   n                                              
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 11 (0x0b)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 17 (0x0011)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 01 31 30 2e 32 30 20 20 53 50 49 45 4c 20 
+                       0000:   .  .  .  1  0  .  2  0        S  P  I  E  L    
+                       0010:  42 4f 58 58 20 20 20 20 20 20 20 20 20 20 20 20 
+                       0010:   B  O  X  X                                     
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 12 (0x0c)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 18 (0x0012)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 04 31 30 2e 32 35 20 20 46 61 6d 69 6c 69 
+                       0000:   .  .  .  1  0  .  2  5        F  a  m  i  l  i 
+                       0010:  65 20 53 75 70 65 72 73 74 61 72 20 20 20 20 20 
+                       0010:   e     S  u  p  e  r  s  t  a  r                
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 13 (0x0d)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 19 (0x0013)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 04 20 20 20 20 20 20 20 55 6e 62 65 73 74 
+                       0000:   .  .  .                       U  n  b  e  s  t 
+                       0010:  7b 6e 64 69 67 65 20 41 75 73 73 69 63 68 74 65 
+                       0010:   {  n  d  i  g  e     A  u  s  s  i  c  h  t  e 
+                       0020:  6e 20 20 20 20 20 20 20 
+                       0020:   n                      
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 14 (0x0e)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 20 (0x0014)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 01 31 30 2e 33 30 20 20 54 69 6d 6d 20 54 
+                       0000:   .  .  .  1  0  .  3  0        T  i  m  m     T 
+                       0010:  68 61 6c 65 72 20 28 32 36 29 20 01 20 20 20 20 
+                       0010:   h  a  l  e  r     (  2  6  )     .             
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 15 (0x0f)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 21 (0x0015)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 01 20 20 20 20 20 20 20 45 6e 74 73 63 68 
+                       0000:   .  .  .                       E  n  t  s  c  h 
+                       0010:  65 69 64 75 6e 67 65 6e 20 61 75 66 20 4d 6f 72 
+                       0010:   e  i  d  u  n  g  e  n     a  u  f     M  o  r 
+                       0020:  6f 20 20 20 20 20 20 20 
+                       0020:   o                      
+
+            data_unit_id: 195 (0xc3)  [= VPS]
+            data_unit_length: 44 (0x2c)
+            VPS (video programme system) data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 16 (0x10)
+               data_block:
+                    0000:  c0 2a af ff ff ff ff ff c1 fe ff 49 ff 
+                    0000:   .  *  .  .  .  .  .  .  .  .  .  I  . 
+            stuffing bytes:
+                 0000:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+                 0000:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+                 0010:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+                 0010:   .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 20 (0x14)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 22 (0x0016)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 20 20 20 20 20 20 20 20 20 20 20 20 20 20 
+                       0000:   .  .                                           
+                       0010:  20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 
+                       0010:                                                  
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 21 (0x15)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 23 (0x0017)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 02 20 20 20 20 20 20 20 20 20 20 20 20 02 
+                       0000:   .  .  .                                      . 
+                       0010:  1d 04 31 30 2e 35 35 2d 31 32 2e 35 35 20 55 68 
+                       0010:   .  .  1  0  .  5  5  -  1  2  .  5  5     U  h 
+                       0020:  72 20 20 20 3e 3e 3e 20 
+                       0020:   r           &gt;  &gt;  &gt;    
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 22 (0x16)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 0 (0x0000)  [= page header]
+                  page number: 35 (0x0023)
+                  sub-page number: 0 (0x0000)
+                    ==&gt; teletext display page number: 323/0
+                  Control bits:
+                     C11 = Magazine serial
+                  Character subset (c12-c14): 4 (0x04)  [= German (?)]
+                  page header display string:
+                       0000:  33 32 33 06 4b 49 2e 4b 41 2d 54 65 78 74 07 4d 
+                       0000:   3  2  3  .  K  I  .  K  A  -  T  e  x  t  .  M 
+                       0010:  69 2e 31 31 2e 30 32 03 30 30 3a 32 37 3a 35 38 
+                       0010:   i  .  1  1  .  0  2  .  0  0  :  2  7  :  5  8 
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 7 (0x07)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 1 (0x0001)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  02 1d 14 20 20 70 30 20 20 20 20 20 20 20 20 20 
+                       0000:   .  .  .        p  0                            
+                       0010:  20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 
+                       0010:                                                  
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 8 (0x08)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 2 (0x0002)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  02 1d 14 20 20 35 6a 68 24 3c 34 3c 34 3c 28 6c 
+                       0000:   .  .  .        5  j  h  $  &lt;  4  &lt;  4  &lt;  (  l 
+                       0010:  68 6c 6c 68 6c 6c 20 04 44 4f 4e 4e 45 52 53 54 
+                       0010:   h  l  l  h  l  l     .  D  O  N  N  E  R  S  T 
+                       0020:  41 47 20 20 20 20 20 20 
+                       0020:   A  G                   
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 9 (0x09)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 3 (0x0003)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  02 1d 11 20 20 3d 26 6a 20 35 35 75 35 35 6a 6b 
+                       0000:   .  .  .        =  &amp;  j     5  5  u  5  5  j  k 
+                       0010:  6a 6a 6a 6a 6a 6a 20 04 31 32 2e 30 32 2e 32 30 
+                       0010:   j  j  j  j  j  j     .  1  2  .  0  2  .  2  0 
+                       0020:  30 34 20 20 20 20 20 20 
+                       0020:   0  4                   
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 10 (0x0a)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 4 (0x0004)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  12 1d 11 20 20 21 20 22 20 23 21 2c 25 21 22 23 
+                       0000:   .  .  .        !     "     #  !  ,  %  !  "  # 
+                       0010:  22 22 22 22 22 22 20 04 20 20 20 20 20 20 20 20 
+                       0010:   "  "  "  "  "  "     .                         
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 11 (0x0b)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 5 (0x0005)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 20 20 20 20 20 20 20 20 20 20 20 20 20 20 
+                       0000:   .  .                                           
+                       0010:  20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 
+                       0010:                                                  
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 12 (0x0c)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 6 (0x0006)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 04 31 30 2e 35 35 20 20 47 75 6c 6c 69 76 
+                       0000:   .  .  .  1  0  .  5  5        G  u  l  l  i  v 
+                       0010:  65 72 73 20 52 65 69 73 65 6e 20 28 31 35 29 20 
+                       0010:   e  r  s     R  e  i  s  e  n     (  1  5  )    
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 13 (0x0d)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 7 (0x0007)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 04 20 20 20 20 20 20 20 41 66 66 65 6e 74 
+                       0000:   .  .  .                       A  f  f  e  n  t 
+                       0010:  68 65 61 74 65 72 20 20 20 20 20 20 20 20 20 20 
+                       0010:   h  e  a  t  e  r                               
+                       0020:  20 20 20 20 20 20 20 20 
+                       0020:                          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 14 (0x0e)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 8 (0x0008)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 01 31 31 2e 32 30 20 20 44 69 65 20 6b 6c 
+                       0000:   .  .  .  1  1  .  2  0        D  i  e     k  l 
+                       0010:  65 69 6e 65 6e 20 47 65 73 70 65 6e 73 74 65 72 
+                       0010:   e  i  n  e  n     G  e  s  p  e  n  s  t  e  r 
+                       0020:  20 28 38 29 20 20 20 20 
+                       0020:      (  8  )             
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 15 (0x0f)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 9 (0x0009)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 01 20 20 20 20 20 20 20 44 61 73 20 55 6e 
+                       0000:   .  .  .                       D  a  s     U  n 
+                       0010:  67 65 68 65 75 65 72 20 76 6f 6e 20 4c 6f 63 68 
+                       0010:   g  e  h  e  u  e  r     v  o  n     L  o  c  h 
+                       0020:  20 4e 65 73 73 20 20 20 
+                       0020:      N  e  s  s          
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 20 (0x14)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 10 (0x000a)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 04 31 31 2e 33 30 20 20 56 61 6d 70 69 72 
+                       0000:   .  .  .  1  1  .  3  0        V  a  m  p  i  r 
+                       0010:  65 2c 20 50 69 72 61 74 65 6e 2c 20 41 6c 69 65 
+                       0010:   e  ,     P  i  r  a  t  e  n  ,     A  l  i  e 
+                       0020:  6e 73 20 28 32 33 29 20 
+                       0020:   n  s     (  2  3  )    
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 21 (0x15)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 11 (0x000b)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 04 20 20 20 20 20 20 20 44 65 72 20 53 63 
+                       0000:   .  .  .                       D  e  r     S  c 
+                       0010:  68 61 74 7a 20 76 6f 6e 20 56 61 6c 68 61 6c 6c 
+                       0010:   h  a  t  z     v  o  n     V  a  l  h  a  l  l 
+                       0020:  61 20 48 61 6c 6c 2f 20 
+                       0020:   a     H  a  l  l  /    
+
+            data_unit_id: 2 (0x02)  [= EBU Teletext non-subtitle data]
+            data_unit_length: 44 (0x2c)
+            Teletext data:
+               reserved: 3 (0x03)
+               field_parity: 0 (0x00)
+               line_offset: 22 (0x16)
+               frame_coding: 228 (0xe4)  [= EBU Teletext]
+                =&gt; decoded:
+                  magazine number (X): 3 (0x03)
+                  packet number (Y): 12 (0x000c)  [= normal packet intended for direct display]
+                  packet data (parity stripped):
+                       0000:  03 1d 04 20 20 20 20 20 20 20 44 61 73 20 53 63 
+                       0000:   .  .  .                       D  a  s     S  c 
+                       0010:  68 6e 69 74 7a 74 61 6c 65 6e 74 2f 20 44 69 65 
+                       0010:   h  n  i  t  z  t  a  l  e  n  t  /     D  i  e 
+                       0020:  20 43 6f 6d 2d 20 20 20 
+                       0020:      C  o  m  -          
+
+            data_unit_id: 255 (0xff)  [= data_unit for stuffing]
+            data_unit_length: 44 (0x2c)
+            stuffing bytes:
+                 0000:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+                 0000:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+                 0010:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+                 0010:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+                 0020:  ff ff ff ff ff ff ff ff ff ff ff ff 
+                 0020:   .  .  .  .  .  .  .  .  .  .  .  . 
+
+            data_unit_id: 255 (0xff)  [= data_unit for stuffing]
+            data_unit_length: 44 (0x2c)
+            stuffing bytes:
+                 0000:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+                 0000:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+                 0010:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+                 0010:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+                 0020:  ff ff ff ff ff ff ff ff ff ff ff ff 
+                 0020:   .  .  .  .  .  .  .  .  .  .  .  . 
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

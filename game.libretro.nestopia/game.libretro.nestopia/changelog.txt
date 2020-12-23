@@ -1,0 +1,8 @@
+[B]2013-08-17[/B] Version [B]1.46.0[/B]
+. Upgraded to @pretty_version@ @ 78b403c (2013-07-29)
+
+[B]2013-04-24[/B] Version [B]1.44.1[/B]
+. Upgraded to 005a9e1 @ 2013-04-20
+
+[B]2013-02-16[/B] Version [B]1.44.0[/B]
+. Initial release: Nestopia v1.44 (1.45-WIP), https://github.com/nestopia/libretro @ 082e608 (2013-02-02)

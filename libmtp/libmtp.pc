@@ -1,0 +1,15 @@
+# libmtp pkg-config source file
+
+prefix=/usr
+exec_prefix=${prefix}
+libdir=/usr/lib64
+includedir=${prefix}/include
+
+Name: libmtp
+Description: libmtp is a library for accessing Media Transfer Protocol devices
+Version: 1.1.13
+Requires.private: libusb-1.0
+Conflicts:
+Libs: -L${libdir} -lmtp
+Libs.private: -lgcrypt 
+Cflags: -I${includedir} 

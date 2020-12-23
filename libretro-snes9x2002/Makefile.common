@@ -1,0 +1,131 @@
+LIBRETRO_COMM_DIR = $(LIBRETRO_DIR)/libretro-common
+
+SOURCES_ASM :=
+SOURCES := 	$(CORE_DIR)/apu.c \
+				$(CORE_DIR)/apuaux.c \
+				$(CORE_DIR)/c4.c \
+				$(CORE_DIR)/c4emu.c \
+				$(CORE_DIR)/cheats.c \
+				$(CORE_DIR)/cheats2.c \
+				$(CORE_DIR)/clip.c \
+				$(CORE_DIR)/data.c \
+				$(CORE_DIR)/dsp1.c \
+				$(CORE_DIR)/fxemu.c \
+				$(CORE_DIR)/fxinst.c \
+				$(CORE_DIR)/globals.c \
+				$(CORE_DIR)/dma.c \
+				$(CORE_DIR)/memmap.c \
+				$(CORE_DIR)/cpu.c \
+				$(CORE_DIR)/cpuexec.c \
+				$(CORE_DIR)/cpuops.c \
+				$(CORE_DIR)/sa1.c \
+				$(CORE_DIR)/sa1cpu.c \
+				$(CORE_DIR)/sdd1.c \
+				$(CORE_DIR)/sdd1emu.c \
+				$(CORE_DIR)/snapshot.c \
+				$(CORE_DIR)/soundux.c \
+				$(CORE_DIR)/spc700.c \
+				$(CORE_DIR)/srtc.c \
+				$(LIBRETRO_DIR)/libretro.c
+
+ifeq ($(STATIC_LINKING), 1)
+else
+SOURCES += $(LIBRETRO_COMM_DIR)/streams/memory_stream.c
+endif
+
+ifeq ($(ARM_ASM), 1)
+SOURCES += $(CORE_DIR)/ppu.c
+SOURCES += $(CORE_DIR)/rops.c
+SOURCES += $(CORE_DIR)/mode7new.c
+SOURCES += $(CORE_DIR)/mode7.c
+SOURCES += $(CORE_DIR)/mode7add.c
+SOURCES += $(CORE_DIR)/mode7add1_2.c
+SOURCES += $(CORE_DIR)/mode7sub.c
+SOURCES += $(CORE_DIR)/mode7sub1_2.c
+SOURCES += $(CORE_DIR)/mode7prio.c
+SOURCES += $(CORE_DIR)/mode7addprio.c
+SOURCES += $(CORE_DIR)/mode7add1_2prio.c
+SOURCES += $(CORE_DIR)/mode7subprio.c
+SOURCES += $(CORE_DIR)/mode7sub1_2prio.c
+SOURCES += $(CORE_DIR)/gfx16.c
+SOURCES += $(CORE_DIR)/tile16.c
+SOURCES += $(CORE_DIR)/tile16add.c
+SOURCES += $(CORE_DIR)/tile16add1_2.c
+SOURCES += $(CORE_DIR)/tile16fadd1_2.c
+SOURCES += $(CORE_DIR)/tile16sub.c
+SOURCES += $(CORE_DIR)/tile16sub1_2.c
+SOURCES += $(CORE_DIR)/tile16fsub1_2.c
+
+ifeq ($(ASM_SPC700), 1)
+SOURCES_ASM += $(CORE_DIR)/spc700a.S \
+					$(CORE_DIR)/spc_decode.S
+
+DEFINES += -DASM_SPC700
+endif
+
+ifeq ($(ASM_CPU), 1)
+SOURCES_ASM += $(CORE_DIR)/os9x_65c816_global.S \
+					$(CORE_DIR)/os9x_65c816_spcasm.S \
+					$(CORE_DIR)/os9x_65c816_spcc.S
+
+#SOURCES_ASM += $(CORE_DIR)/os9x_65c816.S
+
+SOURCES += $(CORE_DIR)/os9x_asm_cpu.c
+
+DEFINES += -DASMCPU
+endif
+
+
+DEFINES += -DARM_ASM
+DEFINES += -DRIGHTSHIFT_IS_SAR
+DEFINES += -finline -fsigned-char
+DEFINES += -ffast-math -fstrict-aliasing
+
+else
+SOURCES += $(CORE_DIR)/ppu_.c
+SOURCES += $(CORE_DIR)/gfx.c
+SOURCES += $(CORE_DIR)/tile.c
+
+DEFINES += -D__OLD_RASTER_FX__
+endif
+
+INCLUDES   = -I. -I$(LIBRETRO_DIR) -I$(LIBRETRO_COMM_DIR)/include -I$(CORE_DIR)
+
+ifneq (,$(findstring msvc200,$(platform)))
+INCLUDES += -I$(LIBRETRO_COMM_DIR)/include/compat/msvc
+endif
+DEFINES    += -DHAVE_STRINGS_H -DHAVE_STDINT_H -DHAVE_INTTYPES_H -D__LIBRETRO__
+DEFINES    += -DUSE_SA1
+
+ifeq ($(platform), sncps3)
+WARNINGS_DEFINES =
+CODE_DEFINES =
+else
+ifeq ($(OLD_GCC), 1)
+WARNINGS_DEFINES = -Wall 
+CODE_DEFINES     =
+else ifeq ($(NO_GCC), 1)
+WARNINGS_DEFINES =
+CODE_DEFINES     =
+else
+WARNINGS_DEFINES = -Wall \
+						 -W \
+						 -Wno-unused-parameter \
+						 -Wno-parentheses \
+						 -Wno-write-strings \
+						 -Wno-comment
+CODE_DEFINES = -fomit-frame-pointer
+endif
+endif
+
+ifeq ($(LAGFIX), 1)
+ifneq ($(ASM_CPU), 1)
+DEFINES += -DLAGFIX
+endif
+endif
+
+ifeq ($(USE_OLD_COLOUR_OPS),1)
+	FLAGS += -DUSE_OLD_COLOUR_OPS
+endif
+
+COMMON_DEFINES += $(CODE_DEFINES) $(WARNINGS_DEFINES) $(fpic)

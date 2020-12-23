@@ -1,0 +1,95 @@
+# VDR streamdev plugin language source file.
+# Copyright (C) 2008 streamdev development team. See http://streamdev.vdr-developer.org
+# This file is distributed under the same license as the VDR streamdev package.
+# Frank Schmirler <vdrdev@schmirler.de>, 2008
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: streamdev 0.5.0\n"
+"Report-Msgid-Bugs-To: <vdrdev@schmirler.de>\n"
+"POT-Creation-Date: 2014-05-05 22:46+0200\n"
+"PO-Revision-Date: 2008-03-30 02:11+0200\n"
+"Last-Translator: micky979 <micky979@free.fr>\n"
+"Language-Team: French <vdr@linuxtv.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Streaming active"
+msgstr "Streaming actif"
+
+msgid "Streamdev Connections"
+msgstr ""
+
+msgid "Disconnect"
+msgstr ""
+
+msgid "Suspend"
+msgstr "Suspendre"
+
+msgid "Common Settings"
+msgstr "Paramètres communs"
+
+msgid "Hide Mainmenu Entry"
+msgstr ""
+
+msgid "Start with Live TV suspended"
+msgstr ""
+
+msgid "Maximum Number of Clients"
+msgstr "Nombre maximun de clients"
+
+msgid "Live TV buffer delay (ms)"
+msgstr ""
+
+msgid "VDR-to-VDR Server"
+msgstr "VDR-to-VDR Serveur"
+
+msgid "Start VDR-to-VDR Server"
+msgstr "Démarrer le serveur VDR-to-VDR"
+
+msgid "VDR-to-VDR Server Port"
+msgstr "Port du serveur VDR-to-VDR"
+
+msgid "Bind to IP"
+msgstr "Attacher aux IP"
+
+msgid "Legacy Client Priority"
+msgstr ""
+
+msgid "Client may suspend"
+msgstr "Le client peut suspendre"
+
+msgid "Loop Prevention"
+msgstr ""
+
+msgid "HTTP Server"
+msgstr "Serveur HTTP"
+
+msgid "Start HTTP Server"
+msgstr "Démarrer le serveur HTTP"
+
+msgid "HTTP Server Port"
+msgstr "Port du serveur HTTP"
+
+msgid "Priority"
+msgstr ""
+
+msgid "HTTP Streamtype"
+msgstr "Type de Streaming HTTP"
+
+msgid "Multicast Streaming Server"
+msgstr ""
+
+msgid "Start IGMP Server"
+msgstr ""
+
+msgid "Multicast Client Port"
+msgstr ""
+
+msgid "Multicast Streamtype"
+msgstr ""
+
+msgid "VDR Streaming Server"
+msgstr "Serveur de streaming VDR"

@@ -1,0 +1,55 @@
+
+%9Syntax:%9
+
+STATUSBAR %|<name> ENABLE
+STATUSBAR %|<name> DISABLE
+STATUSBAR %|<name> RESET
+STATUSBAR %|<name> TYPE window|root
+STATUSBAR %|<name> PLACEMENT top|bottom
+STATUSBAR %|<name> POSITION <num>
+STATUSBAR %|<name> VISIBLE always|active|inactive
+STATUSBAR %|<name> ADD [-before | -after <item>] [-priority #] [-alignment left|right] <item>
+STATUSBAR %|<name> REMOVE <item>
+
+%9Parameters:%9
+
+    ENABLE:       Adds a statusbar to the list of statusbars.
+    DISABLE:      Removes a statusbar from the list. Note that for
+                  built-in statusbars they can be enabled again should the
+                  user wish to add back the default statusbars.
+    RESET:        Restores the default statusbar configuration.
+    TYPE:         Sets the type of statusbar, for each split window or only
+                  for the current root screen.
+    PLACEMENT:    Sets the placement of the statusbar, either at the top or
+                  the bottom of the screen.
+    POSITION:     Sets the position of the statusbar. Represented as a
+                  number, with 0 implying the first position.
+    VISIBLE:      Sets the visibility of the statusbar or item. If set to
+                  always it is visible on all screens, otherwise if set to
+                  inactive or active then it is only visible on inactive
+                  or active screens, respectively.
+    ADD:          Adds an item to the specified statusbar. It can be set to
+                  appear before/after another item and left/right aligned
+                  to a specified position on the screen.
+    REMOVE:       Removes an item from the specified statusbar.
+
+    Where name refers to the name of the statusbar; if no argument is
+    given, the entire list of statusbars will be displayed.
+
+%9Description:%9
+
+    Allows adjustment of the attributes and items of a statusbar, as well
+    as where it is located and whether or not it is currently visible.
+
+%9Examples:%9
+
+    /STATUSBAR
+    /STATUSBAR window
+    /STATUSBAR window REMOVE time
+    /STATUSBAR window ADD time
+    /STATUSBAR window RESET
+    /STATUSBAR topic DISABLE
+    /STATUSBAR topic ENABLE
+
+%9See also:%9 WINDOW
+

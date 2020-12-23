@@ -1,0 +1,108 @@
+<sect1 id="glk-howto">
+<title>The glk Driver</title>
+
+<para>
+This section talks about using LCDproc with LCD displays that use the
+Matrix Orbital GLK and GLC chipset.
+</para>
+
+<sect2 id="glk-devices">
+<title>Supported devices</title>
+
+<para>Currently the drivers supports the following devices:</para>
+
+<itemizedlist>
+  <!-- Devices using GLC chipset -->
+  <listitem>
+    <para>GLC12232 (20x4)</para>
+  </listitem>
+  <listitem>
+    <para>GLC12864 (20x8)</para>
+  </listitem>
+  <listitem>
+    <para>GLC128128 (20x16)</para>
+  </listitem>
+  <listitem>
+    <para>GLC24064 (40x8)</para>
+  </listitem>
+  <!-- Devices using GLK chipset -->
+  <listitem>
+    <para>GLK12232-25 (20x4)</para>
+  </listitem>
+  <listitem>
+    <para>GLK12232-25-SM (20x4)</para>
+  </listitem>
+  <listitem>
+    <para>GLK12864-25 (20x8)</para>
+  </listitem>
+  <listitem>
+    <para>GLK128128-25 (20x16)</para>
+  </listitem>
+  <listitem>
+    <para>GLK24064-25 (40x8)</para>
+  </listitem>
+  <listitem>
+    <para>GLK19264-7T-1U-USB (32x8)</para>
+  </listitem>
+</itemizedlist>
+
+<note>
+  <para>Modules not in the list above are not recognized and the driver will
+  not load if it encounteres an unrecognized display.</para>
+</note>
+
+</sect2>
+
+<!-- ## Matrix Orbital GLK driver ## -->
+<sect2 id="glk-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="glk-config-section">
+<title>[glk]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    select the serial device to use [default: <filename>/dev/lcd</filename>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Contrast</property> =
+    <parameter><replaceable>CONTRAST</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial contrast.
+    Legal values for <replaceable>CONTRAST</replaceable> are <literal>0</literal> - <literal>1000</literal>.
+    If not given, it defaults to <literal>500</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Speed</property> =
+    {
+      <parameter><literal>9600</literal></parameter> |
+      <emphasis><parameter><literal>19200</literal></parameter></emphasis> |
+      <parameter><literal>38400</literal></parameter> |
+      <parameter><literal>57600</literal></parameter> |
+      <parameter><literal>115200</literal></parameter>
+    }
+  </term>
+  <listitem><para>
+    Set the the baud rate for communication with the LCD.
+    The default is <literal>19200</literal>.
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

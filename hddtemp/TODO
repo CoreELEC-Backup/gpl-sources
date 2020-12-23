@@ -1,0 +1,14 @@
+
+* make 3ware support (take a look at smartctl)
+
+* In daemon mode, restrict listening interface.
+
+* chrooting to /var/empty
+   if (chroot("/var/empty")==-1) perror("chroot");
+   if (chdir("/")==-1) perror("security chdir");
+
+* Look at static buffers in scsi.c
+
+* Western Digital SATA drives seems to declare themselves as "ATA WDC..."
+  this could be useful for probing bus type.
+

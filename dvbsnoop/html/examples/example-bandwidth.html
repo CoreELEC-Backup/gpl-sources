@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Examples: PID Bandwidth
+		Scan</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Examples: PID Bandwidth Scan</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>~/bin &gt; ./dvbsnoop -s bandwidth  -n 3000  -pd 3    0xa6
+dvbsnoop V1.1.25 -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+PID bandwidth statistics...
+PID: 166 (0x00a6)
+---------------------------------------------------------
+packets read:   9/(9)   d_time:  0.002 s  =  6768.000 kb/s (Avrg:  6768.000 kb/s)
+packets read:  84/(93)   d_time:  0.029 s  =  4356.413 kb/s (Avrg:  4371.000 kb/s)
+packets read:  95/(188)   d_time:  0.022 s  =  6494.545 kb/s (Avrg:  5236.148 kb/s)
+packets read:  66/(254)   d_time:  0.019 s  =  5224.421 kb/s (Avrg:  5233.095 kb/s)
+packets read:  42/(296)   d_time:  0.013 s  =  4859.076 kb/s (Avrg:  5117.057 kb/s)
+packets read:  76/(372)   d_time:  0.024 s  =  4762.666 kb/s (Avrg:  5040.432 kb/s)
+packets read:  61/(433)   d_time:  0.017 s  =  5396.705 kb/s (Avrg:  5048.310 kb/s)
+packets read:  80/(513)   d_time:  0.021 s  =  5729.523 kb/s (Avrg:  5143.680 kb/s)
+packets read:  46/(559)   d_time:  0.013 s  =  5321.846 kb/s (Avrg:  5126.439 kb/s)
+packets read:  65/(624)   d_time:  0.018 s  =  5431.111 kb/s (Avrg:  5128.393 kb/s)
+packets read:  58/(682)   d_time:  0.017 s  =  5131.294 kb/s (Avrg:  5128.640 kb/s)
+packets read:  52/(734)   d_time:  0.016 s  =  4888.000 kb/s (Avrg:  5110.814 kb/s)
+packets read:  71/(805)   d_time:  0.020 s  =  5339.200 kb/s (Avrg:  5108.523 kb/s)
+packets read:  36/(841)   d_time:  0.011 s  =  4922.181 kb/s (Avrg:  5079.775 kb/s)
+packets read:  42/(883)   d_time:  0.013 s  =  4859.076 kb/s (Avrg:  5068.824 kb/s)
+packets read:  57/(940)   d_time:  0.017 s  =  5042.823 kb/s (Avrg:  5049.142 kb/s)
+packets read:  13/(953)   d_time:  0.004 s  =  4888.000 kb/s (Avrg:  5046.873 kb/s)
+packets read:  72/(1025)   d_time:  0.032 s  =  3384.000 kb/s (Avrg:  4878.481 kb/s)
+packets read:  58/(1083)   d_time:  0.007 s  = 12461.714 kb/s (Avrg:  5042.823 kb/s)
+packets read:  44/(1127)   d_time:  0.014 s  =  4726.857 kb/s (Avrg:  5029.697 kb/s)
+packets read:  21/(1148)   d_time:  0.005 s  =  6316.800 kb/s (Avrg:  5033.795 kb/s)
+packets read:  84/(1232)   d_time:  0.026 s  =  4859.076 kb/s (Avrg:  5021.485 kb/s)
+packets read:  52/(1284)   d_time:  0.015 s  =  5213.866 kb/s (Avrg:  5029.000 kb/s)
+packets read:  56/(1340)   d_time:  0.017 s  =  4954.352 kb/s (Avrg:  5013.333 kb/s)
+packets read:  38/(1378)   d_time:  0.011 s  =  5195.636 kb/s (Avrg:  5006.067 kb/s)
+packets read:  22/(1400)   d_time:  0.006 s  =  5514.666 kb/s (Avrg:  5001.425 kb/s)
+packets read:  54/(1454)   d_time:  0.017 s  =  4777.411 kb/s (Avrg:  4992.730 kb/s)
+packets read:  48/(1502)   d_time:  0.014 s  =  5156.571 kb/s (Avrg:  4986.772 kb/s)
+packets read:  45/(1547)   d_time:  0.015 s  =  4512.000 kb/s (Avrg:  4971.555 kb/s)
+packets read:  48/(1595)   d_time:  0.013 s  =  5553.230 kb/s (Avrg:  4987.276 kb/s)
+packets read:  54/(1649)   d_time:  0.016 s  =  5076.000 kb/s (Avrg:  4980.112 kb/s)
+packets read:  69/(1718)   d_time:  0.023 s  =  4512.000 kb/s (Avrg:  4959.447 kb/s)
+packets read:  80/(1798)   d_time:  0.019 s  =  6332.631 kb/s (Avrg:  4998.506 kb/s)
+packets read:  63/(1861)   d_time:  0.020 s  =  4737.600 kb/s (Avrg:  4989.204 kb/s)
+packets read:  54/(1915)   d_time:  0.014 s  =  5801.142 kb/s (Avrg:  5000.277 kb/s)
+packets read:  56/(1971)   d_time:  0.017 s  =  4954.352 kb/s (Avrg:  4998.961 kb/s)
+packets read:  69/(2040)   d_time:  0.020 s  =  5188.800 kb/s (Avrg:  4997.003 kb/s)
+packets read:  51/(2091)   d_time:  0.015 s  =  5113.600 kb/s (Avrg:  4999.783 kb/s)
+packets read:  23/(2114)   d_time:  0.006 s  =  5765.333 kb/s (Avrg:  4999.144 kb/s)
+packets read:  16/(2130)   d_time:  0.005 s  =  4812.800 kb/s (Avrg:  4989.906 kb/s)
+packets read:  14/(2144)   d_time:  0.012 s  =  1754.666 kb/s (Avrg:  4930.544 kb/s)
+packets read: 100/(2244)   d_time:  0.022 s  =  6836.363 kb/s (Avrg:  4985.193 kb/s)
+packets read:  50/(2294)   d_time:  0.014 s  =  5371.428 kb/s (Avrg:  4993.018 kb/s)
+packets read:  48/(2342)   d_time:  0.017 s  =  4246.588 kb/s (Avrg:  4968.078 kb/s)
+packets read:  34/(2376)   d_time:  0.007 s  =  7305.142 kb/s (Avrg:  4990.927 kb/s)
+packets read:  21/(2397)   d_time:  0.006 s  =  5264.000 kb/s (Avrg:  4986.290 kb/s)
+packets read:  51/(2448)   d_time:  0.015 s  =  5113.600 kb/s (Avrg:  4988.878 kb/s)
+packets read:  61/(2509)   d_time:  0.019 s  =  4828.631 kb/s (Avrg:  4984.856 kb/s)
+packets read:  56/(2565)   d_time:  0.016 s  =  5264.000 kb/s (Avrg:  4984.186 kb/s)
+packets read:  71/(2636)   d_time:  0.021 s  =  5084.952 kb/s (Avrg:  4986.847 kb/s)
+packets read:  49/(2685)   d_time:  0.014 s  =  5264.000 kb/s (Avrg:  4985.481 kb/s)
+packets read:  55/(2740)   d_time:  0.016 s  =  5170.000 kb/s (Avrg:  4989.055 kb/s)
+packets read:  59/(2799)   d_time:  0.017 s  =  5219.764 kb/s (Avrg:  4987.791 kb/s)
+packets read:  64/(2863)   d_time:  0.018 s  =  5347.555 kb/s (Avrg:  4989.515 kb/s)
+packets read:  61/(2924)   d_time:  0.018 s  =  5096.888 kb/s (Avrg:  4991.709 kb/s)
+packets read:  56/(2980)   d_time:  0.017 s  =  4954.352 kb/s (Avrg:  4985.450 kb/s)
+packets read:  61/(3041)   d_time:  0.017 s  =  5396.705 kb/s (Avrg:  4987.637 kb/s)
+~/bin &gt; 
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><BR></P> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>~/bin &gt; ./dvbsnoop -s bandwidth  -n 10  -pd 2   0x10  
+dvbsnoop V1.1.25 -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+PID bandwidth statistics...
+PID: 16 (0x0010)
+---------------------------------------------------------
+    9.960 kb/s (Avrg:     9.960 kb/s)
+    7.520 kb/s (Avrg:     8.545 kb/s)
+    7.520 kb/s (Avrg:     8.173 kb/s)
+    7.520 kb/s (Avrg:     8.000 kb/s)
+    7.520 kb/s (Avrg:     7.899 kb/s)
+    7.520 kb/s (Avrg:     7.833 kb/s)
+    7.482 kb/s (Avrg:     7.781 kb/s)
+    7.520 kb/s (Avrg:     7.747 kb/s)
+    7.520 kb/s (Avrg:     7.721 kb/s)
+    7.520 kb/s (Avrg:     7.700 kb/s)
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

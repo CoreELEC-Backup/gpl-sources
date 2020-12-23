@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="fmsx_mapper_type_mode" values="Guess Mapper Type A|Guess Mapper Type B" default="Guess Mapper Type A"/>
+		<setting label="30002" type="select" id="fmsx_mode" values="MSX2+|MSX1|MSX2" default="MSX2+"/>
+		<setting label="30003" type="select" id="fmsx_ram_pages" values="Auto|64KB|128KB|256KB|512KB" default="Auto"/>
+		<setting label="30004" type="select" id="fmsx_video_mode" values="NTSC|PAL" default="NTSC"/>
+		<setting label="30005" type="select" id="fmsx_vram_pages" values="Auto|32KB|64KB|128KB|192KB" default="Auto"/>
+	</category>
+</settings>

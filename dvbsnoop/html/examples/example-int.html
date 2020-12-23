@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: IP/MAC Notification
+		Table (INT)</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: IP/MAC Notification Table (INT)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -if table.int 
+dvbsnoop V1.3.52 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000001   PID: (Unknown PID), Length: 417 (0x01a1)
+from file: table.int
+----------------------------------------------------------
+  0000:  4c f1 9e 01 01 c3 00 00  00 00 01 00 f0 49 0c 0f   L............I..
+  0010:  65 6e 67 64 61 74 61 5f  73 65 72 76 69 63 65 0d   engdata_service.
+  0020:  08 65 6e 67 64 70 69 41  47 13 09 00 01 00 01 00   .engdpiAG.......
+  0030:  01 43 f8 c8 5f 04 00 00  00 04 14 01 00 57 13 e1   .C.._........W..
+  0040:  d1 c5 44 45 30 30 34 39  30 35 30 34 35 39 38 30   ..DE004905045980
+  0050:  38 35 77 03 bb 01 50 f1  1d 08 06 61 62 63 64 65   85w...P....abcde
+  0060:  66 06 0d 00 00 02 00 53  6d 61 72 74 63 61 72 64   f......Smartcard
+  0070:  07 1e ff 00 ff ff 00 ff  00 01 02 03 04 05 12 13   ................
+  0080:  14 15 16 17 23 24 25 26  27 28 34 35 36 37 38 39   ....#$%&amp;'(456789
+  0090:  0e 18 00 01 02 03 04 05  12 13 14 15 16 17 23 24   ..............#$
+  00a0:  25 26 27 28 34 35 36 37  38 39 09 0c ff ff ff 00   %&amp;'(456789......
+  00b0:  c0 a8 00 0a d5 45 9f 2a  0a 30 ff ff 00 00 00 00   .....E.*.0......
+  00c0:  00 00 00 00 00 00 00 00  00 00 fe e0 00 00 00 00   ................
+  00d0:  00 00 00 00 00 00 00 00  00 01 fe 80 00 00 00 00   ................
+  00e0:  00 00 00 00 00 00 00 00  00 01 0f 0a c0 a8 00 0a   ................
+  00f0:  20 d5 45 9f 2a 1c 11 22  fe e0 00 00 00 00 00 00    .E.*.."........
+  0100:  00 00 00 00 00 00 00 01  80 fe 80 00 00 00 00 00   ................
+  0110:  00 00 00 00 00 00 00 00  01 40 10 14 c0 a8 00 01   .........@......
+  0120:  20 d5 45 9f 01 20 c0 a8  00 01 20 c0 a8 00 0a 18    .E.. .... .....
+  0130:  12 44 fe e0 00 00 00 00  00 00 00 00 00 00 00 00   .D..............
+  0140:  00 01 80 fe 80 00 00 00  00 00 00 00 00 00 00 00   ................
+  0150:  00 00 02 40 fe 80 00 00  00 00 00 00 00 00 00 00   ...@............
+  0160:  00 00 00 01 40 fe e0 00  00 00 00 00 00 00 00 00   ....@...........
+  0170:  00 00 00 00 02 80 f0 25  13 09 00 01 00 01 00 02   .......%........
+  0180:  34 58 64 57 12 e1 cd b6  55 53 30 30 31 30 35 31   4XdW....US001051
+  0190:  31 39 31 31 32 33 34 5f  04 00 00 00 02 6a 8b ee   1911234_.....j..
+  01a0:  d9                                                 .
+
+Guess table from table id...
+INT-decoding....
+Table_ID: 76 (0x4c)  [= IP/MAC Notification Table (INT) [EN 301 192]]
+Section_syntax_indicator: 1 (0x01)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+section_length: 414 (0x019e)
+Action_type: 1 (0x01)  [= location of IP/MAC streams in DVB networks // System Software Update]
+Platform_id_hash: 1 (0x01)
+reserved_3: 3 (0x03)
+Version_number: 1 (0x01)
+Current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 0 (0x00)
+Last_section_number: 0 (0x00)
+Platform_id: 1 (0x000001)  [= &gt;&gt;ERROR: not (yet) defined... Report!&lt;&lt;]
+Processing_order: 0 (0x00)  [= first action]
+platform_descriptor_loop:
+    reserved: 15 (0x0f)
+    platform_loop_length: 73 (0x0049)
+
+            DSM_CC-INT-UNT-DescriptorTag: 12 (0x0c)  [= IP/MAC_platform_name_descriptor]
+            Descriptor_length: 15 (0x0f)
+              ISO639_language_code:  eng
+            Text: "data_service"  -- Charset: Latin alphabet
+
+            DSM_CC-INT-UNT-DescriptorTag: 13 (0x0d)  [= IP/MAC_platform_provider_name_descriptor]
+            Descriptor_length: 8 (0x08)
+              ISO639_language_code:  eng
+            Text: "dpiAG"  -- Charset: Latin alphabet
+
+            DSM_CC-INT-UNT-DescriptorTag: 19 (0x13)  [= IP/MAC_stream_location_descriptor]
+            Descriptor_length: 9 (0x09)
+            Network_id: 1 (0x0001)  [= Astra Satellite Network 19.2E / Satellite / SES]
+            Original_network_id: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+            transport_stream_ID: 1 (0x0001)
+            service_ID: 17400 (0x43f8) --&gt; refers to PMT program_number
+            component_tag: 200 (0xc8)
+
+            DVB-DescriptorTag: 95 (0x5f)  [= private_data_specifier_descriptor]
+            Descriptor_length: 4 (0x04)
+            PrivateDataSpecifier: 4 (0x00000004)  [= BskyB 3]
+
+            DSM_CC-INT-UNT-DescriptorTag: 20 (0x14)  [= ISP_access_mode_descriptor]
+            Descriptor_length: 1 (0x01)
+            Access_mode: 0 (0x00)  [= not used]
+
+            DVB-DescriptorTag: 87 (0x57)  [= telephone_descriptor]
+            Descriptor_length: 19 (0x13)
+            reserved_1: 3 (0x03)
+            foreign_availability: 1 (0x01)
+            connection_type: 1 (0x01)
+            reserved_2: 1 (0x01)
+            country_prefix_length: 2 (0x02)
+            international_area_code_length: 4 (0x04)
+            operator_code_length: 1 (0x01)
+            reserved_3: 1 (0x01)
+            national_area_code_length: 4 (0x04)
+            core_number_length: 5 (0x05)
+            country_prefix: DE
+            international_area_code_prefix: 0049
+            operator_code: 0
+            national_area_code: 5045
+            core_number: 98085
+
+            DVB-DescriptorTag: 119 (0x77)  [= time_slice_fec_identifier_descriptor]
+            Descriptor_length: 3 (0x03)
+            time_slicing: 1 (0x01)  [= used]
+            mpe_fec: 1 (0x01)  [= MPE-FEC used // Reed-Solomon (255,191,64)]
+            reserved: 3 (0x03)
+            frame_size: 3 (0x03)
+              ==&gt; max burst size: 2048 kbits
+              ==&gt; MPE-FEC frame rows: 1024
+            max_burst_duration: 1 (0x01) [= 40 msec]
+            max_average_rate: 5 (0x05)  [= 512 kbps]
+            time_slice_fec_id: 0 (0x00)
+
+target_descriptor_loop:
+    reserved: 15 (0x0f)
+    target_loop_length: 285 (0x011d)
+
+            DSM_CC-INT-UNT-DescriptorTag: 8 (0x08)  [= target_serial_number_descriptor]
+            Descriptor_length: 6 (0x06)
+            Serial Data Bytes:
+                 0000:  61 62 63 64 65 66                                  abcdef
+
+            DSM_CC-INT-UNT-DescriptorTag: 6 (0x06)  [= target_smartcard_descriptor]
+            Descriptor_length: 13 (0x0d)
+            Super_CA_system_id: 512 (0x00000200)
+            Private Data:
+                 0000:  53 6d 61 72 74 63 61 72  64                        Smartcard
+
+            DSM_CC-INT-UNT-DescriptorTag: 7 (0x07)  [= target_MAC_address_descriptor]
+            Descriptor_length: 30 (0x1e)
+            Mac_addr_mask: ff00ffff00ff [= ff:00:ff:ff:00:ff]
+            Mac_addr: 000102030405 [= 00:01:02:03:04:05]
+            Mac_addr: 121314151617 [= 12:13:14:15:16:17]
+            Mac_addr: 232425262728 [= 23:24:25:26:27:28]
+            Mac_addr: 343536373839 [= 34:35:36:37:38:39]
+
+            DSM_CC-INT-UNT-DescriptorTag: 14 (0x0e)  [= target_MAC_address_range_descriptor]
+            Descriptor_length: 24 (0x18)
+            Mac_addr_low: 000102030405 [= 00:01:02:03:04:05]
+            Mac_addr_high: 121314151617 [= 12:13:14:15:16:17]
+            Mac_addr_low: 232425262728 [= 23:24:25:26:27:28]
+            Mac_addr_high: 343536373839 [= 34:35:36:37:38:39]
+
+            DSM_CC-INT-UNT-DescriptorTag: 9 (0x09)  [= target_IP_address_descriptor]
+            Descriptor_length: 12 (0x0c)
+            IPv4_addr_mask: ffffff00 [= 255.255.255.0]
+            IPv4_addr: c0a8000a [= 192.168.0.10]
+            IPv4_addr: d5459f2a [= 213.69.159.42]
+
+            DSM_CC-INT-UNT-DescriptorTag: 10 (0x0a)  [= target_IPv6_address_descriptor]
+            Descriptor_length: 48 (0x30)
+            IPv6_addr_mask: ffff0000000000000000000000000000 [= ffff:0:0:0:0:0:0:0]
+            IPv6_addr_mask: fee00000000000000000000000000001 [= fee0:0:0:0:0:0:0:1]
+            IPv6_addr_mask: fe800000000000000000000000000001 [= fe80:0:0:0:0:0:0:1]
+
+            DSM_CC-INT-UNT-DescriptorTag: 15 (0x0f)  [= target_IP_slash_descriptor]
+            Descriptor_length: 10 (0x0a)
+            IPv4_addr: 3232235530 (0xc0a8000a)
+            IPv4_slash_mask: 32 (0x20)
+              [= 192.168.0.10/32]
+            IPv4_addr: 3578109738 (0xd5459f2a)
+            IPv4_slash_mask: 28 (0x1c)
+              [= 213.69.159.42/28]
+
+            DSM_CC-INT-UNT-DescriptorTag: 17 (0x11)  [= target_IPv6_slash_descriptor]
+            Descriptor_length: 34 (0x22)
+            IPv6_addr_mask: fee00000000000000000000000000001
+            IPv6_slash_mask: 128 (0x80)
+              [= fee0:0:0:0:0:0:0:1/128]
+            IPv6_addr_mask: fe800000000000000000000000000001
+            IPv6_slash_mask: 64 (0x40)
+              [= fe80:0:0:0:0:0:0:1/64]
+
+            DSM_CC-INT-UNT-DescriptorTag: 16 (0x10)  [= target_IP_source_slash_descriptor]
+            Descriptor_length: 20 (0x14)
+            IPv4_source_addr: 3232235521 (0xc0a80001)
+            IPv4_source_slash_mask: 32 (0x20)
+              [= 192.168.0.1/32]
+            IPv4_dest_addr: 3578109697 (0xd5459f01)
+            IPv4_dest_slash_mask: 32 (0x20)
+              [= 213.69.159.1/32]
+            IPv4_source_addr: 3232235521 (0xc0a80001)
+            IPv4_source_slash_mask: 32 (0x20)
+              [= 192.168.0.1/32]
+            IPv4_dest_addr: 3232235530 (0xc0a8000a)
+            IPv4_dest_slash_mask: 24 (0x18)
+              [= 192.168.0.10/24]
+
+            DSM_CC-INT-UNT-DescriptorTag: 18 (0x12)  [= target_IPv6_source_slash_descriptor]
+            Descriptor_length: 68 (0x44)
+            IPv6_source_addr: fee00000000000000000000000000001
+            IPv6_source_slash_mask: 128 (0x80)
+              [= fee0:0:0:0:0:0:0:1/128]
+            IPv6_dest_addr: fe800000000000000000000000000002
+            IPv6_dest_slash_mask: 64 (0x40)
+              [= fe80:0:0:0:0:0:0:2/64]
+            IPv6_source_addr: fe800000000000000000000000000001
+            IPv6_source_slash_mask: 64 (0x40)
+              [= fe80:0:0:0:0:0:0:1/64]
+            IPv6_dest_addr: fee00000000000000000000000000002
+            IPv6_dest_slash_mask: 128 (0x80)
+              [= fee0:0:0:0:0:0:0:2/128]
+
+operational_descriptor_loop:
+    reserved: 15 (0x0f)
+    operational_loop_length: 37 (0x0025)
+
+            DSM_CC-INT-UNT-DescriptorTag: 19 (0x13)  [= IP/MAC_stream_location_descriptor]
+            Descriptor_length: 9 (0x09)
+            Network_id: 1 (0x0001)  [= Astra Satellite Network 19.2E / Satellite / SES]
+            Original_network_id: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+            transport_stream_ID: 2 (0x0002)
+            service_ID: 13400 (0x3458) --&gt; refers to PMT program_number
+            component_tag: 100 (0x64)
+
+            DVB-DescriptorTag: 87 (0x57)  [= telephone_descriptor]
+            Descriptor_length: 18 (0x12)
+            reserved_1: 3 (0x03)
+            foreign_availability: 1 (0x01)
+            connection_type: 1 (0x01)
+            reserved_2: 1 (0x01)
+            country_prefix_length: 2 (0x02)
+            international_area_code_length: 3 (0x03)
+            operator_code_length: 1 (0x01)
+            reserved_3: 1 (0x01)
+            national_area_code_length: 3 (0x03)
+            core_number_length: 6 (0x06)
+            country_prefix: US
+            international_area_code_prefix: 001
+            operator_code: 0
+            national_area_code: 511
+            core_number: 911234
+
+            DVB-DescriptorTag: 95 (0x5f)  [= private_data_specifier_descriptor]
+            Descriptor_length: 4 (0x04)
+            PrivateDataSpecifier: 2 (0x00000002)  [= BskyB 1]
+
+
+CRC: 1787555545 (0x6a8beed9)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE>
+	 <P>Test data provided by "Karsten Siebert, dpi AG"</P> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

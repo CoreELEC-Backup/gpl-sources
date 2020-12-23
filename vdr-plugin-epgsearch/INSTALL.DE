@@ -1,0 +1,22 @@
+Hier gibt es nichts besonderes. Bitte wie jedes andere Standard-Plugin
+installieren (entpacken, soft link, make plugins). Eine kleine
+Besonderheit: Wer lieber mit Perl compatible regular expressions in
+der Suche arbeitet, sollte einfach im Makefile des Plugins
+'#REGEXLIB = pcre' in 'REGEXLIB = pcre' ändern oder einfach
+REGEXLIB=pcre an den 'make plugins'-Aufruf anhängen. Hierzu muss pcreposix
+installiert sein, das in der libpcre von www.pcre.org enthalten ist.
+Dies sollte aber in den meisten Distributionen bereits enthalten sein.
+
+HINWEIS: wenn alles normal kompiliert, aber beim Start von VDR
+folgendes kommt:
+
+ ERROR: /usr/lib/libpcreposix.so.0: undefined symbol: pcre_free).
+
+dann bitte libpcre von www.pcre.org updaten und das Plugin neu
+kompilieren.
+
+Scheinbar gibt es auf manchen Systemen Probleme mit PCRE, die sich in einem
+Crash äußern, wenn man reg. Ausdrücke benutzt. Da ich die Ursache bisher
+nicht
+finden konnte, empfehle ich deshalb auf REGEXLIB=pcre zu verzichten, wenn
+es nicht unbedingt notwendig ist.

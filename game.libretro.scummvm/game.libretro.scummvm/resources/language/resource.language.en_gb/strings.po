@@ -1,0 +1,41 @@
+# game.libretro.scummvm language file
+# Addon Name: game.libretro.scummvm
+# Addon id: game.libretro.scummvm
+# Addon Provider: libretro
+msgid ""
+msgstr ""
+"Project-Id-Version: game.libretro.scummvm\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2018-05-13 09:24i\n"
+"PO-Revision-Date: 2018-05-13 09:24i\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Analog Deadzone (Percent)"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Analog Cursor Response"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Gamepad Cursor Speed"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Mouse Speed"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Speed Hack (Restart)"
+msgstr ""

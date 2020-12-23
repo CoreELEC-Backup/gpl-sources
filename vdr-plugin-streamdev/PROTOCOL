@@ -1,0 +1,139 @@
+Written by:                  Sascha Volkenandt <sascha@akv-soft.de>
+
+Project's homepage:          http://www.magoa.net/linux/
+
+Version:                     0.0.3
+
+Description:
+------------
+
+I call this protocol "VTP", the Video Transfer Protocol. I hope that's not 
+already claimed by someone ;).
+
+This Protocol was created for Video Transfers over a Network. It is a text-
+based protocol like the FTP, and is used by a client to communicate with a 
+server providing different types of video data, such as live streams, 
+recordings or disc media. The basic communication consists of short text 
+commands sent by the client, answered by numerical codes accompanied by
+human-readable messages. All messages should be finished by a full CR/LF 
+line-ending, which should preferably written as "\015\012", as this is fully
+platform-independent. Nevertheless, a client or (especially) a server should 
+also act on "\n" line-endings. The MPEG data is being transmitted over a 
+separate data connection.
+
+TODO:
+- PORT behaviour changed
+- TUNE syntax changed
+- connection IDs
+- new command PLAY
+
+
+Response Code Summary
+
+Code  Meaning
+220   Last command ok / connection ready
+221   Service is closing the connection afterwards
+500   The command was not recognized
+501   The parameters couldn't be interpreted correctly
+550   Action not taken, for various reason
+551   Action not taken, a subsequent connection was unsuccessful
+560   Live-Stream not available currently [changed in 0.0.3]
+561   Capability not known [new in 0.0.2]
+562   Pid currently not available [new in 0.0.3]
+563   Stream not available currently [new in 0.0.3]
+
+
+Command Reference
+
+Command:       Connect to VTP Server
+Responses:     220 - The server is ready
+Description:   Upon connection to the server (which usually listens at port 
+    2004), the first thing the client has to expect is a welcome message with 
+    the "220" response code. The client may now send a CAPS command, to tell 
+    the server it's capabilities.
+
+Command:       CAPS <Capability>
+Responses:     220 - This capability is known and will be used from now on.
+               561 - This capability is unknown, try anotherone
+Description:   This command tells the server to serve media data in a specific
+    format, like "PES" (for MPEG2-PES) or "TS" (for MPEG2-TS). A client can 
+    do several CAPS commands until the server accepts one. So a client should
+    try all formats it can handle, descending from the most preffered one. If
+    no such command is sent, streaming is defaulted to PES.
+    Capabilities currently used:
+      TS       Transport Stream (all PIDs belonging to a channel)
+      TSPIDS   Only in conjunction with TS: Stream PIDs separately upon request
+               (this enables the ADDP/DELP commands)
+      PES      Program Elementary stream (Video and primary Audio stream)
+[new in 0.0.2,updated in 0.0.3]
+
+Command:       PROV <Priority> <Media>
+Responses:     220 - Media available for receive
+               501 - The parameters were incorrect
+               550 - The media couldn't be identified
+               560 - This server can currently not serve that media
+Description:   With this command, the server is asked if the given media can
+    be received. The Priority is a number between 0 and 100 (in case a media
+    can not be received by an unlimited number of clients, the server shall
+    grant higher priorities before lower ones, and it shall also quit streams
+    with lower permissions if a higher one is requested), or -1 to ask the
+    server if this media is available at all.
+    The Media is a string defining the wanted media type. This is currently for
+    free use, it could for example carry a VDR unique channel id, to specify
+    a TV channel.
+
+Command:       PORT <Id> <Address and Port>
+Responses:     220 - The data connection was opened
+               501 - The parameter list was wrong
+               551 - The data connection was refused by the client or timed out
+Description:   The PORT command tells the server the target of a following 
+    media transmission. The parameter Id specifies an index which is used to 
+    establish multiple data connections over one control connection. It is used
+    later in the ABRT command to close a specific data connection. The second 
+    parameter argument has six comma-separated fields, of which the first four 
+    represent the target IP address, in the byte-order as the dot-notation 
+    would be printed. The last two fields represent the target port, with the 
+    high-byte first. To calculate the actual values, you could use the 
+    following:
+    Field(5) = (RealPort & 0xFF00) shr 8
+    Field(6) = RealPort & 0xFF
+    Reversed:
+    RealPort = (Field(5) shl 8) + Field(6)
+    After receiving the port command, the data connection is opened but no data
+    is transferred, yet.
+    Id's currently used:
+      0        Data connection for live streams
+      1        Data connection for saved streams
+[changed in 0.0.3]
+    
+Command:       TUNE <Priority> <Media>
+Responses:     220 - Data connection was opened successfully
+               550 - The media couldn't be identified
+               560 - The live stream is unavailable
+Description:   This command tells the media server to start the transfer over a 
+    connection to a remote target established by the PORT command before. 
+    Please look at the PROV command for the meaning of the parameters. The 
+    server begins to send MPEG data. After the transfer has been started, the 
+    response code "220" is sent.
+
+Command:       ADDP <Pid>
+Responses:     220 - The requested Pid is transferring
+               560 - The requested Pid is not available currently
+Description:   This tells the server to start the transfer of a specific Pid
+    over a data connection established by the PORT command before.
+
+Command:       DELP <Pid>
+Responses:     220 - The requested Pid is transferring
+               560 - The requested Pid was not transferring
+Description:   This tells the server to stop the transfer of a specific Pid
+    enabled by DELP before.
+
+Command:       ABRT <Id>
+Responses:     220 - Data connection closed
+Description:   This one should be sent before requesting another media or when
+    a media isn't needed anymore. It terminates the data connection previously
+    opened by PORT.
+
+Command:       QUIT
+Responses:     221 - Connection is being closed afterwards
+Description:   This commands terminates the client connection.

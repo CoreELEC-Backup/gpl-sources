@@ -1,0 +1,1644 @@
+# VDR language source file.
+# Copyright (C) 2018 Klaus Schmidinger <vdr@tvdr.de>
+# This file is distributed under the same license as the VDR package.
+# Vyacheslav Dikonov <sdiconov@mail.ru>, 2004, 2005
+# Oleg Roitburd <oroitburd@gmail.com>, 2005-2008, 2013
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VDR 2.4.0\n"
+"Report-Msgid-Bugs-To: <vdr-bugs@tvdr.de>\n"
+"POT-Creation-Date: 2020-06-15 17:50+0200\n"
+"PO-Revision-Date: 2016-12-27 17:13+0100\n"
+"Last-Translator: Pridvorov Andrey <ua0lnj@bk.ru>\n"
+"Language-Team: Russian <vdr@linuxtv.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "*** Invalid Channel ***"
+msgstr "*** Неправильный канал ***"
+
+msgid "CAM activated!"
+msgstr "МД активен!"
+
+msgid "Channel not available!"
+msgstr "Канал недоступен!"
+
+msgid "Can't start Transfer Mode!"
+msgstr "Невозможно включить режим пропуска!"
+
+msgid "off"
+msgstr "выкл"
+
+msgid "on"
+msgstr "вкл"
+
+msgid "auto"
+msgstr "авто"
+
+msgid "none"
+msgstr "ничего"
+
+msgid "Polarization"
+msgstr "Поляризация"
+
+msgid "System"
+msgstr "Система"
+
+msgid "Srate"
+msgstr "Симв. скорость"
+
+msgid "Inversion"
+msgstr "Инверсия"
+
+msgid "CoderateH"
+msgstr "Выс.поток"
+
+msgid "CoderateL"
+msgstr "Низ.поток"
+
+msgid "Modulation"
+msgstr "Модуляция"
+
+msgid "Bandwidth"
+msgstr "Полоса"
+
+msgid "Transmission"
+msgstr "Передача"
+
+msgid "Guard"
+msgstr "Защита"
+
+msgid "Hierarchy"
+msgstr "Иерархия"
+
+msgid "Rolloff"
+msgstr "Крутизна"
+
+msgid "StreamId"
+msgstr "StreamId"
+
+msgid "Pilot"
+msgstr "Пилот"
+
+msgid "T2SystemId"
+msgstr "T2SystemId"
+
+msgid "SISO/MISO"
+msgstr "SISO/MISO"
+
+msgid "Starting EPG scan"
+msgstr "Запуск EPG-сканирования"
+
+msgid "Content$Movie/Drama"
+msgstr "Фильм/Драма"
+
+msgid "Content$Detective/Thriller"
+msgstr "Детектив/Триллер"
+
+msgid "Content$Adventure/Western/War"
+msgstr "Приключение/Вестерн/Война"
+
+msgid "Content$Science Fiction/Fantasy/Horror"
+msgstr "Научная фантастика/Фантазия/Ужас"
+
+msgid "Content$Comedy"
+msgstr "Комедия"
+
+msgid "Content$Soap/Melodrama/Folkloric"
+msgstr "Мыльная опера/Мелодрама/Фольклор"
+
+msgid "Content$Romance"
+msgstr "Романтика"
+
+msgid "Content$Serious/Classical/Religious/Historical Movie/Drama"
+msgstr "Серьезность/Классика/Религиозное/Исторический фильм/Драма"
+
+msgid "Content$Adult Movie/Drama"
+msgstr "Фильм для взрослых/Драма"
+
+msgid "Content$News/Current Affairs"
+msgstr "Новости/Актульные события"
+
+msgid "Content$News/Weather Report"
+msgstr "Новости/Погода"
+
+msgid "Content$News Magazine"
+msgstr "Новостной журнал"
+
+msgid "Content$Documentary"
+msgstr "Документальные"
+
+msgid "Content$Discussion/Inverview/Debate"
+msgstr "Дискуссия/Интервью/Дебаты"
+
+msgid "Content$Show/Game Show"
+msgstr "Шоу/Игровое шоу"
+
+msgid "Content$Game Show/Quiz/Contest"
+msgstr "Игровое шоу/Викторина/Соревнование"
+
+msgid "Content$Variety Show"
+msgstr "Варьетте"
+
+msgid "Content$Talk Show"
+msgstr "Токшоу"
+
+msgid "Content$Sports"
+msgstr "Спорт"
+
+msgid "Content$Special Event"
+msgstr "Особенное событие"
+
+msgid "Content$Sport Magazine"
+msgstr "Спорт журнал"
+
+msgid "Content$Football/Soccer"
+msgstr "Футбол"
+
+msgid "Content$Tennis/Squash"
+msgstr "Теннис/Сквош"
+
+msgid "Content$Team Sports"
+msgstr "Коммандные виды спорта"
+
+msgid "Content$Athletics"
+msgstr "Атлетика"
+
+msgid "Content$Motor Sport"
+msgstr "Моторспорт"
+
+msgid "Content$Water Sport"
+msgstr "Водный виды спорта"
+
+msgid "Content$Winter Sports"
+msgstr "Зимние виды спорта"
+
+msgid "Content$Equestrian"
+msgstr "Конный спорт"
+
+msgid "Content$Martial Sports"
+msgstr "Боевые искусства"
+
+msgid "Content$Children's/Youth Programme"
+msgstr "Детская/Юнешеская программа"
+
+msgid "Content$Pre-school Children's Programme"
+msgstr "Программа для дошкольников"
+
+msgid "Content$Entertainment Programme for 6 to 14"
+msgstr "Развлекательная программа от 6 до 14"
+
+msgid "Content$Entertainment Programme for 10 to 16"
+msgstr "Развлекательная программа от 10 до 16"
+
+msgid "Content$Informational/Educational/School Programme"
+msgstr "Информационная/Образовательная/Школьная программа"
+
+msgid "Content$Cartoons/Puppets"
+msgstr "Мултипликация/Куклы"
+
+msgid "Content$Music/Ballet/Dance"
+msgstr "Музыка/Балет/Танец"
+
+msgid "Content$Rock/Pop"
+msgstr "Рок/Поп"
+
+msgid "Content$Serious/Classical Music"
+msgstr "Классическая музыка"
+
+msgid "Content$Folk/Tradional Music"
+msgstr "Фольклор/Традиционная музыка"
+
+msgid "Content$Jazz"
+msgstr "Джаз"
+
+msgid "Content$Musical/Opera"
+msgstr "Мюзикл/Опера"
+
+msgid "Content$Ballet"
+msgstr "Балет"
+
+msgid "Content$Arts/Culture"
+msgstr "Искусство/Культура"
+
+msgid "Content$Performing Arts"
+msgstr "Перформэнсарт"
+
+msgid "Content$Fine Arts"
+msgstr "Изящное искусство"
+
+msgid "Content$Religion"
+msgstr "Религия"
+
+msgid "Content$Popular Culture/Traditional Arts"
+msgstr "Попкультура/Традиционная культура"
+
+msgid "Content$Literature"
+msgstr "Литература"
+
+msgid "Content$Film/Cinema"
+msgstr "Фильм/Кино"
+
+msgid "Content$Experimental Film/Video"
+msgstr "Экспериментальный фильм/Видео"
+
+msgid "Content$Broadcasting/Press"
+msgstr "Широкое вещание/Печать"
+
+msgid "Content$New Media"
+msgstr "Новые средства"
+
+msgid "Content$Arts/Culture Magazine"
+msgstr "Искусство/Культурный журнал"
+
+msgid "Content$Fashion"
+msgstr "Мода"
+
+msgid "Content$Social/Political/Economics"
+msgstr "Социальное/Политическое/Экономическое"
+
+msgid "Content$Magazine/Report/Documentary"
+msgstr "Журнал/Экономика/Документальные"
+
+msgid "Content$Economics/Social Advisory"
+msgstr "Экономика/Общественность"
+
+msgid "Content$Remarkable People"
+msgstr "Знаменитые люди"
+
+msgid "Content$Education/Science/Factual"
+msgstr "Образование/Наука/Факты"
+
+msgid "Content$Nature/Animals/Environment"
+msgstr "Природа/Животные/Окружение"
+
+msgid "Content$Technology/Natural Sciences"
+msgstr "Технологии/Естественные науки"
+
+msgid "Content$Medicine/Physiology/Psychology"
+msgstr "Медицина/Физиология/Психология"
+
+msgid "Content$Foreign Countries/Expeditions"
+msgstr "Страны/Экспедиции"
+
+msgid "Content$Social/Spiritual Sciences"
+msgstr "Социальное/Спиритуальные науки"
+
+msgid "Content$Further Education"
+msgstr "Повышение квалификации"
+
+msgid "Content$Languages"
+msgstr "Языки"
+
+msgid "Content$Leisure/Hobbies"
+msgstr "Свободное время/Хобби"
+
+msgid "Content$Tourism/Travel"
+msgstr "Туризм/Путешествия"
+
+msgid "Content$Handicraft"
+msgstr "Ремесло"
+
+msgid "Content$Motoring"
+msgstr "Мотор"
+
+msgid "Content$Fitness & Health"
+msgstr "Фитнес и здоровье"
+
+msgid "Content$Cooking"
+msgstr "Кулинария"
+
+msgid "Content$Advertisement/Shopping"
+msgstr "Реклама/Покупки"
+
+msgid "Content$Gardening"
+msgstr "Садоводство"
+
+msgid "Content$Original Language"
+msgstr "Оригинальный язык"
+
+msgid "Content$Black & White"
+msgstr "Чернобелое"
+
+msgid "Content$Unpublished"
+msgstr "Неопубликованное"
+
+msgid "Content$Live Broadcast"
+msgstr "Прямое вещание"
+
+#, c-format
+msgid "ParentalRating$from %d"
+msgstr "от %d"
+
+msgid "No title"
+msgstr "Без названия"
+
+#. TRANSLATORS: The name of the language, as written natively
+msgid "LanguageName$English"
+msgstr "Русский"
+
+#. TRANSLATORS: The 3-letter code of the language
+msgid "LanguageCode$eng"
+msgstr "rus"
+
+msgid "LanguageName$original language (qaa)"
+msgstr ""
+
+msgid "LanguageName$uncoded languages (mis)"
+msgstr ""
+
+msgid "LanguageName$multiple languages (mul)"
+msgstr ""
+
+msgid "LanguageName$narrative (nar)"
+msgstr ""
+
+msgid "LanguageName$undetermined (und)"
+msgstr ""
+
+msgid "LanguageName$no linguistic content (zxx)"
+msgstr ""
+
+msgid "Phase 1: Detecting RC code type"
+msgstr "Шаг 1: Определение типа кода пульта"
+
+msgid "Press any key on the RC unit"
+msgstr "Нажмите любую кнопку на пульте"
+
+msgid "RC code detected!"
+msgstr "Обнаружен код пульта!"
+
+msgid "Do not press any key..."
+msgstr "Не нажимайте кнопки..."
+
+msgid "Phase 2: Learning specific key codes"
+msgstr "Шаг 2: Задание кодов отдельных кнопок"
+
+#, c-format
+msgid "Press key for '%s'"
+msgstr "Нажмите кнопку '%s'"
+
+msgid "Press 'Up' to confirm"
+msgstr "Нажмите 'Вверх' чтобы подтвердить"
+
+msgid "Press 'Down' to continue"
+msgstr "Нажмите 'Вниз' чтобы продолжить"
+
+msgid "(press 'Up' to go back)"
+msgstr "(Нажмите 'Вверх' чтобы вернуться)"
+
+msgid "(press 'Down' to end key definition)"
+msgstr "(Нажмите 'Вниз' чтобы закончить настройку пульта)"
+
+msgid "(press 'Menu' to skip this key)"
+msgstr "(Нажмите 'Меню' чтобы пропустить кнопку)"
+
+msgid "Learning Remote Control Keys"
+msgstr "Обучение пульта"
+
+msgid "Phase 3: Saving key codes"
+msgstr "Шаг 3: Запоминание кодов кнопок"
+
+msgid "Press 'Up' to save, 'Down' to cancel"
+msgstr "Нажмите 'Вверх' чтобы запомнить, 'Вниз' чтобы отказаться"
+
+msgid "Key$Up"
+msgstr "Вверх"
+
+msgid "Key$Down"
+msgstr "Вниз"
+
+msgid "Key$Menu"
+msgstr "Меню"
+
+msgid "Key$Ok"
+msgstr "Ок"
+
+msgid "Key$Back"
+msgstr "Назад"
+
+msgid "Key$Left"
+msgstr "Налево"
+
+msgid "Key$Right"
+msgstr "Направо"
+
+msgid "Key$Red"
+msgstr "Красный"
+
+msgid "Key$Green"
+msgstr "Зелёный"
+
+msgid "Key$Yellow"
+msgstr "Жёлтый"
+
+msgid "Key$Blue"
+msgstr "Синий"
+
+msgid "Key$Info"
+msgstr "Инфо"
+
+msgid "Key$Play/Pause"
+msgstr "Воспроизведение/Пауза"
+
+msgid "Key$Play"
+msgstr "Воспроизведение"
+
+msgid "Key$Pause"
+msgstr "Пауза"
+
+msgid "Key$Stop"
+msgstr "Стоп"
+
+msgid "Key$Record"
+msgstr "Запись"
+
+msgid "Key$FastFwd"
+msgstr "Прокрутка вперёд"
+
+msgid "Key$FastRew"
+msgstr "Прокрутка назад"
+
+msgid "Key$Next"
+msgstr "Вперед"
+
+msgid "Key$Prev"
+msgstr "Назад"
+
+msgid "Key$Power"
+msgstr "Выключить"
+
+msgid "Key$Channel+"
+msgstr "Канал +"
+
+msgid "Key$Channel-"
+msgstr "Канал -"
+
+msgid "Key$PrevChannel"
+msgstr "Предыдущий канал"
+
+msgid "Key$Volume+"
+msgstr "Громкость +"
+
+msgid "Key$Volume-"
+msgstr "Громкость -"
+
+msgid "Key$Mute"
+msgstr "Выключить звук"
+
+msgid "Key$Audio"
+msgstr "Язык"
+
+msgid "Key$Subtitles"
+msgstr "Субтитры"
+
+msgid "Key$Schedule"
+msgstr "Телегид"
+
+msgid "Key$Channels"
+msgstr "Каналы"
+
+msgid "Key$Timers"
+msgstr "Таймеры"
+
+msgid "Key$Recordings"
+msgstr "Записи"
+
+msgid "Key$Setup"
+msgstr "Настройка"
+
+msgid "Key$Commands"
+msgstr "Команды"
+
+msgid "Key$User0"
+msgstr "Пользователь0"
+
+msgid "Key$User1"
+msgstr "Пользователь1"
+
+msgid "Key$User2"
+msgstr "Пользователь2"
+
+msgid "Key$User3"
+msgstr "Пользователь3"
+
+msgid "Key$User4"
+msgstr "Пользователь4"
+
+msgid "Key$User5"
+msgstr "Пользователь5"
+
+msgid "Key$User6"
+msgstr "Пользователь6"
+
+msgid "Key$User7"
+msgstr "Пользователь7"
+
+msgid "Key$User8"
+msgstr "Пользователь8"
+
+msgid "Key$User9"
+msgstr "Пользователь9"
+
+msgid "Free To Air"
+msgstr "FTA (незакодировано)"
+
+msgid "encrypted"
+msgstr "закодировано"
+
+msgid "Edit channel"
+msgstr "Редактирование канала"
+
+msgid "Name"
+msgstr "Название"
+
+msgid "Source"
+msgstr "Источник"
+
+msgid "Frequency"
+msgstr "Частота"
+
+msgid "Vpid"
+msgstr "Vpid (видео)"
+
+msgid "Ppid"
+msgstr "Ppid"
+
+msgid "Apid1"
+msgstr "Apid1 (аудио 1)"
+
+msgid "Apid2"
+msgstr "Apid2 (аудио 2)"
+
+msgid "Dpid1"
+msgstr "Dpid1 (AC3 1)"
+
+msgid "Dpid2"
+msgstr "Dpid2 (AC3 2)"
+
+msgid "Spid1"
+msgstr "Субтитры ПИД1"
+
+msgid "Spid2"
+msgstr "Субтитры ПИД2"
+
+msgid "Tpid"
+msgstr "Tpid (телетекст)"
+
+msgid "CA"
+msgstr "CA (модуль доступа)"
+
+msgid "Sid"
+msgstr "Sid"
+
+msgid "Nid"
+msgstr "Nid"
+
+msgid "Tid"
+msgstr "Tid"
+
+msgid "Channel settings are not unique!"
+msgstr "Настройки канала не уникальны!"
+
+msgid "Channels"
+msgstr "Каналы"
+
+msgid "Button$Edit"
+msgstr "Редактировать"
+
+msgid "Button$New"
+msgstr "Добавить"
+
+msgid "Button$Delete"
+msgstr "Удалить"
+
+msgid "Button$Mark"
+msgstr "Переместить"
+
+msgid "Channel is being used by a timer!"
+msgstr "Канал занят таймером!"
+
+msgid "Delete channel?"
+msgstr "Удалить канал?"
+
+msgid "Edit folder"
+msgstr "Редакция директории"
+
+msgid "New folder"
+msgstr "Новая директория"
+
+msgid "Folder name already exists!"
+msgstr "Директория уже существует!"
+
+#, c-format
+msgid "Folder name must not contain '%c'!"
+msgstr "Имя директории не должно содержать '%c'!"
+
+msgid "Button$Open"
+msgstr "Открыть"
+
+msgid "Delete folder and all sub folders?"
+msgstr "Удалить директорию и все поддиректории?"
+
+msgid "Delete folder?"
+msgstr "Удалить директорию?"
+
+msgid "Edit timer"
+msgstr "Установка таймера"
+
+msgid "Active"
+msgstr "Активирован"
+
+msgid "Channel"
+msgstr "Канал"
+
+msgid "Day"
+msgstr "День"
+
+msgid "Start"
+msgstr "Начало"
+
+msgid "Stop"
+msgstr "Конец"
+
+msgid "VPS"
+msgstr "VPS поправка"
+
+msgid "Priority"
+msgstr "Приоритет"
+
+msgid "Lifetime"
+msgstr "Срок хранения"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Record on"
+msgstr "Запись вкл."
+
+msgid "Button$Folder"
+msgstr "Директория"
+
+msgid "Button$Single"
+msgstr "Один раз"
+
+msgid "Button$Repeating"
+msgstr "Повтор"
+
+msgid "First day"
+msgstr "Первый день"
+
+msgid "Error while accessing remote timer"
+msgstr "Ошибка доступа к таймеру"
+
+msgid "Timer has been deleted!"
+msgstr "Таймер был удалён!"
+
+msgid "Select folder"
+msgstr "Выбор директории"
+
+msgid "Timers"
+msgstr "Таймеры"
+
+msgid "Button$On/Off"
+msgstr "Вкл/Выкл"
+
+msgid "Button$Info"
+msgstr "Инфо"
+
+msgid "Delete timer?"
+msgstr "Удалить таймер?"
+
+msgid "Timer still recording - really delete?"
+msgstr "Идёт запись по таймеру - действительно удалить?"
+
+msgid "Event"
+msgstr "Передача"
+
+msgid "Button$Timer"
+msgstr "Таймер"
+
+msgid "Button$Record"
+msgstr "Запись"
+
+msgid "Button$Switch"
+msgstr "Переключить"
+
+msgid "What's on now?"
+msgstr "Сейчас в эфире:"
+
+msgid "What's on next?"
+msgstr "Далее в программе:"
+
+msgid "Button$Next"
+msgstr "Далее"
+
+msgid "Button$Now"
+msgstr "Сейчас"
+
+msgid "Button$Schedule"
+msgstr "Программа"
+
+msgid "Can't switch channel!"
+msgstr "Невозможно переключить канал!"
+
+msgid "Schedule"
+msgstr "Телегид"
+
+#, c-format
+msgid "Schedule - %s"
+msgstr "Программа - %s"
+
+#, c-format
+msgid "This event - %s"
+msgstr "Эта передача - %s"
+
+msgid "This event - all channels"
+msgstr "Эта передача - все каналы"
+
+msgid "All events - all channels"
+msgstr "Все передачи - все каналы"
+
+#, c-format
+msgid "Please enter %d digits!"
+msgstr "Нажмите %d цифры"
+
+msgid "CAM not responding!"
+msgstr "CAM не отвечает"
+
+msgid "Edit path"
+msgstr "Изменить путь"
+
+msgid "Folder"
+msgstr "Папка"
+
+msgid "This folder is currently in use - no changes are possible!"
+msgstr "Папка используется - не изменено!"
+
+#, c-format
+msgid "Move entire folder containing %d recordings?"
+msgstr "Переместить папку с %d записями?"
+
+msgid "Error while moving folder!"
+msgstr "Ошибка перемещения папки!"
+
+msgid "Edit recording"
+msgstr "Изменить запись"
+
+msgid "This recording is currently in use - no changes are possible!"
+msgstr "Запись используется - изменение не возможно!"
+
+msgid "Button$Cancel cutting"
+msgstr "Отмена обрезки"
+
+msgid "Button$Stop cutting"
+msgstr "Останов. обрезку"
+
+msgid "Button$Cancel moving"
+msgstr "Отмена перемещения"
+
+msgid "Button$Stop moving"
+msgstr "Останов. перемещение"
+
+msgid "Button$Cancel copying"
+msgstr "Отмена копирования"
+
+msgid "Button$Stop copying"
+msgstr "Останов. копирование"
+
+msgid "Button$Cut"
+msgstr "Обрезка"
+
+msgid "Button$Delete marks"
+msgstr "Удалить метки"
+
+msgid "Recording vanished!"
+msgstr "Запись исчезла!"
+
+msgid "Edited version already exists - overwrite?"
+msgstr "Изменённая версия уже есть - переписать?"
+
+msgid "Error while queueing recording for cutting!"
+msgstr "Ошибка очереди записи для обрезки!"
+
+msgid "Rename recording to folder name?"
+msgstr "Переименовать запись в имя папки?"
+
+msgid "Delete editing marks for this recording?"
+msgstr "Удалить метки для этой записи?"
+
+msgid "Error while deleting editing marks!"
+msgstr "Ошибка удаления меток!"
+
+msgid "Error while changing priority/lifetime!"
+msgstr "Ошибка изменения приоритета/длительности"
+
+msgid "Error while changing folder/name!"
+msgstr "Ошибка изменения папки/имени!"
+
+msgid "Recording info"
+msgstr "Инфо о записи"
+
+msgid "Button$Play"
+msgstr "Воспроизвести"
+
+msgid "Button$Rewind"
+msgstr "Назад"
+
+msgid "Recordings"
+msgstr "Записи"
+
+msgid "Commands"
+msgstr "Команды"
+
+msgid "Delete recording?"
+msgstr "Стереть запись?"
+
+msgid "Recording is being edited - really delete?"
+msgstr "Запись изменена - действительно удалить?"
+
+msgid "Error while deleting recording!"
+msgstr "Ошибка удаления записи!"
+
+msgid "Recording commands"
+msgstr "Команды записи"
+
+msgid "never"
+msgstr "никогда"
+
+msgid "skin dependent"
+msgstr "согласно стиля"
+
+msgid "always"
+msgstr "всегда"
+
+msgid "by name"
+msgstr "по имени"
+
+msgid "by time"
+msgstr "по времени"
+
+msgid "ascending"
+msgstr ""
+
+msgid "descending"
+msgstr ""
+
+msgid "OSD"
+msgstr "Меню"
+
+msgid "Setup.OSD$Language"
+msgstr "Язык"
+
+msgid "Setup.OSD$Skin"
+msgstr "Стиль"
+
+msgid "Setup.OSD$Theme"
+msgstr "Тема"
+
+msgid "Setup.OSD$Left (%)"
+msgstr "Отступ слева (%)"
+
+msgid "Setup.OSD$Top (%)"
+msgstr "Отступ сверху (%)"
+
+msgid "Setup.OSD$Width (%)"
+msgstr "Ширина (%)"
+
+msgid "Setup.OSD$Height (%)"
+msgstr "Высота (%)"
+
+msgid "Setup.OSD$Message time (s)"
+msgstr "Длительность показа сообщений (сек)"
+
+msgid "Setup.OSD$Use small font"
+msgstr "Использовать мелкий шрифт"
+
+msgid "Setup.OSD$Anti-alias"
+msgstr "Сглаживание шрифтов"
+
+msgid "Setup.OSD$Default font"
+msgstr "Стандартный шрифт"
+
+msgid "Setup.OSD$Small font"
+msgstr "Мелкий шрифт"
+
+msgid "Setup.OSD$Fixed font"
+msgstr "Фиксированный шрифт"
+
+msgid "Setup.OSD$Default font size (%)"
+msgstr "Размер шрифта для меню (%)"
+
+msgid "Setup.OSD$Small font size (%)"
+msgstr "Размер мелкого шрифта (%)"
+
+msgid "Setup.OSD$Fixed font size (%)"
+msgstr "Размер фиксированного шрифта (%)"
+
+msgid "Setup.OSD$Channel info position"
+msgstr "Положение окна информации о канале"
+
+msgid "bottom"
+msgstr "снизу"
+
+msgid "top"
+msgstr "сверху"
+
+msgid "Setup.OSD$Channel info time (s)"
+msgstr "Показ информации о канале (сек)"
+
+msgid "Setup.OSD$Info on channel switch"
+msgstr "Показывать информацию о канале"
+
+msgid "Setup.OSD$Timeout requested channel info"
+msgstr "Информацию о канале закрыть"
+
+msgid "Setup.OSD$Scroll pages"
+msgstr "Прокрутка страниц меню"
+
+msgid "Setup.OSD$Scroll wraps"
+msgstr "Циклическая прокрутка"
+
+msgid "Setup.OSD$Menu key closes"
+msgstr "Кнопку Меню закрыть"
+
+msgid "Setup.OSD$Recording directories"
+msgstr "Каталоги хранения записей"
+
+msgid "Setup.OSD$Folders in timer menu"
+msgstr "Директории в меню таймер"
+
+msgid "Setup.OSD$Always sort folders first"
+msgstr "Директории всегда в первую очередь сортировать"
+
+msgid "Setup.OSD$Default sort mode for recordings"
+msgstr "Сортировка по умолчанию"
+
+msgid "Setup.OSD$Sorting direction for recordings"
+msgstr ""
+
+msgid "Setup.OSD$Number keys for characters"
+msgstr "Количество кнопок для символов"
+
+msgid "Setup.OSD$Color key 0"
+msgstr "Цветная кнопка 0"
+
+msgid "Setup.OSD$Color key 1"
+msgstr "Цветная кнопка 1"
+
+msgid "Setup.OSD$Color key 2"
+msgstr "Цветная кнопка 2"
+
+msgid "Setup.OSD$Color key 3"
+msgstr "Цветная кнопка 3"
+
+msgid "EPG"
+msgstr "Телегид"
+
+msgid "Button$Scan"
+msgstr "Сканировать"
+
+msgid "Setup.EPG$EPG scan timeout (h)"
+msgstr "Задержка сканирования телегида (ч)"
+
+msgid "Setup.EPG$EPG bugfix level"
+msgstr "Уровень коррекции ошибок"
+
+msgid "Setup.EPG$EPG linger time (min)"
+msgstr "Хранение устаревших данных (мин)"
+
+msgid "Setup.EPG$Set system time"
+msgstr "Установить системное время"
+
+msgid "Setup.EPG$Use time from transponder"
+msgstr "Использовать время транспондера"
+
+#. TRANSLATORS: note the plural!
+msgid "Setup.EPG$Preferred languages"
+msgstr "Предпочитаемые языки (телегид)"
+
+#. TRANSLATORS: note the singular!
+msgid "Setup.EPG$Preferred language"
+msgstr "Выбранный язык"
+
+msgid "pan&scan"
+msgstr "панорамировать"
+
+msgid "letterbox"
+msgstr "уменьшать"
+
+msgid "center cut out"
+msgstr "обрезать сбоку"
+
+msgid "no"
+msgstr "нет"
+
+msgid "names only"
+msgstr "только названия"
+
+msgid "PIDs only"
+msgstr "Только PIDы"
+
+msgid "names and PIDs"
+msgstr "названия и PIDы"
+
+msgid "add new channels"
+msgstr "новые каналы"
+
+msgid "add new transponders"
+msgstr "нов. транспондеры"
+
+msgid "DVB"
+msgstr "DVB"
+
+msgid "Button$Audio"
+msgstr "Язык"
+
+msgid "Button$Subtitles"
+msgstr "Субтитры"
+
+msgid "Setup.DVB$Primary DVB interface"
+msgstr "Основное DVB-устройство"
+
+msgid "Setup.DVB$Standard compliance"
+msgstr "Стандартное поведение"
+
+msgid "Setup.DVB$Video format"
+msgstr "Формат видео"
+
+msgid "Setup.DVB$Video display format"
+msgstr "Широкоэкранное изображение"
+
+msgid "Setup.DVB$Use Dolby Digital"
+msgstr "Включить Dolby Digital"
+
+msgid "Setup.DVB$Update channels"
+msgstr "Обновлять настройки каналов"
+
+msgid "Setup.DVB$Audio languages"
+msgstr "Предпочитаемые языки (звук)"
+
+msgid "Setup.DVB$Audio language"
+msgstr "Выбран"
+
+msgid "Setup.DVB$Display subtitles"
+msgstr "Показывать субтитры"
+
+msgid "Setup.DVB$Subtitle languages"
+msgstr "Языки субтитров"
+
+msgid "Setup.DVB$Subtitle language"
+msgstr "Язык субтитров"
+
+msgid "Setup.DVB$Subtitle offset"
+msgstr "Сдвиг субтитров"
+
+msgid "Setup.DVB$Subtitle foreground transparency"
+msgstr "Прозрачность переднего плана субтитров"
+
+msgid "Setup.DVB$Subtitle background transparency"
+msgstr "Прозрачность фона субтитров"
+
+msgid "LNB"
+msgstr "Конвертер"
+
+msgid "Setup.LNB$Use DiSEqC"
+msgstr "Использовать DiSEqC"
+
+msgid "Setup.LNB$SLOF (MHz)"
+msgstr "Частота переключения (SLOF) (МГц)"
+
+msgid "Setup.LNB$Low LNB frequency (MHz)"
+msgstr "Нижняя частота конвертера (МГц)"
+
+msgid "Setup.LNB$High LNB frequency (MHz)"
+msgstr "Верхняя частота конвертера (МГц)"
+
+#, c-format
+msgid "Setup.LNB$Device %d connected to sat cable"
+msgstr "Устройство %d подключеное к саткабелю"
+
+msgid "Setup.LNB$own"
+msgstr "свой"
+
+msgid "Setup.LNB$Use dish positioner"
+msgstr "Использовать позиционер"
+
+msgid "Setup.LNB$Site latitude (degrees)"
+msgstr "Широта (град.)"
+
+msgid "South"
+msgstr "Юг"
+
+msgid "North"
+msgstr "Север"
+
+msgid "Setup.LNB$Site longitude (degrees)"
+msgstr "Долгота (град.)"
+
+msgid "West"
+msgstr "Запад"
+
+msgid "East"
+msgstr "Восток"
+
+msgid "Setup.LNB$Max. positioner swing (degrees)"
+msgstr "Макс ход позиционера (град.)"
+
+msgid "Setup.LNB$Positioner speed (degrees/s)"
+msgstr "Скорость позиционера (град./сек)"
+
+msgid "CAM reset"
+msgstr "CAM сброс"
+
+msgid "CAM present"
+msgstr "CAM присутствует"
+
+msgid "CAM ready"
+msgstr "CAM готов"
+
+#. TRANSLATORS: note the leading blank!
+msgid " (activating)"
+msgstr " (запускается)"
+
+msgid "@ device"
+msgstr "@ устройство"
+
+msgid "CAM"
+msgstr "Условный доступ"
+
+msgid "Button$Cancel activation"
+msgstr "Отмена запуска"
+
+msgid "Button$Activate"
+msgstr "Запуск"
+
+msgid "Button$Menu"
+msgstr "Меню"
+
+msgid "Button$Reset"
+msgstr "Сброс"
+
+msgid "Opening CAM menu..."
+msgstr "Открываю меню модуля условного доступа (CAM)"
+
+msgid "Can't open CAM menu!"
+msgstr "Меню CAM-модуля недоступно!"
+
+msgid "Can't activate CAM!"
+msgstr "CAM не запущен!"
+
+msgid "CAM is in use - really reset?"
+msgstr "CAM используется - действительно перегрузить?"
+
+msgid "Can't reset CAM!"
+msgstr "Ошибка перезапуска CAM-модуля!"
+
+msgid "no instant recording"
+msgstr "нет быстрой записи"
+
+msgid "confirm instant recording"
+msgstr "подтв. быструю запись"
+
+msgid "record instantly"
+msgstr "быстрая запись"
+
+msgid "do not pause live video"
+msgstr "не останавливать live video"
+
+msgid "confirm pause live video"
+msgstr "подтверждение остановки live video"
+
+msgid "pause live video"
+msgstr "остановка live video"
+
+msgid "confirm"
+msgstr "подтверждение"
+
+msgid "yes"
+msgstr "да"
+
+msgid "Recording"
+msgstr "Запись"
+
+msgid "Setup.Recording$Margin at start (min)"
+msgstr "Опережение начала записи (мин)"
+
+msgid "Setup.Recording$Margin at stop (min)"
+msgstr "Запаздывание остановки записи (мин)"
+
+msgid "Setup.Recording$Default priority"
+msgstr "Приоритет таймера по умолчанию"
+
+msgid "Setup.Recording$Default lifetime (d)"
+msgstr "Срок хранения записи по умолчанию (д)"
+
+msgid "Setup.Recording$Record key handling"
+msgstr "Функция кнопки запись"
+
+msgid "Setup.Recording$Pause key handling"
+msgstr "Функция кнопки пауза"
+
+msgid "Setup.Recording$Pause priority"
+msgstr "Приоритет отложенного просмотра"
+
+msgid "Setup.Recording$Pause lifetime (d)"
+msgstr "Хранение отложенного просмотра (д)"
+
+msgid "Setup.Recording$Use episode name"
+msgstr "Группировать файлы по эпизодам"
+
+msgid "Setup.Recording$Use VPS"
+msgstr "Использовать сигналы VPS"
+
+msgid "Setup.Recording$VPS margin (s)"
+msgstr "Буферное время VPS (сек)"
+
+msgid "Setup.Recording$Mark instant recording"
+msgstr "Отмечать быстрые записи"
+
+msgid "Setup.Recording$Name instant recording"
+msgstr "Имя быстрой записи"
+
+msgid "Setup.Recording$Instant rec. time (min)"
+msgstr "Длительность быстрой записи (мин)"
+
+msgid "Setup.Recording$present event"
+msgstr "текущая передача"
+
+msgid "Setup.Recording$Max. video file size (MB)"
+msgstr "Макс. размер видеофайла (Мб)"
+
+msgid "Setup.Recording$Split edited files"
+msgstr "Делить отредактированные файлы"
+
+msgid "Setup.Recording$Delete timeshift recording"
+msgstr "удаления отложенной записи"
+
+msgid "Replay"
+msgstr "Воспроизведение"
+
+msgid "Setup.Replay$Multi speed mode"
+msgstr "Многоскоростной режим"
+
+msgid "Setup.Replay$Show replay mode"
+msgstr "Отображать режим воспроизведения"
+
+msgid "Setup.Replay$Show remaining time"
+msgstr "Показ оставшегося времени"
+
+msgid "Setup.Replay$Progress display time (s)"
+msgstr "Показ прогресса (s)"
+
+msgid "Setup.Replay$Pause replay when setting mark"
+msgstr "Пауза при установке маркировки"
+
+msgid "Setup.Replay$Pause replay when jumping to a mark"
+msgstr "Пауза после перемещения к метке"
+
+msgid "Setup.Replay$Skip edited parts"
+msgstr "Пропуск изменённой части"
+
+msgid "Setup.Replay$Pause replay at last mark"
+msgstr "Пауза на последней метке"
+
+msgid "Setup.Replay$Initial duration for adaptive skipping (s)"
+msgstr "Начальный интервал адаптивного пропуска (сек)"
+
+msgid "Setup.Replay$Reset timeout for adaptive skipping (s)"
+msgstr "Сброс ожидания адаптивного пропуска (сек)"
+
+msgid "Setup.Replay$Alternate behavior for adaptive skipping"
+msgstr "Другое поведение адаптивного пропуска"
+
+msgid "Setup.Replay$Use Prev/Next keys for adaptive skipping"
+msgstr "Использовать Назад/Вперёд для адаптивного поиска"
+
+msgid "Setup.Replay$Skip distance with Green/Yellow keys (s)"
+msgstr "Пропуск интервала Зелёный/Жёлтый (сек)"
+
+msgid "Setup.Replay$Skip distance with Green/Yellow keys in repeat (s)"
+msgstr "Пропуск интервала Зелёный/Жёлтый в повторе (сек)"
+
+msgid "Setup.Replay$Resume ID"
+msgstr "ID воспроизведения"
+
+msgid "any hosts"
+msgstr ""
+
+msgid "only default host"
+msgstr ""
+
+msgid "type"
+msgstr ""
+
+msgid "full"
+msgstr ""
+
+msgid "Miscellaneous"
+msgstr "Прочее"
+
+msgid "Setup.Miscellaneous$Min. event timeout (min)"
+msgstr "Мин. время ожидания события (мин)"
+
+msgid "Setup.Miscellaneous$Min. user inactivity (min)"
+msgstr "Мин. время ожидания ввода (мин)"
+
+msgid "Setup.Miscellaneous$SVDRP timeout (s)"
+msgstr "Задержка обрыва соед. SVDRP (сек)"
+
+msgid "Setup.Miscellaneous$SVDRP peering"
+msgstr ""
+
+msgid "Setup.Miscellaneous$SVDRP host name"
+msgstr ""
+
+msgid "Setup.Miscellaneous$SVDRP default host"
+msgstr ""
+
+msgid "Setup.Miscellaneous$Zap timeout (s)"
+msgstr "Задержка переключения канала (сек)"
+
+msgid "Setup.Miscellaneous$Channel entry timeout (ms)"
+msgstr "Предел времени для ввода канала (ms)"
+
+msgid "Setup.Miscellaneous$Remote control repeat delay (ms)"
+msgstr "Задержка ответа от пульта (ms)"
+
+msgid "Setup.Miscellaneous$Remote control repeat delta (ms)"
+msgstr "Интервал ответов от пульта (ms)"
+
+msgid "Setup.Miscellaneous$Initial channel"
+msgstr "Канал при включении"
+
+msgid "Setup.Miscellaneous$as before"
+msgstr "как раньше"
+
+msgid "Setup.Miscellaneous$Initial volume"
+msgstr "Громкость при включении"
+
+msgid "Setup.Miscellaneous$Volume steps"
+msgstr "Шаг громкости"
+
+msgid "Setup.Miscellaneous$Volume linearize"
+msgstr "Линейность громкости"
+
+msgid "Setup.Miscellaneous$Channels wrap"
+msgstr "прокрутка каналов"
+
+msgid "Setup.Miscellaneous$Show channel names with source"
+msgstr "Показ имени канала и источника"
+
+msgid "Setup.Miscellaneous$Emergency exit"
+msgstr "Аварийный выход"
+
+msgid "Plugins"
+msgstr "Модули расширения"
+
+msgid "This plugin has no setup parameters!"
+msgstr "Модуль не имеет параметров настройки!"
+
+msgid "Setup"
+msgstr "Настройка"
+
+msgid "Restart"
+msgstr "Перезапустить"
+
+msgid "Really restart?"
+msgstr "Действительно перезапустить?"
+
+#. TRANSLATORS: note the leading and trailing blanks!
+msgid " Stop recording "
+msgstr " Прекратить запись "
+
+#. TRANSLATORS: note the leading blank!
+msgid " Stop replaying"
+msgstr " Прекратить воспроизведение"
+
+msgid "Button$Pause"
+msgstr "Пауза"
+
+msgid "Button$Stop"
+msgstr "Стоп"
+
+msgid "Button$Resume"
+msgstr "Продолжить"
+
+#. TRANSLATORS: note the leading blank!
+msgid " Cancel editing"
+msgstr " Прервать монтаж записи"
+
+msgid "Stop recording?"
+msgstr "Прекратить запись?"
+
+msgid "Cancel editing?"
+msgstr "Прервать редактирование?"
+
+msgid "No audio available!"
+msgstr "Отсутствует звук!"
+
+msgid "No subtitles"
+msgstr "Нет субтитров"
+
+msgid "No subtitles available!"
+msgstr "Субтитры недоступны!"
+
+msgid "Not enough disk space to start recording!"
+msgstr "Недостаточно места на диске для начала записи"
+
+msgid "No free DVB device to record!"
+msgstr "Нет свободного DVB-устройства для записи!"
+
+msgid "Pausing live video..."
+msgstr "Режим отложенного просмотра..."
+
+msgid "Delete timeshift recording?"
+msgstr "Удалить отложенную запись?"
+
+#. TRANSLATORS: note the trailing blank!
+msgid "Jump: "
+msgstr "Перейти: "
+
+msgid "No editing marks defined!"
+msgstr "Не заданы метки для монтажа!"
+
+msgid "No editing sequences defined!"
+msgstr "Порядок редактирования не определен!"
+
+msgid "Can't start editing process!"
+msgstr "Невозможно начать монтаж записи!"
+
+msgid "Editing process started"
+msgstr "Начат монтаж записи"
+
+msgid "Editing process already active!"
+msgstr "Процесс видеомонтажа уже запущен!"
+
+msgid "FileNameChars$ abcdefghijklmnopqrstuvwxyz0123456789-.,#~\\^$[]|()*+?{}/:%@&"
+msgstr " abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьюя0123456789-.,#~\\^$[]|()*+?{}/:%@&"
+
+msgid "CharMap$ 0\t-.,1#~\\^$[]|()*+?{}/:%@&\tabc2\tdef3\tghi4\tjkl5\tmno6\tpqrs7\ttuv8\twxyz9"
+msgstr " 0\t-.,1#~\\^$[]|()*+?{}/:%@&\tabcабвг2\tdefдеёжз3\tghiийкл4\tjklмно5\tmnoпрс6\tpqrsтуфх7\ttuvцчшщъ8\twxyzыьэюя9"
+
+msgid "Button$ABC/abc"
+msgstr "АБВ/абв"
+
+msgid "Button$Overwrite"
+msgstr "Замена"
+
+msgid "Button$Insert"
+msgstr "Вставка"
+
+msgid "Plugin"
+msgstr "Модуль"
+
+msgid "Up/Dn for new location - OK to move"
+msgstr "Нажимайте \"Вверх\"/\"Вниз\" для выбора позиции, а затем \"OK\""
+
+msgid "Channel locked (recording)!"
+msgstr "Канал заблокирован (идёт запись)!"
+
+msgid "Low disk space!"
+msgstr "Недостаточно места на диске!"
+
+msgid "Regenerating index file"
+msgstr "Регенерация индексного файла"
+
+msgid "Index file regeneration complete"
+msgstr "Регенерация индексного файла окончена"
+
+msgid "Index file regeneration failed!"
+msgstr "Ошибка регенерация индексного файла!"
+
+msgid "Can't shutdown - option '-s' not given!"
+msgstr "Выключение невозможно - не задан параметр '-s'!"
+
+msgid "Editing - shut down anyway?"
+msgstr "Идет монтаж - действительно выключить?"
+
+msgid "Recording - shut down anyway?"
+msgstr "Идёт запись - действительно выключить?"
+
+#, c-format
+msgid "Recording in %ld minutes, shut down anyway?"
+msgstr "Через %ld минут начнётся запись - действительно выключить?"
+
+msgid "shut down anyway?"
+msgstr "действительно выключить?"
+
+#, c-format
+msgid "Plugin %s wakes up in %ld min, continue?"
+msgstr "Plugin %s проснется через %ld минут - продолжить?"
+
+msgid "Editing - restart anyway?"
+msgstr "Процесс монтажа - действительно перезапустить?"
+
+msgid "Recording - restart anyway?"
+msgstr "Идёт запись - действительно перезапустить?"
+
+msgid "restart anyway?"
+msgstr "действительно перезапустить?"
+
+#. TRANSLATORS: note the trailing blank!
+msgid "Volume "
+msgstr "Громкость "
+
+msgid "Classic VDR"
+msgstr "Классический"
+
+msgid "DISK"
+msgstr "ДИСК"
+
+msgid "LOAD"
+msgstr "ЗАГРУЗКА"
+
+msgid "TIMERS"
+msgstr "ТФЙМЕРЫ"
+
+msgid "DEVICES"
+msgstr "УСТРОЙСТВА"
+
+msgid "LIVE"
+msgstr "LIVE"
+
+msgid "PLAY"
+msgstr "Воспроизведение"
+
+#, c-format
+msgid "Moving dish to %.1f..."
+msgstr "Сдвинуть тарель к %.1f..."
+
+msgid "ST:TNG Panels"
+msgstr "ST:TNG панели"
+
+#. TRANSLATORS: the first character of each weekday, beginning with monday
+msgid "MTWTFSS"
+msgstr "ПВСЧПСВ"
+
+#. TRANSLATORS: abbreviated weekdays, beginning with monday (must all be 3 letters!)
+msgid "MonTueWedThuFriSatSun"
+msgstr "ПонВтрСрдЧтвПтнСубВск"
+
+msgid "Monday"
+msgstr "Понедельник"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "Thursday"
+msgstr "Четверг"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Saturday"
+msgstr "Суббота"
+
+msgid "Sunday"
+msgstr "Воскресенье"
+
+msgid "Upcoming recording!"
+msgstr "Запись скоро начнется!"
+
+msgid "Pause live video?"
+msgstr "Остановить live video?"
+
+msgid "Start recording?"
+msgstr "Запустить запись?"
+
+msgid "Recording started"
+msgstr "Запись начата"
+
+msgid "VDR will shut down later - press Power to force"
+msgstr "VDR выключится позже - нажмите Питание для ускорения"
+
+msgid "Press any key to cancel shutdown"
+msgstr "Нажмите любую кнопку чтобы отменить выключение"
+
+msgid "Editing process failed!"
+msgstr "Ошибка во время монтажа записи!"
+
+msgid "Editing process finished"
+msgstr "Монтаж окончен"
+
+msgid "Switching primary DVB..."
+msgstr "Смена основного DVB-устройства..."
+
+msgid "Press any key to cancel restart"
+msgstr "Нажмите любую кнопку для отмены перезагрузки"
+
+#, c-format
+msgid "VDR will shut down in %s minutes"
+msgstr "VDR выключится через %s минут"
+
+msgid "Disk"
+msgstr "Диск"
+
+msgid "free"
+msgstr "свободно"

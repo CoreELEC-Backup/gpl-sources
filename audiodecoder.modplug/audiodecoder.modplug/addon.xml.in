@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="audiodecoder.modplug"
+  version="3.0.0"
+  name="Modplug Audio Decoder"
+  provider-name="spiff">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="kodi.audiodecoder"
+    name="mod"
+    extension=".669|.abc|.amf|.ams|.dbm|.dmf|.dsm|.far|.it|.j2b|.mdl|.med|.mod|.itgz|.mt2|.mtm|.okt|.pat|.psm|.ptm|.s3m|.stm|.ult|.umx|.xm|.mdgz|.s3gz|.xmgz"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="de_DE">Modplug Audio Decoder</summary>
+    <summary lang="en_GB">Modplug Audio Decoder</summary>
+    <description lang="de_DE">Spielt MOD-Dateien und einige andere Formate ab.
+
+Es wird empfohlen, anstelle dieses Addons "OpenMPT Audio Decoder" zu verwenden.</description>
+    <description lang="en_GB">Plays MOD files and few other formats.
+
+It is recommended to use "OpenMPT Audio Decoder" addon instead of this one.</description>
+    <platform>@PLATFORM@</platform>
+    <license>GPL-2.0-or-later</license>
+    <source>https://github.com/xbmc/audiodecoder.modplug</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

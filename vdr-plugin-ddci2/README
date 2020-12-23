@@ -1,0 +1,111 @@
+This is a "plugin" for the Video Disk Recorder (VDR).
+
+Written by:                    Jasmin Jessich <jasmin@anw.at>
+
+Project's homepage:            https://github.com/jasmin-j/vdr-plugin-ddci2
+
+Latest version available at:   https://github.com/jasmin-j/vdr-plugin-ddci2
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+See the file COPYING for more information.
+
+
+Description
+-----------
+
+A plugin which creates DVB CI adapters from "stand alone" ca-devices
+like the ones from Digital Devices.
+This plugin will work ONLY with VDR version 2.1.7 and newer.
+MTD support requires VDR version 2.3.3 and newer.
+
+The CI devices of Digital Devices or Linux4Media are not bound to a
+dedicated DVB adapter. There will be only a ca- and a ci-device or
+sec-device. The ca-device has to be used like every other ca-device,
+but the packets to be descrambled have to be written to and read from
+the ci-device(sec-device).
+This plugin obsolets the redirect method of the ddbridge kernel driver.
+The Kernel driver must not started with option "adapter_alloc=1|2|3"!
+
+
+Plugin Commandline
+------------------
+
+Use vdr -h to see the command line arguments supported by the plugin.
+
+  -A        --ignact       ignore active flag; speeds up channel switching to
+                           decryted channels
+  -b        --bufsz        CAM receive/send buffer size in packets a 188 bytes
+                           default: 1500, max: 10000
+  -c        --clrsct       clear the scambling control bit before the
+                           packet is send to VDR
+  -l        --loglevel     0/1/2/3 log nothing/error/info/debug
+  -d        --debugmask    Bitmask to enable special debug logging
+                           0x0001 ... all what the developer thought
+                                      should be logged in debug default
+                           0x0002 ... file access during init
+                           0x0400 ... CAM data read/write access (heavy
+                                      logging)
+                           0x0800 ... Scrambling control
+                           0x1000 ... CAM buffer statistic (quite much
+                                      logging)
+  -t        --sleeptimer   CAM receive/send/deliver thread sleep timer in ms
+                           default: 100, max: 1000
+
+I am not sure, but I guess the currect driver is not correctly implemented for
+some CI slot drivers. Thus we still require the active flag on some DD CI hardware.
+I decided to generaly activate it. You can try to set "-A" to ignore it. If it
+works, the channel switchover to a decrypted channel should be faster.
+UPDATE: This has been fixed in the driver, but you need a very recent version.
+        AFAIK this is available currentl only in the driver from from herrnst
+        (see below).
+
+The default loglevel is info.
+The default debug logging mask is 0x0001. You can use option -d several
+times. All the values are ORed to one mask. Don't forget the "0x"!
+
+
+Pitfalls
+--------
+
+If you see this messages in syslog:
+  DDCI-Inf: no DD CI adapter found
+and/or
+  DDCI-Err (ddci2.cpp,110): Couldn't open /dev/dvb/adapterX/ciY with mode 0x800:
+          Device or resource busy
+then you might forget to remove the redirect assignment in the driver.
+
+
+Building the plugin
+-------------------
+
+*****************************************************************************
+**
+**  NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
+**
+**  This Plugin reqires a recent version of the ddbridge Kernel driver suite.
+**  You can find it here:
+**    https://github.com/DigitalDevices/dddvb
+**  or:
+**    https://github.com/herrnst/dddvb-linux-kernel/tree/mediatree/master-ddbridge
+**  The latter a version which can be used with all cards supported by the
+**  Kernel. The first with *only* Digital Devices cards.
+**
+**  NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
+**
+*****************************************************************************
+
+The usual way is to compile VDR plugins from within the VDR source tree.
+Checkout the plugin source tree or unpack the tgz file below
+  .../vdr/PLUGINS/src
+
+To checkout the source use:
+  $ git clone git://github.com/jasmin-j/vdr-plugin-ddci2.git ddci2
+
+If you have unpacked the tarball, the directory ddci2-<VERSION> needs to be
+renamed to ddci2. Otherwise the VDR plugin make system will not find it.
+
+To compile the plugin without the VDR plugin make system, look to the
+description in Makefile.                                                                                                                     

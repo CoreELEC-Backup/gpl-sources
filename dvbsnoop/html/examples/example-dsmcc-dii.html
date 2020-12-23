@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: DSM-CC Download Info
+		Indication (DII)</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: DSM-CC DownloadInfoIndication (DII)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -nph -n 1 -if stream.0x817
+
+dvbsnoop V1.2.62 -- http://dvbsnoop.sourceforge.net/ 
+----------------------------------------------------------
+SECT-Packet: 00000004   PID: (Unknown PID), Length: 406 (0x0196)
+from file: stream.0x817
+----------------------------------------------------------
+Guess table from table id...
+DSM-CC-decoding....
+Table_ID: 59 (0x3b)  [= DSM-CC - U-N messages (DSI or DII)]
+Section_syntax_indicator: 1 (0x01)
+private_indicator: 0 (0x00)
+reserved_1: 3 (0x03)
+dsmcc_section_length: 403 (0x0193)
+table_id_extension: 10 (0x000a)
+reserved_3: 3 (0x03)
+Version_number: 8 (0x08)
+Current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 0 (0x00)
+Last_section_number: 0 (0x00)
+DSM-CC Message Header:
+    protocolDiscriminator: 17 (0x11)
+    dsmccType: 3 (0x03)  [= Download message]
+    messageId: 4098 (0x1002)  [= DownloadInfoIndication (DII)]
+    transactionID: 2147483658 (0x8000000a)
+      ==&gt; originator: 2 (0x02)  [= assigned by the network]
+      ==&gt; version: 0 (0x0000)
+      ==&gt; identification: 5 (0x0005)
+      ==&gt; update toggle flag: 0 (0x00)
+    reserved: 255 (0xff)
+    adaptionLength: 0 (0x00)
+    messageLength: 382 (0x017e)
+downloadId: 5 (0x00000005)
+blockSize: 4066 (0x0fe2)
+windowSize: 0 (0x00)
+ackPeriod: 0 (0x00)
+tCDownloadWindow: 0 (0x00000000)
+tCDownloadScenario: 0 (0x00000000)
+DSMCC_Compatibility Descriptor (loop):
+    compatibilityDescriptorLength: 0 (0x0000)
+numberOfModules: 9 (0x0009)
+
+Module (0):
+    moduleId: 1 (0x0001)
+    moduleSize: 961 (0x000003c1)
+    moduleVersion: 8 (0x08)
+    moduleInfoLength: 32 (0x20)
+    BIOP::ModuleInfo:
+        ModuleTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        BlockTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        MinBlockTime: 4294967295 (0xffffffff)  [= (ms)]
+        taps_count: 1 (0x01)
+
+            Id: 0 (0x0000)
+            Use: 23 (0x0017)  [= BIOP_OBJECT_USE]
+            association_tag: 14 (0x000e)
+            selector_length: 0 (0x00)
+
+        userInfoLength: 11 (0x0b)
+        userInfo  (Carousel Descriptor loop):
+
+               DSM-CC_CAROUSEL-DescriptorTag: 9 (0x09)  [= compressed_module_descriptor]
+               Descriptor_length: 5 (0x05)
+               compression_method: 8 (0x08)  [= compression method used, see: RFC 1950]
+               original_size: 7550 (0x00001d7e)  [= (bytes)]
+
+               DSM-CC_CAROUSEL-DescriptorTag: 113 (0x71)  [= caching_priority_descriptor]
+               Descriptor_length: 2 (0x02)
+               priority_value: 128 (0x80)
+               transparency_level: 1 (0x01)  [= transparent caching]
+
+
+Module (1):
+    moduleId: 2 (0x0002)
+    moduleSize: 40459 (0x00009e0b)
+    moduleVersion: 8 (0x08)
+    moduleInfoLength: 32 (0x20)
+    BIOP::ModuleInfo:
+        ModuleTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        BlockTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        MinBlockTime: 4294967295 (0xffffffff)  [= (ms)]
+        taps_count: 1 (0x01)
+
+            Id: 0 (0x0000)
+            Use: 23 (0x0017)  [= BIOP_OBJECT_USE]
+            association_tag: 14 (0x000e)
+            selector_length: 0 (0x00)
+
+        userInfoLength: 11 (0x0b)
+        userInfo  (Carousel Descriptor loop):
+
+               DSM-CC_CAROUSEL-DescriptorTag: 9 (0x09)  [= compressed_module_descriptor]
+               Descriptor_length: 5 (0x05)
+               compression_method: 8 (0x08)  [= compression method used, see: RFC 1950]
+               original_size: 65394 (0x0000ff72)  [= (bytes)]
+
+               DSM-CC_CAROUSEL-DescriptorTag: 113 (0x71)  [= caching_priority_descriptor]
+               Descriptor_length: 2 (0x02)
+               priority_value: 128 (0x80)
+               transparency_level: 1 (0x01)  [= transparent caching]
+
+
+Module (2):
+    moduleId: 3 (0x0003)
+    moduleSize: 27826 (0x00006cb2)
+    moduleVersion: 8 (0x08)
+    moduleInfoLength: 32 (0x20)
+    BIOP::ModuleInfo:
+        ModuleTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        BlockTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        MinBlockTime: 4294967295 (0xffffffff)  [= (ms)]
+        taps_count: 1 (0x01)
+
+            Id: 0 (0x0000)
+            Use: 23 (0x0017)  [= BIOP_OBJECT_USE]
+            association_tag: 14 (0x000e)
+            selector_length: 0 (0x00)
+
+        userInfoLength: 11 (0x0b)
+        userInfo  (Carousel Descriptor loop):
+
+               DSM-CC_CAROUSEL-DescriptorTag: 9 (0x09)  [= compressed_module_descriptor]
+               Descriptor_length: 5 (0x05)
+               compression_method: 8 (0x08)  [= compression method used, see: RFC 1950]
+               original_size: 65428 (0x0000ff94)  [= (bytes)]
+
+               DSM-CC_CAROUSEL-DescriptorTag: 113 (0x71)  [= caching_priority_descriptor]
+               Descriptor_length: 2 (0x02)
+               priority_value: 128 (0x80)
+               transparency_level: 1 (0x01)  [= transparent caching]
+
+
+Module (3):
+    moduleId: 4 (0x0004)
+    moduleSize: 28270 (0x00006e6e)
+    moduleVersion: 8 (0x08)
+    moduleInfoLength: 32 (0x20)
+    BIOP::ModuleInfo:
+        ModuleTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        BlockTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        MinBlockTime: 4294967295 (0xffffffff)  [= (ms)]
+        taps_count: 1 (0x01)
+
+            Id: 0 (0x0000)
+            Use: 23 (0x0017)  [= BIOP_OBJECT_USE]
+            association_tag: 14 (0x000e)
+            selector_length: 0 (0x00)
+
+        userInfoLength: 11 (0x0b)
+        userInfo  (Carousel Descriptor loop):
+
+               DSM-CC_CAROUSEL-DescriptorTag: 9 (0x09)  [= compressed_module_descriptor]
+               Descriptor_length: 5 (0x05)
+               compression_method: 8 (0x08)  [= compression method used, see: RFC 1950]
+               original_size: 65449 (0x0000ffa9)  [= (bytes)]
+
+               DSM-CC_CAROUSEL-DescriptorTag: 113 (0x71)  [= caching_priority_descriptor]
+               Descriptor_length: 2 (0x02)
+               priority_value: 128 (0x80)
+               transparency_level: 1 (0x01)  [= transparent caching]
+
+
+Module (4):
+    moduleId: 5 (0x0005)
+    moduleSize: 28887 (0x000070d7)
+    moduleVersion: 8 (0x08)
+    moduleInfoLength: 32 (0x20)
+    BIOP::ModuleInfo:
+        ModuleTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        BlockTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        MinBlockTime: 4294967295 (0xffffffff)  [= (ms)]
+        taps_count: 1 (0x01)
+
+            Id: 0 (0x0000)
+            Use: 23 (0x0017)  [= BIOP_OBJECT_USE]
+            association_tag: 14 (0x000e)
+            selector_length: 0 (0x00)
+
+        userInfoLength: 11 (0x0b)
+        userInfo  (Carousel Descriptor loop):
+
+               DSM-CC_CAROUSEL-DescriptorTag: 9 (0x09)  [= compressed_module_descriptor]
+               Descriptor_length: 5 (0x05)
+               compression_method: 8 (0x08)  [= compression method used, see: RFC 1950]
+               original_size: 64660 (0x0000fc94)  [= (bytes)]
+
+               DSM-CC_CAROUSEL-DescriptorTag: 113 (0x71)  [= caching_priority_descriptor]
+               Descriptor_length: 2 (0x02)
+               priority_value: 128 (0x80)
+               transparency_level: 1 (0x01)  [= transparent caching]
+
+
+Module (5):
+    moduleId: 6 (0x0006)
+    moduleSize: 28613 (0x00006fc5)
+    moduleVersion: 8 (0x08)
+    moduleInfoLength: 32 (0x20)
+    BIOP::ModuleInfo:
+        ModuleTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        BlockTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        MinBlockTime: 4294967295 (0xffffffff)  [= (ms)]
+        taps_count: 1 (0x01)
+
+            Id: 0 (0x0000)
+            Use: 23 (0x0017)  [= BIOP_OBJECT_USE]
+            association_tag: 14 (0x000e)
+            selector_length: 0 (0x00)
+
+        userInfoLength: 11 (0x0b)
+        userInfo  (Carousel Descriptor loop):
+
+               DSM-CC_CAROUSEL-DescriptorTag: 9 (0x09)  [= compressed_module_descriptor]
+               Descriptor_length: 5 (0x05)
+               compression_method: 8 (0x08)  [= compression method used, see: RFC 1950]
+               original_size: 65110 (0x0000fe56)  [= (bytes)]
+
+               DSM-CC_CAROUSEL-DescriptorTag: 113 (0x71)  [= caching_priority_descriptor]
+               Descriptor_length: 2 (0x02)
+               priority_value: 128 (0x80)
+               transparency_level: 1 (0x01)  [= transparent caching]
+
+
+Module (6):
+    moduleId: 7 (0x0007)
+    moduleSize: 24846 (0x0000610e)
+    moduleVersion: 8 (0x08)
+    moduleInfoLength: 32 (0x20)
+    BIOP::ModuleInfo:
+        ModuleTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        BlockTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        MinBlockTime: 4294967295 (0xffffffff)  [= (ms)]
+        taps_count: 1 (0x01)
+
+            Id: 0 (0x0000)
+            Use: 23 (0x0017)  [= BIOP_OBJECT_USE]
+            association_tag: 14 (0x000e)
+            selector_length: 0 (0x00)
+
+        userInfoLength: 11 (0x0b)
+        userInfo  (Carousel Descriptor loop):
+
+               DSM-CC_CAROUSEL-DescriptorTag: 9 (0x09)  [= compressed_module_descriptor]
+               Descriptor_length: 5 (0x05)
+               compression_method: 8 (0x08)  [= compression method used, see: RFC 1950]
+               original_size: 61008 (0x0000ee50)  [= (bytes)]
+
+               DSM-CC_CAROUSEL-DescriptorTag: 113 (0x71)  [= caching_priority_descriptor]
+               Descriptor_length: 2 (0x02)
+               priority_value: 128 (0x80)
+               transparency_level: 1 (0x01)  [= transparent caching]
+
+
+Module (7):
+    moduleId: 8 (0x0008)
+    moduleSize: 25792 (0x000064c0)
+    moduleVersion: 8 (0x08)
+    moduleInfoLength: 32 (0x20)
+    BIOP::ModuleInfo:
+        ModuleTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        BlockTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        MinBlockTime: 4294967295 (0xffffffff)  [= (ms)]
+        taps_count: 1 (0x01)
+
+            Id: 0 (0x0000)
+            Use: 23 (0x0017)  [= BIOP_OBJECT_USE]
+            association_tag: 14 (0x000e)
+            selector_length: 0 (0x00)
+
+        userInfoLength: 11 (0x0b)
+        userInfo  (Carousel Descriptor loop):
+
+               DSM-CC_CAROUSEL-DescriptorTag: 9 (0x09)  [= compressed_module_descriptor]
+               Descriptor_length: 5 (0x05)
+               compression_method: 8 (0x08)  [= compression method used, see: RFC 1950]
+               original_size: 48991 (0x0000bf5f)  [= (bytes)]
+
+               DSM-CC_CAROUSEL-DescriptorTag: 113 (0x71)  [= caching_priority_descriptor]
+               Descriptor_length: 2 (0x02)
+               priority_value: 128 (0x80)
+               transparency_level: 1 (0x01)  [= transparent caching]
+
+
+Module (8):
+    moduleId: 9 (0x0009)
+    moduleSize: 114 (0x00000072)
+    moduleVersion: 8 (0x08)
+    moduleInfoLength: 32 (0x20)
+    BIOP::ModuleInfo:
+        ModuleTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        BlockTimeOut: 4294967295 (0xffffffff)  [= (ms)]
+        MinBlockTime: 4294967295 (0xffffffff)  [= (ms)]
+        taps_count: 1 (0x01)
+
+            Id: 0 (0x0000)
+            Use: 23 (0x0017)  [= BIOP_OBJECT_USE]
+            association_tag: 14 (0x000e)
+            selector_length: 0 (0x00)
+
+        userInfoLength: 11 (0x0b)
+        userInfo  (Carousel Descriptor loop):
+
+               DSM-CC_CAROUSEL-DescriptorTag: 9 (0x09)  [= compressed_module_descriptor]
+               Descriptor_length: 5 (0x05)
+               compression_method: 8 (0x08)  [= compression method used, see: RFC 1950]
+               original_size: 227 (0x000000e3)  [= (bytes)]
+
+               DSM-CC_CAROUSEL-DescriptorTag: 113 (0x71)  [= caching_priority_descriptor]
+               Descriptor_length: 2 (0x02)
+               priority_value: 128 (0x80)
+               transparency_level: 3 (0x03)  [= static chaching]
+
+
+privateDataLength: 0 (0x0000)
+privat Data: 
+CRC: 3235527199 (0xc0da3a1f)
+==========================================================            
+              
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

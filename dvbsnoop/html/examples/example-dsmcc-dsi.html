@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: DSM-CC Download
+		Server Initiate (DSI)</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: DSM-CC DownloadServerInitiate (DSI)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -nph -n 1 -if stream.0x817
+
+dvbsnoop V1.2.62 -- http://dvbsnoop.sourceforge.net/ 
+----------------------------------------------------------
+SECT-Packet: 00000003   PID: (Unknown PID), Length: 115 (0x0073)
+from file: stream.0x817
+----------------------------------------------------------
+Guess table from table id...
+DSM-CC-decoding....
+Table_ID: 59 (0x3b)  [= DSM-CC - U-N messages (DSI or DII)]
+Section_syntax_indicator: 1 (0x01)
+private_indicator: 0 (0x00)
+reserved_1: 3 (0x03)
+dsmcc_section_length: 112 (0x0070)
+table_id_extension: 0 (0x0000)
+reserved_3: 3 (0x03)
+Version_number: 8 (0x08)
+Current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 0 (0x00)
+Last_section_number: 0 (0x00)
+DSM-CC Message Header:
+    protocolDiscriminator: 17 (0x11)
+    dsmccType: 3 (0x03)  [= Download message]
+    messageId: 4102 (0x1006)  [= DownloadServerInitiate (DSI)]
+    transactionID: 2147483648 (0x80000000)
+      ==&gt; originator: 2 (0x02)  [= assigned by the network]
+      ==&gt; version: 0 (0x0000)
+      ==&gt; identification: 0 (0x0000)
+      ==&gt; update toggle flag: 0 (0x00)
+    reserved: 255 (0xff)
+    adaptionLength: 0 (0x00)
+    messageLength: 91 (0x005b)
+Server-ID  (NSAP address):
+    Authority and Format Identifier: 255 (0xff)
+    Type: 255 (0xff)
+    address bytes:
+          0000:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0010:  ff ff                                              ..
+DSMCC_Compatibility Descriptor (loop):
+    compatibilityDescriptorLength: 0 (0x0000)
+privateDataLength: 67 (0x0043)
+guessing private data: BIOP::ServiceGatewayInfo:
+    IOP::IOR:
+        type_id_length: 4 (0x00000004)
+        type_id: "srg."
+        taggedProfiles_count: 1 (0x00000001)
+        profileId_tag: 1230196486 (0x49534f06)  [= TAG_BIOP]
+        profile_data_length: 43 (0x0000002b)
+        profile_data:
+              0000:  00 02 49 53 4f 50 0d 00  00 00 05 00 01 01 00 04   ..ISOP..........
+              0010:  00 00 00 01 49 53 4f 40  12 01 00 00 00 16 00 0e   ....ISO@........
+              0020:  0a 00 01 80 00 00 0a ff  ff ff ff                  ...........
+    downloadTaps_count: 0 (0x00)
+    DSM_TAP:
+    serviceContextList_count: 0 (0x00)
+    userInfoLength: 0 (0x0000)
+CRC: 3658380402 (0xda0e7472)
+==========================================================
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

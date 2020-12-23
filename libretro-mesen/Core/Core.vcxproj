@@ -1,0 +1,1105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Libretro|Win32">
+      <Configuration>Libretro</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Libretro|x64">
+      <Configuration>Libretro</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PGO Optimize|Win32">
+      <Configuration>PGO Optimize</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PGO Optimize|x64">
+      <Configuration>PGO Optimize</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PGO Profile|Win32">
+      <Configuration>PGO Profile</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PGO Profile|x64">
+      <Configuration>PGO Profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{78FEF1A1-6DF1-4CBB-A373-AE6FA7CE5CE0}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Core</RootNamespace>
+    <ProjectName>Core</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Libretro|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PGO Profile|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PGO Optimize|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Libretro|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PGO Profile|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PGO Optimize|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Libretro|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PGO Profile|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PGO Optimize|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Libretro|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PGO Profile|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PGO Optimize|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)\bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)\bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Libretro|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PGO Profile|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PGO Optimize|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(PlatformTarget)\PGO Profile\</OutDir>
+    <IntDir>obj\$(Platform)\PGO Profile\</IntDir>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Libretro|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PGO Profile|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PGO Optimize|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(PlatformTarget)\PGO Profile\</OutDir>
+    <IntDir>obj\$(Platform)\PGO Profile\</IntDir>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <InlineFunctionExpansion />
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <CallingConvention>Cdecl</CallingConvention>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ShowIncludes>
+      </ShowIncludes>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <Profile>
+      </Profile>
+      <OptimizeReferences>
+      </OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <InlineFunctionExpansion>
+      </InlineFunctionExpansion>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <CallingConvention>Cdecl</CallingConvention>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ShowIncludes>
+      </ShowIncludes>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <Profile>
+      </Profile>
+      <OptimizeReferences>
+      </OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ShowIncludes>
+      </ShowIncludes>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Libretro|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>LIBRETRO;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ShowIncludes>
+      </ShowIncludes>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PGO Profile|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ShowIncludes>
+      </ShowIncludes>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PGO Optimize|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ShowIncludes>
+      </ShowIncludes>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ShowIncludes>
+      </ShowIncludes>
+      <BufferSecurityCheck>
+      </BufferSecurityCheck>
+      <ControlFlowGuard>false</ControlFlowGuard>
+      <RuntimeTypeInfo>
+      </RuntimeTypeInfo>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Libretro|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>LIBRETRO;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ShowIncludes>
+      </ShowIncludes>
+      <BufferSecurityCheck>
+      </BufferSecurityCheck>
+      <ControlFlowGuard>false</ControlFlowGuard>
+      <RuntimeTypeInfo>
+      </RuntimeTypeInfo>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PGO Profile|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ShowIncludes>
+      </ShowIncludes>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PGO Optimize|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ShowIncludes>
+      </ShowIncludes>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="A12Watcher.h" />
+    <ClInclude Include="Ac08.h" />
+    <ClInclude Include="Action53.h" />
+    <ClInclude Include="ActionEnterprises.h" />
+    <ClInclude Include="APU.h" />
+    <ClInclude Include="ArkanoidController.h" />
+    <ClInclude Include="Assembler.h" />
+    <ClInclude Include="AutomaticRomTest.h" />
+    <ClInclude Include="BandaiHyperShot.h" />
+    <ClInclude Include="BandaiMicrophone.h" />
+    <ClInclude Include="BarcodeBattlerReader.h" />
+    <ClInclude Include="BaseEeprom24C0X.h" />
+    <ClInclude Include="BaseLoader.h" />
+    <ClInclude Include="BaseRenderer.h" />
+    <ClInclude Include="BaseSoundManager.h" />
+    <ClInclude Include="BatteryManager.h" />
+    <ClInclude Include="BattleBox.h" />
+    <ClInclude Include="Bmc60311C.h" />
+    <ClInclude Include="Bmc80013B.h" />
+    <ClInclude Include="Bmc8157.h" />
+    <ClInclude Include="Bmc830118C.h" />
+    <ClInclude Include="Bmc830425C4391T.h" />
+    <ClInclude Include="Bmc8in1.h" />
+    <ClInclude Include="BmcGn45.h" />
+    <ClInclude Include="BmcHpxx.h" />
+    <ClInclude Include="BmcK3046.h" />
+    <ClInclude Include="CityFighter.h" />
+    <ClInclude Include="ConsolePauseHelper.h" />
+    <ClInclude Include="ControlDeviceState.h" />
+    <ClInclude Include="Dance2000.h" />
+    <ClInclude Include="DragonFighter.h" />
+    <ClInclude Include="DrawScreenBufferCommand.h" />
+    <ClInclude Include="DummyCpu.h" />
+    <ClInclude Include="Eeprom24C01.h" />
+    <ClInclude Include="Eeprom24C02.h" />
+    <ClInclude Include="EventManager.h" />
+    <ClInclude Include="FaridSlrom.h" />
+    <ClInclude Include="FaridUnrom.h" />
+    <ClInclude Include="FdsSystemActionManager.h" />
+    <ClInclude Include="FlashSST39SF040.h" />
+    <ClInclude Include="Gkcx1.h" />
+    <ClInclude Include="HdPackConditions.h" />
+    <ClInclude Include="HistoryViewer.h" />
+    <ClInclude Include="IBarcodeReader.h" />
+    <ClInclude Include="IBattery.h" />
+    <ClInclude Include="IInputProvider.h" />
+    <ClInclude Include="IInputRecorder.h" />
+    <ClInclude Include="InternalRamHandler.h" />
+    <ClInclude Include="Kaiser7017.h" />
+    <ClInclude Include="Kaiser7031.h" />
+    <ClInclude Include="KeyManager.h" />
+    <ClInclude Include="Lh51.h" />
+    <ClInclude Include="Mapper116.h" />
+    <ClInclude Include="McAcc.h" />
+    <ClInclude Include="MMC3_198.h" />
+    <ClInclude Include="MMC3_208.h" />
+    <ClInclude Include="MMC3_224.h" />
+    <ClInclude Include="MMC5MemoryHandler.h" />
+    <ClInclude Include="MovieRecorder.h" />
+    <ClInclude Include="AsciiTurboFile.h" />
+    <ClInclude Include="NESHeader.h" />
+    <ClInclude Include="NotificationManager.h" />
+    <ClInclude Include="OpenBusHandler.h" />
+    <ClInclude Include="PerformanceTracker.h" />
+    <ClInclude Include="RawVideoFilter.h" />
+    <ClInclude Include="ResetTxrom.h" />
+    <ClInclude Include="Sachen9602.h" />
+    <ClInclude Include="ServerInformationMessage.h" />
+    <ClInclude Include="FamicomBox.h" />
+    <ClInclude Include="StereoCombFilter.h" />
+    <ClInclude Include="StudyBoxLoader.h" />
+    <ClInclude Include="SystemActionManager.h" />
+    <ClInclude Include="DatachBarcodeReader.h" />
+    <ClInclude Include="DebugHud.h" />
+    <ClInclude Include="DrawCommand.h" />
+    <ClInclude Include="DrawLineCommand.h" />
+    <ClInclude Include="DrawPixelCommand.h" />
+    <ClInclude Include="DrawStringCommand.h" />
+    <ClInclude Include="ExcitingBoxingController.h" />
+    <ClInclude Include="FamilyBasicDataRecorder.h" />
+    <ClInclude Include="FamilyBasicKeyboard.h" />
+    <ClInclude Include="FamilyMatTrainer.h" />
+    <ClInclude Include="FceuxMovie.h" />
+    <ClInclude Include="FourScore.h" />
+    <ClInclude Include="HdAudioDevice.h" />
+    <ClInclude Include="HdBuilderPpu.h" />
+    <ClInclude Include="HdData.h" />
+    <ClInclude Include="HdPackBuilder.h" />
+    <ClInclude Include="HdPackLoader.h" />
+    <ClInclude Include="HoriTrack.h" />
+    <ClInclude Include="JissenMahjongController.h" />
+    <ClInclude Include="KonamiHyperShot.h" />
+    <ClInclude Include="RotateFilter.h" />
+    <ClInclude Include="LuaApi.h" />
+    <ClInclude Include="LuaCallHelper.h" />
+    <ClInclude Include="LuaScriptingContext.h" />
+    <ClInclude Include="Mapper174.h" />
+    <ClInclude Include="Mapper39.h" />
+    <ClInclude Include="OggMixer.h" />
+    <ClInclude Include="OggReader.h" />
+    <ClInclude Include="PachinkoController.h" />
+    <ClInclude Include="PartyTap.h" />
+    <ClInclude Include="PowerPad.h" />
+    <ClInclude Include="Rambo1_158.h" />
+    <ClInclude Include="RecordedRomTest.h" />
+    <ClInclude Include="AutoSaveManager.h" />
+    <ClInclude Include="Ax5705.h" />
+    <ClInclude Include="Bandai74161_7432.h" />
+    <ClInclude Include="BandaiFcg.h" />
+    <ClInclude Include="BandaiKaraoke.h" />
+    <ClInclude Include="BaseExpansionAudio.h" />
+    <ClInclude Include="BaseFdsChannel.h" />
+    <ClInclude Include="BaseMapper.h" />
+    <ClInclude Include="Bb.h" />
+    <ClInclude Include="BF9096.h" />
+    <ClInclude Include="BF909x.h" />
+    <ClInclude Include="BisqwitNtscFilter.h" />
+    <ClInclude Include="BizhawkMovie.h" />
+    <ClInclude Include="Bmc11160.h" />
+    <ClInclude Include="Bmc12in1.h" />
+    <ClInclude Include="Bmc190in1.h" />
+    <ClInclude Include="Bmc255.h" />
+    <ClInclude Include="Bmc51.h" />
+    <ClInclude Include="Bmc63.h" />
+    <ClInclude Include="A65AS.h" />
+    <ClInclude Include="Bmc64in1NoRepeat.h" />
+    <ClInclude Include="Bmc70in1.h" />
+    <ClInclude Include="Bmc810544CA1.h" />
+    <ClInclude Include="BmcG146.h" />
+    <ClInclude Include="BmcNtd03.h" />
+    <ClInclude Include="BnRom.h" />
+    <ClInclude Include="Bs5.h" />
+    <ClInclude Include="Caltron41.h" />
+    <ClInclude Include="Cc21.h" />
+    <ClInclude Include="Cheapocabra.h" />
+    <ClInclude Include="CodeRunner.h" />
+    <ClInclude Include="ColorDreams46.h" />
+    <ClInclude Include="CrossFeedFilter.h" />
+    <ClInclude Include="GoldenFive.h" />
+    <ClInclude Include="MesenMovie.h" />
+    <ClInclude Include="RewindData.h" />
+    <ClInclude Include="RewindManager.h" />
+    <ClInclude Include="ScriptHost.h" />
+    <ClInclude Include="ScriptingContext.h" />
+    <ClInclude Include="SealieComputing.h" />
+    <ClInclude Include="SnesController.h" />
+    <ClInclude Include="SnesMouse.h" />
+    <ClInclude Include="SuborKeyboard.h" />
+    <ClInclude Include="SuborMouse.h" />
+    <ClInclude Include="T230.h" />
+    <ClInclude Include="TxcChip.h" />
+    <ClInclude Include="Unl158B.h" />
+    <ClInclude Include="Unl8237A.h" />
+    <ClInclude Include="UnlD1038.h" />
+    <ClInclude Include="DaouInfosys.h" />
+    <ClInclude Include="DebugBreakHelper.h" />
+    <ClInclude Include="DebuggerTypes.h" />
+    <ClInclude Include="Eh8813A.h" />
+    <ClInclude Include="Fk23C.h" />
+    <ClInclude Include="LabelManager.h" />
+    <ClInclude Include="MagicKidGooGoo.h" />
+    <ClInclude Include="MemoryAccessCounter.h" />
+    <ClInclude Include="MemoryDumper.h" />
+    <ClInclude Include="DefaultVideoFilter.h" />
+    <ClInclude Include="DreamTech01.h" />
+    <ClInclude Include="Edu2000.h" />
+    <ClInclude Include="ExpressionEvaluator.h" />
+    <ClInclude Include="FDS.h" />
+    <ClInclude Include="FdsAudio.h" />
+    <ClInclude Include="FdsLoader.h" />
+    <ClInclude Include="ForceDisconnectMessage.h" />
+    <ClInclude Include="FrameInfo.h" />
+    <ClInclude Include="FrontFareast.h" />
+    <ClInclude Include="GameDatabase.h" />
+    <ClInclude Include="Bmc235.h" />
+    <ClInclude Include="Ghostbusters63in1.h" />
+    <ClInclude Include="Gs2004.h" />
+    <ClInclude Include="Gs2013.h" />
+    <ClInclude Include="HdVideoFilter.h" />
+    <ClInclude Include="Henggedianzi177.h" />
+    <ClInclude Include="Henggedianzi179.h" />
+    <ClInclude Include="Hp898f.h" />
+    <ClInclude Include="iNesLoader.h" />
+    <ClInclude Include="IremH3001.h" />
+    <ClInclude Include="IremLrog017.h" />
+    <ClInclude Include="IremTamS1.h" />
+    <ClInclude Include="JalecoJf11_14.h" />
+    <ClInclude Include="JalecoJf13.h" />
+    <ClInclude Include="JalecoJf16.h" />
+    <ClInclude Include="JalecoJf17_19.h" />
+    <ClInclude Include="JyCompany.h" />
+    <ClInclude Include="Kaiser202.h" />
+    <ClInclude Include="Kaiser7012.h" />
+    <ClInclude Include="Kaiser7013B.h" />
+    <ClInclude Include="Kaiser7022.h" />
+    <ClInclude Include="Kaiser7037.h" />
+    <ClInclude Include="Kaiser7057.h" />
+    <ClInclude Include="Kaiser7058.h" />
+    <ClInclude Include="Kaiser7016.h" />
+    <ClInclude Include="Lh10.h" />
+    <ClInclude Include="Lh32.h" />
+    <ClInclude Include="Malee.h" />
+    <ClInclude Include="Mapper103.h" />
+    <ClInclude Include="Mapper106.h" />
+    <ClInclude Include="Mapper107.h" />
+    <ClInclude Include="Mapper112.h" />
+    <ClInclude Include="Mapper117.h" />
+    <ClInclude Include="Mapper120.h" />
+    <ClInclude Include="Mapper15.h" />
+    <ClInclude Include="Mapper170.h" />
+    <ClInclude Include="Mapper200.h" />
+    <ClInclude Include="Mapper202.h" />
+    <ClInclude Include="Mapper203.h" />
+    <ClInclude Include="Mapper204.h" />
+    <ClInclude Include="Mapper212.h" />
+    <ClInclude Include="Mapper213.h" />
+    <ClInclude Include="Mapper214.h" />
+    <ClInclude Include="Mapper216.h" />
+    <ClInclude Include="Mapper218.h" />
+    <ClInclude Include="Mapper221.h" />
+    <ClInclude Include="Mapper222.h" />
+    <ClInclude Include="Mapper225.h" />
+    <ClInclude Include="Mapper226.h" />
+    <ClInclude Include="Mapper227.h" />
+    <ClInclude Include="Mapper229.h" />
+    <ClInclude Include="Mapper230.h" />
+    <ClInclude Include="Mapper233.h" />
+    <ClInclude Include="Mapper234.h" />
+    <ClInclude Include="Mapper183.h" />
+    <ClInclude Include="Mapper253.h" />
+    <ClInclude Include="Mapper43.h" />
+    <ClInclude Include="Mapper83.h" />
+    <ClInclude Include="MMC3_123.h" />
+    <ClInclude Include="MMC3_126.h" />
+    <ClInclude Include="MMC3_134.h" />
+    <ClInclude Include="MMC3_196.h" />
+    <ClInclude Include="MMC3_199.h" />
+    <ClInclude Include="MMC3_215.h" />
+    <ClInclude Include="MMC3_217.h" />
+    <ClInclude Include="MMC3_219.h" />
+    <ClInclude Include="MMC3_238.h" />
+    <ClInclude Include="Mapper241.h" />
+    <ClInclude Include="Mapper244.h" />
+    <ClInclude Include="Mapper35.h" />
+    <ClInclude Include="Mapper40.h" />
+    <ClInclude Include="Mapper42.h" />
+    <ClInclude Include="Mapper50.h" />
+    <ClInclude Include="Mapper60.h" />
+    <ClInclude Include="MMC1_155.h" />
+    <ClInclude Include="MMC3_114.h" />
+    <ClInclude Include="MMC3_121.h" />
+    <ClInclude Include="MMC3_14.h" />
+    <ClInclude Include="MMC3_165.h" />
+    <ClInclude Include="MMC3_182.h" />
+    <ClInclude Include="MMC3_187.h" />
+    <ClInclude Include="MMC3_197.h" />
+    <ClInclude Include="MMC3_245.h" />
+    <ClInclude Include="MMC3_249.h" />
+    <ClInclude Include="MMC3_250.h" />
+    <ClInclude Include="MMC3_254.h" />
+    <ClInclude Include="MMC3_45.h" />
+    <ClInclude Include="Mapper57.h" />
+    <ClInclude Include="Mapper61.h" />
+    <ClInclude Include="Mapper62.h" />
+    <ClInclude Include="Mapper91.h" />
+    <ClInclude Include="MMC3_12.h" />
+    <ClInclude Include="MMC3_205.h" />
+    <ClInclude Include="Mapper231.h" />
+    <ClInclude Include="Mapper240.h" />
+    <ClInclude Include="Mapper242.h" />
+    <ClInclude Include="Mapper246.h" />
+    <ClInclude Include="Mapper58.h" />
+    <ClInclude Include="MMC3_115.h" />
+    <ClInclude Include="MMC3_37.h" />
+    <ClInclude Include="MMC3_44.h" />
+    <ClInclude Include="MMC3_47.h" />
+    <ClInclude Include="MMC3_49.h" />
+    <ClInclude Include="MMC3_52.h" />
+    <ClInclude Include="MMC3_Bmc411120C.h" />
+    <ClInclude Include="MMC3_BmcF15.h" />
+    <ClInclude Include="MMC3_ChrRam.h" />
+    <ClInclude Include="MMC3_Coolboy.h" />
+    <ClInclude Include="MMC3_Kof97.h" />
+    <ClInclude Include="MMC3_MaliSB.h" />
+    <ClInclude Include="MMC5Audio.h" />
+    <ClInclude Include="ModChannel.h" />
+    <ClInclude Include="Namco163.h" />
+    <ClInclude Include="Namco163Audio.h" />
+    <ClInclude Include="MMC1_105.h" />
+    <ClInclude Include="NovelDiamond.h" />
+    <ClInclude Include="NsfCart31.h" />
+    <ClInclude Include="NsfeLoader.h" />
+    <ClInclude Include="NsfLoader.h" />
+    <ClInclude Include="NsfMapper.h" />
+    <ClInclude Include="NsfPpu.h" />
+    <ClInclude Include="OekaKids.h" />
+    <ClInclude Include="OekaKidsTablet.h" />
+    <ClInclude Include="PlayerListMessage.h" />
+    <ClInclude Include="Profiler.h" />
+    <ClInclude Include="Racermate.h" />
+    <ClInclude Include="ReverbFilter.h" />
+    <ClInclude Include="RomData.h" />
+    <ClInclude Include="NtdecTc112.h" />
+    <ClInclude Include="Rambo1.h" />
+    <ClInclude Include="Rt01.h" />
+    <ClInclude Include="Sachen74LS374N.h" />
+    <ClInclude Include="Sachen8259.h" />
+    <ClInclude Include="Sachen_133.h" />
+    <ClInclude Include="Sachen_136.h" />
+    <ClInclude Include="Sachen_143.h" />
+    <ClInclude Include="SelectControllerMessage.h" />
+    <ClInclude Include="ShortcutKeyHandler.h" />
+    <ClInclude Include="Smb2j.h" />
+    <ClInclude Include="SoundMixer.h" />
+    <ClInclude Include="Namco108.h" />
+    <ClInclude Include="Namco108_154.h" />
+    <ClInclude Include="Namco108_76.h" />
+    <ClInclude Include="Namco108_88.h" />
+    <ClInclude Include="Namco108_95.h" />
+    <ClInclude Include="NtscFilter.h" />
+    <ClInclude Include="Sachen_145.h" />
+    <ClInclude Include="CodeDataLogger.h" />
+    <ClInclude Include="CpRom.h" />
+    <ClInclude Include="DeltaModulationChannel.h" />
+    <ClInclude Include="ApuEnvelope.h" />
+    <ClInclude Include="ApuFrameCounter.h" />
+    <ClInclude Include="ApuLengthCounter.h" />
+    <ClInclude Include="AXROM.h" />
+    <ClInclude Include="BaseApuChannel.h" />
+    <ClInclude Include="Breakpoint.h" />
+    <ClInclude Include="CheatManager.h" />
+    <ClInclude Include="ClientConnectionData.h" />
+    <ClInclude Include="CNROM.h" />
+    <ClInclude Include="ColorDreams.h" />
+    <ClInclude Include="ControlManager.h" />
+    <ClInclude Include="Debugger.h" />
+    <ClInclude Include="Disassembler.h" />
+    <ClInclude Include="DisassemblyInfo.h" />
+    <ClInclude Include="EmulationSettings.h" />
+    <ClInclude Include="GameClient.h" />
+    <ClInclude Include="GameClientConnection.h" />
+    <ClInclude Include="GameConnection.h" />
+    <ClInclude Include="GameInformationMessage.h" />
+    <ClInclude Include="GameServer.h" />
+    <ClInclude Include="GameServerConnection.h" />
+    <ClInclude Include="GxRom.h" />
+    <ClInclude Include="HandShakeMessage.h" />
+    <ClInclude Include="HdNesPack.h" />
+    <ClInclude Include="HdPpu.h" />
+    <ClInclude Include="IAudioDevice.h" />
+    <ClInclude Include="BaseControlDevice.h" />
+    <ClInclude Include="IKeyManager.h" />
+    <ClInclude Include="IMemoryHandler.h" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="IMessageManager.h" />
+    <ClInclude Include="INotificationListener.h" />
+    <ClInclude Include="InputDataMessage.h" />
+    <ClInclude Include="IremG101.h" />
+    <ClInclude Include="JalecoJfxx.h" />
+    <ClInclude Include="JalecoSs88006.h" />
+    <ClInclude Include="MMC4.h" />
+    <ClInclude Include="MMC5.h" />
+    <ClInclude Include="Nina01.h" />
+    <ClInclude Include="Nina03_06.h" />
+    <ClInclude Include="NoiseChannel.h" />
+    <ClInclude Include="Sachen_147.h" />
+    <ClInclude Include="Sachen_148.h" />
+    <ClInclude Include="Sachen_149.h" />
+    <ClInclude Include="SquareChannel.h" />
+    <ClInclude Include="StandardController.h" />
+    <ClInclude Include="MessageManager.h" />
+    <ClInclude Include="MessageType.h" />
+    <ClInclude Include="MMC2.h" />
+    <ClInclude Include="MMC3_189.h" />
+    <ClInclude Include="MovieManager.h" />
+    <ClInclude Include="MovieDataMessage.h" />
+    <ClInclude Include="Nanjing.h" />
+    <ClInclude Include="NetMessage.h" />
+    <ClInclude Include="SaveStateManager.h" />
+    <ClInclude Include="SaveStateMessage.h" />
+    <ClInclude Include="Snapshotable.h" />
+    <ClInclude Include="IRenderingDevice.h" />
+    <ClInclude Include="MapperFactory.h" />
+    <ClInclude Include="MMC1.h" />
+    <ClInclude Include="MMC3.h" />
+    <ClInclude Include="NROM.h" />
+    <ClInclude Include="PPU.h" />
+    <ClInclude Include="CPU.h" />
+    <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="RomLoader.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="StereoDelayFilter.h" />
+    <ClInclude Include="StereoPanningFilter.h" />
+    <ClInclude Include="MMC3_StreetHeroes.h" />
+    <ClInclude Include="StudyBox.h" />
+    <ClInclude Include="Subor166.h" />
+    <ClInclude Include="Sunsoft184.h" />
+    <ClInclude Include="Sunsoft3.h" />
+    <ClInclude Include="Sunsoft4.h" />
+    <ClInclude Include="Sunsoft5bAudio.h" />
+    <ClInclude Include="Sunsoft89.h" />
+    <ClInclude Include="Sunsoft93.h" />
+    <ClInclude Include="SunsoftFme7.h" />
+    <ClInclude Include="Super40in1Ws.h" />
+    <ClInclude Include="Supervision.h" />
+    <ClInclude Include="T262.h" />
+    <ClInclude Include="TaitoTc0190.h" />
+    <ClInclude Include="TaitoTc0690.h" />
+    <ClInclude Include="TaitoX1005.h" />
+    <ClInclude Include="TaitoX1017.h" />
+    <ClInclude Include="Tf1201.h" />
+    <ClInclude Include="TraceLogger.h" />
+    <ClInclude Include="TriangleChannel.h" />
+    <ClInclude Include="Txc22000.h" />
+    <ClInclude Include="Txc22211A.h" />
+    <ClInclude Include="Txc22211B.h" />
+    <ClInclude Include="Txc22211C.h" />
+    <ClInclude Include="TxSRom.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="UnifBoards.h" />
+    <ClInclude Include="UnifLoader.h" />
+    <ClInclude Include="Unl255in1.h" />
+    <ClInclude Include="UnlDripGame.h" />
+    <ClInclude Include="UnlDripGameAudio.h" />
+    <ClInclude Include="UnlPuzzle.h" />
+    <ClInclude Include="UnRom512.h" />
+    <ClInclude Include="VbController.h" />
+    <ClInclude Include="VideoHud.h" />
+    <ClInclude Include="VideoRenderer.h" />
+    <ClInclude Include="UnlPci556.h" />
+    <ClInclude Include="UNROM.h" />
+    <ClInclude Include="UnRom_180.h" />
+    <ClInclude Include="UnRom_94.h" />
+    <ClInclude Include="VideoDecoder.h" />
+    <ClInclude Include="BaseVideoFilter.h" />
+    <ClInclude Include="VirtualFile.h" />
+    <ClInclude Include="VRC1.h" />
+    <ClInclude Include="VRC2_4.h" />
+    <ClInclude Include="VRC3.h" />
+    <ClInclude Include="VRC6.h" />
+    <ClInclude Include="Vrc6Audio.h" />
+    <ClInclude Include="Vrc6Pulse.h" />
+    <ClInclude Include="Vrc6Saw.h" />
+    <ClInclude Include="VRC7.h" />
+    <ClInclude Include="Vrc7Audio.h" />
+    <ClInclude Include="OpllTables.h" />
+    <ClInclude Include="OpllEmulator.h" />
+    <ClInclude Include="OpllChannel.h" />
+    <ClInclude Include="VrcIrq.h" />
+    <ClInclude Include="VsControlManager.h" />
+    <ClInclude Include="VsSystem.h" />
+    <ClInclude Include="ScaleFilter.h" />
+    <ClInclude Include="VsSystemActionManager.h" />
+    <ClInclude Include="VsZapper.h" />
+    <ClInclude Include="Waixing162.h" />
+    <ClInclude Include="Waixing164.h" />
+    <ClInclude Include="Waixing178.h" />
+    <ClInclude Include="Waixing252.h" />
+    <ClInclude Include="WaveRecorder.h" />
+    <ClInclude Include="Yoko.h" />
+    <ClInclude Include="Zapper.h" />
+    <ClInclude Include="PgoUtilities.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="APU.cpp" />
+    <ClCompile Include="Assembler.cpp" />
+    <ClCompile Include="AutomaticRomTest.cpp" />
+    <ClCompile Include="BaseExpansionAudio.cpp" />
+    <ClCompile Include="BaseRenderer.cpp" />
+    <ClCompile Include="BaseSoundManager.cpp" />
+    <ClCompile Include="BatteryManager.cpp" />
+    <ClCompile Include="DebugHud.cpp" />
+    <ClCompile Include="DrawRectangleCommand.h" />
+    <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="FceuxMovie.cpp" />
+    <ClCompile Include="FdsLoader.cpp" />
+    <ClCompile Include="HdAudioDevice.cpp" />
+    <ClCompile Include="HdNesPack.cpp" />
+    <ClCompile Include="HdPackBuilder.cpp" />
+    <ClCompile Include="HdPackLoader.cpp" />
+    <ClCompile Include="HdPpu.cpp" />
+    <ClCompile Include="HistoryViewer.cpp" />
+    <ClCompile Include="KeyManager.cpp" />
+    <ClCompile Include="LuaApi.cpp" />
+    <ClCompile Include="LuaCallHelper.cpp" />
+    <ClCompile Include="LuaScriptingContext.cpp" />
+    <ClCompile Include="MovieRecorder.cpp" />
+    <ClCompile Include="NESHeader.cpp" />
+    <ClCompile Include="NotificationManager.cpp" />
+    <ClCompile Include="NsfLoader.cpp" />
+    <ClCompile Include="NsfPpu.cpp" />
+    <ClCompile Include="OggMixer.cpp" />
+    <ClCompile Include="OggReader.cpp" />
+    <ClCompile Include="PerformanceTracker.cpp" />
+    <ClCompile Include="PgoUtilities.cpp" />
+    <ClCompile Include="RawVideoFilter.cpp" />
+    <ClCompile Include="RecordedRomTest.cpp" />
+    <ClCompile Include="AutoSaveManager.cpp" />
+    <ClCompile Include="BaseControlDevice.cpp" />
+    <ClCompile Include="BaseMapper.cpp" />
+    <ClCompile Include="BisqwitNtscFilter.cpp" />
+    <ClCompile Include="BizhawkMovie.cpp" />
+    <ClCompile Include="Breakpoint.cpp" />
+    <ClCompile Include="CheatManager.cpp" />
+    <ClCompile Include="CodeDataLogger.cpp" />
+    <ClCompile Include="CodeRunner.cpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="ControlManager.cpp" />
+    <ClCompile Include="CrossFeedFilter.cpp" />
+    <ClCompile Include="Debugger.cpp" />
+    <ClCompile Include="LabelManager.cpp" />
+    <ClCompile Include="MemoryAccessCounter.cpp" />
+    <ClCompile Include="MemoryDumper.cpp" />
+    <ClCompile Include="DefaultVideoFilter.cpp" />
+    <ClCompile Include="DeltaModulationChannel.cpp" />
+    <ClCompile Include="Disassembler.cpp" />
+    <ClCompile Include="DisassemblyInfo.cpp" />
+    <ClCompile Include="EmulationSettings.cpp" />
+    <ClCompile Include="ExpressionEvaluator.cpp" />
+    <ClCompile Include="FDS.cpp" />
+    <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="GameClientConnection.cpp" />
+    <ClCompile Include="GameConnection.cpp" />
+    <ClCompile Include="GameDatabase.cpp" />
+    <ClCompile Include="GameServer.cpp" />
+    <ClCompile Include="GameServerConnection.cpp" />
+    <ClCompile Include="HdVideoFilter.cpp" />
+    <ClCompile Include="iNesLoader.cpp" />
+    <ClCompile Include="MesenMovie.cpp" />
+    <ClCompile Include="NsfMapper.cpp" />
+    <ClCompile Include="NtscFilter.cpp" />
+    <ClCompile Include="Profiler.cpp" />
+    <ClCompile Include="ReverbFilter.cpp" />
+    <ClCompile Include="RewindData.cpp" />
+    <ClCompile Include="RewindManager.cpp" />
+    <ClCompile Include="RomLoader.cpp" />
+    <ClCompile Include="RotateFilter.cpp" />
+    <ClCompile Include="ScriptHost.cpp" />
+    <ClCompile Include="ScriptingContext.cpp" />
+    <ClCompile Include="ShortcutKeyHandler.cpp" />
+    <ClCompile Include="Snapshotable.cpp" />
+    <ClCompile Include="SoundMixer.cpp" />
+    <ClCompile Include="MapperFactory.cpp" />
+    <ClCompile Include="MemoryManager.cpp" />
+    <ClCompile Include="MessageManager.cpp" />
+    <ClCompile Include="MovieManager.cpp" />
+    <ClCompile Include="PPU.cpp" />
+    <ClCompile Include="CPU.cpp" />
+    <ClCompile Include="SaveStateManager.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Libretro|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='PGO Profile|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='PGO Optimize|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Libretro|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='PGO Profile|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='PGO Optimize|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="StereoCombFilter.cpp" />
+    <ClCompile Include="StereoDelayFilter.cpp" />
+    <ClCompile Include="StereoPanningFilter.cpp" />
+    <ClCompile Include="StudyBoxLoader.cpp" />
+    <ClCompile Include="TraceLogger.cpp" />
+    <ClCompile Include="UnifLoader.cpp" />
+    <ClCompile Include="VideoHud.cpp" />
+    <ClCompile Include="VideoRenderer.cpp" />
+    <ClCompile Include="VideoDecoder.cpp" />
+    <ClCompile Include="BaseVideoFilter.cpp" />
+    <ClCompile Include="VirtualFile.cpp" />
+    <ClCompile Include="VsControlManager.cpp" />
+    <ClCompile Include="ScaleFilter.cpp" />
+    <ClCompile Include="WaveRecorder.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

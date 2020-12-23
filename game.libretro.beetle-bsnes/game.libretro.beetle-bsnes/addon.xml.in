@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.beetle-bsnes"
+		name="Nintendo - SNES / SFC (Beetle bsnes)"
+		version="0.9.26.9"
+		provider-name="byuu, Mednafen Team">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.snes" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>SNES</platforms>
+		<extensions>smc|fig|bs|st|sfc</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Nintendo - SNES / SFC (Beetle bsnes) v0.9.26</summary>
+		<description lang="en_GB">Beetle bSNES is the SNES module of Beetle, a fork of Mednafen. Mednafen&#39;s SNES module itself is a fork of bSNES v0.59.
+
+Supported files: .smc, .fig, .bs, .st, .sfc</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.beetle-bsnes</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

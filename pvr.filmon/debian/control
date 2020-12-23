@@ -1,0 +1,22 @@
+Source: kodi-pvr-filmon
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake, kodi-addon-dev,
+               libjsoncpp-dev
+Standards-Version: 4.1.2
+Section: libs
+
+Package: kodi-pvr-filmon
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FilmOn PVR for Kodi
+ FilmOn PVR for Kodi
+
+Package: kodi-pvr-filmon-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for FilmOn PVR for Kodi
+ debug symbols for FilmOn PVR for Kodi
+

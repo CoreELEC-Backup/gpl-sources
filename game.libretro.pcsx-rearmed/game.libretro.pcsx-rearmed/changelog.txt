@@ -1,0 +1,5 @@
+[B]2013-08-17[/B] Version [B]19.0.1[/B]
+. Updated to c6c27cc @ 2013-07-25
+
+[B]2013-04-24[/B] Version [B]19.0.0[/B]
+. Initial release: PCSX ReARMed r19 @ https://github.com/libretro/pcsx_rearmed/commit/de0e733 (2013-04-17)

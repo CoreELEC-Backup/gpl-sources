@@ -1,0 +1,439 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Examples: Program Map
+		Table</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Examples: Program Map Table (PMT)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>~/bin &gt; ./dvbsnoop -n 1 -nph 0x062
+dvbsnoop  Vers. 1.1.10   -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+SECT-Packet: 00000001   PID: 98 (0x0062), Length: 54 (0x0036)
+Time received: Tue 2003-11-25  02:22:11.324
+---------------------------------------------------------
+PID:  98 (0x0062)
+Guess table from table id...
+PMT-decoding....
+Table_ID: 2 (0x02)  [= program_map_section]
+section_syntax_indicator: 1 (0x01)
+(fixed): 0 (0x00)
+reserved_1: 3 (0x03)
+Section_length: 51 (0x0033)
+Program_number: 661 (0x0295)
+reserved_2: 3 (0x03)
+Version_number: 0 (0x00)
+Current_next_indicator: 1 (0x01)
+Section_number: 0 (0x00)
+Last_Section_number: 0 (0x00)
+reserved_3: 7 (0x07)
+PCR PID: 2559 (0x09ff)
+reserved_4: 15 (0x0f)
+Program_info_length: 0 (0x0000)
+    
+    Stream_type: 2 (0x02)  [= ITU-T Rec. H.262 | ISO/IEC 13818-2 Video | ISO/IEC 11172-2 constr. parameter video stream]
+    reserved_1: 7 (0x07)
+    Elementary_PID: 2559 (0x09ff)
+    reserved_2: 15 (0x0f)
+    ES_info_length: 16 (0x0010)
+        
+        MPEG-DescriptorTag: 2 (0x02)  [= video_stream_descriptor]
+        Descriptor_length: 3 (0x03)
+        multiple_frame_rate_flag: 0 (0x00)
+        frame_rate_code: 3 (0x0003)
+        MPEG_1_only_flag: 0 (0x00)
+        constrained_parameter_flag: 1 (0x01)
+        still_picture_flag: 0 (0x00)
+        
+        MPEG-DescriptorTag: 14 (0x0e)  [= maximum_bitrate_descriptor]
+        Descriptor_length: 3 (0x03)
+        reserved_1: 3 (0x03)
+        maximum_bitrate: 3750 (0x00000ea6)  (= 187500 Bytes/sec)
+        
+        DVB-DescriptorTag: 177 (0xb1)  [= User defined]
+        Descriptor_length: 1 (0x01)
+        Descriptor-Data:
+          0000:   . 
+          0000:  01 
+        
+        DVB-DescriptorTag: 82 (0x52)  [= stream_identifier_descriptor]
+        Descriptor_length: 1 (0x01)
+        Component_tag: 1 (0x01)
+        
+    Stream_type: 4 (0x04)  [= ISO/IEC 13818-3 Audio]
+    reserved_1: 7 (0x07)
+    Elementary_PID: 2560 (0x0a00)
+    reserved_2: 15 (0x0f)
+    ES_info_length: 12 (0x000c)
+        
+        MPEG-DescriptorTag: 3 (0x03)  [= audio_stream_descriptor]
+        Descriptor_length: 1 (0x01)
+        free_format_flag: 0 (0x00)
+        ID: 1 (0x01)
+        layer: 2 (0x02)
+        variable_rate_audio_indicator: 0 (0x00)
+        reserved_1: 7 (0x07)
+        
+        MPEG-DescriptorTag: 10 (0x0a)  [= ISO_639_language_descriptor]
+        Descriptor_length: 4 (0x04)
+            ISO639_language_code:  deu
+            Audio_type: 1 (0x01)  [= clean effects]
+            
+            
+        DVB-DescriptorTag: 82 (0x52)  [= stream_identifier_descriptor]
+        Descriptor_length: 1 (0x01)
+        Component_tag: 3 (0x03)
+CRC: 2435618948 (0x912c9884)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR></P> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>~/bin &gt; ./dvbsnoop -n 1  0x0c8       
+dvbsnoop V1.2.38 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000001   PID: 200 (0x00c8), Length: 196 (0x00c4)
+Time received: Mon 2004-02-09  23:54:45.386
+----------------------------------------------------------
+  0000:  02 b0 c1 6d 67 c3 00 00 e0 d2 f0 00 02 e0 d2 f0 
+  0000:   .  .  .  m  g  .  .  .  .  .  .  .  .  .  .  . 
+  0010:  00 03 e0 dc f0 06 0a 04 64 65 75 01 06 e0 e6 f0 
+  0010:   .  .  .  .  .  .  .  .  d  e  u  .  .  .  .  . 
+  0020:  29 56 05 64 65 75 09 00 45 20 01 18 e7 e8 e9 ea 
+  0020:   )  V  .  d  e  u  .  .  E     .  .  .  .  .  . 
+  0030:  eb ec ed ee ef f4 f5 f6 c7 c8 c9 ca cb cc cd ce 
+  0030:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+  0040:  cf d4 d5 d6 04 01 f0 05 01 f7 0b e3 bc f0 10 66 
+  0040:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  f 
+  0050:  04 00 f0 00 01 52 01 0b 13 05 00 00 00 01 00 0b 
+  0050:   .  .  .  .  .  R  .  .  .  .  .  .  .  .  .  . 
+  0060:  e3 c3 f0 10 66 04 00 f0 00 01 52 01 10 13 05 00 
+  0060:   .  .  .  .  f  .  .  .  .  .  R  .  .  .  .  . 
+  0070:  00 00 03 00 0b e3 c2 f0 10 66 04 00 f0 00 01 52 
+  0070:   .  .  .  .  .  .  .  .  .  f  .  .  .  .  .  R 
+  0080:  01 0f 13 05 00 00 00 03 00 0b e3 c1 f0 10 66 04 
+  0080:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  f  . 
+  0090:  00 f0 00 01 52 01 0e 13 05 00 00 00 03 00 0b e3 
+  0090:   .  .  .  .  R  .  .  .  .  .  .  .  .  .  .  . 
+  00a0:  c0 f0 10 66 04 00 f0 00 01 52 01 0d 13 05 00 00 
+  00a0:   .  .  .  f  .  .  .  .  .  R  .  .  .  .  .  . 
+  00b0:  00 03 00 05 e3 bb f0 08 52 01 70 6f 03 00 01 e0 
+  00b0:   .  .  .  .  .  .  .  .  R  .  p  o  .  .  .  . 
+  00c0:  ca 16 d0 16 
+  00c0:   .  .  .  . 
+
+PID:  200 (0x00c8)
+Guess table from table id...
+PMT-decoding....
+Table_ID: 2 (0x02)  [= program_map_section]
+section_syntax_indicator: 1 (0x01)
+(fixed): 0 (0x00)
+reserved_1: 3 (0x03)
+Section_length: 193 (0x00c1)
+Program_number: 28007 (0x6d67)
+reserved_2: 3 (0x03)
+Version_number: 1 (0x01)
+current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 0 (0x00)
+Last_Section_number: 0 (0x00)
+reserved_3: 7 (0x07)
+PCR PID: 210 (0x00d2)
+reserved_4: 15 (0x0f)
+Program_info_length: 0 (0x0000)
+
+    Stream_type: 2 (0x02)  [= ITU-T Rec. H.262 | ISO/IEC 13818-2 Video | ISO/IEC 11172-2 constr. parameter video stream]
+    reserved_1: 7 (0x07)
+    Elementary_PID: 210 (0x00d2)
+    reserved_2: 15 (0x0f)
+    ES_info_length: 0 (0x0000)
+
+    Stream_type: 3 (0x03)  [= ISO/IEC 11172 Audio]
+    reserved_1: 7 (0x07)
+    Elementary_PID: 220 (0x00dc)
+    reserved_2: 15 (0x0f)
+    ES_info_length: 6 (0x0006)
+
+            MPEG-DescriptorTag: 10 (0x0a)  [= ISO_639_language_descriptor]
+            Descriptor_length: 4 (0x04)
+               ISO639_language_code:  deu
+               Audio_type: 1 (0x01)  [= clean effects]
+
+
+    Stream_type: 6 (0x06)  [= ITU-T Rec. H.222.0 | ISO/IEC 13818-1 PES packets containing private data]
+    reserved_1: 7 (0x07)
+    Elementary_PID: 230 (0x00e6)
+    reserved_2: 15 (0x0f)
+    ES_info_length: 41 (0x0029)
+
+            DVB-DescriptorTag: 86 (0x56)  [= teletext_descriptor]
+            Descriptor_length: 5 (0x05)
+               ISO639_language_code:  deu
+               Teletext_type: 1 (0x01)  [= initial teletext page]
+               Teletext_magazine_number: 1 (0x01)
+               Teletext_page_number: 0 (0x00)
+
+
+            DVB-DescriptorTag: 69 (0x45)  [= VBI_data_descriptor]
+            Descriptor_length: 32 (0x20)
+
+               Data_service_id: 1 (0x01)  [= EBU teletext]
+               Data_service_descriptor_length: 24 (0x18)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 7 (0x07)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 8 (0x08)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 9 (0x09)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 10 (0x0a)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 11 (0x0b)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 12 (0x0c)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 13 (0x0d)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 14 (0x0e)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 15 (0x0f)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 20 (0x14)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 21 (0x15)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 22 (0x16)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 7 (0x07)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 8 (0x08)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 9 (0x09)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 10 (0x0a)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 11 (0x0b)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 12 (0x0c)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 13 (0x0d)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 14 (0x0e)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 15 (0x0f)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 20 (0x14)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 21 (0x15)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 0 (0x00)
+                  line_offset: 22 (0x16)
+
+               Data_service_id: 4 (0x04)  [= VPS]
+               Data_service_descriptor_length: 1 (0x01)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 16 (0x10)
+
+               Data_service_id: 5 (0x05)  [= WSS]
+               Data_service_descriptor_length: 1 (0x01)
+
+                  reserved_1: 3 (0x03)
+                  field_parity: 1 (0x01)
+                  line_offset: 23 (0x17)
+
+    Stream_type: 11 (0x0b)  [= ISO/IEC 13818-6 DSM-CC U-N Messages]
+    reserved_1: 7 (0x07)
+    Elementary_PID: 956 (0x03bc)
+    reserved_2: 15 (0x0f)
+    ES_info_length: 16 (0x0010)
+
+            DVB-DescriptorTag: 102 (0x66)  [= data_broadcast_id_descriptor]
+            Descriptor_length: 4 (0x04)
+            Data_broadcast_ID: 240 (0x00f0)  [= MHP Object Carousel]
+            ID_selector_bytes:
+                 0000:  00 01 
+                 0000:   .  . 
+
+            DVB-DescriptorTag: 82 (0x52)  [= stream_identifier_descriptor]
+            Descriptor_length: 1 (0x01)
+            Component_tag: 11 (0x0b)
+
+            MPEG-DescriptorTag: 19 (0x13)  [= carousel_identifier_descriptor]
+            Descriptor_length: 5 (0x05)
+            Carousel_id: 1 (0x00000001)
+            format_id: 0 (0x00)
+            Private Data:
+
+    Stream_type: 11 (0x0b)  [= ISO/IEC 13818-6 DSM-CC U-N Messages]
+    reserved_1: 7 (0x07)
+    Elementary_PID: 963 (0x03c3)
+    reserved_2: 15 (0x0f)
+    ES_info_length: 16 (0x0010)
+
+            DVB-DescriptorTag: 102 (0x66)  [= data_broadcast_id_descriptor]
+            Descriptor_length: 4 (0x04)
+            Data_broadcast_ID: 240 (0x00f0)  [= MHP Object Carousel]
+            ID_selector_bytes:
+                 0000:  00 01 
+                 0000:   .  . 
+
+            DVB-DescriptorTag: 82 (0x52)  [= stream_identifier_descriptor]
+            Descriptor_length: 1 (0x01)
+            Component_tag: 16 (0x10)
+
+            MPEG-DescriptorTag: 19 (0x13)  [= carousel_identifier_descriptor]
+            Descriptor_length: 5 (0x05)
+            Carousel_id: 3 (0x00000003)
+            format_id: 0 (0x00)
+            Private Data:
+
+    Stream_type: 11 (0x0b)  [= ISO/IEC 13818-6 DSM-CC U-N Messages]
+    reserved_1: 7 (0x07)
+    Elementary_PID: 962 (0x03c2)
+    reserved_2: 15 (0x0f)
+    ES_info_length: 16 (0x0010)
+
+            DVB-DescriptorTag: 102 (0x66)  [= data_broadcast_id_descriptor]
+            Descriptor_length: 4 (0x04)
+            Data_broadcast_ID: 240 (0x00f0)  [= MHP Object Carousel]
+            ID_selector_bytes:
+                 0000:  00 01 
+                 0000:   .  . 
+
+            DVB-DescriptorTag: 82 (0x52)  [= stream_identifier_descriptor]
+            Descriptor_length: 1 (0x01)
+            Component_tag: 15 (0x0f)
+
+            MPEG-DescriptorTag: 19 (0x13)  [= carousel_identifier_descriptor]
+            Descriptor_length: 5 (0x05)
+            Carousel_id: 3 (0x00000003)
+            format_id: 0 (0x00)
+            Private Data:
+
+    Stream_type: 11 (0x0b)  [= ISO/IEC 13818-6 DSM-CC U-N Messages]
+    reserved_1: 7 (0x07)
+    Elementary_PID: 961 (0x03c1)
+    reserved_2: 15 (0x0f)
+    ES_info_length: 16 (0x0010)
+
+            DVB-DescriptorTag: 102 (0x66)  [= data_broadcast_id_descriptor]
+            Descriptor_length: 4 (0x04)
+            Data_broadcast_ID: 240 (0x00f0)  [= MHP Object Carousel]
+            ID_selector_bytes:
+                 0000:  00 01 
+                 0000:   .  . 
+
+            DVB-DescriptorTag: 82 (0x52)  [= stream_identifier_descriptor]
+            Descriptor_length: 1 (0x01)
+            Component_tag: 14 (0x0e)
+
+            MPEG-DescriptorTag: 19 (0x13)  [= carousel_identifier_descriptor]
+            Descriptor_length: 5 (0x05)
+            Carousel_id: 3 (0x00000003)
+            format_id: 0 (0x00)
+            Private Data:
+
+    Stream_type: 11 (0x0b)  [= ISO/IEC 13818-6 DSM-CC U-N Messages]
+    reserved_1: 7 (0x07)
+    Elementary_PID: 960 (0x03c0)
+    reserved_2: 15 (0x0f)
+    ES_info_length: 16 (0x0010)
+
+            DVB-DescriptorTag: 102 (0x66)  [= data_broadcast_id_descriptor]
+            Descriptor_length: 4 (0x04)
+            Data_broadcast_ID: 240 (0x00f0)  [= MHP Object Carousel]
+            ID_selector_bytes:
+                 0000:  00 01 
+                 0000:   .  . 
+
+            DVB-DescriptorTag: 82 (0x52)  [= stream_identifier_descriptor]
+            Descriptor_length: 1 (0x01)
+            Component_tag: 13 (0x0d)
+
+            MPEG-DescriptorTag: 19 (0x13)  [= carousel_identifier_descriptor]
+            Descriptor_length: 5 (0x05)
+            Carousel_id: 3 (0x00000003)
+            format_id: 0 (0x00)
+            Private Data:
+
+    Stream_type: 5 (0x05)  [= ITU-T Rec. H.222.0 | ISO/IEC 13818-1 private sections]
+    reserved_1: 7 (0x07)
+    Elementary_PID: 955 (0x03bb)
+    reserved_2: 15 (0x0f)
+    ES_info_length: 8 (0x0008)
+
+            DVB-DescriptorTag: 82 (0x52)  [= stream_identifier_descriptor]
+            Descriptor_length: 1 (0x01)
+            Component_tag: 112 (0x70)
+
+            DVB-DescriptorTag: 111 (0x6f)  [= application_signalling_descriptor]
+            Descriptor_length: 3 (0x03)
+            Application type: 1 (0x0001)
+            reserved: 7 (0x07)
+            AIT version nr.: 0 (0x00)
+CRC: 3390492694 (0xca16d016)
+==========================================================
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

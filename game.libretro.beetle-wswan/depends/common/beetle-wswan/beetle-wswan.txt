@@ -1,0 +1,1 @@
+beetle-wswan https://github.com/libretro/beetle-wswan-libretro/archive/5f9cc2e732fcca23e5cfe11fcf156f91007186a4.zip

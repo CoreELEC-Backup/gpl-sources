@@ -1,0 +1,724 @@
+Some tests for the Python binding of the TS tools
+=================================================
+
+Elementary streams -- basic functionality
+-----------------------------------------
+In this context, we take an elementary stream to be MPEG-1, MPEG-2 or H.264
+(MPEG-4 Part 10) ES data, as is assumed by the rest of tstools.
+
+We shall assume that our standard sample data has been downloaded and expanded
+into our sibling ``data`` directory. See the ``../data/setup.sh`` script.
+
+    >>> test_es_file = '../data/ed24p_11.video.es'
+
+First, check we've got the basics working:
+
+    >>> from tstools import ESFile
+    >>> stream = ESFile(test_es_file)
+
+The filename is available as a "readonly" value:
+
+    >>> stream.name == test_es_file
+    True
+
+We've opened it for read:
+
+    >>> stream.is_readable() == True
+    True
+    >>> stream.is_writable() == False
+    True
+    >>> stream.mode
+    'r'
+
+We should be able to iterate over its ES units:
+
+    >>> count = 0
+    >>> es_unit_list = []
+    >>> for unit in stream:
+    ...     count += 1
+    ...     print unit
+    ...     es_unit_list.append(unit)
+    ...     if count > 5:
+    ...         break
+    ES unit: start code 00, len    9: 00 00 01 00 01 df ff fb b8
+    ES unit: start code b5, len    9: 00 00 01 b5 85 45 4b 5d 80
+    ES unit: start code 01, len 1645: 00 00 01 01 0a b0 10 09...
+    ES unit: start code 02, len 1634: 00 00 01 02 0a b0 10 09...
+    ES unit: start code 03, len   16: 00 00 01 03 0a b0 10 07...
+    ES unit: start code 04, len   15: 00 00 01 04 0a b0 10 02...
+
+From ``hexdump -C`` I get (something that can be written out as)::
+
+    00 00 01 00 01 df ff fb b8
+    00 00 01 b5 85 45 4b 5d 80
+    00 00 01 01 0a b0 10 09 1c 56 ec d8 72 94 01 ...
+
+which tends to support those results.
+
+And close it:
+
+    >>> stream.close()
+    >>> stream.is_writable() == False
+    True
+    >>> stream.is_readable() == False
+    True
+    >>> stream.mode is None
+    True
+
+We can ask an ES unit about itself:
+
+    >>> unit = es_unit_list[0]
+    >>> print unit.start_posn
+    0+0
+    >>> unit.start_code
+    0
+    >>> unit.PES_had_PTS
+    0
+    >>> data = unit.data
+    >>> len(data)
+    9
+    >>> data[0]
+    '\x00'
+    >>> text = 'data:'
+    >>> for ii in range(8):
+    ...    text += ' %02x'%ord(data[ii])
+    >>> print text
+    data: 00 00 01 00 01 df ff fb
+    >>> unit.fred
+    Traceback (most recent call last):
+    ...
+    AttributeError
+    >>> print repr(unit)
+    ESUnit("\x00\x00\x01\x00\x01\xdf\xff\xfb\xb8")
+
+ES units can be compared for equality (but not order):
+
+    >>> es_unit_list[0] == es_unit_list[0]
+    1
+    >>> es_unit_list[0] == es_unit_list[1]
+    0
+    >>> es_unit_list[0] != es_unit_list[1]
+    1
+    >>> es_unit_list[0] != es_unit_list[0]
+    0
+    >>> es_unit_list[0] < es_unit_list[1]
+    Traceback (most recent call last):
+    ...
+    TypeError: ESUnit only supports == and != comparisons
+
+We can create an ES unit from a Python 'string':
+
+    >>> from tstools import ESUnit
+    >>> print 'old ',es_unit_list[0]
+    old  ES unit: start code 00, len    9: 00 00 01 00 01 df ff fb b8
+    >>> new = ESUnit(es_unit_list[0].data)
+    >>> print 'new ',new
+    new  ES unit: start code 00, len    9: 00 00 01 00 01 df ff fb b8
+    >>> print 'old ',es_unit_list[0]
+    old  ES unit: start code 00, len    9: 00 00 01 00 01 df ff fb b8
+    >>> new == es_unit_list[0]
+    True
+
+or even:
+
+    >>> exec 'u = ' + repr(unit)
+    >>> u == unit
+    1
+
+And write another file...
+
+    >>> import tempfile
+    >>> import os
+    >>> directory = tempfile.mkdtemp()
+    >>> filename = os.path.join(directory,'tstools_test_1.es')
+    >>> out = ESFile(filename,'w')
+    >>> out.name == filename
+    True
+    >>> out.is_readable() == False
+    True
+    >>> out.is_writable() == True
+    True
+    >>> out.mode
+    'w'
+    >>> for unit in es_unit_list:
+    ...    out.write(unit)
+    >>> out.close()
+
+Did that do the right thing? Check that we can read the units back (one by
+one, to test the ``read`` method), and that the units we read back are
+identical to those we wrote.
+
+    >>> infile = ESFile(filename,'r')
+    >>> other_units = []
+    >>> for ii in range(0,6):
+    ...    other_units.append(infile.read())
+    >>>
+    >>> for ii in range(0,6):
+    ...    if es_unit_list[ii] != other_units[ii]:
+    ...        print 'Error: unit %d does not match'%ii
+    ...        break
+
+We already saw an ESOffset being returned:
+
+    >>> print es_unit_list[0].start_posn
+    0+0
+    >>> print es_unit_list[1].start_posn
+    9+0
+    >>> es_unit_list[1].start_posn.report()
+    Offset 0 in packet at offset 9 in file
+    >>> print repr(es_unit_list[1].start_posn)
+    ESOffset(infile=9,inpacket=0)
+
+Output more like that produced by the C report tools can also be obtained:
+
+    >>> print es_unit_list[1].start_posn.formatted()
+    00000000/00000009
+
+We can create our own:
+
+    >>> from tstools import ESOffset
+    >>> offset = ESOffset(59,27)
+    >>> offset.report()
+    Offset 27 in packet at offset 59 in file
+    >>> offset.infile
+    59L
+    >>> offset.inpacket
+    27
+
+There are keywords for the arguments, as well, for clarity:
+
+    >>> ESOffset(infile=59,inpacket=27) == offset
+    True
+
+And both default to 0:
+
+    >>> ESOffset(infile=37).report()
+    Offset 0 in packet at offset 37 in file
+    >>> ESOffset().report()
+    Offset 0 in packet at offset 0 in file
+
+Files can get very long -- the underlying ``lseek`` call can probably take
+64-bit offsets. With luck, the Pyrex implementation can too:
+
+    >>> loffset = ESOffset(0x1111111111111111,5)
+    >>> loffset.report()
+    Offset 5 in packet at offset 1229782938247303441 in file
+
+That's why we got the "59L" in an earlier example...
+
+And it may be useful to be able to compare them:
+
+    >>> es_unit_list[1].start_posn >  es_unit_list[0].start_posn
+    True
+    >>> es_unit_list[1].start_posn == es_unit_list[1].start_posn
+    True
+    >>> es_unit_list[0].start_posn <  es_unit_list[1].start_posn
+    True
+
+Seeking (to the start of an ES unit) is useful. However, the following are
+just testing the three ways of specifying the location to seek to (which may
+be overkill, but all seemed sensible at the time):
+
+    >>> f = ESFile(test_es_file)
+    >>> o = ESOffset(10,20)
+    >>> print f.seek(o)
+    10+20
+    >>> print f.seek(20)
+    20+0
+    >>> print f.seek(30,40)
+    30+40
+    >>> print f.seek(10,20,30)
+    Traceback (most recent call last):
+    ...
+    TypeError: Seek argument must be one integer, two integers or an ESOffset
+    >>> print f.seek('fred')
+    Traceback (most recent call last):
+    ...
+    TypeError: Seek argument must be one integer, two integers or an ESOffset
+    >>> print f.seek(-1)
+    Traceback (most recent call last):
+    ...
+    TSToolsException: Error seeking to (-1,) in file '../data/ed24p_11.video.es'
+
+Let's try proper seeking, though:
+
+    >>> p = f.seek(es_unit_list[-1].start_posn)
+    >>> p == es_unit_list[-1].start_posn
+    True
+    >>> u = f.read()
+    >>> u.start_posn == es_unit_list[-1].start_posn
+    True
+    >>> u == es_unit_list[-1]
+    True
+
+OK. So ``seek()`` returns a tuple of (infile,inpacket), whilst the
+``start_posn`` attribute is an ``ESOffset``. Which may or may not make sense
+-- but I really would rather the latter had *some* annotation explicit as to
+what each field means, because it *is* impossible to decide rationally which
+order they should come in.
+
+The "with" syntax should also work:
+
+    >>> count = 0
+    >>> with ESFile(test_es_file) as f:
+    ...    for unit in f:
+    ...        count += 1
+    ...        print unit
+    ...        if count > 5:
+    ...            break
+    ES unit: start code 00, len    9: 00 00 01 00 01 df ff fb b8
+    ES unit: start code b5, len    9: 00 00 01 b5 85 45 4b 5d 80
+    ES unit: start code 01, len 1645: 00 00 01 01 0a b0 10 09...
+    ES unit: start code 02, len 1634: 00 00 01 02 0a b0 10 09...
+    ES unit: start code 03, len   16: 00 00 01 03 0a b0 10 07...
+    ES unit: start code 04, len   15: 00 00 01 04 0a b0 10 02...
+
+Transport streams -- basic functionality - reading
+--------------------------------------------------
+Still using sample data, we can read from TS files:
+
+    >>> test_ts_file = '../data/ed24p_11.ts'
+    >>> from tstools import TSFile
+    >>> tsfile = TSFile(test_ts_file)
+    >>> tsfile.name == test_ts_file
+    True
+    >>> tsfile.mode == 'r'
+    True
+    >>> tsfile.is_readable() == True
+    True
+    >>> tsfile.is_writable() == False
+    True
+
+And also:
+
+    >>> tsfile.close()
+    >>> TSFile('no-such-file.fred')
+    Traceback (most recent call last):
+    ...
+    TSToolsException: Error opening file 'no-such-file.fred' for TS reading: No such file or directory
+
+Trusty hexdump suggests that the first few TS packets start::
+
+    47 1f ff 10 ff ff ff ff ff ff ff ff ff ff ff ff
+
+i.e., they look are padding packets, with PID 0x1FFF. tsreport appears to show
+the first interesting TS packet occurring at 13348, which is 71*188::
+
+    13348: TS Packet 72 PID 0032 [pusi] stream type not identified
+    PES header
+      Start code:        00 00 01
+      Stream ID:         bd   (189) SYSTEM START: Private stream 1
+      PES packet length: 0612 (1554)
+      Flags:             84 80 data-aligned : PTS
+      PES header len 15
+      PTS 54347445
+      Data (160 bytes): 0b 77 0d 73 1c 20 43 fe 21 06 a2 b8 60 75 dd 6f 87 ae 95 2c ee dc cf ae 95 5b b2 31 13 8c 56 fd 32 a5 4f a1 43 5e 95 f3 ea 6f 9e d7 75 0a 93 f5 4b 9f 4e 73 0d f2 a7 b4 df 53 54 82 1b e7 68 1f d2 7e 99 2a 97 ee 9e bf 7c a9 25 78 62 4e 7f 4a 2b a4 b4 dc d8 56 9d 31 18 4f a9 bf 7c a6 d5 c8 6a 95 3e 54 be 15 34 ca 61 42 7d 0d f2 a7 af 6c 3f 7c 43 5b e7 d5 ab b6 74 e5 fa 57 ce 9d a4 af 49 53 f4 a9 60 25 9c 95 fa 97 b7 12 99 6f 55 22 40 77 17 b2 e9 54 24 ad 59 e4 5d 2f 61 c4 36 ee
+
+That's 0x3424, and hexdump shows it staring::
+
+    47 40 32 14 00 00 01 bd 06 12 84 80 0f 21 0c f5 8d 6b ff ff ff
+    ff ff ff ff ff ff ff 0b 77 0d 73 1c 20 43 fe 21 06 a2 b8 60 75
+
+Interpreted as:
+
+* ``47``: it's TS
+* ``40 32``: it's PID 0x32, with the PUSI bit set
+* ``14`` == ``0001.0100``: that ``0001`` means we have a payload only (no
+  adaptation field), so payload length is 184
+
+With that information, we should be able to do the following:
+
+    >>> p = None        # Outside the "with" scope...
+    >>> with TSFile(test_ts_file) as f:
+    ...     count = 0
+    ...     p = f.read()
+    ...     while p.is_padding():
+    ...         count += 1
+    ...         p = f.read()
+    ...     print count
+    71
+    >>> print p.pid
+    50
+
+The PID is calculated when a TS packet is created, but otherwise the
+adaptation array and/or payload (and the PUSI flag) are split out lazily, as
+needed:
+
+    >>> print p.pusi
+    1
+    >>> print p.adapt
+    None
+
+Whether there is a PCR or not is also calculated lazily:
+
+    >>> print p.PCR
+    None
+
+The payload itself won't print out nicely, as it's binary, but we can check
+its length:
+
+    >>> print len(p.payload)
+    184
+
+and the short representation of the TS packet:
+
+    >>> print p
+    TS packet PID 0032 [pusi] P 14 00 00 01 bd 06 12 84...
+    >>> text = ' '.join(['%02x'%x for x in p.data])
+    >>> print text
+    47 40 32 14 00 00 01 bd 06 12 84 80 0f 21 0c f5 8d 6b ff ff ff ff ff ff ff ff ff ff 0b 77 0d 73 1c 20 43 fe 21 06 a2 b8 60 75 dd 6f 87 ae 95 2c ee dc cf ae 95 5b b2 31 13 8c 56 fd 32 a5 4f a1 43 5e 95 f3 ea 6f 9e d7 75 0a 93 f5 4b 9f 4e 73 0d f2 a7 b4 df 53 54 82 1b e7 68 1f d2 7e 99 2a 97 ee 9e bf 7c a9 25 78 62 4e 7f 4a 2b a4 b4 dc d8 56 9d 31 18 4f a9 bf 7c a6 d5 c8 6a 95 3e 54 be 15 34 ca 61 42 7d 0d f2 a7 af 6c 3f 7c 43 5b e7 d5 ab b6 74 e5 fa 57 ce 9d a4 af 49 53 f4 a9 60 25 9c 95 fa 97 b7 12 99 6f 55 22 40 77 17 b2 e9 54 24 ad 59 e4 5d 2f 61 c4 36 ee
+    >>> print repr(p)
+    TSPacket("\x47\x40\x32\x14\x00\x00\x01\xbd\x06\x12\x84\x80\x0f\x21\x0c\xf5\x8d\x6b\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x0b\x77\x0d\x73\x1c\x20\x43\xfe\x21\x06\xa2\xb8\x60\x75\xdd\x6f\x87\xae\x95\x2c\xee\xdc\xcf\xae\x95\x5b\xb2\x31\x13\x8c\x56\xfd\x32\xa5\x4f\xa1\x43\x5e\x95\xf3\xea\x6f\x9e\xd7\x75\x0a\x93\xf5\x4b\x9f\x4e\x73\x0d\xf2\xa7\xb4\xdf\x53\x54\x82\x1b\xe7\x68\x1f\xd2\x7e\x99\x2a\x97\xee\x9e\xbf\x7c\xa9\x25\x78\x62\x4e\x7f\x4a\x2b\xa4\xb4\xdc\xd8\x56\x9d\x31\x18\x4f\xa9\xbf\x7c\xa6\xd5\xc8\x6a\x95\x3e\x54\xbe\x15\x34\xca\x61\x42\x7d\x0d\xf2\xa7\xaf\x6c\x3f\x7c\x43\x5b\xe7\xd5\xab\xb6\x74\xe5\xfa\x57\xce\x9d\xa4\xaf\x49\x53\xf4\xa9\x60\x25\x9c\x95\xfa\x97\xb7\x12\x99\x6f\x55\x22\x40\x77\x17\xb2\xe9\x54\x24\xad\x59\xe4\x5d\x2f\x61\xc4\x36\xee")
+
+Let's remember that packet:
+
+    >>> first_interesting_TS_packet = p
+
+We have comparisons (but only for equality) on TS packets. Remember those
+first N packets are all padding:
+
+    >>> f = TSFile(test_ts_file)
+    >>> p0 = f.read()
+    >>> p1 = f.read()
+    >>> f.close()
+    >>> p0 == p1
+    1
+    >>> p0 != first_interesting_TS_packet
+    1
+    >>> p0 == first_interesting_TS_packet
+    0
+
+Normal iteration works as well:
+
+    >>> with TSFile(test_ts_file) as f:
+    ...    count = 0
+    ...    for packet in f:
+    ...        count += 1
+    ...        if not packet.is_padding():
+    ...            break
+    ...    print 'There are %d padding TS packets at the start'%count
+    ...    print 'The first non-padding packet is:',packet
+    There are 72 padding TS packets at the start
+    The first non-padding packet is: TS packet PID 0032 [pusi] P 14 00 00 01 bd 06 12 84...
+
+And we should be able to create our own:
+
+    >>> from tstools import TSPacket
+    >>> tscopy = TSPacket(p0.data.tostring())
+    >>> tscopy == p0
+    1
+    >>> x = TSPacket('fred')
+    Traceback (most recent call last):
+    ...
+    TSToolsException: First byte of TS packet is 0x66, not 0x47
+
+(XXX That ``p0.data.tostring()`` is unforgivably clumsy -- I really should
+make that work more naturally.)
+
+We should be able to seek, although only multiples of 188 are likely to be
+useful (the read after the seek to offset 27 will fail because it doesn't find
+a 0x47 at the start of the data it is asked to read):
+
+    >>> f = TSFile(test_ts_file)
+    >>> f.seek(71*188)
+    >>> ps = f.read()
+    >>> ps == first_interesting_TS_packet
+    1
+    >>> f.seek(27)
+    >>> f.read()
+    Traceback (most recent call last):
+    ...
+    TSToolsException: Error getting next TS packet from file ../data/ed24p_11.ts (First byte of TS packet is 0xff, not 0x47)
+   >>> f.close()
+
+Note that the value returned as out data is actually an ``array`` of unsigned
+bytes:
+
+    >>> p.data[:15]
+    array('B', [71, 64, 50, 20, 0, 0, 1, 189, 6, 18, 132, 128, 15, 33, 12])
+
+Python 2.6 introduces the ``bytearray`` (an immutable array of bytes), which
+is clearly what we'd prefer to be using to communicate with TS packets,
+instead of strings and ``array.array``.
+
+The first packet with a PCR is at 100768:
+
+    >>> f = TSFile(test_ts_file)
+    >>> f.seek(100768)
+    >>> tspcr = f.read()
+    >>> tspcr.pusi
+    0
+    >>> len(tspcr.adapt)
+    183
+    >>> tspcr.PCR
+    16303619382L
+    >>> f.close()
+
+Program data
+------------
+A PAT is a wrapper around a lightly hidden dictionary of program number versus
+PMT PID. So:
+
+    >>> from tstools import PAT
+    >>> pat = PAT()
+    >>> len(pat)
+    0
+    >>> pat[0] = 0x68
+    >>> pat[1] = 0x69
+    >>> pat[1] = 0xFFFF
+    Traceback (most recent call last):
+    ...
+    ValueError: PID must be 0..0x1fff, not 0xffff
+    >>> pat[-1] = 0x69
+    Traceback (most recent call last):
+    ...
+    ValueError: Program number must be 0..65535, not -1
+    >>> pat[1]
+    105
+    >>> items = [item for item in pat]
+    >>> items.sort()
+    >>> print items
+    [(0, 104), (1, 105)]
+
+We should be able to retrieve (the next) PAT from our file:
+
+    >>> f = TSFile(test_ts_file)
+    >>> num_read,fp1 = f.find_PAT()
+    >>> num_read
+    440
+    >>> print fp1
+    PAT({1:0x20})
+
+For convenience, once we're found a PAT, it is remembered on the file
+(all sorts of caveats immediately spring to mind, since a file can contain
+more than one PAT - for the moment, the last PAT "found" by such a method
+call will be remembered).
+
+    >>> print f.PAT
+    PAT({1:0x20})
+    >>> f.close()
+
+Indeed, it will automatically be read in for us as we read its record(s):
+
+    >>> f = TSFile(test_ts_file)
+    >>> print f.PAT
+    None
+    >>> for ii in range(440):
+    ...     p = f.read()
+    >>> print f.PAT
+    PAT({1:0x20})
+    >>> f.close()
+
+We can also find PMTs in a similar manner:
+
+    >>> f = TSFile(test_ts_file)
+    >>> num_read,pmt = f.find_PMT(0x20,1)
+    >>> num_read
+    441
+    >>> print pmt
+    PMT program 1, version 0, PCR PID 0030 (48)
+    >>> pmt.report()
+    PMT program 1, version 0, PCR PID 0030 (48)
+      Program streams:
+        PID 0031 (  49) -> Stream type 02 (  2)
+            ES info '\x52\x01\x00'
+        PID 0032 (  50) -> Stream type 81 (129)
+            ES info '\x52\x01\x10'
+    >>> f.close()
+
+The "PMT" attribute of a TSFile is a dictionary of PMT objects, keyed by the
+program number. It starts off empty, and gets filled in as PMT records are
+found, so:
+
+    >>> f = TSFile(test_ts_file)
+    >>> print f.PMT
+    {}
+    >>> for ii in range(441):
+    ...     p = f.read()
+    >>> print f.PMT
+    {1L: PMT(1,0,0x30,'')}
+    >>> print f.PMT[1]
+    PMT program 1, version 0, PCR PID 0030 (48)
+    >>> f.close()
+
+And it is, of course, possible to create our own PMT:
+
+    >>> from tstools import PMT, ProgramStream
+    >>> pmt = PMT(2,1,0x68)
+    >>> pmt.set_program_info('\x23\x47')
+    >>> stream = ProgramStream(0x47,0x17,'\x0A\x04GER\x02')
+    >>> stream.report()
+      PID 0017 (  23) -> Stream type 47 ( 71)
+          ES info '\x0a\x04\x47\x45\x52\x02'
+    >>> pmt.add_stream(stream)
+    >>> pmt.report()
+    PMT program 2, version 1, PCR PID 0068 (104)
+      Program info '\x23\x47'
+      Program streams:
+        PID 0017 (  23) -> Stream type 47 ( 71)
+            ES info '\x0a\x04\x47\x45\x52\x02'
+
+PCR buffering
+-------------
+There are two ways of reading TS packets from a file.
+
+The original mechanism reads each TS packet relatively directly, and only TS
+packets that actually contain a PCR "know" their PCR. It is then up to the
+calling program to try to "guess" (or, perhaps, approximate) the PCRs for
+intermediate packets.
+
+Later versions of tstools introduced the concept of PCR buffering. In this
+mode, the software will always have read forwards through the file enough to
+have two PCRs in hand -- the previous and the next. This allows the PCR for
+each TS packet in between to be determined absolutely, at the cost of a
+read-ahead buffer, and some special tricks before the first PCR and after the
+last (where linear approximation is all that can really be done).
+
+  NB: at time of writing, approximation at the start of the file is not done,
+  and thus in "PCR buffering" mode, TS packets before the first PCR are
+  skipped. This is a bug, and should be fixed in the future.
+
+In the Python wrapping, the basic TSFile class provides "unbuffered" reading.
+It is thus suitable for applications that are not trying to track the PCR.
+
+The BufferedTSFile class is then a subclass of TSFile, and uses the PCR
+buffered interface to retrieve TS packets. So:
+
+    >>> from tstools import BufferedTSFile
+    >>> bfile = BufferedTSFile(test_ts_file)
+    >>> print bfile
+    <BufferedTSFile '../data/ed24p_11.ts' open for read>
+    >>> bfile.is_readable()
+    1
+    >>> bfile.is_writable()
+    0
+    >>> bfile.close()
+
+Since this class only opens a TSFile for read, there is no 'w' mode:
+
+    >>> bfile = BufferedTSFile(test_ts_file,'w')
+    Traceback (most recent call last):
+    ...
+    TypeError: function takes exactly 1 argument (2 given)
+    >>> bfile = BufferedTSFile(test_ts_file,mode='w')
+    Traceback (most recent call last):
+    ...
+    TypeError: 'mode' is an invalid keyword argument for this function
+
+I'd *like* a BufferedTSFile to act very much like a TSFile in many ways, and
+in particular I'd like it to start reading from the start of the file.
+However, at the moment it starts reading with the first TS packet after the
+first PMT.
+
+
+  So in particular, the start should be readable in the same manner, which we
+  can verify by checking how far in the "first interesting packet" we found
+  when first testing TSFile is:
+
+     x >>> p = None        # Outside the "with" scope...
+     x >>> with BufferedTSFile(test_ts_file) as f:
+     x ...     count = 0
+     x ...     p = f.read()
+     x ...     while p.is_padding():
+     x ...         count += 1
+     x ...         p = f.read()
+     x ...     print count
+     x 71
+     x >>> p == first_interesting_TS_packet
+     x 1
+
+   which at the moment would fail (the responses being '0' and '0'
+   respectively), so I shan't actually make be proper tests.
+
+What I can do is check if works as I expect:
+
+    >>> p1 = p2 = p3 = None
+    >>> with TSFile(test_ts_file) as f:
+    ...    # Read until we find the first PMT
+    ...    p = f.read()
+    ...    while len(f.PMT) == 0:
+    ...        p = f.read()
+    ...    # Then read until we find the first packet with a PCR
+    ...    p1 = f.read()
+    ...    while p1.PCR == None:
+    ...        p1 = f.read()
+    ...    p2 = f.read()
+    ...    p3 = f.read()
+    >>> print p1
+    TS packet PID 0030 A 20 b7 10 01 9e 9f 5a ff...
+    >>> print p2
+    TS packet PID 0031 P 1a 6c 42 26 10 88 58 30...
+    >>> print p3
+    TS packet PID 0031 P 1b 19 80 3b 28 06 28 21...
+
+and thus:
+
+    >>> pb1 = pb2 = pb3 = None
+    >>> with BufferedTSFile(test_ts_file) as f:
+    ...    pb1 = f.read()
+    ...    pb2 = f.read()
+    ...    pb3 = f.read()
+    >>> print pb1
+    TS packet PID 0030 A 20 b7 10 01 9e 9f 5a ff...
+    >>> print pb2
+    TS packet PID 0031 P 1a 6c 42 26 10 88 58 30...
+    >>> print pb3
+    TS packet PID 0031 P 1b 19 80 3b 28 06 28 21...
+    >>> # Or, explicitly
+    >>> p1 == pb1 and p2 == pb2 and p3 == pb3
+    1
+
+As I said, not perhaps what I want, but definitely what it is currently
+expected to do.
+
+Opening a TSFile (for read) more than once at the same time
+-----------------------------------------------------------
+It's not particularly obvious when coding in C, but in Python there seems no
+reason to expect a problem in opening a TSFile more than once for reading at
+the same time.
+
+For instance:
+
+    >>> f1 = TSFile(test_ts_file)
+    >>> p1 = f1.read()
+    >>> f2 = TSFile(test_ts_file)
+    >>> p2 = f2.read()
+    >>> p1 == p2
+    1
+    >>> p1 = f1.read()
+    >>> p1 = f1.read()
+    >>> p1 = f1.read()
+    >>> p2 = f2.read()
+    >>> p2 = f2.read()
+    >>> p2 = f2.read()
+    >>> p1 == p2
+    1
+    >>> f1.close()
+    >>> f2.close()
+
+The same should be true for BufferedTSFile:
+
+    >>> f1 = BufferedTSFile(test_ts_file)
+    >>> p1 = f1.read()
+    >>> f2 = BufferedTSFile(test_ts_file)
+    >>> p2 = f2.read()
+    >>> p1 == p2
+    1
+    >>> p1 = f1.read()
+    >>> p1 = f1.read()
+    >>> p1 = f1.read()
+    >>> p2 = f2.read()
+    >>> p2 = f2.read()
+    >>> p2 = f2.read()
+    >>> p1 == p2
+    1
+    >>> f1.close()
+    >>> f2.close()
+
+
+// Local Variables:
+// tab-width: 8
+// indent-tabs-mode: nil
+// c-basic-offset: 2
+// End:
+// vim: set filetype=rst tabstop=8 shiftwidth=2 expandtab:

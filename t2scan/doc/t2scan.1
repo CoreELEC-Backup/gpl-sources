@@ -1,0 +1,236 @@
+.TH "t2scan" 1 "01 April 2018" "" ""
+.SH "NAME"
+t2scan \- a small channel scan tool which generates DVB\-T/T2 channels.conf files
+.SH "SYNOPSIS"
+.B t2scan
+.br
+.B t2scan
+.B [ options ] 
+.SH "DESCRIPTION"
+.B t2scan
+scans for DVB\-T, DVB\-T2 channels. ATSC is supported, but untested.
+.br
+Any other program accessing the DVB hardware (like e.g. VDR) has to be closed in order to avoid conflicts while running t2scan.
+.br
+.B t2scan 
+provides the channels in different output formats (Default: VDR channels.conf). For other output formats see OPTIONS.
+.SH "OPTIONS"
+The following options are available.
+.TP 
+.B \-c N
+specify lowest channel to scan,
+.TP 
+.B \-C N
+specify highest channel to scan,
+.TP
+.B \-l COMMA-SEPARATED LIST with channel numbers
+scan only channels in the given comma-separated list
+.TP 
+.B \-t TYPE
+specify DVB-T type to scan,
+.br
+0 = DVB-T and DVB-T2 [default],
+.br
+1 = DVB-T only,
+.br
+2 = DVB-T2 only.
+.TP 
+.B \-o FORMAT
+output format for the detected services
+.br
+gstreamer = channels.conf for dvbsrc plugin,
+.br
+mplayer   = mplayer output,
+.br
+vdr       = channels.conf for vdr >=2.1 [default],
+.br
+vdr20     = channels.conf for vdr 2.0.x,
+.br
+vlc       = VLC xspf playlist (experimental),
+.br
+xine      = tzap/czap/xine output,
+.br
+xml       = w_scan XML tuning data.
+.TP 
+.B \-E
+Exclude encrypted channels from output
+.TP
+.B \-d
+Mark duplicates in output (VDR output only)
+.br
+can be combined with -r to show reception values
+.TP
+.B \-s TYPES
+specify service types to be included in output
+.br
+t = include TV channels in output [default: on],
+.br
+r = include radio channels in output [default: on],
+.br
+o = include other services in output [default: off],
+.br
+Example: "\-s tro" includes everything in output,
+.br
+Example: "\-s t" includes only TV channels in output.
+.TP 
+.B \-V
+show version
+.TP 
+.B \-h
+show help
+.TP 
+.B \-H
+show expert help
+.SH "EXPERT OPTIONS"
+.TP
+.B \-L N
+override the channel list to be used
+.br
+0 = Europe, UHF channels below 790 MHz [default for AT, BE, CH, DE, FR, GB, LU, NL]
+.br
+1 = Europe, UHF channels below 700 MHz,
+.br
+2 = Europe, all UHF channels,
+.br
+3 = Europe, all VHF and UHF channels [default for most European countries],
+.br
+4 = France, specific list with offsets,
+.br
+5 = GB, specific list with offsets,
+.br
+6 = Australia [default for Australia]
+.TP 
+.B \-Y COUNTRY_ID
+Specifies the country where you try to scan for channels as uppercase two letter identifier, e.g.
+.br
+DE = Germany,
+.br
+US = United States,
+.br
+FR = France
+.br
+Use "-Y?" for a list of all known identifiers. Default is auto-detection from system settings.
+.TP
+.B \-D
+Exclude duplicate services from output
+.br
+NOTE: If a service is found multiple times, this will only consider the instance found last!
+.TP
+.B \-p COMMA-SEPARATED LIST with PLP IDs
+use the given PLP IDs for scanning.
+.br
+The default is depending on the country (-1,0,1 for most countries)
+.br
+The -1 does not filter the PLP and usually find the first PLP on the frequency.
+.br
+NOTE: In Germany, most DVB-T2 services are on PLP ID 0, some additional "connect" channels 
+.br
+are on PLP ID 1. For Austria, in most regions services are under PLP ID 1.
+.TP
+.B \-U
+don't update transponder parameters with the data in the NIT.
+.br
+This means that most tuning parameters will be set to AUTO.
+.TP
+.B \-i CHARSET
+specifies the default charset in which services are stored in the NIT.
+.br
+I.e. 'UTF-8', 'ISO-8859-15'; default: 'ISO6937'
+.br
+use 'iconv --list' to see full list of charsets.
+.TP
+.B \-I CHARSET
+specifies the output charset, i.e. "UTF-8", "ISO-8859-15"
+.br
+use 'iconv --list' to see full list of charsets.
+.TP 
+.B \-v
+verbose (repeat for more)
+.TP 
+.B \-q
+quiet (repeat for less)
+.TP 
+.B \-a N
+use device /dev/dvb/adapterN/ [default: auto detect]
+.br
+(also allowed: -a /dev/dvb/adapterN/frontendM)
+.TP 
+.B \-S N
+Multiply tuning and filter timeouts, increasing may help if device tunes slowly or has bad reception.
+.br
+1 = default (2 sec for carrier, 4 sec for lock [DVB-T2: 6 sec]),
+.br
+2 = double (4 sec for carrier, 8 sec for lock [DVB-T2: 12 sec]),
+.br
+3 = triple (6 sec for carrier, 12 sec for lock [DVB-T2: 18 sec]),
+.br
+etc...
+.TP
+.B \-r
+show reception values (strength and quality) in the debug output.
+.br
+If -d is used (marking of duplicates), values will be shown there as well.
+.TP 
+.B \-P
+ATSC scan: do not use ATSC PSIP tables for scan (PAT and PMT only)
+.TP 
+.B \-m MODE
+Scan mode,
+.br
+"t" = DVB-T (and ISDB-T) [default]
+.br
+"a" = ATSC (untested),
+.br
+.TP 
+.B \-A N
+specify ATSC scan type
+.br
+1 = terrestrial [default],
+.br
+2 = cable,
+.br
+3 = both, cable and terrestrial.
+.SH "EXAMPLES"
+.TP
+scan with default parameters (works in most scenarios):
+.B t2scan
+.TP
+DVB-T type (-t): scan DVB-T2 only:
+.B t2scan -t2
+.TP
+DVB-T type (-t): scan DVB-T only (no DVB-T2):
+.B t2scan -t1
+.TP
+List of channels (-l): scan aerial, but only channels 21, 24, and 27:
+.B t2scan -l21,24,27
+.TP
+Minimum and maximum channel (-c, -C): scan aerial from channel 21 to channel 32:
+.B t2scan -c21 -C32
+.TP
+scan aerial (DVB-T/T2), exclude encrypted services from output:
+.B t2scan -E
+.TP
+output format (-o): use output format vlc:
+.B t2scan -ovlc
+.TP
+output format (-o): use output format zap/czap/xine:
+.B t2scan -oxine
+.TP
+mark duplicate channels and services in the output:
+.B t2scan -d
+.TP
+Type of services (-s): output only radio services:
+.B t2scan -sr
+.TP
+Type of services (-s): output TV, radio and other services:
+.B t2scan -stro
+.SH "REPORTING BUGS"
+see README file from source code package.
+.SH "AUTHOR"
+Written by mighty-p, based on w_scan by W.Koehler
+.PP 
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU General Public License, Version 2 any
+later version published by the Free Software Foundation.
+.SH "SEE ALSO"
+.BR vdr (1)

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="vbanext_bios" values="enabled|disabled" default="enabled"/>
+		<setting label="30002" type="select" id="vbanext_turbodelay" values="2|1|3|4|5|6|7|8|9|10|11|12|13|14|15" default="2"/>
+		<setting label="30003" type="select" id="vbanext_turboenable" values="disabled|enabled" default="disabled"/>
+	</category>
+</settings>

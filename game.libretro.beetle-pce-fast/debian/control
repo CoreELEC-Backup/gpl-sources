@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-beetle-pce-fast
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-beetle-pce-fast (>= 0.9.38) | beetle-pce-fast (>= 0.9.38)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-beetle-pce-fast
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: NEC - PC Engine / CD (Beetle PCE FAST) core for kodi's retroplayer
+ NEC - PC Engine / CD (Beetle PCE FAST) core for kodi's retroplayer

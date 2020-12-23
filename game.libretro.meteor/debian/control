@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-meteor
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-meteor (>= 1.4.0) | meteor (>= 1.4.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-meteor
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Nintendo - Game Boy Advance (Meteor) core for kodi's retroplayer
+ Nintendo - Game Boy Advance (Meteor) core for kodi's retroplayer

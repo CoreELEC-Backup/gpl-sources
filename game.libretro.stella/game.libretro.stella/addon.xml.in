@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.stella"
+		name="Atari - 2600 (Stella 2014)"
+		version="3.9.3.10"
+		provider-name="Stephen Anthony, Bradford Mott, Eckhard Stolberg, Brian Watson">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.atari.2600" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>Atari 2600</platforms>
+		<extensions>a26|bin</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Atari - 2600 (Stella 2014) 3.9.3</summary>
+		<description lang="en_GB">Stella is a multi-platform Atari 2600 VCS emulator. The Atari 2600 Video Computer System (VCS), introduced in 1977, was the most popular home video game system of the early 1980&#39;s.
+
+Stella was originally developed for Linux by Bradford W. Mott, and is currently maintained by Stephen Anthony.
+
+Supported files: .a26, .bin</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.stella</source>
+		<assets>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

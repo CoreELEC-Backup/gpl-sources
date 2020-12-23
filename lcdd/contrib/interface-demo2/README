@@ -1,0 +1,16 @@
+From: Thomas Riewe <thomas.riewe@pyramid.de>
+
+may be someone else will find our little testing setup also helpful ?!
+
+i attached it to this mail (since it's just 28K though i didn't clean up the files ...)
+and one can download it from the "Test/demo" link at
+http://www.pyramid.de/en/products/programmable_lcd.php
+respectively
+http://www.pyramid.de/upload/files/divers/demo_for_pylcd-lcdproc.tgz
+
+AFAIK it will be quite easy to adapt it to other LCDs
+
+HTH & keep up the good work
+
+regards,
+thomas

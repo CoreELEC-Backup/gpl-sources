@@ -1,0 +1,51 @@
+<sect1 id="mtc_s16209x-howto">
+<title>The mtc_s16209x Driver</title>
+
+<para>
+This section talks about using LCDproc with LCD displays that use the
+mtc_s16209x chipset.
+</para>
+
+<!-- ## MTC-S16209x driver ## -->
+<sect2 id="mtc_s16209x-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="mtc_s16209x-config-section">
+<title>[mtc_s16209x]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Select the output device to use [default: <filename>/dev/lcd</filename>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Brightness</property> =
+    <parameter><replaceable>BRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial brightness [default: <literal>255</literal>; legal: <literal>0</literal> - <literal>255</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Reboot</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    Reinitialize the LCD's BIOS [default: <literal>no</literal>; legal: <literal>yes</literal>, <literal>no</literal>]
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

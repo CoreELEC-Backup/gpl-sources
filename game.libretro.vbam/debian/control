@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-vbam
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-vbam (>= 2.1.3) | vbam (>= 2.1.3)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-vbam
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Nintendo - Game Boy Advance (VBA-M) core for kodi's retroplayer
+ Nintendo - Game Boy Advance (VBA-M) core for kodi's retroplayer

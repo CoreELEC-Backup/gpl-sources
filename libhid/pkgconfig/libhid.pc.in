@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libhid
+Description: HID access library
+Version: @VERSION@
+Libs: @LIBUSB_LIBS@ -L${libdir} -lhid
+Cflags: @LIBUSB_CFLAGS@ -I${includedir}

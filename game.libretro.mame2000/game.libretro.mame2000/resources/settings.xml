@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="mame2000-show_gameinfo" values="disabled|enabled" default="disabled"/>
+		<setting label="30002" type="select" id="mame2000-skip_disclaimer" values="enabled|disabled" default="enabled"/>
+	</category>
+</settings>

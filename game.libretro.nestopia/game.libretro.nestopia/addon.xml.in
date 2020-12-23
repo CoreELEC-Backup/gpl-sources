@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.nestopia"
+		name="Nintendo - NES / Famicom (Nestopia UE)"
+		version="1.50.0.11"
+		provider-name="Martin Freij, R. Belmont, R. Danbrook">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.nes" version="1.0.0"/>
+		<import addon="game.controller.nes.zapper" version="1.0.0" optional="true"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>NES</platforms>
+		<extensions>nes|fds|unf|unif</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Nintendo - NES / Famicom (Nestopia UE) 1.50-WIP</summary>
+		<description lang="en_GB">Nestopia is a portable open source NES/Famicom emulator. It is designed to be as accurate as possible and supports a large number of peripherals. The hardware is emulated at cycle-by-cycle granularity, ensuring full support for software that does mid-scanline and other timing trickery.
+
+Icon credit: Anarkhya (anarkhya.deviantart.com)
+
+Supported files: .nes, .fds, .unf, .unif</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.nestopia</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

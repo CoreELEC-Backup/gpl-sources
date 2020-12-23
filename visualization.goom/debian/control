@@ -1,0 +1,24 @@
+Source: kodi-visualization-goom
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake, kodi-addon-dev,
+               libgles2-mesa-dev [arm64 armhf], libgl1-mesa-dev [i386 amd64],
+               libglm-dev
+Standards-Version: 4.1.2
+Section: libs
+Homepage: https://kodi.tv
+
+Package: kodi-visualization-goom
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GOOM visualization for Kodi
+ GOOM visualization for Kodi
+
+Package: kodi-visualization-goom-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for GOOM visualization for Kodi
+ debug symbols for GOOM visualization for Kodi
+

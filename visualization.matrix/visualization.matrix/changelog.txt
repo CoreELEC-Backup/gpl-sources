@@ -1,0 +1,6 @@
+0.4.2
+- Pre-Relese version for Kodi Matrix
+0.2.0
+- Major features done
+0.0.1
+- Initial release

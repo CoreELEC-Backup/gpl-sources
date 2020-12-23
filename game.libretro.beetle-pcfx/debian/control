@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-beetle-pcfx
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-beetle-pcfx (>= 0.9.36) | beetle-pcfx (>= 0.9.36)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-beetle-pcfx
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: NEC - PC-FX (Beetle PC-FX) core for kodi's retroplayer
+ NEC - PC-FX (Beetle PC-FX) core for kodi's retroplayer

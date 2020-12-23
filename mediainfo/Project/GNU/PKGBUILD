@@ -1,0 +1,50 @@
+# $Id$
+# Maintainer: MediaArea.net SARL <info@mediaarea.net>
+# Contributor: hydro <hydro@freenet.de>
+
+pkgname=('mediainfo' 'mediainfo-gui')
+pkgver=18.05
+pkgrel=1
+pkgdesc="supplies technical and tag information about a video or audio file"
+url="http://mediaarea.net"
+license=('GPL')
+source=(${pkgname}_${pkgver}.orig.tar.xz)
+md5sums=('00000000000000000000000000000000')
+arch=('i686' 'x86_64')
+
+depends=('libzen>=0.4.37' 'libmediainfo>=18.05' 'wxgtk' 'libsm' 'desktop-file-utils')
+
+prepare() {
+    cd "${srcdir}"/MediaInfo/Project/GNU/CLI
+    sh ./autogen.sh
+    ./configure --prefix=/usr
+
+    cd "${srcdir}"/MediaInfo/Project/GNU/GUI
+    sh ./autogen.sh
+    ./configure --prefix=/usr
+}
+
+build() {
+    cd "${srcdir}"/MediaInfo/Project/GNU/CLI
+    make
+
+    cd "${srcdir}"/MediaInfo/Project/GNU/GUI
+    make
+}
+
+package_mediainfo() {
+    pkgdesc="${pkgdesc} (CLI)"
+    depends=('libmediainfo')
+
+    cd "${srcdir}"/MediaInfo/Project/GNU/CLI
+    make DESTDIR="${pkgdir}" install
+}
+
+package_mediainfo-gui() {
+    pkgdesc="${pkgdesc} (GUI)"
+    depends=('libmediainfo' 'wxgtk' 'libsm' 'desktop-file-utils')
+
+    cd "${srcdir}"/MediaInfo/Project/GNU/GUI
+    make DESTDIR="${pkgdir}" install
+}
+

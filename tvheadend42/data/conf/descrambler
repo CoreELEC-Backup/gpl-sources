@@ -1,0 +1,27 @@
+{
+  "const_cw" : [
+    {
+      "name" : "BISS",
+      "caid" : "2600"
+    }
+  ],
+  "comment1": "Rename _caid to caid for activation!",
+  "quick_ecm" : [
+    {
+      "name" : "Sky UK",
+      "_caid" : "0963"
+    },
+    {
+      "name" : "Sky DE",
+      "_caid" : "098C"
+    },
+    {
+      "name" : "Sky DE",
+      "_caid" : "09C4"
+    },
+    {
+      "name" : "Sky IT",
+      "_caid" : "09CD"
+    }
+  ]
+}

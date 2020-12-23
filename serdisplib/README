@@ -1,0 +1,323 @@
+SERDISPLIB
+==========
+
+Written by                  Wolfgang Astleitner (mrwastl@users.sourceforge.net)
+
+Project's homepage:         http://serdisplib.soureforge.net
+Latest version available:   http://sourceforge.net/projects/serdisplib/
+SVN development infos:      http://sourceforge.net/apps/trac/serdisplib/
+
+
+See the file COPYING for license information.
+
+
+DISCLAIMER
+----------
+THIS IS EXPERIMENTAL SOFTWARE AND HARDWARE. USE AT YOUR OWN RISK.
+THE DEVELOPER(S) OF THIS SOFTWARE AND HARDWARE CAN NOT BE HELD LIABLE UNDER ANY CIRCUMSTANCES FOR 
+DAMAGE TO HARDWARE OR SOFTWARE, LOST DATA, OR OTHER DIRECT OR INDIRECT DAMAGE RESULTING FROM THE 
+USE OF THIS SOFTWARE OR HARDWARE. IF YOU DO NOT AGREE TO THESE CONDITIONS, YOU ARE NOT PERMITTED 
+TO USE OR FURTHER DISTRIBUTE THIS SOFTWARE OR TO USE ANY TEMPLATES FOR BUILDING HARDWARE PRESENTED HERE.
+
+
+HISTORY
+-------
+see separate file 'HISTORY'
+
+
+AUTHORS
+-------
+see separate file 'AUTHORS'
+
+
+KNOWN BUGS AND LIMITATIONS
+--------------------------
+see separate file 'BUGS'
+
+
+DESCRIPTION
+-----------
+This is a library with support for certain serial and parallel lc-displays connected 
+to the parallel port (and also serial port with i2c-displays). Some USB-displays are
+supported since version 1.97.x.
+
+
+Supported displays / controllers
+--------------------------------
+--> look at http://serdisplib.sourceforge.net/index.html#displays
+
+
+IOCTL vs. DIRECT-IO
+-------------------
+The default output-method uses 'ioctl'-calls using device names (eg: /dev/parport0).
+serdisplib also supports using direct-IO (using port-addresses).
+direct-IO is only available on architectures supporting it.
+
+ioctl:
+  +  not restricted to root-only (users qualified for eg. /dev/parport0 may control a display connected to it)
+  +  universal (usable with more unix-derivats)
+  -  slower than direct-IO
+
+direct-IO (non libusb):
+  +  faster
+  -  root-only
+  -  i386-compliant architectures only (*bsd-support planned)
+
+direct-IO (libusb / usb-based devices):
+  +  should be usable on all unixes with libusb support (linux, solaris, *bsd)
+  -  brain-damaged preparation for working libusb-support on some systems
+
+
+
+INSTALLATION AND CONFIGURATION
+------------------------------
+
+NOTA BENE: on some systems you'll have to use 'gmake' instead of 'make'
+
+
+1.  unpack the tarball to some directory
+
+2a. enter ./configure to generate Makefiles
+
+   or if you use a RedHat/Fedora-based/compliant linux-distribution:
+   
+2b. enter rpmbuild -tb serdisplib-<version>.tar.gz to generate three RPMs:
+    serdisplib-<version>.<arch>.rpm         ... library files
+    serdisplib-devel-<version>.<arch>.rpm   ... header files and static library
+    serdisplib-tools-<version>.<arch>.rpm   ... tools (testserdisp, multidisplay)
+
+    eg.: rpmbuild -tb serdisplib-1.97.tar.gz   on an x86-arch will generate:
+    
+    * serdisplib-1.97.i386.rpm, serdisplib-devel-1.97.i386.rpm, serdisplib-tools-1.97.i386.rpm
+    
+    
+    RPM-install these files and you're done with installing serdisplib
+
+    
+    ATTENTION: if you have installed a pre-RPM-version of serdisplib, 
+               uninstall/remove that before installing the RPM-version!
+               (/usr/local (make install) vs. /usr (RPM-install) problem!)
+
+
+3.  to build the library and the tools, enter:
+
+    make    (or gmake - ./configure will tell which one to use.
+             on linux 'make' and 'gmake' are usually the same)
+
+4.  to install the library and the tools:
+
+    make install
+
+    this will install the shared and static library into /usr/local/lib/
+    and the include-files 'serdisp_control.h' and 'serdisp_parport.h' to /usr/local/include/serdisplib
+    tools (only 'testserdisp' and 'multidisplay' for now) will be installed into /usr/local/bin
+
+configure options:
+  --prefix=PREFIX             install files in PREFIX                 default: /usr/local
+  --enable-libusb             include support for libusb              default: disabled
+  --enable-libSDL             include support for libSDL              default: disabled
+  
+  examples:   ./configure --enable-libusb       ... include support for libusb (if libusb then can be found by configure)
+              ./configure --prefix=/usr         ... use /usr instead of /usr/local as base installation dir
+
+
+
+
+Annotations:
+------------
+* libusb-support is disabled by default
+  to include support for libusb, include option --enable-libusb when running ./configure
+
+* libSDL-support (for directgfx-output via SDL) is disabled by default
+  to include support for libSDL, include option --enable-libSDL when running ./configure
+
+* multidisplay requires libgd. if libgd is not installed, ./configure will not include multidisplay
+
+* GIF-support is included in recent versions of libgd only!
+  ./configure will automatically detect missing GIF-support and disable GIF-specific code-segments
+
+* solaris 10:
+  ./configure should manage to find most of the binaries / required libraries.
+  if not so, adapt 'configure.in' and run 'autoconf'
+  if multidisplay should be built, 'libgd' needs to be installed from the compagnion disc.
+
+* opensolaris:
+  install package 'SUNWsfwhea' to be able to compile with libusb-support
+  (if using package manager: search for: 'sfwhea')
+
+
+DISPLAY NAME STRINGS SUPPORTED (case insensitive)
+-------------------------------------------------
+
+display name  alias names        description
+------------- ------------------ -----------------------------------
+OPTREX323                        Optrex 323 display
+LSU7S1011A    ALPS               ALPS display with display module kit by pollin
+E08552                           EPSON E0855-2 display with display module kit by pollin
+PCD8544                          generic driver for PCD8544-based displays
+PCF8511                          generic driver for PCF8511-based displays
+LPH7366                          LPH7366 display with backlight
+LPH7690                          LPH7690 display
+NOKIA7110     SED1565            Nokia 7110 display (SED1565-based)
+NEC21A        SKYPER             NEC 21a (Skyper) display module
+LPH7508                          LPH7508 display module with display module kit by pollin
+HP12542R                         Hyundai HP12542R display module with display module kit by pollin
+ERICSSONT2X   E///T2X            Ericsson T20/T28/T29 i2c-displays
+ERICSSONR520  E///R520,R520      Ericsson R520/T65 i2c-displays
+T6963         T6963C             generic driver for T6963-based displays
+TLX1391                          Toshiba TLX1391 display (T6963-based)
+T6963SERMOD                      T6963-based display module with built-in parallel to serial converter
+SED133X       SED1330,SED1335    generic driver for SED1330/SED1335-based displays
+S1D13700                         generic driver for S1D13700-based displays
+USB13700                         displays driven by USB13700 USB module
+N3510I        N3530              driver for Nokia 3510i/3530 displays (S1D15G14-based)
+S1D15G10      N6100              driver for Nokia 6100 and compliant displays (S1D15G10-based)
+KS0108                           generic driver for KS0108-based displays
+CTINCLUD                         c't includ USB-display
+LH155                            generic driver for LH155-based displays
+SHARP240                         Sharp M078CKA 240x64 (LH155-based)
+OLED96X36X1                      Pictiva 96X36 OLED 1bit
+OLED96X64X16                     Pictiva 96X64 colour OLED 16bit
+OLED128X64X4                     Pictiva 128X64 yellow OLED 4bit
+BL160128A                        Bolymin BL160128A colour OLED 18bit
+4DOLED282815  4DOLED128          4DOLED-282815 colour OLED 18bit
+L4ME5I                           linux4media USB-interface E-5i-USB
+L4M132C                          linux4media USB-interface w/ 132x65 colour display
+GOLDELOX      UOLED160,UOLED128  displays driven by GOLDELOX-MD1 module
+STV8105       OLED256X64X4       Pictiva 256X64 yellow OLED 4bit
+ALPHACOOL                        Alphacool USB-displays 200x64 or 240x128
+SDCMEGTRON                       SDC-Megtron USB-displays 240x128
+SDL                              direct output to SDL window
+DG16080                          DG-16080 160x80
+DG1608011                        DG-16080-11 160x80 (non-square pixels)
+
+
+
+TESTING
+-------
+serdisplib contains a test program called 'testserdisp'. (it is automatically built if you compiled serdisplib
+using 'make', 'make all', or 'make testserdisp')
+
+
+at the prompt enter: 'testserdisp -h
+
+this will show all options supported by testserdisp.
+
+at least -n <display name> is needed (supported display names: look at table above)
+
+testserdisp will show a test picture and you get a prompt. enter 'help' to see all test commands available.
+
+
+information:
+it is not required to install serdisplib prior to be able to use testserdisp. 
+just enter 'src/testserdisp' instead of 'testserdisp' at the prompt where you compiled the library.
+
+
+
+MULTIDISPLAY
+------------
+multidisplay is a tool for displaying pictures and text (and even both combined).
+
+at the prompt enter: 'multidisplay -h' for help
+
+examples:
+  display an image:          multidisplay -n nokia7110 -f pic.jpg
+  display some text:         multidisplay -n sed1330 -o "WIRING=1" -M 'serdisplib is the win'
+  use a different font:      multidisplay -n sed1330 -o "WIRING=1" -F tiny -M 'tiny font'
+  use truetypefont, size 16: multidisplay -n nokia7110 -F font.ttf:16 -M 'test'
+
+  NOTA BENE:  
+  option -c (executing a command and display result) is dangerous and should be handled with care
+  for security concerns, -c is only executed when combined with -y
+  
+  example:
+    display load average:    multidisplay -n sed1330 -c "uptime |sed -e 's/.*load.average..//'" -y
+
+there will be a separate documentation for multidisplay in a later release.
+for now, multidisplay is a tiny tool to play around with
+
+
+information:
+it is not required to install serdisplib prior to be able to use multidisplay. 
+just enter 'tools/multidisplay' instead of 'multidisplay' at the prompt where you compiled the library.
+
+multidisplay will only be compiled if libgd is installed (at least libgd version 2)
+
+
+
+API-DOCUMENTATION
+-----------------
+--> doc/docs/index.html 
+or
+--> look at http://serdisplib.sourceforge.net/docs/index.html
+
+
+
+OPTIONS
+-------
+--> look at http://serdisplib.sourceforge.net/docs/options.html
+
+
+WIRINGS
+-------
+--> local file PINOUTS or look at http://serdisplib.sourceforge.net/docs/options.html
+
+
+VDR-GRAPHLCD SUPPORT
+--------------------
+since graphlcd 0.1.2-pre5 graphlcd uses serdisplib if installed. 
+user action (make-flags, includes, ...) is no longer needed
+graphlcd needs no longer be recompiled for using serdisplib!!
+
+also have a look at  docs/DRIVER.serdisp included in graphlcd-base
+
+
+
+KNOWN PROBLEMS
+--------------
+ - serial port damn slow on solaris and when using USB->RS232 adapters.
+ - multidisplay: -f not always working correctly if not last parameter
+
+please mail to my address if you find bugs!
+
+
+
+TODO
+----
+* better documentation
+* more comments in source code
+
+* more displays/controllers
+
+
+PLANNED DISPLAYS (or: 'display queue')
+----------------
+* Palm PDAs (via RS232)
+* Ericsson R320
+...
+
+
+
+CONTRIBUTORS (alphabetically sorted)
+------------
+
+contributors of additional display support can be found in 'AUTHORS'.
+
+testing / bug reports:
+* Daniel Badberg ... testing, bug reports
+* Reuben Bond    ... testing, bug reports, chardisp (generate text using serdisplib. superseded by multidisplay)
+* Alan Carvalho  ... bug report in makefile
+* Andreas Regel  ... testing of t6963c-driver
+* Bernhard Walle ... pointing out potential linking problem in src/Makefile
+
+and all others who helped me with different questions (c, electronics, proof-reading, ...), especially:
+* Andreas Fierlinger
+* Michael Fuereder
+
+
+this list may not be up-to-date and will be reworked/extended in a later release of serdisplib.
+
+
+Have fun!
+
+Wolfgang Astleitner <mrwastl@users.sourceforge.net>

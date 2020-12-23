@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.beetle-pcfx"
+		name="NEC - PC-FX (Beetle PC-FX)"
+		version="0.9.36.12"
+		provider-name="Mednafen Team">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.pcfx" version="1.0.0"/>
+		<import addon="game.controller.pcfx.mouse" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>PCXFX</platforms>
+		<extensions>cue|ccd|toc|chd</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">NEC - PC-FX (Beetle PC-FX) v0.9.36.5</summary>
+		<description lang="en_GB">Supported files: .cue, .ccd, .toc, .chd</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.beetle-pcfx</source>
+	</extension>
+</addon>

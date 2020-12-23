@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="audiodecoder.2sf"
+  version="3.0.1"
+  name="2SF Audio Decoder"
+  provider-name="spiff">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="kodi.audiodecoder"
+    name="2sf"
+    extension=".2sf|.mini2sf"
+    tags="true"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="de_DE">Nintendo DS Audiodateidecoder</summary>
+    <summary lang="en_GB">Nintendo DS audio file decoder</summary>
+    <description lang="de_DE">Zur Unterstützung von Audiodateien, die von einigen Nintendo DS-Spielen verwendet werden.
+
+Das Dual Screen Sound Format ist ein auf PSF basierendes Audioformat. Es speichert Audio, das aus den ROMs von Nintendo DS-Spielen gerippt wurde. Musikanweisungen werden in Dateien mit der Erweiterung .2sflib gespeichert, und die Musiknotation wird in Dateien mit der Erweiterung .mini2sf gespeichert.</description>
+    <description lang="en_GB">To support game audio file used by some Nintendo DS games.
+
+Dual Screen Sound Format is an audio format based on PSF. It stores audio ripped from the ROMs of Nintendo DS games. Music instructions are stored in files with a .2sflib extension and the music notation is stored in files with a .mini2sf extension.</description>
+    <platform>@PLATFORM@</platform>
+    <license>GPL-2.0-or-later</license>
+    <source>https://github.com/xbmc/audiodecoder.2sf</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

@@ -1,0 +1,189 @@
+# game.libretro.beetle-psx language file
+# Addon Name: game.libretro.beetle-psx
+# Addon id: game.libretro.beetle-psx
+# Addon Provider: libretro
+msgid ""
+msgstr ""
+"Project-Id-Version: game.libretro.beetle-psx\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2019-08-24 22:21i\n"
+"PO-Revision-Date: 2019-08-24 22:21i\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Analog Self-Calibration"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Enable DualShock Analog Mode Toggle"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Core Aspect Ratio"
+msgstr ""
+
+msgctxt "#30004"
+msgid "CD Access Method (Restart)"
+msgstr ""
+
+msgctxt "#30005"
+msgid "CD Loading Speed"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Core-Reported FPS Timing"
+msgstr ""
+
+msgctxt "#30007"
+msgid "CPU Dynarec"
+msgstr ""
+
+msgctxt "#30008"
+msgid "CPU Frequency Scaling (Overclock)"
+msgstr ""
+
+msgctxt "#30009"
+msgid "Crop Horizontal Overscan"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Display Internal FPS"
+msgstr ""
+
+msgctxt "#30011"
+msgid "Dithering Pattern"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Dynarec DMA/GPU Event Cycles"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Dynarec Code Invalidation"
+msgstr ""
+
+msgctxt "#30014"
+msgid "Enable Memory Card 1 (Restart)"
+msgstr ""
+
+msgctxt "#30015"
+msgid "Port 1: Multitap Enable"
+msgstr ""
+
+msgctxt "#30016"
+msgid "Port 2: Multitap Enable"
+msgstr ""
+
+msgctxt "#30017"
+msgid "Frame Duping (Speedup)"
+msgstr ""
+
+msgctxt "#30018"
+msgid "GPU Rasterizer Overclock"
+msgstr ""
+
+msgctxt "#30019"
+msgid "GTE Overclock"
+msgstr ""
+
+msgctxt "#30020"
+msgid "Gun Cursor"
+msgstr ""
+
+msgctxt "#30021"
+msgid "Gun Input Mode"
+msgstr ""
+
+msgctxt "#30022"
+msgid "Additional Cropping"
+msgstr ""
+
+msgctxt "#30023"
+msgid "Offset Cropped Image"
+msgstr ""
+
+msgctxt "#30024"
+msgid "Initial Scanline - NTSC"
+msgstr ""
+
+msgctxt "#30025"
+msgid "Initial Scanline - PAL"
+msgstr ""
+
+msgctxt "#30026"
+msgid "Internal GPU Resolution"
+msgstr ""
+
+msgctxt "#30027"
+msgid "Last Scanline - NTSC"
+msgstr ""
+
+msgctxt "#30028"
+msgid "Last Scanline - PAL"
+msgstr ""
+
+msgctxt "#30029"
+msgid "Line-to-Quad Hack"
+msgstr ""
+
+msgctxt "#30030"
+msgid "Memory Card Left Index"
+msgstr ""
+
+msgctxt "#30031"
+msgid "Memory Card Right Index"
+msgstr ""
+
+msgctxt "#30032"
+msgid "Mouse Sensitivity"
+msgstr ""
+
+msgctxt "#30033"
+msgid "NegCon Twist Deadzone"
+msgstr ""
+
+msgctxt "#30034"
+msgid "NegCon Twist Response"
+msgstr ""
+
+msgctxt "#30035"
+msgid "PAL (European) Video Timing Override"
+msgstr ""
+
+msgctxt "#30036"
+msgid "PGXP 2D Geometry Tolerance"
+msgstr ""
+
+msgctxt "#30037"
+msgid "PGXP Operation Mode"
+msgstr ""
+
+msgctxt "#30038"
+msgid "PGXP Primitive Culling"
+msgstr ""
+
+msgctxt "#30039"
+msgid "Shared Memory Cards (Restart)"
+msgstr ""
+
+msgctxt "#30040"
+msgid "Skip BIOS"
+msgstr ""
+
+msgctxt "#30041"
+msgid "Memory Card 0 Method (Restart)"
+msgstr ""
+
+msgctxt "#30042"
+msgid "Widescreen Mode Hack"
+msgstr ""

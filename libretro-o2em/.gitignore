@@ -1,0 +1,9 @@
+*.o
+*.so
+*.dll
+*.dylib
+*.exe
+.project
+.cproject
+.pydevproject
+.settings

@@ -1,0 +1,64 @@
+This is a "plugin" for the Video Disk Recorder (VDR).
+
+Written by:                  Jochen Dolze <vdr@dolze.de>
+
+Project's homepage:          http://projects.vdr-developer.org/projects/plg-xmltv2vdr
+
+Latest version available at: http://projects.vdr-developer.org/projects/plg-xmltv2vdr/files
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+See the file COPYING for more information.
+
+Description:
+
+Add epg info from epg sources into vdr. xmltv2vdr just imports data in
+xmltv format which must be provided by an external source (please look
+into the dist directory for sources)
+
+Interface for sources:
+
+All sources must provide a control file with a name similar to the
+name of the source/source.xmltv (e.g. epgdata.xmltv -> epgdata).
+In the first line you can decide if your source provides data by file 
+(file must be placed in /var/lib/epgsources with extension .xmltv) or
+pipe (binary with the same name is called by xmltv2vdr-plugin, and
+must be in the path). There can be additional fields in the first 
+line seperated with semicolons. The second option gives the time when
+the epg data will be updated from the origin, the third option informs
+the plugin, if a pin is needed for this source (0/1), the fourth option
+is used to determine if the source is providing epgimages (files
+must be placed in /var/lib/epgsources under a directory with a name
+similar to the name of the source)
+The second line shows the maximum days which will be provided.
+The next lines are unique channelnames, provided by the source.
+There can be application dependend data after each channelname. Note,
+that the plugin/VDR must be able to read this control file.
+
+See this link for an list of unique channelnames (and please report
+if there should be more)
+
+http://vdr-wiki.de/wiki/index.php/Xmltv2vdr-plugin#Kanalliste
+
+Examples of control files (in /var/lib/epgsources):
+
+pipe;00:00;1
+16
+rtl.de;004
+sat1.de;005
+prosieben.de;006
+
+pipe
+10
+rtl.de
+sat1.de
+prosieben.de
+
+file;05:15;0;1
+7
+rtl.de;004
+sat1.de;005
+nickcomedy;190:417
+

@@ -1,0 +1,1197 @@
+Video Disk Recorder User's Manual
+---------------------------------
+
+Version 2.4
+-----------
+
+* Remote Control Keys
+
+  The following remote control keys are used to control the VDR
+  operation. To keep the number of different keys as small as
+  possible, several keys have different meanings in the various
+  modes:
+
+  Key     Normal      VDR          Channels   Timers     Edit/New      Recordings        Replay           Audio
+
+  Up      Ch up       Crsr up      Crsr up    Crsr up    Crsr up       Crsr up           Play             Sel. track
+  Down    Ch down     Crsr down    Crsr down  Crsr down  Crsr down     Crsr down         Pause            Sel. track
+  Left    Prev group  -            Page up    Page up    Decrement     Page up           Search back      Sel. channel
+  Right   Next group  -            Page down  Page down  Increment     Page down         Search forward   Sel. channel
+  Ok      Ch display  Select       Switch     Edit       Accept        Play              Progress disp.   Switch & Close
+  Menu    Menu on     Menu off     Menu off   Menu off   Menu off      Menu off          Menu off         Menu off
+  Back    -           Menu off     VDR menu   VDR menu   Discard       VDR menu          Recordings menu  Close
+  Red     -           Record       Edit       On/Off     ABC/abc       Play/Commands(1)  Jump             -
+  Green   -           Audio        New        New        Ins/Ovr       Rewind            Skip -60s        -
+  Yellow  -           Pause live   Delete     Delete     Delete        Delete            Skip +60s        -
+  Blue    -           Stop/Resume  Mark       Info       -             Info              Stop             -
+  0..9    Ch select   -            Sort(2)    Day(3)     Numeric inp.  Sort/Exec cmd(1)  Editing          -
+
+  In a numerical input field (like the response to a CAM enquiry) the keys 0..9
+  are used to enter the data, and the Left key can be used to delete the last
+  entered digit.
+
+  In a text input field (like, e.g., the file name of a recording) the characters
+  can be entered by pressing the numeric keys, the same way as on a telephone
+  keypad.
+
+  If your remote control provides additional keys, they can be used for the
+  following functions:
+
+  Info        display information on the currently viewed programme or recording,
+              or on the current item in a menu
+  Play/Pause  combined key to resume or pause replay, or pause live video
+  Play        resume normal replay
+  Pause       pause replay or live video
+  Stop        stop replay
+  Record      instant recording
+  FastFwd     fast forward
+  FastRew     fast rewind
+
+  Next        Next/previous channel group (in live tv mode)
+  Prev        or next/previous editing mark (in replay mode)
+
+  Channel+    channel up
+  Channel-    channel down
+  PrevChannel previous channel
+
+  Power       shutdown
+
+  Volume+     volume up
+  Volume-     volume down
+  Mute        mute
+
+  Audio       select audio track
+  Subtitles   select subtitles
+
+  Schedule    \
+  Channels    |
+  Timers      | directly access the VDR
+  Recordings  | main menu functions
+  Setup       |
+  Commands    /
+
+  User1...9   additional user defined keys for macro functions
+              (defined in 'keymacros.conf')
+
+  Note that in normal viewing mode (no OSD active) the color keys can have user
+  defined functionality, as configured in 'keymacros.conf'.
+  The default assignment is
+
+  Red       Recordings menu
+  Green     Schedule menu
+  Yellow    Info
+  Blue      Timers menu
+
+  (1) See "Sort Recordings" and "Processing Recordings" below.
+  (2) In the "Channels" menu the '0' key switches the sort mode through "by number",
+      "by name" and "by provider". Other numeric input positions the cursor to
+      the channel with the number entered so far. If there is no channel with that
+      number, nothing happens. While entering a channel number, the '0' key will
+      be treated as part of that number, not as a sort mode toggle. If no numeric
+      key has been pressed for more than one second, the number is reset and '0'
+      functions as sort mode toggle again.
+  (3) In the "Timers" menu, when on the "Day" item, the '0' key toggles between
+      a single shot and a repeating timer. If "Day" indicates a repeating timer,
+      the keys '1'...'7' can be used to toggle the individual days ('1' is Monday).
+
+* Navigating through the On Screen Menus
+
+  The "VDR" menu can be called up with the "Menu" key of your remote
+  control unit. The "Up" and "Down" keys are used to select a specific
+  item. The "Left" and "Right" keys can be used to change options, and
+  the numeric keys allow direct input of numeric data. The "Ok" key
+  confirms any changes (or switches to a channel in the "Channels" menu).
+  The "Back" key goes back one level in the menu structure, discarding
+  any changes that might have been made in the current menu.
+
+  In the "Timers" menu, the current timer can be enabled or disabled with
+  the "Red" key. Enabled timers are marked with '>', timers
+  that are currently recording are marked with '#'. If a timer has the
+  "First day" set so that it will start recording only on the given date,
+  it is marked with '!'. The "Red" key toggles through the "enabled" and
+  "disabled" states, and for repeating timers that are currently recording
+  also a state that ends this recording prematurely and sets the "First day"
+  date so that it will record again the next time the timer hits.
+  "Ok" here opens the "Edit timer" menu.
+
+  Textual options, like channel names or recording file names, can be edited
+  by pressing the "Right" key (which puts brackets around the current
+  character as in "[R]TL"), selecting the desired character position with
+  "Left" and "Right", and changing the character with the "Up" and "Down"
+  keys. "Ok" then confirms the changes. The "Red" key toggles between
+  upper- and lowercase characters, while the "Green" key switches between
+  insert and overwrite mode. The "Yellow" key deletes the current character
+  (or the one to the right of the cursor in insert mode).
+
+  The "Red", "Green", "Yellow" and "Blue" keys have special meanings
+  in various menus and are listed at the bottom of the on-screen-display.
+
+  At any point in the menu system, pressing the "Menu" key again will
+  immediately leave the menu system (discarding any pending changes).
+
+* The "Schedule" Menu
+
+  The "Schedule" menu implements VDR's "Electronic Program Guide" (EPG).
+
+  Select "Schedule" from the "VDR" menu and you get a list of all upcoming
+  broadcasts on the current channel.
+
+  "Up" and "Down" can be used to scroll through this list, and pressing "Ok"
+  displays detailed information about the selected programme. Pressing "Ok"
+  again (or pressing "Back") gets you back into the "Schedule" menu.
+
+  From the "Schedule" menu, the "Green" key opens the "What's on now?"
+  menu, which displays all programmes that are currently running on all
+  channels that broadcast their programme information on the current
+  transponder, or from channels that have been current lately (VDR stores
+  all information it gathers in an internal list). The more channels you
+  have been switching through lately, the longer this list will be.
+  The "Yellow" key opens the "What's on next?" menu, which lists all
+  programmes that will start next on all channels.
+
+  Inside the "What's on now/next?" menus the "Green" key toggles between
+  the "Now" and "Next" display, and the "Yellow" key takes you to the
+  "Schedule" menu of the current channel in the list.
+
+  The "Red" key allows you to instantly program a timer to record the
+  selected programme. After pressing this key, the current event will
+  be marked with 'T', and the function of the "Red" key will change from
+  "Record" to "Timer". Pressing "Red" on an event marked with 'T' will open
+  the "Edit timer" menu for this timer, where you can make any modifications
+  you may want to apply. Note that the Start and Stop time are offset by the
+  MarginStart and MarginStop parameters (see Setup) in order to make sure the
+  entire programme is recorded in case it doesn't exactly adhere to its
+  published start/stop times. Of course, no guarantee can be given that the
+  default margin values will be sufficient, so in case this recording is
+  really important you may want to add an extra margin ;-). VPS recordings
+  will use the exact Start (or VPS) and Stop times as given in the event.
+  If a timer is newly created from within the "Schedule" menu, and its event is
+  already running or has its start time within the next two minutes, it goes
+  directly into the "Edit timer" menu in order to allow the user to make further
+  changes to timer parameters before the actual recording starts.
+
+  The "Blue" key can be pressed to switch to the channel with the selected
+  programme.
+
+  The following markers in these menus give additional information about the
+  status of the events:
+
+  t  there is a timer defined for this event which covers only part of the event
+  T  there is a timer defined for this event which covers the entire event
+  V  this event has a VPS time that's different than its start time
+  *  this event is currently running (the validity of this marker depends on
+     whether there is currently a DVB card receiving the transponder this channel
+     is on).
+
+  Pressing '0' in the "Schedule" menu rotates through displaying "This event on
+  this channel", "This event on all channels" and "All events on all channels".
+  This can be used to find reruns of a given show, or the episodes of a series.
+  Note that if there are many channels in your channels.conf, displaying the
+  "All events on all channels" page may take a while.
+
+* Selecting a Channel
+
+  There are four ways to select a channel:
+
+  1. With no On Screen Menu displayed press the "Up" or "Down" key to switch
+     to the next higher or lower channel.
+  2. Press the "Menu" key to bring up the On Screen Menu, select "Channels"
+     and browse through the list with the "Up" and "Down" key; to switch to the
+     selected channel press "Ok".
+  3. Directly type in the channel number with the numeric keys ('0'..'9');
+     if no key is pressed for about one second, the digits collected so
+     far will define the channel number.
+  4. From the "Now", "Next" and "Event" menus (accessible through the "Schedule"
+     menu) by pressing the "Blue" key.
+
+  Pressing the '0' key in normal viewing mode toggles between the current and
+  the previous channel. A channel is considered "previous" if it has been
+  selected for at least 3 seconds.
+
+  After switching to a different channel the channel number and name, as well
+  as the current time are displayed in the OSD. If available, the
+  'current/next' information will be displayed below this line. This display
+  automatically goes away after about five seconds, or if any key is pressed.
+  To bring up the channel display without switching channels you can press
+  the "Ok" key.
+
+* Selecting audio tracks
+
+  If the current channel or recording provides different audio tracks (for
+  different languages or Dolby Digital), the "Green" key in the "VDR" menu can
+  be pressed to bring up the "Audio" menu. Within this menu, the "Up" and "Down"
+  keys can be used to switch between the audio tracks. If your remote control has
+  a dedicated "Audio" key, the first press of that key brings up the "Audio"
+  menu, and every further press switches to the next available audio track.
+
+  The "Left" and "Right" keys can be used to switch between "mono left", "stereo"
+  and "mono right" for channels that broadcast different audio tracks in the
+  left and right stereo channels.
+
+  The "Ok" key explicitly switches to the selected track (in case the device
+  for some reason doesn't play it) and closes the "Audio" menu.
+
+  The "Audio" menu will automatically disappear after 5 seconds of user inactivity,
+  or if any key other than the ones described above is pressed.
+
+  Once a Dolby Digital track has been selected on any channel, further channel
+  switches will first search for a Dolby Digital track of one of the preferred
+  audio languages. If no such track can be found, a normal audio track will
+  be selected. Note that this only works if the broadcasters use actual language
+  codes in their PID data, not things like "dd" or "2ch".
+
+* Switching through channel groups
+
+  If the 'channels.conf' file contains "group separators" you can switch
+  through these groups by pressing the "Left" and "Right" key while no
+  menu is being displayed. The channel display will show the name of the
+  group, and if you press the "Ok" key while the group name is being
+  displayed, you will switch to the first channel of that group.
+
+  Channel groups can be whatever you decide them to be. You can either
+  group your channels by "Bouquet", by language, genre or whatever your
+  preferences may be.
+
+* Instant Recording
+
+  You can start recording the current channel by pressing the "Red" key
+  in the "VDR" menu. This will create a timer event named "@channelname" that
+  starts at the current time and by default records for 3 hours.
+  If you want to modify the recording time you need to edit the timer.
+  Stop instant recording by pressing the "Menu" key and selecting
+  "Stop Recording", or by disabling the timer. The default priority, lifetime
+  and recording time can be defined in the "Setup/Recording" menu.
+
+* Pausing live video
+
+  If you want to pause the live programme you are just watching, simply press
+  "Menu/Yellow" or "Pause" on your remote control. VDR will start an instant
+  recording of the current channel (just as if you had pressed "Menu/Red" or
+  "Record") and immediately begin replaying that recording. Replay will be
+  put into "pause" mode, so you can attend to whatever it was that disturbed
+  your live viewing session. Once you're back, simply press the "Up" or "Play"
+  key and you'll be watching the current channel in time shift mode, right
+  from the point where you left off. The instant recording VDR has started
+  will use the parameters for "Pause priority" and "Pause lifetime" as defined
+  in the "Setup/Recording" menu. Recording time will be the same as for
+  any other instant recording, so by default it will record 3 hours (which
+  should be enough for any normal broadcast).
+  Note that the timer that is created for recording the paused live video will
+  always record on the local VDR, even if an "SVDRP default host" has been
+  set for normal timer recordings.
+
+* Replaying a Recording
+
+  All recordings are listed in the "Recordings" menu. Browse through the
+  list with the "Up" and "Down" key and press "Ok" (or the "Red" key)
+  to start playback. New recordings are marked with an '*'.
+  If the Setup parameter RecordingDirs has been set and there are recordings
+  from repeating timers organized in a subdirectory structure, only the
+  directory is displayed and it can be opened by pressing "Ok" (or the "Red"
+  key). A directory entry displays the total number of recordings within
+  that directory (and any possible subdirectory thereof) as well as the total
+  number of new recordings (as opposed to a recording's entry, which displays
+  the date and time of the recording).
+
+  If the setup parameter "Use episode name" was turned on when a recording took place,
+  VDR adds the "Episode name" (which is usually the name of the episode in case of
+  a series) to the recording's name. The "Recordings" menu then displays all
+  recordings of a repeating timer in chronological order, since these are
+  usually the individual episodes of a series, which you may want to view in
+  the order in which they were broadcast.
+
+  Playback can be stopped via the "VDR" menu by selecting "Stop replaying",
+  or by pressing the "Blue" key outside the menu.
+  A previously stopped playback session can be resumed by pressing the "Blue"
+  key in the "VDR" menu.
+
+* Sort Recordings
+
+  Within the "Recordings" menu, pressing the '0' key toggles sorting between
+  "by time" and "by name". The selected sort mode is stored separately for each
+  folder (provided you have write access to that folder).
+  If a folder is newly created by a repeating timer, the sort mode for that
+  folder is initially set to "by time".
+
+* Processing Recordings
+
+  The configuration file 'reccmds.conf' can be used to define system commands
+  that can be applied to the recording that is currently highlighted in the
+  "Recordings" menu. The "Red" key in the "Recordings" menu opens the "Recording
+  commands" menu if there are commands defined in the file 'reccmds.conf'. Pressing
+  one of the keys '1'..'9' in the "Recordings" menu executes the corresponding
+  command from 'reccmds.conf' (see also "Executing system commands" below).
+
+* Replay Control
+
+  The following keys have the listed meaning in Replay mode:
+
+  - Up      Resumes normal replay from any "pause", "forward" or "backward"
+            mode.
+  - Down    Halts playback at the current position. Press again to continue
+            playback.
+  - Blue    Stops playback and stores the current position, so that
+            playback can be resumed later at that point.
+  - Left
+    Right   Runs playback forward or backward at a higher speed; press
+            again to resume normal speed. If in Pause mode, runs forward or
+            backward at a slower speed; press again to return to pause mode.
+            Pressing and holding down the key performs the function until
+            the key is released again.
+            If "Multi Speed Mode" has been enabled in the "Setup" menu, the
+            function of these keys changes in a way that gives you three
+            fast and slow speeds, through which you can switch by pressing
+            the respective key several times.
+  - Red     Jump to a specific location. Enter the time you want to jump to
+            and then press "Left" or "Right" to jump relative to the current
+            position, "Up" to jump to an absolute position, and "Down" to
+            jump and pause at an absolute position.
+  - Green
+    Yellow  Skips about 60 seconds back or forward.
+            Pressing and holding down the key performs the function until
+            the key is released again.
+  - Ok      Brings up the replay progress display, which shows the date,
+            time and title of the recording, a progress bar and the
+            current and total time of the recording.
+            Press "Ok" again to turn off the progress display.
+  - Back    Stops replaying and brings up the "Recordings" menu. This can be
+            used to easily delete a recording after watching it, or to switch
+            to a different recording.
+
+* Editing a Recording
+
+  While in Replay mode, the following keys can be used to manipulate editing
+  marks:
+
+  - 0       Toggles an editing mark. If the mark indicator shows a red triangle,
+            the current mark is deleted. Otherwise a new mark is set at the
+            current position.
+  - 1, 3    Move an editing mark back and forward in "adaptive" mode. Pressing
+            either of these keys for the first time moves the mark 120 seconds
+            in the given direction (configurable via "Setup/Replay/Initial
+            duration for adaptive skipping"). Further presses of the same key
+            keep moving the mark by the same value. Once the other key is
+            pressed, the value is divided by 2 (hence the name "adaptive") with
+            every further press of either key. Pressing '1' and '3'
+            alternatingly divides the distance all the way down to a single
+            I-frame. That way a particular place in a recording (for instance
+            the beginning or end of a commercial break) can be found very
+            quickly. If none of these two keys is pressed for a while
+            (configurable via "Setup/Replay/Reset timeout for adaptive
+            skipping") the distance falls back to the initial value.
+            If replay is not in Pause mode, or if there is no mark at the
+            current position, the skip is performed without moving any mark.
+  - 4, 6    Move an editing mark back and forward by one I-frame. You need to
+            first jump to an editing mark for this to work.
+  - 7, 9    Jump back and forward between editing marks. Replay goes into still
+            mode after jumping to a mark. If the current position is at the
+            first or last mark, or if there are no marks at all, these keys
+            jump to the very beginning or end, respectively, of the recording.
+  - 8       Positions replay at a point 3 seconds before the current or next
+            "begin" mark and starts replay.
+  - 2       Starts the actual cutting process.
+
+  Editing marks are represented by black, vertical lines in the progress display.
+  A small black triangle at the top of the mark means that this is a "begin"
+  mark, and a triangle at the bottom means that this is an "end" mark.
+  The cutting process will save all video data between "begin" and "end" marks
+  into a new file (the original recording remains untouched). The new file will
+  have the same name as the original recording, preceded with a '%' character
+  (imagine the '%' somehow looking like a pair of scissors ;-). Red bars in the
+  progress display indicate which video sequences will be saved by the cutting
+  process.
+
+  The video sequences to be saved by the cutting process are determined by an
+  "even/odd" algorithm. This means that every odd numbered editing mark (i.e.
+  1, 3, 5,...) represents a "begin" mark, while every even numbered mark (2, 4,
+  6,...) is an "end" mark. Inserting or toggling a mark on or off automatically
+  adjusts the sequence to the right side of that mark.
+
+  Use the keys described under "Replay Control" to position to, e.g., the
+  beginning and end of commercial breaks and press the '0' key to set the
+  necessary editing marks. After that you may want to use the '7' and '9'
+  keys to jump to each mark and maybe use the '4' and '6' keys to fine tune
+  them. Once all marks are in place, press '2' to start the actual cutting
+  process, which will run as a background process. When replaying the edited
+  version of the recording you can use the '8' key to jump to a point just
+  before the next cut and have a look at the resulting sequence.
+
+  Currently editing marks can only be set at I-frames, which typically appear
+  every half of a second to a second.  A "begin" mark marks the first frame of
+  a resulting video sequence, and an "end" mark marks the last frame of that
+  sequence.  Note that the actual frame indicated by the an "end" mark will
+  not be included in the edited version of the recording. That's because every
+  recording (and every sequence of an edited recording) begins with an I-frame
+  and ends right before the next I-frame.
+  An edited recording (indicated by the '%' character) will never be deleted
+  automatically in case the disk runs full (no matter what "lifetime" it has).
+
+* Programming the Timer
+
+  Use the "Timer" menu to maintain your list of timer controlled recordings.
+  The parameters in the "Edit timer" menu have the following meanings:
+
+  Active:    Defines whether the timer will be processed (set it to 'no' to
+             temporarily disable a timer).
+  Channel:   The channel to be recorded (as defined in the "Channels" list).
+             Any changes made in the "Channels" list (like renaming or
+             reordering channels) will be automatically reflected in the
+             timers settings.
+  Day:       The day on which this timer shall start. This can be a
+             date (like 2005-03-19), which allows programming a "single shot"
+             timer that hits once and is deleted after it ends.
+             Another option here are "repeating timers" which are defined
+             by listing the days of the week on which they shall record.
+             For example, a timer that shall record every Monday and Wednesday
+             would have a Day setting of "M-W----".
+             The '0' key toggles between a single shot and a repeating timer.
+             If "Day" indicates a repeating timer, the keys '1'...'7' can be
+             used to toggle the individual days ('1' is Monday).
+             You can also switch to a set of predefined repeating timer settings
+             by pressing the "Left" key when the day is the present day. To return
+             to the single shot mode just press "Right" until a date is displayed.
+  Start:     The start time of the timer in hh:mm as 24 hour ("military") time.
+  Stop:      The stop time of the timer.
+  VPS:       Defines whether the timer shall use VPS (if available). If this
+             option is set to 'yes', the start time must exactly match the
+             programme's VPS time, otherwise nothing will be recorded. If VPS
+             is used, the stop time has no real meaning. However, it must be
+             different than the start time, and should correspond to the actual
+             stop time of the programme, just in case there is no real VPS data
+             available at the time of recording, so VDR has to fall back to
+             normal timer recording.
+  Priority:  The Priority (0..99) is used to decide which timer shall be
+             started in case there are two or more timers with the exact same
+             start time. The first timer in the list with the highest Priority
+             will be used. This value is also stored with the recording and is
+             later used to decide which recording to remove from disk in order
+             to free space for a new recording. If the disk is full and a new
+             recording needs more space, an existing recording with the lowest
+             Priority (and which has exceeded its guaranteed Lifetime) will be
+             removed. If all available DVB cards are currently occupied, a
+             timer with a higher priority will interrupt the timer with the
+             lowest priority in order to start recording.
+  Lifetime:  The number of days (0..99) a recording made through this timer is
+             guaranteed to remain on disk before it is automatically removed
+             to free up space for a new recording. Note that setting this
+             parameter to very high values for all recordings may soon fill up
+             the entire disk and cause new recordings to fail due to low disk
+             space. The special value 99 means that this recording will live
+             "forever", and a value of 0 means that this recording can be
+             deleted any time if a recording with a higher priority needs disk
+             space.
+  File:      The name under which a recording created through this timer will
+             be stored on disk (the actual name will also contain the date and
+             time, so it is possible to have a "repeating timer" store all its
+             recordings under the same name; they will be distinguishable by
+             their date and time).
+             If the file name contains the special character '~', the recording
+             will be stored in a hierarchical directory structure. For instance,
+             a file name of "Sci-Fi~Star Trek~Voyager" will result in a directory
+             structure "/video/Sci-Fi/Star_Trek/Voyager". The '~' character has
+             been chosen for this since the file system's directory delimiter '/'
+             may be part of a regular programme name.
+             Repeating timers create recordings that contain the 'Episode name'
+             information from the EPG data in their file name. Typically (on tv
+             stations that care about their viewers) this contains the episode
+             title of a series. The episode name is appended to the timer's file name,
+             separated by a '~' character, so that it results in all recordings
+             of this timer being collected in a common subdirectory.
+             If this field is left blank, the channel name will be used to form
+             the name of the recording.
+  First day: The date of the first day when this timer shall start recording
+             (only available for repeating timers).
+  Record on: The name of the remote VDR this timer shall record on (only available
+             if there are any remote VDRs connected to this VDR). If this field
+             is empty, the timer will record on the local VDR.
+
+  A timer can also be programmed by pressing the "Red" key on the "Schedule",
+  "Now", "Next" or "Event" menus.
+
+  The "Red" key in the "Edit timer" menu opens a list of folders, which can be
+  used to define the file name in which the recording will be stored.
+
+* Managing folders
+
+  The "Select folder" menu, which can be accessed by pressing the "Red" key in
+  the "Edit timer" menu, offers a list of folders that can be used for storing
+  a recording. In this menu, the "Green" key allows you to define a new folder
+  within the current one; if the "Sub folder" option is set to "yes", this will
+  be a folder that contains other folders (indicated by "..." following the
+  folder name in the list). The "Yellow" key deletes the current folder (note
+  that this will merely delete the folder definition stored in 'folders.conf'
+  and has no effect on existing timers or recordings). The "Blue" key can be
+  used to edit an existing folder definition. The "Red" key opens a folder that
+  contains sub folders, while pressing Ok selects the current folder. Once a
+  folder has been selected, the entire path of the timer's file name will be
+  replaced with the selected folder.
+
+  In the "Recordings" menu the folders of existing recordings can be renamed or
+  moved by pressing the "Blue" key ("Edit") while the cursor is positioned on
+  a folder. This will open a menu in which the folder's name and location (the
+  "parent" folder) can be edited. If such an operation will result in moving
+  more than one recording, you will be asked for confirmation.
+  The name, folder, priority and lifetime of an individual recording can be
+  changed by pressing the "Blue" key ("Info") while the cursor is positioned
+  on a recording, and in the resulting Info menu pressing the "Blue" key again
+  to bring up the "Edit recording" menu.
+  In the "Edit recording" menu the Red button ("Folder") allows you to select one
+  of your predefined folders. The Green button has multiple functions, depending
+  on what is currently going on with the recording. It can either stop or cancel
+  a cut, move or copy operation. If the button reads "Stop..." it means that the
+  respective operation is already happening, while "Cancel..." means that the
+  operation is still pending execution. If no operation is currently happening
+  and the recording has editing marks, the Button will read "Cut" and triggers
+  cutting the recording (same as pressing '2' while replaying the recording).
+  The Yellow button ("Delete marks") allows you to delete all editing marks from
+  the selected recording (if there are any and the recording is not currently
+  being cut). To directly edit the folder or name of the recording, position the
+  cursor to the respective line and press the Right key to start editing (press
+  Ok to confirm the edit, or Back to return to the previous value). If you want
+  to remove the name of the recording and make the folder name the actual
+  recording's name, you can position the cursor to the "Name:" field and press
+  the '0' key. This will take the last element of the recording's folder path
+  and make it the actual name of the recording. You can do this in turn until
+  the recording is moved all the way up to the root of the video directory.
+  Note that, in case you inadvertently pressed the '0' key, you can leave the
+  "Edit recording" menu with the "Back" key and any changes you have made so far
+  will not be applied. Once you are finished with editing the recording
+  properties, press Ok to confirm the changes.
+
+* Parameters in the "Setup" menu
+
+  Select "Setup" from the "VDR" menu to enter the setup menu. From there you can
+  modify the following system parameters (note that "boolean" values will be
+  displayed as "no" and "yes" in the "Setup" menu, while in the setup file they
+  are stored as '0' and '1', respectively):
+
+  OSD:
+
+  Language = English     Defines the language used to display the OSD texts.
+
+  Skin = ST:TNG Panels   Defines the "skin" used to display the OSD menus.
+
+  Theme = Default        Defines the "theme" to use with the current skin.
+
+  Left = 8               The left and top offset of the OSD, in percent of the
+  Top = 8                total video display width and height, respectively.
+                         The valid range is 0...50%.
+
+  Width = 87             The width and height of the OSD, in percent of the
+  Height = 84            total video display width and height, respectively.
+                         The valid range is 50...100%.
+
+  Message time = 1       The time (in seconds) how long an informational
+                         message shall be displayed on the OSD. The valid range
+                         is 1...60.
+
+  Use small font = 1     Defines whether the small font shall be used. 0 means never
+                         use the small font, 1 means use the small font wherever the
+                         current skin wants to, and 2 means always use the small
+                         font.
+
+  Anti-alias = 1         Controls whether the OSD uses "anti-aliasing" to improve
+                         font rendering. To make this work, the OSD must support
+                         at least 256 colors, and the skin in use has to
+                         utilize these. If either of these conditions is not met,
+                         rendering will be done without anti-aliasing.
+
+  Default font = Sans Serif:Bold
+  Small font = Sans Serif
+  Fixed font = Courier:Bold
+                         The names of the various fonts to use.
+
+  Default font size = 3.8
+  Small font size = 3.5
+  Fixed font size = 3.1
+                         The sizes (in percent of the total video display height)
+                         of the various fonts. The valid range is 1...10%, at
+                         a resolution of 0.1%.
+
+  Channel info position = bottom
+                         The position of the channel info window in the OSD
+                         (either 'bottom' or 'top').
+
+  Channel info time = 5  The time (in seconds) after which the channel info display
+                         is removed if no key has been pressed.
+
+  Info on channel switch = yes
+                         Turns the display of the current/next information on
+                         or off when switching the channel. The information is
+                         always displayed when pressing the "Ok" key in
+                         normal viewing mode.
+
+  Timeout requested channel info = yes
+                         Turns the automatic timeout of the channel display (when
+                         invoked by a press of the "Ok" key) on or off.
+
+  Scroll pages = yes     no  = when pressing the "Down" ("Up") key while the cursor
+                               is on the last (first) line of a list page, the
+                               list is scrolled down (up) a single line and the cursor will
+                               remain at the bottom (top) of that page
+                         yes = the list is scrolled down (up) a full page and the cursor
+                               will be at the top (bottom) of that page (this mode allows
+                               for faster scrolling through long lists).
+
+  Scroll wraps = no      no  = when the end (beginning) of a list is reached while
+                               moving the cursor through it, the cursor stays at the
+                               last (first) line of the list
+                         yes = the cursor "wraps around" and moves from the last
+                               (first) line of the list directly to the first (last)
+                               one.
+
+  Menu key closes = no
+                         If set to "yes", pressing the "Menu" key while there is
+                         anything displayed on the OSD will close the OSD. If set
+                         to "no", the "Menu" key will open the main menu after
+                         closing a temporary display, like, for instance, the channel
+                         display.
+
+  Recording directories = yes
+                         Turns displaying the Recordings menu as a hierarchical
+                         directory structure on or off.
+
+  Folders in timer menu = yes
+                         Controls whether the full folder path is shown in the
+                         "Timers" menu, or just the basic recording name.
+
+  Always sort folders first = yes
+                         In the "Recordings" menu folders are always listed before
+                         plain recordings. Set this option to "no" if you want folders
+                         to be interspersed with recordings when sorted alphabetically.
+
+  Default sort mode for recordings = by time
+                         Controls whether recordings are sorted by time or by name.
+                         If a particular sort mode has been selected for a folder by
+                         pressing '0', the default no longer applies to that folder.
+
+  Sorting direction for recordings = ascending
+                         When recordings are sorted "by time", they appear in ascending
+                         order (i.e. "oldest" to "newest"). If this parameter is set to
+                         "descending", they will be presented "newest" to "oldest.
+                         Note that in the latter case, if "Always sort folders first"
+                         is "yes", folders will appear in reverse alphabetical order.
+
+  Number keys for characters = yes
+                         Controls whether the number keys can be used to enter
+                         characters in a text input field. You may want to set this
+                         to "no" if you are using an actual keyboard to control VDR.
+
+  Color key 0 = 0        By default, VDR assumes that the sequence of the color
+  Color key 1 = 1        keys on the remote control is red-green-yellow-blue. If
+  Color key 2 = 2        your remote control has these keys in a different sequence,
+  Color key 3 = 3        you can adjust these parameters to reorder the corresponding
+                         color buttons in the menus accordingly. Note that this does
+                         not change the functionality of the individual keys; it only
+                         changes the sequence in which the color buttons are displayed.
+
+  EPG:
+
+  EPG scan timeout = 5   The time (in hours) of user inactivity after which the
+                         DVB card in a single card system starts scanning channels
+                         to keep the EPG up-to-date.
+                         A value of '0' completely turns off scanning on both single
+                         and multiple card systems.
+
+  EPG bugfix level = 3   Some tv stations transmit weirdly formatted EPG data.
+                         VDR attempts to fix these bugs up to the given level:
+                         0 = no EPG fixing
+                         1 = basic fixing of text location (Title, Episode and
+                             Extended Description)
+                         2 = removal of excess whitespace and hyphens, mapping of
+                             wrongly used characters
+                         3 = fix stream component descriptions
+                         Default is '3'.
+                         Note that after changing the setting of this parameter
+                         any EPG data that has already been received will remain
+                         in its existing format - only newly received data will
+                         be fixed accordingly. Restart VDR if you want to make sure
+                         all data is fixed.
+
+  EPG linger time = 0    The time (in minutes) within which old EPG information
+                         shall still be displayed in the "Schedule" menu.
+
+  Set system time = no   Defines whether the system time will be set according to
+                         the time received from the DVB data stream.
+                         Note that this works only if VDR is running under a user
+                         id that has permission to set the system time. You also
+                         need to set the option "Use time from transponder" to a
+                         channel that you trust to transmit a reliable time base
+                         (not all channels seem to have access to a correct time
+                         base...).
+
+  Use time from transponder = 0
+                         The frequency of the transponder that shall be used to
+                         set the system time. The Setup menu will offer the full
+                         list of channels, even if several of them are on the
+                         same transponder. Also, when selecting a channel, saving
+                         the Setup and opening the Setup menu again, there may be
+                         a different channel listed here, since the first one
+                         in 'channels.conf' that is on the given transponder will
+                         be taken. Note that in order to set the system time from
+                         the transponder data the option "Set system time" must also
+                         be enabled.
+
+  Preferred languages = 0
+                         Some tv stations broadcast their EPG data in various
+                         different languages. This option allows you to define
+                         which language(s) you prefer in such cases. By default,
+                         or if none of the preferred languages is broadcast, any
+                         language will be accepted and the EPG data will be
+                         displayed in the first language received from the data
+                         stream. If this option is set to a non-zero value, the
+                         menu page will contain that many "Preferred language"
+                         options which allow you to select the individual preferred
+                         languages. If an actual EPG data record is received in
+                         different languages, the preferred languages are checked
+                         in the given order to decide which one to take.
+
+  Scan                   The "Red" key in the "Setup/EPG" menu can be used to
+                         force an EPG scan on a single DVB card system. If pressed,
+                         and the primary DVB device is currently not recording or
+                         replaying, it will loop through the transponders once and
+                         then switch back to the original channel. Any user activity
+                         during the EPG scan will also stop the scan and bring back
+                         the original channel.
+
+  DVB:
+
+  Primary DVB interface = 1
+                         Defines the primary DVB interface (i.e. the one that
+                         will display the menus and will react on input through
+                         the remote control). Valid values range from '1' to the
+                         number of installed DVB cards. If more than one DVB card
+                         is installed and a recording is to be started, the
+                         program will try to use a free DVB card that is different
+                         from the primary DVB interface, so that the viewer will
+                         be disturbed as little as possible.
+
+  Standard Compliance = 0
+                         Defines the standard compliance mode:
+                         0 = DVB
+                         1 = ANSI/SCTE
+                         2 = NORDIG
+
+  Video format = 4:3     The video format (or aspect ratio) of the tv set in use
+                         (4:3 or 16:9). Applies only to SD output devices.
+
+  Video display format = letterbox
+                         The display format to use for playing wide screen video on
+                         a 4:3 tv set ("pan & scan", "letterbox" or "center cut out").
+                         This option is only available if "Video format" is set to
+                         4:3. Applies only to SD output devices.
+
+  Use Dolby Digital = yes
+                         Controls whether Dolby Digital tracks appear in the "Audio"
+                         menu. This is useful if you don't have the equipment to
+                         replay Dolby Digital audio.
+
+  Update channels = 5    Controls the automatic channel update function. '0' means
+                         no update, '1' will only update channel names, '2' will
+                         only update PIDs, '3' will update channel names and PIDs,
+                         '4' will perform all updates and also add newly found channels,
+                         and '5' will also add newly found transponders.
+                         Note that adding new transponders only works if the "EPG scan"
+                         is active.
+
+  Audio languages = 0    Some tv stations broadcast various audio tracks in different
+                         languages. This option allows you to define which language(s)
+                         you prefer in such cases. By default, or if none of the
+                         preferred languages is broadcast, the first audio track will
+                         be selected when switching to such a channel. If this option
+                         is set to a non-zero value, the menu page will contain that
+                         many "Audio language" options which allow you to select the
+                         individual preferred languages.
+
+  Display subtitles = no If set to 'yes', the first available subtitles in the list
+                         of preferred subtitle languages will be turned on when
+                         switching to a channel that provides subtitles.
+
+  Subtitle languages = 0 Some tv stations broadcast various subtitle tracks in different
+                         languages. This option allows you to define which language(s)
+                         you prefer in such cases. By default, or if none of the
+                         preferred languages is broadcast, no subtitles will
+                         be selected when switching to such a channel. If this option
+                         is set to a non-zero value, the menu page will contain that
+                         many "Subtitle language" options which allow you to select the
+                         individual preferred languages.
+
+  Subtitle offset = 0    Allows you to shift the location of the subtitles in the
+                         vertical direction. The valid range is -100...100. This option
+                         is only available if "Display subtitles" is set to 'yes'.
+
+  Subtitle foreground transparency = 0
+  Subtitle background transparency = 0
+                         These define an additional level of transparency for the
+                         foreground and background color of subtitles. Valid ranges
+                         are 0...9 for foreground transparency, and 0...10 for
+                         background transparency. By default the values as broadcast
+                         are used.
+
+  LNB:
+
+  Use DiSEqC = no        Generally turns DiSEqC support on or off.
+
+  SLOF               = 11700  The switching frequency (in MHz) between low and
+                              high LOF
+  Low LNB frequency  =  9750  The LNB's low and high local oscillator frequencies
+  High LNB frequency = 10600  (in MHz, these have no meaning for DVB-C receivers)
+
+  Device n connected to sat cable = own
+                         Defines whether DVB-S device n has its own satellite cable,
+                         or is "bonded" with another device. All DVB-S devices that
+                         are connected to the same sat cable must be set to the same
+                         number here.
+
+  Use dish positioner = no
+                         By default, the 'P' command code in DiSEqC command sequences
+                         is ignored. Set this parameter to 'yes' if you are using a
+                         satellite dish positioner.
+
+  Site latitude (degrees) = 0
+  Site longitude (degrees) = 0
+                         Set these to the latitude and longitude of your dish's
+                         location if you use a satellite dish positioner. Use the
+                         "Green" key to switch between north/south and east/west,
+                         respectively.
+
+  Max. positioner swing (degrees) = 65
+                         Defines the maximum angle by which the positioner can move
+                         the dish away from due south (or north) in either direction.
+                         The valid range is 0...90.
+
+  Positioner speed (degrees/s) = 1.5
+                         Defines the speed at which the positioner moves the dish.
+                         The valid range is 0.1...180. This value is used to calculate
+                         how long it takes the positioner to reach the target position.
+
+  CAM:
+
+  n CAM Name             Shows the CAM slots that are present in this system, where
+                         'n' is the number of the slot, followed by the name of the
+                         CAM. If a CAM slot is empty, '-' is displayed as name, and
+                         if it is in the process of being reset, its current status
+                         is displayed.  The "Red" key can be pressed to enter the CAM
+                         menu, and the "Green" key triggers a reset of the selected
+                         slot. The "Ok" key also opens the CAM menu. The "Yellow" key
+                         assigns the selected CAM to a device and switches it to the
+                         current channel. The CAM/device combination remains tuned to
+                         the current channel until the smart card in the CAM has been
+                         activated and thus starts to descramble, or until a recording
+                         needs this device. Pressing the "Yellow" key while a CAM is
+                         in activation mode cancels the activation. The activation mode
+                         remains in effect even if you switch to a different channel
+                         (provided there is more than one device in the system) or
+                         watch a recording. To activate your smart card simply switch
+                         to the channel you want to watch, open the "Setup/CAM" menu,
+                         select the CAM that contains the smart card (in case you
+                         have more than one CAM) and press the "Yellow" key.
+
+  Recording:
+
+  Margin at start = 2    Defines how many minutes before the official start time
+  Margin at stop = 10    of a broadcast VDR shall start recording, and how long
+                         after the official end time it shall stop recording.
+                         These margins are added automatically to timers that
+                         are created from the EPG data.
+
+  Default priority = 50  The default Priority and Lifetime values used when
+  Default lifetime = 99  creating a new timer event. A Lifetime value of 99
+                         means that this recording will never be deleted
+                         automatically.
+
+  Record key handling = 2
+                         Defines what happens if the Record key on the remote control
+                         is pressed during live tv.
+                         0 = no instant recording
+                         1 = confirm instant recording
+                         2 = record instantly
+                         The default is 2.
+
+  Pause key handling = 2 Defines what happens if the Pause key on the remote control
+                         is pressed during live tv.
+                         0 = do not pause live video
+                         1 = confirm pause live video
+                         2 = pause live video
+                         The default is 2.
+
+  Pause priority = 10    The Priority and Lifetime values used when pausing live
+  Pause lifetime = 1     video.
+
+  Use episode name = yes Repeating timers use the EPG's 'Episode name' information
+                         to create recording file names in a hierarchical structure
+                         (for instance to gather all episodes of a series in a
+                         common subdirectory). This parameter can be used to
+                         control this.
+                         no  = don't use the 'Episode name'
+                         yes = use it (and create subdirectories)
+
+  Use VPS = 0            Defines whether a timer that is created from an EPG entry
+                         (by pressing the "Record" (red) key in the "Schedules"
+                         or "What's on now/next?" menu) will automatically use VPS
+                         if the event it is created for has a VPS time.
+
+  VPS margin = 120       Defines how many seconds before a VPS controlled timer is
+                         scheduled to start, VDR will make sure that one of the DVB
+                         devices is tuned to the transponder that timer shall record
+                         from. This is necessary for the "Running Status" information
+                         that is broadcast in the EPG data to be seen by VDR.
+
+  Mark instant recording = yes
+                         Defines whether an "instant recording" (started by
+                         pressing the "Red" key in the "VDR" menu) will be
+                         marked with a '@' character to make it distinguishable
+                         from timer recordings in the "Recordings" menu.
+
+  Name instant recording = TITLE EPISODE
+                         Defines how to name an instant recording. If the keywords
+                         TITLE and/or EPISODE are present, they will be replaced
+                         with the title and episode information from the EPG data
+                         at the time of recording (if that data is available).
+                         If this parameter is empty, the channel name will be used
+                         by default.
+
+  Instant rec. time = 180
+                         Defines the duration of an instant recording in minutes.
+                         Default is 180 minutes (3 hours). The stop time of an
+                         instant recording can be modified at any time by editing
+                         the respective timer in the "Timers" menu.
+                         If this parameter is set to 0 ("present event"), only the
+                         currently running event will be recorded, using the stop
+                         margin and VPS setting as configured.
+                         Note that this parameter is also used when pausing live
+                         video!
+
+  Max. video file size = 2000
+                         The maximum size of a single recorded video file in MB.
+                         The valid range is 100...1048570. Default is 2000, but
+                         you may want to use smaller values if you are planning
+                         on archiving a recording to CD.
+
+  Split edited files = no
+                         During the actual editing process VDR writes the result
+                         into files that may grow up to MaxVideoFileSize. If you
+                         prefer to have each marked sequence stored in a separate
+                         file (named 00001.ts, 00002.ts, ...) you can set this
+                         option to 'yes'.
+
+  Delete timeshift recording = 0
+                         Controls whether a timeshift recording is deleted after
+                         viewing it.
+                         0 = no
+                         1 = confirm
+                         2 = yes
+                         The default is 0.
+
+  Replay:
+
+  Multi speed mode = no  Defines the function of the "Left" and "Right" keys in
+                         replay mode. If set to 'no', one speed will be used, while
+                         if set to 'yes' there will be three speeds for fast and slow
+                         search, respectively.
+
+  Show replay mode = no  Turns displaying the current replay mode on or off.
+
+  Show remaining time = no
+                         Defines whether the replay progress display shows the
+                         remaining time or the total length of the recording.
+
+  Progress display time (s) = 0
+                         Defines how long (in seconds) the progress display is shown
+                         when replay of a recording is started. The default value of 0
+                         means that it will not be shown.
+
+  Pause replay when setting mark = no
+                         Defines whether the player automatically goes into Pause
+                         mode when setting an editing mark.
+
+  Pause replay when jumping to a mark = yes
+                         By default replay is automatically paused whenever you jump
+                         to an editing mark with the '7' or '9' key in order to allow
+                         you to easily adjust those marks. If this option is set to
+                         'no', the '9' key will not pause if you are in Play mode and
+                         the mark you jump to is not within 3 seconds of the end of
+                         the recording.
+
+  Skip edited parts = no Defines whether the edited parts of a recording are
+                         automatically skipped during replay. This includes jumping
+                         to the first mark if replay starts at the beginning of the
+                         recording, and stopping at the last mark.
+
+  Pause replay at last mark = no
+                         If enabled, replay of a recording will go into Pause mode
+                         when it has reached the last "end" mark (if any). Note that
+                         the actual position at which the pause occurs may be a couple
+                         of frames before the last "end" mark, depending on how much
+                         data is buffered by your output device.
+
+  Initial duration for adaptive skipping (s) = 120
+                         Defines the number of seconds to jump from the current replay
+                         position in either direction, when pressing the '1' or '3'
+                         key for the first time after the "Reset timeout for adaptive
+                         skipping".
+                         The valid range is 10...600.
+
+  Reset timeout for adaptive skipping (s) = 3
+                         Defines the number of seconds after which pressing the
+                         '1' or '3' key falls back to the "Initial duration for adaptive
+                         skipping".
+                         The valid range is 0...10. Setting the timeout to 0 disables
+                         the adaptive mode and makes '1' and '3' always skip the number
+                         of seconds configured as the initial duration.
+
+  Alternate behavior for adaptive skipping = no
+                         When skipping in adaptive mode with the '1' and '3' keys, the
+                         distance of the skip is halved with every key press after the
+                         first change of direction. While this allows for locating a
+                         particular position in a recording very fast, once you make
+                         one step too many in the current direction you have no chance
+                         of ever reaching the desired point any more. You will have to
+                         wait for the timeout to occur and start adaptive skipping anew.
+                         If this option is set to 'yes', the skip distance will only be
+                         halved if the direction actually changes. That way, even if
+                         you missed the target point, you can still back up to it.
+
+  Use Prev/Next keys for adaptive skipping = no
+                         Normally the Prev/Next keys jump between editing marks (or
+                         the beginning/end of the recording). You can set this option
+                         to 'yes' if you want to use these keys for adaptive skipping
+                         instead.
+
+  Skip distance with Green/Yellow keys (s) = 60
+                         Defines the number of seconds to skip in either direction
+                         when pressing the "Green" or "Yellow" key, respectively.
+                         The valid range is 5...600.
+
+  Skip distance with Green/Yellow keys in repeat (s) = 60
+                         Defines the number of seconds to skip in either direction
+                         when pressing and holding the "Green" or "Yellow" key,
+                         respectively.
+                         The valid range is 5...600.
+
+  Resume ID = 0          Defines an additional ID that can be used in a multi user
+                         environment, so that every user has his/her own resume
+                         files for each recording. The valid range is 0...99, with
+                         0 resulting in a file named 'resume', and any other
+                         value resulting in 'resume.n'.
+
+  Miscellaneous:
+
+  Min. event timeout = 30
+  Min. user inactivity = 300
+                         If the command line option '-s' has been set, VDR will
+                         automatically shutdown the computer if the next timer
+                         event is at least MinEventTimeout minutes in the future,
+                         and the user has been inactive for at least
+                         MinUserInactivity minutes. Setting MinUserInactivity
+                         to 0 disables the automatic shutdown, while still
+                         retaining the possibility to manually shutdown the
+                         computer.
+
+  SVDRP timeout = 300    The time (in seconds) of inactivity on an open SVDRP
+                         connection after which the connection is automatically
+                         closed. Default is 300, a value of 0 means no timeout.
+
+  SVDRP peering = off    Activates automatic connections between VDRs in the same
+                         network. If set to "any hosts" this VDR will establish
+                         connections with any available hosts. If set to "only
+                         default host" this VDR will only connect to the VDR with
+                         the name defined in "SVDRP default host". If no default
+                         host has been defined, the behavior is the same as with
+                         "any hosts". To switch from "off" to "only default host",
+                         you may need to select "any hosts" first and confirm the
+                         dialog by pressing "Ok" in order to be able to select a
+                         default host.
+
+  SVDRP host name        The name of this VDR, which is used when connecting VDRs
+                         via SVDRP. By default, the machine's host name is used.
+
+  SVDRP default host     The name of the VDR to be used by default when creating a
+                         new timer.
+
+  Zap timeout = 3        The time (in seconds) until a channel counts as "previous"
+                         for switching with '0'
+
+  Channel entry timeout = 1000
+                         The time (in milliseconds) after the last keypress until
+                         a numerically entered channel number is considered
+                         complete, and the channel is switched. Default is 1000,
+                         a value of 0 turns this off, so a numerically entered
+                         channel number then needs to be confirmed with the "Ok"
+                         key. Note that the total maximum is also limited by
+                         the "OSD/Channel info time" parameter.
+
+  Remote control repeat delay = 300
+                         The earliest time (in milliseconds) after which the repeat
+                         function of the remote control kicks in if a key is held
+                         pressed down for a while. If the remote control in use
+                         has a repeat delay that is longer than that given in this
+                         parameter, that longer delay will prevail.
+  Remote control repeat delta = 100
+                         The time (in milliseconds) between two subsequent key
+                         presses generated by the remote control's repeat function.
+                         If the remote control in use has a repeat delta that is
+                         longer than that given in this parameter, that longer delta
+                         will prevail.
+  Initial channel =      The channel ID of the channel that shall be tuned to when
+                         VDR starts. Default is empty, which means that it will
+                         tune to the channel that was on before VDR was stopped.
+
+  Initial volume = -1    The volume that shall be set when VDR starts. Default
+                         is -1, which means that the same volume as before
+                         VDR was stopped will be used. The valid range is from
+                         0 (silent) to 255 (loudest).
+
+  Volume steps = 51      The number of steps the volume will use when moving from
+                         the lowest to the highest value. The valid range is from
+                         5 to 255.
+
+  Volume linearize = 0   How to linearize the volume control. The valid range is
+                         from -20 to 20. A value of 0 results in no linearization.
+                         The higher this value is, the more fine grained the control
+                         of the volume is for low sound levels. Lower values do the
+                         same for high sound levels. This allows you to adjust the
+                         more or less linear volume control of your sound card.
+
+  Channels wrap = no     During zapping with the "Up" and "Down" keys (or the
+                         "Channel+" and "Channel-" keys) the current channel will
+                         wrap around the beginning or end of the channel list if
+                         this parameter is set to 'yes'.
+
+  Show channel names with source = off
+                         If this option is turned on, channel names will be displayed
+                         with the source appended to them, as in "ZDF (S)" (if the
+                         option is set to "type), or "ZDF (S19.2E)" (if it is set to
+                         "full"), where 'S' stands for "Satellite".
+
+  Emergency exit = yes   If, for some reason, a recording fails because the video
+                         data stream is broken, or the CAM doesn't decrypt etc.,
+                         VDR automatically exits in order to allow the surrounding
+                         wrapper script to reload the DVB drivers. If this option
+                         is set to 'no', the "emergency exit" will be ignored,
+                         hoping that the problem will go away by itself (as, for
+                         instance, with bad weather conditions).
+
+* Executing system commands
+
+  The "VDR" menu option "Commands" allows you to execute any system commands
+  defined in the configuration file 'commands.conf' (see vdr(5) for details).
+  The "Commands" option will only be present in the "VDR" menu if a valid
+  'commands.conf' file containing at least one command definition has been
+  found at program start.
+
+  This feature can be used to do virtually anything, like checking for new
+  mail, displaying the CPU temperature - you name it! All you need to do is
+  enter the necessary command definition into 'commands.conf' and implement
+  the actual command that will be called. Such a command can typically be a
+  shell script or a Perl program. Anything that command writes to stdout will
+  be displayed on a result screen after executing the command. This screen will
+  use a 'fixed' font so that you can generate formatted output. In order to
+  avoid error messages going to stderr, command definitions should redirect
+  stderr to stdout (see vdr(5)).
+
+  WARNING: THE COMMANDS DEFINED IN 'commands.conf' WILL BE EXECUTED UNDER THE
+  =======  SAME USER ID THAT VDR IS RUNNING WITH. BE VERY CAREFUL WHEN
+           DEFINING THESE COMMANDS AND MAKE SURE THEY DON'T HARM YOUR SYSTEM,
+           ESPECIALLY IF YOU ARE RUNNING VDR UNDER A HIGH PRIVILEGED USER ID
+           (LIKE 'root').

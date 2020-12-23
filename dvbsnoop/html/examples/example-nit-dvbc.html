@@ -1,0 +1,840 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: Network Information
+		Table - DVB-C (Cable)</TITLE><META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: Network Information Table DVB-C (NIT)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>&gt; dvbsnoop -nph -n 1 -if dvb-c-nit.streamfile
+
+dvbsnoop V1.2.18 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000001   PID: 16 (0x0010), Length: 891 (0x037b)
+from file: dvb-c-nit.streamfile
+----------------------------------------------------------
+PID:  16 (0x0010)
+NIT-decoding....
+Table_ID: 64 (0x40)  [= network_information_section - actual network]
+section_syntax_indicator: 1 (0x01)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+Section_length: 888 (0x0378)
+Network_ID: 61441 (0xf001)  [= --&gt; please lookup at http://www.dvb.org]
+reserved_3: 3 (0x03)
+Version_number: 21 (0x15)
+current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 0 (0x00)
+Last_Section_number: 0 (0x00)
+reserved_4: 15 (0x0f)
+Network_descriptor_length: 89 (0x0059)
+    
+    DVB-DescriptorTag: 64 (0x40)  [= network_name_descriptor]
+    Descriptor_length: 22 (0x16)
+    Network_name:  "MSG MediaServices GmbH"  -- Charset: Latin alphabet
+    
+    DVB-DescriptorTag: 74 (0x4a)  [= linkage_descriptor]
+    Descriptor_length: 7 (0x07)
+    Transport_stream_ID: 17 (0x0011)
+    Original_network_ID: 133 (0x0085)  [= BetaTechnik | BetaTechnik]
+    Service_ID: 0 (0x0000)  [=  --&gt; refers to PMS program_number]
+    Linkage_type: 10 (0x0a)  [= TS containing SSU BAT or NIT]
+        Table_type: 74 (0x4a)  [= reserved]
+    
+    DVB-DescriptorTag: 74 (0x4a)  [= linkage_descriptor]
+    Descriptor_length: 7 (0x07)
+    Transport_stream_ID: 17 (0x0011)
+    Original_network_ID: 133 (0x0085)  [= BetaTechnik | BetaTechnik]
+    Service_ID: 3972 (0x0f84)  [=  --&gt; refers to PMS program_number]
+    Linkage_type: 242 (0xf2)  [= user defined]
+        Private Data:
+    
+    DVB-DescriptorTag: 74 (0x4a)  [= linkage_descriptor]
+    Descriptor_length: 7 (0x07)
+    Transport_stream_ID: 2 (0x0002)
+    Original_network_ID: 133 (0x0085)  [= BetaTechnik | BetaTechnik]
+    Service_ID: 3968 (0x0f80)  [=  --&gt; refers to PMS program_number]
+    Linkage_type: 240 (0xf0)  [= user defined]
+        Private Data:
+    
+    DVB-DescriptorTag: 74 (0x4a)  [= linkage_descriptor]
+    Descriptor_length: 7 (0x07)
+    Transport_stream_ID: 17 (0x0011)
+    Original_network_ID: 133 (0x0085)  [= BetaTechnik | BetaTechnik]
+    Service_ID: 3973 (0x0f85)  [=  --&gt; refers to PMS program_number]
+    Linkage_type: 243 (0xf3)  [= user defined]
+        Private Data:
+    
+    DVB-DescriptorTag: 95 (0x5f)  [= private_data_specifier_descriptor]
+    Descriptor_length: 4 (0x04)
+    PrivateDataSpecifier: 1246710351 (0x4a4f4a4f)  [= MSG MediaServices GmbH &#160;]
+    
+    DVB-DescriptorTag: 74 (0x4a)  [= linkage_descriptor]
+    Descriptor_length: 9 (0x09)
+    Transport_stream_ID: 112 (0x0070)
+    Original_network_ID: 61441 (0xf001)  [= Deutsche Telekom | Deutsche Telekom AG]
+    Service_ID: 0 (0x0000)  [=  --&gt; refers to PMS program_number]
+    Linkage_type: 4 (0x04)  [= TS containing complete Network/Bouquet SI]
+        Private Data:
+              0000:  0b de 
+              0000:   .  . 
+    
+    DVB-DescriptorTag: 74 (0x4a)  [= linkage_descriptor]
+    Descriptor_length: 10 (0x0a)
+    Transport_stream_ID: 112 (0x0070)
+    Original_network_ID: 61441 (0xf001)  [= Deutsche Telekom | Deutsche Telekom AG]
+    Service_ID: 0 (0x0000)  [=  --&gt; refers to PMS program_number]
+    Linkage_type: 161 (0xa1)  [= user defined]
+        Private Data:
+              0000:  02 70 0f 
+              0000:   .  p  . 
+
+reserved_5: 15 (0x0f)
+Transport_stream_loop_length: 786 (0x0312)
+    
+    Transport_stream_ID: 10002 (0x2712)
+    Original_network_ID: 61441 (0xf001)  [= Deutsche Telekom | Deutsche Telekom AG]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 18 (0x0012)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 3 (0x03)
+            Service_ID: 50701 (0xc60d)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 54919168 (= 346.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 1079 (0x0437)
+    Original_network_ID: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 54 (0x0036)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 39 (0x27)
+            Service_ID: 28007 (0x6d67)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28010 (0x6d6a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28015 (0x6d6f)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28009 (0x6d69)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28008 (0x6d68)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28006 (0x6d66)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28014 (0x6d6e)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28011 (0x6d6b)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28016 (0x6d70)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28013 (0x6d6d)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28012 (0x6d6c)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28017 (0x6d71)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28032 (0x6d80)  [=  --&gt; refers to PMS program_number]
+            Service_type: 177 (0xb1)  [= User defined]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 60030976 (= 394.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 1073 (0x0431)
+    Original_network_ID: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 90 (0x005a)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 75 (0x4b)
+            Service_ID: 28218 (0x6e3a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28201 (0x6e29)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28202 (0x6e2a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28203 (0x6e2b)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28204 (0x6e2c)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28229 (0x6e45)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28228 (0x6e44)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28230 (0x6e46)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28224 (0x6e40)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28225 (0x6e41)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28226 (0x6e42)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28227 (0x6e43)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28205 (0x6e2d)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28206 (0x6e2e)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28231 (0x6e47)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28210 (0x6e32)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28209 (0x6e31)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28211 (0x6e33)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28208 (0x6e30)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28207 (0x6e2f)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28213 (0x6e35)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28212 (0x6e34)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28214 (0x6e36)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28215 (0x6e37)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28216 (0x6e38)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 69599232 (= 426.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 1101 (0x044d)
+    Original_network_ID: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 75 (0x004b)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 60 (0x3c)
+            Service_ID: 28130 (0x6de2)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28107 (0x6dcb)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28111 (0x6dcf)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28109 (0x6dcd)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28110 (0x6dce)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28106 (0x6dca)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28108 (0x6dcc)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28112 (0x6dd0)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28113 (0x6dd1)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28114 (0x6dd2)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28120 (0x6dd8)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28121 (0x6dd9)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28128 (0x6de0)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28126 (0x6dde)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28127 (0x6ddf)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28129 (0x6de1)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28124 (0x6ddc)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28123 (0x6ddb)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28125 (0x6ddd)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28122 (0x6dda)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 68157440 (= 410.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 2 (0x0002)
+    Original_network_ID: 133 (0x0085)  [= BetaTechnik | BetaTechnik]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 75 (0x004b)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 60 (0x3c)
+            Service_ID: 8 (0x0008)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 10 (0x000a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 11 (0x000b)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 43 (0x002b)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 9 (0x0009)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 29 (0x001d)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 41 (0x0029)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 20 (0x0014)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 150 (0x0096)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 151 (0x0097)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 154 (0x009a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 152 (0x0098)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 163 (0x00a3)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 159 (0x009f)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 165 (0x00a5)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 157 (0x009d)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 162 (0x00a2)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 156 (0x009c)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 166 (0x00a6)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 3968 (0x0f80)  [=  --&gt; refers to PMS program_number]
+            Service_type: 12 (0x0c)  [= data broadcast service]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 57671680 (= 370.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 3 (0x0003)
+    Original_network_ID: 133 (0x0085)  [= BetaTechnik | BetaTechnik]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 36 (0x0024)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 21 (0x15)
+            Service_ID: 17 (0x0011)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 247 (0x00f7)  [=  --&gt; refers to PMS program_number]
+            Service_type: 179 (0xb3)  [= User defined]
+            
+            Service_ID: 167 (0x00a7)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 153 (0x0099)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 155 (0x009b)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 164 (0x00a4)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 149 (0x0095)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 56754176 (= 362.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 4 (0x0004)
+    Original_network_ID: 133 (0x0085)  [= BetaTechnik | BetaTechnik]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 51 (0x0033)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 36 (0x24)
+            Service_ID: 27 (0x001b)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 18 (0x0012)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 513 (0x0201)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 23 (0x0017)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16 (0x0010)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 516 (0x0204)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 145 (0x0091)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 146 (0x0092)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 148 (0x0094)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 147 (0x0093)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 158 (0x009e)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 2690 (0x0a82)  [=  --&gt; refers to PMS program_number]
+            Service_type: 178 (0xb2)  [= User defined]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 58195968 (= 378.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 17 (0x0011)
+    Original_network_ID: 133 (0x0085)  [= BetaTechnik | BetaTechnik]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 48 (0x0030)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 33 (0x21)
+            Service_ID: 42 (0x002a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 36 (0x0024)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 515 (0x0203)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 34 (0x0022)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28 (0x001c)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 19 (0x0013)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 14 (0x000e)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 13 (0x000d)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 2714 (0x0a9a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 178 (0xb2)  [= User defined]
+            
+            Service_ID: 3972 (0x0f84)  [=  --&gt; refers to PMS program_number]
+            Service_type: 179 (0xb3)  [= User defined]
+            
+            Service_ID: 3973 (0x0f85)  [=  --&gt; refers to PMS program_number]
+            Service_type: 179 (0xb3)  [= User defined]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 55836672 (= 354.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 1 (0x0001)
+    Original_network_ID: 133 (0x0085)  [= BetaTechnik | BetaTechnik]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 57 (0x0039)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 42 (0x2a)
+            Service_ID: 15 (0x000f)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 21 (0x0015)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 518 (0x0206)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 22 (0x0016)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 778 (0x030a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 779 (0x030b)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 780 (0x030c)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 3843 (0x0f03)  [=  --&gt; refers to PMS program_number]
+            Service_type: 176 (0xb0)  [= User defined]
+            
+            Service_ID: 3841 (0x0f01)  [=  --&gt; refers to PMS program_number]
+            Service_type: 176 (0xb0)  [= User defined]
+            
+            Service_ID: 3840 (0x0f00)  [=  --&gt; refers to PMS program_number]
+            Service_type: 176 (0xb0)  [= User defined]
+            
+            Service_ID: 3989 (0x0f95)  [=  --&gt; refers to PMS program_number]
+            Service_type: 176 (0xb0)  [= User defined]
+            
+            Service_ID: 3986 (0x0f92)  [=  --&gt; refers to PMS program_number]
+            Service_type: 176 (0xb0)  [= User defined]
+            
+            Service_ID: 3988 (0x0f94)  [=  --&gt; refers to PMS program_number]
+            Service_type: 176 (0xb0)  [= User defined]
+            
+            Service_ID: 3977 (0x0f89)  [=  --&gt; refers to PMS program_number]
+            Service_type: 176 (0xb0)  [= User defined]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 59113472 (= 386.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 112 (0x0070)
+    Original_network_ID: 61441 (0xf001)  [= Deutsche Telekom | Deutsche Telekom AG]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 42 (0x002a)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 27 (0x1b)
+            Service_ID: 53501 (0xd0fd)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53502 (0xd0fe)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53504 (0xd100)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53505 (0xd101)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53506 (0xd102)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53507 (0xd103)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53510 (0xd106)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53511 (0xd107)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53002 (0xcf0a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 178 (0xb2)  [= User defined]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 67239936 (= 402.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 10001 (0x2711)
+    Original_network_ID: 61441 (0xf001)  [= Deutsche Telekom | Deutsche Telekom AG]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 66 (0x0042)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 51 (0x33)
+            Service_ID: 53201 (0xcfd1)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53202 (0xcfd2)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53203 (0xcfd3)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53204 (0xcfd4)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53205 (0xcfd5)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53206 (0xcfd6)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53207 (0xcfd7)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53208 (0xcfd8)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53209 (0xcfd9)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53210 (0xcfda)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53211 (0xcfdb)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53214 (0xcfde)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53216 (0xcfe0)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53217 (0xcfe1)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53218 (0xcfe2)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53213 (0xcfdd)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53215 (0xcfdf)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 70516736 (= 434.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 10003 (0x2713)
+    Original_network_ID: 61441 (0xf001)  [= Deutsche Telekom | Deutsche Telekom AG]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 18 (0x0012)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 3 (0x03)
+            Service_ID: 53301 (0xd035)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 71434240 (= 442.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 10004 (0x2714)
+    Original_network_ID: 61441 (0xf001)  [= Deutsche Telekom | Deutsche Telekom AG]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 45 (0x002d)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 30 (0x1e)
+            Service_ID: 53401 (0xd099)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53402 (0xd09a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53403 (0xd09b)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53404 (0xd09c)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53405 (0xd09d)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53406 (0xd09e)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53407 (0xd09f)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53408 (0xd0a0)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53409 (0xd0a1)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53410 (0xd0a2)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 18022400 (= 113.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+    
+    Transport_stream_ID: 10005 (0x2715)
+    Original_network_ID: 61441 (0xf001)  [= Deutsche Telekom | Deutsche Telekom AG]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 27 (0x001b)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 12 (0x0c)
+            Service_ID: 53208 (0xcfd8)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53212 (0xcfdc)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53503 (0xd0ff)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 53106 (0xcf72)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+        
+        DVB-DescriptorTag: 68 (0x44)  [= cable_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Frequency: 18939904 (= 121.00000 MHz)
+        FEC_outer: 2 (0x02)  [= RS(204/188)]
+        reserved_1: 4095 (0xfff)
+        Modulation (Cable): 3 (0x03)  [= 64 QAM]
+          Symbol_rate: 430080 (=    6.9000)
+        FEC_inner: 15 (0x0f)  [= No conv. coding]
+
+CRC: 114407022 (0x06d1b66e)
+==========================================================
+
+
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

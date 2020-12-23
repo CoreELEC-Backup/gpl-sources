@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-gambatte
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-gambatte (>= 0.5.0) | gambatte (>= 0.5.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-gambatte
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Nintendo - Game Boy / Color (Gambatte) core for kodi's retroplayer
+ Nintendo - Game Boy / Color (Gambatte) core for kodi's retroplayer

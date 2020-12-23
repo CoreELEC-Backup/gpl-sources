@@ -1,0 +1,13 @@
+KNOWN BUGS AND LIMITATIONS
+--------------------------
+
+* PCF8511 support (Jeroen Domburg):
+  unsolved page-shift kludge may occur which results in shifted Y-offset, 
+  Jeroen (contributor of PCF8511-support) tries to identify and fix this bug
+
+* some problems with USB:
+  - whole USB-part needs some improvement
+  - alphacool:
+    closing the device may last some seconds
+    but: annoying init-problem should be fixed: if this one is still existing: please let me know!
+

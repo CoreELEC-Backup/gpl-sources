@@ -1,0 +1,121 @@
+# VDR plugin language source file.
+# Copyright (C) 2007 Klaus Schmidinger <kls@cadsoft.de>
+# This file is distributed under the same license as the VDR package.
+# Klaus Schmidinger <kls@cadsoft.de>, 2000
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VDR 1.5.7\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2016-08-14 13:28+0200\n"
+"PO-Revision-Date: 2007-09-03 18:38+0200\n"
+"Last-Translator: wk\n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "AUTO"
+msgstr "AUTO"
+
+msgid "ALL (slow)"
+msgstr "Alle (langsam)"
+
+msgid "Off"
+msgstr "Aus"
+
+msgid "AUTO/OFF"
+msgstr "AUTO/OFF"
+
+msgid "AUTO/ON"
+msgstr "AUTO/EIN"
+
+msgid "Setup"
+msgstr "Einstellungen"
+
+msgid "General"
+msgstr "Allgemein"
+
+msgid "Source Type"
+msgstr "Signal Art"
+
+msgid "verbosity"
+msgstr "Logmeldungen"
+
+msgid "logfile"
+msgstr "Log Ausgabe"
+
+msgid "Channels"
+msgstr "Kanäle"
+
+msgid "TV channels"
+msgstr "TV Kanäle"
+
+msgid "Radio channels"
+msgstr "Radio Kanäle"
+
+msgid "FTA channels"
+msgstr "unverschlüsselte Kanäle"
+
+msgid "Scrambled channels"
+msgstr "verschlüsselte Kanäle"
+
+msgid "Cable and Terrestrial"
+msgstr "Kabel und Terrestrisch"
+
+msgid "Country"
+msgstr "Land"
+
+msgid "Cable Inversion"
+msgstr "Inversion DVB-C"
+
+msgid "Cable Symbolrate"
+msgstr "Symbolrate DVB-C"
+
+msgid "Cable modulation"
+msgstr "Modulation DVB-C"
+
+msgid "Cable Network PID"
+msgstr "Kabel Netzwerk PID"
+
+msgid "Terr  Inversion"
+msgstr "Inversion T/T2"
+
+msgid "ATSC  Type"
+msgstr ""
+
+msgid "Satellite"
+msgstr "Satellit"
+
+msgid "DVB-S2"
+msgstr ""
+
+msgid "Scan Mode"
+msgstr ""
+
+msgid "remove invalid channels"
+msgstr "ungültige Kanäle löschen"
+
+msgid "update existing channels"
+msgstr "Kanäle aktualisieren"
+
+msgid "append new channels"
+msgstr "neue Kanäle anfügen"
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Log Messages"
+msgstr ""
+
+msgid "CANNOT SCAN - No device!"
+msgstr "KANN NICHT SCANNEN - kein Device!"

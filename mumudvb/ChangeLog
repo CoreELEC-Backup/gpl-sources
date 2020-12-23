@@ -1,0 +1,142 @@
+-- MuMuDVB 2.0 --
+New features / improvements :
+ * Autoconfiguration: complete rewrite, more flexible, can follow channel changes, partial autoconf dropped.
+ * EPG: Electronic Programs guide (EIT table) available from the webservices
+ * Video: support for HEVC
+ * Scam: various improvements and fixes
+ * Tuning: Diseqc improvments
+
+-- MuMuDVB 1.7 --
+New features / improvements :
+ * Implements dual stack for IPv6 Mulicast
+ * Tuning: Support for multiple tuners and DVB-T2 DVB-S2
+ * Error : Add option filter_transport_error to send packets with error bit set by decoder
+ * Dump : Possibility to dump the raw stream for debugging purposes + update of the man page
+ * Logging: Possibility to choose the destination of the logs : console, file or syslog. The formatting of the logs can be adjusted.
+ * CAM Menu : CAM menu access while streaming (using a web/AJAX interface - see WEBSERVICES.txt
+ * Templates support for more flexibility in autoconfiguration
+ * Webservices : XML webservice exposing detailed streaming status (see WEBSERVICES.txt)
+ * PID : Add option filename_pid Possibility to define the path for the pid file :
+ * DiSEqC : improvments : support of uncommited switches. Set of the tone burst
+ * Autoconfiguration: Several improvements in the options and in the parsing of the DVB tables
+ * Possibility to tune the up/down detection thresholds
+ * Testing suite : test program for various MuMuDVB functions to compile this program, run "make check"
+ * Table parsing : the NIT is parsed for debugging purposes, possibility to use the LCN in autoconfiguration, better detection of PIDs
+ * Signal display : more information (uncorrected blocks)
+ * Cards listing with their capabilities.
+
+Bugs corrected :
+ * SDT rewrite improve : we copy only the interesting services to the rewritten SDT
+ * Filter : New option psi_tables_filtering to keep only mandatory PSI PID. Useful for some STB.
+ * Memory leaks
+
+Next :
+ * autoconfiguration : merge of the two autoconfiguration modes
+ * IPv6 : HTTP unicast IPv6
+ * RTSP
+
+-- MuMuDVB 1.6 --
+
+New features / improvements :
+ * Support for HTTP Unicast
+ * Implementation of the RTP headers.
+ * The limit in the size of the PAT PID for PAT rewriting has been removed
+ * PAT rewrite is less CPU consuming
+ * ATSC autoconfiguration fully fonctionnal
+ * Autoconfiguration: MuMuDVB can update the PIDs while running if they change
+ * Tuning: Support for circular polarization, more LNBs and possibility to fix LNB voltage to 0V
+ * Tuning: We can set the coderate (FEC) for satellite and cable with the option coderate
+ * Documentation rewrite. The doc is now in asciidoc format + new configuration examples
+ * Autoconfiguration: We wait for all the channels in the PAT to be configured before continuing
+ * Autoconfiguration: New option autoconf_scrambled which permit to autoconfigure scrambbled channels even without cam_support
+ * CAM support: We look on the packets to check if the descrambling was successful
+ * Option dont_send_scrambled to avoid sending scrambled packets (thus not making SAP announces for scrambled channels)
+ * Option to show the traffic for each channel
+ * Reduce CPU usage : experimental feature : DVB buffering
+ * CAM : MuMuDVB can reset the CAM module if it initialize badly
+ * SAP : new option sap_uri.
+ * VLC bug : add an option to avoid sending the SDT, this is a workaround for VLC
+
+Bugs corrected :
+ * Cam support : wait a bit more between polling events (solve problems with T-Rex Supermodule v4.6)
+ * Cam : Change the list managment. This solves the problem of only one channel descrambled with aston pro
+ * We check if the PMT_QUERY sending (asking a channel to be descrambled) to the CAM was sucessful. 
+ * Autoconfiguration, pat rewrite, CAM : we check the transport_stream id. This solve problems with shared PMT betwwen channels.
+
+-- Mumudvb 1.5.4 --
+
+New features / improvements : 
+ * New stack for cam support, based on libdvben50221 from dvb_apps
+ * Option dont_tune to avoid mumudvb to try to tune the card (can be used to test dvb-s2)
+ * Non ascii channels names are now well handled by autoconf
+ * Autoconfiguration : Better pid selection (new descriptor types added), can correct issues with some nondetected audio/video pids
+ * Autoconfiguration ; Detection of the PCR PID, this solves problem with vlc and the absence of sound on certain channels
+ * A configuration file is generated after autoconfiguration
+ * Preliminary support for ATSC cards, new option atsc_modulation
+	
+Bugs corrected :
+ * We don't set the filters multiple times
+ * Better reading of the config file
+ * Segmentation faults with some particular configuration files
+ * Bug in intialisation scripts
+ * Better handling of partial packets. Mumudvb doesn't exit anymore.
+	
+-- Mumudvb 1.5.3 --
+
+New features : 
+ * Option multicast_ttl to override default ttl
+ * Option autoconf_ip_header, to change the first part of ip addresses used by autoconfiguration
+ * Option sap_default_group
+ * Init scripts, cf scripts/ directory
+ * Smaller memory footprint
+	
+Bugs corrected : 
+ * Better conformances to RFC for sap announces (this correct issues with VLC < 0.8.6f)
+ * Better memory freeing
+ * CRC32 calculation was wrong on 64bits platforms
+	
+-- Mumudvb 1.5.2 --
+
+New features : 
+
+ * Generation of sap announces (beta)
+
+Bugs corrected : 
+ * Segfault when the directory /var/run/mumudvb doesn't exist
+ * Gcc 4.2 issues when using pat rewriting or autoconfiguration
+ * Small corrections
+
+-- Mumudvb 1.5 --
+
+This is a test version for autoconf and cam support
+
+New features : 
+
+ * Support for conditionnal acces modules (support of scrambled channels) (beta)
+ * Support for autoconfiguration. Mumudvb is now able to partially decode the stream to find the channels. (beta)
+
+ * Verbosity levels for log messages
+ * Better default values for DVB-T
+ * common_port directive
+
+Bugs corrected : 
+ * Logging priority issue (LOG_INFO and co)
+ * General code cleaning
+ * Small bugs
+
+Documentation update
+
+-- Mumudvb 1.2 --
+
+New Features : 
+ * PAT revriting : For some set top boxes, the pid PAT (wich announces the channels) should only contain the streamed channel
+   When you enable pat_revriting, mumudvb modify the pat packets for that
+
+Bugs Corrected 
+ * Small bugs
+
+-- Mumudvb 1.0 --
+
+First major release of mumudvb
+
+Main features : 

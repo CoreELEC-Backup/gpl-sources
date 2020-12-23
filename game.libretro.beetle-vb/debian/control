@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-beetle-vb
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-beetle-vb (>= 0.9.36) | beetle-vb (>= 0.9.36)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-beetle-vb
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Nintendo - Virtual Boy (Beetle VB) core for kodi's retroplayer
+ Nintendo - Virtual Boy (Beetle VB) core for kodi's retroplayer

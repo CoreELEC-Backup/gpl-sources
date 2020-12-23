@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-beetle-ngp
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-beetle-ngp (>= 0.9.36) | beetle-ngp (>= 0.9.36)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-beetle-ngp
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: SNK - Neo Geo Pocket / Color (Beetle NeoPop) core for kodi's retroplayer
+ SNK - Neo Geo Pocket / Color (Beetle NeoPop) core for kodi's retroplayer

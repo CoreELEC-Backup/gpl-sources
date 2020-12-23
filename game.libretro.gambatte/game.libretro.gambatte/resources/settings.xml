@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="gambatte_dark_filter_level" values="0|5|10|15|20|25|30|35|40|45|50" default="0"/>
+		<setting label="30002" type="select" id="gambatte_gb_bootloader" values="enabled|disabled" default="enabled"/>
+		<setting label="30003" type="select" id="gambatte_gb_colorization" values="disabled|auto|GBC|SGB|internal|custom" default="disabled"/>
+		<setting label="30004" type="select" id="gambatte_gb_hwmode" values="Auto|GB|GBC|GBA" default="Auto"/>
+		<setting label="30005" type="select" id="gambatte_gb_internal_palette" values="GB - DMG|GB - Pocket|GB - Light|GBC - Blue|GBC - Brown|GBC - Dark Blue|GBC - Dark Brown|GBC - Dark Green|GBC - Grayscale|GBC - Green|GBC - Inverted|GBC - Orange|GBC - Pastel Mix|GBC - Red|GBC - Yellow|SGB - 1A|SGB - 1B|SGB - 1C|SGB - 1D|SGB - 1E|SGB - 1F|SGB - 1G|SGB - 1H|SGB - 2A|SGB - 2B|SGB - 2C|SGB - 2D|SGB - 2E|SGB - 2F|SGB - 2G|SGB - 2H|SGB - 3A|SGB - 3B|SGB - 3C|SGB - 3D|SGB - 3E|SGB - 3F|SGB - 3G|SGB - 3H|SGB - 4A|SGB - 4B|SGB - 4C|SGB - 4D|SGB - 4E|SGB - 4F|SGB - 4G|SGB - 4H|Special 1|Special 2|Special 3|TWB01 - 756 Production|TWB02 - AKB48 Pink|TWB03 - Angry Volcano|TWB04 - Anime Expo|TWB05 - Aqours Blue|TWB06 - Aquatic Iro|TWB07 - Bandai Namco|TWB08 - Blossom Pink|TWB09 - Bubbles Blue|TWB10 - Builder Yellow|TWB11 - Buttercup Green|TWB12 - Camouflage|TWB13 - Cardcaptor Pink|TWB14 - Christmas|TWB15 - Crunchyroll Orange|TWB16 - Digivice|TWB17 - Do The Dew|TWB18 - Eevee Brown|TWB19 - Fruity Orange|TWB20 - Game.com|TWB21 - Game Grump Orange|TWB22 - GameKing|TWB23 - Game Master|TWB24 - Ghostly Aoi|TWB25 - Golden Wild|TWB26 - Green Banana|TWB27 - Greenscale|TWB28 - Halloween|TWB29 - Hero Yellow|TWB30 - Hokage Orange|TWB31 - Labo Fawn|TWB32 - Legendary Super Saiyan|TWB33 - Lemon Lime Green|TWB34 - Lime Midori|TWB35 - Mania Plus Green|TWB36 - Microvision|TWB37 - Million Live Gold|TWB38 - Miraitowa Blue|TWB39 - NASCAR|TWB40 - Neo Geo Pocket|TWB41 - Neon Blue|TWB42 - Neon Green|TWB43 - Neon Pink|TWB44 - Neon Red|TWB45 - Neon Yellow|TWB46 - Nick Orange|TWB47 - Nijigasaki Orange|TWB48 - Odyssey Gold|TWB49 - Patrick Star Pink|TWB50 - Pikachu Yellow|TWB51 - Pocket Tales|TWB52 - Pokemon mini|TWB53 - Pretty Guardian Gold|TWB54 - S.E.E.S. Blue|TWB55 - Saint Snow Red|TWB56 - Scooby-Doo Mystery|TWB57 - Shiny Sky Blue|TWB58 - Sidem Green|TWB59 - Slime Blue|TWB60 - Spongebob Yellow|TWB61 - Stone Orange|TWB62 - Straw Hat Red|TWB63 - Superball Ivory|TWB64 - Super Saiyan Blue|TWB65 - Super Saiyan Rose|TWB66 - Supervision|TWB67 - Survey Corps Brown|TWB68 - Tea Midori|TWB69 - TI-83|TWB70 - Tokyo Midtown|TWB71 - Travel Wood|TWB72 - Virtual Boy|TWB73 - VMU|TWB74 - Wisteria Murasaki|TWB75 - WonderSwan|TWB76 - Yellow Banana" default="GB - DMG"/>
+		<setting label="30006" type="select" id="gambatte_gb_link_mode" values="Not Connected|Network Server|Network Client" default="Not Connected"/>
+		<setting label="30007" type="select" id="gambatte_gb_link_network_port" values="56400|56401|56402|56403|56404|56405|56406|56407|56408|56409|56410|56411|56412|56413|56414|56415|56416|56417|56418|56419|56420" default="56400"/>
+		<setting label="30008" type="select" id="gambatte_gb_link_network_server_ip_1" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30009" type="select" id="gambatte_gb_link_network_server_ip_10" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30010" type="select" id="gambatte_gb_link_network_server_ip_11" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30011" type="select" id="gambatte_gb_link_network_server_ip_12" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30012" type="select" id="gambatte_gb_link_network_server_ip_2" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30013" type="select" id="gambatte_gb_link_network_server_ip_3" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30014" type="select" id="gambatte_gb_link_network_server_ip_4" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30015" type="select" id="gambatte_gb_link_network_server_ip_5" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30016" type="select" id="gambatte_gb_link_network_server_ip_6" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30017" type="select" id="gambatte_gb_link_network_server_ip_7" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30018" type="select" id="gambatte_gb_link_network_server_ip_8" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30019" type="select" id="gambatte_gb_link_network_server_ip_9" values="0|1|2|3|4|5|6|7|8|9" default="0"/>
+		<setting label="30020" type="select" id="gambatte_gbc_color_correction" values="GBC only|always|disabled" default="GBC only"/>
+		<setting label="30021" type="select" id="gambatte_gbc_color_correction_mode" values="accurate|fast" default="accurate"/>
+		<setting label="30022" type="select" id="gambatte_gbc_frontlight_position" values="central|above screen|below screen" default="central"/>
+		<setting label="30023" type="select" id="gambatte_mix_frames" values="disabled|mix|lcd_ghosting|lcd_ghosting_fast" default="disabled"/>
+		<setting label="30024" type="select" id="gambatte_up_down_allowed" values="disabled|enabled" default="disabled"/>
+	</category>
+</settings>

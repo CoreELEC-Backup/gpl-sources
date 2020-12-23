@@ -1,0 +1,30 @@
+Grams of suggestions, bugreports, patches and other contributions have been
+provided by the people on the VDR-Portal and VDR-Portal chatrooms.
+Special thanks go to the following individuals (if your name is missing here,
+please send an email to dh+vdr@gekrumbel.de):
+
+Michael Brueckner <vdr@gekrumbel.de>
+ for icons and images and parts of the overall visual design.
+
+Rolf Ahrenberg
+ for lots of finish translations and the initial implementation of
+ streaming of live tv via streamdev into a browser window using the
+ vlc plugin for firefox. And a lot of usefull hints about the features
+ of the vlc plugins, some of which still need to be added to LIVE.
+
+Patrice Staudt (in memoriam)
+  for the french translations.
+
+Matthias Kortstiege
+ for a patch that activates the SSL support in tntnet. LIVE can then be
+ used over https too. This works only with tntnet versions above 1.6.0.6.
+ Recomended is tntnet version 1.6.2 and higher.
+
+Diego Pierotto
+ for the italian translations.
+
+John Germs, Chavonbravo from CaptiveWorks (http://captiveworks.org)
+ for the addition of channel numbers on the live pages.
+
+Martin Wache
+ contributed the MultiSchedule view.

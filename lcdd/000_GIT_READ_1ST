@@ -1,0 +1,33 @@
+Hey, thanks for reading this first! :)
+
+*** NOTICE ****************************************************
+This is a development version of LCDproc, straight from the Git
+repository.
+
+THIS VERSION OF LCDproc IS *NOT* GUARANTEED TO RUN, OR EVEN
+COMPILE! YOU'VE BEEN WARNED!
+***************************************************************
+
+With that out of the way, welcome to the bleeding edge of LCDproc.
+To build and run this version, you'll need autoconf 2.61 or higher
+and friends installed.
+
+Run:
+
+$ sh ./autogen.sh
+
+This produces the configure script and supporting files. Once the above
+command has run, the rest is pretty standard:
+
+$ ./configure --help
+[read about the options, figure out what to use]
+$ ./configure --prefix=/usr/local --enable-drivers=curses,CFontz
+[replace curses,CFontz with comma-separated list of drivers you want]
+$ make
+$ su
+$ make install
+[make install is OPTIONAL ... might not want to replace a stable
+version of LCDproc with a development release]
+
+Patches and suggestions are welcome! Join the mailing list to get
+started. See http://lcdproc.org/ for more information.

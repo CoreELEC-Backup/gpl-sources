@@ -1,0 +1,190 @@
+<sect1 id="eyeboxone">
+<title>The Eyebox One Driver (EyeboxOne)</title>
+
+<para>
+This section describes the Eyebox One.
+</para>
+
+<sect2 id="eyeboxone-features">
+<title>Eyebox One LCD Module</title>
+
+<para>
+  Eyebox One is a small rackmounted server marketed by Rightvision
+  (<ulink url="http://www.alcateleyebox.rightvision.com/"></ulink>).
+  This server has an LCD module, a keypad, two graphbars and some leds.
+</para>
+<para>
+  The LCD is a 20x4 alphanumeric module connected via standard DB-9 cabling and
+  connector.
+</para>
+<para>
+  I couldn't find any documentation about it.
+  All I know has been obtained with some reverse engineering.
+  It seems that it can run only at 19.200 baud.
+  Sending ASCII to the module will make it simply display that text at
+  its current cursor position.
+  The module has a built-in BIOS that recognizes commands (sent by transmitting a
+  single-byte "marker" signifying that a command is on the way, followed by
+  the single-byte command character itself along with any parameters, if needed)
+  allowing the programmer to clear the screen, position the cursor anywhere,
+  hide/show the cursor, on/off the backlight, and so on.
+</para>
+<para>
+  This module is fast. If updating less than the whole screen, the LCD can
+  update faster than can be seen by the human eye. This, of course,
+  more than meets LCDproc's needs.
+</para>
+
+</sect2>
+
+<sect2 id="eyeboxone-special_features">
+<title>Eyebox One Driver and lcdproc client</title>
+<para>
+  You can use the two Eyebox One graphbars, one as a free CPU meter, and one as a free RAM meter
+  with lcdproc client (see eyebox.c in lcdproc client sources).
+</para>
+
+<para>
+  In order to use it, you must execute ./configure with a special parameter:
+  <command>CPPFLAGS=-DLCDPROC_EYEBOXONE ./configure --enable-drivers=EyeboxOne</command>
+</para>
+
+<para>
+This is only a BETA version modification, take it as a demo...
+</para>
+
+</sect2>
+
+<sect2 id="eyeboxone-copy">
+<title>Copyright</title>
+
+<para>
+This section was originally part of the mtxorb.docbook file by Rene Wagner <email>reenoo@gmx.de</email>
+</para>
+
+<para>
+This section has been modified by Cédric TESSIER (http://www.nezetic.info)
+</para>
+</sect2>
+
+<!-- ## EyeboxOne driver ## -->
+<sect2 id="eyeboxone-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="eyeboxone-config-section">
+<title>[EyeboxOne]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Select the output device to use [default: <filename>/dev/ttyS1</filename>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Set the display size [default: <literal>20x4</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Backlight</property> = &parameters.yesdefno;
+  </term>
+  <listitem><para>
+    Switch on the backlight [default: <literal>yes</literal>; legal: <literal>yes</literal>, <literal>no</literal>]
+    </para>
+    <note><para>
+      If you choose yes, you can switch on/off the backlight in real time
+      using the LCDproc server menu with the keypad.
+    </para></note>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Cursor</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+     Switch on the cursor? [default: <literal>no</literal>; legal: <literal>yes</literal>, <literal>no</literal>]
+    </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Speed</property> =
+    {
+      <parameter><literal>1200</literal></parameter> |
+      <parameter><literal>2400</literal></parameter> |
+      <parameter><literal>9600</literal></parameter> |
+      <emphasis><parameter><literal>19200</literal></parameter></emphasis>
+    }
+  </term>
+  <listitem><para>
+    Set the the baud rate to use when communicating with the LCD.
+    If not specified, it defaults to <literal>19200</literal>.
+    </para>
+    <note><para>
+      As I said, I think only <literal>19200</literal> is a good choice.
+    </para></note>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>LeftKey</property> =
+    <parameter><replaceable>D</replaceable></parameter>
+  </term>
+  <term>
+    <property>RightKey</property> =
+    <parameter><replaceable>C</replaceable></parameter>
+  </term>
+  <term>
+    <property>UpKey</property> =
+    <parameter><replaceable>A</replaceable></parameter>
+  </term>
+  <term>
+    <property>DownKey</property> =
+    <parameter><replaceable>B</replaceable></parameter>
+  </term>
+  <term>
+    <property>EscapeKey</property> =
+    <parameter><replaceable>P</replaceable></parameter>
+  </term>
+  <term>
+    <property>EnterKey</property> =
+    <parameter><replaceable></replaceable></parameter>
+  </term>
+  <listitem><para>
+    The following table translate from EyeboxOne Key to Logical Key.
+    EyeboxOne Enter Key is a \r character, so it's hardcoded in the driver.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>keypad_test_mode</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    You can find out which key of your display sends which
+    character by setting keypad_test_mode to yes and running
+    LCDd. LCDd will output all characters it receives.
+    Afterwards you can modify the settings above and set
+    keypad_set_mode to no again.
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

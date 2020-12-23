@@ -1,0 +1,322 @@
+'\" t
+.\" ** The above line should force tbl to be a preprocessor **
+.\" Man page for vdr
+.\"
+.\" Copyright (C) 2018 Klaus Schmidinger
+.\"
+.\" You may distribute under the terms of the GNU General Public
+.\" License as specified in the file COPYING that comes with the
+.\" vdr distribution.
+.\"
+.\" $Id: vdr.1 4.4 2018/04/10 13:58:06 kls Exp $
+.\"
+.TH vdr 1 "15 Apr 2018" "2.4" "Video Disk Recorder"
+.SH NAME
+vdr \- the Video Disk Recorder
+.SH SYNOPSIS
+.B vdr
+[options]
+.SH DESCRIPTION
+.B vdr
+implements a complete digital Set-Top Box and Video Recorder.
+It can work with signals received from satellites (DVB-S) as
+well as cable (DVB-C) and terrestrial (DVB-T) signals.
+
+At least one DVB card is required to run \fBvdr\fR. With it you can watch
+live TV while recording one or more other broadcasts from the same transponder.
+It is also possible to start watching a recorded programme before the live
+broadcast has ended (\fBtime shifting\fR). In order to record from different
+transponders simultaneously two or more DVB cards are necessary.
+By default \fBvdr\fR can support up to eight DVB cards.
+The primary DVB card (the one your TV set is connected to) can either
+be a "full featured" card, which means it contains an MPEG decoder
+and provides audio and video signal outputs, or you can use some third party
+plugin that implements software decoding of the MPEG data and displays it via
+the system's graphics adapter.
+
+\fBvdr\fR uses an On Screen Display (OSD) to display its menus.
+It can be controlled by the PC keyboard, the "Linux Infrared Remote Control" (LIRC),
+or any other means of remote control, implemented by a third party plugin.
+
+Remote access is possible via the "Simple Video Disk Recorder Protocol" (SVDRP),
+which can be accessed on port 6419, for instance by \fBtelnet\fR.
+.SH OPTIONS
+.TP
+.BI \-a\  cmd ,\ \-\-audio= cmd
+Send Dolby Digital audio to stdin of command \fIcmd\fR.
+.TP
+.BI \-\-cachedir= dir
+Save cache files in \fIdir\fR
+(default is to save them in the video directory).
+.TP
+.BI \-\-chartab= character_table
+Set the character table to use for strings in the DVB data stream that don't begin
+with a character table indicator, but don't use the standard default character table
+(for instance ISO-8859-9).
+.TP
+.BI \-c\  dir ,\ \-\-config= dir
+Read config files from directory \fIdir\fR
+(default is to read them from the video directory).
+.TP
+.B \-d, \-\-daemon
+Run in daemon mode (implies \-\-no\-kbd).
+.TP
+.BI \-D\  num ,\ \-\-device= num
+Use only the given DVB device (\fInum\fR = 0, 1, 2...).
+There may be several \fB\-D\fR options (by default all DVB devices will be used).
+If \fB\-D\-\fR is given, no DVB devices will be used at all, independent of any
+other \-D options.
+.TP
+.BI \-\-dirnames= path [, name [, enc ]]
+Set the maximum directory path length to \fIpath\fR (default is the maximum value
+allowed on the system). If \fIname\fR is also given, it defines the maximum directory
+name length (default is the maximum value allowed on the system).  The optional
+\fIenc\fR can be 0 or 1, and controls whether special characters in directory names
+are encoded as hex values (default: 0).
+If \fIpath\fR or \fIname\fR are left empty (as in ",,1" to only set \fIenc\fR), the defaults apply.
+The length of the video directory name and that of the actual recording directory is
+subtracted from \fIpath\fR, to make sure the directory path will never become too long.
+.TP
+.BI \-\-edit= rec
+Edit the given recording.
+\fIrec\fR must be the full path name of an existing recording.
+The program will return immediately after editing the recording.
+.TP
+.BI \-E\  file ,\ \-\-epgfile= file
+Write the EPG data into the given \fIfile\fR
+(default is \fIepg.data\fR in the cache directory).
+Use \fB\-E\-\fR to disable this.
+If \fIfile\fR is a directory, the file \fIepg.data\fR
+will be created in that directory.
+.TP
+.BI \-\-filesize= size
+Limit video files to \fIsize\fR bytes (default is 2000M).
+This option is only useful in conjunction with --edit, and must precede that
+option to have an effect.
+\fIsize\fR is an integer number and may be followed by one of the letters K, M, G or T
+to abbreviate Kilo-, Mega-, Giga- or Terabyte, respectively.
+The given value is silently limited to the program's internal minimum and
+maximum values.
+.TP
+.BI \-\-genindex= rec
+Generate the index file for the given recording.
+\fIrec\fR must be the full path name of an existing recording.
+The recording must be in TS format.
+If the recording already has an index file, it will be deleted
+before creating the new one.
+The program will return immediately after generating the index.
+Note that using this option while another instance of VDR is
+currently replaying the given recording, or if the recording
+has not been finished yet, may lead to unexpected results.
+.TP
+.BI \-g,\ \-\-grab= dir
+Write images from the SVDRP command GRAB into the
+given directory \fIdir\fR. \fIdir\fR must be the full path name of an
+existing directory, without any "..", double '/'
+or symlinks. By default, or if \fB\-g\-\fR is given,
+grabbing images to disk is disabled.
+.TP
+.B \-h, \-\-help
+Print a help message and exit.
+.TP
+.BI \-i\  instance ,\ \-\-instance= instance
+Use \fIinstance\fR as the id of this VDR instance (default is 0).
+In an environment where several instances of VDR use the same video
+directory, this parameter can be set to a positive integer value
+that's unique for each instance, so that they won't interfere with
+each other in case they record exactly the same broadcast.
+The number given here will be part of the directory name in which
+the recordings will be stored.
+.TP
+.BI \-l\  level ,\ \-\-log= level
+Set logging to \fIlevel\fR.
+\fB0\fR\ =\ no logging, \fB1\fR\ =\ errors only,
+\fB2\fR\ =\ errors and info, \fB3\fR\ =\ errors, info and debug.
+The default logging level is \fB3\fR.
+If logging should be done to LOG_LOCAL\fIn\fR instead of
+LOG_USER, add '.n' to LEVEL, as in 3.7 (n=0..7).
+.TP
+.BI \-L\  dir ,\ \-\-lib= dir
+Search for plugins in directory \fIdir\fR (default is ./PLUGINS/lib).
+There can be several \fB\-L\fR options with different \fIdir\fR values.
+Each of them will apply to the \fB\-P\fR options following it.
+.TP
+.BI \-\-lirc[= path ]
+Use a LIRC remote control device.
+If \fIpath\fR is omitted, vdr uses \fI/var/run/lirc/lircd\fR.
+.TP
+.BI \-\-localedir= dir
+Search for locale files in \fIdir\fR (default is ./locale).
+.TP
+.B \-m, \-\-mute
+Mute audio of the primary DVB device at startup.
+.TP
+.B \-\-no\-kbd
+Don't use the keyboard as an input device.
+.TP
+.BI \-p\  port ,\ \-\-port= port
+Use \fIport\fR for SVDRP. A value of \fB0\fR turns off SVDRP.
+The default SVDRP port is \fB6419\fR.
+You need to edit the file \fIsvdrphosts.conf\fR in order to enable
+access to the SVDRP port from hosts other than the localhosts.
+Note that this option only changes the TCP port used for SVDRP commands.
+The UDP port for discovering peer VDRs in the same network is always set
+to 6419 and can't be changed.
+.TP
+.BI \-P\  options ,\ \-\-plugin= options
+Load a plugin, defined by the given \fIoptions\fR.
+The first word in \fIoptions\fR must be the name of an existing \fBvdr\fR
+plugin, optionally followed by a blank separated list of command line options
+for that plugin. If \fIoptions\fR contains any blanks, you need to enclose it
+in quotes, like for example
+
+\fBvdr \-P "abc \-a \-b xyz"\fR
+
+which would load a plugin named \fBabc\fR, giving it the command line options
+\fB\-a\ \-b\ xyz\fR. If you want to load all available plugins (without any
+particular options) you can use
+
+\fBvdr \-P "*"\fR
+
+(note the quotes around the asterisk to prevent wildcard expansion).
+.TP
+.BI \-r\  cmd ,\ \-\-record= cmd
+Call \fIcmd\fR before and after a recording. See the file \fIINSTALL\fR for
+more information.
+.TP
+.BI \-\-resdir= dir
+Read resource files from \fIdir\fR
+(default is to read them from the config directory).
+.TP
+.BI \-\-showargs[= dir ]
+Read command line arguments from \fIdir\fR (default is \fI/etc/vdr/conf.d\fR),
+display them to the console and exit.
+.TP
+.BI \-s\  cmd ,\ \-\-shutdown= cmd
+Call \fIcmd\fR to shutdown the computer. See the file \fIINSTALL\fR for more
+information.
+.TP
+.BI \-\-split
+Split edited files at the editing marks.
+This option is only useful in conjunction with --edit, and must precede that
+option to have an effect.
+.TP
+.BI \-t\  tty ,\ \-\-terminal= tty
+Set the controlling terminal.
+.TP
+.BI \-u\  user ,\ \-\-user= user
+Run as user \fIuser\fR in case vdr was started as user 'root'.
+Starting vdr as 'root' is necessary if the system time shall
+be set from the transponder data, but for security reasons
+vdr can switch to a lesser privileged user id during normal
+operation. \fIuser\fR can be a user name or a numerical id.
+.TP
+.BI \-\-updindex= rec
+Update the index file for the given recording.
+\fIrec\fR must be the full path name of an existing recording.
+The recording must be in TS format.
+If the recording already has an index file, it will be checked
+whether it is complete, and will be updated if it isn't. If
+there is no index file yet, a new one will be generated.
+The program will return immediately after updating the index.
+Note that using this option while another instance of VDR is
+currently replaying the given recording, or if the recording
+has not been finished yet, may lead to unexpected results.
+.TP
+.BI \-\-userdump
+Allow coredumps if -u is given (only for debugging).
+.TP
+.BI \-\-vfat
+For backwards compatibility (same as \-\-dirnames= 250,40,1).
+.TP
+.BI \-v\  dir ,\ \-\-video= dir
+Use \fIdir\fR as video directory.
+The default is \fI/video\fR.
+.TP
+.B \-V, \-\-version
+Print version information and exit.
+.TP
+.BI \-w\  sec ,\ \-\-watchdog= sec
+Activate the watchdog timer with a timeout of \fIsec\fR seconds.
+A value of \fB0\fR (default) disables the watchdog.
+.P
+If started without any options, vdr tries to read command line options
+from files named '*.conf' in the directory /etc/vdr/conf.d. Files are
+read in alphabetical order. See vdr(5) for details.
+.SH SIGNALS
+.TP
+.B SIGINT, SIGTERM
+Program exits with status 0.
+.TP
+.B SIGHUP
+Program exits with status 1. This can be used to force a reload, for example
+if an update has been installed.
+.SH EXIT STATUS
+.TP
+.B 0
+Successful program execution.
+.TP
+.B 1
+An error has been detected which requires the DVB driver and \fBvdr\fR
+to be reloaded.
+.TP
+.B 2
+An non-recoverable error has been detected, \fBvdr\fR has given up.
+.SH FILES
+.TP
+.I channels.conf
+Channel configuration.
+.TP
+.I timers.conf
+Timer configuration.
+.TP
+.I setup.conf
+User definable setup.
+.TP
+.I commands.conf
+User definable commands (executed from the \fBCommands\fR menu).
+.TP
+.I svdrphosts.conf
+SVDRP host configuration, defining which hosts or networks are given
+access to the SVDRP port.
+.TP
+.I marks
+Contains the editing marks defined for a recording.
+.TP
+.I info
+Contains a description of the recording.
+.TP
+.I resume
+Contains the index into the recording where the last replay session left off.
+.TP
+.I index
+Contains the file number, offset and type of each frame of the recording.
+.TP
+.I remote.conf
+Contains the key assignments for the remote control.
+.TP
+.I keymacros.conf
+Contains user defined remote control key macros.
+.TP
+.IR 00001.ts\  ...\  65535.ts
+The actual data files of a recording.
+.TP
+.I epg.data
+Contains all current EPG data. Can be used for external processing and will
+also be read at program startup to have the full EPG data available immediately.
+.TP
+.I .update
+If this file is present in the video directory, its last modification time will
+be used to trigger an update of the list of recordings in the "Recordings" menu.
+.SH SEE ALSO
+.BR vdr (5), svdrpsend (1)
+.SH AUTHOR
+Written by Klaus Schmidinger, with contributions from many others.
+See the file \fICONTRIBUTORS\fR in the \fBvdr\fR source distribution.
+.SH REPORTING BUGS
+Report bugs to <vdr\-bugs@tvdr.de>.
+.SH COPYRIGHT
+Copyright \(co 2018 Klaus Schmidinger.
+
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

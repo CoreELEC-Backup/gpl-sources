@@ -1,0 +1,357 @@
+tsdecrypt
+=========
+tsdecrypt reads incoming mpeg transport stream over UDP/RTP and then
+decrypts it using using code words obtained from OSCAM or similar cam
+server. tsdecrypt communicates with CAM server using cs378x (camd35
+over tcp) protocol or newcamd protocol.
+
+License
+=======
+tsdecrypt is released under GNU GPL v2.
+
+Dependencies
+============
+tsdecrypt depends on openssl. It uses rand, MD5, DES and AES functions.
+You probably already have openssl installed. If you are seeing compilation
+errors related to missing openssl headers you should install openssl-dev
+or similar packet depending on your Linux distribution.
+
+If you are not using shipped FFdecsa then the other tsdecrypt dependency
+is libdvbcsa. libdvbcsa can be downloaded from
+http://www.videolan.org/developers/libdvbcsa.html
+
+FFdecsa vs libdvbcsa
+====================
+tsdecrypt supports two different CSA decryption libraries.
+
+libdvbcsa is an external library from VideoLAN project released under
+LGPL, FFdecsa is shipped with tsdecrypt.
+
+libdvbcsa
+=========
+libdvbcsa is better tested and have served tsdcrypt for a long time so
+it is still the default decryption library. Also it is faster with file
+input.
+
+To compile tsdecrypt with libdvbcsa run 'make' or if you have tested
+FFdecsa compilation and want to switch to libdvbcsa run 'make dvbcsa'.
+'make distclean' switches decryption library back to libdvbcsa.
+
+FFdecsa
+=======
+FFdecsa support was added after tsdecrypt v7.0. FFdecsa can be up to 40%
+faster than libdvbcsa especially on 32-bit hardware. If you want to use
+FFDecsa you have to run 'make ffdecsa'.
+
+The setup script will test which FFDecsa algorithm is the fastest for
+your CPU and will configure tsdecrypt compilation to stop using libdvbcsa.
+Most likely the script will choose PARALLEL_128_SSE or PARALLEL_128_SSE2.
+Once the script have finished it stores its decision in FFdecsa.opts file
+and as long as this file exists tsdecrypt will be compiled with FFdecsa.
+You can force regeneration by deleting running 'make ffdecsa_force' or
+'make distclean ffdecsa'.
+
+FFDecsa is considerably slower than libdvbcsa when tsdecrypt's input
+is a file or stdin (single packet decryption mode). If you are
+decrypting already recorded files you are better of using libdvbcsa.
+
+When tsdecrypt is run it reports which decryption library is used in its
+version string. You can use --bench option to test decryption speed.
+
+Development
+===========
+The development is done using git. tsdecrypt repository is hosted
+at http://github.com/gfto/tsdecrypt
+
+To clone the repository issue the following commands:
+
+   git clone git://github.com/gfto/tsdecrypt.git
+   cd tsdecrypt
+   git submodule init
+   git submodule update
+   make
+
+The code is developed and tested under modern Linux. It is also
+compiled from time to time under OS X but is not tested there.
+
+To see all Makefile targets run 'make help'.
+
+Updating the code
+=================
+To update cloned tsdecrypt, go to the directory where the repository
+is cloned and run the following commands:
+
+   git fetch origin
+   git merge origin/master
+   git submodule update
+   make clean all
+
+tsdecrypt's master branch should always be useful so it is safe to
+use it instead of official release. The master branch will always
+be better than any released version.
+
+Command line parameters
+=======================
+tsdecrypt is controlled using command line parameters. For more information
+about the parameters see the man page. Here is a list of supported command
+line parameters:
+
+Main options:
+ -i --ident <server>        | Format PROVIDER/CHANNEL. Default: empty
+ -d --daemon <pidfile>      | Daemonize program and write pid file.
+ -N --notify-program <prg>  | Execute <prg> to report events. Default: empty
+
+Input options:
+ -I --input <source>        | Where to read from. File or multicast address.
+                            .    -I 224.0.0.1:5000    (v4 multicast)
+                            .    -I [ff01::1111]:5000 (v6 multicast)
+                            .    -I file://in.ts      (read from file)
+                            . By default the input is stdin.
+ -1 --input-source <ipaddr> | Set multicast input source ip.
+ -R --input-rtp             | Enable RTP input
+ -z --input-ignore-disc     | Do not report discontinuty errors in input.
+ -M --input-service <srvid> | Choose service id when input is MPTS.
+ -T --input-buffer <ms>     | Set input buffer time in ms. Default: 0
+ -W --input-dump <filename> | Save input stream in file.
+
+Output options:
+ -O --output <dest>         | Where to send output. File or multicast address.
+                            .    -O 239.0.0.1:5000    (v4 multicast)
+                            .    -O [ff01::2222]:5000 (v6 multicast)
+                            .    -O file://out.ts     (write to file)
+                            . By default the output is stdout.
+ -o --output-intf <value>   | Set multicast output interface.
+                            . Default for IPv4: 0.0.0.0 (intf addr)
+                            . Default for IPv6: -1      (intf number)
+ -t --output-ttl <ttl>      | Set multicast ttl. Default: 1
+ -r --output-rtp            | Enable RTP output.
+ -k --output-rtp-ssrc <id>  | Set RTP SSRC. Default: 0
+ -g --output-tos <tos>      | Set TOS value of output packets. Default: none
+ -u --no-output-on-error    | Do not output data when the code word is missing.
+ -p --no-output-filter      | Disable output filtering. Default: enabled
+ -y --output-nit-pass       | Pass through NIT.
+ -w --output-eit-pass       | Pass through EIT (EPG).
+ -x --output-tdt-pass       | Pass through TDT/TOT.
+
+CA options:
+ -c --ca-system <ca_sys>    | Process input EMM/ECM from <ca_sys>.
+                            | Valid systems are: CONAX (default), CRYPTOWORKS,
+                            .   IRDETO, SECA (MEDIAGUARD), VIACCESS,
+                            .   VIDEOGUARD (NDS), NAGRA, DRECRYPT, BULCRYPT,
+                            .   GRIFFIN and DGCRYPT.
+ -C --caid <caid>           | Set CAID. Default: Taken from --ca-system.
+ -Y --const-cw <codeword>   | Set constant code word for decryption.
+                            . Example cw: a1a2a3a4a5a6a7a8b1b2b3b4b5b6b7b8
+ -Q --biss-key <biss-key>   | Set BISS key for decryption.
+                            . Example key: 112233445566
+
+CAMD server options:
+ -A --camd-proto <proto>    | Set CAMD network protocol.
+                            . Valid protocols are: CS378X (default) and NEWCAMD
+ -s --camd-server <host>    | Set CAMD server address. Default port: 2233
+                            . Example IPv4 addr and port: 127.0.0.1:2233
+                            . Example IPv6 addr and port: [2a00::1014]:2233
+                            . Example hostname          : example.com
+                            . Example hostname and port : example.com:2233
+                            . Example IPv4 hostname     : ipv4.google.com
+                            . Example IPv6 hostname     : ipv6.google.com
+ -U --camd-user <user>      | Set CAMD server user. Default: user
+ -P --camd-pass <pass>      | Set CAMD server password. Default: pass
+ -B --camd-des-key <key>    | Set DES key for newcamd protocol.
+                            . Default: 0102030405060708091011121314
+ -4 --ipv4                  | Use only IPv4 addresses of the camd server.
+ -6 --ipv6                  | Use only IPv6 addresses of the camd server.
+
+EMM options:
+ -e --emm                   | Enable sending EMM's to CAMD. Default: disabled
+ -E --emm-only              | Send only EMMs to CAMD, skipping ECMs and without
+                            .   decoding the input stream.
+ -Z --emm-pid <pid>         | Force EMM pid. Default: none
+ -f --emm-report-time <sec> | Report each <sec> seconds how much EMMs have been
+                            .   received/processed. Set <sec> to 0 to disable
+                            .   the reports. Default: 60 sec
+ -a --emm-filter <filter>   | Add EMM filter defined by <filter>.
+                            . This option can be used multiple times (max:16).
+                            . See FILTERING file for more info.
+
+ECM options:
+ -X --ecm-pid <pid>         | Force ECM pid. Default: none
+ -v --ecm-only              | Send only ECMs to CAMD, skipping EMMs and without
+                            .   decoding the input stream.
+ -H --ecm-report-time <sec> | Report each <sec> how much ECMs and CWs have been
+                            .   processed/skipped. Set <sec> to 0 to disable
+                            .   the reports. Default: 60 sec
+ -G --ecm-irdeto-type <int> | Process IRDETO ECMs with index X /0-255/
+                            .   It is better to use --ecm-irdeto-chid option!
+ -2 --ecm-irdeto-chid <int> | Set CHID to filter Irdeto ECMs (Default: 0x0000).
+ -K --ecm-no-log            | Disable ECM and code words logging.
+ -J --cw-warn-time <sec>    | Warn if no valid code word has been received.
+                            .   Set <sec> to 0 to disable. Default: 60 sec
+
+ -q --ecm-and-emm-only      | Send ECMs and EMMs to CAMD but do not decode
+                            .   the input stream.
+
+Logging options:
+ -S --syslog                | Log messages using syslog.
+ -l --syslog-host <host>    | Syslog server address. Default: disabled
+ -L --syslog-port <port>    | Syslog server port. Default: 514
+ -F --log-file <filename>   | Log to file <filename>.
+ -D --debug <level>         | Message debug level.
+                            .    0 = default messages
+                            .    1 = show PSI tables
+                            .    2 = show EMMs
+                            .    3 = show duplicate ECMs
+                            .    4 = packet debug
+                            .    5 = packet debug + packet dump
+
+Debugging options:
+ -n --ecm-file <file.txt>   | Read ECM from text file.
+ -m --emm-file <file.txt>   | Read EMM from text file.
+
+Misc options:
+ -j --pid-report            | Report how much packets were received.
+ -b --bench                 | Benchmark decrypton.
+ -h --help                  | Show help screen.
+ -V --version               | Show program version.
+
+Examples
+========
+To get a quick start here are some example command lines. The default
+CA system is set to CONAX, you can change it using --ca-system parameter,
+see man page or program help for more options.
+
+Examples:
+
+   # Decrypt multicast stream from 239.0.50.11:5000 using 10.0.1.1:2233
+   # as camd server and output decrypted result to 239.78.78.78:5000
+   tsdecrypt --camd-server 10.0.1.1 \
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Same as above but enable EMM processing
+   tsdecrypt --emm --camd-server 10.0.1.1:2233 \
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Same as above but do not filter output stream thus allowing
+   # EIT/TOT/NIT, etc tables to passthrough
+   tsdecrypt --no-output-filter --emm --camd-server 10.0.1.1 \
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Choose program/service_id to decrypt. Useful when the input is MPTS
+   tsdecrypt --camd-server 10.0.1.1 --input-service 1234 \
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Read stream over RTP and process VIACCESS encoded channel
+   tsdecrypt --ca-system VIACCESS --emm --camd-server 10.0.1.1:2233 \
+       --input-rtp --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Decrypt stream encypted with CAID 0x0963 (NDS, sky)
+   tsdecrypt --camd-server 10.0.1.1 --ca-system NDS --caid 0x0963 \
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Send only EMMs to OSCAM for CAID 0x0963 (NDS, sky)
+   tsdecrypt --camd-server 10.0.1.1 --emm-only --caid 0x0963 \
+       --input 239.0.50.11:5000 --output /dev/null
+
+   # Decrypt stream encypted with CAID 0x5581 (Bulcrypt)
+   tsdecrypt --camd-server 10.0.1.1 --caid 0x5581 \
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Decrypt BISS encrypted stream
+   tsdecrypt --biss-key 0x112233445566 --input 239.0.50.11:5000 \
+       --output 239.78.78.78:5000
+
+   # Decrypt file encypted with constant code word
+   tsdecrypt --const-cw 0x00000000000000001111111111111111 \
+       --input encrypted-file.ts --output file://decrypted-file.ts
+
+   # Send ECM from file
+   tsdecrypt --ecm-file ecm.txt --caid 0x5581 --input-service 12345 \
+       --camd-server example.com
+
+   # Decrypt IRDETO stream from Raduga (CHID == 0x0015)
+   tsdecrypt --input 239.0.50.11:5000 --output 239.78.78.78:5000 \
+             --camd-server example.com \
+             --ca-system IRDETO --caid 0x0652 --ecm-irdeto-chid 0x0015
+
+OSCAM cs378x configuration
+==========================
+In order for tsdecrypt to communicate with OSCAM using cs378x (camd35
+over tcp) protocol you can use configuration like the examples bellow.
+
+# Example oscam.user file:
+[account]
+user     = user
+pwd      = pass
+group    = 1
+au       = 1
+uniq     = 0
+monlevel = 4
+
+# Example part of oscam.conf file:
+[cs378x]
+port    = 2233
+
+OSCAM newcamd configuration
+===========================
+In order for tsdecrypt to communicate with OSCAM using newcamd protocol
+you can use configuration like the examples bellow.
+
+# Example oscam.user file
+[account]
+user     = user
+pwd      = pass
+group    = 1
+au       = 1
+uniq     = 0
+monlevel = 4
+ident    = 0604:000000
+caid     = 0604
+
+# Example part of oscam.conf file:
+[newcamd]
+port     = 1122@0604:000000
+serverip = 0.0.0.0
+key      = 0102030405060708091011121314
+
+The above example allows tsdecrypt clients using newcamd to retrive keys
+from OSCAM serving CAID 0x0604 (Irdeto) on port 1122.
+
+Reporting bugs
+==============
+If you think you have found bug in tsdecrypt, please report it to the
+e-mail listed in Contact section (see below) of this README file.
+
+When reporting bugs, please send the contents of tsdecrypt.log file
+generated by using the following command (fill in **YOUR_OPTIONS**):
+
+  tsdecrypt --debug 1 --log-file tsdecrypt.log **YOUR_OPTIONS**
+
+Also write the full command line which you used and describe what
+you think the tsdecrypt does wrong.
+
+One commonly seen error is not an error in tsdecrypt at all. You
+have to make sure that the software that streams channels from the
+DVB card is sending ECMs and EMMs along with other streams. If these
+streams are missing you'll probably get the following messages from
+tsdecrypt:
+
+2012-04-02 22:02:12 | ECM | Received 0 (0 dup) and processed 0 in 3 seconds.
+2012-04-02 22:03:09 | CW  | *ERR* No valid code word was received for 60 seconds!
+2012-04-02 22:03:12 | ECM | Received 0 (0 dup) and processed 0 in 60 seconds.
+
+Please configure your software to stream ECMs and EMMs. For dvblast
+(version 2.0 and above) the correct options are --ecm-passthrough and
+--emm-passthrough. Note that dvblast 2.1 have broken ecm passthrough
+so use at least version 2.2.
+
+Releases
+========
+Official releases can be downloaded from tsdecrypt home page which is
+
+   http://georgi.unixsol.org/programs/tsdecrypt/
+
+Contact
+=======
+For patches, bug reports, complaints and so on send e-mail to
+
+   Georgi Chorbadzhiyski <georgi@unixsol.org>

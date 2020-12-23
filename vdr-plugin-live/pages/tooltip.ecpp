@@ -1,0 +1,27 @@
+<%pre>
+
+#include <setup.h>
+
+using namespace vdrlive;
+
+</%pre>
+<%def hint>
+<%args>
+text;
+</%args>
+title="<$ text $>"
+</%def>
+
+<%def display>
+<%args>
+domId;
+</%args>
+href="epginfo.html?epgid=<$ domId $>"
+</%def>
+
+<%def help>
+<%args>
+text;
+</%args>
+<img src="<$ LiveSetup().GetThemedLink("img", "help.png") $>" alt="" <& hint text=(text) &>></img>
+</%def>

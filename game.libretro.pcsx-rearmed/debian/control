@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-pcsx-rearmed
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-pcsx-rearmed (>= 22.0.0) | pcsx-rearmed (>= 22.0.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-pcsx-rearmed
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Sony - PlayStation (PCSX ReARMed) core for kodi's retroplayer
+ Sony - PlayStation (PCSX ReARMed) core for kodi's retroplayer

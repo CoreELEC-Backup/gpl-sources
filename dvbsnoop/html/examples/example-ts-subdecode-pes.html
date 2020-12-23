@@ -1,0 +1,699 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: MPEG Transport
+		Stream - Sub-decoding PES</TITLE><META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: MPEG Transport Stream (TS) - Sub-decoding PES</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -n 66 -nph -s ts -tssubdecode  0x201 
+			 
+dvbsnoop V1.3.22 -- http://dvbsnoop.sourceforge.net/ 
+
+[...]
+
+----------------------------------------------------------
+TS-Packet: 00000002   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.157
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 3 (0x03)  [= adaptation_field followed by payload]
+continuity_counter: 2 (0x02)
+    Adaptation_field: 
+        Adaptation_field_length: 25 (0x19)
+        discontinuity_indicator: 0 (0x00)
+        random_access_indicator: 0 (0x00)
+        elementary_stream_priotity_indicator: 0 (0x00)
+        PCR_flag: 0 (0x00)
+        OPCR_flag: 0 (0x00)
+        splicing_point_flag: 0 (0x00)
+        transport_private_data_flag: 0 (0x00)
+        adaptation_field_extension_flag: 0 (0x00)
+        (Stuffing_bytes length: 24) 
+        Stuffing bytes:
+              0000:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+              0010:  ff ff ff ff ff ff ff ff                            ........
+    Payload: (len: 158)
+    Data-Bytes:
+          0000:  54 dc 13 b8 94 15 28 85  06 1f a2 5f 0f 49 f5 b2   T.....(...._.I..
+          0010:  b4 91 32 e1 1d 89 50 70  b9 1a aa 97 fa 5a 76 4b   ..2...Pp.....ZvK
+          0020:  bc 11 14 48 41 84 61 27  5a cb 0d 35 61 87 60 6c   ...HA.a'Z..5a.`l
+          0030:  93 8f 1f f0 0f e3 62 e4  8a 67 aa 54 1f 25 a3 55   ......b..g.T.%.U
+          0040:  55 74 2d 6b f1 9b 69 11  21 b6 cd 6c 22 c7 2a 6a   Ut-k..i.!..l".*j
+          0050:  22 1a 74 c6 a9 dd b2 f6  10 01 8a 19 c1 06 28 e5   ".t...........(.
+          0060:  9a da 5c b3 d7 d5 2b d7  0d 37 a4 87 0a 1c 5b 8d   ..\...+..7....[.
+          0070:  71 f2 29 b4 8f 54 53 4c  54 d2 a6 a6 25 33 9c d6   q.)..TSLT...%3..
+          0080:  a4 1d b7 49 a3 56 d6 0d  14 24 aa 92 8d 50 ec 2e   ...I.V...$...P..
+          0090:  2a 16 95 05 78 d4 95 62  be 0b 98 40 00 00         *...x..b...@..
+==========================================================
+
+
+    TS-Packet(s) sub-decoding:
+    ==========================
+    No data collected, no payload start
+
+
+
+----------------------------------------------------------
+TS-Packet: 00000003   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.185
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 1 (0x01)  [= Packet data starts]
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 3 (0x03)
+    Payload: (len: 184)
+        ==&gt; PES-stream: 192 (0xc0)  [= ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+    Data-Bytes:
+          0000:  00 00 01 c0 0d 88 84 80  05 27 99 5b 27 71 ff fc   .........'.['q..
+          0010:  a4 00 93 e0 22 32 22 55  32 22 32 43 22 12 12 28   ...."2"U2"2C"..(
+          0020:  a4 92 49 22 49 24 90 00  00 00 a8 88 88 c8 88 00   ..I"I$..........
+          0030:  00 00 00 00 07 9d 69 b6  1d 75 f7 9e 5d 85 d8 6d   ......i..u..]..m
+          0040:  f6 db 7d d7 9d 79 a7 5c  79 b7 1e 82 08 e3 8e 49   ..}..y.\y......I
+          0050:  63 92 98 25 a6 18 27 86  0a 21 92 b8 e5 aa 29 e9   c..%..'..!....).
+          0060:  86 1a 21 82 a8 67 a6 29  aa 8a 6a 21 9e a9 27 aa   ..!..g.)..j!..'.
+          0070:  79 6d 8a 6a 63 9a 99 ea  a6 69 ea 9a aa a6 ae 9a   ym.jc....i......
+          0080:  aa a6 9a 1c 45 31 2b c8  2a c6 11 94 ae f2 33 98   ....E1+.*.....3.
+          0090:  4f 41 ad ae 70 eb 83 9d  1c b0 5a 29 8a 5c 56 80   OA..p.....Z).\V.
+          00a0:  b4 ba 65 77 cd 0b b2 c4  b2 c8 2a 45 3c 90 c6 ea   ..ew......*E....
+          00b0:  88 09 76 ad 3b 57 7a a3                            ..v.;Wz.
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000004   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.212
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 4 (0x04)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  6b 9b 66 44 10 61 08 6e  2b da c2 29 d7 ca 0d 33   k.fD.a.n+..)...3
+          0010:  90 03 61 78 36 04 23 9b  4d 4b 67 56 28 e6 59 8c   ..ax6.#.MKgV(.Y.
+          0020:  0b 8e 34 c9 2f 26 ca 22  87 07 f0 e1 6a d4 88 2c   ..4./&amp;."....j..,
+          0030:  b0 84 51 63 70 4c d8 f9  2f 1c 81 84 85 73 8d ac   ..QcpL../....s..
+          0040:  24 8e 28 73 26 f9 66 29  3e af 50 19 93 3f d5 37   $.(s&amp;.f)..P..?.7
+          0050:  c3 1c eb 2e 61 88 f0 ee  c0 4a a5 5b f4 89 58 d2   ....a....J.[..X.
+          0060:  c6 50 63 92 72 3a 33 6d  44 e8 d2 85 59 32 34 17   .Pc.r:3mD...Y24.
+          0070:  1b a7 13 2d 70 e4 8a 55  ad af ad 5d 49 5f 3e af   ...-p..U...]I_..
+          0080:  5c 63 ee 2e 48 dc da c7  a8 59 32 58 b8 6d d6 cb   \c..H....Y2X.m..
+          0090:  89 3a c6 8d 37 e8 7a 8c  51 40 c6 93 b2 16 f6 88   .:..7.z.Q@......
+          00a0:  a0 55 20 e7 6a 83 9a 24  0e a7 08 b2 6a b0 d0 ec   .U .j..$....j...
+          00b0:  c5 35 b8 55 b0 db 54 42                            .5.U..TB
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000005   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.237
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 5 (0x05)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  fb 34 c9 c3 49 e1 27 09  38 c7 cf 60 a9 94 e9 b3   .4..I.'.8..`....
+          0010:  2d ce 51 85 45 f5 79 3c  5b 46 3a ed 68 5d 64 b5   -.Q.E.y.[F:.h]d.
+          0020:  c3 39 48 e5 37 ae 45 66  5a f9 cd 37 14 3e ea a7   .9H.7.EfZ..7....
+          0030:  e6 73 0d 65 4c 42 30 c9  9c 87 59 f4 3b 8f 1a d9   .s.eLB0...Y.;...
+          0040:  b4 2c 9b 53 4e ca 71 11  89 04 62 b5 ae 46 95 17   .,.SN.q...b..F..
+          0050:  6b a7 34 11 0a 94 a7 d4  cd ba 29 a1 b0 17 8e 5d   k.4.......)....]
+          0060:  6e e6 3f 8e 2a 72 44 16  9b 99 4d bc b3 07 23 6a   n.?.*rD...M...#j
+          0070:  54 c8 b1 52 34 a4 70 a6  d4 36 b2 07 fb 1f 5c 65   T..R4.p..6....\e
+          0080:  0c 42 d9 7c 2f 17 0a e7  cc 4e 1e 76 35 31 4d cc   .B.|/....N.v51M.
+          0090:  76 47 e7 22 c8 74 29 16  a6 f0 4d 66 d0 b5 63 37   vG.".t)...Mf..c7
+          00a0:  b8 e7 f5 9c 32 93 e9 b6  1d b2 73 2b 6b e5 98 67   ....2.....s+k..g
+          00b0:  da a9 2b 08 32 9c c8 83                            ..+.2...
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000006   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.264
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 6 (0x06)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  96 b2 36 61 92 c7 74 e6  38 5b 29 28 cb 2d 67 08   ..6a..t.8[)(.-g.
+          0010:  80 01 54 cb 8c 29 8f 9a  e9 22 bb db e9 07 83 34   ..T..)...".....4
+          0020:  64 ed 82 40 00 00 ff fc  a4 00 fa f2 22 32 22 44   d..@........"2"D
+          0030:  33 22 33 42 12 12 12 29  22 8a 29 22 49 24 90 00   3"3B...)".)"I$..
+          0040:  00 00 88 80 00 00 00 00  00 00 00 00 06 5b 61 b6   .............[a.
+          0050:  5b 65 c7 1e 75 a6 5c 65  a6 9a 71 b6 5b 71 b7 dc   [e..u.\e..q.[q..
+          0060:  79 e7 1f 69 b6 5b 69 d7  9a 72 07 1e 8e 38 e2 8a   y..i.[i..r...8..
+          0070:  08 e1 82 38 9f 8e 28 61  82 08 60 82 69 64 92 6a   ...8..(a..`.id.j
+          0080:  24 92 58 21 86 08 20 9e  59 66 96 59 e4 96 69 a5   $.X!.. .Yf.Y..i.
+          0090:  9e 89 e7 9a 69 66 9a 69  66 a2 7a 28 9a 9a a9 ae   ....if.if.z(....
+          00a0:  9a 69 a6 aa 2a aa 99 22  48 56 5b 71 c4 6d 80 7f   .i..*.."HV[q.m..
+          00b0:  1a 16 2b f0 a8 71 86 d3                            ..+..q..
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000007   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.290
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 7 (0x07)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  f4 c8 bc 5b e8 a5 98 75  8a d5 c4 34 90 d8 75 d5   ...[...u...4..u.
+          0010:  8d c4 4e 96 d4 6d da 52  8a 3a d9 f0 9c 65 31 63   ..N..m.R.:...e1c
+          0020:  15 48 20 c9 29 1b 43 39  b3 14 34 66 1e 90 39 6a   .H .).C9..4f..9j
+          0030:  b4 18 09 a9 b0 50 42 b2  04 db 8e a2 51 d5 26 b1   .....PB.....Q.&amp;.
+          0040:  0b 5b 92 da d4 9a 62 cb  95 0e 89 62 4d 79 e8 a2   .[....b....bMy..
+          0050:  03 e9 70 bc 44 9a ca 93  77 91 4d c2 1d 06 ec 59   ..p.D...w.M....Y
+          0060:  61 a3 4d 63 6c 18 2a bc  45 36 a8 d3 1a a4 57 4a   a.Mcl.*.E6....WJ
+          0070:  aa 8c a7 94 33 d7 ce 2b  1d 69 40 dd ed e8 ac 69   ....3..+.i@....i
+          0080:  75 2c 42 b1 58 d9 23 09  c4 50 52 f0 d3 6a 71 21   u,B.X.#..PR..jq!
+          0090:  b6 93 8b 23 e4 c7 82 4b  ed a3 ab 16 27 b9 6a c7   ...#...K....'.j.
+          00a0:  13 8f 6b 12 cd 9b 14 e2  aa 51 e2 64 36 49 15 a2   ..k......Q.d6I..
+          00b0:  a8 36 d8 8f 9f ba 9b 6f                            .6.....o
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000008   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.316
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 8 (0x08)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  ea 54 01 53 e3 0f 35 c4  8f 97 aa c9 5b 8e 92 67   .T.S..5.....[..g
+          0010:  91 45 88 64 16 9b 2b 46  62 96 47 a3 42 de 98 4e   .E.d..+Fb.G.B..N
+          0020:  23 d1 a7 64 12 a6 82 20  b7 6b 67 a4 cc e8 4a d0   #..d... .kg...J.
+          0030:  57 b4 4d e9 bb b4 0a 38  5b 6b 2c 91 c9 92 a9 b4   W.M....8[k,.....
+          0040:  33 7c 3d e1 68 8f 52 0c  69 62 45 60 c3 68 b3 2e   3|=.h.R.ibE`.h..
+          0050:  35 9c 7d 90 24 70 9a 68  1b e9 b3 09 81 5e 92 59   5.}.$p.h.....^.Y
+          0060:  15 54 c2 9a 1c ca 26 ba  46 f2 7c aa 48 b2 6d 79   .T....&amp;.F.|.H.my
+          0070:  40 45 1b da 4f a5 15 d7  30 48 f0 5a 64 fc 23 84   @E..O...0H.Zd.#.
+          0080:  2e 4d 9b 08 9e 31 f5 cd  4a 57 5b 25 52 46 16 2a   .M...1..JW[%RF.*
+          0090:  ed c5 5b 8d 62 bc 24 bc  01 90 33 fe 51 2b 1e 11   ..[.b.$...3.Q+..
+          00a0:  80 f7 07 06 a9 47 70 d2  25 1b 86 32 a5 2d a6 63   .....Gp.%..2.-.c
+          00b0:  4e 3e d5 1c 44 17 28 68                            N...D.(h
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000009   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.342
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 9 (0x09)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  6b 5a a5 d2 b5 25 4e a7  02 f7 65 cd 64 93 86 ef   kZ...%N...e.d...
+          0010:  70 b1 b6 05 b4 ca 96 69  5c ae 18 98 92 b6 38 a9   p......i\.....8.
+          0020:  0b b3 67 63 12 88 dd 45  db 7a e3 ad 85 41 42 97   ..gc...E.z...AB.
+          0030:  45 cf 9b 25 5c 33 88 24  0e 9c d0 00 00 00 ff fc   E..%\3.$........
+          0040:  a4 00 a5 79 22 33 22 55  44 33 43 43 22 22 22 49   ...y"3"UD3CC"""I
+          0050:  24 92 49 22 49 24 90 00  00 00 aa a9 9a 6a aa ad   $.I"I$.......j..
+          0060:  aa a8 88 88 c7 1b 61 97  5c 61 b6 1b 71 a7 5d 69   ......a.\a..q.]i
+          0070:  96 9b 6e 18 60 82 08 61  92 38 a5 92 18 68 a2 59   ..n.`..a.8...h.Y
+          0080:  68 96 5a 26 a2 69 a7 9e  8a 68 aa 9a ab 9e c9 ec   h.Z&amp;.i...h......
+          0090:  9e 96 cc 6a 4c 99 68 5c  68 a5 65 d9 26 c4 07 71   ...jL.h\h.e.&amp;..q
+          00a0:  49 2a 4d b6 ca 98 77 24  a7 a7 9f 6d ca ec c7 34   I*M...w$...m...4
+          00b0:  4a ae 4a 22 30 6d 7c ca                            J.J"0m|.
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000010   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.368
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 10 (0x0a)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  05 2c 54 92 3b 67 61 e4  d4 4e 31 c1 75 ed a6 2c   .,T.;ga..N1.u..,
+          0010:  4e 35 8e 46 fa 52 c6 a5  43 39 48 f5 cf a3 37 2e   N5.F.R..C9H...7.
+          0020:  89 30 c1 ad 1f 6e 5b 30  a6 cc ad ca 67 22 69 ce   .0...n[0....g"i.
+          0030:  f0 66 44 46 e4 36 cd b3  85 d9 6a f3 53 77 0d 84   .fDF.6....j.Sw..
+          0040:  e6 97 4a 74 ec a5 36 32  39 22 d0 90 b4 7a f9 f1   ..Jt..629"...z..
+          0050:  6b 6c 6b 01 48 92 36 b9  46 51 a6 aa 9c 73 08 83   klk.H.6.FQ...s..
+          0060:  69 48 d9 6e a3 6b 52 6e  ea b8 eb d4 a9 4b 35 cb   iH.n.kRn.....K5.
+          0070:  9d d2 13 47 71 09 ec 05  59 a5 ac 29 39 13 64 56   ...Gq...Y..)9.dV
+          0080:  da 0d 59 53 34 9b 31 47  55 37 51 45 76 71 38 91   ..YS4.1GU7QEvq8.
+          0090:  35 62 85 a0 a7 b7 42 92  b6 b4 da 93 69 ef ba f5   5b....B.....i...
+          00a0:  dc 32 be c3 1c e3 91 c7  69 88 6a 5a 6f 1c da f2   .2......i.jZo...
+          00b0:  4e 95 a2 71 d8 0d b6 4c                            N..q...L
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000011   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.394
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 11 (0x0b)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  b3 ae 29 72 e8 82 e4 74  8f a9 69 b8 be 1b 91 5e   ..)r...t..i....^
+          0010:  a0 24 d2 46 81 ac 15 1a  b2 11 a6 cc 2d 46 8b 42   .$.F........-F.B
+          0020:  52 45 2a 45 c9 4d ca 51  a8 2b 4d 0d cb 9a 54 dd   RE*E.M.Q.+M...T.
+          0030:  0b a3 49 14 d4 25 30 90  72 d6 95 8d 83 58 5d 88   ..I..%0.r....X].
+          0040:  d4 88 46 68 25 c6 ea 0e  ae 16 55 98 e2 a0 5d a2   ..Fh%.....U...].
+          0050:  c4 11 8a e3 94 62 92 29  3d 49 f4 45 68 53 24 b0   .....b.)=I.EhS$.
+          0060:  69 a2 06 90 31 30 98 d8  ca 71 9e ac 9b 18 f2 27   i...10...q.....'
+          0070:  d6 36 a5 df da 9c 51 5a  2d 3e ea 24 2f 9e c3 a7   .6....QZ-..$/...
+          0080:  49 21 07 d1 17 8d 9c 2c  3b 77 d0 88 a2 59 0b 51   I!.....,;w...Y.Q
+          0090:  4c 4e 35 8b b6 47 19 76  88 73 58 90 10 12 91 e5   LN5..G.v.sX.....
+          00a0:  b6 34 ba 43 0d d7 7e ed  4a 94 75 3a f0 b6 bd d9   .4.C..~.J.u:....
+          00b0:  27 b6 21 c0 5c cf 57 36                            '.!.\.W6
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000012   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.420
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 12 (0x0c)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  12 82 c2 e5 26 a9 8a 4d  28 a6 04 a3 31 65 30 aa   ....&amp;..M(...1e0.
+          0010:  5c 55 23 7a e3 b0 85 d5  7e 54 cd c2 c3 77 7d b5   \U#z....~T...w}.
+          0020:  4f 1f d8 a6 21 a7 cb 32  42 0e 46 9c 83 45 8b 89   O...!..2B.F..E..
+          0030:  da 1a 6a 55 57 67 fb 37  43 0c a0 a4 4a 8e 76 f8   ..jUWg.7C...J.v.
+          0040:  57 24 48 b7 ca a2 6a 55  6e 56 b9 11 fa a6 39 ba   W$H...jUnV....9.
+          0050:  6b 63 50 00 00 00 ff fc  a4 00 3b 93 23 33 22 43   kcP.......;.#3"C
+          0060:  44 32 44 55 22 22 22 49  24 92 49 24 89 24 90 00   D2DU"""I$.I$.$..
+          0070:  00 00 aa aa aa bb aa aa  aa aa de ab a6 9a 65 97   ..............e.
+          0080:  5b 69 b6 dc 79 e6 98 6d  97 9a 86 18 62 8a 49 22   [i..y..m....b.I"
+          0090:  9e 68 a3 9e 89 a7 a6 6a  2c 9a 79 a9 a6 8b 29 aa   .h.....j,.y...).
+          00a0:  a6 9c cc 34 90 c3 1c d4  88 04 ac ec 3a 9c 6f 13   ...4........:.o.
+          00b0:  05 8e 56 61 dc 3b d5 e4                            ..Va.;..
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000013   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.446
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 13 (0x0d)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  74 6d ae ba 7a 23 9a 95  5c 88 73 06 5c d0 85 1c   tm..z#..\.s.\...
+          0010:  9d e1 8e 3a b4 f4 b3 2c  8a 16 f1 25 1a 59 19 55   ...:...,...%.Y.U
+          0020:  1e 9b 46 d5 e2 1d e4 1b  36 cc 79 0b b5 13 42 1c   ..F.....6.y...B.
+          0030:  d5 87 9a 4f 77 56 54 2c  6a 69 11 55 51 5a bc 45   ...OwVT,ji.UQZ.E
+          0040:  c2 35 2c 4d 4c 71 fd a7  a0 95 18 50 c5 9e a4 75   .5,MLq.....P...u
+          0050:  fc 4a d6 e7 6d 7a a0 29  f5 62 50 2e 6e a2 8c 07   .J..mz.).bP.n...
+          0060:  15 da c4 e4 f8 89 52 b3  92 d4 aa 8c ca 8e b4 4d   ......R........M
+          0070:  22 21 c6 e2 1d 96 47 80  1e ae 1f 86 44 79 54 33   "!....G.....DyT3
+          0080:  99 b8 b6 48 64 23 5d 62  5e 7e fa c1 6d 9b 64 e3   ...Hd#]b^~..m.d.
+          0090:  3d 41 4a b5 e4 d0 89 1c  89 b7 43 5d 50 88 13 4b   =AJ.......C]P..K
+          00a0:  0e 8f 03 0b c4 a8 27 67  3c a2 bb fa b1 cd 91 7b   ......'g.......{
+          00b0:  ef 83 47 ca 9a d6 b4 d2                            ..G.....
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000014   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.472
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 14 (0x0e)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  4e 2b 9c 4b 8c ce 2d c5  3d 15 96 b5 b1 99 61 ff   N+.K..-.=.....a.
+          0010:  5d 92 5f 0e 31 3e 49 ac  79 56 bb 3a f1 d5 cd 28   ]._.1.I.yV.:...(
+          0020:  7e 3d a1 a5 89 4d e9 25  ac 1a 9c be 55 1a e2 86   ~=...M.%....U...
+          0030:  95 6c bb 28 e3 4d 52 a7  d6 94 61 a5 5d a6 8b 8b   .l.(.MR...a.]...
+          0040:  b1 e9 b4 84 be e3 e7 54  62 db 88 a5 d4 2a 70 73   .......Tb....*ps
+          0050:  2a c5 cd 25 35 d3 39 54  91 2d 98 47 5a dc 06 8d   *..%5.9T.-.GZ...
+          0060:  d2 f8 83 69 62 51 5e 21  b9 7c a9 71 0b 15 21 bd   ...ibQ^!.|.q..!.
+          0070:  4c e6 3e f7 c7 eb ef 54  31 f4 53 1b 67 23 c2 b3   L......T1.S.g#..
+          0080:  34 c1 c6 e4 50 5b 2a 43  99 b3 57 98 74 b2 ca 9a   4...P[*C..W.t...
+          0090:  91 58 37 ce 76 53 90 55  cb 92 c3 95 79 70 f5 e8   .X7.vS.U....yp..
+          00a0:  e4 8f 9b 06 b5 8e d1 b8  be 35 c2 e3 c2 46 b2 3a   .........5...F.:
+          00b0:  92 b2 49 97 0d ab 2e 56                            ..I....V
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000015   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.498
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 15 (0x0f)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  1e 96 dc be 7f 4d 72 a7  53 8f b9 84 b0 b5 fa 3d   .....Mr.S......=
+          0010:  5f 59 e0 aa 41 6b 5f 36  d2 cb ba d3 9f 37 20 69   _Y..Ak_6.....7 i
+          0020:  2a 75 1b 6b 83 47 c9 b5  9e 19 8b 8a 22 b7 b6 e9   *u.k.G......"...
+          0030:  d8 52 3d ed 7a b1 df 42  a5 09 fd f7 a9 14 d6 a9   .R=.z..B........
+          0040:  ad 6e 3c 39 b2 1c 2c 29  b6 de 34 9a e7 ae b8 e9   .n.9..,)..4.....
+          0050:  f3 60 e9 2a 61 40 d6 52  f9 4c 49 b4 e3 5b a3 6d   .`.*a@.R.LI..[.m
+          0060:  cb e8 63 15 6a 4b 49 a0  3a da 40 00 00 00 ff fc   ..c.jKI.:.@.....
+          0070:  a4 00 79 f6 22 33 22 55  44 22 55 44 22 22 22 49   ..y."3"UD"UD"""I
+          0080:  24 92 49 24 89 24 90 00  00 00 aa a6 ba 6a aa aa   $.I$.$.......j..
+          0090:  ea aa ae ea a7 1c 61 a7  1d 69 75 da 71 e7 9f 69   ......a..iu.q..i
+          00a0:  86 5a 6a 18 64 8e 39 e3  8a 6a 68 8e 49 e8 a2 8a   .Zj.d.9..jh.I...
+          00b0:  68 a2 ba 69 b2 aa 6b ae                            h..i..k.
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000016   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.524
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 0 (0x00)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  d6 e3 31 a9 d2 06 63 1c  a6 36 a9 5a ce 48 11 65   ..1...c..6.Z.H.e
+          0010:  1e 95 d7 36 b6 dc 44 ad  1d 44 52 a5 f0 c7 5a 52   ...6..D..DR...ZR
+          0020:  87 7c 68 2b 9b 0f a1 26  ad 70 51 8a 62 da ac da   .|h+...&amp;.pQ.b...
+          0030:  cd 66 86 75 53 4d 23 20  a1 db 16 a0 8a 6f 38 5d   .f.uSM# .....o8]
+          0040:  af bc 59 fd 9c bb 52 45  35 fa 95 47 d2 a8 4a fa   ..Y...RE5..G..J.
+          0050:  16 b3 d4 e8 94 6e 9d 26  a9 96 29 9a 86 9a 81 5b   .....n.&amp;..)....[
+          0060:  f8 74 12 85 96 64 71 05  0c dc 0b 9d 24 54 a5 f5   .t...dq.....$T..
+          0070:  32 47 2c 3e 79 12 eb d7  dc 5a 46 b2 18 4c 37 58   2G,.y....ZF..L7X
+          0080:  a6 02 a4 45 b1 6e 64 55  a9 7a a9 63 64 e1 a5 2a   ...E.ndU.z.cd..*
+          0090:  7d eb a6 24 6c 84 7b 0e  9b b4 86 9c 8a a4 bd a9   }..$l.{.........
+          00a0:  08 76 f4 b0 72 5a e7 1c  85 d3 50 61 ca d4 91 4a   .v..rZ....Pa...J
+          00b0:  85 48 cc d5 44 68 a0 9e                            .H..Dh..
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000017   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.550
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 1 (0x01)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  c8 b8 35 30 b6 b5 e7 1f  52 a1 2d bb 6b eb 9e ef   ..50....R.-.k...
+          0010:  0e c2 55 49 6c d6 99 f3  8e d3 16 71 d5 5b 4e 0a   ..UIl......q.[N.
+          0020:  b8 57 87 d2 4f 75 0f 05  95 a9 14 4d 1c 61 b9 75   .W..Ou.....M.a.u
+          0030:  52 97 54 ce b0 ad 6e 2c  98 69 06 5d b0 80 99 79   R.T...n,.i.]...y
+          0040:  47 a2 e2 89 61 36 d1 d3  54 45 58 a7 36 c6 7a 55   G...a6..TEX.6.zU
+          0050:  e5 a4 b2 63 e1 09 78 82  4a 69 4d 46 a7 63 b9 bb   ...c..x.JiMF.c..
+          0060:  94 db 40 69 9b fd 2b aa  a6 b4 0e 8d 38 96 05 ed   ..@i..+.....8...
+          0070:  13 ac c7 98 43 a5 d9 26  50 7e 8d 89 aa 03 69 85   ....C...P~....i.
+          0080:  70 0b 5e 1b fa 74 ee f0  43 32 bd 10 c1 a6 44 28   p.^..t..C2....D(
+          0090:  a9 f6 b3 55 18 9c 56 d9  8d e9 b5 20 44 ab 60 7d   ...U..V.... D.`}
+          00a0:  9f 18 00 5a a6 a0 1c 36  b1 f3 fe 17 2a 39 5c a4   ...Z...6....*9\.
+          00b0:  fa 51 a7 2b 57 3d 88 96                            .Q.+W=..
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000018   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.576
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 2 (0x02)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  29 07 60 c6 92 aa 78 98  b4 e9 5e 63 55 ed 81 5c   ).`...x...^cU..\
+          0010:  c5 ed 3c b3 d4 29 a2 55  c5 6d 22 3a 5f 0d eb 9a   .....).U.m":_...
+          0020:  93 90 1f 54 39 24 45 4f  eb be 7d 09 ad 6b 54 56   ...T9$EO..}..kTV
+          0030:  dd 4e 4e e1 ce 08 1b 2a  c5 18 20 8c 65 32 1e 0a   .NN....*.. .e2..
+          0040:  ca 93 36 b2 38 e1 69 29  27 52 a5 03 eb 6c 21 3d   ..6.8.i)'R...l!=
+          0050:  8e 99 2b eb 50 e4 a7 42  c0 42 37 15 23 18 9a 91   ..+.P..B.B7.#...
+          0060:  87 34 b9 5a 82 00 72 0b  1a 1a 24 42 95 a1 27 cc   .4.Z..r...$B..'.
+          0070:  e9 2f a9 d4 f5 53 df 81  55 bb 0f 90 25 b1 5d ac   ./...S..U...%.].
+          0080:  83 a2 c0 00 00 00 ff fc  a4 00 20 ba 22 33 22 54   .......... ."3"T
+          0090:  43 42 45 55 22 22 22 49  24 92 49 22 49 24 90 00   CBEU"""I$.I"I$..
+          00a0:  00 00 aa ae aa 9a 99 7a  aa ba aa bb e7 5d 61 a7   .......z.....]a.
+          00b0:  1e 61 96 5a 75 d7 59 69                            .a.Zu.Yi
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000019   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.602
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 3 (0x03)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  76 59 8a 28 23 96 49 29  9e 49 23 ae b9 65 aa 9a   vY.(#.I).I#..e..
+          0010:  e9 aa ba ec ae db 6e b6  eb ed c2 e7 19 80 ed 9a   ......n.........
+          0020:  5a 26 ed 8b a6 c9 19 0e  4c 4e 1a b3 8c b6 62 c3   Z&amp;......LN....b.
+          0030:  71 0f 8b b3 81 d4 2e 84  e6 66 e2 dd 2e 87 70 69   q........f....pi
+          0040:  64 a3 69 9b c2 47 44 6d  35 8c 51 14 8c 64 7c 47   d.i..GDm5.Q..d|G
+          0050:  24 24 0c 36 b4 b5 28 b2  61 2b 57 46 95 1b 8c fb   $$.6..(.a+WF....
+          0060:  24 a8 3b 94 a5 a4 94 1f  c2 25 42 d7 35 a0 0d ca   $.;......%B.5...
+          0070:  e1 d1 d7 88 96 2d 94 9b  d9 b8 b2 c7 12 95 0e 42   .....-.........B
+          0080:  87 b4 a7 66 6e 43 73 71  71 5b 2f 87 35 4b 55 c7   ...fnCsqq[/.5KU.
+          0090:  5e 0f d5 66 a5 46 8d 8c  72 97 58 34 88 d1 b5 5d   ^..f.F..r.X4...]
+          00a0:  d5 93 91 b5 4f a0 34 1d  a1 61 16 21 2b 7b 36 12   ....O.4..a.!+{6.
+          00b0:  bf d9 4c d8 86 03 9f 56                            ..L....V
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000020   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.636
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 4 (0x04)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  af 7a cb 9b be 0d 82 d4  88 53 5a 12 d6 09 e4 84   .z.......SZ.....
+          0010:  6b a5 b1 1b 55 27 ef 61  87 e0 86 55 88 16 e5 c3   k...U'.a...U....
+          0020:  da 49 4a 8f 7a cb 01 35  d5 bb 26 54 78 c1 5c 6d   .IJ.z..5..&amp;Tx.\m
+          0030:  6a 8e ba 29 87 b8 a6 6a  d6 55 1d 1d 7f 6a 68 9d   j..)...j.U...jh.
+          0040:  d3 67 47 a5 d0 f0 ee 26  8e fa 1b fc f4 e1 7b dd   .gG....&amp;......{.
+          0050:  1e 16 f8 81 cf b4 6c e0  e6 c1 76 91 b6 8a e2 5e   ......l...v....^
+          0060:  52 4b 39 66 8a 17 a5 63  42 fd b6 49 4d 0c 8a 38   RK9f...cB..IM..8
+          0070:  88 15 3e 7c a8 7a 83 f1  68 f3 86 f1 28 17 30 ec   ...|.z..h...(.0.
+          0080:  46 26 a7 8b 13 91 42 96  a0 a7 1a 56 19 19 63 50   F&amp;....B....V..cP
+          0090:  a4 9a 23 95 5b 0d 1a 6d  5d c2 49 b4 df 54 db 52   ..#.[..m].I..T.R
+          00a0:  c5 d6 ba 9f 38 3e fe 1c  83 39 91 6b 42 c7 12 85   ....8....9.kB...
+          00b0:  9e 64 25 9d 22 7e a1 f6                            .d%."~..
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000021   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:16.667
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 3 (0x03)  [= adaptation_field followed by payload]
+continuity_counter: 5 (0x05)
+    Adaptation_field: 
+        Adaptation_field_length: 25 (0x19)
+        discontinuity_indicator: 0 (0x00)
+        random_access_indicator: 0 (0x00)
+        elementary_stream_priotity_indicator: 0 (0x00)
+        PCR_flag: 0 (0x00)
+        OPCR_flag: 0 (0x00)
+        splicing_point_flag: 0 (0x00)
+        transport_private_data_flag: 0 (0x00)
+        adaptation_field_extension_flag: 0 (0x00)
+        (Stuffing_bytes length: 24) 
+        Stuffing bytes:
+              0000:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+              0010:  ff ff ff ff ff ff ff ff                            ........
+    Payload: (len: 158)
+    Data-Bytes:
+          0000:  46 aa ad f5 db 27 85 5a  38 5a 8e 86 d8 c3 ea 47   F....'.Z8Z.....G
+          0010:  a9 bb 78 73 4a da de e2  b8 fe f6 5e 5b 92 ba 12   ..xsJ......^[...
+          0020:  94 84 9d 44 94 a6 8c 65  cd 48 c4 4d 1d 93 b2 60   ...D...e.H.M...`
+          0030:  ec 75 34 72 c3 23 49 ed  2d b5 2b 3a 24 8a 16 aa   .u4r.#I.-.+:$...
+          0040:  f7 a9 1f 69 a0 b5 45 58  52 46 ac 9e 71 14 70 5d   ...i..EXRF..q.p]
+          0050:  91 71 97 59 4a 54 a8 dc  c2 d1 b5 e2 b4 2f 1a 2a   .q.YJT......./.*
+          0060:  c0 b9 6a 95 2f 63 93 85  5f da 58 6a 48 d6 c1 8d   ..j./c.._.XjH...
+          0070:  c3 54 2d 46 67 4d 36 a3  41 27 1a 99 1d 1c bf d2   .T-FgM6.A'......
+          0080:  2f 15 ad e8 ce 1f da 6e  ce 79 54 a9 4d f4 2b 4b   /......n.yT.M.+K
+          0090:  eb d6 86 19 2b 9a 35 ad  6e 6c d0 00 00 00         ....+.5.nl....
+==========================================================
+
+
+    TS-Packet(s) sub-decoding:
+    ==========================
+    TS contains PES stream...
+        Packet_start_code_prefix: 000001
+        Stream_id: 192 (0xc0)  [= ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+        PES_packet_length: 3464 (0x0d88)
+            reserved1: 2 (0x02)
+            PES_scrambling_control: 0 (0x00)  [= not scrambled]
+            PES_priority: 0 (0x00)
+            data_alignment_indicator: 1 (0x01)
+            copyright: 0 (0x00)
+            original_or_copy: 0 (0x00)
+            PTS_DTS_flags: 2 (0x02)
+            ES_rate_flag: 0 (0x00)
+            additional_copy_info_flag: 0 (0x00)
+            PES_CRC_flag: 0 (0x00)
+            PES_extension_flag: 0 (0x00)
+            PES_header_data_length: 5 (0x05)
+            PTS: 
+               Fixed: 2 (0x02)
+               PTS:
+                  bit[32..30]: 3 (0x03)
+                  marker_bit: 1 (0x01)
+                  bit[29..15]: 19629 (0x4cad)
+                  marker_bit: 1 (0x01)
+                  bit[14..0]: 5048 (0x13b8)
+                  marker_bit: 1 (0x01)
+                   ==&gt; PTS: 3864433592 (0xe65693b8)  [= 90 kHz-Timestamp: 11:55:38.151]
+            PES_packet_data_bytes:
+                 0000:  ff fc a4 00 93 e0 22 32  22 55 32 22 32 43 22 12   ......"2"U2"2C".
+                 0010:  12 28 a4 92 49 22 49 24  90 00 00 00 a8 88 88 c8   .(..I"I$........
+                 0020:  88 00 00 00 00 00 07 9d  69 b6 1d 75 f7 9e 5d 85   ........i..u..].
+                 0030:  d8 6d f6 db 7d d7 9d 79  a7 5c 79 b7 1e 82 08 e3   .m..}..y.\y.....
+                 [...]
+                 0d50:  c1 8d c3 54 2d 46 67 4d  36 a3 41 27 1a 99 1d 1c   ...T-FgM6.A'....
+                 0d60:  bf d2 2f 15 ad e8 ce 1f  da 6e ce 79 54 a9 4d f4   ../......n.yT.M.
+                 0d70:  2b 4b eb d6 86 19 2b 9a  35 ad 6e 6c d0 00 00 00   +K....+.5.nl....
+
+
+
+----------------------------------------------------------
+TS-Packet: 00000022   PID: 513 (0x0201), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:44:17.150
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 1 (0x01)  [= Packet data starts]
+transport_priority: 0 (0x00)
+PID: 513 (0x0201)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 6 (0x06)
+    Payload: (len: 184)
+        ==&gt; PES-stream: 192 (0xc0)  [= ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+    Data-Bytes:
+          0000:  00 00 01 c0 0d 88 84 80  05 27 99 5b 8c b1 ff fc   .........'.[....
+          0010:  a4 00 b0 08 22 33 22 54  43 32 55 44 22 22 22 49   ...."3"TC2UD"""I
+
+[...]
+
+ 
+
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

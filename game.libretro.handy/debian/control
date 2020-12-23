@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-handy
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-handy (>= 0.97.0) | handy (>= 0.97.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-handy
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Atari - Lynx (Handy) core for kodi's retroplayer
+ Atari - Lynx (Handy) core for kodi's retroplayer

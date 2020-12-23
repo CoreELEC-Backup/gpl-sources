@@ -1,0 +1,150 @@
+<sect1 id="imon-howto">
+<title>The imon Driver</title>
+
+<sect2 id="imon-general">
+<title>General</title>
+
+<para>
+The <code>imon</code> driver controls
+<ulink url="http://www.soundgraph.com/vfd-feature-en/">Soundgraph iMON VFD</ulink>
+devices, that are either preinstalled or available as optional accessories
+for a variety of Home Theater PC (HTPC) cases from Ahanix, Silverstone, Cooler Master
+and others. They can also be bought separately and then fit into a 5,25" disk drive bay
+of any regular PC.
+</para>
+
+<para>
+The iMON VFD sports a vacuum fluorescent display with 16x2 characters
+that connects to the computer using USB. Although the device is shipped
+with an IR remote control and some versions even have a volume knob,
+<package>LCDproc</package>'s driver currently only supports the display
+part of the device.
+</para>
+
+<para id="imon-kernelmodules">
+In order to be able to use it, you have to get and install one of
+the following Linux kernel modules:
+<itemizedlist>
+  <listitem>
+    <para>
+      standalone iMON VFD driver from <ulink url="http://venky.ws/projects/imon/"></ulink>
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+       the iMON module included with LIRC ver. 0.7.1 or newer
+       from the <ulink url="http://www.lirc.org">LIRC project</ulink>
+    </para>
+  </listitem>
+</itemizedlist>
+</para>
+
+<para>
+For further details, please consult the page and the forum at
+<ulink url="http://venky.ws/projects/imon/"></ulink>.
+</para>
+
+</sect2>
+
+<!-- ## Soundgraph/Ahanix/Silverstone/Uneed/Accent iMON driver ## -->
+<sect2 id="imon-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="imon-config-section">
+<title>[imon]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Set the display size. The default <literal>16x2</literal> should be safe
+    for most if not all users, since the device seems to be made only with
+    this one size.
+    But who knows &hellip;
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Select the output device to use. Change this from the default
+    <filename>/dev/lcd</filename> to the device file that gets created
+    when the kernel module (<link linkend="imon-kernelmodules">see above</link>) is loaded.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>CharMap</property> =
+    {
+      <emphasis><parameter><literal>hd44780_euro</literal></parameter></emphasis> |
+      <parameter><literal>hd44780_koi8_r</literal></parameter> |
+      <parameter><literal>hd44780_cp1251</literal></parameter> |
+      <parameter><literal>hd44780_8859_5</literal></parameter> |
+      <parameter><literal>upd16314</literal></parameter> |
+      <parameter><literal>none</literal></parameter>
+    }
+  </term>
+  <listitem>
+    <para>
+      Set the character mapping depending on the display you have:
+      <itemizedlist>
+        <listitem><para>
+          The default, <literal>hd44780_euro</literal> is for displays with
+          a ROM mask supporting the european charset (ROM code A02).
+        </para></listitem>
+        <listitem><para>
+          The <literal>none</literal> charmap does not translate any characters
+          and is only useful for debugging.
+        </para></listitem>
+      </itemizedlist>
+      You only need to set this parameter if you have a non-standard charmap.
+    </para>
+    <para>
+      If LCDproc was configured with '--enable-extra-charmaps' option the
+      following character mappings are available, too:
+      <itemizedlist>
+        <listitem><para>
+          <literal>hd44780_koi8_r</literal> maps input from a client in
+          Russian KOI8-R to displays with a ROM mask supporting the european
+          charset (ROM code A02).
+        </para></listitem>
+        <listitem><para>
+          <literal>hd44780_cp1251</literal> maps input from a client in
+          Russian CP1251 (Windows-1251) to displays with a ROM mask supporting
+          the european charset (ROM code A02).
+        </para></listitem>
+        <listitem><para>
+          <literal>hd44780_8859_5</literal>  maps input from a client in
+          Russian ISO 8859-5 to displays with a ROM mask supporting the european
+          charset (ROM code A02).
+        </para></listitem>
+        <listitem><para>
+          <literal>upd16314</literal> is for displays with a Nec uPD16314
+          vacuum fluorescent display (VFD) controller with ROM code 002
+          character set. If your display has ROM code 001 character set you
+          may use the <literal>hd44780_euro</literal> charmap instead.
+        </para></listitem>
+      </itemizedlist>
+    </para>
+    <tip>
+      <para>
+      See <filename>server/drivers/hd44780-charset.h</filename>
+      in <package>LCDproc</package>'s source directory for the actual
+      mappings.
+      </para>
+    </tip>
+  </listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

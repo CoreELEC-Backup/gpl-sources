@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Examples: Frontend Signal
+		Statistics</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Examples: Signal Statistics</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -n 30 -pd 9 -s signal
+dvbsnoop V1.1.55 -- http://dvbsnoop.sourceforge.net/ 
+   DEMUX : /dev/dvb/adapter0/demux0
+   DVR   : /dev/dvb/adapter0/dvr0
+   FRONTEND: /dev/dvb/adapter0/frontend0
+
+---------------------------------------------------------
+Transponder/Frequency signal strength statistics...
+max cycle count: 30 
+Capabilities: BER: 1  SNR: 1  SIG: 1  STAT: 1  UBLK: 1
+---------------------------------------------------------
+cycle: 1  d_time: 0.001 s  Sig: 0  SNR: 514  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 2  d_time: 0.008 s  Sig: 0  SNR: 771  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 3  d_time: 0.042 s  Sig: 0  SNR: 257  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 4  d_time: 0.008 s  Sig: 0  SNR: 0  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 5  d_time: 0.009 s  Sig: 0  SNR: 771  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 6  d_time: 0.009 s  Sig: 0  SNR: 514  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 7  d_time: 0.009 s  Sig: 0  SNR: 771  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 8  d_time: 0.009 s  Sig: 0  SNR: 1285  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 9  d_time: 0.042 s  Sig: 0  SNR: 2313  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 10  d_time: 0.009 s  Sig: 0  SNR: 2313  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 11  d_time: 0.009 s  Sig: 0  SNR: 1542  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 12  d_time: 0.009 s  Sig: 0  SNR: 1542  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 13  d_time: 0.008 s  Sig: 0  SNR: 1799  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 14  d_time: 0.009 s  Sig: 0  SNR: 1285  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 15  d_time: 0.009 s  Sig: 0  SNR: 1799  BER: 0 UBLK: 4294967295  Stat: 0x00 []
+cycle: 16  d_time: 0.009 s  Sig: 46517  SNR: 52171  BER: 0 UBLK: 4294967295  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 17  d_time: 0.019 s  Sig: 46517  SNR: 53970  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 18  d_time: 0.008 s  Sig: 46517  SNR: 53970  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 19  d_time: 0.009 s  Sig: 46517  SNR: 53713  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 20  d_time: 0.009 s  Sig: 46517  SNR: 53713  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 21  d_time: 0.008 s  Sig: 46260  SNR: 53713  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 22  d_time: 0.009 s  Sig: 46260  SNR: 53970  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 23  d_time: 0.009 s  Sig: 46260  SNR: 53970  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 24  d_time: 0.008 s  Sig: 46517  SNR: 53713  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 25  d_time: 0.009 s  Sig: 46517  SNR: 53713  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 26  d_time: 0.009 s  Sig: 46517  SNR: 53970  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 27  d_time: 0.009 s  Sig: 46517  SNR: 53970  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 28  d_time: 0.009 s  Sig: 46517  SNR: 54227  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 29  d_time: 0.009 s  Sig: 46517  SNR: 54227  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 30  d_time: 0.008 s  Sig: 46517  SNR: 54227  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+# 
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><BR></P> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop  -pd 2 -s signal
+dvbsnoop V1.1.55 -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+Transponder/Frequency signal strength statistics...
+---------------------------------------------------------
+Sig: 52171  SNR: 55255  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55255  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55512  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55512  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55255  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55512  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55512  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55512  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55255  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55255  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55255  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55255  BER: 0 UBLK: 0  Stat: 0x1f 
+Sig: 52171  SNR: 55255  BER: 0 UBLK: 0  Stat: 0x1f 
+[...]</PRE></TD> 
+		</TR> 
+	 </TABLE>
+	 <P><BR><BR></P> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>during transponder/channel scan:
+
+[...]
+cycle: 1942  d_time: 0.009 s  Sig: 51657  SNR: 33153  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1943  d_time: 0.007 s  Sig: 51914  SNR: 34438  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1944  d_time: 0.008 s  Sig: 51657  SNR: 34181  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1945  d_time: 0.008 s  Sig: 51400  SNR: 33924  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1946  d_time: 0.008 s  Sig: 51657  SNR: 33667  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1947  d_time: 0.008 s  Sig: 51657  SNR: 33667  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1948  d_time: 0.008 s  Sig: 51400  SNR: 28784  BER: 0 UBLK: 125  Stat: 0x01 [SIG ]
+cycle: 1949  d_time: 0.020 s  Sig: 51657  SNR: 32896  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1950  d_time: 0.008 s  Sig: 51400  SNR: 34438  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1951  d_time: 0.008 s  Sig: 51657  SNR: 33667  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1952  d_time: 0.008 s  Sig: 51657  SNR: 32896  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1953  d_time: 0.009 s  Sig: 51657  SNR: 33410  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1954  d_time: 0.008 s  Sig: 51657  SNR: 34181  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1955  d_time: 0.008 s  Sig: 51657  SNR: 34438  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1956  d_time: 0.008 s  Sig: 51657  SNR: 34181  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1957  d_time: 0.008 s  Sig: 51657  SNR: 33667  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1958  d_time: 0.008 s  Sig: 51657  SNR: 33410  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1959  d_time: 0.008 s  Sig: 51400  SNR: 32896  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1960  d_time: 0.008 s  Sig: 51400  SNR: 33153  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1961  d_time: 0.009 s  Sig: 51657  SNR: 33153  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1962  d_time: 0.008 s  Sig: 51657  SNR: 33667  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1963  d_time: 0.008 s  Sig: 51657  SNR: 33153  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1964  d_time: 0.018 s  Sig: 51657  SNR: 32896  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1965  d_time: 0.008 s  Sig: 51400  SNR: 34181  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1966  d_time: 0.008 s  Sig: 51657  SNR: 33924  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1967  d_time: 0.008 s  Sig: 51657  SNR: 33667  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1968  d_time: 0.008 s  Sig: 51400  SNR: 32382  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1969  d_time: 0.009 s  Sig: 51657  SNR: 34181  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1970  d_time: 0.008 s  Sig: 51400  SNR: 33667  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1971  d_time: 0.008 s  Sig: 51400  SNR: 33153  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1972  d_time: 0.059 s  Sig: 51657  SNR: 33410  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1973  d_time: 0.008 s  Sig: 51657  SNR: 33924  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1974  d_time: 0.010 s  Sig: 51657  SNR: 33667  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1975  d_time: 0.043 s  Sig: 51657  SNR: 33667  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1976  d_time: 0.008 s  Sig: 51657  SNR: 34181  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1977  d_time: 0.009 s  Sig: 51657  SNR: 33410  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1978  d_time: 0.009 s  Sig: 51914  SNR: 34181  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1979  d_time: 0.009 s  Sig: 51914  SNR: 33410  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1980  d_time: 0.009 s  Sig: 51657  SNR: 34438  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1981  d_time: 0.043 s  Sig: 51657  SNR: 30583  BER: 0 UBLK: 4294967295  Stat: 0x01 [SIG ]
+cycle: 1982  d_time: 0.026 s  Sig: 51657  SNR: 32639  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1983  d_time: 0.009 s  Sig: 51400  SNR: 33410  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1984  d_time: 0.009 s  Sig: 51400  SNR: 33667  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1985  d_time: 0.008 s  Sig: 51657  SNR: 33410  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1986  d_time: 0.009 s  Sig: 51657  SNR: 32639  BER: 0 UBLK: 4294967295  Stat: 0x07 [SIG CARR VIT ]
+cycle: 1987  d_time: 0.009 s  Sig: 51400  SNR: 22873  BER: 0 UBLK: 126  Stat: 0x01 [SIG ]
+cycle: 1988  d_time: 0.367 s  Sig: 50886  SNR: 25957  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1989  d_time: 0.041 s  Sig: 51143  SNR: 25700  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1990  d_time: 0.009 s  Sig: 51143  SNR: 25443  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1991  d_time: 0.010 s  Sig: 51143  SNR: 25443  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1992  d_time: 0.007 s  Sig: 51143  SNR: 25443  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1993  d_time: 0.008 s  Sig: 50886  SNR: 25443  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1994  d_time: 0.051 s  Sig: 51143  SNR: 26214  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1995  d_time: 0.008 s  Sig: 51143  SNR: 25186  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1996  d_time: 0.008 s  Sig: 50886  SNR: 25700  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1997  d_time: 0.008 s  Sig: 50886  SNR: 25443  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1998  d_time: 0.010 s  Sig: 50886  SNR: 25443  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 1999  d_time: 0.009 s  Sig: 51143  SNR: 25186  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 2000  d_time: 0.007 s  Sig: 50886  SNR: 25700  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 2001  d_time: 0.008 s  Sig: 51143  SNR: 25700  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 2002  d_time: 0.009 s  Sig: 50886  SNR: 25443  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 2003  d_time: 0.008 s  Sig: 51143  SNR: 25957  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 2004  d_time: 0.008 s  Sig: 51143  SNR: 25443  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 2005  d_time: 0.008 s  Sig: 50886  SNR: 25957  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 2006  d_time: 0.009 s  Sig: 51143  SNR: 25700  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 2007  d_time: 0.008 s  Sig: 51143  SNR: 25186  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 2008  d_time: 0.008 s  Sig: 51143  SNR: 25700  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 2009  d_time: 0.008 s  Sig: 51143  SNR: 25957  BER: 0 UBLK: 4294967295  Stat: 0x03 [SIG CARR ]
+cycle: 2010  d_time: 0.011 s  Sig: 46003  SNR: 48059  BER: 0 UBLK: 4294967295  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 2011  d_time: 0.029 s  Sig: 46260  SNR: 48316  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 2012  d_time: 0.007 s  Sig: 46260  SNR: 48316  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 2013  d_time: 0.009 s  Sig: 46260  SNR: 48316  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 2014  d_time: 0.008 s  Sig: 46260  SNR: 48059  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 2015  d_time: 0.008 s  Sig: 46260  SNR: 48316  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+cycle: 2016  d_time: 0.008 s  Sig: 46260  SNR: 48316  BER: 0 UBLK: 0  Stat: 0x1f [SIG CARR VIT SYNC LOCK ]
+[...]</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

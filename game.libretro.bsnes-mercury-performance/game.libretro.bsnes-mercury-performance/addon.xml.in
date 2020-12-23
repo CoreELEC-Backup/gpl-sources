@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.bsnes-mercury-performance"
+		name="Nintendo - SNES / SFC (bsnes-mercury Performance)"
+		version="0.94.0.8"
+		provider-name="byuu, Alcaro">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.snes" version="1.0.0"/>
+		<import addon="game.controller.snes.multitap" version="1.0.0"/>
+		<import addon="game.controller.snes.super.scope" version="1.0.0"/>
+		<import addon="game.controller.konami.justifier.snes" version="1.0.0"/>
+		<import addon="game.controller.konami.justifier.player2" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>SNES</platforms>
+		<extensions>sfc|smc|bml</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Nintendo - SNES / SFC (bsnes-mercury Performance) v094 (Performance)</summary>
+		<description lang="en_GB">bSNES Mercury is a fork of Higan (originally called bSNES), notable for emulating the original hardware as accurately as possible through low-level, cycle-accurate emulation.
+
+The &#34;Performance&#34; profile focusses more on execution speed than on accuracy.
+
+http://byuu.org/
+
+Supported files: .sfc, .smc, .bml</description>
+		<license>GPLv3</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.bsnes-mercury-performance</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

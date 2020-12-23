@@ -1,0 +1,121 @@
+v0.3 beta16 (not yet released)
+=============================
+ * --foreground added
+ * Fix some error messages wrongly ouput to stdout instead of stderr
+ * Simplified some calls to *printf with fixed string arguments
+ * Consider field 194 as a temperature in Celsius if the disk
+   is not present in hddtemp.db.
+ * Update config.{guess,sub}
+
+v0.3 beta15
+=============================
+ * --fahrenheit option removed and replace by --unit
+ * Swedish translation (from Daniel Nylander)
+ * Portuguese translation (from the Debian Translation Team)
+ * When specifying --quiet and --numeric and if there's a problem hddtemp
+   display zero (should it be something like 999 instead of 0 ?).
+ * Update license informations in many files
+ * Fix syslog bug if clock scew
+ * Fix man page
+ * Better detection of non SMART capable ATAPI CDROM drives
+ * Better detection of SG_IO support.
+
+
+v0.3 beta14
+=============================
+ * add potion for reporting value in Farhenheit
+ * fix daemonization mode (thanks to Aurelien Jarno)
+ * improvements and spelling fixes for the man page.
+ * free database after getting useful entries (for a smaller memory footprint
+   in daemon mode.
+ * bus type can be forced by prefixing device drive path with SATA/PATA/SCSI
+ * update man page
+
+
+v0.3 beta13
+=============================
+ * fix backtracing
+ * big thanks to Aurelien Jarno, maintainer from the Debian project for all
+  the following contributions:
+  * fix SCSI with 2.6.x kernels (use the SG_IO iotcl)
+  * fix manpage and README files
+  * add syslog feature
+  * add SATA support via ATA pass-through API
+  * and some code cleanups
+
+
+v0.3 beta12
+=============================
+ * IPv6 support
+ * fixing backtracing : backtracing isn't available on non-x86 architecture.
+ * fixing manpage location from 1 to 8.
+ * fixing some messages that should have been printed on stderr.
+ * rest on kernel for SMART accessibility.
+ * add -w switch to force drive wake-up when necessary.
+
+
+v0.3 beta11
+=============================
+ * fix a security problem related to the generation of the backtrace/stacktrace file
+   (from Ville Skytta <ville.skytta@iki.fi>).
+ * fix a little problem about backtracing architectures different than i386.
+
+
+v0.3 beta10
+=============================
+ * fix daemon mode problem from beta 9
+ * correct some typo in man page and in french .po file (from Aurelien Jarno <aurelien@aurel32.net>)
+ * add backtracing facilities
+
+
+v0.3 beta9
+=============================
+ * remove listen function from the loop in daemon mode.
+ * correct some signal problems in daemon mode.
+
+
+v0.3 beta8
+=============================
+ * hddtemp.db is now back into /usr/share. By default, it is not anymore in
+   /etc. hddtemp.db is not a configuration file...
+   This can be changed with --with-db-path option of 'configure' script.
+ * Some informations about how to report me a new drive (main.c and hddtemp man
+   page). 
+ * hddtemp.db is not loaded if drives are only SCSI drives.
+ * for IDE drives, check if drive is spinning/not sleeping before querying
+   temperature.
+
+
+v0.3 beta7 (from Aurelien Jarno <aurel32@debian.org>)
+=============================
+ * use autoconf/automake
+ * full internationalization support
+ * update fr.po
+
+
+v0.3 beta6
+=============================
+ * fix SCSI model reading
+ * add option -l for listening on a specific interface address
+
+
+v0.3 beta5
+=============================
+ * adding ru.po file (from Michael Shigorin <mike@altlinux.ru>)
+ * some fixes for internationalization (from Aurelien Jarno <aurelien@aurel32.net>)
+
+
+v0.3 beta4
+=============================
+ * correct a problem in daemon mode when hddtemp is re-launch
+   quickly, hddtemp wasn't able to re-open its port.
+
+
+v0.3 beta3
+=============================
+ * fix a problem with GCC 3.2
+ * include a patch for only displaying the temperature
+ * correct some messages
+ * start a the Changelog :o)
+
+

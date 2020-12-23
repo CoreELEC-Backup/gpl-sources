@@ -1,0 +1,64 @@
+# VDR streamdev plugin language source file.
+# Copyright (C) 2009 streamdev development team. See http://streamdev.vdr-developer.org
+# This file is distributed under the same license as the VDR streamdev package.
+# Milan Hrala <hrala.milan@gmail.com>, 2009
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: streamdev_SK\n"
+"Report-Msgid-Bugs-To: <vdrdev@schmirler.de>\n"
+"POT-Creation-Date: 2015-01-16 22:32+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Milan Hrala <hrala.milan@gmail.com>\n"
+"Language-Team: Slovak <hrala.milan@gmail.com>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+
+msgid "Hide Mainmenu Entry"
+msgstr "Schova» polo¾ku v hlavnom menu"
+
+msgid "Simultaneously used Devices"
+msgstr "Súbe¾ne pou¾íva» zariadenia"
+
+msgid "Remote IP"
+msgstr "Vzdialená IP"
+
+msgid "Remote Port"
+msgstr "Vzdialený port"
+
+msgid "Timeout (s)"
+msgstr "Èasový limit (s)"
+
+msgid "Filter Streaming"
+msgstr "Filtrova» dátový prúd"
+
+msgid "Filter SockBufSize"
+msgstr ""
+
+msgid "Live TV Priority"
+msgstr "Priorita ¾ivého vysielania"
+
+msgid "Minimum Priority"
+msgstr "Minimálna priorita"
+
+msgid "Maximum Priority"
+msgstr "Maximálna priorita"
+
+msgid "Broadcast Systems / Cost"
+msgstr "Systémy vysielania / Hodnota"
+
+msgid "VTP Streaming Client"
+msgstr "VDR klient streamovania"
+
+msgid "Suspend Server"
+msgstr "Pozastavi» server"
+
+msgid "Server is suspended"
+msgstr "Server je doèasne pozastavený"
+
+msgid "Couldn't suspend Server!"
+msgstr "Server sa nepodarilo pozastavi»!"

@@ -1,0 +1,233 @@
+--- a/src/libmodplug/sndfile.h
++++ b/src/libmodplug/sndfile.h
+@@ -613,7 +613,7 @@ public:
+ 	UINT GetMaxPosition() const;
+ 	void SetCurrentPos(UINT nPos);
+ 	void SetCurrentOrder(UINT nOrder);
+-	void GetTitle(LPSTR s) const { lstrcpyn(s,m_szNames[0],32); }
++	void GetTitle(LPSTR s) const { strncpy(s,m_szNames[0],32); }
+ 	LPCSTR GetTitle() const { return m_szNames[0]; }
+ 	UINT GetSampleName(UINT nSample,LPSTR s=NULL) const;
+ 	UINT GetInstrumentName(UINT nInstr,LPSTR s=NULL) const;
+--- a/src/load_abc.cpp
++++ b/src/load_abc.cpp
+@@ -68,6 +68,11 @@
+ 
+ /**********************************************************************/
+ 
++#if defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP)
++#define putenv(x) NULL
++#define getenv(x) NULL
++#endif
++
+ #pragma pack(1)
+ 
+ typedef enum {
+--- a/src/load_amf.cpp
++++ b/src/load_amf.cpp
+@@ -171,7 +171,7 @@ BOOL CSoundFile::ReadAMF(LPCBYTE lpStream, const DWORD dwMemLength)
+ 	DWORD dwMemPos;
+ 
+ 	if ((!lpStream) || (dwMemLength < 2048)) return FALSE;
+-	if ((!strncmp((LPCTSTR)lpStream, "ASYLUM Music Format V1.0", 25)) && (dwMemLength > 4096))
++	if ((!strncmp((LPCSTR)lpStream, "ASYLUM Music Format V1.0", 25)) && (dwMemLength > 4096))
+ 	{
+ 		UINT numorders, numpats, numsamples;
+ 
+--- a/src/load_it.cpp
++++ b/src/load_it.cpp
+@@ -626,7 +626,7 @@ BOOL CSoundFile::SaveIT(LPCSTR lpszFileName, UINT nPacking)
+ 	dwPatNamLen = 0;
+ 	dwChnNamLen = 0;
+ 	header.id = 0x4D504D49; // IMPM
+-	lstrcpyn((char *)header.songname, m_szNames[0], 27);
++	strncpy((char *)header.songname, m_szNames[0], 27);
+ 	header.reserved1 = 0x1004;
+ 	header.ordnum = 0;
+ 	while ((header.ordnum < MAX_ORDERS) && (Order[header.ordnum] < 0xFF)) header.ordnum++;
+--- a/src/load_med.cpp
++++ b/src/load_med.cpp
+@@ -737,7 +737,7 @@ BOOL CSoundFile::ReadMed(const BYTE *lpStream, DWORD dwMemLength)
+ 				if (maxnamelen > 32) maxnamelen = 32;
+ 				for (UINT i=0; i<ientries; i++) if (i < m_nSamples)
+ 				{
+-					lstrcpyn(m_szNames[i+1], psznames + i*ientrysz, maxnamelen);
++					strncpy(m_szNames[i+1], psznames + i*ientrysz, maxnamelen);
+ 					m_szNames[i+1][31] = '\0';
+ 				}
+ 			}
+@@ -768,7 +768,7 @@ BOOL CSoundFile::ReadMed(const BYTE *lpStream, DWORD dwMemLength)
+ 					if (trknamelen > MAX_CHANNELNAME) trknamelen = MAX_CHANNELNAME;
+ 					if ((trknameofs) && (trknamelen < dwMemLength) && (trknameofs < dwMemLength - trknamelen))
+ 					{
+-						lstrcpyn(ChnSettings[i].szName, (LPCSTR)(lpStream+trknameofs), MAX_CHANNELNAME);
++						strncpy(ChnSettings[i].szName, (LPCSTR)(lpStream+trknameofs), MAX_CHANNELNAME);
+ 						ChnSettings[i].szName[MAX_CHANNELNAME-1] = '\0';
+ 					}
+ 				}
+--- a/src/load_mid.cpp
++++ b/src/load_mid.cpp
+@@ -50,6 +50,11 @@
+ 
+ /**********************************************************************/
+ 
++#if defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP)
++#define putenv(x) NULL
++#define getenv(x) NULL
++#endif
++
+ typedef enum {
+ 	none,
+ 	wheeldown,
+--- a/src/load_mod.cpp
++++ b/src/load_mod.cpp
+@@ -468,9 +468,9 @@ BOOL CSoundFile::SaveMod(LPCSTR lpszFileName, UINT nPacking)
+ 	fwrite(ord, 128, 1, f);
+ 	// Writing signature
+ 	if (m_nChannels == 4)
+-		lstrcpy((LPSTR)&bTab, "M.K.");
++		strcpy((LPSTR)&bTab, "M.K.");
+ 	else
+-		wsprintf((LPSTR)&bTab, "%luCHN", m_nChannels);
++		sprintf((LPSTR)&bTab, "%luCHN", m_nChannels);
+ 	fwrite(bTab, 4, 1, f);
+ 	// Writing patterns
+ 	for (UINT ipat=0; ipat<nbp; ipat++) if (Patterns[ipat])
+--- a/src/load_pat.cpp
++++ b/src/load_pat.cpp
+@@ -58,6 +58,11 @@
+ 
+ #define PAT_ENV_PATH2CFG			"MMPAT_PATH_TO_CFG"
+ 
++#if defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP)
++#define putenv(x) NULL
++#define getenv(x) NULL
++#endif
++
+ // 128 gm and 63 drum
+ #define MAXSMP				191
+ static char midipat[MAXSMP][PATH_MAX];
+--- a/src/load_ptm.cpp
++++ b/src/load_ptm.cpp
+@@ -109,7 +109,7 @@ BOOL CSoundFile::ReadPTM(const BYTE *lpStream, DWORD dwMemLength)
+ 		MODINSTRUMENT *pins = &Ins[ismp+1];
+ 		PTMSAMPLE *psmp = (PTMSAMPLE *)(lpStream+dwMemPos);
+ 
+-		lstrcpyn(m_szNames[ismp+1], psmp->samplename, 28);
++		strncpy(m_szNames[ismp+1], psmp->samplename, 28);
+ 		memcpy(pins->name, psmp->filename, 12);
+ 		pins->name[12] = 0;
+ 		pins->nGlobalVol = 64;
+--- a/src/load_wav.cpp
++++ b/src/load_wav.cpp
+@@ -11,6 +11,10 @@
+ #define WAVE_FORMAT_EXTENSIBLE	0xFFFE
+ #endif
+ 
++#ifndef WAVE_FORMAT_PCM
++#define WAVE_FORMAT_PCM         1
++#endif
++
+ /////////////////////////////////////////////////////////////
+ // WAV file support
+ 
+--- a/src/load_xm.cpp
++++ b/src/load_xm.cpp
+@@ -604,7 +604,7 @@ BOOL CSoundFile::SaveXM(LPCSTR lpszFileName, UINT nPacking)
+ 	fwrite("Extended Module: ", 17, 1, f);
+ 	fwrite(m_szNames[0], 20, 1, f);
+ 	s[0] = 0x1A;
+-	lstrcpy((LPSTR)&s[1], (nPacking) ? "MOD Plugin packed   " : "FastTracker v2.00   ");
++	strcpy((LPSTR)&s[1], (nPacking) ? "MOD Plugin packed   " : "FastTracker v2.00   ");
+ 	s[21] = 0x04;
+ 	s[22] = 0x01;
+ 	fwrite(s, 23, 1, f);
+--- a/src/mmcmp.cpp
++++ b/src/mmcmp.cpp
+@@ -175,7 +175,7 @@ BOOL MMCMP_Unpack(LPCBYTE *ppMemFile, LPDWORD pdwMemLength)
+ 	 || (!pmmh->nblocks) || (pmmh->filesize < 16) || (pmmh->filesize > 0x8000000)
+ 	 || (pmmh->blktable >= dwMemLength) || (pmmh->blktable + 4*pmmh->nblocks > dwMemLength)) return FALSE;
+ 	dwFileSize = pmmh->filesize;
+-	if ((pBuffer = (LPBYTE)GlobalAllocPtr(GHND, (dwFileSize + 31) & ~15)) == NULL) return FALSE;
++	if ((pBuffer = (LPBYTE)GlobalAlloc(GHND, (dwFileSize + 31) & ~15)) == NULL) return FALSE;
+ 	pblk_table = (const DWORD *)(lpMemFile+pmmh->blktable);
+ 	for (UINT nBlock=0; nBlock<pmmh->nblocks; nBlock++)
+ 	{
+@@ -382,7 +382,7 @@ BOOL MMCMP_Unpack(LPCBYTE *ppMemFile, LPDWORD pdwMemLength)
+ 			}
+ 		} else
+ 		{
+-			GlobalFreePtr(pBuffer);
++			GlobalFree(pBuffer);
+ 			return FALSE;
+ 		}
+ 	}
+@@ -495,7 +495,7 @@ BOOL PP20_Unpack(LPCBYTE *ppMemFile, LPDWORD pdwMemLength)
+ 	dwDstLen = (lpMemFile[dwMemLength-4]<<16) | (lpMemFile[dwMemLength-3]<<8) | (lpMemFile[dwMemLength-2]);
+ 	//Log("PP20 detected: Packed length=%d, Unpacked length=%d\n", dwMemLength, dwDstLen);
+ 	if ((dwDstLen < 512) || (dwDstLen > 0x400000) || (dwDstLen > 16*dwMemLength)) return FALSE;
+-	if ((pBuffer = (LPBYTE)GlobalAllocPtr(GHND, (dwDstLen + 31) & ~15)) == NULL) return FALSE;
++	if ((pBuffer = (LPBYTE)GlobalAlloc(GHND, (dwDstLen + 31) & ~15)) == NULL) return FALSE;
+ 	PP20_DoUnpack(lpMemFile+4, dwMemLength-4, pBuffer, dwDstLen);
+ 	*ppMemFile = pBuffer;
+ 	*pdwMemLength = dwDstLen;
+--- a/src/sndfile.cpp
++++ b/src/sndfile.cpp
+@@ -168,7 +168,7 @@ BOOL CSoundFile::Create(LPCBYTE lpStream, DWORD dwMemLength)
+ #ifdef MMCMP_SUPPORT
+ 		if (bMMCmp)
+ 		{
+-			GlobalFreePtr(lpStream);
++			GlobalFree((HGLOBAL)lpStream);
+ 			lpStream = NULL;
+ 		}
+ #endif
+@@ -355,7 +355,7 @@ void CSoundFile::FreePattern(LPVOID pat)
+ signed char* CSoundFile::AllocateSample(UINT nbytes)
+ //-------------------------------------------
+ {
+-	signed char * p = (signed char *)GlobalAllocPtr(GHND, (nbytes+39) & ~7);
++	signed char * p = (signed char *)GlobalAlloc(GHND, (nbytes+39) & ~7);
+ 	if (p) p += 16;
+ 	return p;
+ }
+@@ -366,7 +366,7 @@ void CSoundFile::FreeSample(LPVOID p)
+ {
+ 	if (p)
+ 	{
+-		GlobalFreePtr(((LPSTR)p)-16);
++		GlobalFree(((LPSTR)p)-16);
+ 	}
+ }
+ 
+@@ -378,13 +378,13 @@ void CSoundFile::ResetMidiCfg()
+ //-----------------------------
+ {
+ 	memset(&m_MidiCfg, 0, sizeof(m_MidiCfg));
+-	lstrcpy(&m_MidiCfg.szMidiGlb[MIDIOUT_START*32], "FF");
+-	lstrcpy(&m_MidiCfg.szMidiGlb[MIDIOUT_STOP*32], "FC");
+-	lstrcpy(&m_MidiCfg.szMidiGlb[MIDIOUT_NOTEON*32], "9c n v");
+-	lstrcpy(&m_MidiCfg.szMidiGlb[MIDIOUT_NOTEOFF*32], "9c n 0");
+-	lstrcpy(&m_MidiCfg.szMidiGlb[MIDIOUT_PROGRAM*32], "Cc p");
+-	lstrcpy(&m_MidiCfg.szMidiSFXExt[0], "F0F000z");
+-	for (int iz=0; iz<16; iz++) wsprintf(&m_MidiCfg.szMidiZXXExt[iz*32], "F0F001%02X", iz*8);
++	strcpy(&m_MidiCfg.szMidiGlb[MIDIOUT_START*32], "FF");
++	strcpy(&m_MidiCfg.szMidiGlb[MIDIOUT_STOP*32], "FC");
++	strcpy(&m_MidiCfg.szMidiGlb[MIDIOUT_NOTEON*32], "9c n v");
++	strcpy(&m_MidiCfg.szMidiGlb[MIDIOUT_NOTEOFF*32], "9c n 0");
++	strcpy(&m_MidiCfg.szMidiGlb[MIDIOUT_PROGRAM*32], "Cc p");
++	strcpy(&m_MidiCfg.szMidiSFXExt[0], "F0F000z");
++	for (int iz=0; iz<16; iz++) sprintf(&m_MidiCfg.szMidiZXXExt[iz*32], "F0F001%02X", iz*8);
+ }
+ 
+ 
+@@ -1774,7 +1774,7 @@ BOOL CSoundFile::SetPatternName(UINT nPat, LPCSTR lpszName)
+ 	if (nPat >= MAX_PATTERNS) return FALSE;
+ 	if (lpszName == NULL) return(FALSE);
+ 
+-	if (lpszName) lstrcpyn(szName, lpszName, MAX_PATTERNNAME);
++	if (lpszName) strncpy(szName, lpszName, MAX_PATTERNNAME);
+ 	szName[MAX_PATTERNNAME-1] = 0;
+ 	if (!m_lpszPatternNames) m_nPatternNames = 0;
+ 	if (nPat >= m_nPatternNames)
+

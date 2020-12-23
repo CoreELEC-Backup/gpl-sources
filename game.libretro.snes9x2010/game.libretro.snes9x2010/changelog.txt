@@ -1,0 +1,8 @@
+[B]2013-08-17[/B] Version [B]1.52.6[/B]
+. Updated to 1228cb2 @ 2013-08-09
+
+[B]2013-04-23[/B] Version [B]1.52.5[/B]
+. Updated to a82eb38 @ 2013-04-22
+
+[B]2013-02-16[/B] Version [B]1.52.4[/B]
+. Initial release: Snes9x v1.52. https://github.com/libretro/snes9x-next @ ea17306 (2013-02-02)

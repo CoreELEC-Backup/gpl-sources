@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: Program Association
+		Table</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: Program Association Table (PAT)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>~/bin &gt; ./dvbsnoop -n 1 0x00
+dvbsnoop  Vers. 1.1.10   -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+SECT-Packet: 00000001   PID: 0 (0x0000), Length: 60 (0x003c)
+Time received: Tue 2003-11-25  02:05:32.776
+---------------------------------------------------------
+  0000:   .  .  9  .  7  .  .  .  m  f  .  d  m  k  .  X 
+  0000:  00 b0 39 04 37 c7 00 00 6d 66 e0 64 6d 6b e2 58 
+  0010:   m  n  .  .  m  p  .  L  m  g  .  .  m  m  .    
+  0010:  6d 6e e2 8a 6d 70 e4 4c 6d 67 e0 c8 6d 6d e3 20 
+  0020:   m  l  .  .  m  h  .  ,  m  o  .  .  m  i  .  . 
+  0020:  6d 6c e2 bc 6d 68 e1 2c 6d 6f e4 0a 6d 69 e1 90 
+  0030:   m  q  .  .  m  j  .  .  .  .  .  . 
+  0030:  6d 71 e3 ec 6d 6a e1 f4 d2 ff 95 de 
+
+PID:  0 (0x0000)
+PAT-decoding....
+Table_ID: 0 (0x00)  [= program_association_section]
+section_syntax_indicator: 1 (0x01)
+(fixed): 0 (0x00)
+reserved_1: 3 (0x03)
+Section_length: 57 (0x0039)
+Transport_Stream_ID: 1079 (0x0437)
+reserved_2: 3 (0x03)
+Version_number: 3 (0x03)
+Current_next_indicator: 1 (0x01)
+Section_number: 0 (0x00)
+Last_Section_number: 0 (0x00)
+    
+    Program_number: 28006 (0x6d66)
+    reserved: 7 (0x07)
+    Program_map_PID: 100 (0x0064)
+    
+    Program_number: 28011 (0x6d6b)
+    reserved: 7 (0x07)
+    Program_map_PID: 600 (0x0258)
+    
+    Program_number: 28014 (0x6d6e)
+    reserved: 7 (0x07)
+    Program_map_PID: 650 (0x028a)
+    
+    Program_number: 28016 (0x6d70)
+    reserved: 7 (0x07)
+    Program_map_PID: 1100 (0x044c)
+    
+    Program_number: 28007 (0x6d67)
+    reserved: 7 (0x07)
+    Program_map_PID: 200 (0x00c8)
+    
+    Program_number: 28013 (0x6d6d)
+    reserved: 7 (0x07)
+    Program_map_PID: 800 (0x0320)
+    
+    Program_number: 28012 (0x6d6c)
+    reserved: 7 (0x07)
+    Program_map_PID: 700 (0x02bc)
+    
+    Program_number: 28008 (0x6d68)
+    reserved: 7 (0x07)
+    Program_map_PID: 300 (0x012c)
+    
+    Program_number: 28015 (0x6d6f)
+    reserved: 7 (0x07)
+    Program_map_PID: 1034 (0x040a)
+    
+    Program_number: 28009 (0x6d69)
+    reserved: 7 (0x07)
+    Program_map_PID: 400 (0x0190)
+    
+    Program_number: 28017 (0x6d71)
+    reserved: 7 (0x07)
+    Program_map_PID: 1004 (0x03ec)
+    
+    Program_number: 28010 (0x6d6a)
+    reserved: 7 (0x07)
+    Program_map_PID: 500 (0x01f4)
+CRC: 3539965406 (0xd2ff95de)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

@@ -1,0 +1,5 @@
+*.o
+*.so
+*.a
+replay/*
+/profile.dat

@@ -1,0 +1,1648 @@
+# VDR language source file.
+# Copyright (C) 2018 Klaus Schmidinger <vdr@tvdr.de>
+# This file is distributed under the same license as the VDR package.
+# Tomas Prybil <tomas@prybil.se>, 2002, 2003, 2005, 2006
+# Jan Ekholm <chakie@infa.abo.fi>, 2003
+# Tomas Berglund <tomber@telia.com>, 2008
+# Magnus Andersson <svankan@bahnhof.se>, 2008
+# Richard Lithvall <r-vdr@boomer.se>, 2013
+# Magnus Sirviö <sirwio@hotmail.com>, 2015
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VDR 2.4.0\n"
+"Report-Msgid-Bugs-To: <vdr-bugs@tvdr.de>\n"
+"POT-Creation-Date: 2020-06-15 17:50+0200\n"
+"PO-Revision-Date: 2015-02-12 21:58+0100\n"
+"Last-Translator: Magnus Sirviö <sirwio@hotmail.com>\n"
+"Language-Team: Swedish <vdr@linuxtv.org>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "*** Invalid Channel ***"
+msgstr "*** Felaktig kanal ***"
+
+msgid "CAM activated!"
+msgstr "CAM aktiverad!"
+
+msgid "Channel not available!"
+msgstr "Kanalen är inte tillgänglig!"
+
+msgid "Can't start Transfer Mode!"
+msgstr "Kan inte starta Transfer Mode!"
+
+msgid "off"
+msgstr "av"
+
+msgid "on"
+msgstr "på"
+
+msgid "auto"
+msgstr "automatisk"
+
+msgid "none"
+msgstr "ingen"
+
+msgid "Polarization"
+msgstr "Polarisation"
+
+msgid "System"
+msgstr "System"
+
+msgid "Srate"
+msgstr "Srate"
+
+msgid "Inversion"
+msgstr "Inversion"
+
+msgid "CoderateH"
+msgstr "CoderateH"
+
+msgid "CoderateL"
+msgstr "CoderateL"
+
+msgid "Modulation"
+msgstr "Modulation"
+
+msgid "Bandwidth"
+msgstr "Bandbredd"
+
+msgid "Transmission"
+msgstr "Transmission"
+
+msgid "Guard"
+msgstr "Guard"
+
+msgid "Hierarchy"
+msgstr "Hierarki"
+
+msgid "Rolloff"
+msgstr "Rolloff"
+
+msgid "StreamId"
+msgstr "StreamId"
+
+msgid "Pilot"
+msgstr "Pilotavsnitt"
+
+msgid "T2SystemId"
+msgstr "T2SystemId"
+
+msgid "SISO/MISO"
+msgstr "SISO/MISO"
+
+msgid "Starting EPG scan"
+msgstr "Påbörjar EPG-avsökning"
+
+msgid "Content$Movie/Drama"
+msgstr "Film/Drama"
+
+msgid "Content$Detective/Thriller"
+msgstr "Deckare/Thriller"
+
+msgid "Content$Adventure/Western/War"
+msgstr "Äventyr/Western/Krig"
+
+msgid "Content$Science Fiction/Fantasy/Horror"
+msgstr "Fiktion/Fantasy/Skräck"
+
+msgid "Content$Comedy"
+msgstr "Komedi"
+
+msgid "Content$Soap/Melodrama/Folkloric"
+msgstr "Såpa/Melodram/Folksaga"
+
+msgid "Content$Romance"
+msgstr "Romatik"
+
+msgid "Content$Serious/Classical/Religious/Historical Movie/Drama"
+msgstr "Seriös/Klassisk/Religös/Historisk/Drama"
+
+msgid "Content$Adult Movie/Drama"
+msgstr "Vuxenfilm/Drama"
+
+msgid "Content$News/Current Affairs"
+msgstr "Nyheter/Journalistik"
+
+msgid "Content$News/Weather Report"
+msgstr "Nyheter/Väderleksrapport"
+
+msgid "Content$News Magazine"
+msgstr "Nyhetsmagasin"
+
+msgid "Content$Documentary"
+msgstr "Dokumentär"
+
+msgid "Content$Discussion/Inverview/Debate"
+msgstr "Diskussion/Intervju/Debatt"
+
+msgid "Content$Show/Game Show"
+msgstr "Show/Lekprogram"
+
+msgid "Content$Game Show/Quiz/Contest"
+msgstr "Frågesport/Tävling"
+
+msgid "Content$Variety Show"
+msgstr "Varité"
+
+msgid "Content$Talk Show"
+msgstr "Pratshow"
+
+msgid "Content$Sports"
+msgstr "Sport"
+
+msgid "Content$Special Event"
+msgstr "Specialevent"
+
+msgid "Content$Sport Magazine"
+msgstr "Sportmagasin"
+
+msgid "Content$Football/Soccer"
+msgstr "Fotboll"
+
+msgid "Content$Tennis/Squash"
+msgstr "Tennis/Squash"
+
+msgid "Content$Team Sports"
+msgstr "Lagsport"
+
+msgid "Content$Athletics"
+msgstr "Friidrott"
+
+msgid "Content$Motor Sport"
+msgstr "Motorsport"
+
+msgid "Content$Water Sport"
+msgstr "Vattensport"
+
+msgid "Content$Winter Sports"
+msgstr "Vintersport"
+
+msgid "Content$Equestrian"
+msgstr "Ridsport"
+
+msgid "Content$Martial Sports"
+msgstr "Kampsport"
+
+msgid "Content$Children's/Youth Programme"
+msgstr "Barn/ungdomsprogram"
+
+msgid "Content$Pre-school Children's Programme"
+msgstr "Barnprogram, förskola"
+
+msgid "Content$Entertainment Programme for 6 to 14"
+msgstr "Underhållning, 6-14 år"
+
+msgid "Content$Entertainment Programme for 10 to 16"
+msgstr "Underhållning, 10-16 år"
+
+msgid "Content$Informational/Educational/School Programme"
+msgstr "Informativ/Utbildning/Skola"
+
+msgid "Content$Cartoons/Puppets"
+msgstr "Tecknat/Dockteater"
+
+msgid "Content$Music/Ballet/Dance"
+msgstr "Musik/Balett/Dans"
+
+msgid "Content$Rock/Pop"
+msgstr "Rock/Pop"
+
+msgid "Content$Serious/Classical Music"
+msgstr "Klassisk musik"
+
+msgid "Content$Folk/Tradional Music"
+msgstr "Folkmusik"
+
+msgid "Content$Jazz"
+msgstr "Jazz"
+
+msgid "Content$Musical/Opera"
+msgstr "Musikal/Opera"
+
+msgid "Content$Ballet"
+msgstr "Balett"
+
+msgid "Content$Arts/Culture"
+msgstr "Konst/Kultur"
+
+msgid "Content$Performing Arts"
+msgstr "Scenkonst"
+
+msgid "Content$Fine Arts"
+msgstr "Skönkonst"
+
+msgid "Content$Religion"
+msgstr "Religion"
+
+msgid "Content$Popular Culture/Traditional Arts"
+msgstr "Populärkultur/Folkkonst"
+
+msgid "Content$Literature"
+msgstr "Litteratur"
+
+msgid "Content$Film/Cinema"
+msgstr "Film/Bio"
+
+msgid "Content$Experimental Film/Video"
+msgstr "Experimentell film/Video"
+
+msgid "Content$Broadcasting/Press"
+msgstr "Etermedia/Press"
+
+msgid "Content$New Media"
+msgstr "Nya medier"
+
+msgid "Content$Arts/Culture Magazine"
+msgstr "Konst/Kulturmagasin"
+
+msgid "Content$Fashion"
+msgstr "Mode"
+
+msgid "Content$Social/Political/Economics"
+msgstr "Samhälle/Politik/Ekonomi"
+
+msgid "Content$Magazine/Report/Documentary"
+msgstr "Magasin/Rapport/Dokumentär"
+
+msgid "Content$Economics/Social Advisory"
+msgstr "Ekonomi/Samhälle"
+
+msgid "Content$Remarkable People"
+msgstr "Anmärkningsvärda personer"
+
+msgid "Content$Education/Science/Factual"
+msgstr "Utbildning/Vetenskap/Fakta"
+
+msgid "Content$Nature/Animals/Environment"
+msgstr "Natur/Djur/Miljö"
+
+msgid "Content$Technology/Natural Sciences"
+msgstr "Teknologi/Naturvetenskap"
+
+msgid "Content$Medicine/Physiology/Psychology"
+msgstr "Medicin/Fysik/Psykologi"
+
+msgid "Content$Foreign Countries/Expeditions"
+msgstr "Främmande länder/Expeditioner"
+
+msgid "Content$Social/Spiritual Sciences"
+msgstr "Antroposofi"
+
+msgid "Content$Further Education"
+msgstr "Vidareutbildning"
+
+msgid "Content$Languages"
+msgstr "Språk"
+
+msgid "Content$Leisure/Hobbies"
+msgstr "Fritid/Hobby"
+
+msgid "Content$Tourism/Travel"
+msgstr "Turism/Resor"
+
+msgid "Content$Handicraft"
+msgstr "Konsthantverk"
+
+msgid "Content$Motoring"
+msgstr "Bilmagasin"
+
+msgid "Content$Fitness & Health"
+msgstr "Fitness och hälsa"
+
+msgid "Content$Cooking"
+msgstr "Matlagning"
+
+msgid "Content$Advertisement/Shopping"
+msgstr "TV-shop"
+
+msgid "Content$Gardening"
+msgstr "Trädgård"
+
+msgid "Content$Original Language"
+msgstr "Ursprungsspråk"
+
+msgid "Content$Black & White"
+msgstr "Svartvitt"
+
+msgid "Content$Unpublished"
+msgstr "Saknas"
+
+msgid "Content$Live Broadcast"
+msgstr "Direktsändning"
+
+#, c-format
+msgid "ParentalRating$from %d"
+msgstr "från %d"
+
+msgid "No title"
+msgstr "Ingen titel"
+
+#. TRANSLATORS: The name of the language, as written natively
+msgid "LanguageName$English"
+msgstr "Svenska"
+
+#. TRANSLATORS: The 3-letter code of the language
+msgid "LanguageCode$eng"
+msgstr "sve"
+
+msgid "LanguageName$original language (qaa)"
+msgstr ""
+
+msgid "LanguageName$uncoded languages (mis)"
+msgstr ""
+
+msgid "LanguageName$multiple languages (mul)"
+msgstr ""
+
+msgid "LanguageName$narrative (nar)"
+msgstr ""
+
+msgid "LanguageName$undetermined (und)"
+msgstr ""
+
+msgid "LanguageName$no linguistic content (zxx)"
+msgstr ""
+
+msgid "Phase 1: Detecting RC code type"
+msgstr "Steg1: Identifierar typ av fjärrkontroll"
+
+msgid "Press any key on the RC unit"
+msgstr "Tryck valfri tangent på fjärrkontrollen"
+
+msgid "RC code detected!"
+msgstr "Fjärrkontrolltyp identifierad!"
+
+msgid "Do not press any key..."
+msgstr "Tryck inte på någon knapp..."
+
+msgid "Phase 2: Learning specific key codes"
+msgstr "Fas 2: Inlärning av specifika knappar"
+
+#, c-format
+msgid "Press key for '%s'"
+msgstr "Tryck på knappen för '%s'"
+
+msgid "Press 'Up' to confirm"
+msgstr "Tryck 'Upp' för att bekräfta"
+
+msgid "Press 'Down' to continue"
+msgstr "Tryck 'Ner' för att bekräfta"
+
+msgid "(press 'Up' to go back)"
+msgstr "(Tryck 'Upp' för att backa)"
+
+msgid "(press 'Down' to end key definition)"
+msgstr "(Tryck 'Ner' för att avsluta inlärningen)"
+
+msgid "(press 'Menu' to skip this key)"
+msgstr "(Tryck 'Meny' för att hoppa över knappen.)"
+
+msgid "Learning Remote Control Keys"
+msgstr "Inlärning av fjärrkontrollsknappar"
+
+msgid "Phase 3: Saving key codes"
+msgstr "Fas 3: Spara knappinställningar"
+
+msgid "Press 'Up' to save, 'Down' to cancel"
+msgstr "Tryck 'Upp' för att spara eller 'Ner' för att avbryta."
+
+msgid "Key$Up"
+msgstr "Upp"
+
+msgid "Key$Down"
+msgstr "Ner"
+
+msgid "Key$Menu"
+msgstr "Meny"
+
+msgid "Key$Ok"
+msgstr "Ok"
+
+msgid "Key$Back"
+msgstr "Tillbaka"
+
+msgid "Key$Left"
+msgstr "Vänster"
+
+msgid "Key$Right"
+msgstr "Höger"
+
+msgid "Key$Red"
+msgstr "Röd"
+
+msgid "Key$Green"
+msgstr "Grön"
+
+msgid "Key$Yellow"
+msgstr "Gul"
+
+msgid "Key$Blue"
+msgstr "Blå"
+
+msgid "Key$Info"
+msgstr "Info"
+
+msgid "Key$Play/Pause"
+msgstr "Spela upp/Pausa"
+
+msgid "Key$Play"
+msgstr "Spela upp"
+
+msgid "Key$Pause"
+msgstr "Pausa"
+
+msgid "Key$Stop"
+msgstr "Stoppa"
+
+msgid "Key$Record"
+msgstr "Spela in"
+
+msgid "Key$FastFwd"
+msgstr "Snabbspolning framåt"
+
+msgid "Key$FastRew"
+msgstr "Snabbspolning bakåt"
+
+msgid "Key$Next"
+msgstr "Nästa"
+
+msgid "Key$Prev"
+msgstr "Föregående"
+
+msgid "Key$Power"
+msgstr "Av/På"
+
+msgid "Key$Channel+"
+msgstr "Kanal+"
+
+msgid "Key$Channel-"
+msgstr "Kanal-"
+
+msgid "Key$PrevChannel"
+msgstr "Förra kanalen"
+
+msgid "Key$Volume+"
+msgstr "Volym+"
+
+msgid "Key$Volume-"
+msgstr "Volym-"
+
+msgid "Key$Mute"
+msgstr "Ljud Av"
+
+msgid "Key$Audio"
+msgstr "Ljud"
+
+msgid "Key$Subtitles"
+msgstr "Textning"
+
+msgid "Key$Schedule"
+msgstr "Program"
+
+msgid "Key$Channels"
+msgstr "Kanaler"
+
+msgid "Key$Timers"
+msgstr "Timers"
+
+msgid "Key$Recordings"
+msgstr "Inspelningar"
+
+msgid "Key$Setup"
+msgstr "Inställningar"
+
+msgid "Key$Commands"
+msgstr "Kommandon"
+
+msgid "Key$User0"
+msgstr "Användardefinierad0"
+
+msgid "Key$User1"
+msgstr "Användardefinierad1"
+
+msgid "Key$User2"
+msgstr "Användardefinierad2"
+
+msgid "Key$User3"
+msgstr "Användardefinierad3"
+
+msgid "Key$User4"
+msgstr "Användardefinierad4"
+
+msgid "Key$User5"
+msgstr "Användardefinierad5"
+
+msgid "Key$User6"
+msgstr "Användardefinierad6"
+
+msgid "Key$User7"
+msgstr "Användardefinierad7"
+
+msgid "Key$User8"
+msgstr "Användardefinierad8"
+
+msgid "Key$User9"
+msgstr "Användardefinierad9"
+
+msgid "Free To Air"
+msgstr "okodad"
+
+msgid "encrypted"
+msgstr "krypterad"
+
+msgid "Edit channel"
+msgstr "Redigera kanal"
+
+msgid "Name"
+msgstr "Namn"
+
+msgid "Source"
+msgstr "Källa"
+
+msgid "Frequency"
+msgstr "Frekvens"
+
+msgid "Vpid"
+msgstr "VPID"
+
+msgid "Ppid"
+msgstr "Ppid"
+
+msgid "Apid1"
+msgstr "APID1"
+
+msgid "Apid2"
+msgstr "APID2"
+
+msgid "Dpid1"
+msgstr "DPID1"
+
+msgid "Dpid2"
+msgstr "DPID2"
+
+msgid "Spid1"
+msgstr "SPID1"
+
+msgid "Spid2"
+msgstr "SPID2"
+
+msgid "Tpid"
+msgstr "TPID"
+
+msgid "CA"
+msgstr "Kortläsare"
+
+msgid "Sid"
+msgstr "Sid"
+
+msgid "Nid"
+msgstr "Nid"
+
+msgid "Tid"
+msgstr "Tid"
+
+msgid "Channel settings are not unique!"
+msgstr "Kanalinställningarna är ej unika!"
+
+msgid "Channels"
+msgstr "Kanaler"
+
+msgid "Button$Edit"
+msgstr "Redigera"
+
+msgid "Button$New"
+msgstr "Ny"
+
+msgid "Button$Delete"
+msgstr "Ta bort"
+
+msgid "Button$Mark"
+msgstr "Markera"
+
+msgid "Channel is being used by a timer!"
+msgstr "Kanalen används av en timer!"
+
+msgid "Delete channel?"
+msgstr "Ta bort kanalen?"
+
+msgid "Edit folder"
+msgstr "Redigera mapp"
+
+msgid "New folder"
+msgstr "Ny mapp"
+
+msgid "Folder name already exists!"
+msgstr "Mappnamnet finns redan!"
+
+#, c-format
+msgid "Folder name must not contain '%c'!"
+msgstr "Mappnamnet får inte innehålla '%c'!"
+
+msgid "Button$Open"
+msgstr "Öppna"
+
+msgid "Delete folder and all sub folders?"
+msgstr "Radera mapp och alla undermappar?"
+
+msgid "Delete folder?"
+msgstr "Radera mapp?"
+
+msgid "Edit timer"
+msgstr "Redigera timer"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Channel"
+msgstr "Kanal"
+
+msgid "Day"
+msgstr "Dag"
+
+msgid "Start"
+msgstr "Börjar"
+
+msgid "Stop"
+msgstr "Slutar"
+
+msgid "VPS"
+msgstr "VPS"
+
+msgid "Priority"
+msgstr "Prioritet"
+
+msgid "Lifetime"
+msgstr "Livstid"
+
+msgid "File"
+msgstr "Filnamn"
+
+msgid "Record on"
+msgstr ""
+
+msgid "Button$Folder"
+msgstr "Mapp"
+
+msgid "Button$Single"
+msgstr "Enskilld"
+
+msgid "Button$Repeating"
+msgstr "Repeterande"
+
+msgid "First day"
+msgstr "Första dag"
+
+msgid "Error while accessing remote timer"
+msgstr ""
+
+msgid "Timer has been deleted!"
+msgstr ""
+
+msgid "Select folder"
+msgstr "Välj mapp"
+
+msgid "Timers"
+msgstr "Timers"
+
+msgid "Button$On/Off"
+msgstr "På/Av"
+
+msgid "Button$Info"
+msgstr "Info"
+
+msgid "Delete timer?"
+msgstr "Ta bort timern?"
+
+msgid "Timer still recording - really delete?"
+msgstr "Timerstyrd inspelning pågår - radera ändå?"
+
+msgid "Event"
+msgstr "Sändning"
+
+msgid "Button$Timer"
+msgstr "Timer"
+
+msgid "Button$Record"
+msgstr "Inspelning"
+
+msgid "Button$Switch"
+msgstr "Byt"
+
+msgid "What's on now?"
+msgstr "Vad sänds nu?"
+
+msgid "What's on next?"
+msgstr "Vilket är nästa program?"
+
+msgid "Button$Next"
+msgstr "Nästa"
+
+msgid "Button$Now"
+msgstr "Nu"
+
+msgid "Button$Schedule"
+msgstr "Program"
+
+msgid "Can't switch channel!"
+msgstr "Omöjligt att byta kanal!"
+
+msgid "Schedule"
+msgstr "Program"
+
+#, c-format
+msgid "Schedule - %s"
+msgstr "Program - %s"
+
+#, c-format
+msgid "This event - %s"
+msgstr "Den här sändningen - %s"
+
+msgid "This event - all channels"
+msgstr "Den här sändningen - alla kanaler"
+
+msgid "All events - all channels"
+msgstr "Alla tillfällen - alla kanaler"
+
+#, c-format
+msgid "Please enter %d digits!"
+msgstr "Mata in %d siffror!"
+
+msgid "CAM not responding!"
+msgstr "CAM svarar inte!"
+
+msgid "Edit path"
+msgstr "Redigera sökväg"
+
+msgid "Folder"
+msgstr "Mapp"
+
+msgid "This folder is currently in use - no changes are possible!"
+msgstr "Den här mappen används just nu - inga förändringar är möjliga!"
+
+#, c-format
+msgid "Move entire folder containing %d recordings?"
+msgstr "Flytta hela mappen innehållandes %d inspelningar?"
+
+msgid "Error while moving folder!"
+msgstr "Ett fel upstod när mappen skulle flyttas!"
+
+msgid "Edit recording"
+msgstr "Redigera inspelning"
+
+msgid "This recording is currently in use - no changes are possible!"
+msgstr "Den här inspelningen används just nu - inga förändringar är möjliga!"
+
+msgid "Button$Cancel cutting"
+msgstr "Avbryta klippning"
+
+msgid "Button$Stop cutting"
+msgstr "Avsluta klippning"
+
+msgid "Button$Cancel moving"
+msgstr "Avbryta flytt"
+
+msgid "Button$Stop moving"
+msgstr "Avsluta flytt"
+
+msgid "Button$Cancel copying"
+msgstr "Avbryta kopiering"
+
+msgid "Button$Stop copying"
+msgstr "Avsluta kopiering"
+
+msgid "Button$Cut"
+msgstr "Redigera"
+
+msgid "Button$Delete marks"
+msgstr "Ta bort redigeringsmärke"
+
+msgid "Recording vanished!"
+msgstr "Inspelningen försvann!"
+
+msgid "Edited version already exists - overwrite?"
+msgstr "En redigerad version finns redan - skall den ersättas?"
+
+msgid "Error while queueing recording for cutting!"
+msgstr "Ett fel upstod när inspelningen köades för klippning!"
+
+msgid "Rename recording to folder name?"
+msgstr "Byta namn på inspelning till mappnamnet?"
+
+msgid "Delete editing marks for this recording?"
+msgstr "Ta bort redigeringsmärken för den här inspelningen?"
+
+msgid "Error while deleting editing marks!"
+msgstr "Ett fel uppstod när redigeringsmärken skulle tas bort!"
+
+msgid "Error while changing priority/lifetime!"
+msgstr "Ett fel upstod när prioritet/livstid skulle ändras!"
+
+msgid "Error while changing folder/name!"
+msgstr "Ett fel uppstod när mapp/namn skulle ändras!"
+
+msgid "Recording info"
+msgstr "Inspelningsinformation"
+
+msgid "Button$Play"
+msgstr "Spela upp"
+
+msgid "Button$Rewind"
+msgstr "Återspolning"
+
+msgid "Recordings"
+msgstr "Inspelningar"
+
+msgid "Commands"
+msgstr "Kommandon"
+
+msgid "Delete recording?"
+msgstr "Ta bort inspelningen?"
+
+msgid "Recording is being edited - really delete?"
+msgstr "Inspelningen redigeras - vill du verkligen radera?"
+
+msgid "Error while deleting recording!"
+msgstr "Inspelningen gick inte att ta bort!"
+
+msgid "Recording commands"
+msgstr "Inspelningskommandon"
+
+msgid "never"
+msgstr "aldrig"
+
+msgid "skin dependent"
+msgstr "skin-beroende"
+
+msgid "always"
+msgstr "alltid"
+
+msgid "by name"
+msgstr ""
+
+msgid "by time"
+msgstr ""
+
+msgid "ascending"
+msgstr ""
+
+msgid "descending"
+msgstr ""
+
+msgid "OSD"
+msgstr "OSD"
+
+msgid "Setup.OSD$Language"
+msgstr "Språk"
+
+msgid "Setup.OSD$Skin"
+msgstr "Skin"
+
+msgid "Setup.OSD$Theme"
+msgstr "Tema"
+
+msgid "Setup.OSD$Left (%)"
+msgstr "Vänster (%)"
+
+msgid "Setup.OSD$Top (%)"
+msgstr "Övre (%)"
+
+msgid "Setup.OSD$Width (%)"
+msgstr "Bredd (%)"
+
+msgid "Setup.OSD$Height (%)"
+msgstr "Höjd (%)"
+
+msgid "Setup.OSD$Message time (s)"
+msgstr "Tid för meddelanden (sek)"
+
+msgid "Setup.OSD$Use small font"
+msgstr "Använd liten font"
+
+msgid "Setup.OSD$Anti-alias"
+msgstr "Kantutjämning OSD"
+
+msgid "Setup.OSD$Default font"
+msgstr "Standard typsnitt"
+
+msgid "Setup.OSD$Small font"
+msgstr "Små typsnitt"
+
+msgid "Setup.OSD$Fixed font"
+msgstr "Fast typsnitt"
+
+msgid "Setup.OSD$Default font size (%)"
+msgstr "Fontstorlek standard (%)"
+
+msgid "Setup.OSD$Small font size (%)"
+msgstr "Fontstorlek liten text (%)"
+
+msgid "Setup.OSD$Fixed font size (%)"
+msgstr "Fast fontstorlek (%)"
+
+msgid "Setup.OSD$Channel info position"
+msgstr "Placering av kanalinformation"
+
+msgid "bottom"
+msgstr "undre"
+
+msgid "top"
+msgstr "övre"
+
+msgid "Setup.OSD$Channel info time (s)"
+msgstr "Kanalinformation (s)"
+
+msgid "Setup.OSD$Info on channel switch"
+msgstr "Information vid kanalbyte"
+
+msgid "Setup.OSD$Timeout requested channel info"
+msgstr "Timeout för kanalinformation"
+
+msgid "Setup.OSD$Scroll pages"
+msgstr "Bläddra lista"
+
+msgid "Setup.OSD$Scroll wraps"
+msgstr "Cirkulär lista"
+
+msgid "Setup.OSD$Menu key closes"
+msgstr "Menyknappen stänger"
+
+msgid "Setup.OSD$Recording directories"
+msgstr "Visa mappar i inspelningsmenyn"
+
+msgid "Setup.OSD$Folders in timer menu"
+msgstr "Visa mappar i timermenyn"
+
+msgid "Setup.OSD$Always sort folders first"
+msgstr "Sortera alltid mappar först"
+
+msgid "Setup.OSD$Default sort mode for recordings"
+msgstr ""
+
+msgid "Setup.OSD$Sorting direction for recordings"
+msgstr ""
+
+msgid "Setup.OSD$Number keys for characters"
+msgstr "Använd sifferknappar för bokstavsinmatning"
+
+msgid "Setup.OSD$Color key 0"
+msgstr "Färgknapp 0"
+
+msgid "Setup.OSD$Color key 1"
+msgstr "Färgknapp 1"
+
+msgid "Setup.OSD$Color key 2"
+msgstr "Färgknapp 2"
+
+msgid "Setup.OSD$Color key 3"
+msgstr "Färgknapp 3"
+
+msgid "EPG"
+msgstr "EPG"
+
+msgid "Button$Scan"
+msgstr "Avsökning"
+
+msgid "Setup.EPG$EPG scan timeout (h)"
+msgstr "Tidsgräns för EPG-sökning (h)"
+
+msgid "Setup.EPG$EPG bugfix level"
+msgstr "Nivå för EPG bugfix"
+
+msgid "Setup.EPG$EPG linger time (min)"
+msgstr "Visa passerad EPG (min)"
+
+msgid "Setup.EPG$Set system time"
+msgstr "Ställ in systemtid"
+
+msgid "Setup.EPG$Use time from transponder"
+msgstr "Använd klockan från transponder"
+
+#. TRANSLATORS: note the plural!
+msgid "Setup.EPG$Preferred languages"
+msgstr "Önskade språk"
+
+#. TRANSLATORS: note the singular!
+msgid "Setup.EPG$Preferred language"
+msgstr "Önskat språk"
+
+msgid "pan&scan"
+msgstr "pan&scan"
+
+msgid "letterbox"
+msgstr "letterbox"
+
+msgid "center cut out"
+msgstr "center cut out"
+
+msgid "no"
+msgstr "nej"
+
+msgid "names only"
+msgstr "bara namn"
+
+msgid "PIDs only"
+msgstr "bara PID"
+
+msgid "names and PIDs"
+msgstr "namn och PID"
+
+msgid "add new channels"
+msgstr "lägg till nya kanaler"
+
+msgid "add new transponders"
+msgstr "lägg till nya transponders"
+
+msgid "DVB"
+msgstr "DVB"
+
+msgid "Button$Audio"
+msgstr "Ljud"
+
+msgid "Button$Subtitles"
+msgstr "Undertexter"
+
+msgid "Setup.DVB$Primary DVB interface"
+msgstr "Primär DVB enhet"
+
+msgid "Setup.DVB$Standard compliance"
+msgstr "Standard"
+
+msgid "Setup.DVB$Video format"
+msgstr "Video format"
+
+msgid "Setup.DVB$Video display format"
+msgstr "Format för video display"
+
+msgid "Setup.DVB$Use Dolby Digital"
+msgstr "Använd Dolby Digital"
+
+msgid "Setup.DVB$Update channels"
+msgstr "Uppdatera kanaler"
+
+msgid "Setup.DVB$Audio languages"
+msgstr "Antal ljudspråk"
+
+msgid "Setup.DVB$Audio language"
+msgstr "Ljudspråk"
+
+msgid "Setup.DVB$Display subtitles"
+msgstr "Visa undertexter"
+
+msgid "Setup.DVB$Subtitle languages"
+msgstr "Textningsspråk"
+
+msgid "Setup.DVB$Subtitle language"
+msgstr "Textningsspråk"
+
+msgid "Setup.DVB$Subtitle offset"
+msgstr "Höjdförskjutning av textremsa"
+
+msgid "Setup.DVB$Subtitle foreground transparency"
+msgstr "Transparent förgrund textremsa"
+
+msgid "Setup.DVB$Subtitle background transparency"
+msgstr "Transparent bakgrund textremsa"
+
+msgid "LNB"
+msgstr "LNB"
+
+msgid "Setup.LNB$Use DiSEqC"
+msgstr "Använd DiSEqC"
+
+msgid "Setup.LNB$SLOF (MHz)"
+msgstr "SLOF (MHz)"
+
+msgid "Setup.LNB$Low LNB frequency (MHz)"
+msgstr "Undre LNB frekvens (MHz)"
+
+msgid "Setup.LNB$High LNB frequency (MHz)"
+msgstr "Övre LNB frekvens (MHz)"
+
+#, c-format
+msgid "Setup.LNB$Device %d connected to sat cable"
+msgstr "Enhet %d ansluten till satellitkabel"
+
+msgid "Setup.LNB$own"
+msgstr "egen"
+
+msgid "Setup.LNB$Use dish positioner"
+msgstr "Använda parabolstyrning"
+
+msgid "Setup.LNB$Site latitude (degrees)"
+msgstr "Latitude (grader)"
+
+msgid "South"
+msgstr "Söder"
+
+msgid "North"
+msgstr "Norr"
+
+msgid "Setup.LNB$Site longitude (degrees)"
+msgstr "Longitud (grader)"
+
+msgid "West"
+msgstr "Väster"
+
+msgid "East"
+msgstr "Öster"
+
+msgid "Setup.LNB$Max. positioner swing (degrees)"
+msgstr "Maximal positonerings svängning (grader)"
+
+msgid "Setup.LNB$Positioner speed (degrees/s)"
+msgstr "Positoneringshastighet (grader/s)"
+
+msgid "CAM reset"
+msgstr "CAM omstart"
+
+msgid "CAM present"
+msgstr "CAM närvarande"
+
+msgid "CAM ready"
+msgstr "CAM klar"
+
+#. TRANSLATORS: note the leading blank!
+msgid " (activating)"
+msgstr " (aktiverar)"
+
+msgid "@ device"
+msgstr ""
+
+msgid "CAM"
+msgstr "CAM"
+
+msgid "Button$Cancel activation"
+msgstr "Avbryta aktivering"
+
+msgid "Button$Activate"
+msgstr "Aktivera"
+
+msgid "Button$Menu"
+msgstr "Meny"
+
+msgid "Button$Reset"
+msgstr "Återställ"
+
+msgid "Opening CAM menu..."
+msgstr "Öppnar CAM menyn..."
+
+msgid "Can't open CAM menu!"
+msgstr "Det går inte att öppna CAM menyn!"
+
+msgid "Can't activate CAM!"
+msgstr "Kan inte aktivera CAM!"
+
+msgid "CAM is in use - really reset?"
+msgstr "CAM upptagen, vill du verkligen återställa?"
+
+msgid "Can't reset CAM!"
+msgstr "Kan inte återställa CAM!"
+
+msgid "no instant recording"
+msgstr ""
+
+msgid "confirm instant recording"
+msgstr ""
+
+msgid "record instantly"
+msgstr ""
+
+msgid "do not pause live video"
+msgstr "pausa inte pågående program"
+
+msgid "confirm pause live video"
+msgstr "bekräfta paus av pågående program"
+
+msgid "pause live video"
+msgstr "pausa pågående program"
+
+msgid "confirm"
+msgstr "bekräfta"
+
+msgid "yes"
+msgstr "ja"
+
+msgid "Recording"
+msgstr "Inspelning"
+
+msgid "Setup.Recording$Margin at start (min)"
+msgstr "Marginal före start (min)"
+
+msgid "Setup.Recording$Margin at stop (min)"
+msgstr "Marginal efter stopp (min)"
+
+msgid "Setup.Recording$Default priority"
+msgstr "Normal prioritet"
+
+msgid "Setup.Recording$Default lifetime (d)"
+msgstr "Normal livstid (dagar)"
+
+msgid "Setup.Recording$Record key handling"
+msgstr ""
+
+msgid "Setup.Recording$Pause key handling"
+msgstr "Hantering av pausknapp"
+
+msgid "Setup.Recording$Pause priority"
+msgstr "Prioritet för direktinspelning"
+
+msgid "Setup.Recording$Pause lifetime (d)"
+msgstr "Livstid för direktinspelning (dagar)"
+
+msgid "Setup.Recording$Use episode name"
+msgstr "Använd episodnamn"
+
+msgid "Setup.Recording$Use VPS"
+msgstr "Använd VPS"
+
+msgid "Setup.Recording$VPS margin (s)"
+msgstr "VPS-marginal (s)"
+
+msgid "Setup.Recording$Mark instant recording"
+msgstr "Märk direktinspelning"
+
+msgid "Setup.Recording$Name instant recording"
+msgstr "Namnge direktinspelning"
+
+msgid "Setup.Recording$Instant rec. time (min)"
+msgstr "Direktinspelning längd (min)"
+
+msgid "Setup.Recording$present event"
+msgstr "pågående program"
+
+msgid "Setup.Recording$Max. video file size (MB)"
+msgstr "Maximal filstorlek för inspelning (MB)"
+
+msgid "Setup.Recording$Split edited files"
+msgstr "Dela upp redigerade filer"
+
+msgid "Setup.Recording$Delete timeshift recording"
+msgstr "Radering av timeshift-inspelning"
+
+msgid "Replay"
+msgstr "Uppspelning"
+
+msgid "Setup.Replay$Multi speed mode"
+msgstr "Flerhastighetsläge"
+
+msgid "Setup.Replay$Show replay mode"
+msgstr "Visa uppspelningsläge"
+
+msgid "Setup.Replay$Show remaining time"
+msgstr "Visa återstående tid"
+
+msgid "Setup.Replay$Progress display time (s)"
+msgstr "Tid för visning av förloppsindikatorn (sek)"
+
+msgid "Setup.Replay$Pause replay when setting mark"
+msgstr "Pausa uppspelning vid sättande av redigeringsmärke"
+
+msgid "Setup.Replay$Pause replay when jumping to a mark"
+msgstr "Pausa uppspelning vid hopp till redigeringsmärke"
+
+msgid "Setup.Replay$Skip edited parts"
+msgstr "Hoppa över redigerade delar"
+
+msgid "Setup.Replay$Pause replay at last mark"
+msgstr "Pausa uppspelning på sista redigeringsmärket"
+
+msgid "Setup.Replay$Initial duration for adaptive skipping (s)"
+msgstr "Initialt värde på intelligent hopp i inspelning (s)"
+
+msgid "Setup.Replay$Reset timeout for adaptive skipping (s)"
+msgstr "Tidsgräns vid intelligenta hopp i inspellning (s)"
+
+msgid "Setup.Replay$Alternate behavior for adaptive skipping"
+msgstr "Alternativt beteende på intelligenta hopp i inspelning"
+
+msgid "Setup.Replay$Use Prev/Next keys for adaptive skipping"
+msgstr "Använda Föregående/Nästa knappar för intelligenta hopp i inspelning"
+
+msgid "Setup.Replay$Skip distance with Green/Yellow keys (s)"
+msgstr "Tid för hopp med Grön/Gul knapp (s)"
+
+msgid "Setup.Replay$Skip distance with Green/Yellow keys in repeat (s)"
+msgstr "Tid för hopp med Grön/Gul knapp vid återuppspelning (s)"
+
+msgid "Setup.Replay$Resume ID"
+msgstr "Återupptagnings-ID"
+
+msgid "any hosts"
+msgstr ""
+
+msgid "only default host"
+msgstr ""
+
+msgid "type"
+msgstr ""
+
+msgid "full"
+msgstr ""
+
+msgid "Miscellaneous"
+msgstr "Diverse"
+
+msgid "Setup.Miscellaneous$Min. event timeout (min)"
+msgstr "Tidsgräns före timer (min)"
+
+msgid "Setup.Miscellaneous$Min. user inactivity (min)"
+msgstr "Tidsgräns för användar-inaktivitet (min)"
+
+msgid "Setup.Miscellaneous$SVDRP timeout (s)"
+msgstr "SVDRP-tidsgräns (s)"
+
+msgid "Setup.Miscellaneous$SVDRP peering"
+msgstr ""
+
+msgid "Setup.Miscellaneous$SVDRP host name"
+msgstr ""
+
+msgid "Setup.Miscellaneous$SVDRP default host"
+msgstr ""
+
+msgid "Setup.Miscellaneous$Zap timeout (s)"
+msgstr "Zap-tidsgräns (s)"
+
+msgid "Setup.Miscellaneous$Channel entry timeout (ms)"
+msgstr "Tidsgräns för kanalinmatning (ms)"
+
+msgid "Setup.Miscellaneous$Remote control repeat delay (ms)"
+msgstr "Fjärrkontrollrepetition, fördröjning (ms)"
+
+msgid "Setup.Miscellaneous$Remote control repeat delta (ms)"
+msgstr "Fjärrkontrollrepetition, delta (ms)"
+
+msgid "Setup.Miscellaneous$Initial channel"
+msgstr "Kanal vid uppstart"
+
+msgid "Setup.Miscellaneous$as before"
+msgstr "samma som vid avslut"
+
+msgid "Setup.Miscellaneous$Initial volume"
+msgstr "Ljudstyrka vid uppstart"
+
+msgid "Setup.Miscellaneous$Volume steps"
+msgstr "Volymsteg"
+
+msgid "Setup.Miscellaneous$Volume linearize"
+msgstr "Volymlinjärisering"
+
+msgid "Setup.Miscellaneous$Channels wrap"
+msgstr "Cirkulär kanallista"
+
+msgid "Setup.Miscellaneous$Show channel names with source"
+msgstr "Visa kanalnamnen tillsammans med källan"
+
+msgid "Setup.Miscellaneous$Emergency exit"
+msgstr "Oförutsedd avslutning"
+
+msgid "Plugins"
+msgstr "Moduler"
+
+msgid "This plugin has no setup parameters!"
+msgstr "Den här modulen har inga parametrar"
+
+msgid "Setup"
+msgstr "Inställningar"
+
+msgid "Restart"
+msgstr "Omstart"
+
+msgid "Really restart?"
+msgstr "Vill du verkligen starta om?"
+
+#. TRANSLATORS: note the leading and trailing blanks!
+msgid " Stop recording "
+msgstr " Avsluta inspelning "
+
+#. TRANSLATORS: note the leading blank!
+msgid " Stop replaying"
+msgstr " Avsluta uppspelning"
+
+msgid "Button$Pause"
+msgstr "Paus"
+
+msgid "Button$Stop"
+msgstr "Stopp"
+
+msgid "Button$Resume"
+msgstr "Fortsätt"
+
+#. TRANSLATORS: note the leading blank!
+msgid " Cancel editing"
+msgstr " Avbryt redigering"
+
+msgid "Stop recording?"
+msgstr "Stoppa inspelning?"
+
+msgid "Cancel editing?"
+msgstr "Avbryta redigeringen?"
+
+msgid "No audio available!"
+msgstr "Ljud saknas!"
+
+msgid "No subtitles"
+msgstr "Ingen undertext"
+
+msgid "No subtitles available!"
+msgstr "Inga undertexter tillgängliga!"
+
+msgid "Not enough disk space to start recording!"
+msgstr "Otillräcklingt diskutrymme för inspelning!"
+
+msgid "No free DVB device to record!"
+msgstr "Det finns ingen ledig DVB-enhet för inspelning!"
+
+msgid "Pausing live video..."
+msgstr "Pausar pågående program..."
+
+msgid "Delete timeshift recording?"
+msgstr "Radera timeshift-inspelning?"
+
+#. TRANSLATORS: note the trailing blank!
+msgid "Jump: "
+msgstr "Hoppa: "
+
+msgid "No editing marks defined!"
+msgstr "Det finns inga redigeringsmärken"
+
+msgid "No editing sequences defined!"
+msgstr "Inga redigeringsmärken markerade!"
+
+msgid "Can't start editing process!"
+msgstr "Kan inte starta redigering!"
+
+msgid "Editing process started"
+msgstr "Redigeringen startar"
+
+msgid "Editing process already active!"
+msgstr "Redigeringen är redan aktiv!"
+
+msgid "FileNameChars$ abcdefghijklmnopqrstuvwxyz0123456789-.,#~\\^$[]|()*+?{}/:%@&"
+msgstr " abcdefghijklmnopqrstuvwxyzåäö0123456789-.,#~\\^$[]|()*+?{}/:%@&"
+
+msgid "CharMap$ 0\t-.,1#~\\^$[]|()*+?{}/:%@&\tabc2\tdef3\tghi4\tjkl5\tmno6\tpqrs7\ttuv8\twxyz9"
+msgstr " 0\t-.,1#~\\^$[]|()*+?{}/:%@&\tabcåä2\tdef3\tghi4\tjkl5\tmnoö6\tpqrs7\ttuv8\twxyz9"
+
+msgid "Button$ABC/abc"
+msgstr "ABC/abc"
+
+msgid "Button$Overwrite"
+msgstr "Skriv över"
+
+msgid "Button$Insert"
+msgstr "Infoga"
+
+msgid "Plugin"
+msgstr "Modul"
+
+msgid "Up/Dn for new location - OK to move"
+msgstr "Upp/Ner för nya platsen - därefter OK för att flytta"
+
+msgid "Channel locked (recording)!"
+msgstr "Kanalen är låst (inspelning pågår)!"
+
+msgid "Low disk space!"
+msgstr "Lågt diskutrymme!"
+
+msgid "Regenerating index file"
+msgstr "Återskapar indexfil"
+
+msgid "Index file regeneration complete"
+msgstr "Indexfil återskapad"
+
+msgid "Index file regeneration failed!"
+msgstr "Återskapande av indexfil fallerade!"
+
+msgid "Can't shutdown - option '-s' not given!"
+msgstr "Kan inte avsluta, parameter '-s' saknas!"
+
+msgid "Editing - shut down anyway?"
+msgstr "Editering pågår, vill du avsluta ändå?"
+
+msgid "Recording - shut down anyway?"
+msgstr "Inspelning pågår, vill du avsluta ändå?"
+
+#, c-format
+msgid "Recording in %ld minutes, shut down anyway?"
+msgstr "Inspelning startar om %ld minuter, vill du avsluta ändå?"
+
+msgid "shut down anyway?"
+msgstr "vill du avsluta ändå?"
+
+#, c-format
+msgid "Plugin %s wakes up in %ld min, continue?"
+msgstr "Plugin %s aktiv om %ld min, vill du fortsätta?"
+
+msgid "Editing - restart anyway?"
+msgstr "Editering pågår, vill du starta om ändå?"
+
+msgid "Recording - restart anyway?"
+msgstr "Inspelning pågår, vill du starta om ändå?"
+
+msgid "restart anyway?"
+msgstr "vill du starta om ändå?"
+
+#. TRANSLATORS: note the trailing blank!
+msgid "Volume "
+msgstr "Volym "
+
+msgid "Classic VDR"
+msgstr "Klassisk VDR"
+
+msgid "DISK"
+msgstr "DISK"
+
+msgid "LOAD"
+msgstr "LAST"
+
+msgid "TIMERS"
+msgstr "TIMERS"
+
+msgid "DEVICES"
+msgstr "ENHETER"
+
+msgid "LIVE"
+msgstr "LIVE"
+
+msgid "PLAY"
+msgstr "SPELA"
+
+#, c-format
+msgid "Moving dish to %.1f..."
+msgstr "Flyttar parabol till %.1f..."
+
+msgid "ST:TNG Panels"
+msgstr "ST:TNG"
+
+#. TRANSLATORS: the first character of each weekday, beginning with monday
+msgid "MTWTFSS"
+msgstr "MTOTFLS"
+
+#. TRANSLATORS: abbreviated weekdays, beginning with monday (must all be 3 letters!)
+msgid "MonTueWedThuFriSatSun"
+msgstr "MånTisOnsTorFreLörSön"
+
+msgid "Monday"
+msgstr "Måndag"
+
+msgid "Tuesday"
+msgstr "Tisdag"
+
+msgid "Wednesday"
+msgstr "Onsdag"
+
+msgid "Thursday"
+msgstr "Torsdag"
+
+msgid "Friday"
+msgstr "Fredag"
+
+msgid "Saturday"
+msgstr "Lördag"
+
+msgid "Sunday"
+msgstr "Söndag"
+
+msgid "Upcoming recording!"
+msgstr "Snart börjar inspelning!"
+
+msgid "Pause live video?"
+msgstr "Pausa pågående program?"
+
+msgid "Start recording?"
+msgstr ""
+
+msgid "Recording started"
+msgstr "Inspelningen har startat"
+
+msgid "VDR will shut down later - press Power to force"
+msgstr "VDR kommer att stängas av senare - tryck på/av för att stänga av nu"
+
+msgid "Press any key to cancel shutdown"
+msgstr "Tryck valfri knapp för att återkalla avstängningen"
+
+msgid "Editing process failed!"
+msgstr "Redigeringsprocessen misslyckades"
+
+msgid "Editing process finished"
+msgstr "Redigering avslutad"
+
+msgid "Switching primary DVB..."
+msgstr "Byter primär DVB enhet..."
+
+msgid "Press any key to cancel restart"
+msgstr "Tryck valfri knapp för att avbryta omstart"
+
+#, c-format
+msgid "VDR will shut down in %s minutes"
+msgstr "VDR kommer att stängas av om %s minuter"
+
+msgid "Disk"
+msgstr "Disk"
+
+msgid "free"
+msgstr "ledigt"

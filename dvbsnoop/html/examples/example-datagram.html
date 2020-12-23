@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: MPEG Transport
+		Stream</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: DSM-CC Datagram </H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -n 1 -nph 0x01c3
+dvbsnoop V1.2.41 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000001   PID: 451 (0x01c3), Length: 1416 (0x0588)
+Time received: Thu 2004-02-12  22:51:37.509
+----------------------------------------------------------
+PID:  451 (0x01c3)
+Guess table from table id...
+DSM-CC DATAGRAM-decoding....
+Table_ID: 62 (0x3e)  [= DSM-CC - private data section  // DVB datagram]
+section_syntax_indicator: 1 (0x01)
+private_indicator: 0 (0x00)
+reserved_1: 3 (0x03)
+Section_length: 1413 (0x0585)
+MACaddrbyte/DevicdID 6: 242 (0xf2)
+MACaddrbyte/DeviceID 5: 49 (0x31)
+reserved_2: 3 (0x03)
+payload_scrambling_control: 0 (0x00)  [= unscrambled]
+address_scrambling_control: 0 (0x00)  [= unscrambled]
+LLC_SNAP_flag: 0 (0x00)
+current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 0 (0x00)
+Last_Section_number: 0 (0x00)
+MACaddrbyte/DeviceID 4: 4 (0x04)
+MACaddrbyte/DeviceID 3: 215 (0xd7)
+MACaddrbyte/DeviceID 2: 208 (0xd0)
+MACaddrbyte/DeviceID 1: 0 (0x00) =&gt; MAC-Address/DeviceID: 00:d0:d7:04:31:f2
+IP_datagram_bytes
+      0000:  45 00 05 78 48 86 40 00 77 06 c1 2c 50 c8 e8 86 
+      0000:   E  .  .  x  H  .  @  .  w  .  .  ,  P  .  .  . 
+      0010:  ac 17 0f 67 0d a8 07 a0 1c d1 8a 91 00 71 e3 8a 
+      0010:   .  .  .  g  .  .  .  .  .  .  .  .  .  q  .  . 
+      0020:  50 10 7c de 49 68 00 00 99 e1 7d dc 17 36 bc 05 
+      0020:   P  .  |  .  I  h  .  .  .  .  }  .  .  6  .  . 
+      0030:  ab 52 e2 a1 c2 86 3c e8 65 b5 ee 88 bf 60 14 e8 
+      0030:   .  R  .  .  .  .  &lt;  .  e  .  .  .  .  `  .  . 
+      0040:  83 fc 9d b1 32 2d f0 9f 6b be f5 5f 52 e7 7f 33 
+      0040:   .  .  .  .  2  -  .  .  k  .  .  _  R  .  .  3 
+      0050:  bc ff 1f bf 5f dc fe df 5f bc ca fb 96 f4 e0 fe 
+      0050:   .  .  .  .  _  .  .  .  _  .  .  .  .  .  .  . 
+[...]
+      0530:  00 00 00 0a 03 00 00 00 af 31 40 09 00 00 00 40 
+      0530:   .  .  .  .  .  .  .  .  .  1  @  .  .  .  .  @ 
+      0540:  db af f6 05 7e 01 00 50 7f c1 ab b0 17 00 00 2a 
+      0540:   .  .  .  .  ~  .  .  P  .  .  .  .  .  .  .  * 
+      0550:  00 00 d0 3b 80 de bd 00 00 00 00 00 93 5b 17 00 
+      0550:   .  .  .  ;  .  .  .  .  .  .  .  .  .  [  .  . 
+      0560:  b8 00 00 40 a9 2f bd 81 50 7b 46 57 96 7d 01 00 
+      0560:   .  .  .  @  .  /  .  .  P  {  F  W  .  }  .  . 
+      0570:  a0 f7 2e af 5c 50 bd 00 
+      0570:   .  .  .  .  \  P  .  . 
+CRC: 3346911274 (0xc77dd02a)
+==========================================================
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

@@ -1,0 +1,31 @@
+*.o
+/comskip
+/comskip.exe
+/comskip-gui
+/comskip-gui.exe
+/comskip.depend
+/comskip.ini
+/bin/
+/ffmpeg/
+/votest
+/votest.exe
+/*.dSYM
+/ccextratorwin/.dirstamp
+
+# Autotools stuff
+.deps
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache
+compile
+config.*
+configure
+depcomp
+install-sh
+missing
+comskip.c.save-failed
+
+# Eclipse IDE
+.cproject
+.project

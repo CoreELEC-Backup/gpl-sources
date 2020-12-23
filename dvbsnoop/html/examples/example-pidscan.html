@@ -1,0 +1,484 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Examples: PID Scan</TITLE>
+	 <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Examples: PID Scan</H1> 
+	 <P>... using different display verbosity depth. (-pd ...)</P>
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>
+
+# dvbsnoop  -s pidscan -pd 1
+dvbsnoop V1.2.23 -- http://dvbsnoop.sourceforge.net/ 
+PID found:    0 (0x0000)  
+PID found:    1 (0x0001)  
+PID found:   16 (0x0010)  
+PID found:   17 (0x0011)  
+PID found:   18 (0x0012)  
+PID found:   20 (0x0014)  
+PID found:  100 (0x0064)  
+PID found:  101 (0x0065)  
+PID found:  102 (0x0066)  
+PID found:  104 (0x0068)  
+PID found:  200 (0x00c8)  
+PID found:  201 (0x00c9)  
+PID found:  202 (0x00ca)  
+PID found:  204 (0x00cc)  
+PID found:  300 (0x012c)  
+PID found:  301 (0x012d)  
+PID found:  302 (0x012e)  
+PID found:  304 (0x0130)  
+PID found:  400 (0x0190)  
+PID found:  401 (0x0191)  
+PID found:  402 (0x0192)  
+PID found:  403 (0x0193)  
+PID found:  404 (0x0194)  
+PID found:  500 (0x01f4)  
+PID found:  501 (0x01f5)  
+PID found:  502 (0x01f6)  
+PID found:  504 (0x01f8)  
+PID found:  600 (0x0258)  
+PID found:  601 (0x0259)  
+PID found:  602 (0x025a)  
+PID found:  604 (0x025c)  
+PID found:  700 (0x02bc)  
+PID found:  704 (0x02c0)  
+PID found:  800 (0x0320)  
+PID found:  801 (0x0321)  
+PID found:  802 (0x0322)  
+PID found:  804 (0x0324)  
+PID found:  900 (0x0384)  
+PID found:  901 (0x0385)  
+PID found:  902 (0x0386)  
+PID found:  904 (0x0388)  
+PID found: 2000 (0x07d0)  
+PID found: 2070 (0x0816)  
+PID found: 2071 (0x0817)  
+PID found: 2072 (0x0818)  
+PID found: 2073 (0x0819)  
+PID found: 2074 (0x081a)  
+PID found: 2075 (0x081b)  
+PID found: 3000 (0x0bb8)  
+PID found: 3001 (0x0bb9)  
+PID found: 3100 (0x0c1c)  
+PID found: 3101 (0x0c1d)  
+PID found: 3200 (0x0c80)  
+PID found: 3201 (0x0c81)  
+PID found: 3300 (0x0ce4)  
+PID found: 3301 (0x0ce5)  
+PID found: 3400 (0x0d48)  
+PID found: 3401 (0x0d49)  
+PID found: 3500 (0x0dac)  
+PID found: 3501 (0x0dad)  
+PID found: 3600 (0x0e10)  
+PID found: 3601 (0x0e11)  
+PID found: 3700 (0x0e74)  
+PID found: 3701 (0x0e75)  
+PID found: 3800 (0x0ed8)  
+PID found: 3801 (0x0ed9)  
+PID found: 3900 (0x0f3c)  
+PID found: 3901 (0x0f3d)  
+PID found: 7100 (0x1bbc)  
+PID found: 7101 (0x1bbd)  
+PID found: 8191 (0x1fff)  
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><BR></P>
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop  -s pidscan -pd 6
+dvbsnoop V1.2.23 -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+Transponder PID-Scan...
+---------------------------------------------------------
+PID found:    0 (0x0000)  [SECTION: program_association_section]
+PID found:    1 (0x0001)  [SECTION: conditional_access_section]
+PID found:   16 (0x0010)  [SECTION: network_information_section - actual network]
+PID found:   17 (0x0011)  [SECTION: service_description_section - actual transport stream]
+PID found:   18 (0x0012)  [SECTION: event_information_section - other transport stream, schedule]
+PID found:   20 (0x0014)  [SECTION: time_date_section]
+PID found:  100 (0x0064)  [SECTION: program_map_section]
+PID found:  101 (0x0065)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found:  102 (0x0066)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found:  104 (0x0068)  [PES: private_stream_1]
+PID found:  200 (0x00c8)  [SECTION: program_map_section]
+PID found:  201 (0x00c9)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found:  202 (0x00ca)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found:  204 (0x00cc)  [PES: private_stream_1]
+PID found:  300 (0x012c)  [SECTION: program_map_section]
+PID found:  301 (0x012d)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found:  302 (0x012e)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found:  304 (0x0130)  [PES: private_stream_1]
+PID found:  400 (0x0190)  [SECTION: program_map_section]
+PID found:  401 (0x0191)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found:  402 (0x0192)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found:  403 (0x0193)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found:  404 (0x0194)  [PES: private_stream_1]
+PID found:  500 (0x01f4)  [SECTION: program_map_section]
+PID found:  501 (0x01f5)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found:  502 (0x01f6)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found:  504 (0x01f8)  [PES: private_stream_1]
+PID found:  600 (0x0258)  [SECTION: program_map_section]
+PID found:  601 (0x0259)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found:  602 (0x025a)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found:  604 (0x025c)  [PES: private_stream_1]
+PID found:  700 (0x02bc)  [SECTION: program_map_section]
+PID found:  704 (0x02c0)  [PES: private_stream_1]
+PID found:  800 (0x0320)  [SECTION: program_map_section]
+PID found:  801 (0x0321)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found:  802 (0x0322)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found:  804 (0x0324)  [PES: private_stream_1]
+PID found:  900 (0x0384)  [SECTION: program_map_section]
+PID found:  901 (0x0385)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found:  902 (0x0386)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found:  904 (0x0388)  [PES: private_stream_1]
+PID found: 2000 (0x07d0)  [SECTION: program_map_section]
+PID found: 2070 (0x0816)  [SECTION: AIT Application_information_section]
+PID found: 2071 (0x0817)  [SECTION: DSM-CC - U-N messages (DSI or DII)]
+PID found: 2072 (0x0818)  [SECTION: DSM-CC - Download Data Messages (DDB)]
+PID found: 2073 (0x0819)  [SECTION: AIT Application_information_section]
+PID found: 2074 (0x081a)  [SECTION: AIT Application_information_section]
+PID found: 2075 (0x081b)  [SECTION: DSM-CC - Download Data Messages (DDB)]
+PID found: 3000 (0x0bb8)  [SECTION: program_map_section]
+PID found: 3001 (0x0bb9)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found: 3100 (0x0c1c)  [SECTION: program_map_section]
+PID found: 3101 (0x0c1d)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found: 3200 (0x0c80)  [SECTION: program_map_section]
+PID found: 3201 (0x0c81)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found: 3300 (0x0ce4)  [SECTION: program_map_section]
+PID found: 3301 (0x0ce5)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found: 3400 (0x0d48)  [SECTION: program_map_section]
+PID found: 3401 (0x0d49)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found: 3500 (0x0dac)  [SECTION: program_map_section]
+PID found: 3501 (0x0dad)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found: 3600 (0x0e10)  [SECTION: program_map_section]
+PID found: 3601 (0x0e11)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found: 3700 (0x0e74)  [SECTION: program_map_section]
+PID found: 3701 (0x0e75)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found: 3800 (0x0ed8)  [SECTION: program_map_section]
+PID found: 3801 (0x0ed9)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found: 3900 (0x0f3c)  [SECTION: program_map_section]
+PID found: 3901 (0x0f3d)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found: 7100 (0x1bbc)  [SECTION: AIT Application_information_section]
+PID found: 7101 (0x1bbd)  [SECTION: DSM-CC - Download Data Messages (DDB)]
+PID found: 8191 (0x1fff)  
+# 
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><BR></P> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop  -s pidscan -pd 9
+dvbsnoop V1.2.23 -- http://dvbsnoop.sourceforge.net/ 
+   DEMUX : /dev/dvb/adapter0/demux0
+   DVR   : /dev/dvb/adapter0/dvr0
+   FRONTEND: /dev/dvb/adapter0/frontend0
+
+---------------------------------------------------------
+Transponder PID-Scan...
+---------------------------------------------------------
+scanning pid   0x0000 to 0x001a  (got 27 dmx filters) 
+re-scanning pid   0x0000 to 0x001d  (got 27 dmx filters) 
+re-scanning pid   0x0000 to 0x001e  (got 27 dmx filters) 
+re-scanning pid   0x0000 to 0x001f  (got 27 dmx filters) 
+re-scanning pid   0x0000 to 0x0020  (got 27 dmx filters) 
+re-scanning pid   0x0000 to 0x0021  (got 27 dmx filters) 
+re-scanning pid   0x0000 to 0x0022  (got 27 dmx filters) 
+re-scanning pid   0x0000 to 0x0023  (got 27 dmx filters) 
+re-scanning pid   0x0000 to 0x0024  (got 27 dmx filters) 
+re-scanning pid   0x0000 to 0x0025  (got 27 dmx filters) 
+re-scanning pid   0x0000 to 0x0026  (got 27 dmx filters) 
+re-scanning pid   0x0000 to 0x0027  (got 27 dmx filters) 
+PID found:    0 (0x0000)  [SECTION: program_association_section]
+PID found:    1 (0x0001)  [SECTION: conditional_access_section]
+PID found:   16 (0x0010)  [SECTION: network_information_section - actual network]
+PID found:   17 (0x0011)  [SECTION: service_description_section - other transport stream]
+PID found:   18 (0x0012)  [SECTION: event_information_section - other transport stream, schedule]
+PID found:   20 (0x0014)  [SECTION: time_date_section]
+PID found:   32 (0x0020)  [PES: private_stream_1]
+PID found:   33 (0x0021)  [PES: private_stream_1]
+PID found:   34 (0x0022)  [PES: private_stream_1]
+PID found:   35 (0x0023)  [PES: private_stream_1]
+PID found:   36 (0x0024)  [PES: private_stream_1]
+PID found:   37 (0x0025)  [PES: private_stream_1]
+PID found:   38 (0x0026)  [PES: private_stream_1]
+scanning pid   0x0028 to 0x0042  (got 27 dmx filters) 
+scanning pid   0x0043 to 0x005d  (got 27 dmx filters) 
+scanning pid   0x005e to 0x0078  (got 27 dmx filters) 
+re-scanning pid   0x005e to 0x0081  (got 27 dmx filters) 
+PID found:   97 (0x0061)  [SECTION: program_map_section]
+PID found:   99 (0x0063)  [SECTION: program_map_section]
+PID found:  100 (0x0064)  [SECTION: program_map_section]
+PID found:  101 (0x0065)  [SECTION: program_map_section]
+PID found:  102 (0x0066)  [SECTION: program_map_section]
+PID found:  103 (0x0067)  [SECTION: program_map_section]
+PID found:  104 (0x0068)  [SECTION: program_map_section]
+PID found:  106 (0x006a)  [SECTION: program_map_section]
+PID found:  107 (0x006b)  [SECTION: program_map_section]
+scanning pid   0x0082 to 0x009c  (got 27 dmx filters) 
+scanning pid   0x009d to 0x00b7  (got 27 dmx filters) 
+scanning pid   0x00b8 to 0x00d2  (got 27 dmx filters) 
+scanning pid   0x00d3 to 0x00ed  (got 27 dmx filters) 
+scanning pid   0x00ee to 0x0108  (got 27 dmx filters) 
+re-scanning pid   0x00ee to 0x0109  (got 27 dmx filters) 
+PID found:  257 (0x0101)  [PES: private_stream_1]
+scanning pid   0x010a to 0x0124  (got 27 dmx filters) 
+scanning pid   0x0125 to 0x013f  (got 27 dmx filters) 
+scanning pid   0x0140 to 0x015a  (got 27 dmx filters) 
+scanning pid   0x015b to 0x0175  (got 27 dmx filters) 
+scanning pid   0x0176 to 0x0190  (got 27 dmx filters) 
+scanning pid   0x0191 to 0x01ab  (got 27 dmx filters) 
+scanning pid   0x01ac to 0x01c6  (got 27 dmx filters) 
+scanning pid   0x01c7 to 0x01e1  (got 27 dmx filters) 
+scanning pid   0x01e2 to 0x01fc  (got 27 dmx filters) 
+scanning pid   0x01fd to 0x0217  (got 27 dmx filters) 
+re-scanning pid   0x01fd to 0x0219  (got 27 dmx filters) 
+PID found:  511 (0x01ff)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found:  512 (0x0200)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+scanning pid   0x021a to 0x0234  (got 27 dmx filters) 
+scanning pid   0x0235 to 0x024f  (got 27 dmx filters) 
+scanning pid   0x0250 to 0x026a  (got 27 dmx filters) 
+scanning pid   0x026b to 0x0285  (got 27 dmx filters) 
+scanning pid   0x0286 to 0x02a0  (got 27 dmx filters) 
+scanning pid   0x02a1 to 0x02bb  (got 27 dmx filters) 
+scanning pid   0x02bc to 0x02d6  (got 27 dmx filters) 
+scanning pid   0x02d7 to 0x02f1  (got 27 dmx filters) 
+scanning pid   0x02f2 to 0x030c  (got 27 dmx filters) 
+re-scanning pid   0x02f2 to 0x030e  (got 27 dmx filters) 
+PID found:  767 (0x02ff)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found:  768 (0x0300)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+scanning pid   0x030f to 0x0329  (got 27 dmx filters) 
+scanning pid   0x032a to 0x0344  (got 27 dmx filters) 
+scanning pid   0x0345 to 0x035f  (got 27 dmx filters) 
+scanning pid   0x0360 to 0x037a  (got 27 dmx filters) 
+scanning pid   0x037b to 0x0395  (got 27 dmx filters) 
+scanning pid   0x0396 to 0x03b0  (got 27 dmx filters) 
+scanning pid   0x03b1 to 0x03cb  (got 27 dmx filters) 
+scanning pid   0x03cc to 0x03e6  (got 27 dmx filters) 
+scanning pid   0x03e7 to 0x0401  (got 27 dmx filters) 
+re-scanning pid   0x03e7 to 0x0403  (got 27 dmx filters) 
+PID found: 1023 (0x03ff)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found: 1024 (0x0400)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+scanning pid   0x0404 to 0x041e  (got 27 dmx filters) 
+scanning pid   0x041f to 0x0439  (got 27 dmx filters) 
+scanning pid   0x043a to 0x0454  (got 27 dmx filters) 
+scanning pid   0x0455 to 0x046f  (got 27 dmx filters) 
+scanning pid   0x0470 to 0x048a  (got 27 dmx filters) 
+scanning pid   0x048b to 0x04a5  (got 27 dmx filters) 
+scanning pid   0x04a6 to 0x04c0  (got 27 dmx filters) 
+scanning pid   0x04c1 to 0x04db  (got 27 dmx filters) 
+scanning pid   0x04dc to 0x04f6  (got 27 dmx filters) 
+scanning pid   0x04f7 to 0x0511  (got 27 dmx filters) 
+re-scanning pid   0x04f7 to 0x0513  (got 27 dmx filters) 
+PID found: 1279 (0x04ff)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found: 1280 (0x0500)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+scanning pid   0x0514 to 0x052e  (got 27 dmx filters) 
+scanning pid   0x052f to 0x0549  (got 27 dmx filters) 
+scanning pid   0x054a to 0x0564  (got 27 dmx filters) 
+scanning pid   0x0565 to 0x057f  (got 27 dmx filters) 
+scanning pid   0x0580 to 0x059a  (got 27 dmx filters) 
+scanning pid   0x059b to 0x05b5  (got 27 dmx filters) 
+scanning pid   0x05b6 to 0x05d0  (got 27 dmx filters) 
+scanning pid   0x05d1 to 0x05eb  (got 27 dmx filters) 
+scanning pid   0x05ec to 0x0606  (got 27 dmx filters) 
+re-scanning pid   0x05ec to 0x0608  (got 27 dmx filters) 
+PID found: 1535 (0x05ff)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found: 1536 (0x0600)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+scanning pid   0x0609 to 0x0623  (got 27 dmx filters) 
+scanning pid   0x0624 to 0x063e  (got 27 dmx filters) 
+scanning pid   0x063f to 0x0659  (got 27 dmx filters) 
+scanning pid   0x065a to 0x0674  (got 27 dmx filters) 
+scanning pid   0x0675 to 0x068f  (got 27 dmx filters) 
+scanning pid   0x0690 to 0x06aa  (got 27 dmx filters) 
+scanning pid   0x06ab to 0x06c5  (got 27 dmx filters) 
+scanning pid   0x06c6 to 0x06e0  (got 27 dmx filters) 
+scanning pid   0x06e1 to 0x06fb  (got 27 dmx filters) 
+scanning pid   0x06fc to 0x0716  (got 27 dmx filters) 
+re-scanning pid   0x06fc to 0x0718  (got 27 dmx filters) 
+re-scanning pid   0x06fc to 0x0719  (got 27 dmx filters) 
+PID found: 1791 (0x06ff)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found: 1792 (0x0700)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found: 1795 (0x0703)  [PES: private_stream_1]
+scanning pid   0x071a to 0x0734  (got 27 dmx filters) 
+scanning pid   0x0735 to 0x074f  (got 27 dmx filters) 
+scanning pid   0x0750 to 0x076a  (got 27 dmx filters) 
+scanning pid   0x076b to 0x0785  (got 27 dmx filters) 
+scanning pid   0x0786 to 0x07a0  (got 27 dmx filters) 
+scanning pid   0x07a1 to 0x07bb  (got 27 dmx filters) 
+scanning pid   0x07bc to 0x07d6  (got 27 dmx filters) 
+scanning pid   0x07d7 to 0x07f1  (got 27 dmx filters) 
+scanning pid   0x07f2 to 0x080c  (got 27 dmx filters) 
+re-scanning pid   0x07f2 to 0x080e  (got 27 dmx filters) 
+PID found: 2047 (0x07ff)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found: 2048 (0x0800)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+scanning pid   0x080f to 0x0829  (got 27 dmx filters) 
+scanning pid   0x082a to 0x0844  (got 27 dmx filters) 
+scanning pid   0x0845 to 0x085f  (got 27 dmx filters) 
+scanning pid   0x0860 to 0x087a  (got 27 dmx filters) 
+scanning pid   0x087b to 0x0895  (got 27 dmx filters) 
+scanning pid   0x0896 to 0x08b0  (got 27 dmx filters) 
+scanning pid   0x08b1 to 0x08cb  (got 27 dmx filters) 
+scanning pid   0x08cc to 0x08e6  (got 27 dmx filters) 
+scanning pid   0x08e7 to 0x0901  (got 27 dmx filters) 
+re-scanning pid   0x08e7 to 0x0903  (got 27 dmx filters) 
+PID found: 2303 (0x08ff)  [PES: ITU-T Rec. H.262 | ISO/IEC 13818-2 or ISO/IEC 11172-2 video stream]
+PID found: 2304 (0x0900)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+scanning pid   0x0904 to 0x091e  (got 27 dmx filters) 
+scanning pid   0x091f to 0x0939  (got 27 dmx filters) 
+scanning pid   0x093a to 0x0954  (got 27 dmx filters) 
+
+[...]
+
+PID found: 8191 (0x1fff)  
+</PRE> </TD> 
+		</TR> 
+	 </TABLE>
+	 <P><BR><BR>The following output is an<B> example of wrong
+		decoding.</B><BR>This is because the firmware of the dvb hardware is blanking
+		the scrambling indicator bits in the transport stream packets, when passing
+		these to the user application (e.g. dvbsnoop). This is bad behavior, but
+		unfortunatly dvbsnoop is not able to detect this.<BR><BR>The pids from 0x00FF
+		to 0x09FF are mostly video- and audio pids, but will be wrongly displayed as
+		ATSC, DSM-CC, User-private, or whatsoever... 8(</P> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop  -s pidscan      
+dvbsnoop V1.2.23 -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+Transponder PID-Scan...
+---------------------------------------------------------
+PID found:    0 (0x0000)  [SECTION: program_association_section]
+PID found:    1 (0x0001)  [SECTION: conditional_access_section]
+PID found:   16 (0x0010)  [SECTION: network_information_section - actual network]
+PID found:   17 (0x0011)  [SECTION: service_description_section - actual transport stream]
+PID found:   18 (0x0012)  [SECTION: event_information_section - other transport stream, schedule]
+PID found:   20 (0x0014)  [SECTION: time_date_section]
+PID found:   32 (0x0020)  [PES: private_stream_1]
+PID found:  100 (0x0064)  [SECTION: program_map_section]
+PID found:  101 (0x0065)  [SECTION: program_map_section]
+PID found:  102 (0x0066)  [SECTION: program_map_section]
+PID found:  103 (0x0067)  [SECTION: program_map_section]
+PID found:  104 (0x0068)  [SECTION: program_map_section]
+PID found:  105 (0x0069)  [SECTION: program_map_section]
+PID found:  106 (0x006a)  [SECTION: program_map_section]
+PID found:  107 (0x006b)  [SECTION: program_map_section]
+PID found:  109 (0x006d)  [SECTION: program_map_section]
+PID found:  112 (0x0070)  [SECTION: program_map_section]
+PID found:  113 (0x0071)  [SECTION: program_map_section]
+PID found:  114 (0x0072)  [SECTION: program_map_section]
+PID found:  115 (0x0073)  [SECTION: program_map_section]
+PID found:  116 (0x0074)  [SECTION: program_map_section]
+PID found:  117 (0x0075)  [SECTION: program_map_section]
+PID found:  118 (0x0076)  [SECTION: program_map_section]
+PID found:  120 (0x0078)  [SECTION: program_map_section]
+PID found:  121 (0x0079)  [SECTION: program_map_section]
+PID found:  122 (0x007a)  [SECTION: program_map_section]
+PID found:  124 (0x007c)  [SECTION: program_map_section]
+PID found:  255 (0x00ff)  [SECTION: event_information_section - actual transport stream, schedule]
+PID found:  256 (0x0100)  [SECTION: ATSC reserved]
+PID found:  304 (0x0130)  [SECTION: ATSC reserved]
+PID found:  320 (0x0140)  [SECTION: DSM-CC - Download Data Messages (DDB)]
+PID found:  352 (0x0160)  [SECTION: DSM-CC - stream descriptorlist]
+PID found:  384 (0x0180)  [SECTION: ATSC reserved]
+PID found:  400 (0x0190)  [SECTION: User private]
+PID found:  513 (0x0201)  [PES: ISO/IEC 13818-3 or ISO/IEC 11172-3 audio stream]
+PID found:  515 (0x0203)  [PES: private_stream_1]
+PID found:  544 (0x0220)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found:  576 (0x0240)  [SECTION: event_information_section - other transport stream, schedule]
+PID found:  592 (0x0250)  [SECTION: User private]
+PID found:  767 (0x02ff)  [SECTION: ITU-T Rec. H.222.0|ISO/IEC13818 reserved]
+PID found:  768 (0x0300)  [SECTION: ITU-T Rec. H.222.0|ISO/IEC13818 reserved]
+PID found:  784 (0x0310)  [SECTION: ATSC reserved]
+PID found:  800 (0x0320)  [SECTION: ATSC reserved]
+PID found:  816 (0x0330)  [SECTION: ATSC reserved]
+PID found: 1023 (0x03ff)  [SECTION: ATSC reserved]
+PID found: 1024 (0x0400)  [SECTION: DSM-CC - U-N messages (DSI or DII)]
+PID found: 1279 (0x04ff)  [SECTION: ITU-T Rec. H.222.0|ISO/IEC13818 reserved]
+PID found: 1280 (0x0500)  [SECTION: ITU-T Rec. H.222.0|ISO/IEC13818 reserved]
+PID found: 1535 (0x05ff)  [SECTION: event_information_section - actual transport stream, schedule]
+PID found: 1536 (0x0600)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 1791 (0x06ff)  [SECTION: ATSC reserved]
+PID found: 1792 (0x0700)  [SECTION: event_information_section - actual transport stream, schedule]
+PID found: 1793 (0x0701)  [SECTION: ATSC reserved]
+PID found: 1795 (0x0703)  [SECTION: ITU-T Rec. H.222.0|ISO/IEC13818 reserved]
+PID found: 2303 (0x08ff)  [SECTION: ATSC reserved]
+PID found: 2304 (0x0900)  [SECTION: event_information_section - other transport stream, schedule]
+PID found: 2545 (0x09f1)  [SECTION: DSM-CC - U-N messages (DSI or DII)]
+PID found: 4096 (0x1000)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4097 (0x1001)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4105 (0x1009)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4106 (0x100a)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4107 (0x100b)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4108 (0x100c)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4116 (0x1014)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4125 (0x101d)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4137 (0x1029)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4139 (0x102b)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4246 (0x1096)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4247 (0x1097)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4248 (0x1098)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4250 (0x109a)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4252 (0x109c)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4253 (0x109d)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4255 (0x109f)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4258 (0x10a2)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4259 (0x10a3)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4261 (0x10a5)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 4262 (0x10a6)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5385 (0x1509)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5386 (0x150a)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5387 (0x150b)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5388 (0x150c)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5396 (0x1514)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5405 (0x151d)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5417 (0x1529)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5419 (0x152b)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5526 (0x1596)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5527 (0x1597)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5528 (0x1598)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5530 (0x159a)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5532 (0x159c)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5533 (0x159d)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5535 (0x159f)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5538 (0x15a2)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5539 (0x15a3)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5541 (0x15a5)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5542 (0x15a6)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5696 (0x1640)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5698 (0x1642)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5700 (0x1644)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5702 (0x1646)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5704 (0x1648)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5706 (0x164a)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5708 (0x164c)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5710 (0x164e)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5712 (0x1650)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5714 (0x1652)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5716 (0x1654)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5718 (0x1656)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5720 (0x1658)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5722 (0x165a)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5724 (0x165c)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5726 (0x165e)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5728 (0x1660)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5730 (0x1662)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 5732 (0x1664)  [SECTION: DVB CA message section (EMM/ECM)]
+PID found: 8191 (0x1fff)  
+</PRE> </TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

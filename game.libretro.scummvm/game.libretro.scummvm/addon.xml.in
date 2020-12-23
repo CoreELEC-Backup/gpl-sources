@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.scummvm"
+		name="ScummVM"
+		version="2.1.1.9"
+		provider-name="SCUMMVMdev">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.default" version="1.0.0"/>
+		<import addon="game.controller.keyboard" version="1.0.0"/>
+		<import addon="game.controller.mouse" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms></platforms>
+		<extensions>scummvm</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>true</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">ScummVM 2.1.1</summary>
+		<description lang="en_GB">ScummVM is a collection of game engine recreations. ScummVM emulates several systems, including the SCUMM system for LucasArts adventure games.
+
+Supported files: .scummvm</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.scummvm</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<fanart>resources/fanart.jpg</fanart>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

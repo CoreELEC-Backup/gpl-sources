@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-o2em
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-o2em (>= 1.18.0) | o2em (>= 1.18.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-o2em
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Magnavox - Odyssey2 / Phillips Videopac+ (O2EM) core for kodi's retroplayer
+ Magnavox - Odyssey2 / Phillips Videopac+ (O2EM) core for kodi's retroplayer

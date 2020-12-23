@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: Bouquet Association
+		Table</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: Bouquet Association Table (BAT)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>~/bin &gt; ./dvbsnoop -n 1 -nph 0x11
+dvbsnoop  Vers. 1.1.10   -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+SECT-Packet: 00000001   PID: 17 (0x0011), Length: 93 (0x005d)
+Time received: Tue 2003-11-25  02:49:48.821
+---------------------------------------------------------
+PID:  17 (0x0011)
+BAT-decoding....
+Table_ID: 74 (0x4a)  [= bouquet_association_section]
+section_syntax_indicator: 1 (0x01)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+Section_length: 90 (0x005a)
+Bouquet_ID: 4224 (0x1080)  [= ZDF | 902 | ZDF]
+reserved_3: 3 (0x03)
+Version_number: 16 (0x10)
+Current_next_indicator: 1 (0x01)
+Section_number: 0 (0x00)
+Last_Section_number: 0 (0x00)
+reserved_4: 15 (0x0f)
+Bouquet_descriptors_length: 33 (0x0021)
+    
+    DVB-DescriptorTag: 71 (0x47)  [= bouquet_name_descriptor]
+    Descriptor_length: 10 (0x0a)
+    BouquetName: "ZDFvision"  -- Charset: Latin alphabet no. 5
+    
+    DVB-DescriptorTag: 95 (0x5f)  [= private_data_specifier_descriptor]
+    Descriptor_length: 4 (0x04)
+    PrivateDataSpecifier: 1179932160 (0x46545600)  [= FreeTV ]
+    
+    DVB-DescriptorTag: 74 (0x4a)  [= linkage_descriptor]
+    Descriptor_length: 7 (0x07)
+    Transport_stream_ID: 1079 (0x0437)
+    Original_network_ID: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+    Service_ID: 28006 (0x6d66)  [=  --&gt; refers to PMS program_number]
+    Linkage_type: 1 (0x01)  [= information service]
+        Private data:
+        
+    DVB-DescriptorTag: 73 (0x49)  [= country_availibility_descriptor]
+    Descriptor_length: 4 (0x04)
+    country_availability_flag: 1 (0x01)
+    reserved_1: 127 (0x7f)
+        Country:  DEU
+        
+reserved_5: 15 (0x0f)
+Transport_stream_loop_length: 44 (0x002c)
+    
+    Transport_stream_ID: 1079 (0x0437)
+    Original_network_ID: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+    reserved_1: 15 (0x0f)
+    Transport_descriptors_length: 38 (0x0026)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 36 (0x24)
+            Service_ID: 28007 (0x6d67)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28010 (0x6d6a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28013 (0x6d6d)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28012 (0x6d6c)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+            Service_ID: 28015 (0x6d6f)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28009 (0x6d69)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28008 (0x6d68)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28006 (0x6d66)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28014 (0x6d6e)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28011 (0x6d6b)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28016 (0x6d70)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 28017 (0x6d71)  [=  --&gt; refers to PMS program_number]
+            Service_type: 2 (0x02)  [= digital radio sound service]
+            
+CRC: 4056297707 (0xf1c630eb)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

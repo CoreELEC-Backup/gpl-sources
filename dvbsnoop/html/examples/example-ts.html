@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: MPEG Transport
+		Stream</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: MPEG Transport Stream (TS)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -n 2 -nph -s ts 0x12
+dvbsnoop V1.2.18 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+TS-Packet: 00000001   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Sun 2004-01-25  21:03:39.667
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 1 (0x01)  [= Packet data starts]
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaption_field_control: 1 (0x01)  [= no adaption_field, payload only]
+continuity_counter: 0 (0x00)
+    Payload: (len: 184)
+        ==&gt; pointer_field: 0 (0x00)
+        ==&gt; Section table: 79 (0x4f)  [= event_information_section - other transport stream, present/following]
+    Data-Bytes:
+          0000:  00 4f f0 0f 00 a0 d7 00 01 00 07 00 85 01 4f 06 
+          0000:   .  O  .  .  .  .  .  .  .  .  .  .  .  .  O  . 
+          0010:  07 93 d1 ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0010:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0020:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0020:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0030:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0030:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0040:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0040:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0050:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0050:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0060:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0060:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0070:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0070:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0080:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0080:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0090:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0090:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          00a0:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          00a0:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          00b0:  ff ff ff ff ff ff ff ff 
+          00b0:   .  .  .  .  .  .  .  . 
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000002   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Sun 2004-01-25  21:03:39.771
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 1 (0x01)  [= Packet data starts]
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaption_field_control: 1 (0x01)  [= no adaption_field, payload only]
+continuity_counter: 1 (0x01)
+    Payload: (len: 184)
+        ==&gt; pointer_field: 0 (0x00)
+        ==&gt; Section table: 96 (0x60)  [= event_information_section - other transport stream, schedule]
+    Data-Bytes:
+          0000:  00 60 f0 0f 00 a6 f7 a0 c8 00 02 00 85 a0 61 1b 
+          0000:   .  `  .  .  .  .  .  .  .  .  .  .  .  .  a  . 
+          0010:  42 90 01 ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0010:   B  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0020:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0020:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0030:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0030:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0040:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0040:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0050:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0050:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0060:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0060:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0070:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0070:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0080:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0080:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          0090:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          0090:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          00a0:  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+          00a0:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+          00b0:  ff ff ff ff ff ff ff ff 
+          00b0:   .  .  .  .  .  .  .  . 
+==========================================================
+
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

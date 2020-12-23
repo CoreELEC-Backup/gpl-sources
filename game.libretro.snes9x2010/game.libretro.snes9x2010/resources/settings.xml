@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="snes9x_2010_aspect" values="auto|4:3|uncorrected|ntsc|pal" default="auto"/>
+		<setting label="30002" type="select" id="snes9x_2010_blargg" values="disabled|monochrome|rf|composite|s-video|rgb" default="disabled"/>
+		<setting label="30003" type="select" id="snes9x_2010_block_invalid_vram_access" values="enabled|disabled" default="enabled"/>
+		<setting label="30004" type="select" id="snes9x_2010_overclock" values="10 MHz (Default)|5 MHz (Underclock)|8 MHz (Underclock)|9 MHz (Underclock)|11 MHz|12 MHz|13 MHz|14 MHz|15 MHz|20 MHz|30 MHz|40 MHz" default="10 MHz (Default)"/>
+		<setting label="30005" type="select" id="snes9x_2010_overclock_cycles" values="disabled|light|compatible|max" default="disabled"/>
+		<setting label="30006" type="select" id="snes9x_2010_reduce_sprite_flicker" values="disabled|enabled" default="disabled"/>
+		<setting label="30007" type="select" id="snes9x_2010_region" values="auto|ntsc|pal" default="auto"/>
+		<setting label="30008" type="select" id="snes9x_2010_turbodelay" values="medium|fast|slow" default="medium"/>
+	</category>
+</settings>

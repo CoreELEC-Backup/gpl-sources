@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="visualization.matrix"
+  version="0.4.2"
+  name="Matrix"
+  provider-name="Sarbes">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="xbmc.player.musicviz"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_gb">Matrix inspired visualization for Kodi.</summary>
+    <description lang="en_gb">This music visualization is inspired by the movie "Matrix". It features eight presets.</description>
+    <platform>@PLATFORM@</platform>
+    <assets>
+      <icon>resources/icon.jpg</icon>
+      <fanart>resources/fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>

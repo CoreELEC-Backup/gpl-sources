@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: MPEG Packetized
+		Elementary Stream (PES) - WSS</TITLE><META NAME="Author"
+	 CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: MPEG Packetized Elementary Stream (PES) - WSS</H1> 
+	 <H2>WSS data (Wide Screen Signalling):</H2> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>
+[...]
+            data_unit_id: 196 (0xc4)  [= WSS (Wide Screen Signalling)]
+            data_unit_length: 44 (0x2c)
+            WSS (Wide Screen Signalling) data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 23 (0x17)
+               WSS data: 1284 (0x0504)
+                  ==&gt; aspect ratio: 1 (0x01)  [= 4:3 // full format // pos. not applicable // active lines: 576]
+                  ==&gt; film bit: 0 (0x00)  [= camera mode]
+                  ==&gt; colour coding bit: 1 (0x01)  [= Motion Adaptive Color Plus]
+                  ==&gt; helper bit: 0 (0x00)  [= no helper]
+                  ==&gt; reserved bit: 0 (0x00)
+                  ==&gt; subtitle/teletext: 0 (0x00)  [= no subtitles within teletext]
+                  ==&gt; subtitling mode: 0 (0x00)  [= no open subtitles]
+                  ==&gt; surround bit: 1 (0x01)  [= surround sound mode]
+                  ==&gt; copyright bit: 0 (0x00)  [= no copyright asserted or status unknown]
+                  ==&gt; copy_generation bit: 0 (0x00)  [= copying not restricted]
+               reserved: 3 (0x03)
+            stuffing bytes:
+                 0000:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+                 0010:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+                 0020:  ff ff ff ff ff ff ff ff  ff                        .........
+         
+[...]
+</PRE> </TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

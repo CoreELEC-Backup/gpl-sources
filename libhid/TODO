@@ -1,0 +1,125 @@
+libhid to-do list
+-----------------
+
+AQU: Arnaud Quette
+CFL: Charles Lepple
+MKR: Martin Krafft
+
+- [Nobody] HID Parser rewritte
+    The current HID Parser used is the one given by MGE UPS SYSTEMS.
+    Various problems and limitation have been reached with this one,
+    mainly due to the fact that it has been designed and optimised
+    for MGE's devices.
+
+    This rewritte should not impact the few programs currently using
+    libhid as the parser calls are encapsulated (the current API
+    shouldn't change).
+    
+    For the purpose of the rewritte, MGE's HID Parser and Linux (located
+    in hid-core and hiddev) can serve as bases. Moreover, the kernel hackers
+    involved in these (Paul Stewart and Vojtech Pavlik) might join us
+    in this effort...
+    AQU will try to contact theim when he has time.
+
+- [AQU] implement SHUT marshalling (encapsulation)
+    libhid currently only support USB encapsulation
+    through libusb. SHUT simply encaps HID in SHUT frames
+    (MGE serial marshalling). More info about SHUT:
+    - SHUT overview:
+    http://eu2.networkupstools.org/protocols/mge/51029473zaac.pdf
+    - implementation example: nut/mge-shut driver (have a try in verbose
+    mode (-DDDDD) with your MGE Evolution...)
+
+    This implies, for libhid:
+    - to separate marshalling code (usb_*()) and play with function
+    pointers depending on the init param below,
+    - to make an init time param (in HID_new_Interface()? ie
+    HID_new_Interface(int mode) with mode=MODE_USB or MODE_SHUT)
+    that link the device' marshalling to the right one (usb or shut)
+
+    MKR suggested a proper registration architecture (e.g.
+    loadable dlls and function pointers).
+
+    Note that this is not a high priority, but more a wish
+    that I (AQU) would like to see implemented for the newhidups
+    switch to libhid. Moreover, only MGE use SHUT and I've not
+    finished my reflexion about that...
+
+- [AQU] implement unit conversions in src/hid_conversion.c
+    two functions will be provided:
+      hid_convert_logical_to_physical()
+      hid_convert_physical_to_logical()
+    it will be up to the end user app to use it or not.
+
+- [AQU] investigate unit exponent
+    it appears that only UPS need unit exponents at the moment. if this is
+    true, then the code will not go into libhid. if false, then libhid will be
+    able to do unit exponents.
+
+- [AQU] obtaining the length of reports
+    this is already stored in HIDParser.OffsetTab[ReportID][2]
+    to retrieve it, we only need to call
+      *GetReportOffset(hidif->hid_parser, hidif->hid_data->ReportID,
+        hidif->hid_data->Type);
+    MKR: should this be a static function used by hid_get_item_value & Co. or
+         should the function be exported to the user API and the user expected
+         to know the right report size. I think we'll have to go with the
+         latter since we can't allocate within the function and pass out
+         a pointer (bad style -- error prone).
+
+- [AQU] usage path / code [reverse] lookup, wrapper functions for get/set
+    either we interface with usbutils (no reply from Tobias yet), or we
+    provide hooks for the user space application to register entries in the
+    lookup table. alternatively, we could use config files, although i would
+    vote against the latter. i say we should store as little as possible in
+    libhid, or else we'll have a support nightmare.
+
+- [AQU] investigate interrupt handling (get_input) (aka "dealing with more
+    than the default (control/bulk) endpoints")
+    libusb 0.1.8 (only in cvs HEAD for the moment) handles the interrupt
+    pipe through generic URB ioctl (for linux). I'm not sure if it works
+    for other platforms than Linux, as I've only tested on this last!
+
+    The function are: usb_interrupt_*() with *=read/write
+    
+    For more information and code samples, check:
+    http://ailab.ch/pipermail/libhid-discuss/2004-September/000206.html
+    http://ailab.ch/pipermail/libhid-discuss/2004-September/000211.html
+
+- [CFL] documentation (doxygen)
+
+- [CFL] Make Swig work with Fink on OS X
+
+- [MKR] improve debugging code
+
+- [MKR] make autoconf check for libusb-dev
+
+- export of USB_TIMEOUT parameter
+
+- README file improvements
+
+- dealing with multiple configuration descriptors (if necessary)
+
+- dealing with physical descriptors (if necessary)
+
+- enable matching by bus location (e.g. 001/015) instead of vendor IDs
+
+- make code C99 compatible (to support --enable-pedantic -Werror)
+  * variable declaration should be first in functions
+  * variadic macros are not supported
+  * ...
+
+Done items
+----------
+
+[done 2004.12.29] [MKR] hotplug scripts
+[done 2004.11.09] [MKR] pkg-config
+[done 2004.11.09] [MKR] deal with all the compiler warnings
+[done 2004.05.26] [MKR] fix lintian warnings about ldconfig
+[done 2004.03.26] [MKR] Debian integration
+[done 2004.03.25] [MKR] use libusb-config properly
+[done 2004.03.25] [MKR] implement libhid-config properly
+[done 2004.03.25] [MKR] claim interface before matching device
+[done 2004.02.11] [MKR] CVS commit mails
+[done 2004.02.11] [MKR] libhid-config
+[done 2004.02.11] [MKR] reintegration of hidparser into libhid core.

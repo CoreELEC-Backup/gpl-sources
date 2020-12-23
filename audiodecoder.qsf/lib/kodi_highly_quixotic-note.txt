@@ -1,0 +1,5 @@
+highly_quixotic source from https://bitbucket.org/losnoco/highly_quixotic
+
+Sync to 977f8ea (03. May 2019)
+
+Added EMU_CALL on qsound.c(154) and z80.c(152)

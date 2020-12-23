@@ -1,0 +1,173 @@
+AVTP Audio Format (AAF) Plugin
+==============================
+
+Overview
+--------
+
+The AAF plugin is a PCM plugin that uses Audio Video Transport Protocol (AVTP)
+to transmit/receive audio samples through a Time-Sensitive Network (TSN)
+capable network. The plugin enables media applications to easily implement AVTP
+Talker and Listener functionalities.
+
+AVTP is designed to take advantage of generalized Precision Time Protocol
+(gPTP) and Forwarding and Queuing Enhancements for Time-Sensitive Streams
+(FQTSS). gPTP ensures AVTP talkers and listeners share the same time reference
+so the presentation time from AVTP can be used to inform when PCM samples
+should be presented to the application layer. FQTSS provides bandwidth
+reservation and traffic prioritization for the AVTP stream.
+
+gPTP functionality is provided by the Linuxptp project while FQTSS
+functionality is provided by Linux Traffic Control system since kernel version
+4.15.
+
+gPTP Setup
+----------
+
+The Linuxptp project provides the ptp4l daemon, which synchronizes the PTP
+clock from NIC, and the pmc tool which communicates with ptp4l to get/set
+some runtime settings. The project also provides the phc2sys daemon which
+synchronizes the PTP clock and system clock.
+
+The AAF Plugin requires system clock is synchronized with PTP clock and TAI
+offset is properly set in the kernel. ptp4l and phc2sys can be set up in many
+different ways, below we provide an example that fullfils the plugin
+requirements. For further information check ptp4l(8) and phc2sys(8).
+
+In the following instructions, replace $IFNAME by your PTP capable NIC
+interface. The gPTP.cfg file mentioned below can be found in /usr/share/
+doc/linuxptp/ (depending on your distro).
+
+Synchronize PTP clock with PTP time:
+
+	$ ptp4l -f gPTP.cfg -i $IFNAME
+
+Enable TAI offset to be automatically set by phc2sys:
+
+	$ pmc -u -t 1 -b 0 'SET GRANDMASTER_SETTINGS_NP \
+		clockClass 248 clockAccuracy 0xfe \
+		offsetScaledLogVariance 0xffff \
+		currentUtcOffset 37 leap61 0 leap59 0 \
+		currentUtcOffsetValid 1 pTimescale 1 \
+		timeTraceable 1 frequencyTraceable 0 timeSource 0xa0'
+
+Synchronize system clock with PTP clock:
+
+	$ phc2sys -f gPTP.cfg -s $IFNAME -c CLOCK_REALTIME -w
+
+The commands above should be run on both AVTP Talker and Listener hosts.
+
+Traffic Control Setup
+---------------------
+
+The Linux Traffic Control system provides the mqprio and cbs qdiscs which
+enable FQTSS on Linux. Below we provide an example to configure those qdiscs in
+order to transmit an AAF stream with the following features: class A, 6 audio
+frames per AVTPDU, 48 kHz sampling rate, 16-bit sample size, stereo. For
+further information on how to configure these qdiscs check tc-mqprio(8) and
+tc-cbs(8) man pages.
+
+On the host that will run as AVTP Talker (i.e. plugin in playback mode), run
+the following commands:
+
+Configure mpqrio qdisc (replace $MQPRIO_HANDLE_ID by an unused handle ID):
+
+	$ tc qdisc add dev $IFNAME parent root handle $MQPRIO_HANDLE_ID \
+			mqprio num_tc 3 map 2 2 1 0 2 2 2 2 2 2 2 2 2 2 2 2 \
+			queues 1@0 1@1 2@2 hw 0
+
+Configure cbs qdisc (replace $CBS_HANDLE_ID by an unused handle ID):
+
+	$ tc qdisc replace dev $IFNAME parent $MQPRIO_HANDLE_ID:1 \
+			handle $CBS_HANDLE_ID cbs idleslope 5760 \
+			sendslope -994240 hicredit 9 locredit -89 offload 1
+
+The plugin implements a transmission mechanism that relies on ETF qdisc so make
+sure it is properly configured in the system. It could be configured many way,
+below follows an example.
+
+	$ tc qdisc add dev $IFNAME parent $CBS_HANDLE_ID:1 etf \
+			clockid CLOCK_TAI delta 500000 offload
+
+No Traffic Control configuration is required at the host running as AVTP
+Listener.
+
+Plugin Dependencies
+-------------------
+
+The AAF plugin uses libavtp to handle AVTP packetization. Libavtp source code
+can be found in https://github.com/AVnu/libavtp as well as instructions to
+build and install it.
+
+The plugin also depends on some kernel API headers such as linux/if_ether.h so
+make sure you have them installed in your system.
+
+If libavtp or the kernel headers aren't detected by configure, the plugin isn't
+built.
+
+Plugin Configuration
+--------------------
+
+The plugin parameters are passed via ALSA configuration file. They are defined
+as follows:
+
+	* ifname: Network interface used to transmit/receive AVTP packets.
+
+	* addr: Stream destination MAC address.
+
+	* prio: Priority used by the plugin to transmit AVTP traffic. This
+	  option is relevant only when operating in playback mode.
+
+	* streamid: Stream ID associated with the AAF stream transmitted or
+	  received by the plugin.
+
+	* mtt: Maximum Transit Time (in microseconds) as defined in AVTP spec
+	  section 4.3.3. This option is relevant only when operating in
+	  playback mode.
+
+	* time_uncertainty: Maximum Time Uncertainty (in microseconds) as
+	  defined by AVTP spec section 4.3.3. This option is relevant only when
+	  operating in playback mode.
+
+	* frames_per_pdu: Number of audio frames transmitted in one AVTPDU.
+
+	* ptime_tolerance: Presentation time tolerance in microseconds.
+	  AVTPDUs with presentation time off by +- ptime_tolerance are not
+	  considered invalid. This option is relevant only when operating in
+	  capture mode.
+
+Plugin Usage
+------------
+
+The plugin provides the PCM type "aaf". Configure an AAF PCM virtual device
+according to the AAF stream you want to transmit or receive. A hypothetical
+configuration for the stream described in the 'FQTSS Setup' section is shown
+below:
+
+	pcm.aaf0 {
+		type aaf
+		ifname eth0
+		addr 01:AA:AA:AA:AA:AA
+		prio 3
+		streamid AA:BB:CC:DD:EE:FF:0000
+		mtt 2000
+		time_uncertainty 125
+		frames_per_pdu 6
+		ptime_tolerance 100
+	}
+
+Put the above to ~/.asoundrc (or /etc/asound.conf), and use the AAF PCM virtual
+device 'aaf0' with your favorite alsa-utils tool. Note that the plugin requires
+the period size is multiple of the 'frames_per_pdu' configuration.
+
+For example, to stream the pink noise generated by 'speaker-test', run:
+
+	$ speaker-test -F S16_BE -c 2 -r 48000 -D aaf0 -p 12500
+
+To receive the AAF stream generated by the command above, run the following
+command in another host:
+
+	$ arecord -t raw -f S16_BE -c 2 -r 48000 -D aaf0 -vv /dev/null -F 12500
+
+If you want to playback the contents of the AAF stream, change the command-line
+above so the output from 'arecord' is redirected to 'aplay', or simply use the
+'alsaloop' tool.

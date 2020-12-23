@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-dinothawr
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-dinothawr (>= 1.0.0) | dinothawr (>= 1.0.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-dinothawr
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Dinothawr core for kodi's retroplayer
+ Dinothawr core for kodi's retroplayer

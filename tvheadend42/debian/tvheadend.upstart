@@ -1,0 +1,32 @@
+# tvheadend - DVB/IPTV streaming server
+#
+# Tvheadend is a TV streaming server for Linux supporting DVB, ATSC, IPTV,
+# and Analog video (V4L) as input sources.
+
+description "Tvheadend DVB/IPTV streaming server"
+author      "Adam Sutton <dev@adamsutton.me.uk>"
+
+start on (local-filesystems and net-device-up and started udev-finish)
+stop  on runlevel [!2345]
+
+expect fork
+respawn
+
+script
+  [ -r /etc/default/tvheadend ] && . /etc/default/tvheadend
+
+  [ "$TVH_ENABLED" = "1" ] || exit 0
+
+  ARGS="-f"
+  [ -z "$TVH_USER"      ] || ARGS="$ARGS -u $TVH_USER"
+  [ -z "$TVH_GROUP"     ] || ARGS="$ARGS -g $TVH_GROUP"
+  [ -z "$TVH_CONF_DIR"  ] || ARGS="$ARGS -c $TVH_CONF_DIR"
+  [ -z "$TVH_ADAPTERS"  ] || ARGS="$ARGS -a $TVH_ADAPTERS"
+  [ "$TVH_IPV6" = "1"   ] && ARGS="$ARGS -6"
+  [ -z "$TVH_HTTP_PORT" ] || ARGS="$ARGS --http_port $TVH_HTTP_PORT"
+  [ -z "$TVH_HTTP_ROOT" ] || ARGS="$ARGS --http_root $TVH_HTTP_ROOT"
+  [ -z "$TVH_HTSP_PORT" ] || ARGS="$ARGS --htsp_port $TVH_HTSP_PORT"
+  [ "$TVH_DEBUG" = "1"  ] && ARGS="$ARGS -s"
+
+  exec tvheadend $ARGS $TVH_ARGS
+end script

@@ -1,0 +1,469 @@
+<sect1 id="sed1330-howto">
+<title>The sed1330 Driver</title>
+
+<para>
+This section talks about using LCDproc with graphical LCD displays driven by
+the EPSON/SMOS SED1330 or SED1335 LCD controllers, which may also be known by their
+new names: S1D13300 (= SED1330) and S1D13305 (= SED1335).
+</para>
+
+<para>
+The displays are driven in text mode using their built-in character generator
+and the graphic mode for bars and the heartbeat icon (a bouncing ball).
+</para>
+
+<sect2 id="sed1330-connections">
+<title>Connections</title>
+
+<warning>
+<para>
+Displays using SED1330/1335 chipset come in a variety of pin-outs and power
+configurations. They usually require negative voltage for contrast and some
+displays have a negative voltage generator onboard.
+</para>
+<para>
+Connections below are for the G242C, G121C and G321D displays. Always consult
+documentation about the specific display before assuming the connections given
+here are also correct for your display!
+</para>
+</warning>
+
+<table id="sed1330-connections.classic-by-lpt">
+<title>ConnectionType <literal>classic</literal> ordered by LPT port pins</title>
+<tgroup cols="5" align="left">
+<colspec colname="lpt1"/>
+<colspec colname="lpt2" align="right"/>
+<colspec colname="base" align="center"/>
+<colspec colname="lcd1"/>
+<colspec colname="lcd2"/>
+  <thead>
+    <row>
+      <entry namest="lpt1" nameend="lpt2" align="center" rowsep="0">LPT port</entry>
+      <entry morerows="1">&lt;-&gt;</entry>
+      <entry namest="lcd1" nameend="lcd2" align="center" rowsep="0">LCD</entry>
+    </row>
+    <row>
+      <entry>pin</entry>
+      <entry>name</entry>
+      <entry>name</entry>
+      <entry>pin</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>1</entry>
+      <entry>^STROBE</entry>
+      <entry></entry>
+      <entry>^RESET</entry>
+      <entry>1</entry>
+    </row>
+    <row>
+      <entry>2-9</entry>
+      <entry>D0-D7</entry>
+      <entry></entry>
+      <entry>D0-D7</entry>
+      <entry>8-15</entry>
+    </row>
+    <row>
+      <entry>16</entry>
+      <entry>^INIT</entry>
+      <entry></entry>
+      <entry>^WR</entry>
+      <entry>3</entry>
+    </row>
+    <row>
+      <entry>17</entry>
+      <entry>^SELECT_IN</entry>
+      <entry></entry>
+      <entry>A0</entry>
+      <entry>7</entry>
+    </row>
+    <row>
+      <entry>18-25</entry>
+      <entry>GND</entry>
+      <entry>GND</entry>
+      <entry>V<subscript>EE</subscript></entry>
+      <entry>17</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>+5V</entry>
+      <entry>^RD</entry>
+      <entry>2</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>GND</entry>
+      <entry>SEL1</entry>
+      <entry>4</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>GND</entry>
+      <entry>SEL2</entry>
+      <entry>5</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>GND</entry>
+      <entry>^CS</entry>
+      <entry>6</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>+5V</entry>
+      <entry>V<subscript>CC</subscript></entry>
+      <entry>16</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>potentiometer</entry>
+      <entry>V0</entry>
+      <entry>18</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>-24V (not required for G242C)</entry>
+      <entry>V<subscript>LC</subscript></entry>
+      <entry>19</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>GND</entry>
+      <entry>F<subscript>GND</subscript></entry>
+      <entry>20</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<table id="sed1330-connections.bitshaker-by-lpt">
+<title>ConnectionType <literal>bitshaker</literal> ordered by LPT port pins</title>
+<tgroup cols="5" align="left">
+<colspec colname="lpt1"/>
+<colspec colname="lpt2" align="right"/>
+<colspec colname="base" align="center"/>
+<colspec colname="lcd1"/>
+<colspec colname="lcd2"/>
+  <thead>
+    <row>
+      <entry namest="lpt1" nameend="lpt2" align="center" rowsep="0">LPT port</entry>
+      <entry morerows="1">&lt;-&gt;</entry>
+      <entry namest="lcd1" nameend="lcd2" align="center" rowsep="0">LCD</entry>
+    </row>
+    <row>
+      <entry>pin</entry>
+      <entry>name</entry>
+      <entry>name</entry>
+      <entry>pin</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>1</entry>
+      <entry>^STROBE</entry>
+      <entry></entry>
+      <entry>^WR</entry>
+      <entry>3</entry>
+    </row>
+    <row>
+      <entry>2-9</entry>
+      <entry>D0-D7</entry>
+      <entry></entry>
+      <entry>D0-D7</entry>
+      <entry>8-15</entry>
+    </row>
+    <row>
+      <entry>14</entry>
+      <entry>^LF</entry>
+      <entry></entry>
+      <entry>A0</entry>
+      <entry>7</entry>
+    </row>
+    <row>
+      <entry>16</entry>
+      <entry>^INIT</entry>
+      <entry></entry>
+      <entry>^RESET</entry>
+      <entry>1</entry>
+    </row>
+    <row>
+      <entry>18-25</entry>
+      <entry>GND</entry>
+      <entry>GND</entry>
+      <entry>V<subscript>EE</subscript></entry>
+      <entry>17</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>+5V</entry>
+      <entry>^RD</entry>
+      <entry>2</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>GND</entry>
+      <entry>SEL1</entry>
+      <entry>4</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>GND</entry>
+      <entry>SEL2</entry>
+      <entry>5</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>GND</entry>
+      <entry>^CS</entry>
+      <entry>6</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>+5V</entry>
+      <entry>V<subscript>CC</subscript></entry>
+      <entry>16</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>potentiometer</entry>
+      <entry>V0</entry>
+      <entry>18</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>-24V (not required for G242C)</entry>
+      <entry>V<subscript>LC</subscript></entry>
+      <entry>19</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>GND</entry>
+      <entry>F<subscript>GND</subscript></entry>
+      <entry>20</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<para>
+The potentiometer should be connected like this on these display modules:
+</para>
+
+<screen>
+<![CDATA[
+	=== GND
+	 |
+	.-.
+	| |
+	| |5k
+	'-'
+	 |
+	 |
+	.-.10k potentiometer
+	| |
+	| |<----------------o V0
+	| |
+	'-'
+	 |
+	 O Vlc (= -24V)
+]]>
+</screen>
+
+<para>
+The G242C generates -24V internally. It is available on Vlc.
+</para>
+
+<para>
+To generate -24 from the +5V without an external power source, you can
+use the following circuit.
+</para>
+
+<screen>
+<![CDATA[
+ 5V O------+----------+                                 pinout:
+           |          |                                  _____
+           |         --- 100uF                          |  _  |
+           |         --- 10V                            | (_) | <-3
+           |          |                                 |_____|
+           |          +--------+--------+--------+      | max |
+           |5         |        |        |        |      | 724 |
+       ---------     === GND   C        -        |      |_____|
+      |         |              C coil  | |       |       |||||
+      |         |              C 47uH  | |10k    |       |||||.
+      |         |4             |        -        |       | | |
+      | MAX724  |--------------+        |        |       12345
+      |   or    |              |        |        |
+      | MAX726  |1             |        |        |+
+      |         |-----------------------+       --- 47uF
+      |         |              |        |       --- 50V
+      |         |              |        |        |
+       ---------               |        -        |
+        |2    |3               |       | |       |
+        |     |              '---,     | |1k     |
+       ---    |        SB160  / \       -        |
+  100nF---    |               ^T^       |        |
+        |     |                |        |        |
+        +-----+----------------+--------+--------+----O -24V out
+]]>
+</screen>
+
+
+
+</sect2>
+
+<sect2 id="sed1330-keypad">
+<title>Keypad</title>
+
+<para>The sed1330 driver supports the same direct keys and matrix keypad
+connections as the hd44780 driver. See <xref linkend="hd44780-connections-keypad"/>.
+</para>
+
+</sect2>
+
+<!-- ## Seiko Epson 1330 driver ## -->
+<sect2 id="sed1330-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="sed1330-config-section">
+<title>[sed1330]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>CellSize</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Specify the size of a character in pixels.
+    <replaceable>WIDTH</replaceable> may vary between <literal>6</literal> and <literal>8</literal>;
+    legal values for <replaceable>HEIGHT</replaceable> range from <literal>7</literal> to
+    <literal>16</literal>.
+    If not given <property>CellSize</property> defaults to <literal>6x10</literal>.
+  </para>
+  <para>
+    Contrary to other drivers the character size of an LCD using the sed1330
+    driver is not given directly. Instead it is determined by the pixel size
+    of the display, which is derived from the display type setting and the
+    character cell size specified with this setting.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>ConnectionType</property> =
+    {
+      <emphasis><parameter><literal>classic</literal></parameter></emphasis> |
+      <parameter><literal>bitshaker</literal></parameter>
+    }
+  </term>
+  <listitem>
+    <para>
+    Select the type of the wiring, see <xref linkend="sed1330-connections"/>.
+    </para>
+    <para>
+    If not given, it defaults to <literal>classic</literal>.
+    </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Port</property> =
+    <parameter><replaceable>PORT</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Specify the address of the parallel port the LCD is connected to.
+    Common values for <replaceable>PORT</replaceable> are <literal>0x278</literal>,
+    <literal>0x378</literal> and <literal>0x3BC</literal>.
+    If not given, it defaults to <literal>0x278</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Type</property> =
+    {
+      <parameter><literal>G321D</literal></parameter> |
+      <parameter><literal>G121C</literal></parameter> |
+      <parameter><literal>G242C</literal></parameter> |
+      <parameter><literal>G191D</literal></parameter> |
+      <parameter><literal>G2446</literal></parameter> |
+      <parameter><literal>SP14Q002</literal></parameter> |
+      <parameter><literal>HG25504</literal></parameter>
+    }
+  </term>
+  <listitem>
+    <para>
+    Type of LCD module. Besides other things (internal setup) this configuration setting
+    determines the size of the display in pixels.
+    </para>
+
+    <informaltable>
+    <tgroup cols="2">
+      <thead>
+        <row>
+          <entry>Type</entry>
+          <entry>Size (in pixels)</entry>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <entry><literal>G321D</literal></entry>
+	  <entry>320 x 200</entry>
+        </row>
+        <row>
+          <entry><literal>G121C</literal></entry>
+	  <entry>128 x 128</entry>
+        </row>
+        <row>
+          <entry><literal>G242C</literal></entry>
+	  <entry>240 x 128</entry>
+        </row>
+        <row>
+          <entry><literal>G191D</literal></entry>
+	  <entry>192 x 192</entry>
+        </row>
+        <row>
+          <entry><literal>G2446</literal></entry>
+	  <entry>240 x 64</entry>
+        </row>
+        <row>
+          <entry><literal>SP14Q002</literal></entry>
+	  <entry>320 x 240</entry>
+        </row>
+        <row>
+          <entry><literal>HG25504</literal></entry>
+	  <entry>320 x 240</entry>
+        </row>
+      </tbody>
+    </tgroup>
+    </informaltable>
+
+    <note><para>
+      Currently the G321D and SP14Q002 are the only ones that this driver is tested with.
+    </para></note>
+  </listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

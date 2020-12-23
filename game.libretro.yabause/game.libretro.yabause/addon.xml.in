@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.yabause"
+		name="Sega - Saturn (Yabause)"
+		version="0.9.15.12"
+		provider-name="Guillaume Duhammel, Theo Berkau, Anders Montonen">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.saturn" version="1.0.0"/>
+		<import addon="game.controller.saturn.multitap" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>Sega Saturn</platforms>
+		<extensions>cue|iso|mds|ccd|zip|chd</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Sega - Saturn (Yabause) v0.9.15</summary>
+		<description lang="en_GB">Yabause stands for Yet Another Buggy And Uncomplete Saturn Emulator. Yabause can boot Sega Saturn bios and games, some of which are playable.
+
+Icon credit: Anarkhya (anarkhya.deviantart.com)
+
+Supported files: .cue, .iso, .mds, .ccd, .zip, .chd</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.yabause</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
+</addon>

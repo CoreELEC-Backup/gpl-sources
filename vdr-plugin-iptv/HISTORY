@@ -1,0 +1,294 @@
+==================================
+VDR Plugin 'iptv' Revision History
+==================================
+
+2007-10-14: Version 0.0.1
+
+- Initial revision.
+
+2007-10-21: Version 0.0.2
+
+- Added EXT protocol.
+- Added Spids to channel editor.
+- Fixed shutdown logic.
+- Improved error checking in protocols.
+
+2007-10-28: Version 0.0.3
+
+- Fixed shutdown crash.
+- Added some minor tweaks.
+- RTP payload now restricted to TS only.
+- Added preliminary support for vdr-1.4.7.
+
+2007-11-04: Version 0.0.4
+
+- Added German translation (Thanks to Tobias Grimm).
+- Added pluginparam patch for vdr-1.5.11.
+- Updated Makefile 'i18n' targets.
+
+2007-11-27: Version 0.0.5
+
+- Added French translation (Thanks to Bruno Roussel).
+- Added a more sophisticated example script (Thanks to Tobias Grimm).
+- Improved iptvstream.sh compatibility under non-bash shells.
+
+2008-01-20: Version 0.0.6
+
+- Fixed some lint warnings.
+- Added Italian translation (Thanks to Diego Pierotto).
+- Added '-Wno-parentheses' to the compiler options.
+- Mapped 'kInfo' as help key in setup menu.
+- Refactored statistic collecting code.
+
+2008-02-18: Version 0.0.7
+
+- Updated for vdr-1.5.15.
+- Replaced asprintf with cString.
+- Updated French translation (Thanks to Michaël Nival).
+- Modified VDR locale support detection.
+- Added preliminary automatic Pid scanning functionality.
+- Modified channels.conf format to enable/disable channel
+  specific pid and sid scanning functionality.
+- Removed the general sid scanning setup option.
+
+2008-03-27: Version 0.2.0
+
+- Updated for vdr-1.6.0.
+- Updated Italian translation (Thanks to Diego Pierotto).
+- Added Russian translation (Thanks to Alexander Gross).
+
+2008-06-20: Version 0.2.1
+
+- Updated Italian translation (Thanks to Diego Pierotto).
+- Removed compatibility mode for old channels.conf format.
+- Updated vlc2iptv script for new channels.conf format.
+- Added pluginparam patch for vdr-1.7.0.
+- Added new example scripts from VDR-WIKI.
+
+2008-10-12: Version 0.2.2
+
+- Converted HISTORY and fi_FI.po to UTF-8.
+- Updated Italian translation (Thanks to Diego Pierotto).
+- Tweaked pid scanner parameters for HD broadcasts.
+- Fixed opening of fifo tap.
+- Updated iptvstream.sh script to support optional video resolution
+  settings.
+- Optimized streamer thread termination.
+
+2008-12-16: Version 0.2.3
+
+- Updated for vdr-1.7.2.
+- Silenced a compilation warning.
+
+2009-02-25: Version 0.2.4
+
+- Updated for vdr-1.7.4.
+- Fixed blacklisting of PAT section filter.
+- Set max IPTV device count to VDR's max devices.
+- Fixed a possible crash in sid and pid scanners.
+
+2009-03-08: Version 0.2.5
+
+- Optimized TS packet data flow.
+- Refactored section filter class.
+- Cleaned up example scripts.
+- Fixed pid scanner to set the existing video stream type
+  (Thanks to ua0lnj for reporting this one).
+- Added optional patches to disable CA updates.
+
+2009-03-22: Version 0.2.6
+
+- Added a note about recommended frequencies into README.
+- Fixed a locking bug with section filters.
+- Fixed some lint warnings.
+
+2009-06-01: Version 0.3.0
+
+- Added iptvstream-notrap.sh script.
+- Fixed setting parameters when protocol changes
+  (Thanks to Peter Holik for reporting this one).
+- Updated example scripts to use ffmpeg's direct UDP output
+  and added a new "image.sh" script (Thanks to Peter Holik).
+
+2009-10-01: Version 0.3.1
+
+- Updated patches.
+- Added optional patches to disable EIT scanning.
+- Fixed handling of HTTP protocol headers.
+- Modified sectionfilters to use socket pair instead of
+  filesystem fifos.
+
+2010-03-05: Version 0.3.2
+
+- Updated patches.
+- Fixed argument corruption.
+
+
+================================== 
+VDR Plugin 'iptv' Revision History
+================================== 
+
+2010-03-05: Version 0.4.0
+
+- Updated for vdr-1.7.13.
+- Fixed argument corruption.
+
+2010-03-09: Version 0.4.1
+
+- Fixed channel parameter corruption.
+- Added Dutch translation (Thanks to Carel).
+
+2010-06-06: Version 0.4.2
+
+- Updated for vdr-1.7.15.
+
+2012-02-02: Version 0.5.0
+
+- Updated for vdr-1.7.23.
+- Renamed Sid scanner to section id scanner and added
+  experimental Tid/Nid support into it.
+- Added optional source address validation for UDP protocol.
+- Fixed audio pid detection in pid scanner.
+- Changed ProvidesChannel() to set the need of detaching
+  receivers due to VDR's channel selection mechanism.
+- Enabled partial content responses for HTTP protocol.
+- Fixed EXT protocol execution (Thanks to Peter Holik).
+- Disable detaching of receivers if retuned to an existing
+  channel (Thanks to Zdeněk Kopřivík).
+- Canonicalized the configuration directory.
+- Added support for LDFLAGS.
+- Added cppcheck target into Makefile.
+
+2012-04-02: Version 0.5.1
+
+- Updated for vdr-1.7.27.
+- Updated Makefile.
+- Silenced compilation warnings.
+- Fixed channel switching bugs.
+- Added support for a service interface.
+- Changed UDP protocol to always utilize the source address
+  validation.
+
+2012-04-26: Version 0.5.2
+
+- Fixed connection problems in HTTP protocol.
+
+2012-06-03: Version 1.0.0
+
+- Optimized reading from UDP sockets.
+- Fixed ProvidesChannel method.
+
+2012-07-10: Version 1.0.1
+
+- Added FreeBSD support (Thanks to Jürgen Lock).
+
+2012-09-30: Version 1.1.0
+
+- Updated for vdr-1.7.30.
+- Added support for source-specific multicasts (SSM).
+- Changed default external script directory from the
+  configuration to the resource.
+
+2013-02-24: Version 1.2.0
+
+- Updated for vdr-1.7.38.
+- Added a new CURL protocol for HTTP/HTTPS.
+
+2013-03-06: Version 1.2.1
+
+- Fixed bugs found in the CURL implementation (Thanks
+  to Jeremy Hall).
+- Fixed the channel editor.
+
+
+==================================
+VDR Plugin 'iptv' Revision History
+==================================
+
+2013-04-01: Version 2.0.0
+
+- Updated for vdr-2.0.0.
+- Enabled I/O throttling and tweaked buffer timeouts.
+- Fixed a nasty network byte order bug.
+- Fixed and refactored the section filtering code.
+- Fixed a possible crash in the file protocol.
+
+2014-01-10: Version 2.0.1
+
+- Added missing CURL timeouts.
+- Improved section id scanner.
+- Added support for cDevice::IsTunedToTransponder() and
+  cDevice::GetCurrentlyTunedTransponder().
+- Fixed a memory leak and some issues reported by scan-build.
+
+2014-01-18: Version 2.0.2
+
+- Made devices to shutdown already in cPluginManager::Stop()
+  to prevent possible crashes while VDR shutdown.
+
+2014-03-09: Version 2.0.3
+
+- Fixed installation target bugs (Thanks to Alexander Grothe).
+
+
+==================================
+VDR Plugin 'iptv' Revision History
+==================================
+
+2014-02-20: Version 2.1.0
+
+- Added initial CAM support.
+- Added missing RTSP/UDP support.
+
+2014-03-09: Version 2.1.1
+
+- Fixed installation target bugs (Thanks to Alexander Grothe).
+
+2014-03-16: Version 2.1.2
+
+- Updated for vdr-2.1.6.
+
+2014-05-10: Version 2.1.3
+
+- Updated the section filtering options.
+- Removed unnecessary TS buffer settings.
+- Added RTP packet error detection.
+
+
+==================================
+VDR Plugin 'iptv' Revision History
+==================================
+
+2015-02-19: Version 2.2.0
+
+- Updated for vdr-2.2.0.
+- Updated German translations (Thanks to Frank Neumann).
+- Updated Lithuanian translations (Thanks to Valdemaras
+  Pipiras).
+
+2015-04-04: Version 2.2.1
+
+- Fixed CURL timeout and added a stale connection
+  detection (Thanks to Daniel Ribeiro).
+- Got rid of IPTV_DEBUG.
+- Added support for tracing modes.
+
+
+==================================
+VDR Plugin 'iptv' Revision History
+==================================
+
+2017-06-24: Version 2.3.0
+
+- Updated for vdr-2.3.7.
+- Added Polish translation (Thanks to Tomasz Nowak).
+- Added Catalan and Spanish translations (Thanks to Gabriel Bonich).
+
+
+==================================
+VDR Plugin 'iptv' Revision History
+==================================
+
+2018-04-15: Version 2.4.0
+
+- Updated for vdr-2.4.0.

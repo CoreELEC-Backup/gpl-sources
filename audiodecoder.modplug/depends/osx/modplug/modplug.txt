@@ -1,0 +1,1 @@
+modplug http://mirrors.kodi.tv/build-deps/sources/libmodplug-0.8.9.0.tar.gz

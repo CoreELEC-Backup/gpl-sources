@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.pcsx-rearmed"
+		name="Sony - PlayStation (PCSX ReARMed)"
+		version="22.0.0.16"
+		provider-name="PCSX Team, notaz, Exophase">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.ps.gamepad" version="1.0.0"/>
+		<import addon="game.controller.ps.dualshock" version="1.0.0"/>
+		<import addon="game.controller.ps.dualanalog" version="1.0.0"/>
+		<import addon="game.controller.ps.multitap" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>PlayStation</platforms>
+		<extensions>bin|cue|img|mdf|pbp|toc|cbn|m3u|chd</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Sony - PlayStation (PCSX ReARMed) r22</summary>
+		<description lang="en_GB">PCSX ReARMed is another PCSX fork based on the PCSX-Reloaded project, which itself contains code from PCSX, PCSX-df and PCSX-Revolution. This version features a MIPS-&gt;ARM recompiler, NEON GTE code and more performance improvements.
+
+Supported files: .bin, .cue, .img, .mdf, .pbp, .toc, .cbn, .m3u, .chd</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.pcsx-rearmed</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
+</addon>

@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: Application
+		Information Table</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: Application Information Table (AIT)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -n 1 -ph 4  0x87a
+dvbsnoop V1.2.41 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000001   PID: 2170 (0x087a), Length: 295 (0x0127)
+Time received: Thu 2004-02-12  21:18:33.756
+----------------------------------------------------------
+  0000:  74 f1 24 00 01 c7 00 00  f0 00 f1 17 00 00 00 13   t.$.............
+  0010:  01 00 01 f0 3d 02 05 00  01 01 7f 04 00 09 05 00   ....=...........
+  0020:  01 01 00 02 7f 05 01 01  11 64 65 75 0d 41 52 44   .........deu.ARD
+  0030:  20 54 56 2d 50 6f 72 74  61 6c 03 00 04 14 01 2f    TV-Portal...../
+  0040:  00 64 65 2e 61 72 64 2e  6d 68 70 2e 50 6f 72 74   .de.ard.mhp.Port
+  0050:  61 6c 00 00 00 13 01 ff  02 f0 3e 02 05 00 01 02   al........&gt;.....
+  0060:  7f 04 00 09 05 00 01 01  00 02 7f 05 02 01 12 64   ...............d
+  0070:  65 75 0e 41 52 44 20 54  56 2d 50 6f 72 74 61 6c   eu.ARD TV-Portal
+  0080:  2e 03 00 04 14 01 2f 00  64 65 2e 61 72 64 2e 6d   ....../.de.ard.m
+  0090:  68 70 2e 50 6f 72 74 61  6c 00 00 00 13 02 06 02   hp.Portal.......
+  00a0:  f0 81 02 05 00 01 03 7f  0e 00 09 05 00 01 01 00   ................
+  00b0:  02 ff 05 03 01 10 64 65  75 0c 42 72 6f 77 73 65   ......deu.Browse
+  00c0:  72 20 54 65 73 74 03 37  13 63 6f 6e 66 69 67 3d   r Test.7.config=
+  00d0:  2f 62 72 6f 77 73 65 72  2e 70 72 70 22 73 74 61   /browser.prp"sta
+  00e0:  72 74 3d 73 74 61 72 74  2e 70 6e 67 2c 20 33 36   rt=start.png, 36
+  00f0:  35 2c 20 35 31 30 2c 20  33 35 30 2c 20 33 35 04   5, 510, 350, 35.
+  0100:  22 01 2f 00 74 76 2e 73  63 69 70 2e 62 72 6f 77   "./.tv.scip.brow
+  0110:  73 65 72 2e 68 61 6c 2e  6d 68 70 2e 4d 48 50 58   ser.hal.mhp.MHPX
+  0120:  6c 65 74 5e a5 cc 8a                               let^...
+
+PID:  2170 (0x087a)
+Guess table from table id...
+AIT-decoding....
+Table_ID: 116 (0x74)  [= Application Information Table (AIT)]
+Section_syntax_indicator: 1 (0x01)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+section_length: 292 (0x0124)
+test_application_flag: 0 (0x00)
+application_type: 1 (0x0001)  [= DVB-J application]
+reserved_3: 3 (0x03)
+Version_number: 3 (0x03)
+Current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 0 (0x00)
+Last_section_number: 0 (0x00)
+reserved_4: 15 (0x0f)
+common_descriptors_length: 0 (0x0000)
+
+reserved_5: 15 (0x0f)
+application_loop_length: 279 (0x0117)
+    organisation_id: 19 (0x00000013)
+    appliction_id: 256 (0x0100)  [= unsigned applications]
+    application_control_code: 1 (0x01)  [= AUTOSTART]
+    reserved: 15 (0x0f)
+    application_descriptor_loop_length: 61 (0x003d)
+
+        MHP_AIT-DescriptorTag: 2 (0x02)  [= Transport protocol descriptor]
+        Descriptor_length: 5 (0x05)
+        protocol_id: 1 (0x0001)  [= MHP Object Carousel]
+        transport_protocol_label: 1 (0x01)
+        remote_connection: 0 (0x00)
+        reserved: 127 (0x7f)
+        component_tag: 4 (0x04)
+        selector_bytes:
+
+        MHP_AIT-DescriptorTag: 0 (0x00)  [= Application descriptor]
+        Descriptor_length: 9 (0x09)
+        application_profile_length: 5 (0x05)
+
+            application_profile: 1 (0x0001)
+            version.major: 1 (0x01)
+            version.minor: 0 (0x00)
+            version.micro: 2 (0x02)
+
+        service_bound_flag: 0 (0x00)
+        visibility: 3 (0x03)  [= application visible to user and appl. listening api]
+        reserved: 31 (0x1f)
+        application_priority: 5 (0x05)
+        transport_protocol_label: 257 (0x0101)
+
+        MHP_AIT-DescriptorTag: 1 (0x01)  [= Application name descriptor]
+        Descriptor_length: 17 (0x11)
+            ISO639_language_code:  deu
+            application_name_length: 13 (0x0d)
+            application_name: "ARD TV-Portal"  -- Charset: Latin alphabet
+
+
+        MHP_AIT-DescriptorTag: 3 (0x03)  [= DVB-J application descriptor]
+        Descriptor_length: 0 (0x00)
+
+        MHP_AIT-DescriptorTag: 4 (0x04)  [= DVB-J application location descriptor]
+        Descriptor_length: 20 (0x14)
+        base_directory_length: 1 (0x01)
+        base_directory: "/"
+        classpath_extension_length: 0 (0x00)
+        classpath_extension: ""
+        initial_class: "de.ard.mhp.Portal"
+
+organisation_id: 19 (0x00000013)
+appliction_id: 511 (0x01ff)  [= unsigned applications]
+application_control_code: 2 (0x02)  [= PRESENT]
+reserved: 15 (0x0f)
+application_descriptor_loop_length: 62 (0x003e)
+
+    MHP_AIT-DescriptorTag: 2 (0x02)  [= Transport protocol descriptor]
+    Descriptor_length: 5 (0x05)
+    protocol_id: 1 (0x0001)  [= MHP Object Carousel]
+    transport_protocol_label: 2 (0x02)
+    remote_connection: 0 (0x00)
+    reserved: 127 (0x7f)
+    component_tag: 4 (0x04)
+    selector_bytes:
+
+    MHP_AIT-DescriptorTag: 0 (0x00)  [= Application descriptor]
+    Descriptor_length: 9 (0x09)
+    application_profile_length: 5 (0x05)
+
+        application_profile: 1 (0x0001)
+        version.major: 1 (0x01)
+        version.minor: 0 (0x00)
+        version.micro: 2 (0x02)
+
+    service_bound_flag: 0 (0x00)
+    visibility: 3 (0x03)  [= application visible to user and appl. listening api]
+    reserved: 31 (0x1f)
+    application_priority: 5 (0x05)
+    transport_protocol_label: 513 (0x0201)
+
+    MHP_AIT-DescriptorTag: 1 (0x01)  [= Application name descriptor]
+    Descriptor_length: 18 (0x12)
+        ISO639_language_code:  deu
+        application_name_length: 14 (0x0e)
+        application_name: "ARD TV-Portal."  -- Charset: Latin alphabet
+
+
+    MHP_AIT-DescriptorTag: 3 (0x03)  [= DVB-J application descriptor]
+    Descriptor_length: 0 (0x00)
+
+    MHP_AIT-DescriptorTag: 4 (0x04)  [= DVB-J application location descriptor]
+    Descriptor_length: 20 (0x14)
+    base_directory_length: 1 (0x01)
+    base_directory: "/"
+    classpath_extension_length: 0 (0x00)
+    classpath_extension: ""
+    initial_class: "de.ard.mhp.Portal"
+
+organisation_id: 19 (0x00000013)
+appliction_id: 518 (0x0206)  [= unsigned applications]
+application_control_code: 2 (0x02)  [= PRESENT]
+reserved: 15 (0x0f)
+application_descriptor_loop_length: 129 (0x0081)
+
+    MHP_AIT-DescriptorTag: 2 (0x02)  [= Transport protocol descriptor]
+    Descriptor_length: 5 (0x05)
+    protocol_id: 1 (0x0001)  [= MHP Object Carousel]
+    transport_protocol_label: 3 (0x03)
+    remote_connection: 0 (0x00)
+    reserved: 127 (0x7f)
+    component_tag: 14 (0x0e)
+    selector_bytes:
+
+    MHP_AIT-DescriptorTag: 0 (0x00)  [= Application descriptor]
+    Descriptor_length: 9 (0x09)
+    application_profile_length: 5 (0x05)
+
+        application_profile: 1 (0x0001)
+        version.major: 1 (0x01)
+        version.minor: 0 (0x00)
+        version.micro: 2 (0x02)
+
+    service_bound_flag: 1 (0x01)
+    visibility: 3 (0x03)  [= application visible to user and appl. listening api]
+    reserved: 31 (0x1f)
+    application_priority: 5 (0x05)
+    transport_protocol_label: 769 (0x0301)
+
+    MHP_AIT-DescriptorTag: 1 (0x01)  [= Application name descriptor]
+    Descriptor_length: 16 (0x10)
+        ISO639_language_code:  deu
+        application_name_length: 12 (0x0c)
+        application_name: "Browser Test"  -- Charset: Latin alphabet
+
+
+    MHP_AIT-DescriptorTag: 3 (0x03)  [= DVB-J application descriptor]
+    Descriptor_length: 55 (0x37)
+        parameter_length: 19 (0x13)
+        Parameter: "config=/browser.prp"
+        parameter_length: 34 (0x22)
+        Parameter: "start=start.png, 365, 510, 350, 35"
+
+    MHP_AIT-DescriptorTag: 4 (0x04)  [= DVB-J application location descriptor]
+    Descriptor_length: 34 (0x22)
+    base_directory_length: 1 (0x01)
+    base_directory: "/"
+    classpath_extension_length: 0 (0x00)
+    classpath_extension: ""
+    initial_class: "tv.scip.browser.hal.mhp.MHPXlet"
+
+CRC: 1587924106 (0x5ea5cc8a)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

@@ -1,0 +1,83 @@
+# Makefile for project 'serdisplib', root-directory
+# (C) 2003-2010 by Wolfgang Astleitner
+
+
+SHELL = /bin/sh
+VPATH = @srcdir@
+
+top_srcdir = @top_srcdir@
+srcdir = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+libdir = @libdir@
+mandir = @mandir@
+abs_top_srcdir=@abs_top_srcdir@
+base_abs_top_srcdir=$(shell /bin/basename $(abs_top_srcdir))
+current_timestamp=$(shell /bin/date '+%Y%m%d-%H%M')
+
+CC = @CC@
+MAKE=@MAKE@
+
+
+subdirs = src tools
+
+
+all:
+	@for dir in ${subdirs}; do \
+	  (cd $(srcdir) && cd $$dir && $(MAKE) all) \
+	  || case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac; \
+	done && test -z "$$fail"
+
+install:
+	@for dir in ${subdirs}; do \
+	  (cd $(srcdir) && cd $$dir && $(MAKE) install) \
+	  || case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac; \
+	done && test -z "$$fail"
+
+uninstall:
+	@for dir in ${subdirs}; do \
+	  (cd $(srcdir) && cd $$dir && $(MAKE) uninstall) \
+	  || case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac; \
+	done && test -z "$$fail"
+
+clean:
+	/bin/rm -f core* *~
+	@for dir in ${subdirs}; do \
+	  (cd $(srcdir) && cd $$dir && $(MAKE) clean) \
+	  || case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac; \
+	done && test -z "$$fail"
+
+distclean: clean
+	-/bin/rm -f autom4te.cache/* && /bin/rmdir autom4te.cache
+	/bin/rm -f Makefile config.h config.status config.cache config.log
+	@for dir in ${subdirs}; do \
+	  (cd $(srcdir) && cd $$dir && $(MAKE) distclean) \
+	  || case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac; \
+	done && test -z "$$fail"
+
+# make snapshot is meant for internal use only
+snapshot: distclean
+	cd $(top_srcdir)/.. && \
+	/bin/gtar c --exclude "*~" --exclude ".svn" --exclude "temp" --exclude "*_bkp*" --exclude "*.o" $(base_abs_top_srcdir) | /bin/gzip -c > $(base_abs_top_srcdir)_$(current_timestamp).tar.gz
+
+
+# automatic re-running of configure if the configure.in file has changed
+# disabled because of possible infinive-loop when invalid system time
+###${srcdir}/configure: configure.in
+###	cd ${srcdir} && autoconf
+
+# autoheader might not change config.h.in, so touch a stamp file
+${srcdir}/config.h.in: stamp-h.in
+${srcdir}/stamp-h.in: configure.in aclocal.m4
+		cd ${srcdir} && autoheader
+		echo timestamp > ${srcdir}/stamp-h.in
+
+config.h: stamp-h
+stamp-h: config.h.in config.status
+	./config.status
+Makefile: Makefile.in config.status
+	./config.status
+config.status: configure
+	./config.status --recheck
+

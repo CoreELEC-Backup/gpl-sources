@@ -1,0 +1,75 @@
+All tables are now using DVBv5 format. That allows suporting all standards
+available on a standard way.
+
+GENERATING FILES TO THE LEGACY DVBV3 FORMAT
+===========================================
+
+A Makefile target is provided to convert to the legacy channel format.
+For it to work, you need to have v4l-utils installed (specifically,
+the v4l-utils package that contains the dvbv5 utils).
+
+Be sure that you have at least version 1.4.0 installed, or, if you're
+compiling v4l-utils from its source. Versions below may work too, but
+some DVB files won't be properly parsed with earlier versions.
+
+This is the minimal changeset of v4l-utils required for it to work:
+	commit 64751eb98a15b9c0077d8c2e4409b9b69ac80448
+	Date:   Fri Sep 5 15:50:43 2014 -0300
+	Subject: libdvbv5: make sure that all needed properties are filled
+
+You can download and install v4l-utils from:
+	http://git.linuxtv.org/cgit.cgi/v4l-utils.git/
+
+Once having it installed, generating all the tables usind DVBv3 channel
+format is as easy as running:
+
+	$ make clean
+	$ make dvbv3
+
+The files can also be individually converted from DVBv5 to DVBv3 with:
+
+	$ dvb-format-convert -I dvbv5 -O channel dvb-c/ch-Rega-Sense legacy-format-ch-Rega-Sense
+
+And converting back into DVBv5 format with:
+
+	$ dvb-format-convert -I channel -O dvbv5 legacy-format-ch-Rega-Sense dvb-c/ch-Rega-Sense
+
+Plese notice that comments are not preserved when doing the conversions.
+
+PS.: If you're willing to submit new entries and/or corrections, please
+be sure to send them at the DVBv5 format and sending them via e-mail
+to linux-media@vger.kernel.org.
+
+INSTALL
+=======
+
+In order to install the files, use:
+	$ make install
+
+By default, it will install the files at /usr/local/share/dvbv5.
+
+In order to install the legacy v3 formatted files, use:
+	$ make install_v3
+
+Don't forget to run "make dvbv3" before running the above command,
+in order to convert the files to the legacy format.
+
+By default, it will install the files at /usr/local/share/dvbv3.
+
+There are a few extra parameters that could be used to define where
+the files will be stored:
+
+	PREFIX=<dir>		(default: /usr/local)
+	DATADIR=<dir>		(default: $(PREFIX/share)
+	DVBV5DIR=<subdir>	(default: dvbv3)
+	DVBV3DIR=<subdir>	(default: dvbv5)
+
+So, if it is desired to install both v3 and v5 files at a tmp file,
+under the current dir, the install command would be:
+
+	$ make install install_v3 PREFIX=`pwd`/tmp
+	Installing dvbv5-formatted files at /home/myuser/dtv-scan-tables/tmp/share/dvbv5...done.
+	Installing dvbv3-formatted files at /home/myuser/dtv-scan-tables/tmp/share/dvbv3...done.
+
+Please also note that install takes some time, as there are lots
+of files to be copied.

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.hatari"
+		name="Atari - ST/STE/TT/Falcon (Hatari)"
+		version="1.8.0.11"
+		provider-name="Nicolas Pomarède">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.atari.2600" version="1.0.0"/>
+		<import addon="game.controller.keyboard" version="1.0.0"/>
+		<import addon="game.controller.mouse" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>Atari ST</platforms>
+		<extensions>ST|MSA|ZIP|STX|DIM|IPF|M3U</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Atari - ST/STE/TT/Falcon (Hatari) 1.8</summary>
+		<description lang="en_GB">Hatari is an Atari ST/STE/TT/Falcon emulator. Hatari tries to emulate the hardware as close as possible for greater compatibility. Because of this, it may be slower than less accurate emulators.
+
+Supported files: .ST, .MSA, .ZIP, .STX, .DIM, .IPF, .M3U</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.hatari</source>
+	</extension>
+</addon>

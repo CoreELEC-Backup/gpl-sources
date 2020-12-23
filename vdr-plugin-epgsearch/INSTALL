@@ -1,0 +1,36 @@
+Theres nothing special about it. Install it like any other standard
+plugin (unpack, soft link, make plugins).
+
+Optional libraries:
+-------------------
+
+libpcre
+-------
+For support of Perl compatible regular expressions in a search you have to use
+libpcre:
+simply edit the plugins Makefile and uncomment '#REGEXLIB = pcre' to
+'REGEXLIB = pcre' or append 'REGEXLIB=pcre' to your 'make plugins'
+call. (you will need pcreposix installed, comes with libpcre from
+www.pcre.org, but it's already part of most distributions
+HINT: if all compiles well, but after starting VDR you get:
+
+ERROR: /usr/lib/libpcreposix.so.0: undefined symbol: pcre_free).
+
+update libpcre from www.pcre.org and recompile the plugin.
+
+There seems to be a problem with PCRE on some systems, that produce a crash
+when using regexp. Til now, I could not find the reason. So perhaps dont use
+REGEXLIB=pcre, if you don't really need it.
+
+libtre
+------
+epgsearch has a fuzzy search algorithm. Unfortunately it's restricted to
+search patterns with a maximum of 31 characters. This results in empty results
+if more than 31 characters are used. To avoid this limitation you can use the
+TRE package (http://laurikari.net/tre/). Install tre (on debian:
+apt-get install tre-agrep libtre4 libtre-dev) and activate epgsearch's support
+for it in the Makefile by uncommenting '#REGEXLIB = pcre' to 'REGEXLIB = tre' or append
+it to your 'make plugins' call. After recompiling epgsearch will now use an
+algorithm similar to 'agrep' with no limits.
+
+

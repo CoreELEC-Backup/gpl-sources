@@ -1,0 +1,220 @@
+* lshw B.02.19
+  detection of NVMe disks
+  detection of SD/MMC and SDIO devices
+  bug fixes
+  code cleanup
+  updated data files 
+* lshw B.02.18
+  migrated to git
+  bug fixes
+  code cleanup
+  updated data files 
+* lshw B.02.17
+  bug fixes
+  code cleanup
+  improved support for FAT-formatted disks
+  updated data files 
+* lshw B.02.16
+  bug fixes
+  code cleanup
+  improved support for GPT-partitioned disks
+  report physical sector size of hard disks
+  rewrote GTK2 GUI for increased flexibility (use external UI file)
+  updated data files
+* lshw B.02.15
+  experimental SQLite support
+  bug fixes
+  updated data files
+* lshw B.02.14
+  bug fixes
+  support for EXT4 partitions 
+* lshw B.02.13
+  fix bug #402: properly detect 64 bit systems (even when compiled for i386)
+  fix bug #401: SMP-related crash on IA-64
+  fix bug #399: portability problem on Arch Linux
+  fix bug #386: portability problem (crash) on Sparc
+  fix bug #340: hang on certain PCI devices
+  fix bug #105: Debian bug 456896
+  code cleanup
+  updated data files
+* lshw B.02.12.01
+  fix problem with log lines in `usb.ids` (#321)
+* lshw B.02.12
+  be more careful about invalid UTF-8 strings (some DMI implementations return garbage) (#142)
+  added detection of LUKS volumes (#132)
+  implemented automatic check for updates
+  implemented SMP detection (#7)
+  report volume/filesystem detailed information (FAT, ext2/ext3, reiserfs, NTFS, HFS/HFS+, swap)
+  report MBR disk signatures (#21)
+  GUI: added `nologo` make target to remove copyrighted icons
+  GUI: added `icon` make target to embed SVG icon into executable
+  GUI: display a warning when running as non-root user
+  updated data files
+* lshw B.02.11.01
+  fixed `make install` (#128)
+  GUI: only activate ''Save'' function (toolbar button and menu entry) when needed
+  GUI: better handling of older GTK+ versions that can't read SVG files (#130)
+  updated data files
+* lshw B.02.11
+  implemented "export" function in GUI (#13)
+  RPM package cleanups, GUI now built by default (#111)
+  fixed XML output (#115)
+  fixed handling of command-line options (#121)
+  added -sanitize option (#122)
+  support 15000rpm SCSI discs (#124)
+  fixed IDE detection (#126)
+* lshw B.02.10
+  minor bugfixes (#95, ...)
+  added -quiet option (#107)
+  added preliminary support for IDE RAID arrays (#25)
+* lshw B.02.09
+  minor bugfixes (#26, #27)
+  added support for PCI domains (#28)
+  use of /sys (sysfs) when possible for PCI devices 
+*  B.02.08.01
+  bugfix release for non-x86 platforms (#24)
+*  B.02.08
+  added reporting of GUID-based partitions tables (#4)
+  added reporting of basic LVM2 information (#2)
+  "nicer" (and more customisable) HTML output
+*  B.02.07
+  added reporting of extended partitions (#1)
+  minor cosmetic fixes
+  some new SVG icons [1235] [1236] [1237]
+*  B.02.06
+  fixed reporting of SCSI disks serial numbers [1159] [1158]
+  added support for reporting of disk partitions (MS-DOS [1107], Apple [1112] & HP-UX LIF [1113])
+  some new SVG icons [1163] [1160] [1155]
+*  B.02.05.01
+  fixed a portability problem with GTK+ [1099]
+*  B.02.05
+  added support for DVD writers
+  improved GUI usability (thanks to OpenUsability volunteers: Tina Trillitzsch and Florian Graessle)
+  many new SVG icons
+  added a logo for LSHW (used as icon for gtk-lshw's windows)
+  build system updates
+  bug fixes
+*  B.02.04
+  added support for CPUFreq (Speedstep & similar technologies)
+  the GUI now uses a GtkTextView instead of a GtkLabel
+  SVG icons are now displayed for USB, Firewire, SCSI, etc.
+  added support for reporting VMX (Vanderpool) capabilities (untested)
+  fixed a compilation problem with GCC 4 
+*  B.02.03
+  added support for PA-RISC devices (IODC-controlled) on 2.6 kernels
+  the GUI can now be launched by invoking lshw with the '-X' option
+  network devices clean-up (removed last bits of MII-diag, replaced by ethtool); gigabit-ethernet is now reported
+  cosmetic fixes
+  simplified reporting of SCSI devices
+  added an XML Schema Definition (XSD)
+  fixes for Apple machines (serial # reporting, more models identified)
+  added reporting of "width" (32 or 64 bits) for various components (PCI devices, memory banks, CPUs)
+  documentation updates
+  allow parallel builds
+*  B.02.02
+  added reporting of battery-related information using DMI
+  added reporting of hardware security (DMI): admin/user/power-on passwords
+  FIX: worked around the disparition of /proc/ide/ide*/config on 2.6.10
+  new "businfo" output style
+  first try to define an XML schema (cf. XSD file in docs/)
+  renamed lm capability to x86-64 (easier to understand)
+  portability fixes for RedHat 7.3
+  updated USB IDs
+  documentation updates
+  added support for /proc/cpuinfo on x86-64
+  code cleanup
+*  B.02.01
+  better support for emulated SCSI devices: USB mass storage devices are now properly handled
+  added a "go-up" button to the GUI
+  lshw now reports x86-64 capability
+  minor fixes to give better descriptions of capabilities
+  automatically create ghost (removed after use) /dev/sgxx entries when needed (affects Fedora Core 3 and other distributions that don't include these entries)
+  USB code clean-up
+  portability fixes for Gentoo Linux
+*  B.02.00
+  various fixes
+  added a GTK+ GUI
+* A.01.09
+  code cleanup
+  added support for USB devices
+  various fixes
+  updated list of recognised PCI devices
+  added list of recognised USB devices
+  source code reorganisation
+  preparation for the development of a GTK+-based GUI
+* A.01.08
+  code cleanup
+  added support for static and compressed (UPX) static builds
+  added support for HT (hyper-threading); lshw now reports "virtual" CPUs
+  DMI fixes (thanks to Erwan Velu from MandrakeSoft)
+  XML output filtering
+  packaging system fixes (thanks to Oron Peled)
+  updated list of recognised PCI devices
+* A.01.07
+  fixed annoying IDE-related bug that caused un-necessary kernel error messages
+  portability fixes
+  migrated lshw's source code to Subversion
+  build system updates
+  more work on sysfs
+  report WLAN capabilities
+  report speed of network links
+  bugfixes
+* A.01.06
+  code cleanup
+  support for EFI-based (IA-64) systems, thanks to Bruno Cornec from HP
+  the output of lshw can now be restricted to certain classes of hardware (disks, memory, etc.)
+  preliminary support for 2.6 kernel using sysfs
+  very preliminary support for USB devices (disabled by default)
+  fixed typos
+* A.01.05
+  code cleanup
+  PCI and PCMCIA now correctly report resources (ports, memory and IRQs)
+  support for framebuffer devices
+  report detailed DIMM info on PowerPC machines
+  fixed compilation problem for older distributions
+* A.01.04
+  beginning of resources reporting
+  bug fixes for multi-host bridge machines (servers, PowerMacs)
+  fixes for OpenFirmware machines (PowerMacs)
+  SCSI-over-IDE fixes (now connected to the right IDE device)
+  new ability to disable some tests
+  ISA PnP is now disabled by default (was too long)
+* A.01.03
+  new ioscan (HP-UX) -like output format
+  added detection of ISA Plug & Play cards on x86 machines
+  lshw now reports more detailed information on network interfaces
+* A.01.02
+  cosmetic changes
+  added detection of Apple model names for Macs
+  1st try of SPD memory DIMM support
+  lshw now reports information on network interfaces
+* A.01.01
+  fixed memory reporting for systems with more than 2GB of memory
+* A.01.00
+  minor bug fixes
+  support for more platforms (PA-RISC, IA-64 and Alpha)
+  lshw can now generate XML
+* T.00.07
+  minor bug fixes
+  lshw now generates correct HTML (thanks to Ola Lundqvist)
+  SCSI support
+  added a manpage (thanks to Helge Kreutzmann)
+* T.00.06
+  minor bug fixes
+  PCMCIA support
+  support for device claiming
+  preliminary support for non-PCI IDE controllers/devices
+* T.00.05
+  code clean-up
+  probing of IDE devices
+* T.00.04
+  activated HTML mode
+  reporting of video memory
+  bug fixes
+* T.00.03
+  fixes for GCC 3.2
+* T.00.02
+  second public test release
+  PCI buses listing
+* T.00.01
+  first public test release

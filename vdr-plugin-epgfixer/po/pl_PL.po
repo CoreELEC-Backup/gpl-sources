@@ -1,0 +1,201 @@
+# VDR Epgfixer plugin language source file.
+# Copyright (C) 2012 Matti Lehtimäki
+# This file is distributed under the same license as the PACKAGE package.
+# Tomasz Maciej Nowak, 2015
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: vdr-epgfixer 0.3.1\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2012-08-14 13:49+0300\n"
+"PO-Revision-Date: 2014-09-30 23:12+0100\n"
+"Last-Translator: Tomasz Maciej Nowak <tomek_n@o2.pl>\n"
+"Language-Team: Polish <vdr@linuxtv.org>\n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.9\n"
+
+msgid "Fix bugs in EPG"
+msgstr "Koryguj b³êdy w EPG"
+
+msgid ""
+"RegexpChars$ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%~"
+"\\/?!()[]{}<>$^*.,:;-=#"
+msgstr ""
+"RegexpChars$ abcdefghijklmnopqrstuvwxyz³±êæñó¶¼¿ABCDEFGHIJKLMNOPQRSTUVWXYZ£¡ÊÆÑÓ¦¬¯0123456789%~"
+"\\/?!()[]{}<>$^*.,:;-=#"
+
+msgid "Button$Cancel"
+msgstr "Anuluj"
+
+msgid "Regular expressions"
+msgstr "Wyra¿enia regularne"
+
+msgid "Edit regular expressions."
+msgstr "Edycja wyra¿eñ regularnych."
+
+msgid "Character set conversions"
+msgstr "Konwersje zestawu znaków"
+
+msgid "Edit character set conversions."
+msgstr "Edycja konwersji zestawu znaków."
+
+msgid "EPG blacklists"
+msgstr "Czarna lista EPG"
+
+msgid "Edit EPG blacklists."
+msgstr "Edycja czarnej listy EPG."
+
+msgid "EPG cloning"
+msgstr "Klonowanie danych EPG"
+
+msgid "Edit EPG data cloning."
+msgstr "Edycja klonowanych danych EPG."
+
+msgid "--- EPG bugfixes ---"
+msgstr "--- Korekcja b³êdnych EPG ---"
+
+msgid "Remove quotes from ShortText"
+msgstr "Usuñ cudzys³ów z nag³ówka"
+
+msgid ""
+"EPG bugfix level >= 1: Some channels put the ShortText in quotes and use "
+"either the ShortText or the Description field, depending on how long the "
+"string is:\n"
+"\n"
+"Title\n"
+"\"ShortText\". Description"
+msgstr ""
+"Korekcja EPG poziom >= 1: Niektóre kana³y maj± nag³ówek w cudzys³owu i "
+"u¿ywaj± pola nag³ówka albo opisu, zale¿nie od d³ugo¶ci ci±gu znaków:\n"
+"\n"
+"Tytu³\n"
+"\"Nag³ówek\". Opis"
+
+msgid "Move Description from ShortText"
+msgstr "Przenie¶ opis z nag³ówka"
+
+msgid ""
+"EPG bugfix level >= 1: Some channels put the Description into the ShortText "
+"(preceded by a blank) if there is no actual ShortText and the Description is "
+"short enough:\n"
+"\n"
+"Title\n"
+" Description"
+msgstr ""
+"Korekcja EPG poziom >= 1: Niektóre kana³y umieszczaj± opis w nag³ówku "
+"(poprzedzony luk±) je¿eli nie ma atualnego nag³ówka a opis jest "
+"wystarczaj±co krótki:\n"
+"\n"
+"Tytu³\n"
+"Opis"
+
+msgid "Remove repeated title from ShortText"
+msgstr "Usuñ powtórzony tytu³ w nag³ówku"
+
+msgid ""
+"EPG bugfix level >= 1: Sometimes they repeat the Title in the ShortText:\n"
+"\n"
+"Title\n"
+"Title"
+msgstr ""
+"Korekcja EPG poziom >= 1: Czasami tytu³ jest powtórzony w nag³ówku:\n"
+"\n"
+"Tytu³\n"
+"Tytu³"
+
+msgid "Remove double quotes from ShortText"
+msgstr "Usuñ podwójny cudzys³ów z nag³ówka"
+
+msgid ""
+"EPG bugfix level >= 1: Some channels put the ShortText between double "
+"quotes, which is nothing but annoying (some even put a '.' after the closing "
+"'\"'):\n"
+"\n"
+"Title\n"
+"\"ShortText\"[.]"
+msgstr ""
+"Korekcja EPG poziom >= 1: Niektóre kana³y umieszczaj± nag³ówek w podwójnym "
+"cudzys³owu (niektóre maj± nawet '.' po zamykaj±cym '\"'):\n"
+"\n"
+"Tytu³\n"
+"\"Nag³ówek\"[.]"
+
+msgid "Remove useless formatting"
+msgstr "Usuñ niepotrzebne formatowanie"
+
+msgid ""
+"EPG bugfix level >= 2: Some channels apparently try to do some formatting in "
+"the texts, which is a bad idea because they have no way of knowing the width "
+"of the window that will actually display the text. Remove excess whitespace."
+msgstr ""
+"Korekcja EPG poziom >=2: Niektóre kana³y próbuj± formatowaæ tekst, co jest "
+"z³ym pomys³em poniewa¿ nie wiedz± jaki jest rozmiar okna, w którym bêdzie "
+"wy¶wietlany tekst. Usuwa niepotrzebne luki/spacje."
+
+msgid "Move long ShortText to Description"
+msgstr "Przenie¶ d³ugi nag³ówek do opisu"
+
+msgid ""
+"EPG bugfix level >= 2: Some channels put a whole lot of information in the "
+"ShortText and leave the Description totally empty. So if the ShortText "
+"length exceeds 40, let's put this into the Description instead."
+msgstr ""
+"Korekcja EPG poziom >=2: Niektóre kana³y umieszczaj± du¿e ilo¶ci informacji "
+"w nag³ówku a pole opisu pozostawiaj± puste. Wiêc je¿eli nag³ówek przekracza "
+"40 znaków, zostanie przeniesiony do opisu."
+
+msgid "Prevent equal ShortText and Description"
+msgstr "Zapobiegaj powielaniu w nag³ówku i opisie"
+
+msgid ""
+"EPG bugfix level >= 2: Some channels put the same information into ShortText "
+"and Description. In that case we delete one of them."
+msgstr ""
+"Korekcja EPG poziom >=2: Niektóre kana³y umieszczaj± to samo w nag³ówku i "
+"opisie. Usuwa jedno z nich."
+
+msgid "Replace backticks with single quotes"
+msgstr "Zast±p odwrócony cudzys³ów pojedynczym cudzys³owem"
+
+msgid ""
+"EPG bugfix level >= 2: Some channels use the ` (\"backtick\") character, "
+"where a ' (single quote) would be normally used. Actually, \"backticks\" in "
+"normal text don't make much sense, so let's replace them."
+msgstr ""
+"Korekcja EPG poziom >=2: Niektóre kana³y u¿ywaj± znaku ` (odwrócony "
+"cudzys³ów), gdzie normalnie u¿yty by³by ' (pojedynczy cudzys³ów). Ta funkcja "
+"to wykonuje."
+
+msgid "Fix stream component descriptions"
+msgstr "Koryguj opis sk³adników strumienia"
+
+msgid ""
+"EPG bugfix level = 3: The stream components have a \"description\" field "
+"which some channels apparently have no idea of how to set correctly."
+msgstr ""
+"Korekcja EPG poziom = 3: Sk³adniki strumienia posiadaj± pole opisu czego "
+"niektóre kana³y nie potrafi± prawid³owo ustawiæ."
+
+msgid "Strip HTML entities"
+msgstr "Usuñ znaczniki HTML"
+
+msgid "Convert HTML entities from all fields to matching regular characters."
+msgstr "Konwertuje znaczniki HTML odpowiadaj±cym im znakom."
+
+msgid "Button$Load"
+msgstr "£aduj"
+
+msgid "Button$Clear EPG"
+msgstr "Czy¶æ EPG"
+
+msgid "Loading configuration files..."
+msgstr "£adowanie plików konfiguracyjnych..."
+
+msgid "Clearing EPG data..."
+msgstr "Czyszczenie danych EPG..."
+
+msgid "Help"
+msgstr "Pomoc"

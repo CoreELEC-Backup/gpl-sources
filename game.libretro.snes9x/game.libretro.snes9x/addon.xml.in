@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.snes9x"
+		name="Nintendo - SNES / SFC (Snes9x - Current)"
+		version="1.60.0.14"
+		provider-name="Snes9x Team">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.snes" version="1.0.0"/>
+		<import addon="game.controller.snes.mouse" version="1.0.0"/>
+		<import addon="game.controller.snes.multitap" version="1.0.0"/>
+		<import addon="game.controller.snes.super.scope" version="1.0.0"/>
+		<import addon="game.controller.konami.justifier.snes" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>SNES</platforms>
+		<extensions>smc|sfc|swc|fig|bs|st</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Nintendo - SNES / SFC (Snes9x - Current) 1.60</summary>
+		<description lang="en_GB">Snes9x is a portable, freeware SNES and Super Famicom emulator. Snes9x is coded in C++, with three assembler CPU emulation cores on the i386 Linux and Windows ports.
+
+Icon credit: HarryBana (harrybana.deviantart.com)
+
+Supported files: .smc, .sfc, .swc, .fig, .bs, .st</description>
+		<disclaimer>The Snes9X team is not connected or affiliated with any mentioned company in any way. The opinions of the Snes9X team do not reflect the views of the various companies mentioned here. Companies and all products pertaining to that company are trademarks of that company. Please contact that company for trademark and copyright information.</disclaimer>
+		<license>Non-commercial</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.snes9x</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

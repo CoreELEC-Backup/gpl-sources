@@ -1,0 +1,103 @@
+=head1 NAME
+
+F<epgsearchdirs.conf> - List of directories for selecting in epgsearch
+
+=head1 DESCRIPTION
+
+This is one source of the 'Select directory' menu.
+
+This file contain directories which can be used for search timers or
+ordinary timers.
+
+The items displayed are read from the following sources:
+
+   * current recording directories
+   * current timer directories
+   * directories used in search timers
+   * directories specified in F<epgsearchdirs.conf>
+
+The menu merges theses directories and displays only distinct
+directories. With key 'yellow' one can change the depth of the
+directories shown. If there are items, that contain category variables
+like '%genre%', these entries are always shown before any other
+directories. They are also not level dependent, but are always shown
+with their full directory.
+
+If this menu is called from the timer edit menu and an item is
+selected that contains the variables "%title%" or "%subtitle" then the
+'file' item of the timer gets cleared, since title or subtitle already
+exist in the 'directory' item.
+
+=head1 SYNTAX
+
+Each line contains a directory. You can use every variable, internal ones
+those defined in F<epgsearchuservars.conf> and the variables of the
+extended EPG.
+
+See C<epgsearchcats.conf(5)> and C<epgsearchuservars.conf(5)>.
+
+Internal ones:
+
+ %time%           - start time in format HH:MM
+ %date%           - start date in format TT.MM.YY
+ %datesh%         - start date in format TT.MM.
+ %time_w%         - weekday name
+ %time_d%         - start day in format TT
+ %time_lng%       - start time in seconds since 1970-01-01 00:00
+ %title%          - title
+ %subtitle%       - subtitle
+
+=head1 EXAMPLE
+
+ %Category%~%Genre%
+ %Category%~%Genre%~%Title%~%Episode%: %Subtitle%
+ Information~Nature~%Title%~%Episode%: %Subtitle%
+ %Series%
+ Movie~Action
+ Movie~Docu
+ Movie~Thriller
+ Music
+ Sports
+
+=head1 SEE ALSO
+
+C<epgsearch(1)>, C<epgsearchcats.conf(5)>, C<epgsearchuservars.conf(5)>
+
+=head1 AUTHOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 REPORT BUGS
+
+Bug reports (german):
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailing list:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT and LICENSE
+
+Copyright (C) 2004-2010 Christian Wieninger
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+Or, point your browser to http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+The author can be reached at cwieninger@gmx.de
+
+The project's page is at http://winni.vdr-developer.org/epgsearch
+
+The MD5 code is derived from the RSA Data Security, Inc. MD5 Message-Digest Algorithm.

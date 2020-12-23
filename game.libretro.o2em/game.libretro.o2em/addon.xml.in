@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.o2em"
+		name="Magnavox - Odyssey2 / Phillips Videopac+ (O2EM)"
+		version="1.18.0.13"
+		provider-name="Daniel Boris, Andre de la Rocha, Arlindo M. de Oliveira">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.odyssey2" version="1.0.0"/>
+		<import addon="game.controller.keyboard" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>Odyssey 2</platforms>
+		<extensions>bin</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Magnavox - Odyssey2 / Phillips Videopac+ (O2EM) 1.18</summary>
+		<description lang="en_GB">O2EM is an Odyssey² / VideoPac emulator.
+
+Place &#34;o2rom.bin&#34; (required) in your userdata folder.
+
+Supported files: .bin</description>
+		<license>Artistic License</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.o2em</source>
+		<assets>
+			<screenshot>resources/screenshot-01.png</screenshot>
+			<screenshot>resources/screenshot-02.png</screenshot>
+		</assets>
+	</extension>
+</addon>

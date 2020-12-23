@@ -1,0 +1,213 @@
+# game.libretro.vice language file
+# Addon Name: game.libretro.vice
+# Addon id: game.libretro.vice
+# Addon Provider: libretro
+msgid ""
+msgstr ""
+"Project-Id-Version: game.libretro.vice\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2017-12-05 21:00i\n"
+"PO-Revision-Date: 2017-12-05 21:00i\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Autostart Warp"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Display Borders"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Model"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Datasette Hotkeys"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Drive Sound Emulation"
+msgstr ""
+
+msgctxt "#30006"
+msgid "True Drive Emulation"
+msgstr ""
+
+msgctxt "#30007"
+msgid "Color Palette"
+msgstr ""
+
+msgctxt "#30008"
+msgid "RetroPad Port"
+msgstr ""
+
+msgctxt "#30009"
+msgid "Keyrah Keypad Mappings"
+msgstr ""
+
+msgctxt "#30010"
+msgid "RetroPad A"
+msgstr ""
+
+msgctxt "#30011"
+msgid "Hotkey: Datasette Fast Forward"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Hotkey: Datasette Reset"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Hotkey: Datasette Rewind"
+msgstr ""
+
+msgctxt "#30014"
+msgid "Hotkey: Datasette Start"
+msgstr ""
+
+msgctxt "#30015"
+msgid "Hotkey: Datasette Stop"
+msgstr ""
+
+msgctxt "#30016"
+msgid "Hotkey: Toggle Datasette Hotkeys"
+msgstr ""
+
+msgctxt "#30017"
+msgid "Hotkey: Swap Joyports"
+msgstr ""
+
+msgctxt "#30018"
+msgid "RetroPad L"
+msgstr ""
+
+msgctxt "#30019"
+msgid "RetroPad L2"
+msgstr ""
+
+msgctxt "#30020"
+msgid "RetroPad L3"
+msgstr ""
+
+msgctxt "#30021"
+msgid "RetroPad L-Down"
+msgstr ""
+
+msgctxt "#30022"
+msgid "RetroPad L-Left"
+msgstr ""
+
+msgctxt "#30023"
+msgid "RetroPad L-Right"
+msgstr ""
+
+msgctxt "#30024"
+msgid "RetroPad L-Up"
+msgstr ""
+
+msgctxt "#30025"
+msgid "RetroPad R"
+msgstr ""
+
+msgctxt "#30026"
+msgid "RetroPad R2"
+msgstr ""
+
+msgctxt "#30027"
+msgid "RetroPad R3"
+msgstr ""
+
+msgctxt "#30028"
+msgid "RetroPad R-Down"
+msgstr ""
+
+msgctxt "#30029"
+msgid "Hotkey: Reset"
+msgstr ""
+
+msgctxt "#30030"
+msgid "RetroPad R-Left"
+msgstr ""
+
+msgctxt "#30031"
+msgid "RetroPad R-Right"
+msgstr ""
+
+msgctxt "#30032"
+msgid "RetroPad R-Up"
+msgstr ""
+
+msgctxt "#30033"
+msgid "RetroPad Select"
+msgstr ""
+
+msgctxt "#30034"
+msgid "RetroPad Start"
+msgstr ""
+
+msgctxt "#30035"
+msgid "Hotkey: Toggle Statusbar"
+msgstr ""
+
+msgctxt "#30036"
+msgid "Hotkey: Toggle Virtual Keyboard"
+msgstr ""
+
+msgctxt "#30037"
+msgid "Hotkey: Warp Mode"
+msgstr ""
+
+msgctxt "#30038"
+msgid "RetroPad X"
+msgstr ""
+
+msgctxt "#30039"
+msgid "RetroPad Y"
+msgstr ""
+
+msgctxt "#30040"
+msgid "Enable Mapping Options"
+msgstr ""
+
+msgctxt "#30041"
+msgid "Physical Keyboard Pass-through"
+msgstr ""
+
+msgctxt "#30042"
+msgid "Reset Type"
+msgstr ""
+
+msgctxt "#30043"
+msgid "ReSID Sampling"
+msgstr ""
+
+msgctxt "#30044"
+msgid "SID Model"
+msgstr ""
+
+msgctxt "#30045"
+msgid "Virtual Keyboard Theme"
+msgstr ""
+
+msgctxt "#30046"
+msgid "RetroPad Turbo Fire"
+msgstr ""
+
+msgctxt "#30047"
+msgid "RetroPad Turbo Pulse"
+msgstr ""
+
+msgctxt "#30048"
+msgid "Userport Joystick Adapter"
+msgstr ""

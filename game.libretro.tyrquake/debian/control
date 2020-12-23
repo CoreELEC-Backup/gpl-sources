@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-tyrquake
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-tyrquake (>= 0.62.0) | tyrquake (>= 0.62.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-tyrquake
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Quake (TyrQuake) core for kodi's retroplayer
+ Quake (TyrQuake) core for kodi's retroplayer

@@ -1,0 +1,2 @@
+libmpo source from https://github.com/Lectem/libmpo
+Sync to 63ada10 (14 Aug 2017)

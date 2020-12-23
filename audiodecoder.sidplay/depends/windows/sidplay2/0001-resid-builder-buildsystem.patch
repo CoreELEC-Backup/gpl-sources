@@ -1,0 +1,22 @@
+--- /dev/null	2015-03-03 09:10:35.165379981 +0100
++++ sidplay-libs-2.1.1/builders/resid-builder/CMakeLists.txt	2015-03-04 09:46:22.539229340 +0100
+@@ -0,0 +1,19 @@
++cmake_minimum_required(VERSION 3.5)
++project(resid-builder)
++
++add_definitions(-D_CRT_SECURE_NO_WARNINGS -DHAVE_MSWINDOWS)
++
++include_directories(${PROJECT_SOURCE_DIR}/../../libsidplay/include
++                    ${PROJECT_SOURCE_DIR}/../..
++                    ${PROJECT_SOURCE_DIR}/include
++                    ${PROJECT_SOURCE_DIR}/include/sidplay/builders)
++
++set(SOURCES src/resid.cpp
++            src/resid-builder.cpp)
++
++add_library(resid-builder STATIC ${SOURCES})
++
++set(HEADERS ${PROJECT_SOURCE_DIR}/include/sidplay/builders/resid.h)
++
++install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/sidplay/builders)
++install(TARGETS resid-builder DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)

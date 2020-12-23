@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-beetle-psx
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-beetle-psx (>= 0.9.44) | beetle-psx (>= 0.9.44)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-beetle-psx
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Sony - PlayStation (Beetle PSX) core for kodi's retroplayer
+ Sony - PlayStation (Beetle PSX) core for kodi's retroplayer

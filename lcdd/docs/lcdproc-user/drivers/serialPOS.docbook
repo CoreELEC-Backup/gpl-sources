@@ -1,0 +1,250 @@
+<sect1 id="serialPOS-howto">
+<title>The serialPOS Driver</title>
+
+<para>
+This section talks about using LCDproc with a point of sale ("POS") character-display.
+</para>
+
+<para>
+The <code>serialPOS</code> driver is currently working with the AEDEX emulation protocol,
+and may support the CD5220, Epson ESC/POS, Logic Controls, EMAX, and Ultimate (UTC/S)
+protocols. It can be extended to work with various other protocol displays.
+</para>
+
+<para>
+Brightness adjustment, custom characters, and cursor control are available
+for protocols that support them.
+At this moment, custom character support is limited to only devices with
+protocols that are able to load custom characters into
+the "extended"-ASCII range, characters from <literal>0x80</literal>
+onwards. This is to avoid clashing with the usual ASCII characters.
+</para>
+
+<para>
+Custom characters are only used for the rendering of horizontal bars
+and vertical bars. For displays whose cell character cell widths are
+lower than the number of custom characters supported,
+then custom characters will be used to render the horizontal bars.
+</para>
+
+<para>
+For displays with sufficient custom character support to include another
+set of custom characters, equal in size to the character cell height minus one,
+on top of the characters already used to support rendering custom horizontal
+bars, then custom characters will be used to render the vertical bars as well.
+</para>
+
+<para>
+Note that some displays use EEPROM to contain their custom characters, and,
+upon receiving custom character commands, directly write the received
+characters to EEPROM. Excessive writes to EEPROM on initialization may
+then cause fast EEPROM wear. Users who do not want this may like to set
+the number of custom characters supported by their display to zero.
+Displays that store their custom characters in RAM should work fine, as the
+driver does not attempt to send commands to permanently store the custom
+characters.
+</para>
+
+<para>
+The driver should operate most character POS displays with a serial (RS-232) input.
+Because these displays use a standardized protocol, if the protocol is
+supported by your display, it should work as expected.
+Feedback is welcome.
+
+<table id="serialPOS-howto.status">
+<title>serialPOS: Emulation Protocol Status</title>
+<tgroup cols="4">
+  <thead>
+    <row>
+      <entry>Protocol</entry>
+      <entry>Display tested</entry>
+      <entry>Currently Supported</entry>
+      <entry>Remark</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>AEDEX</entry>
+      <entry>Emax, KPD220V7</entry>
+      <entry>Yes</entry>
+      <entry>Max size: 40x2</entry>
+    </row>
+    <row>
+      <entry>IEE</entry>
+      <entry> </entry>
+      <entry>No</entry>
+      <entry> </entry>
+    </row>
+    <row>
+      <entry>CD5220</entry>
+      <entry>KPD220V7</entry>
+      <entry>Yes</entry>
+      <entry>Max size: 20x2, Cell size must be 5x7 for custom characters</entry>
+    </row>
+    <row>
+      <entry>Epson</entry>
+      <entry>KPD220V7</entry>
+      <entry>Yes</entry>
+      <entry>Max size: 20x4, Cell size must be 5x7 for custom characters</entry>
+    </row>
+    <row>
+      <entry>Emax</entry>
+      <entry> </entry>
+      <entry>Yes</entry>
+      <entry> </entry>
+    </row>
+    <row>
+      <entry>IBM</entry>
+      <entry> </entry>
+      <entry>No</entry>
+      <entry> </entry>
+    </row>
+    <row>
+      <entry>Logic Controls</entry>
+      <entry>KPD220V7</entry>
+      <entry>Yes</entry>
+      <entry>Max size: 20x2</entry>
+    </row>
+    <row>
+      <entry>Ultimate</entry>
+      <entry>KPD220V7</entry>
+      <entry>Yes</entry>
+      <entry>Max size: 20x2</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<literal>(</literal>&hellip;<literal>)</literal>: Feature not tested.
+</para>
+
+<sect2 id="serialPOS-connections">
+<title>Connecting The Display</title>
+
+<para>
+Connecting the display should consist of simply plugging it into your computer's
+RS-232 serial port.  Because these displays typically support full RS-232, no additional
+wiring is needed.  If your computer does not have such a port (many newer computers don't),
+you can use a USB to serial adapter with a driver provided by the adapter manufacturer.
+</para>
+<para>
+If your display supports a <emphasis>pass-through</emphasis> function, you can connect
+an RS-232 keyboard or terminal to the pass-through port.  This will allow you to input
+keystrokes to LCDproc and control features and menus.  Use the pass-through keyboard's
+arrow, delete, and return keys by default.
+</para>
+<note>
+  <para>
+  If your display supports a <emphasis>pass-through</emphasis> function,
+  but you do not have another RS-232 device connected to the pass-through port,
+  you may experience hangs if an improperly formatted command sneaks through.
+  This is because the display is waiting for the pass-through device to accept
+  the data and a blocking state is created within the display.
+  You can either connect another RS-232 device or use a wire to jumper the CTS and RTS
+  pins together within the display.
+  </para>
+</note>
+
+</sect2>
+
+<!-- ## Serial POS driver ## -->
+<sect2 id="serialPOS-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="serialPOS-config-section">
+<title>[serialPOS]</title>
+
+<variablelist>
+
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Device to use in serial mode.
+    Usual values are <filename>/dev/ttyS0</filename> or <filename>/dev/cu.usbserial</filename>.
+    Default is <filename>/dev/ttyS0</filename>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Specifies the size of the VFD in characters.
+    If not given, it defaults to <literal>16x2</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Cellsize</property> =
+  </term>
+  <listitem><para>
+    Specifies the cell size of each character cell on the display, in pixels.
+    If not given, it defaults to <literal>5x8</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Custom_chars</property> =
+  </term>
+  <listitem><para>
+    Specifies the number of custom characters supported by the display.
+    Maximum number of custom characters supported by the driver is
+    <literal>32</literal>.
+
+    If the protocol supports custom characters but your display is not of the
+    right cell size, set this to zero so the protocol driver skips initializing
+    custom character support and succeeds initialization.
+
+    If not given, it defaults to <literal>0</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Type</property> =
+    {
+      <emphasis><parameter><literal>AEDEX</literal></parameter></emphasis> |
+      <parameter><literal>CD5220</literal></parameter> |
+      <parameter><literal>Epson</literal></parameter> |
+      <parameter><literal>Emax</literal></parameter> |
+      <parameter><literal>LogicControls</literal></parameter> |
+      <parameter><literal>Ultimate</literal></parameter>
+    }
+  </term>
+  <listitem><para>
+    Set the communication protocol to use with the POS display.
+    If not specified it defaults to <literal>AEDEX</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Speed</property> =
+    {
+      <parameter><literal>1200</literal></parameter> |
+      <parameter><literal>2400</literal></parameter> |
+      <parameter><literal>4800</literal></parameter> |
+      <emphasis><parameter><literal>9600</literal></parameter></emphasis> |
+      <parameter><literal>19200</literal></parameter> |
+      <parameter><literal>115200</literal></parameter>
+    }
+  </term>
+  <listitem><para>
+    Set the the baud rate communication with the POS display.
+    If not given the default of <literal>9600</literal> is used.
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>
+

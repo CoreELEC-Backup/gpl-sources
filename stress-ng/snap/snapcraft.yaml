@@ -1,0 +1,39 @@
+name: stress-ng
+version: git
+version-script: |
+    echo $(git describe --tags)
+summary: tool to load and stress a computer
+description: stress-ng can stress various subsystems of a computer.  It can stress load CPU, cache, disk, memory, socket and pipe I/O, scheduling and much more.  stress-ng is a re-write of the original stress tool by Amos Waterland but has many additional features such as specifying the number of bogo operations to run, execution metrics, a stress verification on memory and compute operations and considerably more stress mechanisms.
+confinement: strict
+grade: stable
+type: app
+base: core18
+assumes: [snapd2.37]
+
+environment:
+    CFLAGS: '-fstack-protector-strong -Wformat -Werror=format-security'
+    LDFLAGS: Wl,-z,relro
+
+parts:
+    stress-ng:
+        plugin: make
+        source: git://kernel.ubuntu.com/cking/stress-ng
+        make-parameters:
+            - STATIC=1
+        build-packages:
+            - gcc
+            - make
+            - zlib1g-dev
+            - libbsd-dev
+            - libgcrypt20-dev
+            - libkeyutils-dev
+            - libapparmor-dev
+            - libaio-dev
+            - libcap-dev
+            - libsctp-dev
+            - libjudy-dev
+apps:
+    stress-ng:
+        plugs: [ home, log-observe, system-observe, hardware-observe, system-trace, hardware-random-observe ]
+        command: usr/bin/stress-ng
+

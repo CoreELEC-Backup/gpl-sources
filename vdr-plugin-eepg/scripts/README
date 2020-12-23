@@ -1,0 +1,28 @@
+extract_vdr_chan_ids.pl
+The script extract_vdr_chan_ids.pl can be used along with grep to extract the IDs 
+of required channel i.e.:
+
+USAGE:
+    extract_vdr_chan_ids.pl [/path/to/channels.conf]
+
+EXAMPES:
+    extract_vdr_chan_ids.pl /path/to/channels.conf | grep -i Chanel Name
+
+makeequiv.sh thanks to VDR User
+The makeequiv.sh bash script can be used to generate an eepg.equiv
+file based on SID matching. You may optionally require channel name
+matching as well.
+
+USAGE:
+    makeequiv.sh [channels.conf] [listsources|source to map epg from] <matchname>
+
+EXAMPES:
+    makequiv.sh /video/channels.conf listsources
+    * shows a list of all available sources in channels.conf
+    
+     makeequiv.sh /video/channels.conf S72.7W
+     * map epg from S72.7W channels based on SID match
+      
+     makeequiv.sh /video/channels.conf S72.7W matchname
+     * map epg from S72.7W channels based on SID and channel name match
+

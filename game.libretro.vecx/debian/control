@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-vecx
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-vecx (>= 1.2.0) | vecx (>= 1.2.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-vecx
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: GCE - Vectrex (vecx) core for kodi's retroplayer
+ GCE - Vectrex (vecx) core for kodi's retroplayer

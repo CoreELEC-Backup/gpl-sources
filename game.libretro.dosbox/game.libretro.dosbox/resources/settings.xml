@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="dosbox_adv_options" values="false|true" default="false"/>
+		<setting label="30002" type="select" id="dosbox_cpu_core" values="auto|normal|simple" default="auto"/>
+		<setting label="30003" type="select" id="dosbox_cpu_cycles" values="1|2|3|4|5|6|7|8|9" default="1"/>
+		<setting label="30004" type="select" id="dosbox_cpu_cycles_mode" values="fixed" default="fixed"/>
+		<setting label="30005" type="select" id="dosbox_cpu_cycles_multiplier" values="1000|10000|100000|100" default="1000"/>
+		<setting label="30006" type="select" id="dosbox_cpu_type" values="auto|386|386_slow|486|486_slow|pentium_slow|386_prefetch" default="auto"/>
+		<setting label="30007" type="select" id="dosbox_emulated_mouse" values="enable|disable" default="enable"/>
+		<setting label="30008" type="select" id="dosbox_emulated_mouse_deadzone" values="5%|10%|15%|20%|25%|30%|0%" default="5%"/>
+		<setting label="30009" type="select" id="dosbox_machine_type" values="svga_s3|svga_et3000|svga_et4000|svga_paradise|vesa_nolfb|vesa_oldvbe|hercules|cga|tandy|pcjr|ega|vgaonly" default="svga_s3"/>
+		<setting label="30010" type="select" id="dosbox_pcspeaker" values="false|true" default="false"/>
+		<setting label="30011" type="select" id="dosbox_sblaster_type" values="sb16|sb1|sb2|sbpro1|sbpro2|gb|none" default="sb16"/>
+		<setting label="30012" type="select" id="dosbox_scaler" values="none|normal2x|normal3x" default="none"/>
+		<setting label="30013" type="select" id="dosbox_use_options" values="true|false" default="true"/>
+	</category>
+</settings>

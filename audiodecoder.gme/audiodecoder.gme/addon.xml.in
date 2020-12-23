@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="audiodecoder.gme"
+  version="3.0.0"
+  name="GME Audio Decoder"
+  provider-name="spiff">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="kodi.audiodecoder"
+    name="gme"
+    extension=".gbs|.gym|.spc|.nsf|.nsfe|.vgm|.vgz|.kss|.hes|.ay|.sap|.sgc|.gmestream"
+    tags="true"
+    tracks="true"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="de_DE">Game Music Emu Audio Decoder</summary>
+    <summary lang="en_GB">Game Music Emu Audio Decoder</summary>
+    <description lang="de_DE">Das GME-Format (Game Music Emu) wird verwendet, um die Audioausgabe verschiedener Videospielkonsolen zu emulieren, die in den 1980er und 1990er Jahren beliebt waren. Es gibt dem Sound ein "Retro" -Gefühl.
+
+Unterstützte Formate:
+- AY: ZX Spectrum/Amstrad CPC
+- GBS: Nintendo Game Boy
+- GYM: Sega Genesis/Mega Drive
+- HES: NEC TurboGrafx-16/PC Engine
+- KSS: MSX Home Computer/other Z80 systems (no FM sound)
+- NSF/NSFE: Nintendo NES/Famicom (with VRC 6, Namco 106, and FME-7 sound)
+- SAP: Atari systems using POKEY sound chip
+- SPC: Super Nintendo/Super Famicom
+- VGM/VGZ: Sega Master System/Mark III, Sega Genesis/Mega Drive,BBC Micro</description>
+    <description lang="en_GB">Game Music Emu (GME) format is used to emulate the audio output of various video game consoles popular in the 1980s and 1990s. It gives a "retro" feel to the sound.
+
+Supported Formats:
+- AY: ZX Spectrum/Amstrad CPC
+- GBS: Nintendo Game Boy
+- GYM: Sega Genesis/Mega Drive
+- HES: NEC TurboGrafx-16/PC Engine
+- KSS: MSX Home Computer/other Z80 systems (no FM sound)
+- NSF/NSFE: Nintendo NES/Famicom (with VRC 6, Namco 106, and FME-7 sound)
+- SAP: Atari systems using POKEY sound chip
+- SPC: Super Nintendo/Super Famicom
+- VGM/VGZ: Sega Master System/Mark III, Sega Genesis/Mega Drive,BBC Micro</description>
+    <platform>@PLATFORM@</platform>
+    <license>GPL-2.0-or-later</license>
+    <source>https://github.com/xbmc/audiodecoder.gme</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

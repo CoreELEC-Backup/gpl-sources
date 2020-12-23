@@ -1,0 +1,182 @@
+=head1 NAME
+
+F<epgsearchuservars.conf> - User defined variables
+
+=head1 DESCRIPTION
+
+In this file you can defines variables which then can be used
+in epgsearch in any play where variables are possible.
+
+=head1 SYNTAX
+
+Variables looks like %Variablename%.
+
+"Variablename" can be consist of any alphanumerical character. Space
+and special characters are not allowed.
+
+The variable names are case-insensitive.
+
+Examples for possible names:
+
+ %Series% %DocuVar1% %ThemesSubtitleDate1%
+
+=head2 Assignment
+
+ %Series%=New series~Thriller
+
+The variable %Series% will be assigned with the string "New series~Thriller".
+
+Assignments are always strings. Spaces stay spaces.
+
+ %Path%=%Series%
+
+The variable %Path% gets the content of the variable %Series%.
+
+You can do nearly everything:
+
+ %Path%=%Serie%~Lost
+
+The variable %Path% contains now the string "New series~Thriller~Lost".
+
+=head2 Control structures
+
+You can use simple "if then else" constructions.
+
+These constructions cannot contain strings, only variables.
+Spaces are ignored.
+
+ %Foo%=Other
+
+ %Variable%=%Path% ? %Path% : %Foo%
+
+If %Path% is not empty, assign the content of %Path% to %Variable%,
+otherwise the content of %Foo%.
+
+"%Path% ?" means "not empty?". You can use other checks.
+
+ %Variable%=%Path%!=5 ? %Path% : %Foo%
+
+"%Path%!=5 ?" means "is %Path% equal 5?"
+
+You can also compare variables.
+
+ %Five%=5
+
+ %Variable%=%Path%!=%Five% ? %Path% : %Foo%
+
+Other possible checks:
+
+ ==   equal
+ !=   not equal
+
+=head2 Calling a system command
+
+You can call external commands. The returned string will be assigned
+to a variable
+
+ %Result%=system(scriptname,%Variable1% %Variable2% -f %Variable3% --dir=%Variable4% --dummy)
+
+Calls the script "scriptname" with the parameters "%Variable1%",
+"%Variable2%", etc. The result will be stored in %Result%.
+
+You can use as many variables as you want.
+
+If needed, epgsearch will quote the variable.
+
+The script must return a string B<without> line break!
+
+If the script returns nothing, an empty string will be assigned to the
+Variable %Result%.
+
+=head2 Possible variables
+
+The following variables exist:
+
+ %time%           - start time in format HH:MM
+ %timeend%        - end time in format HH:MM
+ %date%           - start date in format TT.MM.YY
+ %datesh%         - start date in format TT.MM.
+ %time_w%         - weekday name
+ %time_d%         - start day in format TT
+ %time_lng%       - start time in seconds since 1970-01-01 00:00
+ %title%          - title
+ %subtitle%       - subtitle
+ %summary%        - summary
+ %htmlsummary%    - summary, where all CR are replaced with '<br />'
+ %eventid%        - numeric event ID
+
+ %<epg-category>% - a value from the extended EPG categories, specified in
+                    F<epgsearchcats.conf>, like %genre% or %category%
+
+ %chnr%           - channel number
+ %chsh%           - the short channel name
+ %chlng%          - the 'normal' channel name
+ %chdata%         - VDR's internal channel representation (e.g. 'S19.2E-1-1101-28106')
+
+ %colon%          - the sign ':'
+ %datenow%        - current date in format TT.MM.YY
+ %dateshnow%      - current date in format TT.MM.
+ %timenow%        - current time in format HH:MM
+ %videodir%       - VDR video directory (e.g. /video)
+ %plugconfdir%    - VDR plugin config directory (e.g. /etc/vdr/plugins)
+ %epgsearchdir%   - epgsearch config directory (e.g. /etc/vdr/plugins/epgsearch)
+
+
+See also C<epgsearchcats.conf(5)>.
+
+=head1 EXAMPLES
+
+ # Weekday, Date, Time
+ %DateStr%=%time_w% %date% %time%
+
+ # Themes or Subtitle or Date
+ %ThemesSubtitleDate1%=%Subtitle% ? %Subtitle% : %DateStr%
+ %ThemesSubtitleDate%=%Themes% ? %Themes% : %ThemesSubtitleDate1%
+
+ # Calls this script to get a recording path
+ %DocuScript%=system(doku.pl,%Title%,%Subtitle%,%Episode%,%Themes%,%Category%,%Genre%)
+ %Docu%=%DocuScript%
+
+=head1 SEE ALSO
+
+C<epgsearch(1)>, C<epgsearchcats.conf(5)>
+
+=head1 AUTHOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 REPORT BUGS
+
+Bug reports (german):
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailing list:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT and LICENSE
+
+Copyright (C) 2004-2010 Christian Wieninger
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+Or, point your browser to http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+The author can be reached at cwieninger@gmx.de
+
+The project's page is at http://winni.vdr-developer.org/epgsearch
+
+The MD5 code is derived from the RSA Data Security, Inc. MD5 Message-Digest Algorithm.
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="mesen_aspect_ratio" values="Auto|No Stretching|NTSC|PAL|4:3|16:9" default="Auto"/>
+		<setting label="30002" type="select" id="mesen_audio_sample_rate" values="96000|192000|384000|11025|22050|44100|48000" default="96000"/>
+		<setting label="30003" type="select" id="mesen_controllerturbospeed" values="Fast|Very Fast|Disabled|Slow|Normal" default="Fast"/>
+		<setting label="30004" type="select" id="mesen_disable_noise_mode_flag" values="disabled|enabled" default="disabled"/>
+		<setting label="30005" type="select" id="mesen_fake_stereo" values="disabled|enabled" default="disabled"/>
+		<setting label="30006" type="select" id="mesen_fdsautoinsertdisk" values="disabled|enabled" default="disabled"/>
+		<setting label="30007" type="select" id="mesen_fdsfastforwardload" values="disabled|enabled" default="disabled"/>
+		<setting label="30008" type="select" id="mesen_hdpacks" values="enabled|disabled" default="enabled"/>
+		<setting label="30009" type="select" id="mesen_mute_triangle_ultrasonic" values="enabled|disabled" default="enabled"/>
+		<setting label="30010" type="select" id="mesen_nospritelimit" values="disabled|enabled" default="disabled"/>
+		<setting label="30011" type="select" id="mesen_ntsc_filter" values="Disabled|Composite (Blargg)|S-Video (Blargg)|RGB (Blargg)|Monochrome (Blargg)|Bisqwit 2x|Bisqwit 4x|Bisqwit 8x" default="Disabled"/>
+		<setting label="30012" type="select" id="mesen_overclock" values="None|Low|Medium|High|Very High" default="None"/>
+		<setting label="30013" type="select" id="mesen_overclock_type" values="Before NMI (Recommended)|After NMI" default="Before NMI (Recommended)"/>
+		<setting label="30014" type="select" id="mesen_overscan_down" values="None|4px|8px|12px|16px" default="None"/>
+		<setting label="30015" type="select" id="mesen_overscan_left" values="None|4px|8px|12px|16px" default="None"/>
+		<setting label="30016" type="select" id="mesen_overscan_right" values="None|4px|8px|12px|16px" default="None"/>
+		<setting label="30017" type="select" id="mesen_overscan_up" values="None|4px|8px|12px|16px" default="None"/>
+		<setting label="30018" type="select" id="mesen_palette" values="Default|Composite Direct (by FirebrandX)|Nes Classic|Nestopia (RGB)|Original Hardware (by FirebrandX)|PVM Style (by FirebrandX)|Sony CXA2025AS|Unsaturated v6 (by FirebrandX)|YUV v3 (by FirebrandX)|Wavebeam (by nakedarthur)|Custom|Raw" default="Default"/>
+		<setting label="30019" type="select" id="mesen_ramstate" values="All 0s (Default)|All 1s|Random Values" default="All 0s (Default)"/>
+		<setting label="30020" type="select" id="mesen_reduce_dmc_popping" values="enabled|disabled" default="enabled"/>
+		<setting label="30021" type="select" id="mesen_region" values="Auto|NTSC|PAL|Dendy" default="Auto"/>
+		<setting label="30022" type="select" id="mesen_screenrotation" values="None|90 degrees|180 degrees|270 degrees" default="None"/>
+		<setting label="30023" type="select" id="mesen_shift_buttons_clockwise" values="disabled|enabled" default="disabled"/>
+		<setting label="30024" type="select" id="mesen_swap_duty_cycle" values="disabled|enabled" default="disabled"/>
+	</category>
+</settings>

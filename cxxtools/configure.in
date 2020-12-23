@@ -1,0 +1,250 @@
+AC_INIT(cxxtools, 2.2.1, [Tommi Maekitalo <tommi@tntnet.org>])
+AM_INIT_AUTOMAKE
+
+AC_PREREQ([2.5.9])
+
+abi_current=9
+abi_revision=0
+abi_age=0
+sonumber=${abi_current}:${abi_revision}:${abi_age}
+AC_SUBST(sonumber)
+
+unset CDPATH
+
+AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_HEADERS([src/config.h ])
+AC_CONFIG_FILES([include/cxxtools/config.h])
+AC_CONFIG_SRCDIR([src/log.cpp])
+
+AC_HEADER_DIRENT
+
+AC_PROG_CC
+AC_PROG_CXX
+
+AC_LANG(C++)
+
+AX_COMPILER_VENDOR
+AS_IF([test "$ax_cv_cxx_compiler_vendor" = "ibm"],
+      [CPPFLAGS="$CPPFLAGS -qrtti -qlanglvl=newexcp -D__NOLOCK_ON_INPUT -D__NOLOCK_ON_OUTPUT"],
+      AX_CHECK_COMPILE_FLAG([-Wno-long-long], [CPPFLAGS="$CPPFLAGS -Wno-long-long"])
+      AX_CHECK_COMPILE_FLAG([-Wall], [CPPFLAGS="$CPPFLAGS -Wall"])
+      AX_CHECK_COMPILE_FLAG([-pedantic], [CPPFLAGS="$CPPFLAGS -pedantic"]))
+
+AC_CHECK_HEADERS(sys/filio.h)
+AC_CHECK_HEADERS(csignal)
+
+AC_CHECK_LIB(nsl, setsockopt)
+AC_CHECK_LIB(socket, accept)
+AC_CHECK_LIB(rt, sem_destroy)
+AC_SEARCH_LIBS(dlopen, dl, , AC_MSG_ERROR([dlopen not found]))
+AC_SEARCH_LIBS(inet_ntop, nsl socket resolv)
+AC_SEARCH_LIBS(clock_gettime, rt)
+AC_CHECK_FUNCS(inet_ntop accept4)
+AC_CHECK_FUNCS(clock_gettime)
+AC_TYPE_LONG_LONG_INT
+AC_TYPE_UNSIGNED_LONG_LONG_INT
+
+if test "$ac_cv_type_long_long_int" = yes; then
+    HAVE_LONG_LONG=HAVE_LONG_LONG
+
+    AC_COMPILE_IFELSE(
+      [AC_LANG_SOURCE([
+        #include <stdint.h>
+        void f(short);
+        void f(int);
+        void f(long);
+        void f(long long);
+        void f() { int64_t v = 1; f(v); }
+        ])],
+      [AC_DEFINE(INT64_IS_BASETYPE, 1, [defined if int64_t is one of the base types])])
+else
+    AC_MSG_WARN([long long not found]);
+    HAVE_LONG_LONG=NO_LONG_LONG
+
+    AC_COMPILE_IFELSE(
+      [AC_LANG_SOURCE([
+        #include <stdint.h>
+        void f(short);
+        void f(int);
+        void f(long);
+        void f() { int64_t v = 1; f(v); }
+        ])],
+      [AC_DEFINE(INT64_IS_BASETYPE, 1, [defined if int64_t is one of the base types])])
+fi
+
+AC_SUBST(HAVE_LONG_LONG, "$HAVE_LONG_LONG")
+
+if test "$ac_cv_type_unsigned_long_long_int" = yes; then
+    HAVE_UNSIGNED_LONG_LONG=HAVE_UNSIGNED_LONG_LONG
+else
+    AC_MSG_WARN([unsigned long long not found ($ac_cv_type_unsigned_long_long_int)]);
+    HAVE_UNSIGNED_LONG_LONG=NO_UNSIGNED_LONG_LONG
+fi
+AC_SUBST(HAVE_UNSIGNED_LONG_LONG, "$HAVE_UNSIGNED_LONG_LONG")
+
+AC_ARG_WITH([iconvstream],
+    AS_HELP_STRING([--with-iconvstream=yes|no], [compile iconv stream (default: no)]),
+    [with_iconvstream=$withval],
+    [with_iconvstream=no])
+
+if test "$with_iconvstream" = yes; then
+  AM_ICONV
+  if test "$am_cv_func_iconv" !=  yes; then
+    AC_MSG_ERROR(iconv not found);
+  fi
+fi
+
+AM_CONDITIONAL(MAKE_ICONVSTREAM, test $with_iconvstream = yes)
+
+ACX_PTHREAD
+
+CC="$PTHREAD_CC"
+CXX="$PTHREAD_CXX"
+CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
+CXXFLAGS="$CXXFLAGS $PTHREAD_CXXFLAGS"
+LIBS="$LIBS $PTHREAD_LIBS"
+
+AC_PROG_LIBTOOL
+
+CXXTOOLS_CXXFLAGS=''
+CXXTOOLS_LDFLAGS='-lcxxtools'
+
+AC_SUBST(CXXTOOLS_CXXFLAGS)
+AC_SUBST(CXXTOOLS_LDFLAGS)
+
+case "${host_cpu}-${host_os}" in
+*-aix*)
+    SHARED_LIB_FLAG=-qmkshrobj
+    ;;
+*)  
+    SHARED_LIB_FLAG=
+    ;;
+esac
+AC_SUBST(SHARED_LIB_FLAG)
+
+#
+# checking inline assembler type for atomic operations
+#
+AC_CXXTOOLS_ATOMICTYPE
+
+AC_SUBST(CXXTOOLS_ATOMICITY)
+AM_CONDITIONAL(MAKE_ATOMICITY_SUN,         test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_SUN)
+AM_CONDITIONAL(MAKE_ATOMICITY_WINDOWS,     test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_WINDOWS)
+AM_CONDITIONAL(MAKE_ATOMICITY_GCC_ARM,     test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_GCC_ARM)
+AM_CONDITIONAL(MAKE_ATOMICITY_GCC_MIPS,    test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_GCC_MIPS)
+AM_CONDITIONAL(MAKE_ATOMICITY_GCC_PPC,     test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_GCC_PPC)
+AM_CONDITIONAL(MAKE_ATOMICITY_GCC_X86_64,  test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_GCC_X86_64)
+AM_CONDITIONAL(MAKE_ATOMICITY_GCC_X86,     test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_GCC_X86)
+AM_CONDITIONAL(MAKE_ATOMICITY_GCC_SPARC32, test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_GCC_SPARC32)
+AM_CONDITIONAL(MAKE_ATOMICITY_GCC_SPARC64, test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_GCC_SPARC64)
+AM_CONDITIONAL(MAKE_ATOMICITY_GCC_AVR32,   test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_GCC_AVR32)
+AM_CONDITIONAL(MAKE_ATOMICITY_PTHREAD,     test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_PTHREAD)
+AM_CONDITIONAL(MAKE_ATOMICITY_GENERIC,     test "$CXXTOOLS_ATOMICITY" = CXXTOOLS_ATOMICITY_GENERIC)
+
+#
+# checking existence of suseconds_t, needed by hirestime.h
+#
+AC_CHECKING(for suseconds_t)
+
+AC_CHECK_TYPE(
+  suseconds_t,
+  [CXXTOOLS_SUSECONDS=CXXTOOLS_SUSECONDS_T],
+  [CXXTOOLS_SUSECONDS=CXXTOOLS_SUSECONDS_TIME_T],
+  [#include <sys/time.h>])
+
+AC_SUBST(CXXTOOLS_SUSECONDS)
+
+AC_COMPILE_IFELSE(
+  [AC_LANG_SOURCE([#include <locale>
+    void foo() { std::numpunct<char>* np; }
+  ])],
+  [CXXTOOLS_STD_LOCALE=CXXTOOLS_WITH_STD_LOCALE],
+  [CXXTOOLS_STD_LOCALE=CXXTOOLS_WITHOUT_STD_LOCALE])
+
+AC_SUBST(CXXTOOLS_STD_LOCALE)
+
+AC_COMPILE_IFELSE(
+  [AC_LANG_SOURCE([#include <netinet/tcp.h>
+   int i = TCP_DEFER_ACCEPT;
+  ])],
+  AC_DEFINE(HAVE_TCP_DEFER_ACCEPT, 1, [defined if TCP_DEFER_ACCEPT is defined]))
+
+AC_COMPILE_IFELSE(
+  [AC_LANG_SOURCE([#include <sys/socket.h>
+   #include <netinet/in.h>
+   int i = IPPROTO_IPV6;
+  ])],
+  AC_DEFINE(HAVE_IPV6, 1, [defined if IPV6 is supported]))
+
+AC_COMPILE_IFELSE(
+  [AC_LANG_SOURCE([
+   #include <sys/types.h>
+   #include <sys/socket.h>
+   int i = SO_NOSIGPIPE;
+  ])],
+  AC_DEFINE(HAVE_SO_NOSIGPIPE, 1, [defined if socket option SO_NOSIGPIPE is supported]))
+
+AC_COMPILE_IFELSE(
+  [AC_LANG_SOURCE([
+   #include <sys/types.h>
+   #include <sys/socket.h>
+   int i = MSG_NOSIGNAL;
+  ])],
+  AC_DEFINE(HAVE_MSG_NOSIGNAL, 1, [defined if MSG_NOSIGNAL is defined]))
+
+AC_COMPILE_IFELSE(
+  [AC_LANG_SOURCE([#include <iterator>
+   std::reverse_iterator<char*> r;])],
+  [HAVE_REVERSE_ITERATOR=HAVE_REVERSE_ITERATOR],
+  [HAVE_REVERSE_ITERATOR=NO_REVERSE_ITERATOR])
+
+AC_COMPILE_IFELSE(
+  [AC_LANG_SOURCE([#include <iterator>
+   std::reverse_iterator<char*, int, char, char*, char&> r;])],
+  [HAVE_REVERSE_ITERATOR_4=HAVE_REVERSE_ITERATOR_4],
+  [HAVE_REVERSE_ITERATOR_4=NO_REVERSE_ITERATOR_4])
+
+AC_SUBST(HAVE_REVERSE_ITERATOR, "$HAVE_REVERSE_ITERATOR")
+AC_SUBST(HAVE_REVERSE_ITERATOR_4, "$HAVE_REVERSE_ITERATOR_4")
+
+AC_ARG_ENABLE([demos],
+  AS_HELP_STRING([--disable-demos], [disable building demos]),
+  [enable_demos=$enableval],
+  [enable_demos=enable_demos])
+
+AM_CONDITIONAL(MAKE_DEMOS, test "$enable_demos" = "enable_demos")
+
+AC_ARG_ENABLE([unittest],
+  AS_HELP_STRING([--disable-unittest], [disable building unittest]),
+  [enable_unittest=$enableval],
+  [enable_unittest=enable_unittest])
+
+AM_CONDITIONAL(MAKE_UNITTEST, test "$enable_unittest" = "enable_unittest")
+
+AC_CONFIG_FILES([cxxtools-config], [chmod +x cxxtools-config])
+
+AC_CONFIG_FILES([
+  Makefile
+  src/Makefile
+  src/unit/Makefile
+  src/http/Makefile
+  src/xmlrpc/Makefile
+  src/bin/Makefile
+  src/json/Makefile
+  include/Makefile
+  demo/Makefile
+  test/Makefile
+  ])
+
+AC_CONFIG_FILES([
+  pkgconfig/cxxtools-bin.pc 
+  pkgconfig/cxxtools-http.pc 
+  pkgconfig/cxxtools-json.pc 
+  pkgconfig/cxxtools.pc
+  pkgconfig/cxxtools-unit.pc
+  pkgconfig/cxxtools-xmlrpc.pc
+])
+
+AC_OUTPUT
+
+

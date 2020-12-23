@@ -1,0 +1,56 @@
+# Maintainer  : Michael Eiler <eiler.mike@gmail.com>
+
+_pluginname=restfulapi
+pkgname=vdr-plugin-${_pluginname}-git
+pkgver=0.1.1.git
+pkgrel=1
+pkgdesc="RESTful api for VDR >1.7.21"
+arch=('i686' 'x86_64')
+url="http://github.com/yavdr/vdr-plugin-restfulapi"
+license=(GPL)
+depends=('gcc' 'vdr>=1.7.21' 'cxxtools>=2.1' 'git')
+optdepends=('vdr-plugin-epgsearch: Search in EPG data')
+backup=('etc/vdr/plugins/plugin.restfulapi.conf')
+install=vdr-plugin-${_pluginname}-git.install
+
+
+build() {
+  cd "$srcdir/"	|| return 1
+  
+  _githost="git://github.com/MichaelE1000"
+  _gitrepo="vdr-plugin-restfulapi.git"
+
+  if [ -e $srcdir/vdr-plugin-${_pluginname} ]; then	  
+    cd $srcdir/vdr-plugin-${_pluginname}
+    git rebase origin
+    git pull
+  else
+    git clone ${_githost}/${_gitrepo}
+    cd $srcdir/vdr-plugin-${_pluginname}
+    git pull
+  fi
+
+  if [ -e $srcdir/vdr-plugin-${_pluginname}-build ]; then
+    rm -rf $srcdir/vdr-plugin-${_pluginname}-build
+  fi
+
+  cp -r $srcdir/vdr-plugin-${_pluginname} $srcdir/vdr-plugin-${_pluginname}-build
+
+  cd $srcdir/vdr-plugin-${_pluginname}-build
+
+  #apply patches here
+
+  make VDRDIR="/usr/include/vdr"  LIBDIR="." \
+    LOCALEDIR="$pkgdir/usr/share/locale" all || return 1
+  
+  mkdir -p $pkgdir/etc/vdr/plugins						|| return 1
+  install -m 644 plugin.restfulapi.conf	$pkgdir/etc/vdr/plugins			|| return 1
+
+  mkdir -p $pkgdir/usr/lib/vdr/plugins						|| return 1
+  install -m 755 libvdr-*.so.*	$pkgdir/usr/lib/vdr/plugins/			|| return 1
+  
+  mkdir -p $pkgdir/var/lib/vdr/plugins/restfulapi				|| return 1
+  install -m 644 API.html       $pkgdir/var/lib/vdr/plugins/restfulapi/		|| return 1
+  install -m 644 web/osd.js     $pkgdir/var/lib/vdr/plugins/restfulapi/		|| return 1
+  install -m 644 web/osd.css    $pkgdir/var/lib/vdr/plugins/restfulapi/		|| return 1
+}

@@ -1,0 +1,422 @@
+.TH TSDECRYPT "1" "September 2013" "tsdecrypt 10.0" "User Commands"
+.SH NAME
+tsdecrypt \- Decrypt mpeg transport stream.
+.SH SYNOPSIS
+.B tsdecrypt
+[\fIoptions\fR]
+.SH DESCRIPTION
+tsdecrypt reads incoming mpeg transport stream over UDP/RTP or file and
+then decrypts it by after retriving code words from OSCAM or similar
+CAMD server. tsdecrypt communicates with CAM server using cs378x (camd35
+over tcp) protocol or newcamd protocol.
+.SH OPTIONS
+.TP
+.SH MAIN OPTIONS
+.PP
+.TP
+\fB\-i\fR, \fB\-\-ident\fR <ident>
+Set ident that will be used when logging to syslog. The preferred format
+for the ident is PROVIDER/CHANNEL.
+.TP
+\fB\-d\fR, \fB\-\-daemon\fR <pidfile>
+When started become a daemon and write pid file to <pidfile>.
+.TP
+\fB\-N\fR, \fB\-\-notify\-program\fR <program>
+Execute \fB<program>\fR when predefined events happen. In order for
+this option to work \fB\-\-ident\fR should also be used.
+
+You can use \fBnotify\-script.example\fR file as notification program
+and an example on how to create your own notification script.
+
+See \fBEVENTS\fR section for detailed description of the events.
+.TP
+\fB\-S\fR, \fB\-\-syslog\fR
+Write log messages to local syslog.
+.TP
+\fB\-l\fR, \fB\-\-syslog\-host\fR <addr>
+Set syslog host. tsdecrypt sends messages to this host over tcp in
+syslog compatible format. syslog\-ng was tested as receiving syslog server.
+.TP
+\fB\-L\fR, \fB\-\-syslog\-port\fR <port>
+Syslog server port. The default value is \fB514\fR.
+.TP
+\fB\-F\fR, \fB\-\-log\-file\fR <filename>
+Write logging data to <filename>. This option can be used along with syslog.
+.TP
+\fB\-D\fR, \fB\-\-debug\fR <level>
+Set message debug level. Currently there are five message levels.
+0 = default messages, 1 = show PSI tables, 2 = show EMMs 3 = show
+duplicate ECMs, 4 = packet debug. 5 = packet debug + mpeg ts packet
+dump.
+Setting higher level enables the levels bellow.
+.TP
+\fB\-j\fR, \fB\-\-pid\-report\fR
+When this option is used, tsdecrypt on exit reports how much packets
+were received on each PID.
+.TP
+\fB\-b\fR, \fB\-\-bench\fR
+Bechmark the CSA decryption. The benchmark is single threaded.
+If you want to fully test your CPU, run couple of tsdecrypts in parallel.
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Show program version.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show program help.
+.TP
+.SH INPUT OPTIONS
+.PP
+.TP
+\fB\-I\fR, \fB\-\-input\fR <source>
+Where to read from. tsdecrypt supports input from file (\-I file://file.ts),
+IPv4 multicast/unicast addresses (\-I 224.0.0.1:5000) or IPv6 multicast/unicast
+addresses (\-I [ff01::1111]:5000). By default tsdecrypt reads from \fBstdin\fR.
+.TP
+\fB\-1\fR, \fB\-\-input\-source\fR <ipaddr>
+Set multicast input source address using IP_ADD_SOURCE_MEMBERSHIP. This works
+only for IPv4 multicast. The default value is 0.0.0.0 (do not apply source
+filtering).
+.TP
+\fB\-R\fR, \fB\-\-input\-rtp\fR
+When reading from multicast assume the input is RTP stream. NOTE: No RTP
+processing/reordering of packets is done. The 12 byte RTP header is just
+stripped out and the stream is then processed as normal mpeg transport
+stream over UDP multicast.
+.TP
+\fB\-z\fR, \fB\-\-input\-ignore\-disc\fR
+Do not report input discontinuity or RTP discontinuity errors.
+.TP
+\fB\-M\fR, \fB\-\-input\-service\fR <service_id>
+Choose the service id. This option must be used when the input is MPTS
+in order to select the correct service (program). If the input is MPTS
+and \fB\-\-input\-service\fR is not used, tsdecrypt chooses the last service
+listed in PAT.
+.TP
+\fB\-T\fR, \fB\-\-input\-buffer\fR <miliseconds>
+Use this option to delay the decoding for certain amount of milliseconds. This
+allows tsdecrypt to decode services even if OSCAM returns code word too late.
+For example SkyUK sends code words ~700 ms before it starts using them. This
+means that if OSCAM is unable to return code word in less than 700 ms the
+decryption will fail for a small amount of time. Setting \-\-input\-buffer 1000
+will solve the problem in this case.
+.TP
+\fB\-W\fR, \fB\-\-input\-dump\fR <filename>
+Save input stream in <filename>. If the input is RTP, the file will contain
+the data without RTP headers (pure mpeg transport stream). Easiest way to
+save the input is using command line like the following:
+
+tsdecrypt \-I 239.78.78.78:5000 \-O /dev/null \-s 0.0.0.0 \-W file.ts
+.TP
+.SH OUTPUT OPTIONS
+.PP
+.TP
+\fB\-O\fR, \fB\-\-output\fR <dest>
+Output decrypted stream to <dest>. The destination can be IPv4 multicast
+address (\-O 239.0.0.1:5000), IPv6 mulicast address (\-O [ff01::2222]:5000),
+hostname that resolves to IPv4/IPv6 address (\-O example.com:5000) or file.
+When the output is file, the file name should be prefixed with file://
+(\-O file://out.ts)if it doesn't contain / symbol. The default output
+is \fBstdout\fR.
+.TP
+\fB\-o\fR, \fB\-\-output\-intf\fR <value>
+Set multicast output interface. The value can be IPv4 address of the output
+interface  (default: 0.0.0.0 /any/) or in the case of IPv6 the interface
+number (default: -1 /any/).
+.TP
+\fB\-t\fR, \fB\-\-output\-ttl\fR
+Set multicast ttl. The default value is \fB1\fR.
+.TP
+\fB\-g\fR, \fB\-\-output\-tos\fR
+Set TOS value of output packets. The default is not to set any specific TOS.
+.TP
+\fB\-r\fR, \fB\-\-output\-rtp\fR
+Enable RTP output. The default output is standard MPEG TS over UDP, this
+option enables tsdecrypt to output RTP packets.
+.TP
+\fB\-k\fR, \fB\-\-output\-rtp\-ssrc\fR <ssrc>
+.TP
+\fB\-u\fR, \fB\-\-no\-output\-on\-error\fR
+Filter all output when there is no valid code word.
+.TP
+\fB\-p\fR, \fB\-\-no\-output\-filter\fR
+Disable output filtering. By default the output filter is enabled and only
+PAT/PMT/SDT and data packets are left in the output. Everything else not
+mentioned in PMT like NIT, EIT, TDT tables and unknown pids is removed.
+.TP
+\fB\-y\fR, \fB\-\-output\-nit\-pass\fR
+Pass through NIT packets when output filtering is enabled.
+.TP
+\fB\-w\fR, \fB\-\-output\-eit\-pass\fR
+Pass through EIT (EPG) packets when output filtering is enabled.
+.TP
+\fB\-x\fR, \fB\-\-output\-tdt\-pass\fR
+Pass through TDT/TOT packets when output filtering is enabled.
+.TP
+.SH CA OPTIONS
+.PP
+.TP
+\fB\-c\fR, \fB\-\-ca\-system\fR <ca_sys>
+Process input EMM/ECM from <ca_sys>. Currently tested and working CA systems
+are \fBCONAX\fR, \fBCRYPTOWORKS\fR, \fBIRDETO\fR, \fBVIACCESS\fR, \fBMEDIAGUARD\fR
+(\fBSECA\fR) and \fBVIDEOGUARD\fR (\fBNDS\fR), \fBNAGRA\fR, \fBBULCRYPT\fR,
+ \fBGRIFFIN\fR and \fBDGCRYPT\fR.
+Other supported CA system that you can choose but is not tested is \fBDRECRYPT\fR.
+The default \fB<ca_sys>\fR is \fBCONAX\fR. You can override the default CAS CAIDs
+by using \fB\-\-caid\fR parameter.
+.TP
+\fB\-C\fR, \fB\-\-caid\fR <caid>
+Directly set CAID. This is useful if you have couple of CA streams from
+one CA but with different CAIDs or CAS that is unsupported by \fB\-\-ca\-system\fR
+parameter.
+.TP
+\fB\-Y\fR, \fB\-\-const\-cw\fR <code_word>
+Set constant code word to be used for decryption. The \fB<code_word>\fR should
+contain 32 hex chars. For example using \fBa1a2a3a4a5a6a7a8b1b2b3b4b5b6b7b8\fR
+as parameter will set even code word to \fBa1a2a3a4a5a6a7a8\fR and odd code
+word to \fBb1b2b3b4b5b6b7b8\fR.
+.TP
+\fB\-Q\fR, \fB\-\-biss\-key\fR <biss_key>
+Set BISS key to be used for decryption. The \fB<biss_key>\fR should
+contain 12 chars (hex). For example \fB112233445566\fR is valid BISS key.
+If the BISS key contains 16 chars this means that the key CRC is embeded
+in the key. These keys are also supported (they are the same as using
+constant code word with same code words for even and odd keys).
+.TP
+.SH CAMD OPTIONS
+.PP
+.TP
+\fB\-A\fR, \fB\-\-camd\-proto\fR <protocol>
+Set CAMD server protocol. Valid protocols are \fBCS378X\fR and \fBNEWCAMD\fR.
+If this option is not used the default protocol is \fBCS378X\fR (camd35 over
+tcp).
+.TP
+\fB\-s\fR, \fB\-\-camd\-server\fR <hostname[:port]>
+Set CAMD server address. You can use IPv4/IPv6 address or hostname. If the port
+is not set then \fB2233\fR is used as default port. 2233 is the default port
+for CS378X protocol but for NEWCAMD protocol you probably should choose other
+port number. To set static IPv6 address you have to put in in brackets (\fB[]\fR)
+for example: \fB[1234::5678]:2233\fR
+.TP
+\fB\-U\fR, \fB\-\-camd\-user\fR <username>
+Set CAMD user name. The default is \fBuser\fR.
+.TP
+\fB\-P\fR, \fB\-\-camd\-pass\fR <password>
+Set CAMD user password. The default is \fBpass\fR.
+.TP
+\fB\-B\fR, \fB\-\-camd\-des\-key\fR <des_key>
+Set DES key used by NEWCAMD protocol. The default
+is \fB0102030405060708091011121314\fR.
+.TP
+\fB\-4\fR, \fB\-\-ipv4\fR
+Connect to CAMD server using only IPv4 addresses of the server. IPv6
+addresses would be are ignorred.
+.TP
+\fB\-6\fR, \fB\-\-ipv6\fR
+Connect to CAMD server using only IPv6 addresses of the server. IPv4
+addresses would be are ignorred.
+.TP
+.SH EMM OPTIONS
+.PP
+.TP
+\fB\-e\fR, \fB\-\-emm\fR
+Enable sending EMM's to CAMD for processing. By default EMM processing
+is \fBdisabled\fR and only ECM are processed.
+.TP
+\fB\-Z\fR, \fB\-\-emm\-pid\fR <pid>
+Set EMM pid manually. This option is useful for services that have
+couple of EMM streams from one CA system. Without this option tsdecrypt
+always chooses the first stream from the chosen CA system.
+.TP
+\fB\-E\fR, \fB\-\-emm\-only\fR
+Disable ECM processing and stream output. This option is useful if the EMM
+stream has very high rate and is interfering with ECM processing. Using
+\-\-emm\-only you can run special tsdecrypt dedicated only to keeping
+card entitlements up to date.
+.TP
+\fB\-f\fR, \fB\-\-emm\-report\-time\fR <seconds>
+Set interval for EMM reports. The default is \fB60\fR seconds. Set to \fB0\fR
+to disable EMM reports.
+.TP
+\fB\-a\fR, \fB\-\-emm\-filter\fR <filter_definition>
+Add EMM filter described by <filter_definition>. EMM filters are useful if
+you want to limit the number of EMMs that should reach your CAMD server.
+The basic \fB<filter_defintion>\fR is \fBCommand/Settings\fR where
+the commands are: \fBaccept_all\fR, \fBreject_all\fR, \fBaccept\fR
+and \fBreject\fR.
+
+For more information about filtering and for example filters, please
+read \fBFILTERING\fR file that comes with tsdecrypt. This option can be
+used multiple times to define up to \fB16\fR different filters.
+.TP
+.SH ECM OPTIONS
+.PP
+.TP
+\fB\-X\fR, \fB\-\-ecm\-pid\fR <pid>
+Set ECM pid manually. This option is useful for services that have
+couple of ECM streams from one CA system. Without this option tsdecrypt
+always chooses the first stream from the chosen CA system. Run tsdecrypt
+with \-\-debug 2 and look at CA descriptors in PMT to see what CA streams
+are available.
+.TP
+\fB\-v\fR, \fB\-\-ecm\-only\fR
+Process ECMs but do not decode the input stream. This option is useful if
+you just want to populate you OSCAM DCW cache but do not want to waste CPU
+time on stream decoding.
+.TP
+\fB\-H\fR, \fB\-\-ecm\-report\-time\fR <seconds>
+Set interval for ECM reports. The default is \fB60\fR seconds. Set to \fB0\fR
+to disable ECM reports.
+.TP
+\fB\-G\fR, \fB\-\-ecm\-irdeto\-type\fR <int>
+Set the index of the IRDETO ECM stream. \fBNOTE: This option is deprecated,
+better use \-\-ecm\-irdeto\-chid\fR.
+.TP
+\fB\-2\fR, \fB\-\-ecm\-irdeto\-chid\fR <int>
+IRDETO CA sends ECMs mixed in single stream on single PID. In order to select
+the correct ECM stream the so called CHID number is used. Oscam reports what
+CHIDs are activated in your card and tsdecrypt allows you to set the correct
+CHID number using this option. tsderypt reports what CHIDs are available
+in the incoming ECM stream. The CHID is 16-bit number (0x0000 - 0xffff).
+.TP
+\fB\-K\fR, \fB\-\-ecm\-no\-log\fR
+Disable logging of ECMs and code words. Code word errors and stats
+reports are not affected by this option.
+.TP
+\fB\-J\fR, \fB\-\-cw\-warn\-time\fR <seconds>
+After how much seconds to warn if valid code word was not received.
+The default is \fB60\fR seconds. Set to \fB0\fR to disable the warning.
+.TP
+\fB\-q\fR, \fB\-\-ecm\-and-emm-only\fR
+Process ECMs and EMMs but do not decode the input stream. This option combines
+\-\-ecm\-only and \-\-emm\-only options. Use it if you want to populate your
+OSCAM DCW cache and keep your card entitlements updated but do not want to
+waste CPU time on stream decoding.
+.TP
+.SH DEBUG OPTIONS
+.PP
+.TP
+\fB\-n\fR, \fB\-\-ecm\-file\fR <file.txt>
+Read ECM from text file and send it to CAMD server for processing. This
+option must be used along with \fB\-\-caid\fR and \fB\-\-input-service\fR
+options.
+
+The file should be normal text file, the format of the file is described
+bellow.
+.TP
+\fB\-m\fR, \fB\-\-emm\-file\fR <file.txt>
+Read EMM from text file and send it to CAMD server for processing. This
+option must be used along with \fB\-\-caid\fR and \fB\-\-input-service\fR
+options.
+
+Bellow is an example text file, lines starting with # are ignored and
+also 0x prefixes are ignored. Any other symbol in the file is processed
+as hex number. An example file might look like this:
+
+.nf
+    # comment
+    aa bb cc dd ee
+    ff 01 02 03 04
+    # Other comment
+    0x05 0x06 0x07
+.fi
+
+.SH EVENTS
+Notification events are sent when \fB\-\-notify\-program\fR and \fB\-\-ident\fR
+options are used. The event parameters are set as environmental variables
+before executing the external notification program. The variables are:
+
+  \fB_TS\fR             Unix timestamp of the event.
+  \fB_IDENT\fR          tsdecrypt ident parameter with "/" replaced by "\-".
+  \fB_MESSAGE_ID\fR     Event message id (for example START, STOP, etc...).
+  \fB_MESSAGE_MSG\fR    Event message id with "_" replaced by " ".
+  \fB_MESSAGE_TEXT\fR   Event message text. Human readable event message.
+
+currently defined events are:
+
+  \fBSTART\fR           tsdecrypt was started.
+
+  \fBCODE_WORD_OK\fR    Valid code word was received and decryption is
+                  working ok.
+
+  \fBNO_CODE_WORD\fR    No valid code word was received for X seconds. The
+                  decryption process have been suspended until valid
+                  code word is received.
+
+  \fBNO_EMM_RECEIVED\fR    No EMM packet have been received for X seconds.
+
+  \fBINPUT_TIMEOUT\fR   There was no data on the input.
+
+  \fBINPUT_OK\fR        The data have appeared on the input.
+
+  \fBSTOP\fR            tsdecrypt was stopped.
+
+See \fBnotify\-script.example\fR for an example on how to create external
+notification program.
+.SH EXAMPLES
+To get a quick start here are some example command lines. The default
+CA system is set to CONAX, you can change it using \fB\-\-ca-system\fR parameter.
+.nf
+   # Decrypt multicast stream from 239.0.50.11:5000 using 10.0.1.1:2233
+   # as camd server and output decrypted result to 239.78.78.78:5000
+   tsdecrypt --camd-server 10.0.1.1 \\
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Same as above but enable EMM processing
+   tsdecrypt --emm --camd-server 10.0.1.1:2233 \\
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Same as above but do not filter output stream thus allowing
+   # EIT/TOT/NIT, etc tables to passthrough
+   tsdecrypt --no-output-filter --emm --camd-server 10.0.1.1 \\
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Choose program/service_id to decrypt. Useful when the input is MPTS
+   tsdecrypt --camd-server 10.0.1.1 --input-service 1234 \\
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Read stream over RTP and process VIACCESS encoded channel
+   tsdecrypt --ca-system VIACCESS --emm --camd-server 10.0.1.1:2233 \\
+       --input-rtp --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Decrypt stream encypted with CAID 0x0963 (NDS, sky)
+   tsdecrypt --camd-server 10.0.1.1 --ca-system NDS --caid 0x0963 \\
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Send only EMMs to OSCAM for CAID 0x0963 (NDS, sky)
+   tsdecrypt --camd-server 10.0.1.1 --emm-only --caid 0x0963 \\
+       --input 239.0.50.11:5000 --output /dev/null
+
+   # Decrypt stream encypted with CAID 0x5581 (Bulcrypt)
+   tsdecrypt --camd-server 10.0.1.1 --caid 0x5581 \\
+       --input 239.0.50.11:5000 --output 239.78.78.78:5000
+
+   # Decrypt BISS encrypted stream
+   tsdecrypt --biss-key 0x112233445566 --input 239.0.50.11:5000 \\
+       --output 239.78.78.78:5000
+
+   # Decrypt file encypted with constant code word
+   tsdecrypt --const-cw 0x00000000000000001111111111111111 \\
+       --input encrypted-file.ts --output file://decrypted-file.ts
+
+   # Send ECM from file
+   tsdecrypt --ecm-file ecm.txt --caid 0x5581 --input-service 12345 \\
+       --camd-server example.com
+
+   # Decrypt IRDETO stream from Raduga (CHID == 0x0015)
+   tsdecrypt --input 239.0.50.11:5000 --output 239.78.78.78:5000 \\
+             --camd-server example.com \\
+             --ca-system IRDETO --caid 0x0652 --ecm-irdeto-chid 0x0015
+.fi
+.SH SEE ALSO
+See the README file for more information. If you have questions, remarks,
+problems or you just want to contact the developer, write to:
+  \fIgeorgi@unixsol.org\fP
+.TP
+For more info, see the website at
+.I http://georgi.unixsol.org/programs/tsdecrypt/
+.SH AUTHORS
+Written by Georgi Chorbadzhiyski <\fBgeorgi@unixsol.org\fR>
+.SH LICENSE
+This program is free software; you can redistribute it and/or modify it under
+the terms of version 2 of the GNU General Public License as published by the
+Free Software Foundation.

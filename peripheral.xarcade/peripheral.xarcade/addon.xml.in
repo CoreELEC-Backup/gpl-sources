@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+    id="peripheral.xarcade"
+    version="1.2.0"
+    name="X-Arcade Tankstick Driver"
+    provider-name="Team Kodi">
+    <requires>@ADDON_DEPENDS@</requires>
+    <extension
+        point="kodi.peripheral"
+        provides_joysticks="true"
+        provides_buttonmaps="false"
+        library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">X-Arcade Tankstick driver</summary>
+        <description lang="en_GB">This driver enables input from the X-Arcade Tankstick.
+
+A udev rule is needed. See https://kodi.wiki/view/Tankstick</description>
+        <platform>@PLATFORM@</platform>
+        <license>GPL-2.0-or-later</license>
+        <source>https://github.com/kodi-game/peripheral.xarcade</source>
+        <assets>
+            <icon>resources/icon.png</icon>
+        </assets>
+    </extension>
+</addon>

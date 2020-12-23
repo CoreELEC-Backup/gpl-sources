@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.fuse"
+		name="Sinclair - ZX Spectrum (Fuse)"
+		version="1.1.1.9"
+		provider-name="Team Fuse">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.atari.2600" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>spectrum</platforms>
+		<extensions>tzx|tap|z80|rzx|scl|trd</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Sinclair - ZX Spectrum (Fuse) 1.1.1</summary>
+		<description lang="en_GB">Fuse (the Free Unix Spectrum Emulator) was originally a ZX Spectrum emulator for Unix. It has since been ported to Mac OS X, Windows, the Wii, AmigaOS and MorphOS.
+
+Supported files: .tzx, .tap, .z80, .rzx, .scl, .trd</description>
+		<license>GPLv3</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.fuse</source>
+	</extension>
+</addon>

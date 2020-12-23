@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-atari800
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-atari800 (>= 3.1.0) | atari800 (>= 3.1.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-atari800
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Atari - 5200 (Atari800) core for kodi's retroplayer
+ Atari - 5200 (Atari800) core for kodi's retroplayer

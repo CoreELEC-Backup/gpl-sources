@@ -1,0 +1,198 @@
+/*
+ *      vdr-plugin-vnsi - KODI server plugin for VDR
+ *
+ *      Copyright (C) 2010 Alwin Esch (Team XBMC)
+ *      Copyright (C) 2010, 2011 Alexander Pipelka
+ *      Copyright (C) 2015 Team KODI
+ *
+ *      http://kodi.tv
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with KODI; see the file COPYING.  If not, see
+ *  <http://www.gnu.org/licenses/>.
+ *
+ */
+
+#pragma once
+
+/** Current VNSI Protocol Version number */
+#define VNSI_PROTOCOLVERSION 13
+
+/** Start of RDS support protocol Version */
+#define VNSI_RDS_PROTOCOLVERSION 8
+
+/** Minimum VNSI Protocol Version number */
+#define VNSI_MIN_PROTOCOLVERSION 5
+
+/** Packet types */
+#define VNSI_CHANNEL_REQUEST_RESPONSE 1
+#define VNSI_CHANNEL_STREAM           2
+#define VNSI_CHANNEL_KEEPALIVE        3
+#define VNSI_CHANNEL_NETLOG           4
+#define VNSI_CHANNEL_STATUS           5
+#define VNSI_CHANNEL_SCAN             6
+#define VNSI_CHANNEL_OSD              7
+
+/** Response packets operation codes */
+
+#define CONFNAME_PMTTIMEOUT "PmtTimeout"
+#define CONFNAME_TIMESHIFT "Timeshift"
+#define CONFNAME_TIMESHIFTBUFFERSIZE "TimeshiftBufferSize"
+#define CONFNAME_TIMESHIFTBUFFERFILESIZE "TimeshiftBufferFileSize"
+#define CONFNAME_TIMESHIFTBUFFERDIR "TimeshiftBufferDir"
+#define CONFNAME_PLAYRECORDING "PlayRecording"
+#define CONFNAME_AVOIDEPGSCAN "AvoidEPGScan"
+#define CONFNAME_DISABLESCRAMBLETIMEOUT "DisableScrambleTimeout"
+#define CONFNAME_DISABLECAMBLACKLIST "DisableCamBlacklist"
+#define CONFNAME_GROUPRECORDINGS "GroupRecordings"
+#define CONFNAME_EDL "Edl"
+
+/* OPCODE 1 - 19: VNSI network functions for general purpose */
+#define VNSI_LOGIN                 1
+#define VNSI_GETTIME               2
+#define VNSI_ENABLESTATUSINTERFACE 3
+#define VNSI_PING                  7
+#define VNSI_GETSETUP              8
+#define VNSI_STORESETUP            9
+#define VNSI_GETSOCKET            10
+#define VNSI_INVALIDATESOCKET     11
+
+/* OPCODE 20 - 39: VNSI network functions for live streaming */
+#define VNSI_CHANNELSTREAM_OPEN     20
+#define VNSI_CHANNELSTREAM_CLOSE    21
+#define VNSI_CHANNELSTREAM_SEEK     22
+#define VNSI_CHANNELSTREAM_STATUS_SOCKET  23
+#define VNSI_CHANNELSTREAM_STATUS_REQUEST 24
+
+/* OPCODE 40 - 59: VNSI network functions for recording streaming */
+#define VNSI_RECSTREAM_OPEN        40
+#define VNSI_RECSTREAM_CLOSE       41
+#define VNSI_RECSTREAM_GETBLOCK    42
+#define VNSI_RECSTREAM_POSTOFRAME  43
+#define VNSI_RECSTREAM_FRAMETOPOS  44
+#define VNSI_RECSTREAM_GETIFRAME   45
+#define VNSI_RECSTREAM_GETLENGTH   46
+
+/* OPCODE 60 - 79: VNSI network functions for channel access */
+#define VNSI_CHANNELS_GETCOUNT     61
+#define VNSI_CHANNELS_GETCHANNELS  63
+#define VNSI_CHANNELGROUP_GETCOUNT 65
+#define VNSI_CHANNELGROUP_LIST     66
+#define VNSI_CHANNELGROUP_MEMBERS  67
+#define VNSI_CHANNELS_GETCAIDS     68
+#define VNSI_CHANNELS_GETWHITELIST 69
+#define VNSI_CHANNELS_GETBLACKLIST 70
+#define VNSI_CHANNELS_SETWHITELIST 71
+#define VNSI_CHANNELS_SETBLACKLIST 72
+
+/* OPCODE 80 - 99: VNSI network functions for timer access */
+#define VNSI_TIMER_GETCOUNT        80
+#define VNSI_TIMER_GET             81
+#define VNSI_TIMER_GETLIST         82
+#define VNSI_TIMER_ADD             83
+#define VNSI_TIMER_DELETE          84
+#define VNSI_TIMER_UPDATE          85
+#define VNSI_TIMER_GETTYPES        86
+
+/* OPCODE 100 - 119: VNSI network functions for recording access */
+#define VNSI_RECORDINGS_DISKSIZE   100
+#define VNSI_RECORDINGS_GETCOUNT   101
+#define VNSI_RECORDINGS_GETLIST    102
+#define VNSI_RECORDINGS_RENAME     103
+#define VNSI_RECORDINGS_DELETE     104
+#define VNSI_RECORDINGS_GETEDL     105
+
+/* OPCODE 120 - 139: VNSI network functions for epg access and manipulating */
+#define VNSI_EPG_GETFORCHANNEL     120
+
+/* OPCODE 140 - 159: VNSI network functions for channel scanning */
+#define VNSI_SCAN_SUPPORTED        140
+#define VNSI_SCAN_GETCOUNTRIES     141
+#define VNSI_SCAN_GETSATELLITES    142
+#define VNSI_SCAN_START            143
+#define VNSI_SCAN_STOP             144
+#define VNSI_SCAN_SUPPORTED_TYPES  145
+
+/* OPCODE 160 - 179: VNSI network functions for channel scanning */
+#define VNSI_OSD_CONNECT           160
+#define VNSI_OSD_DISCONNECT        161
+#define VNSI_OSD_HITKEY            162
+
+/* OPCODE 180 - 189: VNSI network functions for deleted recording access */
+#define VNSI_RECORDINGS_DELETED_ACCESS_SUPPORTED 180
+#define VNSI_RECORDINGS_DELETED_GETCOUNT         181
+#define VNSI_RECORDINGS_DELETED_GETLIST          182
+#define VNSI_RECORDINGS_DELETED_DELETE           183
+#define VNSI_RECORDINGS_DELETED_UNDELETE         184
+#define VNSI_RECORDINGS_DELETED_DELETE_ALL       185
+
+/** Stream packet types (server -> client) */
+#define VNSI_STREAM_CHANGE       1
+#define VNSI_STREAM_STATUS       2
+#define VNSI_STREAM_QUEUESTATUS  3
+#define VNSI_STREAM_MUXPKT       4
+#define VNSI_STREAM_SIGNALINFO   5
+#define VNSI_STREAM_CONTENTINFO  6
+#define VNSI_STREAM_BUFFERSTATS  7
+#define VNSI_STREAM_REFTIME      8
+#define VNSI_STREAM_TIMES        9
+
+/** Scan packet types (server -> client) */
+#define VNSI_SCANNER_PERCENTAGE  1
+#define VNSI_SCANNER_SIGNAL      2
+#define VNSI_SCANNER_DEVICE      3
+#define VNSI_SCANNER_TRANSPONDER 4
+#define VNSI_SCANNER_NEWCHANNEL  5
+#define VNSI_SCANNER_FINISHED    6
+#define VNSI_SCANNER_STATUS      7
+
+/** OSD packet types (server -> client) */
+#define VNSI_OSD_MOVEWINDOW      1
+#define VNSI_OSD_CLEAR           2
+#define VNSI_OSD_OPEN            3
+#define VNSI_OSD_CLOSE           4
+#define VNSI_OSD_SETPALETTE      5
+#define VNSI_OSD_SETBLOCK        6
+
+/** Status packet types (server -> client) */
+#define VNSI_STATUS_TIMERCHANGE      1
+#define VNSI_STATUS_RECORDING        2
+#define VNSI_STATUS_MESSAGE          3
+#define VNSI_STATUS_CHANNELCHANGE    4
+#define VNSI_STATUS_RECORDINGSCHANGE 5
+#define VNSI_STATUS_EPGCHANGE        6
+
+/** Channel search signal supported flags */
+#define VNSI_SCAN_SUPPORT_DVB_T      0x01
+#define VNSI_SCAN_SUPPORT_DVB_C      0x02
+#define VNSI_SCAN_SUPPORT_DVB_S      0x04
+#define VNSI_SCAN_SUPPORT_ANALOG_TV  0x08
+#define VNSI_SCAN_SUPPORT_ANALOG_RADIO 0x10
+#define VNSI_SCAN_SUPPORT_ATSC       0x20
+
+/** Timer */
+#define VNSI_TIMER_TYPE_MAN          1
+#define VNSI_TIMER_TYPE_MAN_REPEAT   2
+#define VNSI_TIMER_TYPE_EPG          3
+#define VNSI_TIMER_TYPE_VPS          4
+#define VNSI_TIMER_TYPE_EPG_SEARCH   5
+
+/** Packet return codes */
+#define VNSI_RET_OK              0
+#define VNSI_RET_RECRUNNING      1
+#define VNSI_RET_NOTSUPPORTED    995
+#define VNSI_RET_DATAUNKNOWN     996
+#define VNSI_RET_DATALOCKED      997
+#define VNSI_RET_DATAINVALID     998
+#define VNSI_RET_ERROR           999
+

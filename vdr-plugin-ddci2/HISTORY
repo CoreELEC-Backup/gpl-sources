@@ -1,0 +1,181 @@
+VDR Plugin 'ddci2' Revision History
+----------------------------------
+
+2017-05-01 Version 1.0.5-rc1
+- Added DdCiCamSlot::Inject to inject arbitrary TS packets into the CAM TS
+  data stream.
+  DdCiTsSend::WriteAll: New function used by DdCiCamSlot::Inject which writes
+    all/or nothing to the send buffer. It is also Thread Save.
+
+2017-04-26 Version 1.0.4
+- Support adapterX/ciY and adapterX/secY devices. the latter are created
+  by the kernel with the recent DD drivers form the kernel merge project
+  from Daniel Scheller (see
+  https://github.com/herrnst/dddvb-linux-kernel/tree/mediatree/master-ddbridge).
+- Decrypt more packets at once with next VDR 2.3.4 (check Data pointer in
+  DdCiCamSlot::Decrypt).
+- Fixed deadlock with DdCiCamSlot::mtxRun.
+- Fixed a possible crash in non-MTD mode (reader side clearing in DdCiCamSlot).
+- Fixed a possible crash during VDR shutdown (PluginDdci::Stop does now stop all
+  threads only).
+
+2017-04-05 Version 1.0.3
+- Support non MCD CAMs for VDR 2.3.3 correctly.
+
+2017-04-01 Version 1.0.2
+- Re-implemented active flag, because of troubles with some DD CI hardware.
+  Also added option "-A" to still ignore this active flag.
+- Added new config options
+   -b/--bufsz       to set the CAM receive/send buffer size
+   -t/--sleeptimer  CAM receive/send/deliver thread sleep timer
+- Default buffer size is now 1500 packets.
+
+2017-03-28 Version 1.0.1
+- Removed active flag as suggested by Klaus S. The channel switching time
+  is now decreased.
+- Added new debug flag 0x1000 to en/disable CAM buffer statistic printing
+- Stopdecrypting will no clear the CAM send and receive buffer.
+
+2017-03-28 Version 1.0.0
+- Added MTD support (Yeah, it is done!).
+  Requires VDR 2.3.3, but does still compile with older VDR versions.
+  A big THANK YOU to Klaus S., who implemented almost all of the MTD
+  code into the VDR and helped to change and debug this plugin.
+- Completely remove device from DdCiAdapter.
+- Print scrambling control statistic only if it has changed.
+- Added Clear Mutex for non VDR 2.3.3 version.
+- Discard a packet after three unsuccessful deliver attempts.
+- Allow compilation without ringbuffer clear mutex (VDR 2.3.3).
+- Write only whole packets to DataRecv.
+- Remove warning when Decryt is executed in deactivated state.
+- Decrypt will now use the whole data to write to the CAM send buffer
+  (VDR 2.3.3).
+- Little fix concerning a debug counter in CAM recv thread.
+- New compile time switch DDCI_DECRYPT_MORE to switch of block decrypting for
+  older VDR version.
+
+2017-03-19 Version 0.2.2
+- Lock Reset and Start/StopDecrypt.
+- Print scrambling control statistic only if it has changed.
+  Maintainer Info:
+  Head was at commit 42822924a2a50a94a4f8709f6d223943c67360c2
+
+2017-03-19 Version 0.2.1
+- Added scrambling bit modification
+- New option '-c' / "--clrsct" to activate clearing the scambling control bit
+  before the packet is send to VDR. Might be useful for some stupid CAMs.
+- New debug mask "0x0800" for scrambling control debug printing
+- Remove packets when not decrypting.
+
+2017-03-11 Version 0.2.0
+- Better logging in case of read/write error to CAM.
+- Added "debugmask" option for debug logging control.
+- Added debug logging for CAM data read/write.
+
+2017-03-11 Version 0.0.17
+- Fixed memory leak on exit.
+
+2017-03-11 Version 0.0.16
+- Init all devices.
+
+2017-03-07 Version 0.0.15
+- Fixed Mutex locking.
+  This has been found by Klaus S. THX!
+
+2017-03-06 Version 0.0.14
+- Unbound CI and Device
+  - The Plugin does no longer automatically assign a CAM to a device. It will
+    be assigned to a device, when VDR needs a CAM.
+  - Added system error text if ciX/cax device open fails.
+  - New version 0.0.14, requires VDR 2.1.7.
+- Added section Pitfallsto README.
+
+2014-04-11 Version 0.0.13
+
+- Remove ddcireadbuf.* to avoid VDR patch.
+- Updated README concerning the required Kernel patch. 
+
+2014-04-11 Version 0.0.12
+
+- Associate ciX device only to devices without a caX device.
+- Global definition to activate the buffer statistics.   
+
+2014-04-10 Version 0.0.11
+
+- Removed annoying debug output.
+
+2014-04-10 Version 0.0.10
+
+- Added get timout for deliver thread to reduce CPU load.
+
+2014-04-09 Version 0.0.9
+
+- Rename the ReadJunk function and the description.
+
+2014-04-09 Version 0.0.8
+
+- Decrypt writes now the TS frames one by one to the send buffer.
+- Allow in Adapter to work without the ciX device. This is for debugging
+  purposes only.
+- Ringbuffer statistics deactivated.
+
+2014-04-07: Version 0.0.7
+
+- NOTE: This is an Intermediate commit!
+        This Plugin is currently not working propperly!
+- Workarround for missing access to camSlots array in cCiAdapter.
+- Added a receive buffer to the CAM slot class and all required functions to
+  fill this buffer.
+- Added Buffer clearing on CAM reset and decrypt start/stop.
+- Added an independend deliver thread to the TS receiver thread.
+- Added test statistik counters and printouts (partly disabled).
+- Extended cRingBufferLinear with a block read function with derived class
+  DdCiRecvBuf.
+
+2014-04-04: Version 0.0.6
+
+- NOTE: This is an Intermediate commit!
+        This Plugin is currently not working propperly!
+- Introduce DdCiTsRecv class and new file for common functions.
+- Added an error message, when not all TS data could be written to the CAM.
+- If environment variable DEBUG is set, the compiler is invoked with no
+  optimization option. This is usefull for GDB debugging.
+
+2014-03-30: Version 0.0.5
+
+- NOTE: This is an Intermediate commit!
+        This Plugin is currently not working propperly!
+- Introduce DdCiCamslot and DdCiTsSend classes.
+- Startup and cleanup reworked and tested.
+- Coding style changes.
+- Logging and debugging macros reworked.
+  NOTE: Starting with this commit, the drivers redirect
+        feature must no longer be used!  
+
+2014-03-29: Version 0.0.4
+
+- Communication with caX device working:
+  * Argument parsing is now working.
+  * Fixed double delete error in FindDdCi.
+- Added function debugging for development.
+
+2014-03-28: Version 0.0.3
+
+- Intermediate commit before HW tests are starting:
+  * Added newest GPLv2 COPYING file.
+  * The dependencies are now recreated, if a source file changes.
+  * README improved.
+  * Added file headers to all source files.
+  * The plugin is now ready to find the DD CI device files and to initialize
+    them. It will communicate viw the .../caX device to the CAM.
+    NOTE: The .../ciX device is currently not used! So you do still need the
+          drivers redirect feature to get a descambled stream.  
+
+2014-03-25: Version 0.0.2
+
+- Dummy source file added.
+- Makefile ready to compile the plugin. 
+
+2014-03-24: Version 0.0.1
+
+- Initial revision.

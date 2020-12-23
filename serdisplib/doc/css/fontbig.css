@@ -1,0 +1,111 @@
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 32px; 
+  }
+
+  h2 {
+    font-size: 22px; 
+  }    
+
+  h3 {
+    font-size: 14px;
+  }    
+
+  h4 {
+    font-size: 14px; 
+  }    
+
+  #menutab li.m {
+    font-size: 12px;
+  }
+  .pane {
+    font-size: 14px;
+  }
+
+  table.stdsheet {
+    font-size: 14px;
+  }
+   
+  table.stdsheet th {
+  }
+
+  
+  table.stdsheet tr {
+    font-size: 14px; 
+  }
+  
+  table.stdsheet td {
+  }
+
+  table.stdsheet td.name {
+  }
+
+  table.stdsheet td.desc {
+  }
+
+  table.stdsheet td.lang {
+  }
+
+  table.stdsheet td.url {
+    font-size: 11px; 
+  }
+
+  table.stdsheet td.date {
+  }
+
+  table.stdsheet td.thxkey {
+  }
+
+  table.stdsheet td.thxval {
+  }
+
+  table.sheetoddeven {
+    font-size: 14px;
+  }
+
+  #footline {
+    font-size: 0.9em;
+  }
+
+  table.imagebox {
+    font-size: 14px;
+  }
+
+
+  #documentation {
+   font-size: 14px;
+  }
+
+  #documentation ul.overview li li{
+    font-size: 14px;
+  }
+
+  #documentation ul.overview li td{
+    font-size: 14px;
+  }
+
+  #documentation td.prot {
+    font-size: 16px;
+  }
+
+  #documentation td.desc {
+    font-size: 14px;
+  }
+
+  #documentation td.parm {
+    font-size: 11px;
+  }
+
+  #documentation td.retv {
+    font-size: 14px;
+  }
+
+  #documentation td.exam {
+    font-size: 11px;
+  }
+
+  #documentation td.exam b {
+  }

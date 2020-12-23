@@ -1,0 +1,12 @@
+diff -Naur sidplay2.orig/resid/sid.cc sidplay2/resid/sid.cc
+--- sidplay2.orig/resid/sid.cc	Mon Jun 14 20:08:23 2004
++++ sidplay2/resid/sid.cc	Fri Mar  6 21:16:34 2015
+@@ -552,7 +552,7 @@
+   // sample_offset a whole multiple of the filter table resolution.
+   int res = method == SAMPLE_RESAMPLE_INTERPOLATE ?
+     FIR_RES_INTERPOLATE : FIR_RES_FAST;
+-  int n = (int)ceil(log(res/f_cycles_per_sample)/log(2));
++  int n = (int)ceil(log(double(res)/f_cycles_per_sample)/log(double(2)));
+   fir_RES = 1 << n;
+ 
+   // Allocate memory for FIR tables.

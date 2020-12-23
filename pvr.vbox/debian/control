@@ -1,0 +1,22 @@
+Source: kodi-pvr-vbox
+Priority: extra
+Maintainer: Sam Stenvall <sam.stenvall@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake,
+               kodi-addon-dev
+Standards-Version: 4.1.2
+Section: libs
+Homepage: https://github.com/kodi-pvr/pvr.vbox
+
+Package: kodi-pvr-vbox
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: VBox Home TV Gateway PVR client for Kodi
+ VBox Home TV Gateway PVR client for Kodi
+
+Package: kodi-pvr-vbox-dbg
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for VBox Home TV Gateway PVR client for Kodi
+ debug symbols for VBox Home TV Gateway PVR client for Kodi

@@ -1,0 +1,216 @@
+libhid (0.2.16~1) experimental; urgency=low
+
+  * New upstream release
+
+ -- Charles Lepple <clepple@ghz.cc>  Wed, 25 Apr 2007 19:36:28 -0400
+
+libhid (0.2.15+20060325-2.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Update package to the last python policy (Closes: #373450):
+    + only build for the current python atm (build-dep upon python-dev).
+    + use dh_pysupport instead of dh_python.
+
+ -- Pierre Habouzit <madcoder@debian.org>  Fri, 11 Aug 2006 18:45:16 +0200
+
+libhid (0.2.15+20060325-2) unstable; urgency=low
+
+  * forgot to close the fixed python binding bug (closes: Bug#350493)
+  * build on GNU/kFreeBSD as also been fixed upstream in svn (closes:
+    Bug#345190)
+
+ -- Arnaud Quette <aquette@debian.org>  Mon, 10 Apr 2006 14:42:52 +0200
+
+libhid (0.2.15+20060325-1) unstable; urgency=low
+
+  * SVN snapshot [298]
+  * Added get/set feature report functionality
+
+ -- Arnaud Quette <aquette@debian.org>  Mon, 10 Apr 2006 14:42:52 +0200
+
+libhid (0.2.15+20060127-1) experimental; urgency=low
+
+  * SVN snapshot [293]
+  * Includes fixes for some Python bindings
+
+ -- Charles Lepple <clepple@ghz.cc>  Fri, 27 Jan 2006 00:06:33 -0500
+
+libhid (0.2.15+20060123-1) experimental; urgency=low
+
+  * SVN snapshot [285]
+  * Includes improved Python bindings
+
+ -- Charles Lepple <clepple@ghz.cc>  Mon, 23 Jan 2005 22:31:00 -0500
+
+libhid (0.2.14-1) unstable; urgency=low
+
+  * New upstream release.
+  * Added lintian/linda warnings about extra LICENCE file, which is not.
+
+ -- martin f. krafft <madduck@debian.org>  Tue, 19 Apr 2005 12:17:06 +0200
+
+libhid (0.2.13-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- martin f. krafft <madduck@debian.org>  Sun, 17 Apr 2005 19:33:31 +0200
+
+libhid (0.2.12-1) unstable; urgency=low
+
+  * New upstream release (closes: Bug#296506).
+  * Somehow, #287400 actually did not get fixed. This release should take care
+    of that (closes: Bug#287400).
+
+ -- martin f. krafft <madduck@debian.org>  Wed,  2 Mar 2005 19:50:19 +0100
+
+libhid (0.2.11-1) unstable; urgency=low
+
+  * New upstream release (closes: Bug#287400).
+
+ -- martin f. krafft <madduck@debian.org>  Sun, 20 Feb 2005 19:22:52 +0100
+
+libhid (0.2.10-1) unstable; urgency=low
+
+  * Fixed lack of libusb dependency of libhid.la, which caused compile
+    problems in unknown circumstances.
+
+ -- martin f. krafft <madduck@debian.org>  Thu, 30 Dec 2004 06:59:05 +0100
+
+libhid (0.2.9-1) unstable; urgency=low
+
+  * New upstream release (closes: Bug#280555).
+
+ -- martin f. krafft <madduck@debian.org>  Wed, 10 Nov 2004 09:23:02 +0100
+
+libhid (0.2.8-2) unstable; urgency=low
+
+  * Of course, -dev is not supposed to be arch-independent. It never was.
+    I simply forgot to erase the changelog entry.
+  * Also, mysteriously, the changelog entry from 0.2.7-3 got lost, and 0.2.8-1
+    got a medium priority. This is now fixed and a new upload should submit
+    libhid for proper 10-day testing. Sorry.
+
+ -- martin f. krafft <madduck@debian.org>  Tue,  9 Nov 2004 17:09:51 +0100
+
+libhid (0.2.8-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Added test files (C and Python) to ./examples of libhid-dev and python-hid
+    respectively.
+  * Made -dev package arch-independent.
+
+ -- martin f. krafft <madduck@debian.org>  Tue,  9 Nov 2004 17:07:51 +0100
+
+libhid (0.2.7-3) unstable; urgency=medium
+
+  * Argh. Forgot to set the urgency to medium since subversion depends on this
+    upload. Memo to self: don't do these things at 3:30 am.
+
+ -- martin f. krafft <madduck@debian.org>  Fri, 22 Oct 2004 03:24:52 +0200
+
+libhid (0.2.7-2) unstable; urgency=low
+
+  * Recompile against latest swig package to allow subversion 1.1 to enter the
+    archive. We are currently blocking on 1.3.21 (closes: Bug#277724).
+
+ -- martin f. krafft <madduck@debian.org>  Fri, 22 Oct 2004 03:23:52 +0200
+
+libhid (0.2.7-1) unstable; urgency=low
+
+  * New upstream version.
+  * Added Arnaud Quette <aquette@debian.org> as Co-Maintainer.
+
+ -- martin f. krafft <madduck@debian.org>  Mon, 13 Sep 2004 16:52:39 +0200
+
+libhid (0.2.6-2) unstable; urgency=low
+
+  * Fixed build dependencies on gcc. Suboptimal, but this is better than 
+    depending on each version individually.
+
+ -- martin f. krafft <madduck@debian.org>  Sun, 12 Sep 2004 00:40:24 +0200
+
+libhid (0.2.6-1) unstable; urgency=low
+
+  * New upstream release.
+  * Added suggestion for pkg-config for libhid-dev.
+  * Removed suggestion for pkg-config from libhid0.
+
+ -- martin f. krafft <madduck@debian.org>  Fri, 10 Sep 2004 14:06:11 +0200
+
+libhid (0.2.5-1) unstable; urgency=low
+
+  * New upstream release (closes: Bug#270781).
+
+ -- martin f. krafft <madduck@debian.org>  Thu,  9 Sep 2004 18:07:57 +0200
+
+libhid (0.2.4-5) unstable; urgency=low
+
+  * Doh! automake1.8 and autoconf aren't needed as build dependencies.
+
+ -- martin f. krafft <madduck@debian.org>  Tue,  7 Sep 2004 22:06:20 +0200
+
+libhid (0.2.4-4) unstable; urgency=low
+
+  * The "I promise to figure out build dependencies in advanced next time" 
+    release.
+  * Added automake1.8, autoconf, pkg-config, and libtool build dependencies.
+
+ -- martin f. krafft <madduck@debian.org>  Tue,  7 Sep 2004 20:43:31 +0200
+
+libhid (0.2.4-3) unstable; urgency=low
+
+  * Added python build dependency (closes: Bug#270193).
+
+ -- martin f. krafft <madduck@debian.org>  Mon,  6 Sep 2004 05:55:47 +0200
+
+libhid (0.2.4-2) unstable; urgency=low
+
+  * Added python2.3-dev to Build-Depends (closes: Bug#270014).
+
+ -- martin f. krafft <madduck@debian.org>  Sun,  5 Sep 2004 11:45:53 +0200
+
+libhid (0.2.4-1) unstable; urgency=low
+
+  * New upstream release.
+  * Changed build dependency on gcc3 to versioned gcc packages.
+
+ -- martin f. krafft <madduck@debian.org>  Mon, 30 Aug 2004 22:24:34 +0200
+
+libhid (0.2.3-1) unstable; urgency=low
+
+  * New upstream release.
+  * Added build dependency on gcc3.
+
+ -- martin f. krafft <madduck@debian.org>  Mon, 30 Aug 2004 15:53:14 +0200
+
+libhid (0.2.2-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- martin f. krafft <madduck@debian.org>  Mon, 30 Aug 2004 12:42:34 +0200
+
+libhid (0.2.1-2) unstable; urgency=low
+
+  * Updated dependency on swig.
+
+ -- martin f. krafft <madduck@debian.org>  Fri, 18 Jun 2004 21:48:30 +0200
+
+libhid (0.2.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- martin f. krafft <madduck@debian.org>  Thu, 27 May 2004 02:02:07 +0200
+
+libhid (0.2.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- martin f. krafft <madduck@debian.org>  Tue, 25 May 2004 17:38:25 +0200
+
+libhid (0.1.11-1) unstable; urgency=low
+
+  * Initial release.
+    closes: Bug#227984
+
+ -- martin f. krafft <madduck@debian.org>  Thu, 25 Mar 2004 19:36:27 +0100
+

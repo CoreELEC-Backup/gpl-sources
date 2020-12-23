@@ -1,0 +1,154 @@
+=encoding utf8
+=head1 NAME
+
+F<epgsearch.conf> - The searchtimers
+
+=head1 DESCRIPTION
+
+This file contains the searchtimers.
+
+Do not edit it manually, you should use SVDRP.
+
+=head1 SYNTAX
+
+Due to some new features there was a change in the format. The format
+is now signed with a comment in the first line. The field delimiter
+is B<':'>:
+
+  1 - unique search timer id
+  2 - the search term
+  3 - use time? 0/1
+  4 - start time in HHMM
+  5 - stop time in HHMM
+  6 - use channel? 0 = no,  1 = Interval, 2 = Channel group, 3 = FTA only
+  7 - if 'use channel' = 1 then channel id[|channel id] in VDR format,
+      one entry or min/max entry separated with |, if 'use channel' = 2
+      then the channel group name
+  8 - match case? 0/1
+  9 - search mode:
+      0 - the whole term must appear as substring
+      1 - all single terms (delimiters are blank,',', ';', '|' or '~')
+          must exist as substrings.
+      2 - at least one term (delimiters are blank, ',', ';', '|' or '~')
+          must exist as substring.
+      3 - matches exactly
+      4 - regular expression
+ 10 - use title? 0/1
+ 11 - use subtitle? 0/1
+ 12 - use description? 0/1
+ 13 - use duration? 0/1
+ 14 - min duration in hhmm
+ 15 - max duration in hhmm
+ 16 - use as search timer? 0/1
+ 17 - use day of week? 0/1
+ 18 - day of week (0 = Sunday, 1 = Monday...;
+      -1 Sunday, -2 Monday, -4 Tuesday, ...; -7 Sun, Mon, Tue)
+ 19 - use series recording? 0/1
+ 20 - directory for recording
+ 21 - priority of recording
+ 22 - lifetime of recording
+ 23 - time margin for start in minutes
+ 24 - time margin for stop in minutes
+ 25 - use VPS? 0/1
+ 26 - action:
+      0 = create a timer
+      1 = announce only via OSD (no timer)
+      2 = switch only (no timer)
+      3 = announce via OSD and switch (no timer)
+      4 = announce via mail
+ 27 - use extended EPG info? 0/1
+ 28 - extended EPG info values. This entry has the following format
+      (delimiter is '|' for each category, '#' separates id and value):
+      1 - the id of the extended EPG info category as specified in
+          epgsearchcats.conf
+      2 - the value of the extended EPG info category
+          (a ':' will be translated to "!^colon^!", e.g. in "16:9")
+ 29 - avoid repeats? 0/1
+ 30 - allowed repeats
+ 31 - compare title when testing for a repeat? 0/1
+ 32 - compare subtitle when testing for a repeat? 0/1/2
+      0 - no
+      1 - yes
+      2 - yes, if present
+ 33 - compare description when testing for a repeat? 0/1
+ 34 - compare extended EPG info when testing for a repeat?
+      This entry is a bit field of the category IDs.
+ 35 - accepts repeats only within x days
+ 36 - delete a recording automatically after x days
+ 37 - but keep this number of recordings anyway
+ 38 - minutes before switch (if action = 2)
+ 39 - pause if x recordings already exist
+ 40 - blacklist usage mode (0 none, 1 selection, 2 all)
+ 41 - selected blacklist IDs separated with '|'
+ 42 - fuzzy tolerance value for fuzzy searching
+ 43 - use this search in favorites menu (0 no, 1 yes)
+ 44 - id of a menu search template
+ 45 - auto deletion mode (0 don't delete search timer, 1 delete after given
+      count of recordings, 2 delete after given days after first recording)
+ 46 - count of recordings after which to delete the search timer
+ 47 - count of days after the first recording after which to delete the search
+      timer
+ 48 - first day where the search timer is active (see parameter 16)
+ 49 - last day where the search timer is active (see parameter 16)
+ 50 - ignore missing EPG categories? 0/1
+ 51 - unmute sound if off when used as switch timer
+ 52 - percentage of match when comparing the summary of two events (with 'avoid repeats')
+ 53 - HEX representation of the content descriptors, each descriptor ID is represented with 2 chars
+ 54 - compare date when testing for a repeat? (0=no, 1=same day, 2=same week, 3=same month)
+
+A ':' in the search term or the directory entry will be translated in a
+'|'. If a '|' exists in the search term, e.g. when using regular
+expressions, it will be translated to "!^pipe^!" (I know it's ugly ;-))
+
+There's no need to fill all fields, only the first 11 fields must exist.
+
+
+=head1 EXAMPLE
+
+ #version 2 - DON'T TOUCH THIS!
+ 1:Kommissar Beck:0:::2:ÖffRecht:0:0:1:0:0:0:::1:0:0:1:%Category%~%Genre%:50:99:10:60:0:0:0::1:0:1:1:0:0:0:0:0
+ 2:* Sägebrecht:0:::2:Hauptsender:0:0:0:0:0:0:::0:0:0:0:%Category%~%Genre%:50:99:10:10:0:0:1:1#|2#|3#|4#|5#|6#Marianne Sägebrecht|7#|8#|9#|10#|11#|12#|13#:1:0:1:0:0:0:0:0:0
+
+=head1 SEE ALSO
+
+C<epgsearch(1)>
+
+=head1 AUTHOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 REPORT BUGS
+
+Bug reports (german):
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailing list:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT and LICENSE
+
+Copyright (C) 2004-2010 Christian Wieninger
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+Or, point your browser to http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+The author can be reached at cwieninger@gmx.de
+
+The project's page is at http://winni.vdr-developer.org/epgsearch
+
+The MD5 code is derived from the RSA Data Security, Inc. MD5 Message-Digest Algorithm.
+

@@ -1,0 +1,61 @@
+=encoding utf8
+=head1 NAME
+
+F<epgsearchtemplates.conf> - Die gespeicherten Suchtimer-Vorlagen
+
+=head1 BESCHREIBUNG
+
+Für die Suchtimer können Vorlagen angelegt werden. Diese werden hier
+gespeichert.
+
+=head1 FORMAT
+
+Diese Datei hat dasselbe Format wie die Datei F<epgsearch.conf>. Für den
+Aufbau verweise ich auf C<epgsearch.conf(5)>.
+
+=head1 SIEHE AUCH
+
+C<epgsearch(1)>
+
+=head1 AUTOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 FEHLER MELDEN
+
+Fehlerberichte bitte im Bugtracker.
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailinglist:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT and LIZENZ
+
+Copyright © 2004-2010 Christian Wieninger
+
+Dieses Programm ist freie Software. Sie können es unter den Bedingungen
+der GNU General Public License, wie von der Free Software Foundation
+veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 2
+der Lizenz oder (nach Ihrer Option) jeder späteren Version.
+
+Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es
+Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die
+implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN
+ZWECK. Details finden Sie in der GNU General Public License.
+
+Sie sollten ein Exemplar der GNU General Public License zusammen mit
+diesem Programm erhalten haben. Falls nicht, schreiben Sie an die
+Free Software Foundation, Inc. 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+Oder rufen Sie in Ihrem Browser http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+auf.
+
+Der Author kann über cwieninger@gmx.de erreicht werden.
+
+Die Projektseite ist http://winni.vdr-developer.org/epgsearch
+
+Der MD5-Code ist abgeleitet aus dem Message-Digest Algorithm
+von RSA Data Security, Inc..
+
+

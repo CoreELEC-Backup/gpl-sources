@@ -1,0 +1,98 @@
+=encoding utf8
+=head1 NAME
+
+F<epgsearchdirs.conf> - Liste von Aufnahmepfaden zur einfachen Auswahl
+
+=head1 BESCHREIBUNG
+
+In epgsearch, speziell beim Editieren von Suchtimern, muss man häufig ganze
+Verzeichnisspfade eingeben. Da dies oft mühselig ist, können in dieser Datei
+häufig genutzte Pfade vorgegeben werden, die dann im Menü einfach ausgewählt
+werden können.
+
+=head1 FORMAT
+
+Pro Zeile ein Pfad. Pfade können Variablen enthalten.
+
+Verwendet werden können interne Variablen, die Variablen des erweiterten EPG
+(F<epgsearchcats.conf>) sowie die in der Datei F<epgsearchuservars.conf>
+konfigurierten Variablen.
+
+Folgende internen Variablen stehen zur Verfügung:
+
+ %title%      - Title der Sendung
+ %subtitle%   - Subtitle der Sendung
+ %time%       - Startzeit im Format HH:MM
+ %date%       - Startzeit im Format TT.MM.YY
+ %datesh%     - Startdatum im Format TT.MM.
+ %time_w%     - Name des Wochentages
+ %time_d%     - Tag der Sendung im Format TT
+ %chnr%       - Kanalnummer
+ %chsh%       - Kanalname kurz
+ %chlng%      - Kanalname lang
+
+Für weitere Variablen siehe C<epgsearchcats.conf(5)> und C<epgsearchuservars.conf(5)>.
+
+Im Auswahlmenü werden die Pfade alphabetisch sortiert dargestellt. Pfade die Variablen
+enthalten stehen am Anfang der Liste.
+
+=head1 BEISPIELE
+
+ %Category%~%Genre%
+ %Category%~%Genre%~%Title%~%Episode%: %Subtitle%
+ Information~Natur~%Title%~%Episode%: %Subtitle%
+ %Serie%
+ Spielfilm~Action
+ Spielfilm~Doku
+ Spielfilm~Drama
+ Spielfilm~Horror
+ Musik
+ Sport
+ Show
+ Serie
+
+=head1 SIEHE AUCH
+
+C<epgsearch(1)>, C<epgsearchcats.conf(5)>, C<epgsearchuservars.conf(5)>
+
+=head1 AUTOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 FEHLER MELDEN
+
+Fehlerberichte bitte im Bugtracker.
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailinglist:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT and LIZENZ
+
+Copyright © 2004-2010 Christian Wieninger
+
+Dieses Programm ist freie Software. Sie können es unter den Bedingungen
+der GNU General Public License, wie von der Free Software Foundation
+veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 2
+der Lizenz oder (nach Ihrer Option) jeder späteren Version.
+
+Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es
+Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die
+implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN
+ZWECK. Details finden Sie in der GNU General Public License.
+
+Sie sollten ein Exemplar der GNU General Public License zusammen mit
+diesem Programm erhalten haben. Falls nicht, schreiben Sie an die
+Free Software Foundation, Inc. 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+Oder rufen Sie in Ihrem Browser http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+auf.
+
+Der Author kann über cwieninger@gmx.de erreicht werden.
+
+Die Projektseite ist http://winni.vdr-developer.org/epgsearch
+
+Der MD5-Code ist abgeleitet aus dem Message-Digest Algorithm
+von RSA Data Security, Inc..
+

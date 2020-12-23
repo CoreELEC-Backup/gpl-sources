@@ -1,0 +1,11 @@
+{
+    "type":"object",
+    "required":true,
+    "properties":{
+        "command": {
+            "type" : "string",
+            "required" : true,
+            "enum" : ["color", "image", "effect", "serverinfo", "clear", "clearall", "transform", "correction", "temperature", "adjustment"]
+        }
+    }
+}

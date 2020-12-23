@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{9BC64FBB-D1DE-4EA9-815A-CA946F8D3857}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="PreRelease\PreRelease.cbproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="GUI\MediaInfo_GUI.cbproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="PreRelease">
+			<MSBuild Projects="PreRelease\PreRelease.cbproj"/>
+		</Target>
+		<Target Name="PreRelease:Clean">
+			<MSBuild Targets="Clean" Projects="PreRelease\PreRelease.cbproj"/>
+		</Target>
+		<Target Name="PreRelease:Make">
+			<MSBuild Targets="Make" Projects="PreRelease\PreRelease.cbproj"/>
+		</Target>
+		<Target Name="MediaInfo_GUI">
+			<MSBuild Projects="GUI\MediaInfo_GUI.cbproj"/>
+		</Target>
+		<Target Name="MediaInfo_GUI:Clean">
+			<MSBuild Targets="Clean" Projects="GUI\MediaInfo_GUI.cbproj"/>
+		</Target>
+		<Target Name="MediaInfo_GUI:Make">
+			<MSBuild Targets="Make" Projects="GUI\MediaInfo_GUI.cbproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="PreRelease;MediaInfo_GUI"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="PreRelease:Clean;MediaInfo_GUI:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="PreRelease:Make;MediaInfo_GUI:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>

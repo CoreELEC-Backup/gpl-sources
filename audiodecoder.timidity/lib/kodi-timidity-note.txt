@@ -1,0 +1,4 @@
+timidity source from https://github.com/mywave82/timidity
+Sync to 77cd92d (25 July 2019)
+
+Another source folder https://sourceforge.net/p/timidity/git/ci/master/tree/

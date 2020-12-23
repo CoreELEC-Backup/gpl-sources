@@ -1,0 +1,488 @@
+Installation of the Video Disk Recorder
+---------------------------------------
+
+Version 2.4
+-----------
+
+Compiling and running the program:
+----------------------------------
+
+VDR requires the Linux-DVB driver header files to compile.
+As of kernel 2.6 these are part of the official Linux kernel
+distribution, and so they should be automatically found in
+/usr/include/linux/dvb. If your DVB driver header files are
+in a different location, you can rename the file Make.config.template
+to Make.config and adjust the definition of DVBDIR in that file.
+
+Refer to http://linuxtv.org for more information about the Linux-DVB driver.
+
+VDR requires the Linux-DVB driver version that supports the S2API interface.
+
+You will also need to install the following libraries, as well as their
+"devel" packages to get the necessary header files for compiling VDR:
+
+  fontconfig
+  freetype2
+  fribidi (see "BiDi support" below)
+  gettext
+  libcap
+  libjpeg
+
+If the "capability" module is not compiled into your kernel, you may
+need to do "modprobe capability" before running VDR.
+
+After extracting the package, change into the VDR directory
+and type 'make'. This should produce an executable file
+named 'vdr', which can be run after the DVB driver has been
+installed.
+
+If you want to build a 32-bit version of VDR on a 64-bit machine, you can
+use 'make M32=1' to do so. Note that you also need to have a Make.config file
+(derived from Make.config.template) to make this work.
+
+IMPORTANT: See "Configuration files" below for information on how
+=========  to set up the configuration files at the proper location!
+
+By default the 'vdr' program can be controlled via the PC keyboard.
+If you want to disable control via the keyboard, you can add NO_KBD=1
+to the 'make' call, or use the '--no-kbd' option at runtime.
+
+If you have a LIRC compatible infrared remote control receiver you can define
+the REMOTE macro to one of the following values in the 'make' call to make
+the respective control the default:
+
+  REMOTE=LIRC   control via the "Linux Infrared Remote Control"
+                (see http://www.lirc.org)
+
+Alternatively you can use the '--lirc' option at runtime.
+This option accepts an optional path to the remote control device,
+the default of which can be set via the LIRC_DEVICE macro.
+
+If you want to make your video directory available to other machines that
+have limitations on directory name lengths and/or allowed characters in
+directory names, you can call VDR with the command line option '--dirnames'
+(see man vdr(1) for details).
+
+When running, the 'vdr' program writes status information into the
+system log file, which is usually /var/log/messages (or /var/log/user.log,
+depending on your syslog configuration). You may want to watch these
+messages (tail -f /var/log/messages) to see if there are any problems.
+
+The program can be controlled via a network connection to its SVDRP
+port ("Simple Video Disk Recorder Protocol"). By default, it listens
+on port 6419 (use the --port=PORT option to change this). For details
+about the SVDRP syntax see the source file 'svdrp.c'.
+
+The file 'svdrphosts.conf' can be used to define which hosts are allowed
+to access the SVDRP port. By default only localhost (127.0.0.1) is granted
+access. If you want to give other hosts access to your SVDRP port you need to
+add their IP numbers to 'svdrphosts.conf'.
+
+You can disable SVDRP access entirely by either running VDR with '--port=0',
+or by removing all entries (including 127.0.0.1 for the localhost) from
+'svdrphosts.conf'.
+
+If the program shall run as a daemon, use the --daemon option. This
+will completely detach it from the terminal and will continue as a
+background process.
+
+When starting the program through an entry in /etc/inittab, use the --terminal
+option to set the controlling terminal, as in
+
+vdr:123:respawn:/usr/local/bin/vdr --terminal=/dev/tty8 -w 60
+
+See the man page vdr(1) for complete information about all command line options.
+
+Output devices
+--------------
+
+VDR by itself doesn't produce any audio or video output. In order to watch
+live tv or recordings, you will need to use a plugin that supports the actual
+hardware in your system, for instance:
+
+Plugin:           Device:
+
+dvbsddevice       Full-Featured SD DVB cards (Fujitsu-Siemens Design)
+                  ftp://ftp.tvdr.de/vdr/Plugins
+dvbhddevice       Full-featured HD DVB cards (Technotrend TT S2-6400)
+                  https://bitbucket.org/powARman/dvbhddevice
+rpihddevice       Raspberry Pi
+                  https://projects.vdr-developer.org/git/vdr-plugin-rpihddevice.git
+
+See https://linuxtv.org/vdrwiki/index.php/Output_devices for more.
+
+Standard compliance
+-------------------
+
+Basically VDR works according to the DVB standard, but there are countries/providers
+that use other standards, which in some details deviate from the DVB standard.
+This makes it necessary to handle things differently in some areas, depending on
+which standard is actually used. If this is the case in your area, you may need
+to adjust the option "DVB/Standard compliance" in the Setup menu accordingly.
+
+Locale
+------
+
+When presenting the list of recordings, VDR sorts the entries according to
+the current "locale" settings. This makes sure that special characters (like
+the German "umlauts") appear at the expected positions. In order to benefit
+from this you may have to set the locale environment variable, for instance
+
+  export LANG=de_DE
+
+for a German locale. If you don't want this to result in German error messages
+in the log file, it is sufficient to just set
+
+  export LC_COLLATE=de_DE
+
+which only influences the way strings are sorted and leaves error messages
+in English.
+
+Note that for VDR's internationalized texts to work, the LANG environment
+variable must be set to a valid locale!
+
+BiDi support
+------------
+
+Some languages are written right-to-left. In order to display such languages
+correctly, you need to build VDR with BIDI=1. This will link to the "fribidi"
+library and implement a function that prepares bidirectional texts to be
+displayed correctly. Since BiDi support adds some runtime overhead by requiring
+additional memory allocation and copying, this feature is not compiled in
+by default, so that users that have no need for this don't get any overhead.
+
+Workaround for providers not encoding their DVB SI table strings correctly
+--------------------------------------------------------------------------
+
+According to "ETSI EN 300 468" the default character set for SI data is
+ISO6937. But unfortunately some broadcasters actually use ISO-8859-9 or
+other encodings, but fail to correctly announce that.
+Users who want to set the default character set to something different can
+do this by using the command line option --chartab with something
+like ISO-8859-9.
+
+Start script with automatic restart in case of hangups:
+-------------------------------------------------------
+
+The VDR source directory contains a 'runvdr.template'. Just copy it as 'runvdr'
+into your /usr/bin or /usr/local/bin directory and adjust it to your particular
+requirements. (See the comments inside the script for more information.)
+
+If you run VDR using the 'runvdr' shell script it will use the built-in
+watchdog timer to restart the program in case something happens that
+causes a program hangup. If you change the command line options for the
+call to the VDR program, be sure to NOT use the '-d' option! Otherwise
+VDR will go into 'daemon' mode and the initial program call will return
+immediately! 'runvdr' needs to be started as user 'root'. Use the '-u'
+option to run the actual 'vdr' program under a different user id.
+
+Setting the system time:
+------------------------
+
+If you want VDR to set the system time according to the data received
+from the transponder, you need to start VDR as user 'root'. For security
+reasons you should then use the '-u' option to define a lesser privileged
+user id under which VDR should actually run. It will then only keep the
+capability to set the system time, and set its user id to the given one.
+You also need to enable the "EPG/Set system time" option in VDR's
+Setup menu, and select a transponder from which you want to receive
+the time in "Use time from transponder". Make sure you select a transponder
+that has a reliable clock - some transponders are quite off.
+
+Automatic shutdown:
+-------------------
+
+If you define a shutdown command via the '-s' command line option, VDR
+will call the given command if there is currently no recording or replay
+active, the user has been inactive for at least MinUserInactivity minutes
+and the next timer event is at least MinEventTimeout minutes in the future
+(see the Setup parameters in MANUAL).
+
+The command given in the '-s' option will be called with five parameters.
+
+The first one is the time (in UTC) of the next timer event or plugin wakeup
+time (as a time_t type number), and the second one is the number of
+seconds from the current time until the next timer event. Your program can
+choose which one to use for programming some sort of hardware device that
+makes sure the computer will be restarted in time before the next timer
+event. Your program must also initiate the actual shutdown procedure of the
+computer. VDR will not automatically exit after calling the shutdown
+program, but will rather continue normally until it receives a SIGTERM when
+the computer is actually shut down. So in case the shutdown fails, or the
+shutdown program for some reason decides not to perform a shutdown, VDR
+will stay up and running and will call the shutdown program again after a
+while. The command will be started in a separate background session, so it
+can continue to run even after VDR has terminated.
+
+If there are currently no timers active and there is no plugin wakeup
+time, both parameters will be '0'. In that case the program shall not set
+the hardware for automatic restart and only perform the system shutdown.
+A program that uses the second parameter to set the hardware for restart
+must therefore also check whether the first parameter is '0'.
+
+If the wakeup time is given by a timer, the third parameter will be the
+number of the channel that will be recorded, otherwise it will be 0. The
+fourth parameter contains the file name of the recording as defined in the
+timer, the name of the plugin that requested the wakeup time, or an empty
+string if no wakeup time is present. These can be used by the shutdown
+program to show that information on some display interface etc.
+
+The fifth parameter indicates the reason why the shutdown was requested.
+'0' means this is an automatic shutdown due to some timeout, while '1' means
+that this is a user requested shutdown (resulting from pressing the "Power"
+key). The shutdown program may use this information to decide whether or
+not to actually perform the system shutdown.
+
+If a timer is currently recording, or a recording would start within the
+next 30 minutes (default for the "Min. event timeout" setup parameter), and
+the user insists in shutting down now, the first and second parameter will
+correspond to a time that is "Min. event timeout" minutes in the future.
+
+Before the shutdown program is called, the user will be prompted to inform
+him that the system is about to shut down. If any remote control key is
+pressed while this prompt is visible, the shutdown will be cancelled (and
+tried again later). The shutdown prompt will be displayed for 5 minutes, which
+should be enough time for the user to react.
+
+A sample shell script to be used with the '-s' option might look like this:
+
+#!/bin/sh
+setRTCwakeup $(($1 - 300))
+sudo halt
+
+Here 'setRTCwakeup' would be some program that uses the first parameter
+(which is the absolute time of the next timer event) to set the Real Time
+Clock so that it wakes up the computer 5 minutes (i.e. 300 seconds) before
+that event. The 'sudo halt' command then shuts down the computer.
+You will have to substitute both commands with whatever applies to your
+particular hard- and software environment.
+
+If the '-s' option is present, the VDR machine can be turned off by pressing
+the "Power" key on the remote control.
+
+Executing commands before and after a recording:
+------------------------------------------------
+
+You can use the '-r' option to define a program or script that gets called
+before and after a recording is performed, and after an editing process
+has finished or a recording has been deleted.
+
+The program will be called with two or three (in case of "editing" and "edited")
+string parameters. The first parameter is one of
+
+  before      if this is *before* a recording starts
+  started     if this is after a recording has *started*
+  after       if this is *after* a recording has finished
+  editing     if this is before *editing* a recording
+  edited      if this is after a recording has been *edited*
+  deleted     if this is after a recording has been *deleted*
+
+and the second parameter contains the full name of the recording's
+directory (which may not yet exists at that moment in the "before" case).
+In the "editing" and "edited" case it will be the name of the edited version
+(second parameter) and the name of the source version (third parameter).
+In the "deleted" case the extension of the directory name is ".del"
+instead of ".rec".
+
+Within this program you can do anything you would like to do before and/or
+after a recording or after an editing process. However, the program must return
+as soon as possible, because otherwise it will block further execution of VDR.
+Be especially careful to make sure the program returns before the watchdog
+timeout you may have set up with the '-w' option! If the operation you want to
+perform will take longer, you will have to run it as a background job.
+
+An example script for use with the '-r' option could look like this:
+
+#!/bin/sh
+case "$1" in
+     before)
+            echo "Before recording $2"
+            ;;
+     started)
+            echo "Started recording $2"
+            ;;
+     after)
+            echo "After recording $2"
+            ;;
+     editing)
+            echo "Editing recording $2"
+            echo "Source recording $3"
+            ;;
+     edited)
+            echo "Edited recording $2"
+            echo "Source recording $3"
+            ;;
+     deleted)
+            echo "Deleted recording $2"
+            ;;
+     *)
+            echo "ERROR: unknown state: $1"
+            ;;
+     esac
+
+Command line options:
+---------------------
+
+Use "vdr --help" for a list of available command line options.
+
+Replaying Dolby Digital audio:
+------------------------------
+
+If you have a "full featured" DVB card with SPDIF output you can replay
+Dolby Digital audio directly through the DVB card.
+You can also use an external program that reads the DD data
+from stdin and processes it in a way suitable for your audio hardware.
+This program must be given to VDR with the '-a' option, as in
+
+  vdr -a ac3play
+
+The video data directory:
+-------------------------
+
+All recordings are written into directories below "/srv/vdr/video". Please
+make sure this directory exists, and that the user who runs the 'vdr'
+program has read and write access to that directory.
+If you prefer a different location for your video files, you can use
+the '-v' option to change that. Please make sure that the directory
+name you use with '-v' is a clean and absolute path name (no '..' or
+multiple slashes).
+
+Note that the file system need not be 64-bit proof, since the 'vdr'
+program splits video files into chunks of about 2GB. You should use
+a disk with several gigabytes of free space. One GB can store roughly
+half an hour of SD video data, or 10 minutes of HD video.
+Either use one of today's large terabyte disks (preferably with a backup disk
+in a RAID-1 array), or use something like "mhddfs" to group several disks
+into one large volume.
+
+Note that you should not copy any non-VDR files into the video directory,
+since this might cause a lot of unnecessary disk access when VDR cleans up those
+directories and there is a large number of files and/or subdirectories in
+there. If you have a large disk that you want to use for VDR's video data as
+well as other stuff, you may want to create a subdirectory for VDR, as in
+
+   /mydisk/video
+
+and put your other stuff into, say,
+
+   /mydisk/otherstuff
+
+If your video directory is mounted via a Samba share, and you are experiencing
+problems with replaying in fast forward mode, you can comment out the line
+
+#define USE_FADVISE
+
+in the file tools.c, which may lead to better results.
+
+Configuration files:
+--------------------
+
+There are several configuration files that hold information about
+channels, remote control keys, timers etc. By default these files are
+spread around the system according to the FHS ("File system Hierarchy Standard").
+If you prefer to have VDR built to run locally under the VDR source tree,
+you can copy the file Make.config.template to Make.config and set the parameter
+LCLBLD=1. If you also want to have all data files under one single directory,
+set ONEDIR=1 in Make.config.
+
+For starters just copy all *.conf files from the VDR directory into your
+video directory.
+
+The configuration files can be edited with any text editor, or will be written
+by the 'vdr' program if any changes are made inside the on-screen menus.
+Take a look at man page vdr(5) for information about the file formats.
+
+The files that come with this package contain the author's selections,
+so please make sure you adapt these to your personal taste. Also make sure
+that the channels defined in 'channels.conf' are correct before attempting
+to record anything. Channel parameters may vary and not all of the channels
+listed in the default 'channels.conf' file have been verified by the author.
+
+As a starting point you can copy the 'channels.conf' file that comes with the
+VDR archive into your video directory (or into your config directory,
+respectively, in case you have redirected it with the -c option).
+
+Setting up DiSEqC:
+------------------
+
+If you are using a DVB-S card with a satellite equipment that needs to be
+accessed using DiSEqC, you have to go to the "Setup" menu and set the "DiSEqC"
+parameter to "on". You also need to set up the file 'diseqc.conf' to properly
+access your DiSEqC equipment (see man vdr(5) for details).
+
+A special form of DiSEqC is used to connect several receivers to one signal
+source using only a single cable. This method, known as "Satellite Channel Routing"
+according to EN50494 (aka "Unicable(TM)", "OLT(TM)", "SatCR", "Single Cable
+Distribution", "Channel Stacking System" or "Single Cable Interface") or
+EN50607 (aka "JESS") uses the file "scr.conf" to specify which SCR channels
+use which user band frequency.
+
+If DVB-S devices need to be connected to the same satellite cable, but no
+"Satellite Channel Routing" is available, they can be set to be "bonded" in
+the Setup/LNB menu. Bonded devices can only be tuned to the same polarization
+and frequency band, which reduces the number of potentially receivable channels.
+
+Note that it doesn't make sense to use "Satellite Channel Routing" and
+"Device Bonding" at the same time with the same devices. If you use either
+of these methods, it is necessary that your devices are always created in the
+same sequence when the drivers are loaded. You may need to configure some
+proper "udev" rules to make sure this happens.
+If you use "Device Bonding" and you add devices to your setup that don't
+provide DVB-S and take up a position in which there used to be a bonded DVB-S
+device, make sure you open, adjust (if necessary) and confirm the Setup/LNB
+menu to have the device bondings set correctly again.
+
+Running VDR with DVB-C (cable) or DVB-T (terrestrial):
+------------------------------------------------------
+
+VDR automatically recognizes if the DVB card in use is a cable or a
+terrestrial card. The only thing that needs to be different when using digital
+cable or terrestrial reception is the 'channels.conf' file. The distribution
+archive contains a default 'channels.conf.cable' and 'channels.conf.terr',
+respectively, which users of such cards can rename or copy to 'channels.conf'
+in order to receive digital cable or terrestrial channels. The format of these
+files is mostly the same as for satellite channels, however, some fields have
+different or extended meanings (see man vdr(5) for details).
+
+You can even use a mixture of DVB-S, DVB-C and DVB-T cards in the same system.
+All you need to do is to put all the channel definitions into one big
+'channels.conf' file. VDR will automatically know which channels can be
+received with which card(s) by evaluating the 'source' parameter.
+
+Learning the remote control keys:
+---------------------------------
+
+There is no default 'remote.conf' file, so you will have to go through a "teach-in"
+session that allows the program to learn your remote control codes.
+It will first attempt to determine the basic data transfer mode and
+timing of your remote control unit, and then will ask you to press one
+key after the other so that it can learn the various key codes. You will
+at least need to provide an "Up" and a "Down" key, so that you can switch
+channels. The rest of the key definitions is optional, but the more keys
+you define, the more you will be able to navigate through the menus and
+control recording/replaying. The program uses only a very small number
+of keys which have multiple meanings in the various modes (see MANUAL
+for a detailed description).
+
+The recommended PC key assignments are:
+
+  Up, Down, Left, Right     Cursor keys
+  Menu                      'Home'
+  Ok                        'Enter'
+  Back                      'Backspace'
+  Red, Green, Yellow, Blue  'F1'..'F4'
+  0..9                      '0'..'9'
+  Volume+/-                 'PgUp', 'PgDn'
+  Mute                      'F10'
+
+If you want to change your key assignments later, simply delete the file
+'remote.conf' and restart 'vdr' to get into learning mode.
+
+Generating source code documentation:
+-------------------------------------
+
+You can do a 'make srcdoc' to generate source code documentation using the
+Doxygen tool. To do so you need the Doxygen package from http://www.doxygen.org
+and the Graphviz package from http://www.research.att.com/sw/tools/graphviz.
+After installing these two packages you can do 'make srcdoc' and then use your
+HTML browser to read srcdoc/html/index.html.

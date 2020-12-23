@@ -1,0 +1,80 @@
+<chapter id="how-to-obtain">
+<title>How to Obtain LCDproc</title>
+
+<sect1 id="versioning">
+<title>Versioning</title>
+
+<para>
+At the time of writing the following majors versions of LCDproc are floating
+around on the internet:
+</para>
+
+<variablelist>
+
+<varlistentry>
+  <term>LCDproc 0.5.7</term>
+  <listitem>
+    <para>
+      LCDproc 0.5.7 is the current stable version of LCDproc.
+      This is the version recommended to use.
+    </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>Older releases</term>
+  <listitem>
+    <para>
+    Older releases of LCDproc can be found on the GitHub project page at
+    <ulink url="https://github.com/lcdproc/lcdproc"></ulink>.
+    </para>
+  </listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="tar">
+<title>Download Git Version of LCDproc as a Tarball</title>
+
+<para>
+The snapshot of the current source code repository may be downloaded from the
+web. Goto <ulink url="https://github.com/lcdproc/lcdproc/archive/master.tar.gz"></ulink>.
+</para>
+
+<para>
+To extract the files run
+</para>
+
+<screen>
+<prompt>$</prompt> <userinput>tar xvfz lcdproc.tar.gz</userinput>
+</screen>
+
+</sect1>
+
+<sect1 id="git">
+<title>Download The Latest Version of LCDproc from GitHub</title>
+
+<para>
+Of course you can download the latest stuff from GitHub.
+For more information on how to use GitHub see
+<ulink url="https://guides.github.com/"></ulink>.
+</para>
+
+<screen>
+<prompt>$</prompt> <userinput>git clone https://github.com/lcdproc/lcdproc.git</userinput>
+</screen>
+
+<para>
+Once you've done that and want to update the downloaded files to the latest stuff
+you can use the "pull" command of git (make sure to be in the lcdproc directory!):
+</para>
+
+<screen>
+<prompt>$</prompt> <userinput>git pull</userinput>
+</screen>
+
+</sect1>
+
+</chapter>

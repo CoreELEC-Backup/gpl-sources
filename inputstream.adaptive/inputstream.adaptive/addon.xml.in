@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="inputstream.adaptive"
+  version="2.6.6"
+  name="InputStream Adaptive"
+  provider-name="peak3d">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="kodi.inputstream"
+    name="adaptive"
+    extension=""
+    tags="true"
+    listitemprops="license_type|license_key|license_data|license_flags|manifest_type|server_certificate|stream_headers|manifest_update_parameter|original_audio_language|media_renewal_url|media_renewal_time|max_bandwidth|play_timeshift_buffer"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">InputStream client for adaptive streams</summary>
+    <summary lang="es_ES">Cliente InputStream para flujo de datos adaptativos</summary>
+    <description lang="en_GB">InputStream client for adaptive streams</description>
+    <description lang="es_ES">Cliente InputStream para flujo de datos adaptativos</description>
+    <platform>@PLATFORM@</platform>
+    <news>v2.6.6 (2020-11-21)
+- Matrix VideoCodec API change to v2.0.2 - Fix crypto session id handling
+
+v2.6.5 (2020-11-09)
+- Matrix API change to v3.0.1 - Fix wrong flags bit shift
+
+v2.6.4 (2020-10-31)
+- Fix protocol search in manifest URL
+
+v2.6.3 (2020-10-31)
+- New C-api changes
+- Fix URL's without domain (files)
+- [MPD] Fix SegmentTimeline without given startTime
+
+v2.6.2 (2020-10-30)
+- revert / rework effective url issues
+- api related changes (buildsystem)
+
+v2.6.1 (2020-10-25)
+- Fix effective url if paths beginning with / provided
+- Several translations added / fixed
+- Fix webvtt subtitles for time formats without leading hour 00:
+- Fix segfault when playing PlayReady content (Android)
+- Adapt to kodi c api changes
+
+v2.6.0 (2020-05-16)
+- Update inputstream API 2.3.1
+- Update Global API 1.2.0
+
+v2.5.6 (2020-04-25)
+- Matrix API change to v2.3.0 - Pass mime type to inputstreams if available
+- Matrix API change to v2.2.0 - Allows upto 256 streams, useful for netflix etc.
+
+v2.5.5 (2020-04-06)
+- Matrix API change - Remove CanPauseSteram() and CanSeekStream()
+- Update .gitignore
+
+v2.5.4 (2020-01-19)
+- [HLS] url based initialization segment
+- [DASH] Use effective URL for manifest update
+- Implement Media Renewal Time
+- Fixed WebVTT rlm and lrm
+- Fixed and improved subtitle properties)
+- Add multiple languages
+- [DASH] Fix zero devision segfault
+
+v2.5.3 (2019-11-21)
+- Fix retrieving SIDX from indexRange streams (youtube)
+- Rework seek (use lead stream)
+
+v2.5.2 (2019-11-18)
+- More languages added
+- DolbyVision codec (dvhe) support, kodi changes required to get it work
+- Add property to start LiveStreams from beginning (play_timeshift_buffer)
+- Pass media_headers when downloading pssh-search segment
+- Minor DASH full update / timing / url generation fixes
+
+v2.5.1 (2019-10-07)
+- Language spain added
+- multi period support
+- mp4 webtt binary representation added
+- minor fixes
+
+v2.5.0 (2019-09-02)
+- New major versions for Matrix
+
+v2.4.0 (2019-08-16)
+- Update Kodi VFS API 1.0.3
+- Build script cleanups
+- Implement VP9 static HDR metadata
+- MPD: location attibute added
+- MPD: livestream bugfixes (uninitialized startPTS)
+
+v2.3.22 (2019-06-14)
+- Bento4: sample duration workaround (24/1)
+- WVDecrypter: remove sleep between decrypt calls
+
+v2.3.21 (2019-06-07)
+- [DASH] initialize segment::range_begin_ for URL segments (youtube)
+
+v2.3.20 (2019-06-07)
+- Fix parsing PR ContentProtection KID
+
+v2.3.19 (2019-06-02)
+- [widevine] remove API 8 / Add API 11
+- [TS] Signal configuration change if extra-data has changed
+- [DASH] Use PlayReady WRMHEADER to retrieve DefaultKID
+- [DASH] Allow URL_SEGMENTS + Range-Bytes
+
+v2.3.18 (2019-05-11)
+- align settings with internal resolution check
+- [HLS] support single playlists
+
+v2.3.17 (2019-04-16)
+- Fix KID's with 0 char inside
+
+v2.3.16 (2019-03-25)
+- TTML parser fix
+- [HLS] Add HEVC streams / Fix extra_data_size in ts parser
+- [HLS] effective URL for license
+
+v2.3.15 (2019-02-11)
+- Fix windows build
+
+v2.3.14 (2019-02-10)
+- Add WebM container parser
+    </news>
+  </extension>
+</addon>

@@ -1,0 +1,94 @@
+<sect1 id="irman-howto">
+<title>The irman Driver</title>
+
+<para>
+The <code>irman</code> driver allows you to use the IrMan IR remote control
+to control the LCDproc server <application>LCDd</application>
+and/or clients that can handle input.
+</para>
+
+<para>
+The keys are mapped according to the following table:
+</para>
+
+<table id="irman-howto.mapping">
+<title>Mapping between LCDproc keys and IrMan commands</title>
+<tgroup cols="2">
+  <thead>
+    <row>
+      <entry>LCDproc key</entry>
+      <entry>IrMan command</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry><literal>Up</literal></entry>
+      <entry>lcdproc-Up</entry>
+    </row>
+    <row>
+      <entry><literal>Down</literal></entry>
+      <entry>lcdproc-Down</entry>
+    </row>
+    <row>
+      <entry><literal>Left</literal></entry>
+      <entry>lcdproc-Left</entry>
+    </row>
+    <row>
+      <entry><literal>Right</literal></entry>
+      <entry>lcdproc-Right</entry>
+    </row>
+    <row>
+      <entry><literal>Enter</literal></entry>
+      <entry>lcdproc-Enter</entry>
+    </row>
+    <row>
+      <entry><literal>Escape</literal></entry>
+      <entry>lcdproc-Escape</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<tip>
+  <para>
+    If you have trouble using the <code>irman</code> driver,
+    you might try the <code>lirc</code> driver.
+    <package>lirc</package> supports IrMan as well.
+  </para>
+</tip>
+
+
+<!-- ## IrMan driver ## -->
+<sect2 id="IrMan-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="IrMan-config-section">
+<title>[IrMan]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Select the input device to use, e.g. <filename>/dev/irman</filename>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Config</property> =
+    <parameter><replaceable>FILENAME</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Select the IrMan configuration file to use, e.g. <filename>/etc/irman.cfg</filename>.
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Using the Service Interface</title>
+<style type="text/css">
+html, body {
+    background-color: white;
+}
+.blurb {
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+}
+.center {
+    text-align: center;
+}
+.code {
+    background-color: #F0F0F0;
+}
+.modified {
+    background-color: #FFDDDD;
+}
+</style>
+</head>
+<body>
+
+<hr><h1><a name="Wirbelscan service interface">Wirbelscan service interface</a></h1>
+
+<hr><h2><a name="Intro">Introduction</a></h2>
+
+<div class="blurb">Do you want to talk with me?</div><p>
+
+wirbelscan implements, starting from version 0.0.5-pre12, a service interface,
+allowing other plugins to communicate with or control wirbelscan. The service interface
+can be implemented by including wirbelscans service header. You may also provide a copy
+of this header file in your source code, but pointing to wirbelscan is the preferred
+solution.
+<p><table><tr><td class="code"><pre>
+#include "../wirbelscan/wirbelscan_services.h"
+using namespace WIRBELSCAN_SERVICE;
+</pre></td></tr></table><p>
+
+
+<p><table><tr><td class="code"><pre>
+virtual bool Service(const char *Id, void *Data = NULL);
+</pre></td></tr></table><p>
+
+<tt>Id</tt> is a unique identification string that identifies the plugin, the 
+requested service and its protocol version number. A service id for wirbelscan
+looks like this: <i>&quot;wirbelscan_&lt;SERVICE&gt;#&lt;VERSION&gt;&quot;</i>.
+At the moment of writing this, its assumed that higher versions will stay
+backward compatible, but in general, a plugin using the interface should use services
+only with matching service version.
+<p>
+NOTE: The function service returns <i>true</i> for any service id string it handles, and <i>false</i>
+otherwise.
+<p>
+The following services are available:
+<tr>
+  <li><i>GetVersion</i>, query wirbelscan plugin version and its service api</li>
+  <li><i>GetStatus</i>, query wirbelscans status</li>
+  <li><i>DoCmd</i>, execute commands</li>
+  <li><i>GetSetup</i>, query actual setup parameters</li>
+  <li><i>SetSetup</i>, change actual setup parameters</li>
+  <li><i>GetCountry</i>, query list of country IDs and corresponding names
+  <li><i>GetSat</i>, query list of satellite IDs and corresponding names
+</tr>
+<p>
+
+<tt>Data</tt> is a pointer to a data structure, depending on the service used.
+If <tt>Data</tt> is set to <tt>NULL</tt> and wirbelscan supports this service it will
+return true. You may use this as a 'service supported' check.
+<p>
+
+<hr><h2><a name="GetVersion">GetVersion</a></h2>
+<i>Query plugin and api</i>, will work with every wirbelscan version supporting the interface. 
+<p>
+<tt>Id</tt> = "wirbelscan_GetVersion".
+<br>
+<tt>Data</tt> is a pointer of type cWirbelscanInfo.
+<p>
+<hr><h2><a name="GetStatus">GetStatus</a></h2>
+<i>Query actual status.</i>
+<p>
+<tt>Id</tt> = "wirbelscan_GetStatus#&lt;VERSION&gt;".
+<br>
+<tt>Data</tt> is a pointer of type cWirbelscanStatus.
+<p>
+The following properties are returned in version 0001:
+<tr>
+  <li>Status {scanning,stopped,busy,unknown}</li>
+  <li>Current Scan device</li>
+  <li>Current Scan Progress</li>
+  <li>Current Signal Strength as reported from device.</li>
+  <li>Currently Scanned Transponder</li>
+  <li>Number of Channels in VDR</li>
+  <li>Number of New Channels since Scan Start</li>
+</tr>
+<p>
+<i><b>NOTE:</b> Most of the properties are meaningless, if no scan in progress.</i>
+<p>
+<hr><h2><a name="DoCmd">DoCmd</a></h2>
+<i>Execute commands.</i>
+<p>
+<tt>Id</tt> = "wirbelscan_DoCmd#&lt;VERSION&gt;".
+<br>
+<tt>Data</tt> is a pointer of type cWirbelscanCmd.
+<p>
+Data-&gt;replycode will be true on success, false otherwise.<br>
+The following commands are defined in version 0001:
+<tr>
+  <li>Start Scan</li>
+  <li>Stop Scan</li>
+  <li>Store Current Setup</li>
+</tr>
+<hr><h2><a name="GetSetup">GetSetup</a></h2>
+<i>Query actual setup parameters.</i>
+<p>
+<tt>Id</tt> = "wirbelscan_GetSetup#&lt;VERSION&gt;".
+<br>
+<tt>Data</tt> is a pointer of type cWirbelscanScanSetup.
+<p>
+<hr><h2><a name="SetSetup">SetSetup</a></h2>
+<i>Change actual setup parameters.</i>
+<p>
+<tt>Id</tt> = "wirbelscan_SetSetup#&lt;VERSION&gt;".
+<br>
+<tt>Data</tt> is a pointer of type cWirbelscanScanSetup.
+<p>
+<i><b>NOTE:</b> The changes will be only permanent, if the command Store is called afterwards, see DoCmd.</i>
+<p>
+<hr><h2><a name="GetCountry">GetCountry</a></h2>
+<i>Query list of country IDs and corresponding names.</i>
+<br>
+The ID is needed for wirbelscans Setup in case of DVB-C, DVB-T, ATSC or pvrinput scans.
+With wrong setup ID values scans are expected to fail, so the setup CountryId has to be set before starting a scan.
+<p>
+<tt>Id</tt> = "wirbelscan_GetCountry#&lt;VERSION&gt;".
+<br>
+<tt>Data</tt> is a pointer of type cPreAllocBuffer.
+<p>
+Should be called twice.<br>
+<td>
+  <li>first call with Data-&gt;size = 0. wirbelscan will initialize Data-&gt;size to minimum buffer size.</li>
+  <li>second call, this time Data-&gt;buffer should point to allocated memory of size * sizeof(SListItem). wirbelscan will fill in values.
+</td>
+<p>
+<i><b>NOTE: </b>It's the calling plugins responsibility to provide
+a buffer of sufficient size and to cleanup this buffer. If the provided buffer
+is too small, segmentation fault / memory corruption will occur.</i>
+<hr><h2><a name="GetSat">GetSat</a></h2>
+<i>Query list of satellite IDs and corresponding names.</i>
+<br>
+The ID is needed for wirbelscans Setup in case of satellite scans.
+With wrong setup ID values scans are expected to fail, so the setup SatId has to be set before starting a scan.
+<p>
+<tt>Id</tt> = "wirbelscan_GetSat#&lt;VERSION&gt;".
+<br>
+<tt>Data</tt> is a pointer of type cPreAllocBuffer.
+<p>
+Should be called twice.<br>
+<td>
+  <li>first call with Data-&gt;size = 0. wirbelscan will initialize Data-&gt;size to minimum buffer size.</li>
+  <li>second call, this time Data-&gt;buffer should point to allocated memory of size * sizeof(SListItem). wirbelscan will fill in values.
+</td>
+<p>
+<i><b>NOTE: </b>It's the calling plugins responsibility to provide
+a buffer of sufficient size and to cleanup this buffer. If the provided buffer
+is too small, segmentation fault / memory corruption will occur.</i>
+
+<hr><h2><a name="Further">Further Information</a></h2>
+
+An example on usage is the <a href="http://wirbel.htpc-forum.de/wirbelscan/vdr-servdemo-0.0.1.tgz">servdemo plugin</a>,
+available on the wirbelscan webpage. This demo plugin takes SVDRP commands and
+talks to wirbelscan using the service interface.
+<p>
+For further details, please refer to <a href="../../../PLUGINS.html#Custom services">VDRs PLUGIN.html</a> and
+<a href="wirbelscan_services.h">wirbelscan_services.h</a>.
+</body>
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="pokemini_controller_rumble" values="enabled|disabled" default="enabled"/>
+		<setting label="30002" type="select" id="pokemini_lcdbright" values="0|-80|-60|-40|-20|20|40|60|80" default="0"/>
+		<setting label="30003" type="select" id="pokemini_lcdcontrast" values="64|0|16|32|48|80|96" default="64"/>
+		<setting label="30004" type="select" id="pokemini_lcdfilter" values="dotmatrix|scanline|none" default="dotmatrix"/>
+		<setting label="30005" type="select" id="pokemini_lcdmode" values="analog|3shades|2shades" default="analog"/>
+		<setting label="30006" type="select" id="pokemini_palette" values="Default|Old|Monochrome|Green|Green Vector|Red|Red Vector|Blue LCD|LEDBacklight|Girl Power|Blue|Blue Vector|Sepia|Monochrome Vector" default="Default"/>
+		<setting label="30007" type="select" id="pokemini_piezofilter" values="enabled|disabled" default="enabled"/>
+		<setting label="30008" type="select" id="pokemini_rumblelvl" values="3|0|1|2" default="3"/>
+		<setting label="30009" type="select" id="pokemini_screen_shake" values="enabled|disabled" default="enabled"/>
+		<setting label="30010" type="select" id="pokemini_video_scale" values="4x|1x|2x|3x|5x|6x" default="4x"/>
+	</category>
+</settings>

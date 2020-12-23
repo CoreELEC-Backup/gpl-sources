@@ -1,0 +1,22 @@
+Source: kodi-audiodecoder-upse
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake, kodi-addon-dev,
+               zlib1g-dev
+Standards-Version: 4.1.2
+Section: libs
+Homepage: https://kodi.tv
+
+Package: kodi-audiodecoder-upse
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: PSF audio decoder for Kodi
+  PSF audio decoder for Kodi
+
+Package: kodi-audiodecoder-upse-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for PSF audio decoder for Kodi
+  debug symbols for PSF audio decoder for Kodi

@@ -1,0 +1,1327 @@
+# VDR plugin language source file.
+# Copyright (C) 2007 Klaus Schmidinger <kls@cadsoft.de>
+# This file is distributed under the same license as the VDR package.
+# Valdemaras Pipiras <varas@ambernet.lt>, 2009
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VDR 1.7.10\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2017-06-15 11:15+0200\n"
+"PO-Revision-Date: 2007-08-14 20:21+0200\n"
+"Last-Translator: Valdemaras Pipiras <varas@ambernet.lt>\n"
+"Language-Team: Lithuanian <vdr@linuxtv.org>\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Channel groups"
+msgstr "kanalo grupės"
+
+msgid "Button$Select"
+msgstr "Pasirinkti"
+
+msgid "Channel group used by:"
+msgstr "Kanalo grupė naudojama:"
+
+msgid "Edit$Delete group?"
+msgstr "Ištrinti grupę?"
+
+msgid "Edit channel group"
+msgstr "Koreguoti kanalo grupę"
+
+msgid "Group name"
+msgstr "Grupės pavadinimas"
+
+msgid "Button$Invert selection"
+msgstr "Atvirkštinis pasirinkimas"
+
+msgid "Button$All yes"
+msgstr "Visi taip"
+
+msgid "Button$All no"
+msgstr "Visi ne"
+
+msgid "Group name is empty!"
+msgstr "Grupės pavadinimas tuščias!"
+
+msgid "Group name already exists!"
+msgstr "Toks grupės pavadinimas jau yra!"
+
+msgid "Direct access to epgsearch's conflict check menu"
+msgstr "Tiesioginis priėjimas prie epgsearch įskiepo konflikto pasirinkimo meniu"
+
+msgid "Timer conflicts"
+msgstr "Laikmačio konfliktai"
+
+msgid "Conflict info in main menu"
+msgstr "KOnflikto informacija pagrindiniame meniu"
+
+msgid "next"
+msgstr "sekantis"
+
+#, c-format
+msgid "timer conflict at %s! Show it?"
+msgstr "Laikmačio konflikas %s! Rodyti?"
+
+#, c-format
+msgid "%d timer conflicts! First at %s. Show them?"
+msgstr "%d kaikmačio konfliktas(ų)! Pirmasis %s. Rodyti juos?"
+
+msgid "search the EPG for repeats and more"
+msgstr "paieška po EPG ieškant pasikartojimų ir kt."
+
+msgid "Program guide"
+msgstr "Programos gidas"
+
+msgid "search timer update running"
+msgstr "vyksta laikmačio paieškos atnaujinimas"
+
+msgid "Direct access to epgsearch's search menu"
+msgstr "Tiesioginis priėjimas prie epgsearch įskiepo paieškos meniu"
+
+msgid "Search"
+msgstr "Paiška"
+
+msgid "EpgSearch-Search in main menu"
+msgstr "Ieškoti pagrindiniame meniu"
+
+msgid "Button$Help"
+msgstr "Pagalba"
+
+msgid "Standard"
+msgstr "Standartas"
+
+msgid "Button$Commands"
+msgstr "Komandos"
+
+msgid "Button$Search"
+msgstr "Paieška"
+
+msgid "never"
+msgstr "niekada"
+
+msgid "always"
+msgstr "visada"
+
+msgid "smart"
+msgstr "protingas"
+
+msgid "before user-def. times"
+msgstr "prieš vartotojo nustatytus laikus"
+
+msgid "after user-def. times"
+msgstr "po vartotojo nustatytų laikų"
+
+msgid "before 'next'"
+msgstr "prieš 'Sekantis'"
+
+msgid "General"
+msgstr "Pagrindinis"
+
+msgid "EPG menus"
+msgstr "EPG meniu"
+
+msgid "User-defined EPG times"
+msgstr "Vartotojo nustatyti EPG laikai"
+
+msgid "Timer programming"
+msgstr "Laikmačio nustatymai"
+
+msgid "Search and search timers"
+msgstr "Paieška ir paieškos laikmačiai"
+
+msgid "Timer conflict checking"
+msgstr "Ieškoma laikmačių konfliktų"
+
+msgid "Email notification"
+msgstr "El. pašto perspėjimas"
+
+msgid "Hide main menu entry"
+msgstr "Paslėpti pagrindinio meniu antraštę"
+
+msgid "Help$Hides the main menu entry and may be useful if this plugin is used to replace the original 'Schedule' entry."
+msgstr "Paslepia pagrindinio meniu antraštę bei gali būti naudingas jei šis įskiepas naudojamas kaip pakaita įprastai naudojamai 'Programa' antraštei."
+
+msgid "Main menu entry"
+msgstr "Pagrindinio meniu įrašas"
+
+msgid "Help$The name of the main menu entry which defaults to 'Programm guide'."
+msgstr "Pagrindinio meniu antraštės pavadinimas, kuris standartiškai skamba kaip 'Programm guide'."
+
+msgid "Replace original schedule"
+msgstr "Pakeičia įprastai naudojamą programą"
+
+msgid "Help$When VDR is patched to allow this plugin to replace the original 'Schedule' entry, you can de/activate this replacement here."
+msgstr "Kai VDR yra įskiepytas kad leistų pakeisti įprastai naudojamą 'Programa' antraštę, šiuo įšrašu galit įjungti/išjungti tokį pakeitimą."
+
+msgid "Start menu"
+msgstr "Pradinis meniu"
+
+msgid "Help$Choose between 'Overview - Now' and 'Schedule' as start menu when this plugin is called."
+msgstr "Pasirinkit tarp 'Kas rodoma dabar' ir 'Programa' kaip pradinę antraštę šio įskiepo paleidimui."
+
+msgid "Ok key"
+msgstr "Ok mygtukas"
+
+msgid ""
+"Help$Choose here the behaviour of key 'Ok'. You can use it to display the summary or to switch to the corresponding channel.\n"
+"Note: the functionality of key 'blue' (Switch/Info/Search) depends on this setting."
+msgstr ""
+"Čia nustatykite 'Ok' mygtuko elgseną. Jūs galite naudoti jį aprašymo parodymui arba esamo kanalo perjungimui.\n"
+"Turėkite omenyje: 'mėlyno' mygtuko funkcionalumas (Perjungimas/Informacija/Paieška) tiesiogiai priklauso nuo šio parametro."
+
+msgid "Red key"
+msgstr "Raudonas mygtukas"
+
+msgid ""
+"Help$Choose which standard function ('Record' or 'Commands') you like to have on the red key.\n"
+"(Can be toggled with key '0')"
+msgstr ""
+"Pasirinkite kokią pagrindinę funkciją ('Įrašinėjimas' ar 'Komandos') turėtų atlikinėti raudonas mygtukas.\n"
+"(Gali būti sukeista naudojant '0' mygtuką)"
+
+msgid "Blue key"
+msgstr "Mėlynas mygtukas"
+
+msgid ""
+"Help$Choose which standard function ('Switch'/'Info' or 'Search') you like to have on the blue key.\n"
+"(Can be toggled with key '0')"
+msgstr ""
+"Pasirinkite kokią pagrindinę funkciją ('Perjungimas/Informacija' ar 'Paieška') turėtų atlikinėti mėlynas mygtukas.\n"
+"(Pakeiskit spausdami '0')"
+
+msgid "Show progress in 'Now'"
+msgstr "Rodyti praeitą laiką nuo einamos programos pradžios arba kitaip progresą 'Dabar' skiltyje"
+
+msgid "Help$Shows a progressbar in 'Overview - Now' that informs about the remaining time of the current event."
+msgstr "Rodo progreso juostą 'Kas rodoma dabar' dalyje, kas suteikia daugiau informacijos apie tai kiek laiko laida dar tęsis."
+
+msgid "Show channel numbers"
+msgstr "Rodyti kanalų numerius"
+
+msgid ""
+"Help$Display channel numbers in 'Overview - Now'.\n"
+"\n"
+"(To completely define your own menu look please inspect the MANUAL)"
+msgstr ""
+"Rodyti kanalų numerius 'Kas rodoma dabar' dalyje.\n"
+"\n"
+"(Kad visiškai pakeistumėt savo meniu išvaizdą, skaitykit manualą)"
+
+msgid "Show channel separators"
+msgstr "Rodyti kanalų skirtukus"
+
+msgid "Help$Display VDR channel groups as separators between your channels in 'Overview - Now'."
+msgstr "Rodyti VDR kanalų grupes kaip skirtukus tarp kanalų 'Kas rodoma dabar' dalyje."
+
+msgid "Show day separators"
+msgstr "Rodyti dienų skirtukus"
+
+msgid "Help$Display a separator line at day break in 'Schedule'."
+msgstr "Rodyti skiriamąją liniją tarp dienų 'Programa' dalyje."
+
+msgid "Show radio channels"
+msgstr "Rodyti radijo kanalus"
+
+msgid "Help$Show also radio channels."
+msgstr "Taip pat rodyti radijo kanalus."
+
+msgid "Limit channels from 1 to"
+msgstr "Riboti kanalus nuo ą iki"
+
+msgid "Help$If you have a large channel set you can speed up things when you limit the displayed channels with this setting. Use '0' to disable the limit."
+msgstr "Jei turite didelį skaičių kanalų ir norite pagreitinti sistemos darbą, tada reikėtų riboti rodomų kanalų skaičių. Spauskit '0' mygtuką kad athungtumėt šį parametrą."
+
+msgid "'One press' timer creation"
+msgstr "'Vienu paspaudimu' laikmačio sukūrimas"
+
+msgid "Help$When a timer is created with 'Record' you can choose between an immediate creation of the timer or the display of the timer edit menu."
+msgstr "Kai laikmatis sukuriamas iš 'Įrašyti' dalies, galima pasirinkti tarp greito laikmačio sukūrimo arba sukūrimo pasirinkimo per laikmačio meniu."
+
+msgid "Show channels without EPG"
+msgstr "Rodyti kanalus be EPG"
+
+msgid "Help$Choose 'yes' here if you want to display channels without EPG in 'Overview - Now'. 'Ok' on these entries switches the channel."
+msgstr "Čia pasirinkit 'taip' jei norite rodyti kanalus be EPG 'Kas rodoma dabar' dalyje. Spustelėjus 'Ok' ant įrašų perjungs kanalą."
+
+msgid "Time interval for FRew/FFwd [min]"
+msgstr "Laiko intervalas FRew/FFwd [min]"
+
+msgid ""
+"Help$Choose here the time interval which should be used for jumping through the EPG by pressing FRew/FFwd.\n"
+"\n"
+"(If you don't have those keys, you can toggle to this functionality pressing '0' and get '<<' and '>>' on the keys green and yellow)"
+msgstr ""
+"Čia pasirinkite laiko intervalą kuris bus naudojamas peršokant per EPG įrašus, spaudžiant FRew/FFwd mygtukus.\n"
+"\n"
+"\n"
+"(Jei tokių mygtukų jūsū distancinio valdymo pultas neturi, galite keisti parametro vertes paspaudę '0' bei spustelėję ant pasirodžiusių '<<' bei '>>' su žaliu bei geltonu mygtukais)"
+
+msgid "Toggle Green/Yellow"
+msgstr "Sukeisti Žalią/Geltoną"
+
+msgid "Help$Specify if green and yellow shall also be switched when pressing '0'."
+msgstr "Norodyti ar žalias ir geltonas taip pat turėtų būti sukeičiami vietomis paspaudus '0'."
+
+msgid "Show favorites menu"
+msgstr "Rodyti mėgstamiausių meniu"
+
+msgid ""
+"Help$A favorites menu can display a list of your favorite broadcasts. Enable this if you want an additional menu besides 'Now' and 'Next'\n"
+"Any search can be used as a favorite. You only have to set the option 'Use in favorites menu' when editing a search."
+msgstr ""
+"Mėgstamiasių meniu gali rodyti jūsų mėgstamiasių transliacijų sąrašą. Įgalinkit šią funkciją, jei norite papildomų meniu punktų be 'Dabar' ir 'Sekantis'\n"
+"Bet kokia vykdyta paieška gali būti panaudota kaip dalis mėgstamiasių sąraše. Tiesiog koreguodami paieškos užklausą turite įgalinti 'Naudokit mėgstamiausiųjų meniu' parametrą."
+
+msgid "for the next ... hours"
+msgstr "sekančiom ... valandom"
+
+msgid "Help$This value controls the timespan used to display your favorites."
+msgstr "Šis parametras nustato laiko "
+
+msgid "Use user-defined time"
+msgstr "Vartotojo nustatytas laikas"
+
+msgid "Help$Besides 'Now' and 'Next' you can specify up to 4 other times in the EPG which can be used by repeatedly pressing the green key, e.g. 'prime time', 'late night',..."
+msgstr "Be 'Dabar' bei 'Sekantis' mygtukų, EPG dar galite nurodyti iki keturių kitų laikų, kurie gali būti naudojami spaudinėjant žalią mygtuką."
+
+msgid "Description"
+msgstr "Aprašymas"
+
+msgid "Help$This is the description for your user-defined time as it will appear as label on the green button."
+msgstr "Tai vartotojo sukurto laiko aprašymas, kuris matysis kaip pavadinimas ant žalio mygtuko."
+
+msgid "Time"
+msgstr "Laikas"
+
+msgid "Help$Specify the user-defined time here in 'HH:MM'."
+msgstr "Nurodykit laiką šitokiu formatu 'HH:MM'."
+
+msgid "Use VDR's timer edit menu"
+msgstr "Naudoti VDR'o laikmačio meniu"
+
+msgid ""
+"Help$This plugin has its own timer edit menu extending the original one with some extra functionality like\n"
+"- an additional directory entry\n"
+"- user-defined days of week for repeating timers\n"
+"- adding an episode name\n"
+"- support for EPG variables (see MANUAL)"
+msgstr ""
+"Šis įskiepas turi savo laikmačio meniu, išplečiantį orginalų meniu papildomom funkcijom, tokiom kaip\n"
+"\n"
+"- papildomo katalogo įvestis\n"
+"- vartotojo užsiduotos savaitės dienos, laikmačių pakartojimams\n"
+"- laidos serijos pavadinimo uždėjimo galimybė\n"
+"- EPG kintamųjų palaikymas (daugiau informacijos Manuale)"
+
+msgid "Default recording dir"
+msgstr "Numatytasis įrašų katalogas"
+
+msgid "Help$When creating a timer you can specify here a default recording directory."
+msgstr "Kuriant laikmatį, čia galima nurodyti numatytąjį katalogą įrašams."
+
+msgid "Add episode to manual timers"
+msgstr "Pridėti epizodą nustatytasiems laikmačiams"
+
+msgid ""
+"Help$If you create a timer for a series, you can automatically add the episode name.\n"
+"\n"
+"- never: no addition\n"
+"- always: always add episode name if present\n"
+"- smart: add only if event lasts less than 80 mins."
+msgstr ""
+"Jei kuriate laikmatį serijalui, galite tuo pačiu pridėti tos serijos pavadinimą.\n"
+"\n"
+"- niekada: nereikia pridėti\n"
+"- visada: visada pridėti serijos pavadinimą, jei toks yra\n"
+"- protingai: pridėti tik tada kai laida tęsiasi mažiau nei 80 minučių."
+
+msgid "Default timer check method"
+msgstr "Numatytasis būdas laikmačio patikrai"
+
+msgid ""
+"Help$Manual timers can be checked for EPG changes. Here you can setup the default check method for each channel. Choose between\n"
+"\n"
+"- no checking\n"
+"- by event ID: checks by an event ID supplied by the channel provider.\n"
+"- by channel and time: check by the duration match."
+msgstr ""
+"Rankiniu būdu nustatyti laikmačiai gali būti pertikrinami ar nebuvo EPG pasikeitimų. Čia kiekvienam kanalui galite nustatyti numatytąjį patikros būdą. Pasirinkite iš\n"
+"\n"
+"- netikrinti\n"
+"- pagal laidos id: tikrina pagal laidos id, kurį pateikia kanalo operatorius.\n"
+"- pagal kanalą ir laiką: tikrina ar sutampa trukmė."
+
+msgid "Button$Setup"
+msgstr "Nustatymai"
+
+msgid "Use search timers"
+msgstr "Naudoti paieškos laikmačius"
+
+msgid "Help$'Search timers' can be used to automatically create timers for events that match your search criterions."
+msgstr "'Paieškos laikmačiai' gali būti naudojami automatiškam laidų, kurios atitiko paieškos kriterijus, laikmačių sukūrimui."
+
+msgid "  Update interval [min]"
+msgstr "  Atnaujinimų intervalas [min]"
+
+msgid "Help$Specify here the time intervall to be used when searching for events in the background."
+msgstr "Čia nurodyti laiko intervalą tarp vykdomos laidų pasikeitimų paieškos."
+
+msgid "  SVDRP port"
+msgstr "  SVDRP portas"
+
+msgid "Help$Programming of new timers or timer changes is done with SVDRP. The default value should be correct, so change it only if you know what you are doing."
+msgstr "Naujų laikmačių kūrimas bei laikmačių pasikeitimai į sistemą įrašomi naudojant SVDRP servisą. Numatytoji reikšmė daugumoj atvejų turėtų tikti, taigi keiskite šį parametrą tik tada kai suprantate ką darote."
+
+msgid "Help$Specify here the default priority of timers created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Čia nurodyti šiuo įskiepu sukurtą numatytąjį laikmačių eiliškumą. Šis parametras taip pat gali būti nustatytas kiekvienai paieškai atskirai."
+
+msgid "Help$Specify here the default lifetime of timers/recordings created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Čia nurodyti šiuo įskiepu sukurtą numatytąjį laikmačio/įrašo galiojimo laiką. Šis parametras taip pat gali būti nustatytas kiekvienai paieškai atskirai."
+
+msgid "Help$Specify here the default start recording margin of timers/recordings created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Čia nurodyti šiuo įskiepu sukurtą numatytąjį laikmačio/įrašo pradžios uždelsimo laiką nuo įrašymo pradžios. Šis parametras taip pat gali būti nustatytas kiekvienai paieškai atskirai."
+
+msgid "Help$Specify here the default stop recording margin of timers/recordings created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Čia nurodyti šiuo įskiepu sukurtą numatytąjį laikmačio/įrašo pabaigos uždelsimo laiką po įrašymo pabaigos. Šis parametras taip pat gali būti nustatytas kiekvienai paieškai atskirai."
+
+msgid "No announcements when replaying"
+msgstr "Nerodyti pranšimų pakartojimo metu"
+
+msgid "Help$Set this to 'yes' if you don't like to get any announcements of broadcasts if you currently replay anything."
+msgstr "Nustatykite 'taip' jei nenorite gauti jokių transliuotojo pranešimų, tuo atveju jei šiuo metu žiūrite pakartojimą."
+
+msgid "Recreate timers after deletion"
+msgstr "Atkurti laikmačius po ištrynimo"
+
+msgid "Help$Set this to 'yes' if you want timers to be recreated with the next search timer update after deleting them."
+msgstr "Nustatykite 'taip' jei norite kad laikmačiai galėtų būti atkurti po ištrynimo dar kartą panaudojus laikmačio paiešką."
+
+msgid "Check if EPG exists for ... [h]"
+msgstr ""
+
+#, fuzzy
+msgid "Help$Specify how many hours of future EPG there should be and get warned else after a search timer update."
+msgstr "Nustatyti 'taip' jei konflikto paieška turėtų būti vykdoma po kiekvieno paieškos laikmačio atnaujinimo."
+
+#, fuzzy
+msgid "Warn by OSD"
+msgstr "Perspėti per ekrano užsklandą"
+
+#, fuzzy
+msgid "Help$Set this to 'yes' if you want get warnings from the EPG check via OSD."
+msgstr "Nustatyti 'taip' jei norite gauti pranešimus el. paštu apie laikmačio konfliktus."
+
+#, fuzzy
+msgid "Warn by mail"
+msgstr "Perspėti per emailą"
+
+#, fuzzy
+msgid "Help$Set this to 'yes' if you want get warnings from the EPG check by mail."
+msgstr "Nustatyti 'taip' jei el.pašto siuntimui reikia autentifikacijos."
+
+#, fuzzy
+msgid "Channel group to check"
+msgstr "Kanalo grupė"
+
+#, fuzzy
+msgid "Help$Specify the channel group to check."
+msgstr "Nurodyti šablono pavadinimą."
+
+msgid "Ignore PayTV channels"
+msgstr "Ignoruoti Mokamus kanalus"
+
+msgid "Help$Set this to 'yes' if don't want to see events on PayTV channels when searching for repeats."
+msgstr "Nustatykite 'taip' jei nenorite matyti mokamų kanalų laidų kai ieškote pakartojimų."
+
+msgid "Search templates"
+msgstr "Paieškos šablonai"
+
+msgid "Help$Here you can setup templates for your searches."
+msgstr "Čia galite nustatyti paieškos šablonus savo paieškoms."
+
+msgid "Blacklists"
+msgstr "Juodieji sąrašai"
+
+msgid "Help$Here you can setup blacklists which can be used within a search to exclude events you don't like."
+msgstr "Čia galite nustatyti juoduosius sąrašus, kad poto neroddyti laidų kurios jums nepatinka."
+
+msgid "Help$Here you can setup channel groups which can be used within a search. These are different to VDR channel groups and represent a set of arbitrary channels, e.g. 'FreeTV'."
+msgstr "Čia galite nuststyti kanalo grupes, kurios gali būti naudojamos paieškos metu. Jos skiriasi nuo VDR kanalų grupių."
+
+msgid "Ignore below priority"
+msgstr "Ignoruoti žemesnį prioritetą"
+
+msgid "Help$If a timer with priority below the given value will fail it will not be classified as important. Only important conflicts will produce an OSD message about the conflict after an automatic conflict check."
+msgstr "Jei 'nusimuš' laikmatis, kurio prioritetas žemesnis nei duotoji reikšmė, tai nebus laikoma kaip svarbus faktas. Po automatinės konfliktų paieškos, informacija ekrane pateikiama tik apie svarbius konflikatus."
+
+msgid "Ignore conflict duration less ... min."
+msgstr "Ignoruoti konfliktiškus laidų įrašus, kurių trukmė mažesnė nei ... min."
+
+msgid "Help$If a conflicts duration is less then the given number of minutes it will not be classified as important. Only important conflicts will produce an OSD message about the conflict after an automatic conflict check."
+msgstr "Jei konflikto trukmė bus mažesnė nei duotas minučių skaičius, tai nebus laikoma kaip svarbus faktas. Po automatinės konfliktų paieškos, informacija ekrane pateikiama tik apie svarbius konflikatus."
+
+msgid "Only check within next ... days"
+msgstr "Tikrinti tik kas ... dienas"
+
+msgid "Help$This value reduces the conflict check to the given range of days. All other conflicts are classified as 'not yet important'."
+msgstr "pagal šį parametrą Nustatomas konflikto paieškos periodiškumas dienomis. Visi kiti konfliktai laikomi kaip 'dar ne svarbūs'."
+
+msgid "Check also remote conflicts"
+msgstr ""
+
+msgid "Help$Set this to 'yes' if the conflict check should be done for timers set on remote hosts. This needs SVDRPPeering to be set in vdr and Plugin epgsearch running on the remote host."
+msgstr ""
+
+msgid "--- Automatic checking ---"
+msgstr "--- Automatinė paieška ---"
+
+msgid "After each timer programming"
+msgstr "Po kiekvieno laikmačio nustatymo"
+
+msgid "Help$Set this to 'yes' if the conflict check should be performed after each manual timer programming. In the case of a conflict you get immediately a message that informs you about it. The message is only displayed if this timer is involved in any conflict."
+msgstr "Nustatyti 'taip', jei konflikto paieška turėtų būti atliekama po kiekvieno rankiniu būdu atlikto laikmačio nustatymo. Jei konfliktas aptiktas, jums apie tai ekrane išvedama žinutė. Žinutė rodoma jei laikmatis sukuria kažkokį konfliktą."
+
+msgid "When a recording starts"
+msgstr "Kai įrašas prasideda"
+
+msgid "Help$Set this to 'yes' if the conflict check should be performed when a recording starts. In the case of a conflict you get immediately a message that informs you about it. The message is only displayed if the conflict is within the next 2 hours."
+msgstr "Nustatyti 'taip' jei konfliktų paieška turėtų būti atliekama kai įrašymas prasideda. Jei konfliktas aptiktas, jums apie tai ekrane išvedama žinutė. Žinutė rodoma jei konfliktas vyksta vyksta per artimiausias vdi valandas."
+
+msgid "After each search timer update"
+msgstr "Po kiekvieno paieškos laikmačio atnaujinimo"
+
+msgid "Help$Set this to 'yes' if the conflict check should be performed after each search timer update."
+msgstr "Nustatyti 'taip' jei konflikto paieška turėtų būti vykdoma po kiekvieno paieškos laikmačio atnaujinimo."
+
+msgid "every ... minutes"
+msgstr "kas ... minutes"
+
+msgid ""
+"Help$Specify here the time intervall to be used for an automatic conflict check in the background.\n"
+"('0' disables an automatic check)"
+msgstr ""
+"Čia nurodyti automatinių konfliktų paieškų laiko inetrvalą\n"
+"('0' išjungia automatinę patikrą)"
+
+msgid "if conflicts within next ... minutes"
+msgstr "jei konfliktai kyla per ... minutes"
+
+msgid "Help$If the next conflict will appear in the given number of minutes you can specify here a shorter check intervall to get more OSD notifications about it."
+msgstr "Jei sekantis konfliktas įvyks per duotą minučių skaičių ir norite daugiau informacijos ekrane apie tai, galite nurodyti trumpesnį patikros intervalą."
+
+msgid "Avoid notification when replaying"
+msgstr "Nerodyti perspėjimų kai kartojama"
+
+msgid "Help$Set this to 'yes' if the don't want to get OSD messages about conflicts if you currently replay something. Nevertheless messages will be displayed if the first upcoming conflict is within the next 2 hours."
+msgstr "Nustatyti 'taip' jei nenorite matyti žinučių ekrane apie konflikus, kai žiūrite pakartojimą. Kitu atveju žinutės bus rodomos jei konfliktas vyksta vyksta per artimiausias vdi valandas"
+
+msgid "Search timer notification"
+msgstr "Paieškos laikmačio perspėjimai"
+
+msgid "Help$Set this to 'yes' if you want to get an email notification about the search timers that where programmed automatically in the background."
+msgstr "Nustatyti 'taip' jei norite perspėjimą apie paieškos laikmačius gauti el. paštu"
+
+msgid "Time between mails [h]"
+msgstr "Laikas tarp el. laiškų išsiuntimų [h]"
+
+msgid ""
+"Help$Specifiy how much time in [h] you would\n"
+"like to have atleast between two mails.\n"
+"With '0' you get a new mail after each\n"
+"search timer update with new results."
+msgstr ""
+"Nurodykit kiek laiko [h]\n"
+"turėtų minimaliai praeiti tarp dviejų el. laiškų siuntimų.\n"
+"Su '0' mygtuko nuspaudimu gausit el. paštą po kiekvieno\n"
+"paieškos laikmačio atsinaujinimo naujais rezultatais."
+
+msgid "Timer conflict notification"
+msgstr "Laikmačio konflikto perspėjimas"
+
+msgid "Help$Set this to 'yes' if you want to get an email notification about the timer conflicts."
+msgstr "Nustatyti 'taip' jei norite gauti pranešimus el. paštu apie laikmačio konfliktus."
+
+msgid "Send to"
+msgstr "Siūsti"
+
+msgid "Help$Specify the email address where notifications should be sent to."
+msgstr "Nurodykite el. pašto adresą kuriuo turėtų būti siunčiami perspėjimai."
+
+msgid "Mail method"
+msgstr "El. paštas"
+
+msgid ""
+"Help$Specify here the method to use when sending mails.\n"
+"You can choose between\n"
+" - 'sendmail': requires a properly configured email system\n"
+" - 'SendEmail.pl': simple script for mail delivery"
+msgstr ""
+"Čia nustatykite el. pašto siuntimo būdą\n"
+" - 'sendmail': reikia tinkamai sukonfigūruoti el. pašto sistemą\n"
+" - 'SendEmail.pl': paprastas pašto siuntimo skriptas"
+
+msgid "--- Email account ---"
+msgstr "--- El. pašto sąskaita ---"
+
+msgid "Email address"
+msgstr "El. pašto adresas"
+
+msgid "Help$Specify the email address where notifications should be sent from."
+msgstr "Nurodyti el. pašto adresą iš kurio turėtų būti siunčiami pranešimai."
+
+msgid "SMTP server"
+msgstr "SMTP serveris"
+
+msgid "Help$Specify the SMTP server that should deliver the notifications. If it's using a port different from the default(25) append the port with \":port\"."
+msgstr "\":port\" ."
+
+msgid "Use SMTP authentication"
+msgstr "Naudoti SMTP autentifikaciją"
+
+msgid "Help$Set this to 'yes' if your account needs authentication to send mails."
+msgstr "Nustatyti 'taip' jei el.pašto siuntimui reikia autentifikacijos."
+
+msgid "Auth user"
+msgstr "Vartotojo vardas"
+
+msgid "Help$Specify the auth user, if this account needs authentication for SMTP."
+msgstr "Nurodykit vartotojo vardą, jei reikalinga SMTP autentifikacija."
+
+msgid "Auth password"
+msgstr "Slapyvardis"
+
+msgid "Help$Specify the auth password, if this account needs authentication for SMTP."
+msgstr "Nurodyki slapyvardį, jei reikalinga SMTP autentifikacija."
+
+msgid "Mail account check failed!"
+msgstr "Pašto prisijungimo patikra!"
+
+msgid "Button$Test"
+msgstr "Testas"
+
+msgid "$ abcdefghijklmnopqrstuvwxyz0123456789-.,#~\\^$[]|()*+?{}/:%@&_"
+msgstr " aąbcčdeęėfghiįjklmnopqrsštuųūvzž0123456789-.,#~\\^$[]|()*+?{}/:%@&_"
+
+msgid "Start/Stop time has changed"
+msgstr "Pasikeitė pradžios/pabaigos laikas"
+
+msgid "Title/episode has changed"
+msgstr "Pasikeitė pavadinimas/epizodas"
+
+msgid "No new timers were added."
+msgstr "Nepridėtas nė vienas laikmatis."
+
+msgid "No timers were modified."
+msgstr "Nė vienas laikmatis nebuvo pakeistas."
+
+msgid "No timers were deleted."
+msgstr "Nė vienas laikmatis nebuvo ištrintas."
+
+msgid "No new events to announce."
+msgstr "Nėra apie ką trimituoti."
+
+msgid "This version of EPGSearch does not support this service!"
+msgstr "Ši EPGSarch įskiepo versija nepalaiko šios funkcijos!"
+
+msgid "EPGSearch does not exist!"
+msgstr "Nerastas EPGSerach įskiepas!"
+
+#, c-format
+msgid "%d new broadcast"
+msgstr "%d naujas(-i) transliuotojas(-ai)"
+
+msgid "Button$by channel"
+msgstr "pagal kanalą"
+
+msgid "Button$by time"
+msgstr "pagal laiką"
+
+msgid "Button$Episode"
+msgstr "Epizodas"
+
+msgid "Button$Title"
+msgstr "Pavadinimas"
+
+msgid "announce details"
+msgstr "pranešimo detalės"
+
+msgid "announce again"
+msgstr "pranešti dar kartą"
+
+msgid "with next update"
+msgstr "su sekančiu atnaujinimu"
+
+msgid "again from"
+msgstr "dar kartą iš"
+
+msgid "Search timer"
+msgstr "Paieškos laikmatis"
+
+msgid "Edit blacklist"
+msgstr "Koreguoti juoduosius sąrašus"
+
+msgid "phrase"
+msgstr "frazė"
+
+msgid "all words"
+msgstr "visi žodžiai"
+
+msgid "at least one word"
+msgstr "bent vienas žodis"
+
+msgid "match exactly"
+msgstr "tikslus atitikmuo"
+
+msgid "regular expression"
+msgstr "reguliari išraiška"
+
+msgid "fuzzy"
+msgstr "neapibrėžtai"
+
+msgid "user-defined"
+msgstr "vartotojo numastatytas"
+
+msgid "interval"
+msgstr "intervalas"
+
+msgid "channel group"
+msgstr "kanalo grupė"
+
+msgid "only FTA"
+msgstr "tik nekoduoti"
+
+msgid "Search term"
+msgstr "Paiškos frazė"
+
+msgid "Search mode"
+msgstr "Paieškos būdas"
+
+msgid "Tolerance"
+msgstr "Tolerancija"
+
+msgid "Match case"
+msgstr "Atitikti"
+
+msgid "Use title"
+msgstr "Rodyti pavadinimą"
+
+msgid "Use subtitle"
+msgstr "Rodyti aprašą"
+
+msgid "Use description"
+msgstr "Rodyti aprašymą"
+
+msgid "Use extended EPG info"
+msgstr "Rodyti EPG informaciją"
+
+msgid "Ignore missing categories"
+msgstr "Ignoruoti trūkstamas kategorijas"
+
+msgid "Use channel"
+msgstr "Naudoti kanalą"
+
+msgid "  from channel"
+msgstr "  nuo kanalo"
+
+msgid "  to channel"
+msgstr "  iki kanalo"
+
+msgid "Channel group"
+msgstr "Kanalo grupė"
+
+msgid "Use time"
+msgstr "Naudoti laiką"
+
+msgid "  Start after"
+msgstr "  pradėti po"
+
+msgid "  Start before"
+msgstr "  pradėti prieš"
+
+msgid "Use duration"
+msgstr "Naudoti trukmę"
+
+msgid "  Min. duration"
+msgstr "  Min. trukmė"
+
+msgid "  Max. duration"
+msgstr "  Maks. trukmė"
+
+msgid "Use day of week"
+msgstr "Naudoti savaitės dieną"
+
+msgid "Day of week"
+msgstr "Savaitės diena"
+
+msgid "Use global"
+msgstr ""
+
+msgid "Button$Templates"
+msgstr "Šablonai"
+
+msgid "*** Invalid Channel ***"
+msgstr "*** Klaidingas kanalas ***"
+
+msgid "Please check channel criteria!"
+msgstr "Patikrinkit kanalo kriterijų!"
+
+msgid "Edit$Delete blacklist?"
+msgstr "Ištrinti juodajį sąrašą?"
+
+msgid "Repeats"
+msgstr "Pakartojimai"
+
+msgid "Create search"
+msgstr "Sukurti paiešką"
+
+msgid "Search in recordings"
+msgstr "Paieška įrašuose"
+
+msgid "Mark as 'already recorded'?"
+msgstr "Pažymėti kaip 'jau įrašyta'?"
+
+msgid "Add/Remove to/from switch list?"
+msgstr "Įtraukti/Išimti į/iš perjungimo sąrašo?"
+
+msgid "Create blacklist"
+msgstr "Sukurti juodajį sąrašą"
+
+msgid "EPG Commands"
+msgstr "EPG komandos"
+
+msgid "Epgsearch: RemoteTimerModifications failed"
+msgstr ""
+
+msgid "Already running!"
+msgstr "Jau groja!"
+
+msgid "Add to switch list?"
+msgstr "Įtraukti į perjungimo sąrašą?"
+
+msgid "Delete from switch list?"
+msgstr "Ištrinti iš perjungimo sąrašo?"
+
+msgid "Button$Details"
+msgstr "Detalės"
+
+msgid "Button$Filter"
+msgstr "Filtras"
+
+msgid "Button$Show all"
+msgstr "Rodyti visus"
+
+msgid "conflicts"
+msgstr "konfliktai"
+
+msgid "no conflicts!"
+msgstr "nėra konfliktų!"
+
+msgid "no important conflicts!"
+msgstr "nėra svarbių konfliktų!"
+
+msgid "C"
+msgstr "K"
+
+msgid "Button$Repeats"
+msgstr "Pakartojimai"
+
+msgid "no check"
+msgstr "netikrinti"
+
+msgid "by channel and time"
+msgstr "pagal kanalą ir laiką"
+
+msgid "by event ID"
+msgstr "pagal įvykio ID"
+
+msgid "Select directory"
+msgstr "Pasirinkti katalogą"
+
+msgid "Button$Level"
+msgstr "Lygis"
+
+msgid "Event"
+msgstr "Įvykis"
+
+msgid "Favorites"
+msgstr "Mėgstamiausi"
+
+msgid "Search results"
+msgstr "Rezultatų paieška"
+
+msgid "Timer conflict! Show?"
+msgstr "Laikmačio konflikas! Rodyti?"
+
+msgid "Directory"
+msgstr "Katalogas"
+
+msgid "Channel"
+msgstr "Kanalas"
+
+msgid "Childlock"
+msgstr "Paveldėtojo užraktas"
+
+msgid "Record on"
+msgstr ""
+
+msgid "Timer check"
+msgstr "Laikmačio patikra"
+
+msgid "recording with device"
+msgstr "įrašinėjimas su įrenginiu"
+
+msgid "Button$With subtitle"
+msgstr "Su subtitrais"
+
+msgid "Button$Without subtitle"
+msgstr "Be subtitrų"
+
+msgid "Timer has been deleted"
+msgstr ""
+
+msgid "Button$Extended"
+msgstr "Išplėstas"
+
+msgid "Button$Simple"
+msgstr "Paprastas"
+
+msgid "Use blacklists"
+msgstr "Naudoti juoduosius sąrašus"
+
+msgid "Edit$Search text too short - use anyway?"
+msgstr "Ieškomas tekstas per trumpas - vistiek naudoti?"
+
+#, fuzzy
+msgid "Button$Orphaned"
+msgstr "pagal kanalą"
+
+msgid "Button$by name"
+msgstr "pagal pavadinimą"
+
+msgid "Button$by date"
+msgstr "pagal datą"
+
+msgid "Button$Delete all"
+msgstr "Trinti visus"
+
+msgid "Recordings"
+msgstr "Įrašai"
+
+msgid "Edit$Delete entry?"
+msgstr "Ištrinti įrašą?"
+
+msgid "Edit$Delete all entries?"
+msgstr "Ištrinti visus įrašus?"
+
+msgid "Summary"
+msgstr "Santrauka"
+
+msgid "Auxiliary info"
+msgstr "Papildoma informacija"
+
+msgid "Button$Aux info"
+msgstr "Pap. informacija"
+
+msgid "Search actions"
+msgstr "Veiksmų paieška"
+
+msgid "Execute search"
+msgstr "Įvykdyti paiešką"
+
+msgid "Use as search timer on/off"
+msgstr "Naudoti paieškos laikmačio įjungimui/išjungimui"
+
+msgid "Trigger search timer update"
+msgstr "Įjungti paieškos laikmačio atnaujinimą"
+
+msgid "Show recordings done"
+msgstr "Rodyti padarytus įrašus"
+
+msgid "Show timers created"
+msgstr "Rodyti sukurtus laikmačius"
+
+msgid "Create a copy"
+msgstr "Sukurti kopiją"
+
+msgid "Use as template"
+msgstr "Naudoti šabloną"
+
+msgid "Show switch list"
+msgstr "Rodyti perjungimo sąrašus"
+
+msgid "Show blacklists"
+msgstr "Rodyti juoduosius sąrašus"
+
+msgid "Delete created timers?"
+msgstr "Ištrinti sukurtus laikmačius?"
+
+msgid "Timer conflict check"
+msgstr "Laikmačio konflikto paieška"
+
+msgid "Disable associated timers too?"
+msgstr "Taip pat atjungti ir susijusius laikmačius?"
+
+msgid "Activate associated timers too?"
+msgstr "Taip pat aktyvuoti ir susijusius laikmačius?"
+
+msgid "Search timers activated in setup."
+msgstr "Paieškos laikmačiai aktyvuoti."
+
+msgid "Run search timer update?"
+msgstr "Paleisti paieškos laikmačio atnaujinimą?"
+
+msgid "Copy this entry?"
+msgstr "Kopijuoti šią įvestį?"
+
+msgid "Copy"
+msgstr "Kopijuoti"
+
+msgid "Copy this entry to templates?"
+msgstr "Koreguoti šią įvestį į šabloną?"
+
+msgid "Delete all timers created from this search?"
+msgstr "Ištrinti visus šios paieškos sukurtus laikmačius?"
+
+msgid "Button$Actions"
+msgstr "Veiksmai"
+
+msgid "Search entries"
+msgstr "Įrašų paieška"
+
+msgid "active"
+msgstr "aktyvus"
+
+msgid "Edit$Delete search?"
+msgstr "Ištrinti paiešką?"
+
+msgid "Edit search"
+msgstr "Koreguoti paiešką"
+
+msgid "Record"
+msgstr "Įrašyti"
+
+msgid "Announce by OSD"
+msgstr "Perspėti per ekrano užsklandą"
+
+msgid "Switch only"
+msgstr "Tik perjungti"
+
+msgid "Announce and switch"
+msgstr "Perspėti ir perjungti"
+
+msgid "Announce by mail"
+msgstr "Perspėti per emailą"
+
+msgid "Inactive record"
+msgstr ""
+
+msgid "only globals"
+msgstr ""
+
+msgid "Selection"
+msgstr "Pasirinkimas"
+
+msgid "all"
+msgstr "visi"
+
+msgid "count recordings"
+msgstr "skaičiuoti įrašus"
+
+msgid "count days"
+msgstr "skaičiuoti dienas"
+
+msgid "if present"
+msgstr "jei yra"
+
+#, fuzzy
+msgid "same day"
+msgstr "Paskutinė diena"
+
+#, fuzzy
+msgid "same week"
+msgstr "Savaitės diena"
+
+msgid "same month"
+msgstr ""
+
+msgid "Template name"
+msgstr "Šablono pavadinimas"
+
+msgid "Help$Specify the name of the template."
+msgstr "Nurodyti šablono pavadinimą."
+
+msgid "Help$Specify here the term to search for."
+msgstr "Čia nurodykit ko ieškote"
+
+msgid ""
+"Help$The following search modes exist:\n"
+"\n"
+"- phrase: searches for sub terms\n"
+"- all words: all single words must appear\n"
+"- at least one word: at least one single word must appear\n"
+"- match exactly: must match exactly\n"
+"- regular expression: match a regular expression\n"
+"- fuzzy searching: searches approximately"
+msgstr ""
+"Galimi šie paieškos metodai:\n"
+"\n"
+"- pagal frazę\n"
+"- visi žodžiai: visi atskiri žodžiai turi atsispindėti rezultate\n"
+"- bent vienas žodis: turi būti rastas bent vienas žodis\n"
+"- tiksli paieška\n"
+"- reguliarioji išraiška: galima naudoti regexp sintaksę\n"
+"- neapibrėžta paieška: ieško grubiai naudojant žodžių dalis"
+
+msgid "Help$This sets the tolerance of fuzzy searching. The value represents the allowed errors."
+msgstr "Tai duoda neapibrėžtą paiešką. Ši reikšmė nurodo galimų klaidų skaičių."
+
+msgid "Help$Set this to 'Yes' if your search should match the case."
+msgstr "Pasirinkite 'Taip', jei norite kad paieškos užklausoje paisytumėt raidžių registro."
+
+msgid "Help$Set this to 'Yes' if you like to search in the title of an event."
+msgstr "Pasirinkite 'Taip', jei paiešką norite vykdyti įvykio pavadinime."
+
+msgid "Help$Set this to 'Yes' if you like to search in the episode of an event."
+msgstr "Pasirinkite 'Taip', jei paiešką norite vykdyti vienoje iš įvykio serijos dalių."
+
+msgid "Help$Set this to 'Yes' if you like to search in the summary of an event."
+msgstr "Pasirinkti 'Taip' jei norite ieškoti įvykio santraukoje."
+
+#, fuzzy
+msgid "Use content descriptor"
+msgstr "Rodyti aprašymą"
+
+#, fuzzy
+msgid "Help$Set this to 'Yes' if you want to search the contents by a descriptor."
+msgstr "Pasirinkite 'Taip', jei paiešką norite vykdyti įvykio pavadinime."
+
+msgid "Help$The summary of an event, can contain additional information like 'Genre', 'Category', 'Year',... called 'EPG categories' within EPGSearch. External EPG providers often deliver this information. This allows refining a search and other nice things, like searching for the 'tip of the day'. To use it set this to 'Yes'."
+msgstr "Įviokio santrauka gali turėti papildomos informacijos, tokios kaip 'Žanras', 'Kategorija', 'Metai', ... EPGSearch įskiepe vadinamos 'EPG kategorijomis'. Išoriniai EPG tiekėjai dašnai pateikia šitą informaciją. Tai leidžia pagražinti paiešką ir įvesti kitus gražius dalykėlius, tokius kaip 'dienos frazė'. Kad tai panaudotumėt, pasirinkite 'Taip'"
+
+msgid "Help$The file epgsearchcats.conf specifies the search mode for this entry. One can search by text or by value. You can also edit a list of predefined values in this file that can be selected here."
+msgstr "Failas epgsearchcats.conf nusako šio įrašo paieškos būdą, paieška gali būti daroma tiek įvedant tiek pasirenkant reikšmę. Jūs taip pat galite koreguoti jau egzistuojantį reikšmių sąrašą esantį šiame faile."
+
+msgid "Help$If a selected category is not part of the summary of an event this normally excludes this event from the search results. To avoid this, set this option to 'Yes', but please handle this with care to avoid a huge amount of results."
+msgstr "Jei pasirinkta kategorija nėra įvykio santraukos dalis, tai paprastai neįtraukia įvykio į paieškos rezultatus. Kad to išvengtumėte, pasirinkite 'Taip', bet darykite tai apgalvotai, nes kitu atveju galite gauti didžiulį skaičių rezultatų."
+
+msgid "Use in favorites menu"
+msgstr "Naudoti mėgiamiausiųjų sąraše."
+
+msgid "Result menu layout"
+msgstr "Rezultatų meniu išvaizda"
+
+msgid "Use as search timer"
+msgstr "Naudoti kaip paieškos laikmatį"
+
+msgid "Action"
+msgstr "Veiksmas"
+
+msgid "Switch ... minutes before start"
+msgstr "Perjungti likus ... minučių iki pradžios"
+
+msgid "Unmute sound"
+msgstr "Įjungti garsą"
+
+msgid "Ask ... minutes before start"
+msgstr "Klausti ... minučių iki prieš pradžios"
+
+msgid "  Series recording"
+msgstr "  serijų įrašai"
+
+msgid "Delete recordings after ... days"
+msgstr "Ištrinti įrašus po ... dienų"
+
+msgid "Keep ... recordings"
+msgstr "Laikyti ... įrašus"
+
+msgid "Pause when ... recordings exist"
+msgstr "pristapdyti kai pasiekia ... įrašų ribą."
+
+msgid "Avoid repeats"
+msgstr "Išvengti pakartojimų"
+
+msgid "Allowed repeats"
+msgstr "Leisti pakartojimus"
+
+msgid "Only repeats within ... days"
+msgstr "Kartoji tik kas ... dienas"
+
+msgid "Compare title"
+msgstr "Palyginti pavadinimą"
+
+msgid "Compare subtitle"
+msgstr "Palyginti aprašą"
+
+msgid "Compare summary"
+msgstr "Palyginti santrauką"
+
+#, fuzzy
+msgid "Min. match in %"
+msgstr "  Min. trukmė"
+
+#, fuzzy
+msgid "Compare date"
+msgstr "Palyginti pavadinimą"
+
+msgid "Compare categories"
+msgstr "Palyginti kategorijas"
+
+msgid "VPS"
+msgstr "VPS"
+
+msgid "Auto delete"
+msgstr "Ištrunti automatiškai"
+
+msgid "after ... recordings"
+msgstr "po ... įrašų"
+
+msgid "after ... days after first rec."
+msgstr "po ... dienų po įrašymo"
+
+msgid "Edit user-defined days of week"
+msgstr "Koreguoti vartotojo pasirinktas savaitės dienas"
+
+msgid "Compare"
+msgstr "Palyginti"
+
+msgid "Select blacklists"
+msgstr "Pasirinkti juoduosius sąrašus"
+
+msgid "Values for EPG category"
+msgstr "EPG kategorijos vertės"
+
+msgid "Button$Apply"
+msgstr "Patvirtinti"
+
+msgid "less"
+msgstr "mažiau"
+
+msgid "less or equal"
+msgstr "mažiau arba lygu"
+
+msgid "greater"
+msgstr "daugiau"
+
+msgid "greater or equal"
+msgstr "daugiau arba lygu"
+
+msgid "equal"
+msgstr "lygu"
+
+msgid "not equal"
+msgstr "nelygu"
+
+msgid "Activation of search timer"
+msgstr "Paieškos laikmačio aktyvavimas"
+
+msgid "First day"
+msgstr "Pirma diena"
+
+msgid "Last day"
+msgstr "Paskutinė diena"
+
+msgid "Button$all channels"
+msgstr "visi kanalai"
+
+msgid "Button$only FTA"
+msgstr "tik nekoduoti"
+
+msgid "Button$Timer preview"
+msgstr "Laikmačio peržiūra."
+
+msgid "Blacklist results"
+msgstr "Rezultatai iš juodųjų sąrašų"
+
+msgid "found recordings"
+msgstr "rasti įrašai"
+
+msgid "Error while accessing recording!"
+msgstr "Klaida bandant paleisti įrašą!"
+
+msgid "Button$Default"
+msgstr "Numatytasis"
+
+msgid "Edit$Delete template?"
+msgstr "Ištrinti šabloną?"
+
+msgid "Overwrite existing entries?"
+msgstr "Perrašyti esamus įrašus?"
+
+msgid "Edit entry"
+msgstr "Koreguoti įrašą"
+
+msgid "Switch"
+msgstr "Pereiti"
+
+msgid "Announce only"
+msgstr "Tik pranešti"
+
+msgid "Announce ... minutes before start"
+msgstr "Pranešti ... minučių prieš prasidedant"
+
+msgid "action at"
+msgstr "veiksmas"
+
+msgid "Switch list"
+msgstr "Sukeisti sąrašus"
+
+msgid "Edit template"
+msgstr "Koreguoti šabloną"
+
+msgid "Timers"
+msgstr "Laikmačiai"
+
+msgid ">>> no info! <<<"
+msgstr ">>> nėra informacijos! <<<"
+
+msgid "Overview"
+msgstr "Peržūra"
+
+msgid "Button$Favorites"
+msgstr "Mėgiamiausi"
+
+msgid "Quick search for broadcasts"
+msgstr "Greita transliacijų paieška"
+
+msgid "Quick search"
+msgstr "Greita paieška"
+
+msgid "Show in main menu"
+msgstr "Rodyti pagriundiniame meniu"
+
+#, c-format
+msgid "%d new broadcast(s) found! Show them?"
+msgstr "Rasta %d naujas(ų) transliuotojas(ų)! Parodyti juos?"
+
+msgid "Search timer update done!"
+msgstr "Laikmačio atnaujinimo paieška baigta sėkmingai!"
+
+#, c-format
+msgid "small EPG content on:%s"
+msgstr ""
+
+msgid "VDR EPG check warning"
+msgstr ""
+
+#, c-format
+msgid "Switch to (%d) '%s'?"
+msgstr "Pereiti į (%d) '%s'?"
+
+msgid "Programming timer failed!"
+msgstr "Nustatyti laikmačio nepavyko!"
+
+#~ msgid "in %02ldd"
+#~ msgstr "per %02ldd"
+
+#~ msgid "in %02ldh"
+#~ msgstr "per %02ldh"
+
+#~ msgid "in %02ldm"
+#~ msgstr "per %02ldm"
+
+#, fuzzy
+#~ msgid "Compare expression"
+#~ msgstr "reguliari išraiška"

@@ -1,0 +1,45 @@
+# game.libretro.yabause language file
+# Addon Name: game.libretro.yabause
+# Addon id: game.libretro.yabause
+# Addon Provider: libretro
+msgid ""
+msgstr ""
+"Project-Id-Version: game.libretro.yabause\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2017-02-04 09:56i\n"
+"PO-Revision-Date: 2017-02-04 09:56i\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Addon Cartridge"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Force HLE BIOS"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Frameskip"
+msgstr ""
+
+msgctxt "#30004"
+msgid "6Player Adaptor on Port 1"
+msgstr ""
+
+msgctxt "#30005"
+msgid "6Player Adaptor on Port 2"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Number of Threads"
+msgstr ""

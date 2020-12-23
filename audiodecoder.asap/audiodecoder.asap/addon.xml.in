@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="audiodecoder.asap"
+  version="3.0.1"
+  name="ASAP Audio Decoder"
+  provider-name="spiff">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="kodi.audiodecoder"
+    name="asap"
+    tags="true"
+    tracks="true"
+    extension=".sap|.asapstream|.cmc|.cmr|.dmc|.mpt|.mpd|.rmt|.tmc|.tm8|.tm2|.cms|.cm3|.dlt"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="de_DE">ASAP - Another Slight Atari Player</summary>
+    <summary lang="en_GB">ASAP - Another Slight Atari Player</summary>
+    <description lang="de_DE">ASAP (Another Slight Atari Player) konvertiert 8-Bit-Atari-Musik (*.sap, *.cmc, *.mpt, *.rmt, *.tmc, ...) zum nötigen Format und zur Wiedergabe in Kodi auf modernen Computern und Mobilgeräten.</description>
+    <description lang="en_GB">ASAP (Another Slight Atari Player) plays on Kodi and converts 8-bit Atari music (*.sap, *.cmc, *.mpt, *.rmt, *.tmc, ...) on modern computers and mobile devices.</description>
+    <platform>@PLATFORM@</platform>
+    <license>GPL-2.0-or-later</license>
+    <source>https://github.com/xbmc/audiodecoder.asap</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

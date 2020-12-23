@@ -1,0 +1,71 @@
+<sect1 id="bayrad-howto">
+<title>The bayrad Driver</title>
+
+<para>
+This section talks about using LCDproc with the BayRAD LCD modules by EMAC, Inc.
+</para>
+
+<sect2 id="bayrad-features">
+<title>Features</title>
+
+<para>
+The BayRAD LCD modules are designed to fit into 5,25" drive bays.
+They contain an LCD display that is 20 characters wide and 2 lines high
+surrounded by 4 buttons labeled <literal>Menu</literal>, <literal>Select</literal>,
+<literal>+/Yes</literal>, and <literal>-/No</literal>.
+</para>
+
+<para>
+BayRAD modules are connected to the PC using a serial RS232 connection getting
+operating power using the standard floppy drive power connector.
+</para>
+
+<para>
+For more information see the
+<ulink url="http://www.emacinc.com/bay_rad.htm">BayRAD home page</ulink>
+</para>
+
+</sect2>
+
+
+<!-- ## EMAC BayRAD driver ## -->
+<sect2 id="bayrad-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="bayrad-config-section">
+<title>[bayrad]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Select the serial output device to use.
+    If not given, default is <filename>/dev/lcd</filename>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Speed</property> =
+    {
+      <parameter><literal>1200</literal></parameter> |
+      <parameter><literal>2400</literal></parameter> |
+      <emphasis><parameter><literal>9600</literal></parameter></emphasis> |
+      <parameter><literal>19200</literal></parameter>
+    }
+  </term>
+  <listitem><para>
+    Set the the baud rate to use when communicating with the LCD.
+    <literal>9600</literal> is the default, if not specified.
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

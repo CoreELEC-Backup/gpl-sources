@@ -1,0 +1,143 @@
+=encoding utf8
+=head1 NAME
+
+F<epgsearchcats.conf> - Die Kategorien des erweiterten EPGs, sofern vorhanden.
+
+=head1 BESCHREIBUNG
+
+Wenn man das EPG aus dem Internet bezieht, z.B. von Hörzu, enthält das EPG
+erweiterte Daten. Zusätzlich zum Titel, Untertitel un der Beschreibung findet
+man dann eine Liste der Darsteller, Jahr des Drehs, Episode der Serie, Kategorie
+und Genre des Film, etc.
+
+Damit epgsearch diese verwenden kann müssen die Felder des erweiterten EPGs
+Variablen zugeordnet werden.
+
+Einige Beispieldateien werden dem Plugin mitgeliefert und finden sich im
+Verzeichnis "conf".
+
+Um eine eigene F<epgsearchcats.conf> zu erstellen dient das mitgelieferte Tool
+F<createcats>.
+
+Es scannt das vorhandene EPG und erstellt eine F<epgsearchcats.conf>. Diese
+sollte an die eigenen Wünscche angepasst werden, eine Formatbeschreibung
+findet sich im Kopf der Datei.
+
+=head1 FORMAT
+
+Auszug aus einer F<epgsearchcats.conf>:
+
+--------------------------------------------------------------------
+
+ This is just a template based on your current epg.data. Please edit!
+ Perhaps a category or its value list should be removed. Also the
+ 'name in menu' should be adjusted to your language.
+ The order of items determines the order listed in epgsearch. It does not
+ depend on the ID, which is used by epgsearch.
+ Format:
+ ID|category name(,format)|name in menu|values separated by ',' (option)|searchmode
+ - 'ID' should be a unique positive integer
+   (changing the id later on will force you to reedit your search timers!)
+ - 'category name' is the name in your epg.data
+   you can optionally add a format specifier for numeric values e.g.
+   Episode,%02i
+ - 'name in menu' is the name displayed in epgsearch.
+ - 'values' is an optional list of possible values
+   if you omit the list, the entry turns to an edit field in epgsearch,
+   else it's an list of items to select from
+ - 'searchmode' is an optional parameter specifying the mode of search:
+   text comparison:
+    0  - the whole term must appear as substring
+    1  - all single terms (delimiters are ',', ';', '|' or '~')
+         must exist as substrings. This is the default search mode.
+    2  - at least one term (delimiters are ',', ';', '|' or '~')
+         must exist as substring.
+    3  - matches exactly
+    4  - regular expression
+   numerical comparison:
+    10 - less
+    11 - less or equal
+    12 - greater
+    13 - greater or equal
+    14 - equal
+    15 - not equal
+
+--------------------------------------------------------------------
+
+=head1 BEISPIELE
+
+(Die Zeilen sind gekürzt, daher unvollständig)
+
+Beispiel für EPG von Hörzu, bezogen von epgdata.com mit tvmovie2vdr.
+
+ 1|Category|Kategorie|Information,Kinder,Musik,Serie,Show,Spielfilm,Sport|2
+
+ 2|Genre|Genre|Abenteuer,Action,Wirtschaft,Wissen,Zeichentrick|2
+
+ 3|Format|Video-Format|16:9,4:3|2
+
+ 4|Audio|Audio|Dolby Surround,Dolby,Hoerfilm,Stereo|2
+
+ 5|Year|Jahr||2
+
+ 6|Cast|Besetzung||2
+
+ 7|Director|Regisseur||2
+
+ 8|Moderator|Moderation||2
+
+ 9|Rating|Bewertung|Großartig besonders wertvoll,Annehmbar,Schwach|2
+
+ 10|FSK|FSK|6,12,16,18|2
+
+ 11|Country|Land||2
+
+ 12|Episode|Episode||4
+
+ 13|Themes|Thema||4
+
+=head1 SIEHE AUCH
+
+C<epgsearch(1)>
+
+=head1 AUTOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 FEHLER MELDEN
+
+Fehlerberichte bitte im Bugtracker.
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailinglist:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT and LIZENZ
+
+Copyright © 2004-2010 Christian Wieninger
+
+Dieses Programm ist freie Software. Sie können es unter den Bedingungen
+der GNU General Public License, wie von der Free Software Foundation
+veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 2
+der Lizenz oder (nach Ihrer Option) jeder späteren Version.
+
+Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es
+Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die
+implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN
+ZWECK. Details finden Sie in der GNU General Public License.
+
+Sie sollten ein Exemplar der GNU General Public License zusammen mit
+diesem Programm erhalten haben. Falls nicht, schreiben Sie an die
+Free Software Foundation, Inc. 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+Oder rufen Sie in Ihrem Browser http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+auf.
+
+Der Author kann über cwieninger@gmx.de erreicht werden.
+
+Die Projektseite ist http://winni.vdr-developer.org/epgsearch
+
+Der MD5-Code ist abgeleitet aus dem Message-Digest Algorithm
+von RSA Data Security, Inc..
+

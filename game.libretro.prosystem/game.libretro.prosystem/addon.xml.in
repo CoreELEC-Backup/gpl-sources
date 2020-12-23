@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.prosystem"
+		name="Atari - 7800 (ProSystem)"
+		version="1.3.0.10"
+		provider-name="Greg Stanton, Brian Berlin, Leonis, Greg DeMent">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.atari.7800.proline" version="1.0.0"/>
+		<import addon="game.controller.atari.7800.gamepad" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>7800</platforms>
+		<extensions>a78|bin</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Atari - 7800 (ProSystem) 1.3e</summary>
+		<description lang="en_GB">ProSystem is an Atari 7800 emulator.
+
+Place &#34;7800 BIOS (U).rom&#34; (optional) in the emulator&#39;s userdata folder.
+
+Supported files: .a78, .bin</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.prosystem</source>
+		<assets>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

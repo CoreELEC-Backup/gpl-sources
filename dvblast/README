@@ -1,0 +1,311 @@
+
+Welcome to DVBlast!
+===================
+
+DVBlast is a simple and powerful MPEG-2/TS demux and streaming
+application with several input methods:
+ - linux-dvb-supported cards (DVB-S, DVB-S2, DVB-C, DVB-T...)
+ - DVB-ASI cards
+ - UDP or RTP stream carrying a transport stream
+
+It outputs one or several RTP streams carrying transport streams with:
+ - hardware or software PID filtering
+ - PID-based or service-based demultiplexing
+ - optional descrambling via CAM device
+ - optional DVB tables
+
+DVBlast is written to be the core of a custom IRD, CID,or ASI gateway,
+based on a PC with a Linux-supported card. It is very lightweight and
+stable, designed for 24/7 operation.
+
+
+Current features
+================
+
+ - Lightweight program designed for extreme memory and CPU conditions
+ - No runtime dependancy; one build dependancy (biTStream)
+ - CAM menus (MMI) support via an external application
+ - The configuration file describing outputs can be reloaded without losing
+   a single packet
+ - Support for the new S2API of linux-dvb
+ - IPv6 network support
+ - UDP rather than RTP output for IPTV STBs which don't support RTP
+
+
+Tuning DVBlast
+==============
+
+You usually want to supply DVBlast with the parameters of a transponder,
+for instance for DVB-S :
+
+dvblast -f 11570000 -s 27500000 -v 18
+
+This tunes to frequency 11570 MHz, symbol rate 27500, horizontal (-v 18).
+
+For DVB-S2 you must indicate a modulation with -m qpsk|psk_8|apsk_16|apsk_32.
+
+For DVB-T you must indicate a bandwidth, usually -b 8 for 8 MHz multiplexes.
+
+Please note that frequencies are in kHz for DVB-S/S2/C, but Hz for DVB-T.
+Symbol rates are in symbols/s, and bandwidths in MHz. If you have several
+linux-dvb cards in the machine, specify which one to use with -a.
+
+You generally want to run DVBlast in DVB compliance mode with option -C.
+This option will pass through or generate mandatory DVB tables (NIT, SDT,
+EITp/f, TOT, TDT). If you also want to pass-through the EIT schedule tables,
+use the -e switch. It is considered a good practice to configure the name
+of the network (for the NIT) with the -M option.
+
+If you don't want to set these options on a general basis, you can set them
+per output - see below.
+
+Other rarely used options are available - run dvblast -h for more
+information.
+
+
+Alternative inputs
+==================
+
+DVBlast may handle several DVB adapters in the same machine with the -a switch:
+-a 3 will use /dev/dvb/adapter3.  Additionally, selecting between frontends on
+a single card is supported with the -n switch.  This is useful for hybrid 
+DVB/S + DVB/T cards.
+
+If you own a Computer Modules DVB-ASI input card, you can have DVBlast
+filter and demultiplex the inputs. You just need to specify the slot number
+with -A.
+
+If you own a Deltacast ASI input card, you can have DVBlast filter and
+demultiplex the inputs. You just need to specify the input as
+"-A deltacast:<x>" where <x> is 100 * the card number (0 based) + the channel
+number (0 based).
+
+DVBlast can also read from a UDP or RTP IPv4 source carrying for
+instance a multi-program transport stream. The address is specified with
+-D. See the 'advanced features' section for information on how to create
+such a stream for instance to cross network boundaries between the
+receivers and the target network.
+
+The syntax of the -D option is:
+[<src host>[:<src port>]@]<src mcast>[:<port>][/<opts>]*
+where <src mcast> is the multicast address carrying the stream, and <src
+host> is optionally the address of the source, for source-specific multicast.
+Options include:
+ /udp (for streams without an RTP header)
+ /mtu=XXXX (sets the maximum UDP packet size)
+ /ifindex=X (binds to a specific network interface, by link number)
+ /ifaddr=XXX.XXX.XXX.XXX (binds to a specific network interface, by address)
+
+For example:
+-D 239.255.0.2:1234/udp/ifindex=1
+
+
+Configuring outputs
+===================
+
+DVBlast reads a configuration file containing one or several lines in the
+format :
+<IP>[:<port>][@<IP>[:<port>]][/<option>]*	<always on>	<SID>	[<PID>,]*
+
+For instance :
+239.255.0.1:1234		1	10750	1234,1235,1236
+
+The configuration file can be reloaded by sending "HUP" to the program, or
+via the dvblastctl program.
+
+IPv6 is supported, the destination address must be specified in the format 
+described by RFC2732.  When using link-local scope addresses, it is
+mandatory to include the interface name in the address, as shown in the 
+example below.  If you do not include the interface name, you will see an
+"invalid argument" error.  The interface name is optional for site-local and 
+global scope addresses.
+
+For example :
+[ff12::1%eth0]:1234		1	10750
+[ff15::abcd]:1234		1	10750
+
+An optional bind address can be specified after an '@' sign. The typical
+usage of this is to allow binding to a specific interface in a system which
+has several. For instance:
+239.255.0.1:1234@192.168.42.1	1	10750
+
+For IPv6 the bind address is not relevant; binding to an interface is achieved
+via the option "/ifindex=X" where X is the number of the link, as given by
+the command `ip link`.
+
+The "always on" flag tells DVBlast whether the channel is expected to
+be on at all times or if it may break. If set to "1", then DVBlast will
+regularly reset the CAM module if it fails to descramble the service,
+assuming the module is dead. Every time it is reset a few TS packets
+will be lost, that is why this feature is optional.
+
+Other options can be set by appending / to the multicast address definition.
+Available options include :
+ /udp (turns on -U for a specific output)
+ /dvb (turns on -C for a specific output)
+ /epg (turns on -C -e for a specific output)
+ /tsid=XXX (sets the transport stream ID)
+ /ssrc=XXX.XXX.XXX.XXX (sets the RTP synchronization source IPv4)
+ /retention=XXX (see -E)
+ /latency=XXX (see -L)
+ /ttl=XX (see -t)
+ /tos=XX (sets the IPv4 Type Of Service option)
+ /mtu=XXXX (sets the maximum UDP packet size)
+ /srvname=Some_Channel (set service name in SDT)
+ /srvprovider=Some_Provider (set provider name in SDT)
+ /pidmap=pmt_pid,audio_pid,video_pid,spu_pid
+ /newsid=XX (set output service ID)
+ /srcaddr=XXX.XXX.XXX.XXX (use RAW packets and set source IPv4)
+ /srcport=XX (set source port, depends on /srcaddr)
+
+When setting text options like /srvname or /srvprovider, remember
+that the underscore character (_) will be replaced by space ( ).
+
+Several options can be appended, for instance:
+
+239.255.0.1:1234/udp/epg/tsid=42/ssrc=192.168.0.1
+
+The optional "/udp" parameter can be used to force DVBlast to output
+raw UDP stream. This functionality is provided for backwards compatibility
+with IPTV set top boxes that don't support RTP and should only be used
+if absolutely necessary. If you need both RTP and UDP streams of the same
+program, specify them on separate lines like this:
+
+239.255.0.1:1234	1	10750
+239.255.0.2:1234/udp	1	10750
+
+
+There are three ways of configuring the PIDs to stream :
+
+1. SID-based
+
+239.255.0.1:1234	1	10750	
+
+DVBlast will stream all known PIDs from service 10750 (video, audio, and
+subtitles). The resulting stream is fully MPEG-compliant, with PAT and PMT.
+
+2. SID and PIDs
+
+239.255.0.1:1234	1	10750	1234,1235
+
+DVBlast will stream SID 10750, but only PID 1234 and 1235 will be output.
+Other known PIDs will be discarded and removed from the PMT. The list of
+PIDs in the config file does not include the PAT and PMT, but it must
+include the PCR PID if it is different from the video or audio PID, otherwise
+the stream won't be compliant.
+
+3. PIDs only
+
+239.255.0.1:1234	1	0	0,128,1234,1235
+
+DVBlast will only stream the PIDs passed. No PAT and PMT will be generated,
+so if they are not included the stream won't be compliant. Also the
+included PAT and PMT may contain ghost programs or ESes.
+
+4. PID remapping
+
+239.255.0.1:1234/udp/epg/tsid=42/ssrc=192.168.0.1/pidmap=pmt_pid,audio_pid,video_pid,spu_pid
+
+All four PIDs are required!
+
+Note that the CAM will not be programmed in that case (unless it has
+been programmed by another line of the config file).
+
+5. Pass-through
+
+239.255.0.1:1234	1	*	
+
+The entire received stream will be passed through the output. Please bear in
+mind that when reading from a DVB adapter, hardware PID filtering is used by
+default, so not all packets will be output unless you specify the -u option.
+
+
+The file is read from the command-line :
+
+dvblast -c /tmp/dvblast.conf
+
+
+Buffering
+=========
+
+DVB cards usually output packets in big chunks. This can be problematic
+with low bitrate multiplexes. By default, DVBlast bufferizes 200 ms
+and tries to smooth the output. It may be desired to change this value
+with the -L option. The appropriate value for the output latency should be :
+  chunk_size / multiplex_bitrate
+
+The chunk size for saa7146-based cards is 512000 bits ; for
+cx23885-based cards is 192512 bits. The chunk size can be modified with
+an appropriate kernel patch (see extra/). The multiplex_bitrate depends
+on the symbol rate and many other factors such as the modulation.
+
+The current default value allows for multiplex_rates as low as 2.56 Mbi/s.
+Smaller multiplexes are rare but exist, so in that case you may want to
+increase the buffer size. A typical DVB multiplex is 30 or 40 Mbi/s, so
+the default introduces a superfluous latency ; the buffer can be lowered
+to 50 ms if latency is an issue.
+
+DVBlast also has another parameter called "max retention time" (-E).
+This controls how TS packets are grouped together in IP datagrams : the
+difference between the theorical output times of the first and the last
+TS packets cannot exceed the maximal retention time.
+
+IP datagrams are normally output at the output time of the earliest TS
+packet ; it implies that the next TS packets are sent too soon and must
+be buffered at the receiver level. ISO/IEC 13818-1 makes no provision for
+this, since IP wasn't in mind when designing TS, so in theory we risk a
+buffer overflow.
+
+However normal IP receivers feature a jitter buffer which can absorb the
+overflow ; DVB recommends a 50 ms buffer. DVBlast's default maximal
+retention time is just below, at 40 ms, which should be fine in most
+situations.
+
+If some anal set-top-box complains about buffer overflows or clock issues,
+you may try to lower the value ; the drawback is that on low bitrate
+streams it will introduce padding. People with low bitrate streams and
+nice receivers with big buffers can raise this value to avoid superfluous
+padding and lower the total bitrate.
+
+Please bear in mind though that setting a value for max retention time
+greater than the output latency has no effect.
+
+
+Monitoring
+==========
+
+If dvblast is run with the -r option, the dvblastctl program can be used
+to retrieve information from DVBlast about the front-end or CAM module.
+
+dvblastctl -r /tmp/dvblast.sock fe_status
+dvblastctl -r /tmp/dvblast.sock mmi_status
+dvblastctl -r /tmp/dvblast.sock shutdown
+
+
+CAM menu
+========
+
+For easier access to the CAM menus, the dvblast_mmi.sh shell script is
+provided :
+
+dvblast_mmi.sh -r /tmp/dvblast.sock
+
+
+Advanced features
+=================
+
+For better latency, run DVBlast in real-time priority: -i 1 (requires root
+privileges).
+
+DVBlast can also stream the entire transponder to an IPv4 or IPv6 address :
+dvblast -u -d 172.16.42.42:1235 -f 11570000 -s 27500000 -v 18
+dvblast -u -d [fe80::0ca:feff:fec0:ffee]:1235 -f 11570000 -s 27500000 -v 18
+
+Note that IPv6 addresses specified on command line may need to have the square
+brackets escaped (\[ and \]), depending on your shell.
+
+The -u switch disables the PID filters, so that all PIDs, even the
+unused ones, can be output.
+
+Other options are self-understandable, and are listed in dvblast -h.
+

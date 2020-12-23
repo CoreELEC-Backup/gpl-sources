@@ -1,0 +1,22 @@
+Source: kodi-pvr-vuplus
+Priority: extra
+Maintainer: Cristiano A. Silva <hudokkow@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), cmake, libtinyxml-dev,
+               kodi-addon-dev,
+               nlohmann-json-dev (>= 3.1) | nlohmann-json3-dev (>= 3.1)
+Standards-Version: 4.1.2
+Section: libs
+
+Package: kodi-pvr-vuplus
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Vu+ PVR for Kodi
+ Vu+ PVR for Kodi
+
+Package: kodi-pvr-vuplus-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for Vu+ PVR for Kodi
+ debug symbols for Vu+ PVR for Kodi

@@ -1,0 +1,253 @@
+			  linuxconsole tools
+			    Release 1.5.1
+		 http://sf.net/projects/linuxconsole/
+
+
+This package contains the following utilities and associated
+documentation:
+* inputattach - connects legacy serial devices to the input layer
+* joystick utilities - calibrate and test joysticks and joypads
+
+The evtest tool, which used to be part of this package, is now
+maintained separately at http://cgit.freedesktop.org/evtest/ and
+https://bugzilla.freedesktop.org/enter_bug.cgi?product=evtest
+
+
+Joystick utilities
+------------------
+
+The following utilities are provided to calibrate and test joysticks:
+* evdev-joystick - calibrate joystick devices (including dead zones
+  and fuzz)
+* ffcfstress, ffmvforce, fftest - test force-feedback devices
+* ffset - set force-feedback device parameters
+* jscal - calibrate joystick devices, reconfigure the axes and buttons
+* jscal-store, jscal-restore - store and retrieve joystick device
+  settings as configured using jscal
+* jstest - test joystick devices
+
+The typical scenario when configuring a new device is as follows:
+1. Check the basic functions using jstest (number of buttons, axes,
+   etc.).
+2. Calibrate the joystick using jscal (this can be useful even if the
+   device functions correctly, if only to configure the dead-zone at
+   the centre).
+3. Repeat steps 1 and 2 until the joystick is configured to the user's
+   satisfaction.
+4. Store the device's setup using jscal-store.
+
+
+Installation
+------------
+
+Most of the utilities have no particular requirement beyond a libc and
+the Linux input layer headers (normally part of your libc
+installation). ffmvforce requires SDL (libsdl1.2-dev on Debian
+derivatives).
+
+To install the utilities and their manpages, run
+	make
+or
+	make SYSTEMD_SUPPORT=1
+and then as root
+	make install
+from the distribution's top directory. This will install everything
+into /usr/local. Should you wish to install the tools elsewhere, you
+can use the PREFIX variable:
+	PREFIX=/usr make install
+The Makefiles also recognise the DESTDIR variable which can be used to
+install into a temporary directory (this is useful mainly for
+distribution packagers).
+
+
+Auto-loading inputattach and jscal-restore
+------------------------------------------
+
+udev can be used to start inputattach and jscal-restore when the
+appropriate device is connected to the system (or detected when the
+system is booting up).
+
+The following rule restores the stored calibration and axis/button
+mappings whenever a joystick device is connected:
+	KERNEL=="js*", ACTION=="add", RUN+="/usr/bin/jscal-restore %E{DEVNAME}"
+(change the path as appropriate). This rule needs /usr to be
+available, which can cause issues on systems where udev is run from
+the initramfs or where /usr is a separate partition. To work around
+this, the Debian package uses a script provided by Debian's udev
+package to wait for jscal-restore to become available. Should you wish
+to reproduce this, you need to create a udev agent
+(/lib/udev/jscal-restore) containing the following:
+
+#!/bin/sh -e
+# udev agent for jscal-restore
+
+wait_for_file() {
+	local file=$1
+	local count=120
+	while [ $count != 0 ]; do
+		[ -e "$file" ] && return 0
+		sleep 1
+		count=$(($count - 1))
+	done
+	exit 1
+}
+
+(
+	wait_for_file /usr/bin/jscal-restore
+	exec /usr/bin/jscal-restore $1
+) &
+
+and change the udev rule to
+	KERNEL=="js*", ACTION=="add", RUN+="/lib/udev/jscal-restore %E{DEVNAME}"
+
+The following rule forces flaky Acrux gamepads to stay awake:
+	KERNEL=="js*", ACTION=="add", ATTRS{name}=="ACRUX USB GAMEPAD 8116", RUN+="/bin/sleep 5000 < /dev/%k"
+(This should only be necessary on kernels older than 2.6.39-rc1.)
+
+The following rule configures a Mouse Systems mouse on the first
+serial port:
+	KERNEL=="ttyS0", ACTION=="add", RUN+="/usr/bin/inputattach --daemon -msc /dev/%k"
+If you need to wait for /usr you can adapt the recipe above.
+
+The following rules configures a Wacom W8001 devices on a Fujitsu
+T2010[2] or on Lenovo X200-series laptops and tablets:
+	SUBSYSTEM=="tty", KERNEL=="ttyS[0-9]*", ATTRS{id}=="FUJ02e5", ACTION=="add|change", RUN+="/usr/bin/inputattach --daemon --baud 19200 --w8001 /dev/%k"
+	SUBSYSTEM=="tty", KERNEL=="ttyS[0-9]*", ATTRS{id}=="WACf00c", ACTION=="add|change", RUN+="/usr/bin/inputattach --daemon --baud 38400 --w8001 /dev/%k"
+
+These rules are liable to cause conflicts with the X.org wacom
+driver. For example, on some Debian-based systems the
+/usr/share/X11/xorg.conf.d/50-wacom.conf configuration file needs to
+be amended so that the "MatchProduct" line matching one of the
+identifiers used above ("FUJ02e5" or "WACf00c", the latter being
+matched by "WACf") no longer contains the matching identifier. The
+appropriate X.org driver when using inputattach in this way is evdev.
+
+A udev rule, especially shipped in a custom OS package is not
+always applicable because it cannot handle the conflict presented
+by the fact that not all computers are built the same and on one
+computer, e.g ttyS1 can be attached to a specific touchscreen,
+in another computer it can be attached to a different kind of
+touchscreen or a different device or connected at all.
+For this case, a wrapper script started from sysvinit, upstart, or
+systemd is better suited. systemd needs special treatment inside
+inputattach: a notification must be sent to it when inputattach
+becomes "ready". To achieve this, the previously mentioned
+"make SYSTEMD_SUPPORT=1" must be used to include this support.
+Then a systemd unit file and the wrapper script can be added, similar
+to the following:
+
+----8<---- inputattach-wrapper.sh ----8<----
+#!/bin/sh
+
+SYSTEM=`detect_computer_type`
+case $SYSTEM in
+type1)
+    inputattach --daemon -pm9k /dev/ttyS2
+    ;;
+type2)
+    inputattach --daemon -mtouch /dev/ttyS2
+    ;;
+# and so on
+*)
+    # do nothing for other computers
+    ;;
+esac
+
+# Exit without errors, so systemd won't try to
+# restart our script for the "do nothing" case.
+exit 0
+----8<- end of inputattach-wrapper.sh-8<----
+
+----8<---- inputattach.service    ----8<----
+[Unit]
+Description=inputattach helper service
+
+[Service]
+Type=forking
+NotifyAccess=all
+ExecStart=/usr/sbin/inputattach-wrapper.sh
+
+[Install]
+WantedBy=multi-user.target
+----8<- end of inputattach.service----8<----
+
+Configuring PS3 controller LEDs
+-------------------------------
+
+The js-set-enum-leds can be used with udev to ensure that the
+controller LEDs on PS3 controllers match their identifiers as set by
+Bluetooth host software. This ensures that if the controllers are
+plugged in before the Bluetooth daemon starts, the LEDs still match
+the identifier assigned once the daemon has initialised.
+
+The following udev rule achieves this:
+
+	# Set PS3 controller leds to the same value bluez will choose for it.
+	# IMPORT{parent} used because $parent did not appear to be working; we
+	# don't need the devpath of the js device for this so it is OK to overwrite.
+	ACTION=="add", KERNEL=="js*", IMPORT{parent}="DEVPATH", ATTRS{name}=="Sony PLAYSTATION(R)3 Controller", RUN+="/lib/udev/js-set-enum-leds /sys/%E{DEVPATH}/device/leds/ $number"
+
+
+Contributors
+------------
+
+The following people have contributed to this release:
+* Johann Walles: jscal jitter tolerance.
+* Dr. László Kaján: button and axis remapping.
+* Sebastian Siewior: EVIOCGBIT correction.
+* Krzysztof A. Sobiecki: improvements to the button and axis remapping
+  functions.
+* Claudio Nieder: Sahara Touch-iT213 support.
+* Florian Fainelli: evtest fixes.
+* Alexander Clouter: W8001 support and error-handling fixes.
+* Roberto Neri: much discussion, and fixes and improvements to
+  jscal-store/jscal-restore and the udev rules given above.
+* Jean Delvare: inputattach improvements, TAOS support.
+* Brian Murray and Kees Cook: Lenovo W8001 support.
+* Raoul Bönish: fixes for the udev rules.
+* John Sung: PenMount 3000, 6000 and 6250 support.
+* Christian Gmeiner: TSC-40 support.
+* Kyle Manna: various build fixes.
+* Denis Gonsiorovsky: Genius EasyPen 3x4 tablet support.
+* Jaromir Capik: 64-bit fixes and changes from ff-utils (based on a
+  patch originally by Jean-Philippe Meure).
+* Ralf Jung: fixes for long device names.
+* Andrew Basterfield: fix for Spaceball 4000FLX support.
+* bri: PS3 controller LED configuration
+* Julian Squires: Wacom IV support.
+* Jamie Lentin: mouseman4 mode.
+* Böszörményi Zoltán: eGalaxTouch support, Hampshire support, systemd
+  notification.
+* Stephen Anthony: evdev-joystick (based on G25manage).
+
+
+License
+-------
+
+The linuxconsole tools are
+	Copyright © 1996-2005 Vojtech Pavlik
+	Copyright © 2001 Oliver Hamann
+	Copyright © 2001-2002 Johann Deneux
+	Copyright © 2001 Arndt Schoenewald
+	Copyright © 2008-2016 Stephen Kitt
+	Copyright © 2016 Stephen Anthony
+
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or (at
+your option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301,
+USA.
+
+
+The GNU General Public License version 2 is provided in the COPYING
+file.

@@ -1,0 +1,8 @@
+[B]2013-08-09[/B] Version [B]0.5.2[/B]
+. Updated to ff69a30 @ 2013-07-14
+
+[B]2013-04-24[/B] Version [B]0.5.1[/B]
+. Updated to f258d17 @ 2013-04-17
+
+[B]2013-02-16[/B] Version [B]0.5.0[/B]
+. Initial release. https://github.com/libretro/gambatte-libretro @ b16fd2f (2013-02-02)

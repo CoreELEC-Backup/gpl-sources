@@ -1,0 +1,116 @@
+<%pre>
+
+#include <epgsearch.h>
+#include <tools.h>
+#include <setup.h>
+#include <epg_events.h>
+
+using namespace vdrlive;
+using namespace std;
+
+</%pre>
+<%args>
+	// input parameters
+	string searchtimerid;
+	string searchtimerquery;
+	string searchplain;
+</%args>
+<%session scope="global">
+bool logged_in(false);
+</%session>
+<%include>page_init.eh</%include>
+<%cpp>
+	if (!logged_in && LiveSetup().UseAuth()) return reply.redirect("login.html");
+
+	pageTitle = tr("Search results");
+	SearchResults results;
+	if (!searchtimerid.empty())
+		results.GetByID(lexical_cast< int >(searchtimerid));
+	if (!searchtimerquery.empty())
+		results.GetByQuery(SearchResults::PopQuery(searchtimerquery));
+	if (!searchplain.empty())
+	{
+		SearchTimer s;
+		s.SetId(0);
+		s.SetSearch(searchplain);
+		s.SetSearchMode(0);
+		s.SetUseTitle(true);
+		s.SetUseSubtitle(false);
+		s.SetUseDescription(false);
+		results.GetByQuery(s.ToText());
+	}
+</%cpp>
+<& pageelems.doc_type &>
+<html>
+	<head>
+		<title>VDR-Live - <$ pageTitle $></title>
+		<& pageelems.stylesheets &>
+		<& pageelems.ajax_js &>
+	</head>
+	<body>
+		<& pageelems.logo &>
+		<& menu active=("searchepg") &>
+		<div class="inhalt">
+%			if (results.size() == 0) {
+				<$ tr("No search results") $>
+%			}
+			<table class="listing" cellspacing="0" cellpadding="0">
+<%cpp>
+				string current_day = "";
+
+#if VDRVERSNUM >= 20301
+				LOCK_CHANNELS_READ;
+#endif
+				for (SearchResults::iterator result = results.begin(); result != results.end(); ++result) {
+#if VDRVERSNUM >= 20301
+					cChannel* channel = (cChannel *)Channels->GetByChannelID(result->Channel());
+#else
+					cChannel* channel = Channels.GetByChannelID(result->Channel());
+#endif
+					if (!channel) continue;
+					string channelname = channel->Name();
+					int channelnr = channel->Number();
+					string start(result->StartTime() ? FormatDateTime(tr("%I:%M %p"), result->StartTime()) : "");
+					string end(result->StopTime() ? FormatDateTime(tr("%I:%M %p"), result->StopTime()) : "");
+					string day(result->StartTime() ? FormatDateTime(tr("%A, %b %d %Y"), result->StartTime()) : "");
+					string description = result->Description();
+					string epgid = EpgEvents::EncodeDomId(result->Channel(), result->EventId());
+
+					bool truncated = false;
+
+					bool bottom = false;
+					SearchResults::iterator nextResult = result; ++nextResult;
+					if (nextResult == results.end())
+						bottom = true;
+					else {
+						string nextDay(nextResult->StartTime() ? FormatDateTime(tr("%A, %b %d %Y"), nextResult->StartTime()) : "");
+						bottom = (day != nextDay);
+					}
+
+					if (current_day != day) {
+						if (current_day != "") {
+</%cpp>
+					<tr class="spacer">
+						<td colspan="4"/>
+					</tr>
+%						}
+					<tr class="head">
+						<td colspan="4"><div class="boxheader"><div><div><$ day $></div></div></div></td>
+					</tr>
+%						current_day = day;
+%					}
+					<tr>
+						<td class="action leftcol <? bottom ? "bottomrow"?>"><& pageelems.event_timer epgid=(epgid) &></td>
+						<td class="topaligned <? bottom ? "bottomrow"?>"><div class="withmargin"><a href="schedule.html?channel=<$ channelnr $>"><$ channelname $></a></div></td>
+						<td class="topaligned <? bottom ? "bottomrow"?>"><div class="withmargin nowrap"><$ start $> - <$ end $></div></td>
+						<td class="topaligned rightcol <? bottom ? "bottomrow"?>"><div class="more withmargin"><a <& tooltip.hint text=(StringEscapeAndBreak(StringWordTruncate(description, 300, truncated)) + "<br />" + tr("Click to view details.")) &><& tooltip.display domId=(epgid) &>><span class="title"><$ result->Title() $></span><br /><span class="short"><%cpp>if (result->ShortText().empty()) { </%cpp>&nbsp;<%cpp> } </%cpp><$ result->ShortText() $></span></a></div></td>
+					</tr>
+%				}
+			</table>
+		</div>
+	</body>
+</html>
+
+<%include>page_exit.eh</%include>
+
+

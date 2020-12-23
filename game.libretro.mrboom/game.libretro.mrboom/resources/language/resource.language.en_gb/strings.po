@@ -1,0 +1,37 @@
+# game.libretro.mrboom language file
+# Addon Name: game.libretro.mrboom
+# Addon id: game.libretro.mrboom
+# Addon Provider: libretro
+msgid ""
+msgstr ""
+"Project-Id-Version: game.libretro.mrboom\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2017-11-09 12:24i\n"
+"PO-Revision-Date: 2017-11-09 12:24i\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Aspect ratio"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Drop bomb autofire"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Monsters"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Team mode"
+msgstr ""

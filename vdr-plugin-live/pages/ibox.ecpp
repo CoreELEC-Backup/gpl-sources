@@ -1,0 +1,159 @@
+<%pre>
+
+#include <setup.h>
+#include <tools.h>
+#include <epg_events.h>
+#include <recman.h>
+#include <timerconflict.h>
+
+#include <vdr/menu.h>
+
+using namespace vdrlive;
+using namespace std;
+
+</%pre>
+<%args>
+	int update;
+</%args>
+<%session scope="global">
+bool logged_in(false);
+int update_status(1);
+TimerConflictNotifier timerNotifier();
+</%session>
+<%cpp>
+	if (!logged_in && LiveSetup().UseAuth()) return reply.redirect("login.html");
+	string EMPTY_STR;
+	tChannelID prev_chan;
+	tChannelID next_chan;
+	reply.setContentType( "application/xml" );
+
+	if (update_status != update) {
+		update_status = update;
+	}
+
+	string infoMsg;
+	string infoUrl;
+
+	if (timerNotifier.ShouldNotify()) {
+		infoMsg = timerNotifier.Message();
+		infoUrl = "timerconflicts.html";
+	}
+
+	const char* NowReplaying = cReplayControl::NowReplaying();
+
+	EpgInfoPtr epgEvent;
+
+	if (NowReplaying) {
+		RecordingsManagerPtr recManager = LiveRecordingsManager();
+#if VDRVERSNUM >= 20301
+		// is is OK to lock here, because CreateEpgInfo will *not* lock other lists
+		LOCK_RECORDINGS_READ;
+		cRecording *recording = (cRecording *)Recordings->GetByName(NowReplaying);
+#else
+		cRecording *recording = Recordings.GetByName(NowReplaying);
+#endif
+		if (recording) {
+			epgEvent = EpgEvents::CreateEpgInfo(recManager->Md5Hash(recording),
+												recording,
+												tr("playing recording"));
+		}
+	}
+	else {
+		string CHANNEL_STR("channel");
+#if VDRVERSNUM >= 20301
+		LOCK_CHANNELS_READ;
+#else
+		ReadLock channelsLock( Channels );
+#endif
+
+		if (cDevice::CurrentChannel()) {
+			const int SKIP_GAP = 1;
+#if VDRVERSNUM >= 20301
+			cChannel* Channel = (cChannel *)Channels->GetByNumber(cDevice::CurrentChannel());
+
+			cChannel* tmp = (cChannel *)Channels->GetByNumber(Channels->GetPrevNormal(cDevice::CurrentChannel()), -SKIP_GAP);
+#else
+			cChannel* Channel = Channels.GetByNumber(cDevice::CurrentChannel());
+
+			cChannel* tmp = Channels.GetByNumber(Channels.GetPrevNormal(cDevice::CurrentChannel()), -SKIP_GAP);
+#endif
+			if (tmp)
+				prev_chan = tmp->GetChannelID();
+#if VDRVERSNUM >= 20301
+			tmp = (cChannel *)Channels->GetByNumber(Channels->GetNextNormal(cDevice::CurrentChannel()), SKIP_GAP);
+#else
+			tmp = Channels.GetByNumber(Channels.GetNextNormal(cDevice::CurrentChannel()), SKIP_GAP);
+#endif
+			if (tmp)
+				next_chan = tmp->GetChannelID();
+
+			const string chanName(Channel->Name());
+#if VDRVERSNUM >= 20301
+			LOCK_SCHEDULES_READ;
+#else
+			cSchedulesLock schedulesLock;
+			const cSchedules* Schedules = cSchedules::Schedules(schedulesLock);
+#endif
+			const cSchedule *Schedule = Schedules->GetSchedule(Channel);
+
+			if (Schedule) {
+				const cEvent *Event = Schedule->GetPresentEvent();
+				if (Event) {
+					epgEvent = EpgEvents::CreateEpgInfo(Channel,
+														Event,
+														CHANNEL_STR.c_str());
+				}
+				else {
+					const string noInfo(tr("no epg info for current event!"));
+					epgEvent = EpgEvents::CreateEpgInfo(CHANNEL_STR,
+														chanName,
+														noInfo);
+				}
+			}
+			else {
+				const string noInfo(tr("no epg info for current channel!"));
+				epgEvent = EpgEvents::CreateEpgInfo(CHANNEL_STR,
+													Channel->Name(),
+													noInfo);
+			}
+		}
+		else {
+			const string chanName(tr("no current channel!"));
+			epgEvent = EpgEvents::CreateEpgInfo(CHANNEL_STR,
+												chanName,
+												chanName);
+		}
+	}
+	if (!epgEvent) {
+		const string ERROR_STR("error");
+		const string noInfo(tr("error retrieving status info!"));
+		const string chanName(tr("no current channel!"));
+		epgEvent = EpgEvents::CreateEpgInfo(ERROR_STR,
+											chanName,
+											noInfo);
+	}
+	else {
+		if (prev_chan.Valid() && next_chan.Valid())
+		{
+</%cpp>
+<& xmlresponse.ibox update=(update_status) type=(epgEvent->Id()) caption=(epgEvent->Caption()) currentTime=(epgEvent->CurrentTime(tr("%I:%M:%S %p"))) duration=(epgEvent->StartTime(tr("%I:%M %p")) + string(" - ") + epgEvent->EndTime(tr("%I:%M %p"))) title=(epgEvent->Title()) elapsed=(epgEvent->Elapsed()) prev_chan=(prev_chan) next_chan=(next_chan) infoMsg=(infoMsg) infoUrl=(infoUrl) &>
+<%cpp>
+		}
+		else if (prev_chan.Valid()) {
+</%cpp>
+<& xmlresponse.ibox update=(update_status) type=(epgEvent->Id()) caption=(epgEvent->Caption()) currentTime=(epgEvent->CurrentTime(tr("%I:%M:%S %p"))) duration=(epgEvent->StartTime(tr("%I:%M %p")) + string(" - ") + epgEvent->EndTime(tr("%I:%M %p"))) title=(epgEvent->Title()) elapsed=(epgEvent->Elapsed()) prev_chan=(prev_chan) infoMsg=(infoMsg) infoUrl=(infoUrl) &>
+<%cpp>
+		}
+		else if (next_chan.Valid()) {
+</%cpp>
+<& xmlresponse.ibox update=(update_status) type=(epgEvent->Id()) caption=(epgEvent->Caption()) currentTime=(epgEvent->CurrentTime(tr("%I:%M:%S %p"))) duration=(epgEvent->StartTime(tr("%I:%M %p")) + string(" - ") + epgEvent->EndTime(tr("%I:%M %p"))) title=(epgEvent->Title()) elapsed=(epgEvent->Elapsed()) next_chan=(next_chan) infoMsg=(infoMsg) infoUrl=(infoUrl) &>
+<%cpp>
+		}
+		else {
+</%cpp>
+<& xmlresponse.ibox update=(update_status) type=(epgEvent->Id()) caption=(epgEvent->Caption()) currentTime=(epgEvent->CurrentTime(tr("%I:%M:%S %p"))) duration=(epgEvent->StartTime(tr("%I:%M %p")) + string(" - ") + epgEvent->EndTime(tr("%I:%M %p"))) title=(epgEvent->Title()) elapsed=(epgEvent->Elapsed()) infoMsg=(infoMsg) infoUrl=(infoUrl) &>
+<%cpp>
+		}
+	}
+</%cpp>
+

@@ -1,0 +1,197 @@
+# Makefile for project 'serdisplib', sub-directory src/
+# (C) 2003-2010 by Wolfgang Astleitner
+
+VERSION=@PACKAGE_VERSION@
+
+VERSION_MAJOR=@PACKAGE_VERSION_MAJOR@
+VERSION_MINOR=@PACKAGE_VERSION_MINOR@
+VERSION_SUBMINOR=@PACKAGE_VERSION_SUBMINOR@
+
+ifeq "@use_soname@" "true"
+# generate soname ( $(subst) changes serdisplib to libserdisp)
+ SONAME= lib$(subst lib,,@PACKAGE_NAME@).so.$(VERSION_MAJOR)
+ SONAME_FLAG= -Wl,-soname,${SONAME}
+else
+ SONAME_FLAG=
+endif
+
+SHELL = /bin/sh
+VPATH = @srcdir@
+
+top_srcdir = @top_srcdir@
+srcdir = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+libdir = @libdir@
+mandir = @mandir@
+includedir = @includedir@
+
+CC=@CC@
+AR=@AR@ -r
+LN_S=@LN_S@
+INSTALL=@INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+INSTALL_DATA = @INSTALL_DATA@
+
+# libusb/usb.h don't go together with -ansi
+#CFLAGS=@CFLAGS@ -Wall -Wno-implicit -fPIC -I../include -I..
+CFLAGS=@CFLAGS@ -Wall -fPIC -I../include -I..
+LDFLAGS=@LDFLAGS@
+LIBS=@LIBS@
+#CFLAGS=@CFLAGS@ -ansi -Wall -Wno-implicit -fPIC -I../include -I..
+#CFLAGS=-ansi -Wall -Wno-implicit -O2
+#CFLAGS=-g -ansi -Wall -Wno-implicit -fPIC -O2 -I. -I../include
+
+
+LIB_OBJECTS=serdisp_fctptr.o serdisp_control.o serdisp_connect.o \
+			serdisp_colour.o serdisp_tools.o serdisp_messages.o
+
+LIB_HEADERFILES=serdisp.h serdisp_control.h serdisp_connect.h serdisp_messages.h \
+				serdisp_colour.h serdisp_tools.h serdisp_parport.h
+
+
+OBJECTS=testserdisp.o
+
+PROGRAMS=testserdisp
+
+LIB_NAME=serdisp
+
+LIB_STATIC=lib$(LIB_NAME).a
+LIB_SHARED=lib$(LIB_NAME).so.$(VERSION)
+
+LIB_DIR=../lib
+
+# link shared or static lib to executables
+ifeq "@use_sharedlib@" "true"
+ LIB_SERDISP=-L$(LIB_DIR) -l$(LIB_NAME)
+ STATIC_LDFLAGS=
+else
+ LIB_SERDISP=$(LIB_DIR)/$(LIB_STATIC)
+ STATIC_LDFLAGS=$(LDFLAGS)
+endif
+
+
+ifeq "@has_libusb@" "true"
+  LIB_OBJECTS+= serdisp_connect_usb.o
+endif
+
+
+ifeq "@WITH_DRIVER_SED153X@" "true"
+  LIB_OBJECTS+= serdisp_specific_sed153x.o
+endif
+ifeq "@WITH_DRIVER_PCD8544@" "true"
+  LIB_OBJECTS+= serdisp_specific_pcd8544.o
+endif
+ifeq "@WITH_DRIVER_SED156X@" "true"
+  LIB_OBJECTS+= serdisp_specific_sed156x.o
+endif
+ifeq "@WITH_DRIVER_I2C@" "true"
+  LIB_OBJECTS+= serdisp_specific_i2c.o
+endif
+ifeq "@WITH_DRIVER_T6963@" "true"
+  LIB_OBJECTS+= serdisp_specific_t6963.o
+endif
+ifeq "@WITH_DRIVER_SED133X@" "true"
+  LIB_OBJECTS+= serdisp_specific_sed133x.o
+endif
+ifeq "@WITH_DRIVER_NOKCOL@" "true"
+  LIB_OBJECTS+= serdisp_specific_nokcol.o
+endif
+ifeq "@WITH_DRIVER_KS0108@" "true"
+  LIB_OBJECTS+= serdisp_specific_ks0108.o
+endif
+ifeq "@WITH_DRIVER_LH155@" "true"
+  LIB_OBJECTS+= serdisp_specific_lh155.o
+endif
+ifeq "@WITH_DRIVER_SSDOLED@" "true"
+  LIB_OBJECTS+= serdisp_specific_ssdoled.o
+endif
+ifeq "@WITH_DRIVER_L4M@" "true"
+  LIB_OBJECTS+= serdisp_specific_l4m.o
+endif
+ifeq "@WITH_DRIVER_GOLDELOX@" "true"
+  LIB_OBJECTS+= serdisp_specific_goldelox.o
+endif
+ifeq "@WITH_DRIVER_STV8105@" "true"
+  LIB_OBJECTS+= serdisp_specific_stv8105.o
+endif
+ifeq "@WITH_DRIVER_ACOOLSDCM@" "true"
+  LIB_OBJECTS+= serdisp_specific_acoolsdcm.o
+endif
+ifeq "@WITH_DRIVER_DIRECTGFX@" "true"
+  LIB_OBJECTS+= serdisp_specific_directgfx.o
+endif
+ifeq "@WITH_DRIVER_LC7981@" "true"
+  LIB_OBJECTS+= serdisp_specific_lc7981.o
+endif
+
+
+
+.SUFFIXES : .c .o
+
+all: libraries programs
+
+libraries: library.static library.shared
+
+library.static: $(LIB_DIR)/$(LIB_STATIC)
+
+library.shared: $(LIB_DIR)/$(LIB_SHARED)
+
+programs: $(PROGRAMS)
+
+.c.o:
+	$(CC) $(CFLAGS) $(DEFINES) -c $<
+
+$(LIB_DIR)/$(LIB_STATIC): $(LIB_OBJECTS)
+	$(top_srcdir)/mkinstalldirs $(top_srcdir)/lib
+	$(AR) $(LIB_DIR)/$(LIB_STATIC) $(LIB_OBJECTS)
+
+$(LIB_DIR)/$(LIB_SHARED): $(LIB_OBJECTS)
+	$(top_srcdir)/mkinstalldirs $(top_srcdir)/lib
+	$(CC) -fPIC -shared $(SONAME_FLAG) -o $(LIB_DIR)/$(LIB_SHARED) $(LIB_OBJECTS) $(LDFLAGS)
+	if [ -n "$(VERSION_SUBMINOR)" ]  ; then \
+	  cd $(LIB_DIR) && $(LN_S) -f $(LIB_SHARED) lib$(LIB_NAME).so.$(VERSION_MAJOR).$(VERSION_MINOR) ; \
+	fi
+	cd $(LIB_DIR) && $(LN_S) -f $(LIB_SHARED) lib$(LIB_NAME).so.$(VERSION_MAJOR)
+	cd $(LIB_DIR) && $(LN_S) -f lib$(LIB_NAME).so.$(VERSION_MAJOR) lib$(LIB_NAME).so
+
+testserdisp: $(LIB_DIR)/$(LIB_STATIC) $(OBJECTS)
+	$(CC) -o testserdisp $(OBJECTS) $(LIB_SERDISP) $(STATIC_LDFLAGS)
+
+clean:
+	/bin/rm -f $(OBJECTS) $(LIB_OBJECTS) $(LIB_DIR)/*.a $(LIB_DIR)/*.so*
+	/bin/rm -f *core* $(PROGRAMS)
+
+distclean: clean
+	/bin/rm -f Makefile
+
+install: $(LIB_DIR)/$(LIB_SHARED) $(LIB_DIR)/$(LIB_STATIC)
+	$(top_srcdir)/mkinstalldirs $(bindir)
+	$(top_srcdir)/mkinstalldirs $(libdir)
+	$(top_srcdir)/mkinstalldirs $(includedir)
+	$(top_srcdir)/mkinstalldirs $(includedir)/serdisplib
+	
+	$(INSTALL_PROGRAM) $(PROGRAMS) $(bindir)/
+	$(INSTALL_PROGRAM) $(LIB_DIR)/$(LIB_SHARED) $(libdir)/
+	$(INSTALL_DATA) $(LIB_DIR)/$(LIB_STATIC) $(libdir)/
+	list='$(LIB_HEADERFILES)'; \
+	for headerfile in $$list; do \
+	  $(INSTALL_DATA) ../include/serdisplib/$$headerfile $(includedir)/serdisplib/ ; \
+	done
+	if [ -n "$(VERSION_SUBMINOR)" ]  ; then \
+	  cd $(libdir) && $(LN_S) -f $(LIB_SHARED) lib$(LIB_NAME).so.$(VERSION_MAJOR).$(VERSION_MINOR) ; \
+	fi
+	cd $(libdir) && $(LN_S) -f $(LIB_SHARED) lib$(LIB_NAME).so.$(VERSION_MAJOR)
+	cd $(libdir) && $(LN_S) -f lib$(LIB_NAME).so.$(VERSION_MAJOR) lib$(LIB_NAME).so
+
+uninstall:
+	-/bin/rm -f $(libdir)/libserdisp*
+	-/bin/rm -f $(includedir)/serdisplib/*.h
+	-/bin/rmdir $(includedir)/serdisplib
+	list='$(PROGRAMS)'; \
+	for prog in $$list; do \
+	  /bin/rm -f $(bindir)/$$prog ; \
+	done
+

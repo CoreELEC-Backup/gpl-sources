@@ -1,0 +1,23 @@
+Source: kodi-audiodecoder-sidplay
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake, kodi-addon-dev,
+               libsidplay2-dev, libsidutils-dev,
+               libresid-builder-dev
+Standards-Version: 4.1.2
+Section: libs
+Homepage: https://kodi.tv
+
+Package: kodi-audiodecoder-sidplay
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: SidPlay audio decoder for Kodi
+  SidPlay audio decoder for Kodi
+
+Package: kodi-audiodecoder-sidplay-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for SidPlay audio decoder for Kodi
+  debug symbols for SidPlay audio decoder for Kodi

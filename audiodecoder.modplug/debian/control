@@ -1,0 +1,22 @@
+Source: kodi-audiodecoder-modplug
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake,
+               kodi-addon-dev, libmodplug-dev
+Standards-Version: 4.1.2
+Section: libs
+Homepage: https://kodi.tv
+
+Package: kodi-audiodecoder-modplug
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Modplug audio decoder for Kodi
+  Modplug audio decoder for Kodi
+
+Package: kodi-audiodecoder-modplug-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for Modplug audio decoder for Kodi
+  debug symbols for Modplug audio decoder for Kodi

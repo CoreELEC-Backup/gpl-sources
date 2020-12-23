@@ -1,0 +1,114 @@
+VDR Plugin 'pictures' Revision History
+--------------------------------------
+
+2008-01-13: Version 0.0.1
+
+- Initial revision.
+
+2008-01-19: Version 0.0.2
+
+- Fixed the Play function (when used from a directory in the pictures menu
+  it always started with the next directory).
+- Added Finnish texts (thanks to Rolf Ahrenberg <Rolf.Ahrenberg@sci.fi>).
+
+2008-01-27: Version 0.0.3
+
+- Added French texts (thanks to Patrice Staudt <patrice.staudt@laposte.net>).
+
+2008-02-02: Version 0.0.4
+
+- Added option -i to pic2mpg to ignore unknown file types.
+
+2008-02-17: Version 0.0.5
+
+- Fixed setting the OSD area.
+- Introduced 'operator const void * ()' in cString to catch cases where operator*()
+  should be used.
+
+2008-02-29: Version 0.0.6
+
+- Made the 'pic2mpg' script of the 'pictures' plugin work with uppercase filename
+  extensions and relative paths (reported by Stefan Wagner <stefanwag@gmx.at>).
+
+2008-03-14: Version 0.0.7
+
+- Added Russian translations (thanks to Alexander Gross).
+
+2009-12-06: Version 0.0.8
+
+- Several code modifications to avoid compiler warnings (thanks to Winfried Köhler).
+
+2010-02-28: Version 0.0.9
+
+- Added Lithuanian language translations (thanks to Valdemaras Pipiras).
+
+2011-02-20: Version 0.1.0
+
+- Fixed reallocating memory (reported by Paul Menzel).
+
+2011-07-23:
+
+- Now rotating images according to the EXIF 'Orientation' parameter.
+
+2011-08-14:
+
+- The pic2mpg script now generates HD images (thanks to Andre Weidemann for his
+  support in using convert/ffmpeg). The old SD version is still available as
+  pic2mpg-sd.
+
+2011-11-02:
+
+- Fixed handling images that are rotated by 180 degrees in pic2mpg.
+
+2012-01-08:
+
+- Added option -o to pic2mpg.
+
+2012-02-17:
+
+- cReadDir::Next() now skips directory entries "." and "..".
+
+2012-02-27: Version 0.1.2
+
+- Removed an obsolete command line option.
+
+2012-04-28: Version 0.1.3
+
+- Added cPictureControl::GetHeader().
+
+2012-12-27: Version 0.1.4
+
+- Adapted Makefile to changes introduced in recent VDR versions.
+
+2013-01-12: Version 0.1.5
+
+- Adapted Makefile to changes introduced in recent VDR versions.
+
+2013-03-31: Version 2.0.0
+
+- Official release.
+
+2013-07-01:
+
+- Added option -x to pic2mpg.
+
+2014-01-01: Version 2.1.1
+
+- Avoiding unnecessary pkg-config warnings in plugin Makefiles.
+
+2015-02-19: Version 2.2.0
+
+- Official release.
+
+2015-07-23: Version 2.3.1
+
+- Added a missing 'const'.
+
+2017-10-06: Version 2.3.2
+
+- Adapted the pic2mpg script to new ffmpeg options.
+- No longer using 'convert' to scale/rotate the pictures.
+
+2018-04-15: Version 2.4.0
+
+- Official release.

@@ -1,0 +1,58 @@
+1.5 (6 November 2018)
+=================
+ - Add SDES
+ - Fix hvcc header size
+ - Add more ATSC A/52 support
+ - Misc descriptors fixes
+
+1.4 (1 July 2018)
+=================
+ - Add RTCP helpers
+ - Add support for SMPTE 352
+ - Misc descriptors fixes
+
+1.3 (29 Jan 2018)
+=================
+ - Add support for avcC and hvcC structures
+ - Add support for LOAS AAC
+ - Improve support for RTP
+ - Use ISO 6937 as default DVB charset
+ - Ship pkg-config file
+
+1.2 (31 Jan 2017)
+=================
+ - Add partial support for ITU-T H.265
+ - Add support for DVB-VBI
+ - Add support for SCTE 104
+ - Add support for SMPTE 2010
+ - Add support for SMPTE RDD 08 (OP-47 subtitles)
+ - Add support for SMPTE 291
+ - Add support for SMPTE 337
+ - Add support for RFC 4175 video
+ - Add support for hbrmt 2022-6
+ - Add support for RTP RFC 2250
+ - Improve support of RTCP
+ - Fix character set for Chinese DVB strings
+ - Fix A/52 bitrate table
+
+1.1 (5 Oct 2015)
+================
+ - Rename fields in BAT, RST and SIT to match those of SDT
+ - Add support for private data specifier 0x233a for descriptor 0x83
+ - Add support for elementary streams MPEG video and audio, AAC, A/52, Opus,
+   H264 and DVB subtitles
+ - Add support for SMPTE 2022-1 Forward Error Correction
+ - Add support for encoder/decoder DVB Simulcrypt EMMG interface
+ - Add support for IEEE 802.3 Ethernet frames
+ - Add support for IP and UDP headers
+ - Add support for IETF RTCP
+ - Add support for SCTE-35 Splice Information Table
+ - Fix parsing of PSI version_number
+ - Fix bug in EIT
+ - Fix bug in PCR writing
+ - Fix retrieval of PES payload offset in case of optional header
+ - Fix incorrect marker bit in PES PTS and DTS syntax
+
+1.0 (15 Dec 2011)
+=================
+ - Initial public release

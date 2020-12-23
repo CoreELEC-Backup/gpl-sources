@@ -1,0 +1,2385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>The VDR Plugin System</title>
+<style type="text/css">
+html, body {
+    background-color: white;
+}
+.blurb {
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+}
+.center {
+    text-align: center;
+}
+.code {
+    background-color: #F0F0F0;
+}
+.modified {
+    background-color: #FFDDDD;
+}
+modified {
+    background-color: #FFDDDD;
+}
+</style>
+</head>
+<body>
+
+<div class="center">
+<h1>The VDR Plugin System</h1>
+
+<b>Version 2.4</b>
+<p>
+Copyright &copy; 2018 Klaus Schmidinger<br>
+<a href="mailto:vdr@tvdr.de">vdr@tvdr.de</a><br>
+<a href="http://www.tvdr.de">www.tvdr.de</a>
+</div>
+<div class="center">
+<modified>Important modifications introduced since version 2.2 are marked like this.</modified>
+</div>
+<p>
+VDR provides an easy to use plugin interface that allows additional functionality
+to be added to the program by implementing a dynamically loadable library file.
+This interface allows programmers to develop additional functionality for VDR completely
+separate from the core VDR source, without the need of patching the original
+VDR code (and all the problems of correlating various patches).
+<p>
+This document is divided into two parts, the first one describing the
+<a href="#Part I - The External Interface"><i>external</i> interface</a>
+of the plugin system, and the second one describing the
+<a href="#Part II - The Internal Interface"><i>internal</i> interface</a>.
+The <i>external</i> interface handles everything necessary for a plugin to get hooked into the core
+VDR program and present itself to the user.
+The <i>internal</i> interface provides the plugin code access to VDR's internal data
+structures and allows it to hook itself into specific areas to perform special actions.
+
+<hr>
+<h1>Table Of Contents</h1>
+<ul>
+<li><a href="#Part I - The External Interface">Part I - The External Interface</a>
+<ul>
+<li><a href="#Quick start">Quick start</a>
+<li><a href="#The name of the plugin">The name of the plugin</a>
+<li><a href="#The plugin directory structure">The plugin directory structure</a>
+<li><a href="#Initializing a new plugin directory">Initializing a new plugin directory</a>
+<li><a href="#The actual implementation">The actual implementation</a>
+<li><a href="#Construction and Destruction">Construction and Destruction</a>
+<li><a href="#Version number">Version number</a>
+<li><a href="#Description">Description</a>
+<li><a href="#Command line arguments">Command line arguments</a>
+<li><a href="#Command line help">Command line help</a>
+<li><a href="#Getting started">Getting started</a>
+<li><a href="#Shutting down">Shutting down</a>
+<li><a href="#Logging">Logging</a>
+<li><a href="#Main menu entry">Main menu entry</a>
+<li><a href="#User interaction">User interaction</a>
+<li><a href="#Housekeeping">Housekeeping</a>
+<li><a href="#Main thread hook">Main thread hook</a>
+<li><a href="#Activity">Activity</a>
+<li><a href="#Wakeup">Wakeup</a>
+<li><a href="#Setup parameters">Setup parameters</a>
+<li><a href="#The Setup menu">The Setup menu</a>
+<li><a href="#Additional files">Additional files</a>
+<li><a href="#Internationalization">Internationalization</a>
+<li><a href="#Custom services">Custom services</a>
+<li><a href="#SVDRP commands">SVDRP commands</a>
+<li><a href="#Loading plugins into VDR">Loading plugins into VDR</a>
+<li><a href="#Building the distribution package">Building the distribution package</a>
+</ul>
+<li><a href="#Part II - The Internal Interface">Part II - The Internal Interface</a>
+<ul>
+<li><a href="#Status monitor">Status monitor</a>
+<li><a href="#Players">Players</a>
+<li><a href="#Receivers">Receivers</a>
+<li><a href="#Filters">Filters</a>
+<li><a href="#The On Screen Display">The On Screen Display</a>
+<li><a href="#Skins">Skins</a>
+<li><a href="#Themes">Themes</a>
+<li><a href="#Devices">Devices</a>
+<li><a href="#Positioners">Positioners</a>
+<li><a href="#Audio">Audio</a>
+<li><a href="#Remote Control">Remote Control</a>
+<li><a href="#Conditional Access">Conditional Access</a>
+<li><a href="#Electronic Program Guide">Electronic Program Guide</a>
+<li><a href="#The video directory">The video directory</a>
+</ul>
+</ul>
+
+<hr><h1 class="center"><a name="Part I - The External Interface">Part I - The External Interface</a></h1>
+
+<hr><h2><a name="Quick start">Quick start</a></h2>
+
+<div class="blurb">Can't wait, can't wait!</div><p>
+
+Actually you should read this entire document before starting to work with VDR plugins,
+but you probably want to see something happening right away <tt>;-)</tt>
+<p>
+So, for a quick demonstration of the plugin system, there is a sample plugin called
+"hello" that comes with the VDR source. To test drive this one, do the following:
+<ul>
+<li>change into the VDR source directory
+<li><b><tt>make</tt></b> the VDR program with your usual <tt>REMOTE=...</tt> (and maybe other) options
+<li>do <b><tt>make plugins</tt></b> to build the plugin
+<li>run VDR with <b><tt>vdr -V</tt></b> to see the version information
+<li>run VDR with <b><tt>vdr -h</tt></b> to see the command line options
+<li>run VDR with <b><tt>vdr -Phello</tt></b>
+<li>open VDR's main menu and select the <i>Hello</i> item
+<li>open the <i>Setup</i> menu from VDR's main menu and select <i>Plugins</i>
+</ul>
+If you enjoyed this brief glimpse into VDR plugin handling, read through the rest of
+this document and eventually write your own VDR plugin.
+
+<hr><h2><a name="The name of the plugin">The name of the plugin</a></h2>
+
+<div class="blurb">Give me some I.D.!</div><p>
+
+One of the first things to consider when writing a VDR plugin is giving the thing
+a proper name. This name will be used in the VDR command line in order to load
+the plugin, and will also be the name of the plugin's source directory, as well
+as part of the final library name.
+<p>
+The plugin's name should typically be as short as possible. Three letter
+abbreviations like <b><tt>dvd</tt></b> (for a DVD player) or <b><tt>mp3</tt></b>
+(for an MP3 player) would be good choices. It is also recommended that the name
+consists of only lowercase letters and digits.
+No other characters should be used here.
+<p>
+A plugin can access its name through the (non virtual) member function
+
+<p><table><tr><td class="code"><pre>
+const char *Name(void);
+</pre></td></tr></table><p>
+
+The actual name is derived from the plugin's library file name, as defined in the
+next chapter.
+
+<hr><h2><a name="The plugin directory structure">The plugin directory structure</a></h2>
+
+<div class="blurb">Where is everybody?</div><p>
+
+By default plugins are located in a directory named <tt>PLUGINS</tt> below the
+VDR source directory. Inside this directory the following subdirectory structure
+is used:
+
+<p><table><tr><td class="code"><pre>
+VDR/PLUGINS/src
+VDR/PLUGINS/src/hello
+VDR/PLUGINS/lib
+VDR/PLUGINS/lib/libvdr-hello.so.1.1.0
+</pre></td></tr></table><p>
+
+The <tt>src</tt> directory contains one subdirectory for each plugin, which carries
+the name of that plugin (in the above example that would be <tt>hello</tt>).
+What's inside the individual source directory of a
+plugin is entirely up to the author of that plugin. The only prerequisites are
+that there is a <tt>Makefile</tt> that provides the targets <tt>all</tt>, <tt>install</tt> and
+<tt>clean</tt>, and that a call to <tt>make all</tt> actually produces a dynamically
+loadable library file for that plugin (we'll get to the details later).
+The dynamically loadable library file for the plugin shall be located directly under
+the plugin's source directory.
+See the section <a href="#Initializing a new plugin directory">Initializing a new plugin directory</a>
+for how to generate an example Makefile.
+<p>
+The <tt>lib</tt> directory contains the dynamically loadable libraries of all
+available plugins. Note that the names of these files are created by concatenating
+<p>
+<table border=2>
+<tr><td align=center><b><tt>libvdr-</tt></b></td><td align=center><b><tt>hello</tt></b></td><td align=center><b><tt>.so.</tt></b></td><td align=center><b><tt>1.1.0</tt></b></td></tr>
+<tr><td align=center><small>VDR plugin<br>library prefix</small></td><td align=center><small>name of<br>the plugin</small></td><td align=center><small>shared object<br>indicator</small></td><td align=center><small>API version number<br>this plugin was<br>compiled for</small></td></tr>
+</table>
+<p>
+The <i>API version number</i> refers to the plugin API version number of the VDR
+version this plugin was compiled with. Compiled plugins can run with newer versions
+of VDR as long as their plugin API version number is still the same as that of
+the current VDR version. That way minor fixes to VDR, that don't require changes
+to the VDR header files, can be made without requiring all plugins to be
+recompiled.
+<p>
+The plugin library files can be stored in any directory. If the default organization
+is not used, the path to the plugin directory has be be given to VDR through the
+<b><tt>-L</tt></b> option.
+<p>
+The VDR <tt>Makefile</tt> contains the target <tt>plugins</tt>, which calls
+<tt>make all</tt> in every directory found under <tt>VDR/PLUGINS/src</tt>,
+plus the target <tt>clean-plugins</tt>, which calls <tt>make clean</tt> in
+each of these directories.
+<p>
+If you download a plugin <a href="#Building the distribution package">package</a>
+from the web, it will typically have a name like
+<p>
+<tt>vdr-hello-0.0.1.tgz</tt>
+<p>
+and will unpack into a directory named
+<p>
+<tt>hello-0.0.1</tt>
+<p>
+To use the <tt>plugins</tt> and <tt>clean-plugins</tt> targets from the VDR <tt>Makefile</tt>
+you need to unpack such an archive into the <tt>VDR/PLUGINS/src</tt> directory and
+create a symbolic link with the basic plugin name, as in
+
+<p><table><tr><td class="code"><pre>
+ln -s hello-0.0.1 hello
+</pre></td></tr></table><p>
+
+Since the VDR <tt>Makefile</tt> only searches for directories with names consisting
+of only lowercase characters and digits, it will only follow the symbolic links, which
+should lead to the current version of the plugin you want to use. This way you can
+have several different versions of a plugin source (like <tt>hello-0.0.1</tt> and
+<tt>hello-0.0.2</tt>) and define which one to actually use through the symbolic link.
+<p>
+If a plugin needs library files of its own, it can copy them to the <tt>lib</tt>
+directory following the naming convention <tt>lib<i>name</i>-<i>library</i>.so.0.0.1</tt>,
+where <i>name</i> is the name of the plugin, and <i>library</i> identifies the
+plugin's additional library. If the plugin <tt>hello</tt> would require the two
+additional libraries <tt>foo</tt> and <tt>bar</tt>, the  names would be
+<p>
+<tt>libhello-foo.so.0.0.1</tt><br>
+<tt>libhello-bar.so.0.0.1</tt>
+<p>
+
+<hr><h2><a name="Initializing a new plugin directory">Initializing a new plugin directory</a></h2>
+
+<div class="blurb">A room with a view</div><p>
+
+Call the Perl script <tt>newplugin</tt> from the VDR source directory to create
+a new plugin directory with a <tt>Makefile</tt> and a main source file implementing
+the basic derived plugin class.
+You will also find a <tt>README</tt> file there with some initial text, where you
+should fill in actual information about your project.
+A <tt>HISTORY</tt> file is set up with an "Initial revision" entry. As your project
+evolves, you should add the changes here with date and version number.
+<p>
+<tt>newplugin</tt> also creates a copy of the GPL license file <tt>COPYING</tt>,
+assuming that you will release your work under that license. Change this if you
+have other plans.
+<p>
+Add further files and maybe subdirectories to your plugin source directory as
+necessary. Don't forget to adapt the <tt>Makefile</tt> appropriately.
+
+<hr><h2><a name="The actual implementation">The actual implementation</a></h2>
+
+<div class="blurb">Use the source, Luke!</div><p>
+
+A newly initialized plugin doesn't really do very much yet.
+If you <a href="#Loading plugins into VDR">load it into VDR</a> you will find a new
+entry in the main menu, with the same name as your plugin (where the first character
+has been converted to uppercase). There will also be a new entry named "Plugins" in
+the "Setup" menu, which will bring up a list of all loaded plugins, through which you
+can access each plugin's own setup parameters (if it provides any).
+<p>
+To implement actual functionality into your plugin you need to edit the source file
+that was generated as <tt>PLUGINS/src/name.c</tt>. Read the comments in that file
+to see where you can bring in your own code. The following sections of this document
+will walk you through the individual member functions of the plugin class.
+<p>
+Depending on what your plugin shall do, you may or may not need all of the given
+member functions. Except for the <tt>MainMenuEntry()</tt> function they all by default
+return values that will result in no actual functionality. You can either completely
+delete unused functions from your source file, or just leave them as they are.
+If your plugin shall not be accessible through VDR's main menu, simply remove
+(or comment out) the line implementing the <tt>MainMenuEntry()</tt> function.
+<p>
+At the end of the plugin's source file you will find a line that looks like this:
+
+<p><table><tr><td class="code"><pre>
+VDRPLUGINCREATOR(cPluginHello);
+</pre></td></tr></table><p>
+
+This is the "magic" hook that allows VDR to actually load the plugin into
+its memory. You don't need to worry about the details behind all this.
+<p>
+If your plugin requires additional source files, simply add them to your plugin's
+source directory and adjust the <tt>Makefile</tt> accordingly.
+<p>
+Header files usually contain preprocessor statements that prevent the same
+file (or rather its contents, to be precise) from being included more than once, like
+
+<p><table><tr><td class="code"><pre>
+#ifndef __I18N_H
+#define __I18N_H
+
+...
+
+#endif //__I18N_H
+</pre></td></tr></table><p>
+
+The example shown here is the way VDR does this in its core source files.
+It takes the header file's name, converts it to all uppercase, replaces the
+dot with an underline and precedes the whole thing with two underlines.
+The GNU library header files do this pretty much the same way, except that they
+usually precede the name with only one underline (there are exceptions, though).
+<p>
+As long as you make sure that none of your plugin's header files will be named
+like one of VDR's header files, you can use the same method as VDR. However,
+if you want to name a header file like one that is already existing in VDR's
+source (<tt>i18n.h</tt> would be a possible candidate for this), you may want
+to make sure that the macros used here don't clash. How you do this is completely
+up to you. You could, for instance, prepend the macro with a <tt>'P'</tt>, as in
+<tt>P__I18N_H</tt>, or leave out the trailing <tt>_H</tt>, as in <tt>__I18N</tt>,
+or use a completely different way to make sure a header file is included only once.
+<p>
+The 'hello' example that comes with VDR makes use of <a href="#Internationalization">internationalization</a>
+and implements a file named <tt>i18n.h</tt>. To make sure it won't clash with VDR's
+<tt>i18n.h</tt> it uses the macro <tt>_I18N__H</tt> (one underline at the beginning
+and two replacing the dot).
+
+<hr><h2><a name="Construction and Destruction">Construction and Destruction</a></h2>
+
+<div class="blurb">What goes up, must come down...</div><p>
+
+The constructor and destructor of a plugin are defined as
+
+<p><table><tr><td class="code"><pre>
+cPlugin(void);
+virtual ~cPlugin();
+</pre></td></tr></table><p>
+
+The <b>constructor</b> shall initialize any member variables the plugin defines, but
+<b>must not access any global structures of VDR</b>.
+It also must not create any threads or other large data structures. These things
+are done in the
+<a href="#Getting started"><tt>Initialize()</tt></a> or
+<a href="#Getting started"><tt>Start()</tt></a>
+function later.
+Constructing a plugin object shall not have any side effects or produce any output,
+since VDR, for instance, has to create the plugin objects in order to get their
+command line help - and after that immediately destroys them again.
+<p>
+The <b>destructor</b> has to clean up any data created by the plugin.
+Any threads the plugin may have created shall be stopped in the
+<a href="#Shutting down"><tt>Stop()</tt></a> function.
+<p>
+Of course, if your plugin doesn't define any member variables that need to be
+initialized (and deleted), you don't need to implement either of these functions.
+
+<hr><h2><a name="Version number">Version number</a></h2>
+
+<div class="blurb">Which incarnation is this?</div><p>
+
+Every plugin must have a version number of its own, which does not necessarily
+have to be in any way related to the VDR version number.
+VDR requests a plugin's version number through a call to the function
+
+<p><table><tr><td class="code"><pre>
+virtual const char *Version(void) = 0;
+</pre></td></tr></table><p>
+
+Since this is a "pure" virtual function, any derived plugin class <b>must</b>
+implement it. The returned string should identify this version of the plugin.
+Typically this would be something like "0.0.1", but it may also contain other
+information, like for instance "0.0.1pre2" or the like. The string should only
+be as long as really necessary, and shall not contain the plugin's name itself.
+Here's an example:
+
+<p><table><tr><td class="code"><pre>
+static const char *VERSION = "0.0.1";
+
+const char *cPluginHello::Version(void)
+{
+  return VERSION;
+}
+</pre></td></tr></table><p>
+
+Note that the definition of the version number is expected to be located in the
+main source file, and must be written as
+<pre>
+static const char *VERSION = ...
+</pre>
+<p>
+just like shown in the above example. This is a convention that allows the <tt>Makefile</tt>
+to extract the version number when generating the file name for the distribution archive.
+<p>
+A new plugin project should start with version number <tt>0.0.1</tt> and should reach
+version <tt>1.0.0</tt> once it is completely operative and well tested. Following the
+Linux kernel version numbering scheme, versions with <i>even</i> release numbers
+(like <tt>1.0.x</tt>, <tt>1.2.x</tt>, <tt>1.4.x</tt>...) should be stable releases,
+while those with <i>odd</i> release numbers (like <tt>1.1.x</tt>, <tt>1.3.x</tt>,
+<tt>1.5.x</tt>...) are usually considered "under development". The three parts of
+a version number are not limited to single digits, so a version number of <tt>1.2.15</tt>
+would be acceptable.
+
+<hr><h2><a name="Description">Description</a></h2>
+
+<div class="blurb">What is it that you do?</div><p>
+
+In order to tell the user what exactly a plugin does, it must implement the function
+
+<p><table><tr><td class="code"><pre>
+virtual const char *Description(void) = 0;
+</pre></td></tr></table><p>
+
+which returns a short, one line description of the plugin's purpose:
+
+<p><table><tr><td class="code"><pre>
+static const char *DESCRIPTION = "A friendly greeting";
+
+virtual const char *Description(void)
+{
+  return tr(DESCRIPTION);
+}
+</pre></td></tr></table><p>
+
+Note the <tt>tr()</tt> around the <tt>DESCRIPTION</tt>, which allows the description
+to be <a href="#Internationalization">internationalized</a>.
+
+<hr><h2><a name="Command line arguments">Command line arguments</a></h2>
+
+<div class="blurb">Taking orders</div><p>
+
+A VDR plugin can have command line arguments just like any normal program.
+If a plugin wants to react on command line arguments, it needs to implement
+the function
+
+<p><table><tr><td class="code"><pre>
+virtual bool ProcessArgs(int argc, char *argv[]);
+</pre></td></tr></table><p>
+
+The parameters <tt>argc</tt> and <tt>argv</tt> have exactly the same meaning
+as in a normal C program's <tt>main()</tt> function.
+<tt>argv[0]</tt> contains the name of the plugin (as given in the <b><tt>-P</tt></b>
+option of the <tt>vdr</tt> call).
+<p>
+Each plugin has its own set of command line options, which are totally independent
+from those of any other plugin or VDR itself.
+<p>
+You can use the <tt>getopt()</tt> or <tt>getopt_long()</tt> function to process
+these arguments. As with any normal C program, the strings pointed to by <tt>argv</tt>
+will survive the entire lifetime of the plugin, so it is safe to store pointers to
+these values inside the plugin. Here's an example:
+
+<p><table><tr><td class="code"><pre>
+bool cPluginHello::ProcessArgs(int argc, char *argv[])
+{
+  // Implement command line argument processing here if applicable.
+  static struct option long_options[] = {
+       { "aaa",      required_argument, NULL, 'a' },
+       { "bbb",      no_argument,       NULL, 'b' },
+       { NULL }
+     };
+
+  int c;
+  while ((c = getopt_long(argc, argv, "a:b", long_options, NULL)) != -1) {
+        switch (c) {
+          case 'a': option_a = optarg;
+                    break;
+          case 'b': option_b = true;
+                    break;
+          default:  return false;
+          }
+        }
+  return true;
+}
+</pre></td></tr></table><p>
+
+The return value must be <i>true</i> if all options have been processed
+correctly, or <i>false</i> in case of an error. The first plugin that returns
+<i>false</i> from a call to its <tt>ProcessArgs()</tt> function will cause VDR
+to exit.
+
+<hr><h2><a name="Command line help">Command line help</a></h2>
+
+<div class="blurb">Tell me about it...</div><p>
+
+If a plugin accepts command line options, it should implement the function
+
+<p><table><tr><td class="code"><pre>
+virtual const char *CommandLineHelp(void);
+</pre></td></tr></table><p>
+
+which will be called if the user enters the <b><tt>-h</tt></b> option when starting VDR.
+The returned string should contain the command line help for this plugin, formatted
+in the same way as done by VDR itself:
+
+<p><table><tr><td class="code"><pre>
+const char *cPluginHello::CommandLineHelp(void)
+{
+  // Return a string that describes all known command line options.
+  return "  -a ABC,   --aaa=ABC      do something nice with ABC\n"
+         "  -b,       --bbb          activate 'plan B'\n";
+}
+</pre></td></tr></table><p>
+
+This command line help will be printed directly below VDR's help texts (separated
+by a line indicating the plugin's name, version and description), so if you use the
+same formatting as shown here it will line up nicely.
+Note that all lines should be terminated with a newline character, and should
+be shorter than 80 characters.
+
+<hr><h2><a name="Getting started">Getting started</a></h2>
+
+<div class="blurb">Let's get ready to rumble!</div><p>
+
+If a plugin implements a function that runs in the background (presumably in a
+thread of its own), or wants to make use of <a href="#Internationalization">internationalization</a>,
+it needs to implement one of the functions
+
+<p><table><tr><td class="code"><pre>
+virtual bool Initialize(void);
+virtual bool Start(void);
+</pre></td></tr></table><p>
+
+which are called once for each plugin at program startup.
+The difference between these two functions is that <tt>Initialize()</tt> is
+called early at program startup, while <tt>Start()</tt> is called after the primary
+device and user interface has been set up, but before the main program loop is entered.
+Inside the <tt>Start()</tt> function of any plugin it is guaranteed that the <tt>Initialize()</tt>
+functions of all plugins have  already been called. For many plugins it probably
+doesn't matter which of these functions they implement, but it may be of importance
+for, e.g., plugins that implement devices. Such plugins should create their cDevice
+derived objects in <tt>Initialize()</tt>, so that other plugins can use them in their
+<tt>Start()</tt> functions.
+<p>
+Inside this function the plugin must set up everything necessary to perform
+its task. This may, for instance, be a thread that collects data from the DVB
+stream, which is later presented to the user via a function that is available
+from the main menu.
+<p>
+A return value of <i>false</i> indicates that something has gone wrong and the
+plugin will not be able to perform its task. In that case, the plugin should
+write a proper error message to the log file. The first plugin that returns
+<i>false</i> from its <tt>Initialize()</tt> or <tt>Start()</tt> function will cause
+VDR to exit.
+<p>
+If the plugin doesn't implement any background functionality or internationalized
+texts, it doesn't need to implement either of these functions.
+
+<hr><h2><a name="Shutting down">Shutting down</a></h2>
+
+<div class="blurb">Stop it, right there!</div><p>
+
+If a plugin performs any background tasks, it shall implement the function
+
+<p><table><tr><td class="code"><pre>
+virtual void Stop(void);
+</pre></td></tr></table><p>
+
+in which it shall stop them.
+<p>
+The <tt>Stop()</tt> function will only be called if a previous call to the
+<a href="#Getting started"><tt>Start()</tt></a> function of that plugin has
+returned <i>true</i>. The <tt>Stop()</tt> functions are called in the reverse order
+as the <a href="#Getting started"><tt>Start()</tt></a> functions were called.
+
+<hr><h2><a name="Logging">Logging</a></h2>
+
+<div class="blurb">Traces in the sand...</div><p>
+
+<p>
+If the plugin should print log messages, you can use <tt>dsyslog()</tt>, <tt>isyslog()</tt> or <tt>esyslog()</tt>.<br>
+<ul>
+<li><tt>dsyslog()</tt> prints the log message only if the log level of vdr is set to 3.
+<li><tt>isyslog()</tt> prints the log message only if the log level of vdr is set to 2 or above.
+<li><tt>esyslog()</tt> prints the log message only if the log level of vdr is set to 1 or above.
+</ul>
+The output of this log is the syslog of the system vdr is running on.
+The log message can be formatted like <tt>printf()</tt>, as in
+
+<p><table><tr><td class="code"><pre>
+esyslog("pluginname: error #%d has occurred", ErrorNumber);
+</pre></td></tr></table><p>
+
+Note that the log messages will be given as provided, the plugin's name will not
+automatically be added, so make sure your log messages are obvious enough.
+<p>
+<modified>
+Only use the above logging functions for occasional log messages. Do not use
+them unconditionally for frequent messages that produce long sequences of lines
+in the log file every few seconds. That might make it hard to work on other plugins
+or the core VDR code, watching their log entries while they are permanently
+interspersed with unrelated stuff.<br>
+<br>
+The recommended behavior for a plugin that does logging is to implement a command
+line option that controls the level of log messages, preferably '-l N, --log=N',
+where 'N' is in the range 0...3, with 0 meaning no logging whatsoever, 1 log only
+errors, 2 log errors and informational messages, and 3 also log debug information.<br>
+<br>
+If a plugin can output extensive data for special debugging purposes (either to
+the log file or stdout/stderr), this should be enabled by setting proper switches
+in one of its source files (see for example how the communication between VDR and
+CAMs can be monitored in VDR/ci.c).<br>
+<br>
+Under no circumstances must a plugin print anything to stdout or stderr during
+normal operation! The only exceptions being special debug information as described
+above, fatal error messages that will cause VDR to abort, or if it is the sole
+purpose of the plugin to display something on stdout, like for instance the
+<i>skincurses</i> plugin, which displays the OSD at the console.<br>
+<br>
+Please make any log messages in <b>ENGLISH</b>! Logs are usually sent to the developers
+of a program, and they may not be able to read them if they are in an exotic language.
+</modified>
+
+<hr><h2><a name="Main menu entry">Main menu entry</a></h2>
+
+<div class="blurb">Today's special is...</div><p>
+
+If the plugin implements a feature that the user shall be able to access
+from VDR's main menu, it needs to implement the function
+
+<p><table><tr><td class="code"><pre>
+virtual const char *MainMenuEntry(void);
+</pre></td></tr></table><p>
+
+The default implementation returns a <tt>NULL</tt> pointer, which means that
+this plugin will not have an item in the main menu. Here's an example of a
+plugin that will have a main menu item:
+
+<p><table><tr><td class="code"><pre>
+static const char *MAINMENUENTRY = "Hello";
+
+const char *cPluginHello::MainMenuEntry(void)
+{
+  return tr(MAINMENUENTRY);
+}
+</pre></td></tr></table><p>
+
+The menu entries of all plugins will be inserted into VDR's main menu right
+after the <i>Recordings</i> item, in the same sequence as they were given
+in the call to VDR.
+
+<hr><h2><a name="User interaction">User interaction</a></h2>
+
+<div class="blurb">It's showtime!</div><p>
+
+If the user selects the main menu entry of a plugin, VDR calls the function
+
+<p><table><tr><td class="code"><pre>
+virtual cOsdObject *MainMenuAction(void);
+</pre></td></tr></table><p>
+
+which can do one of three things:
+<ul>
+<li>Return a pointer to a <tt>cOsdMenu</tt> object which will be displayed
+    as a submenu of the main menu (just like the <i>Recordings</i> menu, for instance).
+    That menu can then implement further functionality and, for instance, could
+    eventually start a custom player to replay a file other than a VDR recording.
+<li>Return a pointer to a <tt>cOsdObject</tt> object which will be displayed
+    instead of the normal menu. The derived <tt>cOsdObject</tt> can open a
+    <a href="#The On Screen Display">raw OSD</a> from within its <tt>Show()</tt>
+    function (it should not attempt to do so from within its constructor, since
+    at that time the OSD is still in use by the main menu).
+    See the 'osddemo' example that comes with VDR for a demonstration of how this
+    is done.
+<li>Perform a specific action and return <tt>NULL</tt>. In that case the main menu
+    will be closed after calling <tt>MainMenuAction()</tt>.
+</ul>
+<b>
+It is very important that a call to <tt>MainMenuAction()</tt> returns as soon
+as possible! As long as the program stays inside this function, no other user
+interaction is possible. If a specific action takes longer than a few seconds,
+the plugin should launch a separate thread to do this.
+</b>
+
+<hr><h2><a name="Housekeeping">Housekeeping</a></h2>
+
+<div class="blurb">Chores, chores...</div><p>
+
+From time to time a plugin may want to do some regular tasks, like cleaning
+up some files or other things. In order to do this it can implement the function
+
+<p><table><tr><td class="code"><pre>
+virtual void Housekeeping(void);
+</pre></td></tr></table><p>
+
+which gets called when VDR is otherwise idle. The intervals between subsequent
+calls to this function are not defined. There may be several hours between two
+calls (if, for instance, there are recordings or replays going on) or they may
+be as close as ten seconds. The only thing that is guaranteed is that there are
+at least ten seconds between two subsequent calls to the <tt>Housekeeping()</tt>
+function of the same plugin.
+<p>
+<b>
+It is very important that a call to <tt>Housekeeping()</tt> returns as soon
+as possible! As long as the program stays inside this function, no other user
+interaction is possible. If a specific action takes longer than a few seconds,
+the plugin should launch a separate thread to do this.
+</b>
+
+<hr><h2><a name="Main thread hook">Main thread hook</a></h2>
+
+<div class="blurb">Pushing in...</div><p>
+
+Normally a plugin only reacts on user input if directly called through its
+<a href="#Main menu entry">main menu entry</a>, or performs some background
+activity in a separate thread. However, sometimes a plugin may need to do
+something in the context of the main program thread, without being explicitly
+called up by the user. In such a case it can implement the function
+
+<p><table><tr><td class="code"><pre>
+virtual void MainThreadHook(void);
+</pre></td></tr></table><p>
+
+in which it can do this. This function is called for every plugin once during
+every cycle of VDR's main program loop, which typically happens once every
+second.
+<b>Be very careful when using this function, and make sure you return from it
+as soon as possible! If you spend too much time in this function, the user
+interface performance will become sluggish!</b>
+
+<hr><h2><a name="Activity">Activity</a></h2>
+
+<div class="blurb">Now is not a good time!</div><p>
+
+If a plugin is running a background task that should be finished before shutting
+down the system, it can implement the function
+
+<p><table><tr><td class="code"><pre>
+virtual cString Active(void);
+</pre></td></tr></table><p>
+
+which shall return an empty string if it is ok to shut down, and a proper message
+if not:
+
+<p><table><tr><td class="code"><pre>
+cString cDoSomethingPlugin::Active(void)
+{
+  if (busy)
+     return tr("Doing something");
+  return NULL;
+}
+</pre></td></tr></table><p>
+
+The message should be short and should indicate what is currently going on.
+It will be presented to the user as a confirmation message, followed by a
+hyphen and a "shut down anyway?" prompt, as in
+<p>
+<b>Doing something - shut down anyway?</b>
+<p>
+All plugins will be queried, and the first one that returns a non empty
+string will cause the confirmation message to be shown. If the user confirms
+the prompt by pressing the "Ok" button, the rest of the plugins will also
+be queried, and further prompts may show up. If all prompts have been confirmed,
+the shutdown will take place. As soon as one prompt is not confirmed, no
+further plugins will be queried and no shutdown will be done.
+
+<hr><h2><a name="Wakeup">Wakeup</a></h2>
+
+<div class="blurb">Wake me up before you go-go</div><p>
+
+If a plugin wants to schedule activity for a later time, or wants to perform
+periodic activity at a certain time at night, and if VDR shall wake up from
+shutdown at that time, the plugin can implement the function
+
+<p><table><tr><td class="code"><pre>
+virtual time_t WakeupTime(void);
+</pre></td></tr></table><p>
+
+which shall return the time of the next custom wakeup time, or 0 if no wakeup
+is planned. VDR will pass the most recent wakeup time of all plugins, or the next
+timer time, whichever comes first, to the shutdown script. The following sample
+will wake up VDR every night at 1:00:
+
+<p><table><tr><td class="code"><pre>
+time_t MyPlugin::WakeupTime(void)
+{
+  time_t Now = time(NULL);
+  time_t Time = cTimer::SetTime(Now, cTimer::TimeToInt(100));
+  if (Time &lt;= Now)
+     Time = cTimer::IncDay(Time, 1);
+  return Time;
+}
+</pre></td></tr></table><p>
+
+After wakeup, the plugin shall continue to return the wakeup time and shall
+return a string when <tt>Active()</tt> is called at that time, otherwise VDR may shut down
+again instantly. If <tt>WakeupTime()</tt> returns a time that is not in
+the future, the time will be ignored.
+
+<hr><h2><a name="Setup parameters">Setup parameters</a></h2>
+
+<div class="blurb">Remember me...</div><p>
+
+If a plugin requires its own setup parameters, it needs to implement the following
+functions to handle these parameters:
+
+<p><table><tr><td class="code"><pre>
+virtual cMenuSetupPage *SetupMenu(void);
+virtual bool SetupParse(const char *Name, const char *Value);
+</pre></td></tr></table><p>
+
+The <tt>SetupMenu()</tt> function shall return the plugin's <a href="#The Setup menu"><i>Setup</i> menu</a>
+page, where the user can adjust all the parameters known to this plugin.
+<p>
+<tt>SetupParse()</tt> will be called for each parameter the plugin has
+previously stored in the global setup data (see below). It shall return
+<i>true</i> if the parameter was parsed correctly, <i>false</i> in case of
+an error. If <i>false</i> is returned, an error message will be written to
+the log file (and program execution will continue).
+A possible implementation of <tt>SetupParse()</tt> could look like this:
+
+<p><table><tr><td class="code"><pre>
+bool cPluginHello::SetupParse(const char *Name, const char *Value)
+{
+  // Parse your own setup parameters and store their values.
+  if      (!strcasecmp(Name, "GreetingTime"))         GreetingTime = atoi(Value);
+  else if (!strcasecmp(Name, "UseAlternateGreeting")) UseAlternateGreeting = atoi(Value);
+  else
+     return false;
+  return true;
+</pre></td></tr></table><p>
+
+It is important to make sure that the parameter names are exactly the same as
+used in the <a href="#The Setup menu"><i>Setup</i> menu</a>'s <tt>Store()</tt> function.
+<p>
+The plugin's setup parameters are stored in the same file as VDR's parameters.
+In order to allow each plugin (and VDR itself) to have its own set of parameters,
+the <tt>Name</tt> of each parameter will be preceded with the plugin's
+name, as in
+<p>
+<tt>hello.GreetingTime = 3</tt>
+<p>
+The prefix will be handled by the core VDR setup code, so the individual
+plugins need not worry about this.
+<p>
+To store its values in the global setup, a plugin has to call the function
+
+<p><table><tr><td class="code"><pre>
+void SetupStore(const char *Name, <i>type</i> Value);
+</pre></td></tr></table><p>
+
+where <tt>Name</tt> is the name of the parameter (<tt>"GreetingTime"</tt> in the above
+example, without the prefix <tt>"hello."</tt>) and <tt>Value</tt> is a simple data type (like
+<tt>char&nbsp;*</tt>, <tt>int</tt> etc).
+Note that this is not a function that the individual plugin class needs to implement!
+<tt>SetupStore()</tt> is a non-virtual member function of the <tt>cPlugin</tt> class.
+<p>
+To remove a parameter from the setup data, call <tt>SetupStore()</tt> with the appropriate
+name and without any value, as in
+<p>
+<tt>SetupStore("GreetingTime");</tt>
+<p>
+The VDR menu "Setup/Plugins" will list all loaded plugins with their name,
+version number and description. Selecting an item in this list will bring up
+the plugin's "Setup" menu if that plugin has implemented the <tt>SetupMenu()</tt>
+function.
+<p>
+Finally, a plugin doesn't have to implement the <tt>SetupMenu()</tt> if it only
+needs setup parameters that are not directly user adjustable. It can use
+<tt>SetupStore()</tt> and <tt>SetupParse()</tt> without presenting these
+parameters to the user.
+
+<hr><h2><a name="The Setup menu">The Setup menu</a></h2>
+
+<div class="blurb">Have it your way!</div><p>
+
+To implement a <i>Setup</i> menu, a plugin needs to derive a class from
+<tt>cMenuSetupPage</tt> and implement its constructor and the pure virtual
+<tt>Store()</tt> member function:
+
+<p><table><tr><td class="code"><pre>
+int GreetingTime = 3;
+int UseAlternateGreeting = false;
+
+class cMenuSetupHello : public cMenuSetupPage {
+private:
+  int newGreetingTime;
+  int newUseAlternateGreeting;
+protected:
+  virtual void Store(void);
+public:
+  cMenuSetupHello(void);
+  };
+
+cMenuSetupHello::cMenuSetupHello(void)
+{
+  newGreetingTime = GreetingTime;
+  newUseAlternateGreeting = UseAlternateGreeting;
+  Add(new cMenuEditIntItem( tr("Greeting time (s)"),      &amp;newGreetingTime));
+  Add(new cMenuEditBoolItem(tr("Use alternate greeting"), &amp;newUseAlternateGreeting));
+}
+
+void cMenuSetupHello::Store(void)
+{
+  SetupStore("GreetingTime", GreetingTime = newGreetingTime);
+  SetupStore("UseAlternateGreeting", UseAlternateGreeting = newUseAlternateGreeting);
+}
+</pre></td></tr></table><p>
+
+In this example we have two global setup parameters (<tt>GreetingTime</tt> and <tt>UseAlternateGreeting</tt>).
+The constructor initializes two private members with the values of these parameters, so
+that the <i>Setup</i> menu can work with temporary copies (in order to discard any changes
+if the user doesn't confirm them by pressing the "Ok" button).
+After this the constructor adds the appropriate menu items, using internationalized texts
+and the addresses of the temporary variables. That's all there is to initialize a <i>Setup</i>
+menu - the rest will be done by the core VDR code.
+<p>
+Once the user has pressed the "Ok" button to confirm the changes, the <tt>Store()</tt> function will
+be called, in which all setup parameters must be actually stored in VDR's global setup data.
+This is done by calling the <tt>SetupStore()</tt> function for each of the parameters.
+The <i>Name</i> string given here will be used to identify the parameter in VDR's
+<tt>setup.conf</tt> file, and will be automatically prepended with the plugin's name.
+<p>
+Note that in this small example the new values of the parameters are copied into the
+global variables within each <tt>SetupStore()</tt> call. This is not mandatory, however.
+You can first assign the temporary values to the global variables and then do the
+<tt>SetupStore()</tt> calls, or you can define a class or struct that contains all
+your setup parameters and use that one to copy all parameters with one single statement
+(like VDR does with its cSetup class).
+
+<hr><h2><a name="Additional files">Additional files</a></h2>
+
+<div class="blurb">I want my own stuff!</div><p>
+
+There may be situations where a plugin requires files of its own. While the plugin is
+free to store such files anywhere it sees fit, it might be a good idea to put them in a common
+place, preferably where such data already exists.
+<p>
+<i>configuration files</i>, maybe for data that can't be stored in the simple
+<a href="#Setup parameters">setup parameters</a> of VDR, or maybe because it needs to
+launch other programs that simply need a separate configuration file.
+<p>
+<i>cache files</i>, to store data so that future requests for that data can be served faster. The data
+that is stored within a cache might be values that have been computed earlier or duplicates of
+original values that are stored elsewhere.
+<p>
+<i>resource files</i>, for providing additional files, like pictures, movie clips or channel logos.
+<p>
+Therefore VDR provides the functions
+
+<p><table><tr><td class="code"><pre>
+const char *ConfigDirectory(const char *PluginName = NULL);
+const char *CacheDirectory(const char *PluginName = NULL);
+const char *ResourceDirectory(const char *PluginName = NULL);
+</pre></td></tr></table><p>
+
+each of which returns a string containing the directory that VDR uses for its own
+files (defined through the options in the call to VDR), extended by
+<tt>"/plugins"</tt>. So assuming the VDR configuration directory is <tt>/video</tt>
+(the default if no <tt><b>-c</b></tt> or <tt><b>-v</b></tt> option is given),
+a call to <tt>ConfigDirectory()</tt> will return <tt>/video/plugins</tt>. The first
+call to <tt>ConfigDirectory()</tt> will automatically make sure that the <tt>plugins</tt>
+subdirectory will exist. If, for some reason, this cannot be achieved, <tt>NULL</tt>
+will be returned.
+The behavior of <tt>CacheDirectory()</tt> and <tt>ResourceDirectory()</tt> is similar.
+<p>
+The additional <tt>plugins</tt> directory is used to keep files from plugins apart
+from those of VDR itself, making sure there will be no name clashes. If a plugin
+needs only one extra file, it is suggested that this file be named <tt>name.*</tt>,
+where <i>name</i> shall be the name of the plugin.
+<p>
+If a plugin needs more than one such file, it is suggested that the plugin stores
+these in a subdirectory of its own, named after the plugin. To easily get such a name
+the functions can be given an additional string that will be appended to the returned
+directory name, as in
+
+<p><table><tr><td class="code"><pre>
+const char *MyConfigDir = ConfigDirectory(Name());
+</pre></td></tr></table><p>
+
+where <tt>Name()</tt> is the member function of the plugin class that returns the
+plugin's name. Again, VDR will make sure that the requested directory will exist
+(or return <tt>NULL</tt> in case of an error).
+<p>
+<b>
+The returned strings are statically allocated and will be overwritten by subsequent calls!
+</b>
+<p>
+The <tt>ConfigDirectory()</tt>, <tt>CacheDirectory()</tt> and <tt>ResourceDirectory()</tt>
+functions are static member functions of the <tt>cPlugin</tt> class. This allows them to be
+called even from outside any member function of the derived plugin class, by writing
+
+<p><table><tr><td class="code"><pre>
+const char *MyConfigDir = cPlugin::ConfigDirectory();
+</pre></td></tr></table><p>
+
+<hr><h2><a name="Internationalization">Internationalization</a></h2>
+
+<div class="blurb">Welcome to Babylon!</div><p>
+
+If a plugin displays texts to the user, it should prepare for internationalization
+of these texts. All that is necessary for this is to mark every text that is
+presented to the user as translatable, as in
+
+<p><table><tr><td class="code"><pre>
+const char *s = tr("Hello world!");
+</pre></td></tr></table><p>
+
+The text given here must be the English version, and the returned pointer is either
+a translated version (if available) or the original string.
+Texts are searched for in the domain registered for this plugin.
+If a plugin wants to make use of texts defined by the core VDR code, it can use
+the special <tt>trVDR()</tt> macro to mark these texts without having them
+appear in its own translation file.
+<p>
+Sometimes texts are stored in an array, in which case they need to be marked
+differently, using the trNOOP() macro. The actual translation is then done
+when such a text is used, as in
+
+<p><table><tr><td class="code"><pre>
+const char *Texts = {
+  trNOOP("First text"),
+  trNOOP("Second text"),
+  trNOOP("Third one")
+  };
+
+for (int i = 0; i &lt; 3; i++)
+    MyFunc(tr(Texts[i]));
+</pre></td></tr></table><p>
+
+<p>
+The system VDR is running on may use a character encoding where a single character
+(or <i>symbol</i>) consists of more than one byte (UTF-8, as opposed to, for instance,
+ISO8859-1, where every character is represented by a single byte in memory).
+In order to make sure a plugin works regardless of the character encoding the current
+system uses, the VDR core code provides several functions and macros that allow accessing
+text strings transparently without knowing whether this is a single or multi byte
+character set. The names of these functions and macros are all of the form <tt>Utf8...()</tt>,
+and are defined in <tt>VDR/tools.h</tt>.
+Most of the time a plugin doesn't need to care about this, but when it comes to
+handling individual characters these functions may come in handy.
+
+<hr><h2><a name="Custom services">Custom services</a></h2>
+
+<div class="blurb">What can I do for you?</div><p>
+
+In some situations, two plugins may want to communicate directly, talking about things
+that VDR doesn't handle itself. For example, a plugin may want to use features
+that some other plugin offers, or it may want to inform other plugins about important
+things it does. To receive requests or messages, a plugin can implement the
+following function:
+
+<p><table><tr><td class="code"><pre>
+virtual bool Service(const char *Id, void *Data = NULL);
+</pre></td></tr></table><p>
+
+<tt>Id</tt> is a unique identification string that identifies the service protocol.
+To avoid collisions, the string should contain a service name, the plugin name (unless
+the service is not related to a single plugin) and a protocol version number.
+<tt>Data</tt> points to a custom data structure. For each id string
+there should be a specification that describes the format of the data
+structure, and any change to the format should  be reflected by a change
+of the id string.
+<p>
+The function shall return <i>true</i> for any service id string it handles, and <i>false</i>
+otherwise. The plugins have to agree in which situations the service
+may be called, for example whether the service may be called from every thread, or
+just from the main thread. A possible implementation could look like this:
+
+<p><table><tr><td class="code"><pre>
+struct Hello_SetGreetingTime_v1_0 {
+  int NewGreetingTime;
+  };
+
+bool cPluginHello::Service(const char *Id, void *Data)
+{
+  if (strcmp(Id, "Hello-SetGreetingTime-v1.0") == 0) {
+     if (Data == NULL)
+        return true;
+     GreetingTime = ((Hello_SetGreetingTime_v1_0*)Data)-&gt;NewGreetingTime;
+     return true;
+     }
+  return false;
+}
+</pre></td></tr></table><p>
+
+Plugins should expect to be called with <tt>Data</tt> set to <tt>NULL</tt> and may use
+this as a 'service supported' check without performing any actions.
+<p>
+To send messages to, or request services from a specific plugin, one plugin can directly
+call another plugin's service function:
+
+<p><table><tr><td class="code"><pre>
+Hello_SetGreetingTime_v1_0 hellodata;
+hellodata.NewGreetingTime = 3;
+cPlugin *Plugin = cPluginManager::GetPlugin("hello");
+if (Plugin)
+   Plugin-&gt;Service("Hello-SetGreetingTime-v1.0", &gt;hellodata);
+</pre></td></tr></table><p>
+
+To send messages to, or request services from some plugin that offers the protocol, a
+plugin can call the function <tt>cPluginManager::CallFirstService()</tt>. This function
+will send the request to all plugins until one plugin handles it.
+The function returns a pointer to the plugin that handled the request, or <tt>NULL</tt>
+if no plugin handled it.
+<p>
+To send a message to all plugins, a plugin can call the function
+<tt>cPluginManager::CallAllServices()</tt>. This function returns <tt>true</tt> if
+any plugin handled the request, or <tt>false</tt> if no plugin handled the request.
+
+<hr><h2><a name="SVDRP commands">SVDRP commands</a></h2>
+
+<div class="blurb">Infinite Diversity in Infinite Combinations</div><p>
+
+A plugin can implement its own SVDRP commands through the two functions
+
+<p><table><tr><td class="code"><pre>
+virtual const char **SVDRPHelpPages(void);
+virtual cString SVDRPCommand(const char *Cmd, const char *Option, int &amp;ReplyCode);
+</pre></td></tr></table><p>
+
+The <tt>SVDRPHelpPages()</tt> function must return a pointer to a list of help
+strings for all of the plugin's SVDRP commands, like this
+
+<p><table><tr><td class="code"><pre>
+const char **cPluginSvdrpdemo::SVDRPHelpPages(void)
+{
+  static const char *HelpPages[] = {
+    "DATE\n"
+    "    Print the current date.",
+    "TIME [ raw ]\n"
+    "    Print the current time.\n"
+    "    If the optional keyword 'raw' is given, the result will be the\n"
+    "    raw time_t data.",
+    NULL
+    };
+  return HelpPages;
+}
+</pre></td></tr></table><p>
+
+Note that the first line of each entry contains the actual command and its
+parameters, while the following lines explain what the command does and what
+the parameters (if any) mean. All lines of the explanation shall be indented
+by exactly 4 blanks (no tabs), and none of them shall be longer than 79 characters
+(to avoid messy output on 80 character wide terminals). The last entry in the
+list must be NULL.
+<p>
+The command names <tt>HELP</tt> and <tt>MAIN</tt> are reserved and cannot
+be used by a plugin.
+<p>
+The actual processing of SVDRP commands for a plugin is done in its
+<tt>SVDRPCommand()</tt> function.
+Here's an example of such a function, which implements the commands advertised in
+the above help texts:
+
+<p><table><tr><td class="code"><pre>
+cString cPluginSvdrpdemo::SVDRPCommand(const char *Command, const char *Option, int &amp;ReplyCode)
+{
+  if (strcasecmp(Command, "DATE") == 0) {
+     // we use the default reply code here
+     return DateString(time(NULL));
+     }
+  else if (strcasecmp(Command, "TIME") == 0) {
+     ReplyCode = 901;
+     if (*Option) {
+        if (strcasecmp(Option, "RAW") == 0)
+           return cString::sprintf("%ld\nThis is the number of seconds since the epoch\n"
+                                   "and a demo of a multi-line reply", time(NULL));
+        else {
+           ReplyCode = 504;
+           return cString::sprintf("Unknown option: \"%s\"", Option);
+           }
+        }
+     return TimeString(time(NULL));
+     }
+  return NULL;
+}
+</pre></td></tr></table><p>
+
+The command is given to this function in the <tt>Command</tt> parameter, and any optional parameters
+are given in the <tt>Option</tt> string. <tt>Command</tt> always points to an actual, non-empty string, while
+<tt>Option</tt> may point to an empty string (it is never NULL, though).
+<p>
+If a plugin doesn't implement the given command, it shall return NULL, and VDR will
+automatically issue a proper error message. If it encounters an unknown or invalid
+option, it shall set the <tt>ReplyCode</tt> to one of the codes defined in <tt>VDR/svdrp.c</tt>
+and return a proper error message.
+<p>
+The default <tt>ReplyCode</tt> is 900, and if the plugin doesn't care about reply
+codes, it doesn't have to set it to anything else (unless there is an error, of
+course). The codes in the range 901..999 are reserved for plugins that want
+to use special reply codes. Any plugin can use any of these values and doesn't
+have to coordinate this with any other plugin, since the caller knows which
+plugin was called, and will therefore process the values according to the
+particular plugin's definitions.
+<p>
+The returned string may consist of several lines, separated by the newline character
+('<tt>\n</tt>'). Each of these lines will be preceded with the <tt>ReplyCode</tt>
+when presenting them to the caller, and the continuation character ('<tt>-</tt>')
+will be set for all but the last one.
+<p>
+<modified>
+<b>The SVDRP functions are called from the separate "SVDRP server handler" thread.
+Therefore the plugin needs to take care of proper locking if it accesses any
+global data.</b>
+</modified>
+
+<hr><h2><a name="Loading plugins into VDR">Loading plugins into VDR</a></h2>
+
+<div class="blurb">Saddling up!</div><p>
+
+Plugins are loaded into VDR using the command line option <b><tt>-P</tt></b>, as in
+
+<p><table><tr><td class="code"><pre>
+vdr -Phello
+</pre></td></tr></table><p>
+
+If the plugin accepts command line options, they are given as part of the argument
+to the <b><tt>-P</tt></b> option, which then has to be enclosed in quotes:
+
+<p><table><tr><td class="code"><pre>
+vdr -P"hello -a abc -b"
+</pre></td></tr></table><p>
+
+Any number of plugins can be loaded this way, each with its own <b><tt>-P</tt></b> option:
+
+<p><table><tr><td class="code"><pre>
+vdr -P"hello -a abc -b" -Pdvd -Pmp3
+</pre></td></tr></table><p>
+
+If you are not starting VDR from the VDR source directory (and thus your plugins
+cannot be found at their default location) you need to tell VDR the location of
+the plugins through the <b><tt>-L</tt></b> option:
+
+<p><table><tr><td class="code"><pre>
+vdr -L/usr/lib/vdr -Phello
+</pre></td></tr></table><p>
+
+There can be any number of <b><tt>-L</tt></b> options, and each of them will apply to the
+<b><tt>-P</tt></b> options following it.
+<p>
+When started with the <b><tt>-h</tt></b> or <b><tt>-V</tt></b> option (for <i>help</i>
+or <i>version</i> information, respectively), VDR will automatically load all plugins
+in the default or given directory that match the VDR plugin
+<a href="#The plugin directory structure">naming convention</a>,
+and display their help and/or version information in addition to its own output.
+
+<hr><h2><a name="Building the distribution package">Building the distribution package</a></h2>
+
+<div class="blurb">Let's get this show on the road!</div><p>
+
+If you want to make your plugin available to other VDR users, you'll need to
+make a package that can be easily distributed.
+The <tt>Makefile</tt> that has been created by the call to
+<a href="#Initializing a new plugin directory"><tt>newplugin</tt></a>
+provides the target <tt>dist</tt>, which does this for you.
+<p>
+Simply change into your source directory and execute <tt>make dist</tt>:
+
+<p><table><tr><td class="code"><pre>
+cd VDR/PLUGINS/src/hello
+make dist
+</pre></td></tr></table><p>
+
+After this you should find a file named like
+
+<p><table><tr><td class="code"><pre>
+vdr-hello-0.0.1.tgz
+</pre></td></tr></table><p>
+
+in your source directory, where <tt>hello</tt> will be replaced with your actual
+plugin's name, and <tt>0.0.1</tt> will be your plugin's current version number.
+
+<hr><h1 class="center"><a name="Part II - The Internal Interface">Part II - The Internal Interface</a></h1>
+
+<hr><h2><a name="Status monitor">Status monitor</a></h2>
+
+<div class="blurb">A piece of the action</div><p>
+
+If a plugin wants to get informed on various events in VDR, it can derive a class from
+<tt>cStatus</tt>, as in
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/status.h&gt;
+
+class cMyStatusMonitor : public cStatus {
+protected:
+  virtual void ChannelSwitch(const cDevice *Device, int ChannelNumber, bool LiveView);
+  };
+
+void cMyStatusMonitor::ChannelSwitch(const cDevice *Device, int ChannelNumber, bool LiveView)
+{
+  if (ChannelNumber)
+     dsyslog("channel switched to %d on DVB %d", ChannelNumber, Device-&gt;CardIndex());
+  else
+     dsyslog("about to switch channel on DVB %d", Device-&gt;CardIndex());
+}
+</pre></td></tr></table><p>
+
+An object of this class will be informed whenever the channel is switched on one of
+the DVB devices. It could be used in a plugin like this:
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/plugin.h&gt;
+
+class cPluginStatus : public cPlugin {
+private:
+  cMyStatusMonitor *statusMonitor;
+public:
+  cPluginStatus(void);
+  virtual ~cPluginStatus();
+  ...
+  virtual bool Start(void);
+  ...
+  };
+
+cPluginStatus::cPluginStatus(void)
+{
+  statusMonitor = NULL;
+}
+
+cPluginStatus::~cPluginStatus()
+{
+  delete statusMonitor;
+}
+
+bool cPluginStatus::Start(void)
+{
+  statusMonitor = new cMyStatusMonitor;
+  return true;
+}
+</pre></td></tr></table><p>
+
+Note that the actual object is created in the <tt>Start()</tt> function, not in the
+constructor! It is also important to delete the object in the destructor, in order to
+avoid memory leaks.
+<p>
+A Plugin can implement any number of <tt>cStatus</tt> derived objects, and once
+the plugin has been started it may create and delete them as necessary.
+No further action apart from creating an object derived from <tt>cStatus</tt>
+is necessary. VDR will automatically hook it into a list of status monitors, with
+their individual virtual member functions being called in the same sequence as the
+objects were created.
+<p>
+See the file <tt>status.h</tt> for detailed information on which status monitor
+member functions are available in <tt>cStatus</tt>. You only need to implement
+the functions you actually want to use.
+
+<hr><h2><a name="Players">Players</a></h2>
+
+<div class="blurb">Play it again, Sam!</div><p>
+
+Implementing a player is a two step process.
+First you need the actual player class, which is derived from the abstract <tt>cPlayer</tt>:
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/player.h&gt;
+
+class cMyPlayer : public cPlayer {
+protected:
+  virtual void Activate(bool On);
+public:
+  cMyPlayer(void);
+  virtual ~cMyPlayer();
+  };
+</pre></td></tr></table><p>
+
+What exactly you do in this class is entirely up to you. If you want to run a separate
+thread which, e.g.,  reads data from a file, you can additionally derive your class from
+<tt>cThread</tt> and implement the necessary functionality:
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/player.h&gt;
+
+class cMyPlayer : public cPlayer, cThread {
+protected:
+  virtual void Activate(bool On);
+  virtual void Action(void);
+public:
+  cMyPlayer(void);
+  virtual ~cMyPlayer();
+  };
+</pre></td></tr></table><p>
+
+Take a look at the files <tt>player.h</tt> and <tt>dvbplayer.c</tt> to see how VDR implements
+its own player for the VDR recordings.
+<p>
+To play the actual data, the player needs to call its member function
+
+<p><table><tr><td class="code"><pre>
+int PlayPes(const uchar *Data, int Length, bool VideoOnly);
+</pre></td></tr></table><p>
+
+where <tt>Data</tt> points to a block of <tt>Length</tt> bytes of a PES data
+stream containing any combination of video, audio or Dolby tracks. Which audio
+or Dolby track will actually be played is controlled by the device the player
+is attached to. There are no prerequisites regarding the length or alignment of an
+individual block of data. The sum of all blocks must simply result in the
+desired data stream, and it must be delivered fast enough so that the
+DVB device doesn't run out of data.
+To avoid busy loops the player should call its member function
+
+<p><table><tr><td class="code"><pre>
+bool DevicePoll(cPoller &amp;Poller, int TimeoutMs = 0);
+</pre></td></tr></table><p>
+
+to determine whether the device is ready for further data.
+<p>
+By default all audio track handling is done by the device a player is
+attached to.
+If the player can provide more than a single audio track, and has special
+requirements in order to set a given track, it can implement the
+following function to allow the device to set a specific track:
+
+<p><table><tr><td class="code"><pre>
+virtual void SetAudioTrack(eTrackType Type, const tTrackId *TrackId)
+</pre></td></tr></table><p>
+
+A player that has special requirements about audio tracks should announce its
+available audio tracks by calling
+
+<p><table><tr><td class="code"><pre>
+bool DeviceSetAvailableTrack(eTrackType Type, int Index, uint16_t Id, const char *Language = NULL, const char *Description = NULL)
+</pre></td></tr></table><p>
+
+See <tt>device.h</tt> for details about the parameters for track handling.
+<p>
+The second part needed here is a control object that receives user input from the main
+program loop and reacts on this by telling the player what to do:
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/player.h&gt;
+
+class cMyControl : public cControl {
+private:
+  cMyPlayer *player;
+public:
+  cMyControl(void);
+  virtual ~cMyControl();
+  virtual void Hide(void);
+  virtual cOsdObject *GetInfo(void);
+  virtual eOSState ProcessKey(eKeys Key);
+  };
+</pre></td></tr></table><p>
+
+<tt>cMyControl</tt> shall create an object of type <tt>cMyPlayer</tt> and
+hand over a pointer to it to the <tt>cControl</tt> base class, so that it
+can be later attached to the primary DVB device:
+
+<p><table><tr><td class="code"><pre>
+cMyControl::cMyControl(void)
+:cControl(player = new cMyPlayer)
+{
+}
+</pre></td></tr></table><p>
+
+<tt>cMyControl</tt> will receive the user's key presses through the <tt>ProcessKey()</tt>
+function. It will get all button presses, except for the volume control buttons
+(<tt>kVolUp</tt>, <tt>kVolDn</tt>, <tt>kMute</tt>), the power button (<tt>kPower</tt>)
+and the menu button (<tt>kMenu</tt>). If the user has not pressed a button for a while
+(which is typically in the area of about one second), <tt>ProcessKey()</tt> will be called
+with <tt>kNone</tt>, so that the <tt>cMyControl</tt> gets a chance to check whether its
+player is still active. Once the player has become inactive (because the user has decided
+to stop it or the DVB device has detached it), <tt>ProcessKey()</tt> must return <tt>osEnd</tt>
+to make the main program loop shut down the player control.
+<p>
+A derived <tt>cControl</tt> <b>must</b> implement the <tt>Hide()</tt> function, in which
+it has to hide itself from the OSD, in case it uses it. <tt>Hide()</tt> may be called at
+any time, and it may be called even if the <tt>cControl</tt> is not visible at the moment.
+<p>
+The <tt>GetInfo()</tt> function is called when the user presses the <tt>Info</tt> button,
+and shall return a pointer to a <tt>cOsdObject</tt> that contains information
+about the currently played programme. The caller takes ownership of the returned
+pointer and will delete it when it is no longer used. If no information is available,
+<tt>NULL</tt> shall be returned.
+<p>
+Finally, to get things going, a plugin that implements a player (and the surrounding
+infrastructure like displaying a list of playable stuff etc) simply has to call the
+static function <tt>cControl::Launch()</tt> with the player control object, as in
+
+<p><table><tr><td class="code"><pre>
+cControl::Launch(new cMyControl);
+</pre></td></tr></table><p>
+
+Ownership of the <tt>MyControl</tt> object is handed over to the VDR core code,
+so the plugin should not keep a pointer to it, because VDR will destroy the object
+whenever it sees fit (for instance because a recording shall start that needs to
+use the primary DVB device, or the user decides to start a different replay).
+<p>
+The <tt>cPlayer</tt> class has a member function
+
+<p><table><tr><td class="code"><pre>
+void DeviceStillPicture(const uchar *Data, int Length);
+</pre></td></tr></table><p>
+
+which can be called to display a still picture. VDR uses this function when handling
+its editing marks. A special case of a "player" might use this function to implement
+a "picture viewer".
+<p>
+For detailed information on how to implement your own player, please take a look
+at VDR's <tt>cDvbPlayer</tt> and <tt>cDvbPlayerControl</tt> classes.
+<p>
+<b>User interface</b>
+<p>
+In order for a new player to nicely "blend in" to the overall VDR appearance it
+is recommended that it implements the same functionality with the same keys as the
+VDR player does (as far as this is possible and makes sense). The main points to
+consider here are
+<ul>
+<li>The <i>Ok</i> button shall bring up some display that indicates what is currently
+    being played, and what the status of this replay session is. As an alternative (for
+    instance with a DVD player) it may display a player specific menu, from which the
+    user can select certain options.
+<li>The <i>Up</i>, <i>Down</i>, <i>Left</i> and <i>Right</i> buttons shall control
+    <i>Play</i>, <i>Pause</i>, <i>Fast Rewind</i> and <i>Fast Forward</i>, respectively
+    (provided that this particular player can implement these functions) if the player
+    is not currently showing any menu. If there is a menu, they shall allow the user
+    to navigate in the menu. The dedicated <i>Play</i>, <i>Pause</i>, <i>FastRew</i>
+    and <i>FastFwd</i> keys shall always result in their specific functionality.
+<li>The <i>Green</i> and <i>Yellow</i> buttons shall skip back- and forward by an
+    amount of time suitable for this player (provided that this particular player can
+    implement these functions).
+<li>The <i>Blue</i> and <i>Stop</i> button shall immediately stop the replay session.
+</ul>
+Of course, these are only suggestions which should make it easier for VDR users to
+enjoy additional players, since they will be able to control them with actions
+that they already know. If you absolutely want to do things differently, just go
+ahead - it's your show...
+
+<hr><h2><a name="Receivers">Receivers</a></h2>
+
+<div class="blurb">Tapping into the stream...</div><p>
+
+In order to receive any kind of data from a <tt>cDevice</tt>, a plugin must set up an
+object derived from the <tt>cReceiver</tt> class:
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/receiver.h&gt;
+
+class cMyReceiver : public cReceiver, cThread {
+protected:
+  virtual void Activate(bool On);
+  virtual void Receive(uchar *Data, int Length);
+public:
+  cMyReceiver(int Pid);
+  };
+
+cMyReceiver::cMyReceiver(int Pid)
+:cReceiver(NULL, -1)
+{
+  AddPid(Pid);
+}
+
+cMyReceiver::~cMyReceiver()
+{
+  cReceiver::Detach();
+  ...
+}
+
+void cMyReceiver::Activate(bool On)
+{
+  // start your own thread for processing the received data
+}
+
+void cMyReceiver::Receive(uchar *Data, int Length)
+{
+  // buffer the data for processing in a separate thread
+}
+</pre></td></tr></table><p>
+
+See the comments in <tt>VDR/receiver.h</tt> for details about the various
+member functions of <tt>cReceiver</tt>.
+<p>
+The above example sets up a receiver that wants to receive data from only one
+PID (for example the Teletext PID). In order to not interfere with other recording
+operations, it sets its priority to <tt>-1</tt> (any negative value will allow
+a <tt>cReceiver</tt> to be detached from its <tt>cDevice</tt> at any time
+in favor of a timer recording or live viewing).
+<p>
+Once a <tt>cReceiver</tt> has been created, it needs to be <i>attached</i> to
+a <tt>cDevice</tt>:
+
+<p><table><tr><td class="code"><pre>
+cMyReceiver *Receiver = new cMyReceiver(123);
+
+cDevice::ActualDevice()-&gt;AttachReceiver(Receiver);
+</pre></td></tr></table><p>
+
+Note the use of <tt>cDevice::ActualDevice()</tt> here, which makes sure that
+the receiver is attached to the device that actually receives the current live
+video stream (this may be different from the primary device in case of <i>Transfer
+Mode</i>).
+<p>
+The <tt>cReceiver</tt> must be detached from its device before it is deleted.
+
+<hr><h2><a name="Filters">Filters</a></h2>
+
+<div class="blurb">A Fistful of Data</div><p>
+
+If you want to receive section data you have to implement a derived <tt>cFilter</tt>
+class which at least implements the <tt>Process()</tt> function and a constructor
+that sets the (initial) filter parameters:
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/filter.h&gt;
+
+class cMyFilter : public cFilter {
+protected:
+  virtual void Process(u_short Pid, u_char Tid, const u_char *Data, int Length);
+public:
+  cMyFilter(void);
+  ...
+  };
+
+cMyFilter::cMyFilter(void)
+{
+  Set(0x14, 0x70);        // TDT
+}
+
+void cMyFilter::Process(u_short Pid, u_char Tid, const u_char *Data, int Length)
+{
+  // do something with the data here
+}
+</pre></td></tr></table><p>
+
+An instance of such a filter needs to be attached to the device from
+which it shall receive data, as in
+
+<p><table><tr><td class="code"><pre>
+cMyFilter *Filter = new cMyFilter();
+
+cDevice::ActualDevice()-&gt;AttachFilter(Filter);
+</pre></td></tr></table><p>
+
+If the <tt>cFilter</tt> isn't needed any more, it may simply be <i>deleted</i>
+and will automatically detach itself from the <tt>cDevice</tt>.
+<p>
+See VDR/eit.c or VDR/pat.c to learn how to process filter data.
+
+<hr><h2><a name="The On Screen Display">The On Screen Display</a></h2>
+
+<div class="blurb">Window to the world</div><p>
+
+If a plugin needs to have total control over the OSD, it can call the
+static function
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/osd.h&gt;
+
+cOsd *MyOsd = cOsdProvider::NewOsd(x, y);
+</pre></td></tr></table><p>
+
+where <tt>x</tt> and <tt>y</tt> are the coordinates of the upper left corner
+of the OSD area on the screen. Such an OSD doesn't display anything
+yet, so you need to at least call the function
+
+<p><table><tr><td class="code"><pre>
+tArea Area = { 0, 0, 100, 100, 4 };
+MyOsd-&gt;SetAreas(&amp;Area, 1);
+</pre></td></tr></table><p>
+
+to define an actual OSD drawing area (see VDR/osd.h for the declarations
+of these functions, and VDR/skinsttng.c to see how VDR opens the OSD and sets up
+its windows and color depths).
+<p>
+Theoretically the OSD supports a full screen drawing area, with 32 bit color
+depth. However, the actual OSD device in use may not be able to provide the
+full area or color depth, maybe because of lack of OSD memory or other restrictions.
+A plugin that uses the OSD should therefore test whether the OSD is able to
+provide the requested functionality, and should offer alternate color depths
+to allow a less powerful OSD implementation to still work reasonably.
+Since it is often not really necessary to have hundreds or thousands of colors
+all over the OSD area, a plugin can divide the total drawing area into several
+sub-areas with different color depths and separate color palettes, as in
+
+<p><table><tr><td class="code"><pre>
+tArea Area = { 0, 0, 99, 99, 4 };
+if (osd-&gt;CanHandleAreas(Area, 1) == oeOk)
+   osd-&gt;SetAreas(&amp;Area, 1);
+else {
+   tArea Areas[] = { { 0,  0, 99, 19, 2 },
+                     { 0, 20, 99, 79, 2 },
+                     { 0, 80, 99, 99, 4 }
+                   };
+   osd-&gt;SetAreas(Areas, sizeof(Areas) / sizeof(tArea));
+   }
+</pre></td></tr></table><p>
+
+In this example an OSD with 100 by 100 pixel and 4 bit color depth shall
+be opened, so at first a single area with the full required resolution
+is set up and <tt>CanHandleAreas()</tt> is called with it. If the result indicates
+that the OSD will be able to handle this drawing area, a call to <tt>SetAreas()</tt>
+actually sets it. If a single area with that resolution can't be handled,
+a second attempt is made in which the total drawing area is divided into
+three horizontal stripes, two of which use only 2 bit color depth (because
+the objects drawn in there can be displayed with 4 colors) while the third
+one still requests 4 bit color depth.
+<p>
+Note that a plugin should always at first request a single drawing area
+with the full required resolution. Only if this fails shall it use alternate
+areas. Drawing areas are always rectangular and may not overlap (but do not need
+to be adjacent).
+<p>
+Special consideration may have to be given to color usage if the OSD provides
+8bpp (256 colors). In that case, fonts may be drawn using <i>anti-aliasing</i>,
+which requires several blended color values between the foreground and background
+color. In order to not use up the whole color palette for a single color
+combination (and thus be unable to draw any other colors at all), it may be
+useful to call
+
+<p><table><tr><td class="code"><pre>
+osd-&gt;SetAntiAliasGranularity();
+</pre></td></tr></table><p>
+
+which allows the system to evenly distribute the palette entries to the various
+color combinations (see <tt>VDR/osd.h</tt> for details).
+<p>
+Directly accessing the OSD is only allowed from the foreground thread, which
+restricts this to a <tt>cOsdObject</tt> returned from the plugin's <tt>MainMenuAction()</tt>
+function, or any of the skin classes a plugin might implement.
+<p>
+If a plugin runs a separate thread and wants to issue a message directly from
+within that tread, it can call
+
+<p><table><tr><td class="code"><pre>
+int cSkins::QueueMessage(eMessageType Type, const char *s, int Seconds = 0, int Timeout = 0);
+</pre></td></tr></table><p>
+
+to queue that message for display. See <tt>VDR/skins.h</tt> for details.
+
+<hr><h2><a name="Skins">Skins</a></h2>
+
+<div class="blurb">The emperor's new clothes</div><p>
+
+The way VDR displays its menus to the user is implemented through <i>skins</i>.
+A particular skin provides several functions that return objects to be used
+for displaying a specific part of the OSD, like a menu, the channel display
+or the volume bar.
+<p>
+By default VDR offers the <i>Classic</i> and the <i>ST:TNG Panels</i> skins,
+which can be selected through Setup/OSD/Skin. A plugin can implement an
+arbitrary skin of its own by doing something similar to what's done in
+<tt>VDR/skinclassic.c</tt>.
+<p>
+The first step in implementing a new skin is to derive a class from <tt>cSkin</tt>
+that provides the handling objects necessary to do the actual work:
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/skins.h&gt;
+
+class cMySkin : public cSkin {
+public:
+  cMySkin(void);
+  virtual const char *Description(void);
+  virtual cSkinDisplayChannel *DisplayChannel(bool WithInfo);
+  virtual cSkinDisplayMenu *DisplayMenu(void);
+  virtual cSkinDisplayReplay *DisplayReplay(bool ModeOnly);
+  virtual cSkinDisplayVolume *DisplayVolume(void);
+  virtual cSkinDisplayTracks *DisplayTracks(const char *Title, int NumTracks, const char * const *Tracks);
+  virtual cSkinDisplayMessage *DisplayMessage(void);
+  };
+</pre></td></tr></table><p>
+
+See the comments in <tt>VDR/skins.h</tt> for details. <tt>VDR/skinclassic.[hc]</tt>
+can be used as an example for how to implement all the necessary classes and
+functions to compose a complete skin. See also the chapter about <a href="#Themes">themes</a>
+if you want to make the colors used by your skin configurable.
+<p>
+To add your new skin to the list of skins available to the user in Setup/OSD/Skin,
+all you need to do is create a new object of your skin class, as in
+
+<p><table><tr><td class="code"><pre>
+new cMySkin;
+</pre></td></tr></table><p>
+
+in the <a href="#Getting started"><tt>Start()</tt></a> function of your plugin.
+Do not delete this object, it will be automatically deleted when the program ends.
+<p>
+In order to be able to easily identify plugins that implement a skin it is recommended
+that the name of such a plugin should be
+
+<p><table><tr><td class="code"><pre>
+skinxyz
+</pre></td></tr></table><p>
+
+where <tt>xyz</tt> is the actual name of the skin.
+
+<hr><h2><a name="Themes">Themes</a></h2>
+
+<div class="blurb">Eye of the beholder...</div><p>
+
+A <i>theme</i> is a collection of colors that can be used by a <a href="#Skins">skin</a>.
+Since every skin most likely has its own idea about what parts of it can be
+<i>themed</i>, and different skins may have completely different numbers of
+"themeable" parts, a particular theme can only be used with the skin it was designed
+for. A particular skin, however, can have any number of themes. Which theme
+will be actually used can be defined in Setup/OSD/Theme.
+<p>
+In order to make a skin "themeable" is shall create an object of type cTheme, as in
+
+<p><table><tr><td class="code"><pre>
+static cTheme Theme;
+</pre></td></tr></table><p>
+
+The next step is to define the colors that shall be provided by this theme, as in
+
+<p><table><tr><td class="code"><pre>
+THEME_CLR(Theme, clrTitle,        0xFFBC8024);
+THEME_CLR(Theme, clrButtonRedFg,  clrWhite);
+THEME_CLR(Theme, clrButtonRedBg,  clrRed);
+</pre></td></tr></table><p>
+
+<tt>THEME_CLR()</tt> is a helper macro that adds the given color name
+and its default color value to the theme.
+<p>
+Any color names can be used, but they should always start with <tt>clr...</tt> and
+if a given color has a foreground and a background value, the two names shall be
+distinguished by appending <tt>...Fg</tt> and <tt>...Bg</tt>, respectively.
+<p>
+Color values can be either 32 bit hexadecimal numbers in the form 0xAARRGGBB
+(where the individual bytes represent Alpha (transparency), Red, Green
+and Blue component, respectively), or one of the predefined color names from
+<tt>VDR/osd.h</tt>.
+<p>
+In the actual drawing code of a skin, the color names defined with the <tt>THEME_CLR()</tt>
+macros can be used to fetch the actual color values from the theme, as in
+
+<p><table><tr><td class="code"><pre>
+osd-&gt;DrawText(x, y, s, Theme.Color(clrButtonRedFg), Theme.Color(clrButtonRedBg), font);
+</pre></td></tr></table><p>
+
+By default this will use the colors that have been defined in the respective
+<tt>THEME_CLR()</tt> line, but may be overwritten through user supplied theme
+files (see <tt>man vdr(5)</tt> for information about the format of a theme file).
+
+<hr><h2><a name="Devices">Devices</a></h2>
+
+<div class="blurb">Expanding the possibilities</div><p>
+
+By default VDR is based on using DVB PCI cards that are supported by the
+LinuxDVB driver. However, a plugin can implement additional devices that
+can be used as sources of MPEG data for viewing or recording, and also
+as output devices for replaying. Such a device can be a physical card
+that is installed in the PC (like, for instance, an MPEG encoder card that
+allows the analog signal of a proprietary set-top box to be integrated
+into a VDR system; or an analog TV receiver card, which does the MPEG encoding
+"on the fly" - assuming your machine is fast enough), or just a software program that takes an MPEG data
+stream and displays it, for instance, on an existing graphics adapter.
+<p>
+To implement an additional device, a plugin must derive a class from <tt>cDevice</tt>:
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/device.h&gt;
+
+class cMyDevice : public cDevice {
+  ...
+  };
+</pre></td></tr></table><p>
+
+The derived class must implement several virtual functions, according to
+the abilities this new class of devices can provide. See the comments in the
+file <tt>VDR/device.h</tt> for more information on the various functions,
+and also <tt>VDR/dvbdevice.[hc]</tt> for details on the implementation of
+the <tt>cDvbDevice</tt>, which is used to access the DVB PCI cards.
+<p>
+<b>Channel selection</b>
+<p>
+If the new device can receive, it most likely needs to provide a way of
+selecting which channel it shall tune to:
+
+<p><table><tr><td class="code"><pre>
+virtual int NumProvidedSystems(void) const;
+virtual bool ProvidesSource(int Source) const;
+virtual bool ProvidesTransponder(const cChannel *Channel) const;
+virtual bool ProvidesChannel(const cChannel *Channel, int Priority = -1, bool *NeedsDetachReceivers = NULL) const;
+virtual bool SetChannelDevice(const cChannel *Channel, bool LiveView);
+</pre></td></tr></table><p>
+
+These functions will be called with the desired source or channel and shall return whether
+this device can provide the requested source or channel and whether tuning to it was successful,
+respectively.
+<p>
+<b>Audio selection</b>
+<p>
+If the device can provide more than a single audio track, it can implement the
+following function to make them available:
+
+<p><table><tr><td class="code"><pre>
+virtual void SetAudioTrackDevice(eTrackType Type);
+virtual int GetAudioChannelDevice(void);
+virtual void SetAudioChannelDevice(int AudioChannel);
+</pre></td></tr></table><p>
+
+<p>
+<b>Recording</b>
+<p>
+A device that can be used for recording must implement the functions
+
+<p><table><tr><td class="code"><pre>
+virtual bool SetPid(cPidHandle *Handle, int Type, bool On);
+virtual bool OpenDvr(void);
+virtual void CloseDvr(void);
+virtual bool GetTSPacket(uchar *&amp;Data);
+</pre></td></tr></table><p>
+
+which allow VDR to set the PIDs that shall be recorded, set up the device for
+recording (and shut it down again), and receive the MPEG data stream. The data
+must be delivered in the form of a Transport Stream (TS), which consists of
+packets that are all 188 bytes in size. Each call to <tt>GetTSPacket()</tt>
+must deliver exactly one such packet (if one is currently available).
+<p>
+<b>Replaying</b>
+<p>
+The functions to implement replaying capabilities are
+
+<p><table><tr><td class="code"><pre>
+virtual bool HasDecoder(void) const;
+virtual bool CanReplay(void) const;
+virtual bool SetPlayMode(ePlayMode PlayMode);
+virtual int64_t GetSTC(void);
+virtual bool IsPlayingVideo(void) const;
+virtual bool HasIBPTrickSpeed(void);
+virtual void TrickSpeed(int Speed, bool Forward);
+virtual void Clear(void);
+virtual void Play(void);
+virtual void Freeze(void);
+virtual void Mute(void);
+virtual void StillPicture(const uchar *Data, int Length);
+virtual bool Poll(cPoller &amp;Poller, int TimeoutMs = 0);
+virtual int PlayVideo(const uchar *Data, int Length);
+</pre></td></tr></table><p>
+
+In addition, the following functions may be implemented to provide further
+functionality:
+
+<p><table><tr><td class="code"><pre>
+virtual bool GrabImage(const char *FileName, bool Jpeg = true, int Quality = -1, int SizeX = -1, int SizeY = -1);
+virtual void SetVideoFormat(bool VideoFormat16_9);
+virtual void SetVolumeDevice(int Volume);
+</pre></td></tr></table><p>
+
+<p>
+<b>Section Filtering</b>
+<p>
+If your device provides section filtering capabilities it can implement
+the functions
+
+<p><table><tr><td class="code"><pre>
+virtual int OpenFilter(u_short Pid, u_char Tid, u_char Mask);
+virtual int ReadFilter(int Handle, void *Buffer, size_t Length);
+virtual void CloseFilter(int Handle);
+</pre></td></tr></table><p>
+
+which must open and close a file handle that delivers section data for the given
+filter parameters.
+<p>
+In order to actually start section handling, the
+device also needs to call the function
+
+<p><table><tr><td class="code"><pre>
+StartSectionHandler();
+</pre></td></tr></table><p>
+
+from its constructor.
+<p>
+See <a href="#Filters">Filters</a> on how to set up actual filters that can
+handle section data.
+
+<p>
+<b>On Screen Display</b>
+<p>
+If your device provides On Screen Display (OSD) capabilities (which every device
+that is supposed to be used as a primary device should do), it shall implement
+an "OSD provider" class, derived from <tt>cOsdProvider</tt>, which, when its <tt>CreateOsd()</tt>
+function is called, returns an object derived from <tt>cOsd</tt>, which can be used to
+access the device's OSD:
+
+<p><table><tr><td class="code"><pre>
+class cMyOsdProvider : public cOsdProvider {
+public:
+  cMyOsdProvider(void);
+  virtual cOsd *CreateOsd(int Left, int Top);
+  };
+</pre></td></tr></table><p>
+
+In its <tt>MakePrimaryDevice()</tt> function the device shall create an object
+of this class, as in
+
+<p><table><tr><td class="code"><pre>
+void cMyDevice::MakePrimaryDevice(bool On)
+{
+  new cMyOsdProvider;
+}
+</pre></td></tr></table><p>
+
+The OSD provider object is allocated on the heap and shall not be deleted
+(it will be deleted automatically in case a different device sets up an OSD
+provider, or when the program ends).
+<p>
+Note that an OSD implementation need not be physically linked to the device
+in any way. All it needs to make sure is that the OSD will be visible to the
+user - whether this goes through OSD facilities of the physical device (like
+a "full featured" DVB card) or through a graphics adapter that overlays its
+output with the video signal, doesn't matter.
+<p>
+In order to be able to determine the proper size of the OSD, the device
+should implement the function
+
+<p><table><tr><td class="code"><pre>
+virtual void GetOsdSize(int &amp;Width, int &amp;Height, double &amp;Aspect);
+</pre></td></tr></table><p>
+
+By default, an OSD size of 720x480 with an aspect ratio of 1.0 is assumed.
+
+<p>
+<b>Initializing new devices</b>
+<p>
+A derived <tt>cDevice</tt> class shall implement a static function
+in which it determines whether the necessary hardware to run this sort of
+device is actually present in this machine (or whatever other prerequisites
+might be important), and then creates as many device objects as necessary.
+See <tt>VDR/dvbdevice.c</tt> for the implementation of the <tt>cDvbDevice</tt>
+initialize function.
+<p>
+A plugin that adds devices to a VDR instance shall call this
+function from its <a href="#Getting started"><tt>Initialize()</tt></a> function
+to make sure other plugins that may need to have access to all available devices
+will see them in their <a href="#Getting started"><tt>Start()</tt></a> function.
+<p>
+Nothing needs to be done to shut down the devices. VDR will automatically
+shut down (delete) all devices when the program terminates. It is therefore
+important that the devices are created on the heap, using the <tt>new</tt>
+operator!
+<p>
+<b>Device hooks</b>
+<p>
+VDR has builtin facilities that select which device is able to provide a given
+transponder, or, which device may provide EIT data. However, there may be
+situations where the setup is so special that it requires considerations that
+exceed the scope of the core VDR code.
+This is where <i>device hooks</i> can be used.
+
+<p><table><tr><td class="code"><pre>
+class cMyDeviceHook : public cDeviceHook {
+public:
+  cMyDeviceHook(void);
+  virtual bool DeviceProvidesTransponder(const cDevice *Device, const cChannel *Channel) const;
+  virtual bool DeviceProvidesEIT(const cDevice *Device) const;
+  };
+</pre></td></tr></table><p>
+
+In its <tt>DeviceProvidesTransponder()</tt> function the device hook can take
+whatever actions are necessary to determine whether the given Device can
+provide the given Channel's transponder, as in
+
+<p><table><tr><td class="code"><pre>
+bool cMyDeviceHook::DeviceProvidesTransponder(const cDevice *Device, const cChannel *Channel) const
+{
+  if (<i>condition where Device can't provide Channel</i>)
+     return false;
+  return true;
+}
+</pre></td></tr></table><p>
+
+In its <tt>DeviceProvidesEIT()</tt> function the device hook can take
+whatever actions are necessary to determine whether the given Device can
+provide EIT data, as in
+
+<p><table><tr><td class="code"><pre>
+bool cMyDeviceHook::DeviceProvidesEIT(const cDevice *Device) const
+{
+  if (<i>condition where Device can't provide EIT data</i>)
+     return false;
+  return true;
+}
+</pre></td></tr></table><p>
+
+A plugin that creates a derived cDeviceHook shall do so in its <tt>Initialize()</tt>
+function, as in
+
+<p><table><tr><td class="code"><pre>
+new cMyDeviceHook;
+</pre></td></tr></table><p>
+
+and shall not delete this object. It will be automatically deleted when the program ends.
+
+<hr><h2><a name="Positioners">Positioners</a></h2>
+
+<div class="blurb">Now you see me - now you don't!</div><p>
+
+If you are using a positioner (also known as "motor" or "rotor") to move your
+satellite dish to receive various satellites, you will be using the 'P' command
+in the <tt>diseqc.conf</tt> file. This command sends the necessary data to the
+positioner to move the dish to the satellite's orbital position. By default VDR
+uses its builtin DiSEqC positioner control. If your positioner requires a different
+method of controlling (like maybe via a serial link), you can derive a class
+from <tt>cPositioner</tt>, as in
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/positioner.h&gt;
+
+class cMyPositioner : public cPositioner {
+public:
+  cMyPositioner(void);
+  virtual void Drive(ePositionerDirection Direction);
+  virtual void Step(ePositionerDirection Direction, uint Steps = 1);
+  virtual void Halt(void);
+  virtual void SetLimit(ePositionerDirection Direction);
+  virtual void DisableLimits(void);
+  virtual void EnableLimits(void);
+  virtual void StorePosition(uint Number);
+  virtual void RecalcPositions(uint Number);
+  virtual void GotoPosition(uint Number, int Longitude);
+  virtual void GotoAngle(int Longitude);
+  };
+</pre></td></tr></table><p>
+
+See the implementation of <tt>cDiseqcPositioner</tt> in <tt>diseqc.c</tt> for details.
+<p>
+You should create your derived positioner object in the
+<a href="#Getting started"><tt>Start()</tt></a> function of your plugin.
+Note that the object has to be created on the heap (using <tt>new</tt>),
+and you shall not delete it at any point (it will be deleted automatically
+when the program ends).
+
+<hr><h2><a name="Audio">Audio</a></h2>
+
+<div class="blurb">"The stereo effect may only be experienced if stereo equipment is used!"</div><p>
+
+There are many different ways to replay additional audio tracks, like Dolby Digital.
+So VDR offers a plugin interface that allows for the implementation of any kind of
+audio replay facility.
+<p>
+To implement a new audio output facility, simply derive a class from <tt>cAudio</tt>,
+as in
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/audio.h&gt;
+#include &lt;vdr/thread.h&gt;
+
+class cMyAudio : public cAudio, private cThread {
+private:
+  virtual void Action(void);
+public:
+  cMyAudio(void);
+  virtual void Play(const uchar *Data, int Length, uchar Id);
+  virtual void Mute(bool On);
+  virtual void Clear(void);
+  };
+</pre></td></tr></table><p>
+
+You should create your derived audio object in the
+<a href="#Getting started"><tt>Start()</tt></a> function of your plugin.
+Note that the object has to be created on the heap (using <tt>new</tt>),
+and you shall not delete it at any point (it will be deleted automatically
+when the program ends).
+<p>
+The <tt>Play()</tt> function will be offered complete audio PES packets
+and has to accept each packet immediately. It must return as soon as possible,
+in order to not delay the overall replay process. Therefore you may want to
+also derive your class from <tt>cThread</tt> and run the actual audio processing
+as a separate thread. Note that the offered data is only valid within the call
+to <tt>Play()</tt>, so if you can't process the entire block immediately, you
+will need to copy it for later processing in your thread.
+<p>
+The <tt>Mute()</tt> and <tt>Clear()</tt> functions will be called whenever the audio shall
+be muted, or any buffered data shall be cleared, respectively.
+
+<hr><h2><a name="Remote Control">Remote Control</a></h2>
+
+<div class="blurb">The joy of zapping!</div><p>
+
+There are several ways to control the operation of VDR. The builtin methods
+are using the PC keyboard, a homebuilt RCU unit or the LIRC interface.
+Of course there may be many more ways you might think of to implement a
+remote control, so a plugin can use the <tt>cRemote</tt> class to do that.
+<p>
+The simplest method for a plugin to issue commands to VDR is to call the
+static function <tt>cRemote::Put(eKeys Key)</tt>, as in
+
+<p><table><tr><td class="code"><pre>
+cRemote::Put(kUp);
+</pre></td></tr></table><p>
+
+In this case the plugin must do the mapping of whatever incoming signal or code
+it processes to the <tt>eKeys</tt> values itself. This makes sense if the incoming
+codes are well known and won't ever change.
+<p>
+In cases where the incoming codes are not known, or not all available keys may
+be supported by the actual remote control in use, you may want to derive your
+own remote control class from <tt>cRemote</tt>, as in
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/remote.h&gt;
+#include &lt;vdr/thread.h&gt;
+
+class cMyRemote : public cRemote, private cThread {
+private:
+  virtual void Action(void);
+public:
+  cMyRemote(const char *Name);
+  virtual bool Initialize(void);
+  };
+</pre></td></tr></table><p>
+
+Note that deriving from <tt>cThread</tt> is not required for a remote control
+class to work, but typically you may want to have a separate thread running that
+collects the input and delivers it to the <tt>cRemote</tt> base class.
+<p>
+You should create your derived remote control object in the
+<a href="#Getting started"><tt>Start()</tt></a> function of your plugin.
+Note that the object has to be created on the heap (using <tt>new</tt>),
+and you shall not delete it at any point (it will be deleted automatically
+when the program ends).
+<p>
+The constructor of your remote control class should look like this
+
+<p><table><tr><td class="code"><pre>
+cMyRemote::cMyRemote(const char *Name)
+:cRemote(Name)
+{
+  Start();
+}
+</pre></td></tr></table><p>
+
+The <tt>Name</tt> is important in order for the <tt>cRemote</tt> base class
+to be able to distinguish the codes for the various remote controls.
+When creating your <tt>cMyRemote</tt> object you should use the value returned
+by the <tt>Name()</tt> member function of the plugin class, which returns the
+plugin's name. Calling <tt>Start()</tt> will start the thread that collects
+the incoming data (by calling your <tt>Action()</tt> function).
+In case you need to do any other setup steps, like opening a file or initializing
+member variables, you should do so before calling <tt>Start()</tt>.
+<p>
+If your remote control for some reason can't work (maybe because it was unable to
+open some file handle it requires) it can implement the virtual function
+
+<p><table><tr><td class="code"><pre>
+virtual bool Ready(void);
+</pre></td></tr></table><p>
+
+and have it return <i>false</i>. In that case VDR will not try to learn keys from
+that remote control.
+VDR will handle everything necessary to learn the key mappings of your remote
+control. In order to do so, it will first call the virtual function <tt>Initialize()</tt>,
+in which you should take all necessary steps to make sure your remote control
+can be accessed. This may, for instance, include trying various communications
+protocols. <tt>Initialize()</tt>, if implemented, shall only return after it has
+made sure data can be received from the remote control. Before calling this
+function, VDR will prompt the user on the OSD to press any key on the remote control.
+As soon as your derived <tt>cRemote</tt> class has detected useful incoming data,
+<tt>Initialize()</tt> should return <i>true</i>. If any fatal error occurs, <i>false</i>
+should be returned.
+<p>
+If your remote control class needs some setup data that shall be
+readily available next time VDR starts (without having to go through the initialization
+procedure again) it can use the <tt>cRemote</tt> member functions
+
+<p><table><tr><td class="code"><pre>
+void PutSetup(const char *Setup);
+const char *GetSetup(void);
+</pre></td></tr></table><p>
+
+to store and retrieve a character string containing whatever data is needed.
+Note that the <tt>Initialize()</tt> function will only be called if there are
+no key mappings known for this remote control. Once the key mappings have been
+learned, <tt>Initialize()</tt> will never be called again.
+<p>
+The <tt>cRemote</tt> class assumes that any incoming remote control code can be
+expressed as a character string. So whatever data your remote control provides
+needs to be given to the base class by calling
+
+<p><table><tr><td class="code"><pre>
+Put(const char *Code, bool Repeat = false, bool Release = false);
+</pre></td></tr></table><p>
+
+where <tt>Code</tt> is the string representation of the remote control's
+incoming data. <tt>Repeat</tt> and <tt>Release</tt> are boolean flags that
+indicate whether this is a repeated keypress, or the key has been released.
+Since a common case for remote control data is to be given as a numerical
+value, there is another <tt>Put()</tt> function available for your convenience,
+which takes a 64 bit unsigned integer value instead of a character string:
+
+<p><table><tr><td class="code"><pre>
+Put(uint64 Code, bool Repeat = false, bool Release = false);
+</pre></td></tr></table><p>
+
+The other parameters have the same meaning as in the first version of this function.
+<p>
+If your remote control has a repeat function that automatically repeats key events
+if a key is held pressed down for a while, your derived class should use the global
+parameters <tt>Setup.RcRepeatDelay</tt> and <tt>Setup.RcRepeatDelta</tt> to allow
+users to configure the behavior of this function.
+
+<hr><h2><a name="Conditional Access">Conditional Access</a></h2>
+
+<div class="blurb">Members only!</div><p>
+
+Pay TV providers usually encrypt their broadcasts, so that only viewers who
+have the proper smart card can watch them. Such a smart card needs to be inserted
+into a CAM (Conditional Access Module), which in turn goes into a CI (Common
+Interface) slot.
+<p>
+VDR's mechanisms for supporting Conditional Access are mainly the two classes
+<tt>cCiAdapter</tt> and <tt>cCamSlot</tt>. A <tt>cCiAdapter</tt> handles exactly
+one CI, and can provide several CAM slots, represented by the appropriate
+number of <tt>cCamSlot</tt> objects.
+<p>
+In order to decrypt a particular channel, a <tt>cCiAdapter</tt> with a <tt>cCamSlot</tt>
+that contains the necessary CAM will be assigned to a <tt>cDevice</tt>, and exactly
+one of its CAM slots will be activated. Whether or not a <tt>cCiAdapter</tt> can
+be assigned to a particular device depends on the hardware implementation.
+Some devices (like the Siemens/Technotrend DVB cards) are hardwired with their
+CI adapters, so the <tt>cCiAdapter</tt> for these can only be used with one device.
+Other hardware implementations may allow CI adapters and devices to be connected
+through some sort of matrix switch. When trying to decrypt an encrypted channel,
+VDR will automatically select a useful combination of device and CAM slot.
+<p>
+If a plugin implements a derived <tt>cCiAdapter</tt>, it has to implement
+several low level functions that handle the actual data transfer (see <tt>dvbci.c</tt>
+for example). The decision whether the adapter can actually be assigned to different
+devices is made in the function
+
+<p><table><tr><td class="code"><pre>
+virtual bool Assign(cDevice *Device, bool Query = false);
+</pre></td></tr></table><p>
+
+See the description of this function in <tt>ci.h</tt> for details.
+
+<hr><h2><a name="Electronic Program Guide">Electronic Program Guide</a></h2>
+
+<div class="blurb">The grass is always greener on the other side...</div><p>
+
+In case the <i>Electronic Program Guide (EPG)</i> provided by the broadcaster
+isn't sufficient for your taste, you can implement a <tt>cEpgHandler</tt> to
+improve it from external sources. For instance, to replace the description
+of the broadcaster's EPG with one from some external database, you could do:
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/epg.h&gt;
+
+class cMyEpgHandler : public cEpgHandler {
+public:
+  virtual bool SetDescription(cEvent *Event, const char *Description);
+  };
+
+bool cMyEpgHandler::SetDescription(cEvent *Event, const char *Description)
+{
+  Event-&gt;SetDescription(DescriptionFromDatabase(Event));
+  return true;
+}
+</pre></td></tr></table><p>
+
+where <tt>DescriptionFromDatabase()</tt> would derive the description of the
+ given event from some external source. Note that the function returns <tt>true</tt>
+to signal VDR that no other EPG handlers shall be queried after this one.
+<p>
+See <tt>VDR/epg.h</tt> for details.
+
+<hr><h2><a name="The video directory">The video directory</a></h2>
+
+<div class="blurb">Bits and pieces...</div><p>
+
+By default VDR assumes that the video directory consists of one large
+volume, on which it can store its recordings. If you want to distribute your
+recordings over several physical drives, you can derive from <tt>cVideoDirectory</tt>,
+as in
+
+<p><table><tr><td class="code"><pre>
+#include &lt;vdr/videodir.h&gt;
+
+class cMyVideoDirectory : public cVideoDirectory {
+public:
+  cMyVideoDirectory(void);
+  virtual ~cMyVideoDirectory();
+  virtual int FreeMB(int *UsedMB = NULL);
+  virtual bool Register(const char *FileName);
+  virtual bool Rename(const char *OldName, const char *NewName);
+  virtual bool Move(const char *FromName, const char *ToName);
+  virtual bool Remove(const char *Name);
+  virtual void Cleanup(const char *IgnoreFiles[] = NULL);
+  virtual bool Contains(const char *Name);
+  };
+</pre></td></tr></table><p>
+
+See the description in <tt>videodir.h</tt> for details.
+<p>
+You should create your derived video directory object in the
+<a href="#Getting started"><tt>Start()</tt></a> function of your plugin.
+Note that the object has to be created on the heap (using <tt>new</tt>),
+and you shall not delete it at any point (it will be deleted automatically
+when the program ends).
+
+</body>
+</html>

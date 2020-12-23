@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: Hex/Character Dump
+		Output modes</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: Hex/Character Dump Output modes</H1> 
+	 <P>Besides the verbose decoding (<B>-pd &lt;nr&gt;</B>) of dvb stream data
+		dvbsnoop offers different hex / ASCII dump output modes (<B>-ph
+		&lt;nr&gt;</B>):</P>
+	 <UL>
+		<LI><B>-ph 0</B> (or -nph): Switch off ASCII / hex dump</LI>
+		<LI><B>-ph 1:</B> Normal hex / ASCII dump</LI>
+		<LI><B>-ph 2:</B> Hex line dump</LI>
+		<LI><B>-ph 3:</B> ASCII line dump</LI>
+		<LI><B>-ph 4:</B> Hex / ASCII dump version 2</LI>
+	 </UL>
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>&gt; dvbsnoop <B>-ph 1</B> 0x12
+
+
+dvbsnoop V1.1.43 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000001   PID: 18 (0x0012), Length: 93 (0x005d)
+Time received: Sun 2003-12-28  23:35:57.492
+----------------------------------------------------------
+  0000:  50 f0 5a 2f 30 e1 b0 b0 04 41 00 01 b0 50 21 ec 
+  0000:   P  .  Z  /  0  .  .  .  .  A  .  .  .  P  !  . 
+  0010:  cf 0a 18 00 00 01 00 00 00 19 4d 13 67 65 72 0e 
+  0010:   .  .  .  .  .  .  .  .  .  .  M  .  g  e  r  . 
+  0020:  45 6c 65 6b 74 72 6f 6e 69 6b 73 68 6f 70 00 54 
+  0020:   E  l  e  k  t  r  o  n  i  k  s  h  o  p  .  T 
+  0030:  02 00 00 21 ed cf 0a 19 00 00 01 00 00 00 1a 4d 
+  0030:   .  .  .  !  .  .  .  .  .  .  .  .  .  .  .  M 
+  0040:  14 67 65 72 0f 05 44 e4 6d 6d 65 72 2d 53 68 6f 
+  0040:   .  g  e  r  .  .  D  .  m  m  e  r  -  S  h  o 
+  0050:  70 70 65 6e 00 54 02 00 00 e7 2d 53 7b 
+  0050:   p  p  e  n  .  T  .  .  .  .  -  S  { 
+
+PID:  18 (0x0012)
+EIT-decoding....
+Table_ID: 80 (0x50)  [= event_information_section - actual transport stream, schedule]
+section_syntax_indicator: 1 (0x01)
+[...]</PRE></TD> 
+		</TR> 
+	 </TABLE>
+	 <P></P>
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>&gt; dvbsnoop <B>-ph 2</B> 0x12
+
+dvbsnoop V1.1.43 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000001   PID: 18 (0x0012), Length: 180 (0x00b4)
+Time received: Sun 2003-12-28  23:35:54.018
+----------------------------------------------------------
+4e f0 b1 2f 35 c9 01 01 04 41 00 01 01 4e 2f 65 cf 09 22 55 00 00 30 00 00 96 4e 7f 00 67 65 72 00 79 42 75 74 74 65 72 73 20 77 69 72 64 20 66 61 73 74 20 64 61 73 20 4d 6f 72 64 6f 70 66 65 72 20 73 65 69 6e 65 72 20 65 69 67 65 6e 65 6e 20 4d 75 74 74 65 72 2c 20 61 6c 73 20 65 72 20 69 68 72 20 62 65 72 69 63 68 74 65 2c 20 64 61 73 73 20 69 68 72 20 4d 61 6e 6e 20 73 69 63 68 20 69 6e 20 50 6f 72 6e 6f 6b 69 6e 6f 73 20 68 65 72 75 6d 74 72 65 69 62 74 2e 4d 0f 67 65 72 0a 53 6f 75 74 68 20 50 61 72 6b 00 54 02 50 00 e6 57 6b 67 
+
+PID:  18 (0x0012)
+EIT-decoding....
+Table_ID: 80 (0x50)  [= event_information_section - actual transport stream, schedule]
+section_syntax_indicator: 1 (0x01)
+[...]
+</PRE></TD> 
+		</TR> 
+	 </TABLE>
+	 <P></P>
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>&gt; dvbsnoop <B>-ph 3</B> 0x12
+
+
+dvbsnoop V1.1.43 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000002   PID: 18 (0x0012), Length: 632 (0x0278)
+Time received: Sun 2003-12-28  23:35:50.541
+----------------------------------------------------------
+P.u/.. p.A.. P5.......%..NMHgerC.WunderZunderFunkelZauber - Die M.rchen von Hans Christian Andersen.T.P.5....5..0..(M"ger.Wild Instinct - Tiere wie wir.T.P.5.......%...M.ger..Disneys gro.e Pause.T.P.5....0..%.."M.ger.Weihnachtsmann &amp; Co. KG.T.P.5....U.. ..UM$ger.Alle Hunde kommen in den Himmel.N).ger.#Sendeplatz: sonntags, ca. 14:55 UhrT...5.......%...M$ger.Alle Hunde kommen in den Himmel.N..ger..Ausgerechnet Charlie und Itchy tappen in eine Hundefalle und landen im Zwinger. Als ihnen die Flucht gelingt, bringen sie ans Licht, dass der kleine Teddy die Falle aufgestellt hat.T...5....@..0...M.ger.Der rosarote Panther.T.P.H..}
+
+PID:  18 (0x0012)
+EIT-decoding....
+Table_ID: 80 (0x50)  [= event_information_section - actual transport stream, schedule]
+section_syntax_indicator: 1 (0x01)
+[...]
+</PRE></TD> 
+		</TR> 
+	 </TABLE>
+	 <P></P>
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>&gt; dvbsnoop <B>-ph 4</B> 0x12
+
+
+dvbsnoop V1.1.43 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000001   PID: 18 (0x0012), Length: 308 (0x0134)
+Time received: Sun 2003-12-28  23:35:45.999
+----------------------------------------------------------
+  0000:  4e f1 31 2e f4 cb 00 01  04 41 00 01 01 4e 23 b8   N.1......A...N#.
+  0010:  cf 09 21 45 00 01 00 00  81 16 4e e8 00 67 65 72   ..!E......N..ger
+  0020:  00 e2 05 4d 69 74 20 48  69 6c 66 65 20 6d 6f 64   ...Mit Hilfe mod
+  0030:  65 72 6e 73 74 65 72 20  54 65 63 68 6e 69 6b 2c   ernster Technik,
+  0040:  20 44 4e 41 2d 41 6e 61  6c 79 73 65 6e 2c 20 74    DNA-Analysen, t
+  0050:  6f 78 69 6b 6f 6c 6f 67  69 73 63 68 65 72 2c 20   oxikologischer, 
+  0060:  65 6e 74 6f 6d 6f 6c 6f  67 69 73 63 68 65 72 20   entomologischer 
+  0070:  75 6e 64 20 70 61 74 68  6f 6c 6f 67 69 73 63 68   und pathologisch
+  0080:  65 72 20 55 6e 74 65 72  73 75 63 68 75 6e 67 65   er Untersuchunge
+  0090:  6e 20 6b f6 6e 6e 65 6e  20 61 6c 73 20 75 6e 6c   n k.nnen als unl
+  00a0:  f6 73 62 61 72 20 67 65  6c 74 65 6e 64 65 20 4b   .sbar geltende K
+  00b0:  72 69 6d 69 6e 61 6c 66  e4 6c 6c 65 20 77 69 65   riminalf.lle wie
+  00c0:  64 65 72 20 61 75 66 67  65 72 6f 6c 6c 74 20 75   der aufgerollt u
+  00d0:  6e 64 20 64 69 65 20 77  61 68 72 65 6e 20 54 e4   nd die wahren T.
+  00e0:  74 65 72 20 fc 62 65 72  66 fc 68 72 74 20 75 6e   ter .berf.hrt un
+  00f0:  64 20 76 65 72 75 72 74  65 69 6c 74 20 77 65 72   d verurteilt wer
+  0100:  64 65 6e 2e 4d 26 67 65  72 21 05 41 75 74 6f 70   den.M&amp;ger!.Autop
+  0110:  73 69 65 20 2d 20 4d 79  73 74 65 72 69 f6 73 65   sie - Mysteri.se
+  0120:  20 54 6f 64 65 73 66 e4  6c 6c 65 00 54 02 00 00    Todesf.lle.T...
+  0130:  ed 0b 54 68                                        ..Th
+
+PID:  18 (0x0012)
+EIT-decoding....
+Table_ID: 78 (0x4e)  [= event_information_section - actual transport stream, present/following]
+section_syntax_indicator: 1 (0x01)
+[...]
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

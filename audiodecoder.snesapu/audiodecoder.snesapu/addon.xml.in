@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="audiodecoder.snesapu"
+  version="3.0.0"
+  name="SPC Audio Decoder"
+  provider-name="spiff">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="kodi.audiodecoder"
+    name="spc"
+    extension=".spc"
+    tags="true"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="de_DE">SNES-SPC700 Sound File Data Decoder</summary>
+    <summary lang="en_GB">SNES-SPC700 Sound File Data Decoder</summary>
+    <description lang="de_DE">Das SPC-Format enthält Super Nintendo (SNES) Spielmusik. Es ist nach Sonys SPC700-Beitrag zum S-SMP-Audio-Chip des SNES benannt. Das SNES war ein großer Sprung in der Audiotechnologie des NES, der Stereoklang, mehr Kanäle und vollständig gesampelte Instrumente ermöglichte.</description>
+    <description lang="en_GB">The SPC format holds Super Nintendo (SNES) game music. It is named after Sony's SPC700 contribution to the SNES's S-SMP audio chip. The SNES was a major jump in audio technology from the NES allowing for stereo sound, more channels, and fully sampled instruments.</description>
+    <platform>@PLATFORM@</platform>
+    <license>GPL-2.0-or-later</license>
+    <source>https://github.com/xbmc/audiodecoder.snesapu</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

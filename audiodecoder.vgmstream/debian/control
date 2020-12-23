@@ -1,0 +1,21 @@
+Source: kodi-audiodecoder-vgmstream
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake, kodi-addon-dev
+Standards-Version: 4.1.2
+Section: libs
+Homepage: https://kodi.tv
+
+Package: kodi-audiodecoder-vgmstream
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: VGMStream audio decoder for Kodi
+  VGMStream audio decoder for Kodi
+
+Package: kodi-audiodecoder-vgmstream-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for VGMStream audio decoder for Kodi
+  debug symbols for VGMStream audio decoder for Kodi

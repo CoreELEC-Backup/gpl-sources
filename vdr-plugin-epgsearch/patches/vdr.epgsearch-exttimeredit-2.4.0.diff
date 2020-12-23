@@ -1,0 +1,122 @@
+diff --git a/menu.c b/menu.c
+index c8a557c..ae2dc30 100644
+--- a/menu.c
++++ b/menu.c
+@@ -1159,6 +1159,7 @@ eOSState cMenuEditTimer::ProcessKey(eKeys Key)
+ class cMenuTimerItem : public cOsdItem {
+ private:
+   const cTimer *timer;
++  void DoSet(void);
+ public:
+   cMenuTimerItem(const cTimer *Timer);
+   virtual int Compare(const cListObject &ListObject) const;
+@@ -1170,7 +1171,7 @@ public:
+ cMenuTimerItem::cMenuTimerItem(const cTimer *Timer)
+ {
+   timer = Timer;
+-  Set();
++  DoSet();
+ }
+ 
+ int cMenuTimerItem::Compare(const cListObject &ListObject) const
+@@ -1180,6 +1181,20 @@ int cMenuTimerItem::Compare(const cListObject &ListObject) const
+ 
+ void cMenuTimerItem::Set(void)
+ {
++  // check for deleted timer
++  LOCK_TIMERS_READ;
++  if (!Timers->Contains(timer))
++  {
++	  if (const cTimer *t = Timers->GetById(timer->Id(), timer->Remote()))
++		  timer = t;
++	  else
++		  return; // no matching timer found
++  }
++  DoSet();
++}
++
++void cMenuTimerItem::DoSet(void)
++{
+   cString day, name("");
+   if (timer->WeekDays())
+      day = timer->PrintDay(0, timer->WeekDays(), false);
+@@ -1227,8 +1242,7 @@ private:
+   cStateKey timersStateKey;
+   int helpKeys;
+   void Set(void);
+-  eOSState Edit(void);
+-  eOSState New(void);
++  eOSState Edit(bool New = false);
+   eOSState Delete(void);
+   eOSState OnOff(void);
+   eOSState Info(void);
+@@ -1322,21 +1336,34 @@ eOSState cMenuTimers::OnOff(void)
+   return osContinue;
+ }
+ 
+-eOSState cMenuTimers::Edit(void)
+-{
+-  if (HasSubMenu() || Count() == 0)
+-     return osContinue;
+-  return AddSubMenu(new cMenuEditTimer(GetTimer()));
+-}
+-
+-eOSState cMenuTimers::New(void)
++eOSState cMenuTimers::Edit(bool New)
+ {
+-  if (HasSubMenu())
++  if (HasSubMenu() || Count() == 0 && !New)
+      return osContinue;
+-  cTimer *Timer = new cTimer;
++  cTimer *Timer;
++  if (New)
++  {
++  Timer = new cTimer;
+   if (Setup.SVDRPPeering && *Setup.SVDRPDefaultHost)
+      Timer->SetRemote(Setup.SVDRPDefaultHost);
+-  return AddSubMenu(new cMenuEditTimer(Timer, true));
++  }
++  // Data structure for service "Epgsearch-exttimeredit-v1.0"
++  struct Epgsearch_exttimeredit_v1_0
++  {
++    // in
++    cTimer* timer;          // pointer to the timer to edit
++    bool bNew;              // flag that indicates, if this is a new timer or an existing one
++    const cEvent* event;    // pointer to the event corresponding to this timer (may be NULL)
++    // out
++    cOsdMenu* pTimerMenu;   // pointer to the menu of results
++  } exttimeredit;
++  exttimeredit.timer = New ? Timer : GetTimer();
++  exttimeredit.bNew = New;
++  exttimeredit.event = exttimeredit.timer->Event();
++  if (cPluginManager::CallFirstService("Epgsearch-exttimeredit-v1.0", &exttimeredit))
++    return AddSubMenu(exttimeredit.pTimerMenu);
++
++  return AddSubMenu(new cMenuEditTimer(exttimeredit.timer, New));
+ }
+ 
+ eOSState cMenuTimers::Delete(void)
+@@ -1392,7 +1419,7 @@ eOSState cMenuTimers::ProcessKey(eKeys Key)
+      switch (Key) {
+        case kOk:     return Edit();
+        case kRed:    state = OnOff(); break; // must go through SetHelpKeys()!
+-       case kGreen:  return New();
++       case kGreen:  return Edit(true);
+        case kYellow: state = Delete(); break;
+        case kInfo:
+        case kBlue:   return Info();
+@@ -1410,6 +1437,14 @@ eOSState cMenuTimers::ProcessKey(eKeys Key)
+      SetHelpKeys();
+      Display();
+      }
++  if (!HasSubMenu()) {
++     LOCK_TIMERS_READ;
++     if (Timers->Count()<Count()) {
++       // timer was deleted
++       cOsdMenu::Del(Current());
++       Display();
++       }
++     }
+   if (Key != kNone)
+      SetHelpKeys();
+   return state;

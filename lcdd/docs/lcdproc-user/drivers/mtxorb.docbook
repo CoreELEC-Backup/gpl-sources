@@ -1,0 +1,380 @@
+<sect1 id="MtxOrb">
+<title>The MtxOrb Driver</title>
+
+<para>
+      This section covers the installation process for the Matrix Orbital LCD
+      module intended for use with LCDproc.
+</para>
+<para>
+      We will examine the installation process of the hardware in
+      small steps, as it is vitally important to pay close attention to detail during
+      hardware installation to avoid damaging equipment.
+</para>
+
+<sect2 id="MtxOrb-features">
+<title>Matrix Orbital LCD Modules</title>
+        <para>
+          LCDproc was born out of original tinkering by William Ferrell with
+          one of these LCD modules. Their ease of installation and use (as well
+          as the amazing amount of patience demonstrated by the folks at
+          Matrix Orbital whilst William figured things out) meant one less thing
+          to worry about during the early stages of LCDproc's life.
+        </para>
+        <para>
+          These 20x4 alphanumeric modules are connected via standard DB-9 cabling and
+          connectors. They draw either 5V or 12V, depending on the module purchased,
+          and are attached with a standard floppy cable connector (with a slightly
+          modified wire configuration).
+        </para>
+        <para>
+          Once connected, using them is a breeze. They can operate at any number of
+          different baud rates and serial configurations, but normally they run at
+          19,200 baud, 8-N-1, making them quite quick. Sending ASCII to the module
+          will make it simply display that text at its current cursor position. The
+          module has a built-in BIOS that recognizes commands (sent by transmitting a
+          single-byte "marker" signifying that a command is on the way, followed by
+          the single-byte command character itself along with any parameters, if needed)
+          allowing the programmer to clear the screen, position the cursor anywhere,
+          define custom characters (up to 8 at a time), draw bar graphs and large numbers,
+          change the LCD's contrast, and so on.
+        </para>
+        <para>
+          The BIOS included also implements line-wrapping (i.e. writing past the
+          twentieth character on the first row will automatically move the cursor
+          to the first character on the second row), and screen scrolling (i.e.
+          writing past the twentieth character on the fourth row causes the whole
+          screen to scroll up one row, clearing the fourth line and positioning the
+          cursor at the first character on that line).
+        </para>
+        <para>
+          These modules are fast. Using the auto-line-wrap feature and disabling
+          the auto-scrolling feature, the screen can be updated thirty times per
+          second if *every* character on the screen is changed. If updating less
+          than the whole screen, the LCD can update faster than can be seen by
+          the human eye. This, of course, more than meets LCDproc's needs.
+        </para>
+</sect2>
+
+<sect2 id="MtxOrb-hardware">
+<title>Matrix Orbital Hardware Installation</title>
+      <para>
+        Regardless of what specific type of hardware you intend to use with LCDproc,
+        installation is usually straightforward, and requires only a few steps. Regardless,
+        you must use caution while working inside your computer system or with any hardware
+        attachments.
+      </para>
+      <warning>
+        <para>
+          Installing new hardware inside a computer system can be dangerous to both
+          system components and the installer. Use caution whenever adding a component
+          to the inside of your system, altering a power cable, or physically mounting
+          a device inside a computer system.
+        </para>
+        <para>
+          When installing hardware inside a computer, make sure it's turned off and that
+          its power is disconnected. This is especially important when making changes to
+          power cables (as some LCD modules require).
+        </para>
+      </warning>
+
+      <sect3 id="MtxOrb-lcd_vfd-installation">
+        <title>Matrix Orbital LCD/VFD Module Installation</title>
+        <para>
+          The LCD and VFD modules from Matrix Orbital are relatively straightforward
+	  to install. With a small, regular (flat-head) screwdriver, a spare floppy drive
+	  power cable, and a bit of luck, installation will take less than an hour.
+	</para>
+	<para>
+	  These installation instructions assume that you are installing the module into
+	  a PC or PC-style system (one with AT- or ATX-compliant power cabling) and that
+	  you have some idea of where you intend to permanently mount the module.
+	</para>
+	<tip>
+	  <title>Before you start</title>
+	  <para>
+	    Your Matrix Orbital LCD or VFD module should be clearly marked with an
+	    indication of the module's power requirements. It should be either a 5 volt
+	    or 12 volt unit. You should have this information available before proceeding.
+	  </para>
+	</tip>
+	<sect4 id="MtxOrb-powercable-modification">
+	  <title>Power Cable Modification</title>
+	  <para>
+	    The first step in installing the module is making the necessary modifications
+	    to a floppy drive power cable in order to provide power to the module. The
+	    modifications must be made based on the module's power requirements -- either
+	    5V or 12V -- depending on which module you purchased.
+	  </para>
+	  <para>
+	    A standard floppy drive power cable has a smaller connection than a "normal"
+	    PC power connector. However, like a "normal" power connector, it has four
+	    wires: one yellow, one red, and two black. The red wire provides +5V power, and
+	    is "hot" or live when the system is powered up. The yellow wire provides +12V
+	    power, and is also hot when the system is powered up. Both black wires are
+	    ground.
+	    [TODO: INCLUDE A FIGURE HERE SHOWING A "STANDARD" FLOPPY CONNECTOR]
+	  </para>
+	  <para>
+	    One of the hot wires and one of the black wires will not be needed for your
+	    module's power connection; they will be completely removed when the power cable
+	    modification is complete.
+	  </para>
+	  <warning>
+            <para>
+              Do NOT make this modification to a power cable attached to a running
+              system! Electrocution resulting in personal injury and/or damage to the
+              system can result.
+            </para>
+          </warning>
+          <para>
+            Using a regular screwdriver, press down the small metal locking flap of one
+            of the two black wires on the small end of the cable, and pull the black wire
+            from the connector. Using a pair of needle-nose pliers, squeeze the other end
+            of the same black wire, and pull it out of the large end of the cable. This
+            black wire can be set aside; it will not be used for the module's power
+            connection. Either wire can be safely removed; you may safely remove either
+            wire.
+            [TODO: INCLUDE A FIGURE HERE SHOWING THIS PROCESS]
+          </para>
+          <para>
+            Next, using the same procedure, remove the unneeded hot wire. If your module
+            is 5V, you do not need the yellow (+12V) wire. Conversely, if your module is
+            12V, you do not need the red (+5V) wire. The removed wire can be set aside;
+            it will not be used for the module's power connection.
+            [TODO: INCLUDE A FIGURE HERE]
+          </para>
+          <para>
+            The floppy power connector should now have only two wires attached to it.
+            Leave the larger end alone from now on; these connections are correct (the
+            larger end connects to your system's power mains). Move the two remaining wires
+            to the outside connectors on the small end of the cable. Orientation does not
+            particularly matter here; the connector will fit on the module's receptacle
+            in either orientation.
+            [TODO: A FIGURE HERE]
+          </para>
+          <para>
+            You should now have a properly modified power connector. When physically
+            attaching this connector to the module, the black (ground) lead should be
+            connected to the pin labelled GND, while the colored (+5V/+12V) lead should
+            be connected to the pin labelled +5V/+12V.
+          </para>
+          <para>
+            Test the power connection before connecting the data line or mounting the
+            module. Connect the module to the power connector, and the connector to your
+            system's power mains. Turn the system on.
+          </para>
+          <caution>
+            <para>
+              If the module does not immediately display its initial BIOS screen and light
+              up its backlight (or light up the screen if a VFD module is being used),
+              <emphasis>immediately</emphasis> power down the system, disconnect the module
+	      and connector, and double-check the modification before trying again. Do NOT
+	      leave the system on if the module does not immediately respond; module or
+	      system damage could result.
+            </para>
+          </caution>
+	  <para>
+	    When the LCD powers up and displays its initial BIOS screen, you've gotten the
+	    power connection wired properly and can now properly mount the module and make
+	    its final connections. Matrix Orbital Corporation sells a PC bay insert mount
+	    for the 20x4 and 20x2 modules (LCDproc, however, only supports the 20x4 at
+	    present). The inserts provide an easy means of mounting the LCD modules inside
+	    a PC using one (for the 20x2) or two (for the 20x4) 5 1/4" bays.
+	  </para>
+          <note>
+  	    <para>
+	      Describing how to physically mount the module in a PC case is beyond the
+	      scope of this document; LCDproc's website contains more detailed mounting
+	      information and examples.
+	    </para>
+	  </note>
+        </sect4>
+	<sect4 id="MtxOrb-serial-connection">
+	  <title>Serial Connection</title>
+	  <para>
+	    The LCD module uses a standard DB9 serial connector. You can attach the module
+	    to your system using a direct cable to the motherboard, or by removing one of
+	    your system's serial ports from the back of the case, then connecting it to a
+	    standard serial cable to the module.
+	  </para>
+	  <para>
+	    While connecting the serial cable to the module, be sure to configure the
+	    module's serial interface settings. Typically, setting the module to its fastest
+	    setting (19,200 baud, 8-N-1) is recommended. The speed settings can
+	    be configured from the config file <filename>/etc/LCDd.conf</filename>.
+	    If not specified in the config file,
+	    the Matrix Orbital module driver in LCDproc default to use these settings.
+	  </para>
+	</sect4>
+      </sect3>
+</sect2>
+
+<!-- ## Matrix Orbital driver ## -->
+<sect2 id="MtxOrb-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="MtxOrb-config-section">
+<title>[MtxOrb]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Select the output device to use [default: <filename>/dev/lcd</filename>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Set the display size [default: <literal>20x4</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Type</property> =
+    {
+      <emphasis><parameter><literal>lcd</literal></parameter></emphasis> |
+      <parameter><literal>lkd</literal></parameter> |
+      <parameter><literal>vfd</literal></parameter> |
+      <parameter><literal>vkd</literal></parameter>
+    }
+  </term>
+  <listitem><para>
+    Set the display type [default: <literal>lcd</literal>; legal: <literal>lcd</literal>,
+								  <literal>lkd</literal>,
+								  <literal>vfd</literal>,
+								  <literal>vkd</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Contrast</property> =
+    <parameter><replaceable>CONTRAST</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial contrast.
+    Legal values for <replaceable>CONTRAST</replaceable> are <literal>0</literal> - <literal>1000</literal>.
+    If not given, the default value is <literal>480</literal>.
+    </para>
+    <note><para>
+      The driver will ignore this setting if the display
+      is a VFD or VKD as they do not support this feature.
+    </para></note>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>hasAdjustableBacklight</property> = &parameters.yesdefno;
+  </term>
+  <listitem><para>
+    Some old firmware versions of Matrix Orbital modules do not support an
+    adjustable backlight but only can switch the backlight on/off. If you own
+    such a module and experience randomly appearing block characters and
+    backlight cannot be switched on or off, use this to <literal>no</literal>
+    [default: <literal>yes</literal>].
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Brightness</property> =
+    <parameter><replaceable>BRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial brightness [default: <literal>1000</literal>; legal: <literal>0</literal> - <literal>1000</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>OffBrightness</property> =
+    <parameter><replaceable>BRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial off-brightness [default: <literal>0</literal>; legal: <literal>0</literal> - <literal>1000</literal>]
+    This value is used when the display is normally
+    switched off in case LCDd is inactive
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Speed</property> =
+    {
+      <parameter><literal>1200</literal></parameter> |
+      <parameter><literal>2400</literal></parameter> |
+      <parameter><literal>9600</literal></parameter> |
+      <emphasis><parameter><literal>19200</literal></parameter></emphasis>
+    }
+  </term>
+  <listitem><para>
+    Set the the baud rate to use when communicating with the LCD.
+    If not specified, it defaults to <literal>19200</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>KeyMap_<replaceable>LETTER</replaceable></property> =
+    <parameter><replaceable>KEY</replaceable></parameter>
+  </term>
+  <listitem>
+    <para>
+    Matrix Orbital displays support keypads with up to 25 keys, which return
+    one of the letters <literal>A</literal> - <literal>Y</literal> for each
+    pressed key.
+    </para>
+    <para>
+    These settings allow to map the letter <replaceable>LETTER</replaceable>,
+    that is generated by the display when a key is pressed, to be mapped to
+    a key name <replaceable>KEY</replaceable> that <property>LCDd</property>
+    can understand (see <link linkend="menu-section" endterm="menu-section.title"/>
+    for more information).
+    </para>
+    <para>
+    There is no default key mapping; if no keys are mapped in the
+    <filename>LCDd.conf</filename> config file, the display is treated
+    as if it had no keys attached.
+    </para>
+    <example id="MtxOrb-config-keymap-example">
+      <title>Matrix Orbital: keymap config</title>
+      <programlisting>
+      KeyMap_A=Left
+      KeyMap_B=Right
+      KeyMap_C=Up
+      KeyMap_D=Down
+      KeyMap_E=Enter
+      KeyMap_F=Escape
+      </programlisting>
+    </example>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>keypad_test_mode</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    You can find out which key of your display sends which
+    character by setting keypad_test_mode to yes and running
+    LCDd. LCDd will output all characters it receives.
+    Afterwards you can modify the settings above and set
+    keypad_set_mode to no again.
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

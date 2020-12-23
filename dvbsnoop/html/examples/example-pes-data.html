@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: MPEG Packetized
+		Elementary Stream (PES) - Data</TITLE>
+	 <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: MPEG Packetized Elementary Stream (PES) - Data</H1> 
+	 <H2>Data stream:</H2> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD ALIGN="LEFT"> 
+			 <PRE># dvbsnoop -s pes -nph 0x7d -n 1  
+dvbsnoop V1.2.77 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+PES-Packet: 00000001   PID: 125 (0x007d), Length: 8974 (0x230e)
+Time received: Sat 2004-03-27  23:12:57.932
+Syncing PES... (1064 bytes skipped)
+----------------------------------------------------------
+Packet_start_code_prefix: 000001
+Stream_id: 189 (0xbd)  [= private_stream_1]
+PES_packet_length: 8968 (0x2308)
+    reserved1: 2 (0x02)
+    PES_scrambling_control: 0 (0x00)  [= not scrambled]
+    PES_priority: 0 (0x00)
+    data_alignment_indicator: 1 (0x01)
+    copyright: 1 (0x01)
+    original_or_copy: 1 (0x01)
+    PTS_DTS_flags: 2 (0x02)
+    ES_rate_flag: 0 (0x00)
+    additional_copy_info_flag: 0 (0x00)
+    PES_CRC_flag: 0 (0x00)
+    PES_extension_flag: 0 (0x00)
+    PES_header_data_length: 5 (0x05)
+    PTS: 
+        Fixed: 2 (0x02)
+        PTS:
+            bit[32..30]: 7 (0x07)
+            marker_bit: 1 (0x01)
+            bit[29..15]: 20483 (0x5003)
+            marker_bit: 1 (0x01)
+            bit[14..0]: 6026 (0x178a)
+            marker_bit: 1 (0x01)
+             ==&gt; PTS: 8187385738 (0x1e801978a)  [= 90 kHz-Timestamp: 25:16:10.952]
+    PES_data (private_stream_1):
+        Data (synchronous/synchronized):
+            data_identifier: 11 (0x0b)  [= reserved]
+            sub_stream_id: 119 (0x77)
+            PTS_extension_flag: 0 (0x00)
+            output_data_rate_flag: 1 (0x01)
+            reserved_1: 3 (0x03)
+            PES_data_packet_header_length: 13 (0x0d)
+            output_data_rate:
+               reserved: 13 (0x0d)
+               output_data_rate: 18755667 (0x011e3053)
+            PES_data_private_byte:
+                 0000:  7f 62 80 01 00 00 7f 5b  f5                        .b.....[.
+            PES_data_byte:
+                 0000:  86 10 99 2c 98 6f ab 88  d8 92 dc 34 ce a4 52 4b   ...,.o.....4..RK
+                 0010:  09 eb a7 ee 6b 3a 7d 51  f3 9a f6 e2 3d 84 ba 9b   ....k:}Q....=...
+                 0020:  be d4 26 4b f3 e3 e7 c9  69 53 7c 9a 1b a7 ba df   ..&amp;K....iS|.....
+                 0030:  3e 84 a9 2d 28 50 9f 6b  73 5d f2 aa 54 d2 c3 4a   &gt;..-(P.ks]..T..J
+                 0040:  ff 0d 96 f6 62 44 0c 76  67 00 e1 c3 8f b9 73 f9   ....bD.vg.....s.
+                 0050:  56 72 29 16 ea a8 b8 40  f1 5d dc ad e9 00 f7 b0   Vr)....@.]......
+                 0060:  30 29 df 65 85 01 71 be  fd 9e f7 35 af eb 7c 95   0).e..q....5..|.
+                 0070:  76 40 01 09 2a 3c 5a f6  57 af 43 96 67 d8 be 28   v@..*.Z.W.C.g..(
+                 0080:  92 34 e7 52 96 72 94 6d  d0 cd b1 28 17 45 6c 38   .4.R.r.m...(.El8
+                 0090:  24 71 52 75 3a 2f af 58  a7 d4 3d 7e 22 dc 28 c8   $qRu:/.X..=~".(.
+                 00a0:  a3 bd ec 88 39 f5 e3 e9  a5 bb fc 40 ea f2 b1 7a   ....9......@...z
+                 00b0:  9d 68 02 2d dc a4 6e 70  50 3a 6b ba 03 64 20 ae   .h.-..npP:k..d .
+                 00c0:  41 40 7f d2 7a ed 82 10  a1 36 2a c2 45 a4 57 4f   A@..z....6*.E.WO
+                 00d0:  60 1b 80 90 54 d1 aa eb  8b f8 46 8f 09 8d f8 b7   `...T.....F.....
+                 00e0:  49 32 d2 b6 4b 1d c3 ca  73 09 f0 2b 08 0c eb fe   I2..K...s..+....
+                 00f0:  2a ff 71 63 36 fd ad 87  b6 ff e5 38 ea 23 27 99   *.qc6......8.#'.
+                 0100:  00 38 71 e3 ae 6c fa 56  3c 86 42 ba fa 26 10 00   .8q..l.V..B..&amp;..
+                 0110:  00 08 00 00 00 00 00 71  89 8d c6 95 34 6f 57 1a   .......q....4oW.
+                 0120:  fe 46 7f 8b a2 01 4a f2  4c c3 04 0f 24 00 ef d6   .F....J.L...$...
+                 0130:  e3 50 a6 0b 36 02 1c da  8e c9 9d cf 18 48 6a f5   .P..6........Hj.
+                 0140:  b2 e3 1b 0c c0 08 04 01  62 a6 fb f9 4e c4 71 f9   ........b...N.q.
+                 0150:  10 ae e9 cd be 95 09 44  0d 8b 9f c0 b1 5c 85 a8   .......D.....\..
+                 0160:  ad 5a 90 c5 75 e9 2a ae  25 1b 46 fe 15 35 31 f7   .Z..u.*.%.F..51.
+                 0170:  0f d5 21 48 1e bc 9e 23  de 36 87 58 fb 4a fa a2   ..!H...#.6.X.J..
+                 0180:  f6 05 b2 34 db 92 10 ef  fc d1 01 94 90 a8 43 45   ...4..........CE
+                 0190:  3f 47 1a 70 ea c4 1b 44  0b 19 22 bd 8f 8f 34 9c   ?G.p...D.."...4.
+                 01a0:  a8 e0 97 e0 c4 19 3d 7a  25 0d b8 0e 9b bb ee 80   ......=z%.......
+[...]
+</PRE> </TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

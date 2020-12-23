@@ -1,0 +1,581 @@
+COLLECTED PINOUTS
+=================
+
+Written by                  Wolfgang Astleitner (mrwastl@users.sourceforge.net)
+
+Project's homepage:         http://serdisplib.soureforge.net
+
+
+DISCLAIMER
+----------
+THIS IS EXPERIMENTAL SOFTWARE AND HARDWARE. USE AT YOUR OWN RISK.
+THE DEVELOPER(S) OF THIS SOFTWARE AND HARDWARE CAN NOT BE HELD LIABLE UNDER ANY CIRCUMSTANCES FOR 
+DAMAGE TO HARDWARE OR SOFTWARE, LOST DATA, OR OTHER DIRECT OR INDIRECT DAMAGE RESULTING FROM THE 
+USE OF THIS SOFTWARE OR HARDWARE. IF YOU DO NOT AGREE TO THESE CONDITIONS, YOU ARE NOT PERMITTED 
+TO USE OR FURTHER DISTRIBUTE THIS SOFTWARE OR TO USE ANY TEMPLATES FOR BUILDING HARDWARE PRESENTED HERE.
+
+
+
+
+****************
+*  DRIVER I2C  *
+****************
+
+  ERICSSON T28I
+  =============
+
+  Pin-Outs and descriptions for Ericsson T28i display
+
+  Resolution: 101x33
+  Controller: n/a (berty's page: cheap version of PCF8558)
+
+  The wiring when connecting to the parallel printer port of a IBM-comp. PC:
+  (I've chosen the same wiring as I used for the pcd8544-based displays,
+   but only D0, D1 (=SDA / SI, SCLK) are used
+
+
+                      +----------------------------+
+                      |         1 2 3 4 5          |
+                      |         # # # # #          |
+                      +------================------+
+                      |                            |
+                      |          rear view         |
+                      |    connector is visible    |
+                      |                            |
+                      |           ??n/a??          |
+                      |                            |
+                      +----------------------------+
+
+
+   Pin  Signal name  Description
+   ----------------------------------------------------------
+    1   VLCD         +6.4V (lcd power supply, 3 - 6.4V (?))
+    2   VLOGIC       +2.7V (logic power supply, 2.7 - 6V (?))
+    3   SDA          i2c-SDA
+    4   GND          GND (ground)
+    5   SCLK         i2c-SCLK
+
+
+  Source: http://rifer.narod.ru/i2cldc.html          (Rifers' I2C-pages (russian))
+          http://sandiding.tripod.com/lcdt28.html    (Berty's page / Ericsson T20 / T28 / T29 LCD Pins) 
+
+
+
+  ERICSSON R520 / T65
+  ===================
+
+  Pin-Outs and descriptions for Ericsson R520 / T65 displays
+
+  Resolution: 101x67x2 (4 greylevels)
+  Controller: n/a
+
+  The wiring when connecting to the parallel printer port of a IBM-comp. PC:
+  (I've chosen the same wiring as I used for the pcd8544-based displays,
+   but only D0, D1, and D5 (=SDA / SI, SCLK, and RES) are used
+
+
+                      +----------------------------+
+                      |         1 2 3 4 5 6        |
+                      |         # # # # # #        |
+                      +------================------+
+                      |                            |
+                      |                            |
+                      |                            |
+                      |          rear view         |
+                      |    connector is visible    |
+                      |                            |
+                      |           ??n/a??          |
+                      |                            |
+                      |                            |
+                      |                            |
+                      +----------------------------+
+
+
+   Pin  Signal name  Description
+   ----------------------------------------------------------
+    1   VLCD         +10V  (lcd power supply, 10V +/-1V (measured))
+    2   VLOGIC       +2.7V (logic power supply, measured)
+    3   SDA          i2c-SDA
+    4   GND          GND (ground)
+    5   SCLK         i2c-SCLK
+    6   /RES         active low reset
+
+
+  Source: user "z01" from forum.lcdinfo.com; measured
+
+
+
+
+*******************
+*  DRIVER NOKCOL  *
+*******************
+
+  NOKIA 3510I / 3530
+  ==================
+
+  Pin-Out and descriptions for Nokia 3510i displays
+
+  Resolution: 98x67, 4096 colours
+  Controller: Epson S1D15G14 Series
+
+  The wiring when connecting to the parallel printer port of a IBM-comp. PC:
+  (I've chosen a wiring similar to wirings used in former projects)
+
+
+                      +------------------------+
+                      |     1 2 3 4 5 6 7 8    |
+                      |     # # # # # # # #    |
+                      |  ===#=#=#=#=#=#=#=#==  |
+                      +--====================--+
+                      |                        |
+                      |                        |
+                      |        rear view       |
+                      |  connector is visible  |
+                      |                        |
+                      |         N3510i         |
+                      |                        |
+                      +------------------------+
+
+
+   Pin  Signal name  Description
+   ----------------------------------------------------------
+    1   /RES         active low reset
+    2   /CS          chip select
+    3   GND          GND (ground)
+    4   SI           serial data input of LCD
+    5   SCLK         serial clock line of LCD
+    6   Vio          1.8V chip power
+    7   Vflash       2.8V display power
+    8   Vout         output of display-internal dc/dc converter 
+                     (Vout -> capacitor -> GND   to avoid noise)
+
+
+
+  S1D15G10-based NOKIA GREEN CONNECTOR
+  ====================================
+
+  Pin-Out and descriptions for displays from Nokia 2600, 3200, 6100, and some more
+
+  Resolution: 130x130, 4096 colours
+  Controller: Epson S1D15G10 Series
+
+  The wiring when connecting to the parallel printer port of a IBM-comp. PC:
+
+
+
+                                                               |
+             connector from front view, pins visible           |
+                                                               |
+             display module: rear view is visible              |
+                                                               |
+         ------------------------------------------------------
+                                            |             |
+                                            |             |
+                                          --               --
+                                      5  | =               = |  6
+                                         |                   |
+                                      4  | =               = |  7
+                                         |                   |
+                                      3  | =               = |  8
+                                         |                   |
+                                      2  | =               = |  9
+                                         |                   |
+                                      1  | =               = |  10
+                                          -------------------
+
+
+
+   Pin  Signal name  Description
+   ----------------------------------------------------------
+    1   VDD          3.3V logic power (can be left disconnected)
+    2   /RES         active low reset
+    3   SDATA        serial data input of LCD
+    4   SCLK         serial clock line of LCD
+    5   /CS          chip select
+    6   VLCD         3.3V display power  (Abhishek uses 2.8V and it works fine)
+    7   NC           (not connected)
+    8   GND          GND (ground)
+    9   LED-         LED ground
+   10   LED+         VLED 6 - 7 V
+
+
+  Attention:
+          some displays with a green connector have a different pin numbering printed on it (reverse numbering)!
+          only the numbering is different, the signals and voltages are always the same
+          (VDD is always bottom/left, /CS is always top/left)
+          more info on this issue: http://serdisplib.sourceforge.net/ser/nokcol_15g10.html#connecting
+
+  Source: mail from Abhishek Dutta
+          http://thomaspfeifer.net/                                           Nokia 6100 Display am AVR (german)
+          http://www.sparkfun.com/commerce/product_info.php?products_id=569#  Spark Fun
+
+
+
+********************
+*  DRIVER PCD8544  *
+********************
+
+  LPH7366 DISPLAYS (9pin 84x48 nokia displays)
+  ============================================
+
+
+  Pin-Outs and descriptions for LPH7366
+
+  Resolution: 84x48
+  Controller: PCD8544
+
+  The wiring when connecting to the parallel printer port of a IBM-comp. PC:
+  (I've chosen a wiring similar to the wiring I used for optrex 323)
+
+
+                      +--------------------------+
+                      |     1 2 3 4 5 6 7 8 9    |
+                      |     # # # # # # # # #    |
+                      |  ===#=#=#=#=#=#=#=#=#==  |
+                      +--======================--+
+                      |                          |
+                      |                          |
+                      |        rear view         |
+                      |   connector is visible   |
+                      |                          |
+                      |         LPH7366          |
+                      |                          |
+                      +--------------------------+
+
+
+   Pin  Signal name  Description
+   ----------------------------------------------------------
+    1   VDD          +5V (up to 7.4 mA) chip power supply
+    2   SCLK         serial clock line of LCD
+    3   SI           serial data input of LCD
+    4   D/C          command/data switch (sometimes labelled 'A0')
+    5   /CS          active low chip select (connected to GND)
+    6   Osc          external clock (connected to VDD)
+    7   GND          GND (ground)
+    8   Vout         output of display-internal dc/dc converter 
+                     (Vout -> capacitor -> GND   to avoid noise)
+    9   /RES         active low reset
+
+
+
+
+
+  LPH7779/LPH7677 DISPLAYS (8pin 84x48 nokia displays)
+  ====================================================
+
+
+  Pin-Outs and descriptions for LPH7779 (should work for LPH7677, too, have a look at: http://sandiding.tripod.com/lcd.html)
+
+  Resolution: 84x48
+  Controller: PCD8544
+
+  The wiring is nearly the same to LPH7366, with the exception that the LPH7779 has one pin less 
+  (no option for connecting an external clock)
+
+
+                      +-------------------------+
+                      |     1 2 3 4 5 6 7 8     |
+                      |     # # # # # # # #     |
+                      |  ===#=#=#=#=#=#=#=#===  |
+                      +--=====================--+
+                      |                         |
+                      |                         |
+                      |        rear view        |
+                      |  connector is visible   |
+                      |                         |
+                      |         LPH7779         |
+                      |                         |
+                      +-------------------------+
+
+
+   Pin  Signal name  Description
+   ----------------------------------------------------------
+    1   VDD          +5V (? mA) chip power supply
+    2   SCLK         serial clock line of LCD
+    3   SI           serial data input of LCD
+    4   D/C          command/data switch (sometimes labelled 'A0')
+    5   /CS          active low chip select (connected to GND)
+    6   GND          GND (ground)
+    7   Vout         output of display-internal dc/dc converter
+                     (Vout -> capacitor -> GND   to avoid noise)
+    8   /RES         active low reset
+
+
+  Source: http://sandiding.tripod.com/lcd.html             (Berty's page with pin-out and circuits) 
+          http://sandiding.tripod.com/softan/pcd8544.pdf   (data sheet of PCD8544)
+
+
+
+  PCF8511 (Nokia 5310)
+  ====================
+
+
+
+  Pin-Outs and descriptions for Nokia 5310
+
+  Resolution: 96x64
+  Controller: PCF8511
+
+  The wiring when connecting to the parallel printer port of a IBM-comp. PC:
+
+
+                      +--------------------------+
+                      |      1 2 3 4 5 6 7 8     |
+                      |      # # # # # # # #     |             1 .. /RES
+                      |   ===#=#=#=#=#=#=#=#===  |             2 .. /CS
+                      +--======================--+             3 .. GND
+                      |                          |             4 .. SI (SDATA)
+                      |                          |             5 .. SCLK
+                      |         rear view        |             6 .. Vio (nc)
+                      |   connector is visible   |             7 .. Vflash
+                      |                          |             8 .. Vout
+                      |                          |
+                      |                          |
+                      +--------------------------+
+
+
+   Pin  Signal name  Description
+   ----------------------------------------------------------
+    1   /RES         active low reset
+    2   /CS          chip select
+    3   GND          GND (ground)
+    4   SI           serial data input of LCD
+    5   SCLK         serial clock line of LCD
+    6   Vio          1.8V chip power (not connected)
+    7   Vflash       2.8V display power
+    8   Vout         output of display-internal dc/dc converter 
+                     (Vout -> capacitor -> GND   to avoid noise)
+
+
+  Please connect the same way as a Nokia 3510i-display; the pinout is compatible.
+
+  Source: Mail from Jeroen Domburg (serdisp _AT_ jeroen _DOT_ ietsmet _DOT_ nl)
+
+
+
+********************
+*  DRIVER SED153X  *
+********************
+
+  OPTREX 323
+  ==========
+
+
+  Pin-Outs and descriptions for OPTREX 323
+
+  Resolution: 117x62  (sick addressing of pixels)
+  Controller: SED1531
+
+  The wiring when connecting to the parallel printer port of a IBM-comp. PC:
+  (reference wiring by optrex)
+
+   Pin  Signal name  Description
+   ----------------------------------------------------------
+    1   (nc)         (not connected)
+    2   BG_Vcc       +9V (125 mA) backlight power supply
+    3   BG_ON        backlight on (1) / off (0)
+    4   BG_GND       backlight GND
+    5   (nc)         (not connected)
+    6   /RES         low active Reset input
+    7   /CS          second low active Chip select input
+    8   CS           first high active Chip select input
+    9   D/C          command/data switch (sometimes labelled 'A0') 
+   10   Vcc          +5V (0.4 mA) Chip power supply
+   11   SCLK         serial Clock line of LCD
+   12   SI           serial data input of LCD
+   13   GND          GND (ground LCD)
+
+
+  Source: http://home.foni.net/~tobias-schirmer/d_lcd.htm
+          http://home.foni.net/~tobias-schirmer/files/KurzInfo.pdf
+
+
+
+
+  ALPS LSU7S1011A
+  ===============
+
+
+  Pin-Outs and descriptions for ALPS LSU7S1011A
+
+  Resolution: 96x32
+  Controller: SED1530
+
+  The controller may be controlled either using serial or parallel data transer, the display supports both accessing methods.
+
+  pollin.de sells this display and also a display module kit which accesses the display using serial data transfer.
+
+
+   Pin  Signal name  Description
+   ----------------------------------------------------------
+    9   /RES         low active reset input
+   11   /CS          chip select 2 (low active)
+   12   CS           chip select 1 (high active)
+   14   A0           (D/C) command/data switch
+   24   SCLK         serial clock line of LCD
+   25   SDATA        (SI) serial data input of LCD
+   26   GND          GND (ground)
+
+
+  Info:  http://serdisplib.sourceforge.net/ser/sed1530_alps.html   (Information, PDFs, ... about ALPS LSU7S1011A display) 
+
+
+
+
+********************
+*  DRIVER SED153X  *
+********************
+
+  NOKIA 7110
+  ==========
+
+
+  Pin-Outs and descriptions for Nokia 7110 display
+
+  Resolution: 96x65
+  Controller: SED1565
+
+  The wiring when connecting to the parallel printer port of a IBM-comp. PC:
+  (I've chosen the same wiring as I used for the pcd8544-based displays.
+   exception: because /CS is low-active, I used D4 (corresponding to optrex323 wiring) and not D3
+
+
+                          +------------------+
+                         |    7           1   |
+                        |     # # # # # # #    |
+                       |    # # # # # # #       |
+                      |     8           14       |
+                      +--======================--+
+                      |   ==    ==    ==    ==   |   <-- Background LEDs
+                      |      ##############      |   <-- on-glass controller
+                      +--======================--+
+                      |                          |
+                      |                          |
+                      |        rear view         |
+                      |   connector is visible   |
+                      |                          |
+                      |        Nokia 7110        |
+                      |                          |
+                      +--------------------------+
+
+
+   Pin  Signal name  Description
+   ----------------------------------------------------------
+    1                temp sensor 47k (at 25C)
+    2   /CS          chip select (low active)
+    3                speaker +
+    4   D/_C         command/data switch
+    5   SCLK         serial clock line of LCD
+    6                speaker -
+    7                on/off switch
+    8   LED-         LED cathode
+    9   LED+         LED anode
+   10   GND          GND (ground)
+   11   GND          == pin 10
+   12   VDD          +V (Chip power supply, some value around 3V)
+   13   SDATA        serial data input of LCD
+   14   /RES         low active reset input
+
+
+
+  Source: http://sandiding.tripod.com/lcd.html             (Berty's page with pin-out and circuits) 
+          http://sandiding.tripod.com/nokialcd7110.html    (nokia 7110 display pinout)
+
+
+
+  NEC 21A SKYPER DISPLAY-MODULE
+  =============================
+
+
+  Pin-Outs and descriptions for pager NEC 21A (a.k.a 'Skyper') 
+
+  Resolution: 96x65
+  Controller: SED1561
+
+  The wiring when connecting to the parallel printer port of a IBM-comp. PC:
+  (I've chosen the same wiring as I used for the pcd8544-based displays.
+   exception: because /CS is low-active, I used D4 (corresponding to optrex323 wiring) and not D3
+
+
+
+                  display board, connector on the right side, controller in the middle of the board
+
+
+
+                                  top view
+
+                                                         ____ 
+                                                        |    \
+                                                   VDD  | =   |
+                                                        |   = |  Sensor
+                                                  (nc)  | =   |
+                                                        |   = |  ?
+                                                  (nc)  | =   |
+                                                        |   = |  /WR
+                                                   VSS  | =   |
+                                                        |   = |  /RD
+                                                  /RES  | =   |
+                                                        |   = |  D7
+                                                   /CS  | =   |
+                                                        |   = |  D6
+           --------------                           A0  | =   |
+          |              |                              |   = |  D5
+          |              |                           ?  | =   |
+          |  LCD-        |                              |   = |  D4
+          |  Controller  |                           ?  | =   |
+          |              |                              |   = |  D3
+          |  SED 1561    |                        BUT4  | =   |
+          |              |                              |   = |  D2
+          |              |                        BUT3  | =   |
+          |              |                              |   = |  D1
+          |              |                        BUT2  | =   |
+          |              |                              |   = |  D0
+          |              |                        BUT1  | =   |
+          |              |                              |____/   
+          |              |                              
+           --------------       
+
+
+
+   Remarks:                  
+    Display board is hard-wiring to 8080-mode and parallel interface
+
+
+
+
+   Pin  Signal name  Description
+   ----------------------------------------------------------
+    1     VDD        +3.5V (Chip power supply)
+    2     (nc)       (not connected)
+    3     (nc)       (not connected)
+    4     VSS        GND (ground)
+    5     /RES       low active Reset input
+    6     /CS        low active Chip Select
+    7     A0         command (LOW) or display data (HIGH)
+    8     ?          unknown
+    9     ?          unknown
+   10     BUT4       button 4
+   11     BUT3       button 3
+   12     BUT2       button 2
+   13     BUT1       button 1  
+
+   14     D0         data0 - data7
+   15     D1
+   16     D2
+   17     D3
+   18     D4
+   19     D5
+   20     D6
+   21     D7
+   22     /RD        read enable input (active-low)
+   23     /WR        write enable input (active-low)
+   24     ?          unknown
+   25     ?          unknown
+
+
+
+  Source: measured (i seem to be the first who tries to control this display ...)
+
+  Special thanks to TEN, who donated a NEC 21A pager
+
+

@@ -1,0 +1,33 @@
+# $Id$
+# Maintainer: MediaArea.net SARL <info@mediaarea.net>
+# Contributor: hydro <hydro@freenet.de>
+
+pkgname=libmediainfo
+pkgver=18.05
+pkgrel=1
+pkgdesc="shared library for mediainfo"
+arch=('i686' 'x86_64')
+url="http://mediaarea.net"
+license=('GPL')
+depends=( 'curl' 'libmms' 'libzen>=0.4.37')
+makedepends=('libtool' 'automake' 'autoconf')
+source=(${pkgname}_${pkgver}.orig.tar.xz)
+md5sums=('00000000000000000000000000000000')
+
+build() {
+  cd $srcdir/MediaInfoLib/Project/GNU/Library
+  sh ./autogen.sh
+  ./configure --prefix=/usr --enable-shared --disable-static --with-libcurl --with-libmms
+  make clean
+  make
+}
+
+package() {
+  cd $srcdir/MediaInfoLib/Project/GNU/Library
+  make DESTDIR=$pkgdir install
+  for i in MediaInfo MediaInfoDLL; do
+    install -dm 755 $pkgdir/usr/include/$i
+    install -m 644 $srcdir/MediaInfoLib/Source/$i/*.h $pkgdir/usr/include/$i
+  done
+}
+

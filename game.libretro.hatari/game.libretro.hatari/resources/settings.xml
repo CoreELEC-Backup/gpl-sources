@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="hatari_fastfdc" values="true|true|false" default="true"/>
+		<setting label="30002" type="select" id="hatari_frameskips" values="0|0|1|2|3|4|5|10" default="0"/>
+		<setting label="30003" type="select" id="hatari_polarized_filter" values="false|false|true" default="false"/>
+		<setting label="30004" type="select" id="hatari_video_crop_overscan" values="false|false|true" default="false"/>
+		<setting label="30005" type="select" id="hatari_video_hires" values="true|true|false" default="true"/>
+	</category>
+</settings>

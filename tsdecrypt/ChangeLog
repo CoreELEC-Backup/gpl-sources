@@ -1,0 +1,119 @@
+2013-09-12 : Version 10.0
+ * Add --ecm-only (-v) option. This allows processing of ECMs but without
+   decoding the input stream.
+ * Add --ecm-and-emm-only (-q) option. This allows processing of ECMs
+   and EMMs but without decoding the input stream.
+ * Set newcamd client id to 0x7878 (tsdecrypt).
+ * Fixed regression that apeared in 9.0 which prevented the output from
+   working if the output address was not multicast.
+ * Add support for Griffin CAS and for DGCrypt CAS.
+ * Add support for setting multicast source address /SSM/ (--input-source).
+ * Add support for EMM filters similar to DVBAPI filters (match + mask).
+ * Add support for EMM filters based on section length.
+ * Add support for Irdeto CHID filtering (tested with Raduga).
+
+2012-09-10 : Version 9.0
+ * Add --no-output-on-error (-u) option. By using this option output can be
+   disabled if there is no currently received code word.
+ * Remove deprecated --output-filter option. The option you should use is
+  --no-output-filter.
+ * Allow camd server address (--camd-server, -s) to be resolved, not only
+   set by IP address.
+ * Allow tsdecrypt to read ECM/EMM packet from text file. The added
+   parameters are -n, -ecm-file <file> and -m --emm-file <file>.
+ * Add support for CAMD server listening on IPv6.
+ * Add support for input and output over IPv6.
+ * Add support for forcing only IPv4 (-4, --ipv4) or only IPv6 (-6, --ipv6).
+ * Add support for multiple CAMD addresses returned when resolving CAMD
+   server hostname. tsdecrypt would try each of the addresses and use
+   the one that works.
+ * Change the way filenames are set in input/output options.
+   Now file:// prefix is must be added before the filename otherwise
+   the parameter is treated as network address.
+ * Add --emm-filter (-a) option. This option implements EMM filtering.
+
+2012-04-19 : Version 8.1
+ * Add support for Bulcrypt CAS.
+
+2012-04-12 : Version 8.0
+ * Add --biss-key (-Q) option. This option enables BISS decryption.
+ * Add FFdecsa support. In most cases FFdecsa decrypts faster than libdvcsa.
+   To compile with FFdecsa support use "make ffdecsa".
+ * Add --const-cw (-Y) option. This option allows using of constant
+   code words for decryption.
+ * Add "make help" target.
+ * Display better timing information for ECMs and code word changes.
+ * Filter special symbols in provider and service names before printing them.
+
+2012-03-07 : Version 7.0
+ * Add --input-buffer (-T) option. This option allows uninterrupted
+   decryption even if OSCAM returns code words too late.
+ * Add --log-file (-F) option.
+ * Fixed newcamd protocol issues when OSCAM disappeared.
+ * Fix (and optimize) decryption when the input is MPTS. Previously
+   decrypting one stream broke the others.
+ * notify: Add NO_EMM_RECEIVED event.
+
+2012-02-24 : Version 6.0
+ * Add --output-tos (-g) option used to set output TOS value.
+ * Add --input-dump (-W) option used save input stream in file.
+ * Add --pid-report (-j) option used to turn on PID reporting.
+ * Add RTP output enabled by --output-rtp (-r) option.
+ * Add --output-rtp-ssrc (-k) option used to set RTP SSRC.
+ * A bug was fixed that prevented tsdecrypt from working if CAMD server
+   was not available for couple of minutes.
+
+2011-12-23 : Version 5.0
+ * Add --bench (-b) option that benchmarks libdvbcsa decryption.
+ * Remove --camd-pkt-delay (-y) option. This workaround is no longer needed.
+ * Fix payload offset detection, a bug which broke packets that have
+   adaptation with whole packet size (libtsfuncs).
+ * Add --input-service (-M) option, to choose service id (program) in MPTS input.
+ * When the input is MPTS and output filtering is enabled, rewrite output
+   PAT to include only the single program that is decoded.
+ * Parse SDT and display provider and service name.
+ * Add --output-nit-pass (-y) to enable NIT pass through.
+ * Add --output-eit-pass (-w) to enable EIT (EPG) pass through.
+ * Add --output-tdt-pass (-x) to enable TDT/TOT pass through.
+ * Add support for newcamd CAMD protocol.
+ * Add ECM/EMM queues depth limit to avoid allocating too much memory.
+
+2011-11-18 : Version 4.0
+ * Set CAMD sockets NODELAY to avoid OSCAM errors when many packets are sent.
+ * Add --syslog parameter to enable local syslog logging.
+ * Set thread names under Linux.
+ * notify: Added no_code_word/code_word_ok events.
+ * notify: Added input_timeout/input_ok events.
+ * notify: Added start/stop events.
+ * notify: Added option to execute external script on event.
+
+2011-11-14 : Version 3.2
+ * Fixed bug that prevented tsdecrypt from working at all :(
+
+2011-11-12 : Version 3.1
+ * Add debug level 5 (full mpeg ts packet dump).
+ * Fix PSI table gathering in invalid transport streams.
+ * Fix EMM/ECM parsing (this fixes ORF1 decoding on Astra 19.2).
+ * Process ECMs before EMMs, preventing the case where too much
+   incoming EMMs interfere with decryption.
+
+2011-09-30 : Version 3.0
+ * Add man page.
+ * Add support for long command line options.
+ * Add make install/uninstall Makefile targets.
+ * Add support for compilation on OS X.
+ * Add tested support for Viaccess.
+ * Add tested support for Mediaguard (Seca).
+ * Add tested support for Videoguard (NDS).
+ * Add untested support for Nagra.
+ * Add untested support for DRE-Crypt.
+ * Add option to disable ECM and CW logging (--ecm-no-log).
+ * Add option to manually set EMM pid (--emm-pid).
+ * Add option to manually set ECM pid (--ecm-pid).
+ * Add option to manually set CAID (--caid).
+ * Add ECM reports (--ecm-report-time).
+ * Log warnings when there is no input data.
+ * Log warnings when code word become invalid.
+
+2011-09-15 : Version 2.0
+ * Initial public release.

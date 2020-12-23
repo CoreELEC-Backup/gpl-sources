@@ -1,0 +1,5 @@
+[B]2013-08-17[/B] Version [B]1.0.1[/B]
+. Updated to bc2846d @ 2013-07-31
+
+[B]2013-02-16[/B] Version [B]1.0.0[/B]
+. Initial release: QuickNES v0.7.0, https://github.com/libretro/QuickNES_Core @ 282c876 (2013-01-09)

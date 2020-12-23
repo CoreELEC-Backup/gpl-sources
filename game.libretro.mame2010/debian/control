@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-mame2010
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-mame2010 (>= 0.139.0) | mame2010 (>= 0.139.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-mame2010
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Arcade (MAME 2010) core for kodi's retroplayer
+ Arcade (MAME 2010) core for kodi's retroplayer

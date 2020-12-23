@@ -1,0 +1,172 @@
+#!/usr/bin/perl
+
+# pic2mpg: Convert picture files to MPEG still frames
+#
+# Converts either a single picture file or all files in a
+# given directory (recursively) to MPEG still frames.
+#
+# See the README file for copyright information and how to reach the author.
+#
+# $Id: pic2mpg 4.1 2017/10/06 14:42:18 kls Exp $
+
+use File::Path;
+use File::Spec;
+use Getopt::Std;
+use Image::ExifTool qw(:Public);
+
+$Usage = qq{
+Usage: $0 [options] picture-dir mpeg-dir
+       $0 [options] picture-file mpeg-file
+
+Options: -f             Force conversion
+         -h             print Help
+         -o percent     overscan in percent
+         -s size        Screen size (WIDTHxHEIGHT, default is 1920x1080)
+         -v num         Verbose (0=none, 1=list files, 2=detailed)
+         -x dir[,...]   eXclude the given directories
+};
+
+getopts("fho:s:v:x:") || die $Usage;
+
+die $Usage if $opt_h;
+
+$Force     = $opt_f;
+$Overscan  = $opt_o || 0;
+$Size      = $opt_s || "1920x1080";
+$Verbose   = $opt_v;
+@Exclude   = split(',', $opt_x || "");
+
+$ListFiles = $Verbose >= 1;
+$Detailed  = $Verbose >= 2;
+
+# Supported picture types:
+
+%PICTYPES = (
+  bmp  => 1,
+  gif  => 1,
+  jpeg => 1,
+  jpg  => 1,
+  png  => 1,
+  pnm  => 1,
+  tif  => 1,
+  tiff => 1,
+  );
+
+# Command options:
+
+die "$0: missing parameter\n" unless $ARGV[0] && $ARGV[1];
+die "$0: file or directory not found: $ARGV[0]\n" unless -e $ARGV[0];
+die "$0: source and destination must be different\n" if $ARGV[0] eq $ARGV[1];
+
+$Extent = $Size;
+if ($Overscan > 0) {
+   my ($x, $y) = $Size =~ /(.*)x(.*)/;
+   my $r = (100 + $Overscan) / 100;
+   $x = int($x * $r + 0.5);
+   $y = int($y * $r + 0.5);
+   $Extent = "${x}x$y";
+   }
+
+# Convert a single file:
+
+if (-f $ARGV[0]) {
+   die "$0: mixed file and directory ('$ARGV[0]' <-> '$ARGV[1]')\n" unless !-e $ARGV[1] || -f $ARGV[1];
+   ConvertFile($ARGV[0], $ARGV[1]);
+   exit;
+   }
+
+die "$0: mixed directory and file ('$ARGV[0]' <-> '$ARGV[1]')\n" unless !-e $ARGV[1] || -d $ARGV[1];
+
+$PICDIR = File::Spec->rel2abs($ARGV[0]);
+$MPGDIR = File::Spec->rel2abs($ARGV[1]);
+
+# Convert pictures to mpegs:
+
+chdir($PICDIR) || die "$PICDIR: $!\n";
+
+@Pictures = `find -type f | sort`;
+chomp(@Pictures);
+
+PIC:
+for $pic (@Pictures) {
+    for (@Exclude) {
+        next PIC if ($pic =~ /\/$_\//);
+        }
+    my $mpg = "$MPGDIR/$pic.mpg";
+    if ($Force || !-e $mpg || -M $mpg > -M $pic) {
+       (my $dir = $mpg) =~ s/\/[^\/]*$//;
+       mkpath($dir);
+       ConvertFile($pic, $mpg);
+       }
+    }
+
+# Remove mpegs without pictures:
+
+chdir($MPGDIR) || die "$MPGDIR: $!\n";
+
+@Mpegs = `find -type f`;
+chomp(@Mpegs);
+
+for $mpg (@Mpegs) {
+    my $pic = "$PICDIR/$mpg";
+    $pic =~ s/\.mpg$//;
+    if (!-e $pic) {
+       print "removing $mpg\n";
+       unlink($mpg);
+       }
+    }
+
+# Remove empty directories:
+
+chdir($MPGDIR) || die "$MPGDIR: $!\n";
+
+for ($i = 0; $i < 10; $i++) { # dirs might become empty when removing empty subdirs
+    @Dirs = `find -type d -empty`;
+    chomp(@Dirs);
+    last unless @Dirs;
+
+    for $dir (@Dirs) {
+        $dir = EscapeMeta($dir);
+        print "removing $dir\n";
+        Exec("rm -rf $dir");
+        }
+    }
+
+# Actual file conversion:
+
+sub ConvertFile
+{
+  my ($Pict, $Mpeg) = @_;
+  (my $Type) = lc($Pict) =~ /\.([^\.]*)$/;
+  return if (!defined $PICTYPES{$Type});
+  my $Exif = ImageInfo($Pict);
+  my $Orientation = $$Exif{"Orientation"};
+  my ($Degrees) = $Orientation =~ /Rotate ([0-9]+)/;
+  my $Rotate = ($Degrees == 90) ? "transpose=clock" : ($Degrees == 180) ? "hflip,vflip" : ($Degrees == 270) ? "transpose=cclock" : "";
+  $Rotate .= ',' if ($Rotate);
+  my $Background = '#000000@1';
+  print "orientation = '$Orientation' -> rotation = $Rotate\n" if ($Detailed);
+  $Pict = EscapeMeta($Pict);
+  $Mpeg = EscapeMeta($Mpeg);
+  print "$Pict -> $Mpeg $Rotate\n" if $ListFiles;
+  my $Cmd = "ffmpeg -i $Pict -vf '${Rotate}scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2:$Background' -c:v libx264 -pix_fmt yuv420p -f mpegts -y $Mpeg "
+          . ($Detailed ? "" : "2>/dev/null");
+  Exec($Cmd);
+  $Cmd = "touch -r $Pict $Mpeg";
+  Exec($Cmd);
+}
+
+sub EscapeMeta
+{
+  my $META = ' !"#$%&\'()*;<>?[\\]`{|}~';
+  my $s = shift;
+  $s =~ s/([$META])/\\$1/g;
+  return $s;
+}
+
+sub Exec
+{
+  my $Cmd = shift;
+  print "==> '$Cmd'\n" if ($Verbose);
+  !system($Cmd) || die "$Cmd: $!\n";
+}

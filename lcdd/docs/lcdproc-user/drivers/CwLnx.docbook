@@ -1,0 +1,218 @@
+<sect1 id="CwLnx-howto">
+<title>The CwLnx Driver</title>
+
+<para>
+This section talks about using LCDproc with the serial / USB LCDs CW12232, CW12832
+and CW1602 by CwLinux.
+</para>
+
+<sect2 id="CwLnx-features">
+<title>Features</title>
+
+<para>
+The CwLinux CW12232 LCDs are graphical LCDs with 122 x 32 dots
+that also have a text mode with 20 x 4 characters,
+the CW12832 are graphical displays with 128 x 32 dots and a
+21 x 4 character text mode,
+the CW1602 LCDs are character LCDs that are 16 characters wide and
+2 lines high.
+</para>
+
+<para>
+The modules can be ordered bare or as part of a kit mounted
+on brackets that fit in half-height 5.25" (CW12232 and CW1608)
+or 3,5" (CW12832) drive bays.
+The mounting brackets optionally feature a 6 button keypad that
+makes use of the keypad connector on the display modules.
+</para>
+
+<para>
+The kits allow to programmatically switch on/off their backlight.
+Newer revisions of the kits also have programmable brighness as well
+as 4 general purpose IO ports.
+</para>
+
+<para>
+The displays come in 2 variants that differ how they communicate
+with the host: The serial modules are connected to the PC using a serial
+RS232 connection getting operating power using the standard floppy drive
+power connector, while the USB modules only require an USB connection.
+</para>
+
+<para>
+For more information see the
+<ulink url="http://www.cwlinux.com">CwLinux web site</ulink>
+</para>
+
+</sect2>
+
+
+<!-- ## Cwlinux driver ## -->
+<sect2 id="CwLnx-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="CwLnx-config-section">
+<title>[CwLnx]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Model</property> =
+    {
+      <emphasis><parameter><literal>12232</literal></parameter></emphasis> |
+      <parameter><literal>12832</literal></parameter> |
+      <parameter><literal>1602</literal></parameter>
+    }
+  </term>
+  <listitem><para>
+    Select the LCD model [default: <literal>12232</literal>;
+    legal: <literal>12232</literal>, <literal>12832</literal>, <literal>1602</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Select the output device to use [default: <filename>/dev/lcd</filename>]
+    May be serial device or USB device in serial emulation mode.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Select the LCD size [default: depending on model: 12232: <literal>20x4</literal>,
+                                                      12832: <literal>21x4</literal>]
+                                                       1602: <literal>16x2</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Speed</property> =
+    {
+      <parameter><literal>9600</literal></parameter> |
+      <emphasis><parameter><literal>19200</literal></parameter></emphasis>
+    }
+  </term>
+  <listitem><para>
+    Set the the baud rate for communication with the LCD.
+    If not given, the default is <literal>19200</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Reboot</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    Reinitialize the LCD's BIOS [default: <literal>no</literal>; legal: <literal>yes</literal>, <literal>no</literal>]
+    normally you shouldn't need this
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Keypad</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    Tells if you have a keypad connected. Keypad layout is currently not
+    configurable from the config file.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>KeyMap_A</property> =
+    <parameter><replaceable>KEY</replaceable></parameter>
+  </term>
+  <term>
+    <property>KeyMap_B</property> =
+    <parameter><replaceable>KEY</replaceable></parameter>
+  </term>
+  <term>
+    <property>KeyMap_C</property> =
+    <parameter><replaceable>KEY</replaceable></parameter>
+  </term>
+  <term>
+    <property>KeyMap_D</property> =
+    <parameter><replaceable>KEY</replaceable></parameter>
+  </term>
+  <term>
+    <property>KeyMap_E</property> =
+    <parameter><replaceable>KEY</replaceable></parameter>
+  </term>
+  <term>
+    <property>KeyMap_F</property> =
+    <parameter><replaceable>KEY</replaceable></parameter>
+  </term>
+  <listitem><para>
+    If you have a non standard keypad you can associate any keystrings to keys.
+    There are 6 input key in the CwLnx hardware that generate characters
+    from '<literal>A</literal>' to '<literal>F</literal>'.
+    Legal values for <replaceable>KEY</replaceable> are <literal>Up</literal>,
+    <literal>Down</literal>, <literal>Left</literal>, <literal>Right</literal>,
+    <literal>Enter</literal> and <literal>Escape</literal>.
+    </para>
+    <para>
+    The following is the built-in default mapping hardcoded in the driver.
+    </para>
+    <informaltable>
+    <tgroup cols="2">
+      <tbody>
+        <row>
+	  <entry>KeyMap_A</entry>
+	  <entry><literal>Up</literal></entry>
+	</row>
+        <row>
+	  <entry>KeyMap_B</entry>
+	  <entry><literal>Down</literal></entry>
+	</row>
+        <row>
+	  <entry>KeyMap_C</entry>
+	  <entry><literal>Left</literal></entry>
+	</row>
+        <row>
+	  <entry>KeyMap_D</entry>
+	  <entry><literal>Right</literal></entry>
+	</row>
+        <row>
+	  <entry>KeyMap_E</entry>
+	  <entry><literal>Enter</literal></entry>
+	</row>
+        <row>
+	  <entry>KeyMap_F</entry>
+	  <entry><literal>Escape</literal></entry>
+	</row>
+      </tbody>
+    </tgroup>
+    </informaltable>
+    <para>
+    You may leave it unchanged if you have a standard keypad.
+    You can change it if you want to report other keystrings or have a non
+    standard keypad.
+    </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>keypad_test_mode</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    keypad_test_mode permit to test keypad assignment
+    Default value is no
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

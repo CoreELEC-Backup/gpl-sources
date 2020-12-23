@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.fmsx"
+		name="Microsoft - MSX (fMSX)"
+		version="4.9.0.10"
+		provider-name="Marat Fayzullin">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.msx.keyboard" version="1.0.0"/>
+		<import addon="game.controller.msx.joystick" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>MSX</platforms>
+		<extensions>rom|mx1|mx2|dsk|cas</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>true</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Microsoft - MSX (fMSX) 4.9</summary>
+		<description lang="en_GB">fMSX is a MSX emulator written by Marat Fayzullin. It emulates MSX, MSX2, and MSX2+ 8-bit home computers.
+
+Supported files: .rom, .mx1, .mx2, .dsk, .cas</description>
+		<license>Non-commercial</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.fmsx</source>
+	</extension>
+</addon>

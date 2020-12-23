@@ -1,0 +1,119 @@
+<sect1 id="CFontz-howto">
+<title>The CFontz Driver</title>
+
+<para>
+This section talks about using LCDproc with the serial LCD displays of the
+CFA632 and CFA634 series by CrystalFontz, Inc.
+</para>
+
+<sect2 id="CFontz-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="CFontz-config-section">
+<title>[CFontz]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Select the serial output device to use.
+    If not given, default is <filename>/dev/lcd</filename>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Set the LCD's dimensions in terms of characters per line and lines.
+    If not given, it defaults to <literal>20x4</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Contrast</property> =
+    <parameter><replaceable>CONTRAST</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial contrast.
+    Legal values for <replaceable>CONTRAST</replaceable> are in the range
+    between <literal>0</literal> and <literal>1000</literal>.
+    If not given, it defaults to <literal>560</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Brightness</property> =
+    <parameter><replaceable>BRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial brightness.
+    Legal values for <replaceable>BRIGHTNESS</replaceable> range from
+    <literal>0</literal> to <literal>1000</literal>.
+    If not given, it defaults to <literal>1000</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>OffBrightness</property> =
+    <parameter><replaceable>BRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial off-brightness.
+    This value is used when the display is normally
+    switched off in case LCDd is inactive.
+    Legal values <replaceable>BRIGHTNESS</replaceable> are in the range
+    from <literal>0</literal> to <literal>1000</literal>.
+    The default is <literal>0</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Speed</property> =
+    {
+      <parameter><literal>1200</literal></parameter> |
+      <parameter><literal>2400</literal></parameter> |
+      <emphasis><parameter><literal>9600</literal></parameter></emphasis> |
+      <parameter><literal>19200</literal></parameter> |
+      <parameter><literal>115200</literal></parameter>
+    }
+  </term>
+  <listitem><para>
+    Set the the baud rate to use when communicating with the LCD.
+    It defaults to <literal>9600</literal> if not specified.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>NewFirmware</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    Set the firmware version (<emphasis>New</emphasis> means >= 2.0) [default: <literal>no</literal>; legal: <literal>yes</literal>, <literal>no</literal>].
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Reboot</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    Reinitialize the LCD's BIOS [default: <literal>no</literal>; legal: <literal>yes</literal>, <literal>no</literal>]
+    normally you shouldn't need this.
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

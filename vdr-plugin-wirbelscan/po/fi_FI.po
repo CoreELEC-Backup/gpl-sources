@@ -1,0 +1,136 @@
+# VDR plugin language source file.
+# Copyright (C) 2007 Klaus Schmidinger <kls@cadsoft.de>
+# This file is distributed under the same license as the VDR package.
+# Hannu Savolainen <hannu@opensound.com>, 2002
+# Jaakko Hyvätti <jaakko@hyvatti.iki.fi>, 2002
+# Niko Tarnanen <niko.tarnanen@hut.fi>, 2003
+# Rolf Ahrenberg <rahrenbe@cc.hut.fi>, 2003
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VDR 1.5.7\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2016-08-13 11:32+0200\n"
+"PO-Revision-Date: 2007-09-10 19:43+0100\n"
+"Last-Translator: wk\n"
+"Language-Team:  <vdr@linuxtv.org>\n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "AUTO"
+msgstr "AUTO"
+
+msgid "ALL (slow)"
+msgstr "ALL (slow)"
+
+msgid "Off"
+msgstr "Off"
+
+msgid "AUTO/OFF"
+msgstr "AUTO/OFF"
+
+msgid "AUTO/ON"
+msgstr "AUTO/ON"
+
+msgid "Setup"
+msgstr "Setup"
+
+msgid "General"
+msgstr "General"
+
+msgid "Source Type"
+msgstr "Source Type"
+
+msgid "verbosity"
+msgstr "verbosity"
+
+msgid "logfile"
+msgstr "logfile"
+
+msgid "Channels"
+msgstr "Channels"
+
+msgid "TV channels"
+msgstr "TV channels"
+
+msgid "Radio channels"
+msgstr "Radio channels"
+
+msgid "FTA channels"
+msgstr "FTA channels"
+
+msgid "Scrambled channels"
+msgstr "Scrambled channels"
+
+msgid "Cable and Terrestrial"
+msgstr "Cable and Terrestrial"
+
+msgid "Country"
+msgstr "Country"
+
+msgid "Cable Inversion"
+msgstr "Cable Inversion"
+
+msgid "Cable Symbolrate"
+msgstr "Cable Symbolrate"
+
+msgid "Cable modulation"
+msgstr "Cable modulation"
+
+msgid "Cable Network PID"
+msgstr ""
+
+msgid "Terr  Inversion"
+msgstr "Terr  Inversion"
+
+msgid "ATSC  Type"
+msgstr "ATSC  Type"
+
+msgid "Satellite"
+msgstr "Satellite"
+
+msgid "DVB-S2"
+msgstr "DVB-S2"
+
+msgid "Scan Mode"
+msgstr ""
+
+#, fuzzy
+msgid "remove invalid channels"
+msgstr "Scrambled channels"
+
+msgid "update existing channels"
+msgstr ""
+
+#, fuzzy
+msgid "append new channels"
+msgstr "Radio channels"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Log Messages"
+msgstr "Log Messages"
+
+msgid "CANNOT SCAN - No device!"
+msgstr "CANNOT SCAN - No device!"
+
+#~ msgid "HD channels"
+#~ msgstr "HD channels"
+
+#~ msgid "CANNOT SCAN - Timers active!"
+#~ msgstr "CANNOT SCAN - Timers active!"
+
+#~ msgid "CANNOT SCAN - Timers on Schedule!"
+#~ msgstr "CANNOT SCAN - Timers on Schedule!"

@@ -1,0 +1,244 @@
+.TH DVBLAST "1" "April 2012" "DVBlast 2.2" "User Commands"
+.SH NAME
+DVBlast \- Simple and powerful dvb streaming application
+.SH SYNOPSIS
+.B dvblast
+[\fI-q\fR] [\fI-c <config_file>\fR] [\fI-r <remote_socket>\fR] [\fI-t <ttl>\fR] [\fI-o <SSRC_IP>\fR]
+[\fI-i <RT_priority>\fR] [\fI-a <adapter>\fR] [\fI-n <frontend_number>\fR] [\fI-y <ca_number>\fR] [\fI-S <diseqc>\fR] [\fI-k <uncommitted port>\fR]
+[\fI-f <frequency>\fR] [\fI-D <src_host>[:<src_port>][[@<src_mcast>][:<port>]][/<opts>]\fR] [\fI-A <ASI_adapter>\fR]
+[\fI-s <symbol_rate>\fR] [\fI-v <0|13|18>\fR] [\fI-p\fR] [\fI-b <bandwidth>\fR] [\fI-I <inversion>\fR]
+[\fI-F <fec_inner>\fR] [\fI-m <modulation>\fR] [\fI-R <rolloff>\fR] [\fI-P <pilot>\fR] [\fI-K <fec_lp>\fR]
+[\fI-G <guard_interval>\fR] [\fI-H <hierarchy>\fR] [\fI-X <transmission>\fR] [\fI-O <lock_timeout>\fR]
+[\fI-u\fR] [\fI-w\fR] [\fI-U\fR] [\fI-L <latency>\fR] [\fI-E <retention>\fR] [\fI-d <dest_IP>[<:port>][/<opts>]\fR]
+[\fI-z\fR] [\fI-C\fR] [\fI-e\fR] [\fI-M <network_name>\fR] [\fI-N <network_ID>\fR] [\fI-T\fR] [\fI-j <system_charset>\fR]
+[\fI-W\fR] [\fI-Y\fR] [\fI-l\fR] [\fI-g <logger ident>\fR] [\fI-Z <mrtg_file>\fR] [\fI-V\fR] [\fI-h\fR]
+[\fI-0 pid_mapping\fR] [\fI-1 <mis_id>\fR] [\fI-2 <size>\fR] [\fI-5 <DVBS|DVBS2|DVBC_ANNEX_A|DVBT|ATSC>\fR]
+[\fI-J <DVB_charset>\fR] [\fI-B <provider_name>\fR] [\fI-Q <quit_timeout>\fR] [\fI-x <text|xml>\fR]
+.SH DESCRIPTION
+DVBlast is a simple and powerful streaming application based on the linux-dvb
+API. It opens a DVB device, tunes it, places PID filters, configures a CAM
+module, and demultiplexes the packets to several RTP outputs.
+
+DVBlast is designed to be the core of a custom IRD or CID, based on a PC with
+Linux-supported DVB cards.
+
+DVBlast does not do any kind of processing on the elementary streams, such as
+transcoding or remultiplexing. it does not stream from plain
+files, only DVB devices. If you were looking for these features, switch to VLC.
+.SH OPTIONS
+.PP
+.TP
+\fB\-a\fR, \fB\-\-adapter\fR <adapter>
+Address of the adapter
+.TP
+\fB\-A\fR, \fB\-\-asi\-adapter\fR
+Read packets from an ASI adapter (0-n). If support for Deltacast ASI cards is
+compiled in, prefix the adapter number with "deltacast:" to select a Deltacast
+input. Deltacast inputs are numbered as (100 * card number) + channel number.
+.TP
+\fB\-b\fR, \fB\-\-bandwidth\fR <bandwidth>
+Frontend bandwidth
+.TP
+\fB\-B\fR, \fB\-\-provider-name\fR <name>
+Service provider name to declare in the SDT. If you want to change
+provider name per output use /srvprovider= output option in the config
+file.
+.TP
+\fB\-c\fR, \fB\-\-config\-file\fR <config file>
+Use the given configuration file
+.TP
+\fB\-C\fR, \fB\-\-dvb-compliance\fR
+Pass through or build the mandatory DVB tables
+.TP
+\fB\-d\fR, \fB\-\-duplicate\fR <dest IP:port>
+Duplicate all received packets to a given destination
+.TP
+\fB\-D\fR, \fB\-\-rtp\-input\fR
+Read packets from a multicast address instead of a DVB card
+.TP
+\fB\-W\fR, \fB\-\-emm\-passthrough\fR
+Enable EMM pass through (CA system data)
+.TP
+\fB\-Y\fR, \fB\-\-ecm\-passthrough\fR
+Enable ECM pass through (CA program data)
+.TP
+\fB\-e\fR, \fB\-\-epg\-passthrough\fR
+Enable EPG pass through (EIT data)
+.TP
+\fB\-E\fR, \fB\-\-retention\fR <retention>
+Maximum retention allowed between input and output (default: 40 ms)
+.TP
+\fB\-f\fR, \fB\-\-frequency\fR <frequency>
+Frontend frequency. If '\-' is specified instead of a numeric value,
+the frontend will be not be tuned by dvblast and you should use external
+tuning tool (szap) to tune it.
+.TP
+\fB\-8\fR, \fB\-\-lnb\-type\fR universal\|old\-sky
+Choose LNB type. Default: 'universal' - Universal LNB ("Astra" LNB)
+.TP
+\fB\-F\fR, \fB\-\-fec\-inner\fR <FEC>
+Forward Error Correction used by satellite (FEC Inner)
+.br
+DVB-S2 0|12|23|34|35|56|78|89|910|999 (default auto: 999)
+.TP
+\fB\-G\fR, \fB\-\-guard\fR <interval>
+DVB-T guard interval
+.br
+DVB-T 32 (1/32)|16 (1/16)|8 (1/8)|4 (1/4)|-1 (auto, default)
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print the help message
+.TP
+\fB\-H\fR, \fB\-\-hierarchy\fR <hierarchy>
+DVB-T hierarchy (0, 1, 2, 4 or -1 auto, default)
+.TP
+\fB\-i\fR, \fB\-\-priority\fR <RT priority>
+Real time priority
+.TP
+\fB\-I\fR, \fB\-\-inversion\fR <inversion>
+Inversion (-1 auto, 0 off, 1 on)
+.TP
+\fB\-j\fR, \fB\-\-system-charset\fR <charset>
+Character set used for printing messages (default UTF-8)
+.TP
+\fB\-J\fR, \fB\-\-dvb-charset\fR <charset>
+Character set used in output DVB tables (default ISO-8859-1)
+.TP
+\fB\-k\fR, \fB\-\-uncommitted\fR <uncommitted port>
+Port number for uncommitted DiSEqC switch (0: no uncommitted DiSEqC swtich, 1\-16)
+.TP
+\fB\-K\fR, \fB\-\-fec-lp\fR
+DVB-T low priority FEC (default auto)
+.TP
+\fB\-5\fR, \fB\-\-delsys\fR <delivery_system>
+Select delivery system. Possible values: DVBS|DVBS2|DVBC_ANNEX_A|DVBT|ATSC (default guessed)
+.TP
+\fB\-1\fR, \fB\-\-multistream\-id\fR <stream_id>
+Set stream ID for multistream capable transponders. Value: 0-2147483648 (default: 0)
+.TP
+\fB\-\-multistream\-id\-pls\-mode\fR <ROOT|GOLD|COMBO>
+Set PLS mode used in multistream-id calculation. Possible values are: ROOT GOLD and COMBO (default: ROOT).
+If this option is set multistream-id option is overwritten.
+.TP
+\fB\-\-multistream\-id\-pls\-code\fR <0-262143>
+Set PLS code used in multistream-id calculation. Possible values are in range 0..262143 (default: 0).
+If this option is set multistream-id option is overwritten.
+.TP
+\fB\-\-multistream\-id\-is\-id\fR <0-255>
+Set IS id used in multistream-id calculation. Possible values are in range 0..255 (default: 0).
+If this option is set multistream-id option is overwritten.
+.TP
+\fB\-l\fR, \fB\-\-logger\fR
+Send messages to syslog instead of stderr
+.TP
+\fB\-g\fR, \fB\-\-logger-ident\fR <logger_ident>
+Set the program name that will appear in syslog (default: dvblast /the executable name/).
+.TP
+\fB\-L\fR, \fB\-\-latency\fR <latency>
+Maximum latency allowed between input and output (default: 100 ms)
+.TP
+\fB\-m\fR, \fB\-\-modulation\fR
+Modulation
+.br
+DVB-C  qpsk|qam_16|qam_32|qam_64|qam_128|qam_256 (default qam_auto)
+.br
+DVB-T  qam_16|qam_32|qam_64|qam_128|qam_256 (default qam_auto)
+.br
+DVB-S2 qpsk|psk_8|apsk_16|apsk_32 (default legacy DVB-S)
+.TP
+\fB\-M\fR, \fB\-\-network-name\fR <name>
+DVB network name to declare in the NIT
+.TP
+\fB\-n\fR, \fB\-\-frontend\-number\fR <frontend number>
+The frontend number
+.TP
+\fB\-y\fR, \fB\-\-ca\-number\fR <ca_dev_number>
+CA device number. Default: 0
+.TP
+\fB\-2\fR, \fB\-\-dvr\-buf\-size\fR <size>
+Sets the size of the DVR TS buffer in bytes.
+.TP
+\fB\-N\fR, \fB\-\-network-id\fR <ID>
+DVB network ID to declare in the NIT
+.TP
+\fB\-o\fR, \fB\-\-rtp-output\fR <SSRC IP>
+RTP output IP
+.TP
+\fB\-O\fR, \fB\-\-lock-timeout\fR <timeout>
+Timeout for the lock operation (in ms)
+.TP
+\fB\-p\fR, \fB\-\-force\-pulse\fR
+Force 22kHz pulses for high-band selection (DVB-S)
+.TP
+\fB\-P\fR, \fB\-\-pilot\fR
+DVB-S2 Pilot (-1 auto, 0 off, 1 on)
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR
+Be quiet (less verbosity, repeat or use number for even quieter)
+.TP
+\fB\-Q\fR, \fB\-\-quit-timeout\fR <delay>
+When locked, quit after this delay (in ms), or after the first lock timeout
+.TP
+\fB\-r\fR, \fB\-\-remote\-socket\fR <remote socket>
+Remote socket to use
+.TP
+\fB\-R\fR, \fB\-\-rolloff\fR <rolloff>
+Rolloff value to use
+.br
+DVB-S2 35=0.35|25=0.25|20=0.20|0=AUTO (default: 35)
+.TP
+\fB\-s\fR, \fB\-\-symbol\-rate\fR <symbol rate>
+Symbole rate
+.TP
+\fB\-S\fR, \fB\-\-diseqc\fR <diseqc>
+Satellite number for diseqc (0: no diseqc, 1\-4, A or B)
+.TP
+\fB\-t\fR, \fB\-\-ttl\fR <ttl>
+Time-To-Live of the multicast stream
+.TP
+\fB\-T\fR, \fB\-\-unique\-ts\-id\fR
+Generate unique TS ID for each program
+.TP
+\fB\-u\fR, \fB\-\-budget\-mode\fR
+Turn on budget mode (no hardware PID filtering)
+.TP
+\fB\-U\fR, \fB\-\-udp\fR
+Use raw UDP rather than RTP (required by some IPTV set top boxes)
+.TP
+\fB\-v\fR, \fB\-\-voltage\fR <0|13|18>
+Voltage to apply to the LNB (QPSK)
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Only display the version
+.TP
+\fB\-w\fR, \fB\-\-select-pmts\fR
+Set a PID filter on all PMTs. This option is automatically enabled
+when config file is used. To disable setting PMT filters in case of
+config file is used, add \-\-select-pmts \fBafter\fR \-\-config\-file <file>
+parameter.
+.TP
+\fB\-x\fR, \fB\-\-print\fR
+Print interesting events on stdout in a given format
+.TP
+\fB\-X\fR, \fB\-\-transmission\fR <transmission>
+DVB-T transmission (2, 4, 8 or -1 auto, default
+.TP
+\fB\-z\fR, \fB\-\-any\-type\fR
+pass through all ESs from the PMT, of any type
+.TP
+\fB\-Z\fR, \fB\-\-mrtg-file\fR <mrtg_file>
+Every 10 seconds log statistics in <mrtg_file>. The file has 4 numbers in it
+and the format is: <passed_bytes> <error_packets> <packets_with_seq_errors> <scrambled_packets>
+.TP
+\fB\-0\fR, \fB\-\-pidmap\fR <pmtpid,audiopid,videopid,spupid>
+Map the elementary stream pids to the values given for all elementary
+streams. Where there are multiple audio pids, then these will be mapped to
+audiopid, auiopid+1, audiopid +2 and so on.
+.SH SEE ALSO
+Read the README file for more information about the configuration of dvblast.
+.SH AUTHORS
+Writen by Marian Ďurkovič, Andy Gatward, Christophe Massiot and Jean-Paul Saman
+.SH LICENSE
+This program is free software; you can redistribute it and/or modify it under
+the terms of version 2 of the GNU General Public License as published by the
+Free Software Foundation.

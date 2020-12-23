@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: Condition Access
+		Table</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: Condition Access Table (CAT)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>dvbsnoop  Vers. 1.1.10   -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+SECT-Packet: 00000001   PID: 1 (0x0001), Length: 30 (0x001e)
+Time received: Tue 2003-11-25  02:09:24.277
+---------------------------------------------------------
+  0000:   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+  0000:  01 b0 1b ff ff c7 00 00 09 04 17 02 f0 00 09 04 
+  0010:   .  "  .  .  .  .  .  .  .  .  I  }  .  . 
+  0010:  17 22 f5 00 09 04 18 01 f0 01 49 7d a4 e2 
+
+PID:  1 (0x0001)
+CAT-decoding....
+Table_ID: 1 (0x01)  [= conditional_access_section]
+section_syntax_indicator: 1 (0x01)
+(fixed): 0 (0x00)
+reserved_1: 3 (0x03)
+Section_length: 27 (0x001b)
+reserved_2: 262143 (0x3ffff)
+Version_number: 3 (0x03)
+Current_next_indicator: 1 (0x01)
+Section_number: 0 (0x00)
+Last_Section_number: 0 (0x00)
+        
+        MPEG-DescriptorTag: 9 (0x09)  [= CA_descriptor]
+        Descriptor_length: 4 (0x04)
+        CA_system_ID: 5890 (0x1702)  [= Beta Technik (Betacrypt)]
+        reserved: 7 (0x07)
+        CA_PID: 4096 (0x1000)
+        
+        MPEG-DescriptorTag: 9 (0x09)  [= CA_descriptor]
+        Descriptor_length: 4 (0x04)
+        CA_system_ID: 5922 (0x1722)  [= Beta Technik (Betacrypt)]
+        reserved: 7 (0x07)
+        CA_PID: 5376 (0x1500)
+        
+        MPEG-DescriptorTag: 9 (0x09)  [= CA_descriptor]
+        Descriptor_length: 4 (0x04)
+        CA_system_ID: 6145 (0x1801)  [= Kudelski SA]
+        reserved: 7 (0x07)
+        CA_PID: 4097 (0x1001)
+CRC: 1232970978 (0x497da4e2)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

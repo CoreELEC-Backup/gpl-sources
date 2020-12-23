@@ -1,0 +1,38 @@
+// Generated config file
+
+// Define to enable the dispmanx grabber
+#cmakedefine ENABLE_DISPMANX
+
+// Define to enable the v4l2 grabber
+#cmakedefine ENABLE_V4L2
+
+// Define to enable the spi-device
+#cmakedefine ENABLE_SPIDEV
+
+// Define to enable the ws2812b-pwm-device
+#cmakedefine ENABLE_WS2812BPWM
+
+// Define to enable the ws281x-pwm-via-dma-device using jgarff's library
+#cmakedefine ENABLE_WS281XPWM
+
+// Define to enable the spi-device
+#cmakedefine ENABLE_TINKERFORGE
+
+// Define to enable the framebuffer grabber
+#cmakedefine ENABLE_FB
+
+// Define to enable the amlogic grabber
+#cmakedefine ENABLE_AMLOGIC
+
+// Define to enable the osx grabber
+#cmakedefine ENABLE_OSX
+
+// Define to enable the bonjour/zeroconf publishing
+#cmakedefine ENABLE_ZEROCONF
+
+// Define to enable profiler for development purpose
+#cmakedefine ENABLE_PROFILER
+#cmakedefine ENABLE_QT5
+
+// the hyperion build id string
+#define HYPERION_VERSION_ID "${HYPERION_VERSION_ID}"

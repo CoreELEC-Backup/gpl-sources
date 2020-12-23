@@ -1,0 +1,718 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: MPEG Transport
+		Stream - Sub-decoding Sections</TITLE><META NAME="Author"
+	 CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: MPEG Transport Stream (TS) - Sub-decoding Section</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>dvbsnoop -n 10 -nph -s ts -tssubdecode  0x12 
+
+dvbsnoop V1.3.22 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+TS-Packet: 00000001   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:26:55.271
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 15 (0x0f)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  3a 31 34 31 35 2e 30 34  23 30 30 3c ae f1 81 ff   :1415.04#00&lt;....
+          0010:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0020:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0030:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0040:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0050:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0060:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0070:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0080:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0090:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          00a0:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          00b0:  ff ff ff ff ff ff ff ff                            ........
+==========================================================
+
+
+    TS-Packet(s) sub-decoding:
+    ==========================
+    No data collected, no payload start
+
+
+
+----------------------------------------------------------
+TS-Packet: 00000002   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:26:55.373
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 1 (0x01)  [= Packet data starts]
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 0 (0x00)
+    Payload: (len: 184)
+        ==&gt; pointer_field: 0 (0x00)
+        ==&gt; Section table: 96 (0x60)  [= Event Information Table (EIT) - other transport stream, schedule]
+    Data-Bytes:
+          0000:  00 60 f0 63 6d db f1 b8  f8 04 4d 00 01 b8 61 3c   .`.cm.....M...a&lt;
+          0010:  a8 cf 78 21 05 00 01 00  00 00 1f 4d 18 64 65 75   ..x!.......M.deu
+          0020:  13 05 43 72 6f 73 73 6f  76 65 72 3a 20 41 6d 62   ..Crossover: Amb
+          0030:  69 65 6e 74 00 69 03 f8  a5 c5 3c a9 cf 78 22 05   ient.i....&lt;..x".
+          0040:  00 05 58 00 00 1d 4d 16  64 65 75 11 05 41 52 44   ..X...M.deu..ARD
+          0050:  2d 4e 61 63 68 74 6b 6f  6e 7a 65 72 74 00 69 03   -Nachtkonzert.i.
+          0060:  f9 20 05 c5 fc b2 94 ff  ff ff ff ff ff ff ff ff   . ..............
+          0070:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0080:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0090:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          00a0:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          00b0:  ff ff ff ff ff ff ff ff                            ........
+==========================================================
+
+
+    TS-Packet(s) sub-decoding:
+    ==========================
+    TS contains Section...
+        PID:  18 (0x0012)
+        EIT-decoding....
+        Table_ID: 96 (0x60)  [= Event Information Table (EIT) - other transport stream, schedule]
+        section_syntax_indicator: 1 (0x01)
+        reserved_1: 1 (0x01)
+        reserved_2: 3 (0x03)
+        Section_length: 99 (0x0063)
+        Service_ID: 28123 (0x6ddb)  [=  --&gt; refers to PMT program_number]
+        reserved_3: 3 (0x03)
+        Version_number: 24 (0x18)
+        current_next_indicator: 1 (0x01)  [= valid now]
+        Section_number: 184 (0xb8)
+        Last_Section_number: 248 (0xf8)
+        Transport_stream_ID: 1101 (0x044d)
+        Original_network_ID: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+        Segment_last_Section_number: 184 (0xb8)
+        Last_table_id: 97 (0x61)  [= Event Information Table (EIT) - other transport stream, schedule]
+
+            Event_ID: 15528 (0x3ca8)
+            Start_time: 0xcf78210500 (=2004-04-17 21:05:00 [UTC])
+            Duration: 0x0010000 (= 01:00:00 [UTC])
+            Running_status: 0 (0x00)  [= undefined]
+            Free_CA_mode: 0 (0x00)  [= unscrambled]
+            Descriptors_loop_length: 31 (0x1f)
+
+                  DVB-DescriptorTag: 77 (0x4d)  [= short_event_descriptor]
+                  Descriptor_length: 24 (0x18)
+                    ISO639_2_language_code:  deu
+                  Event_name_length: 19 (0x13)
+                  Event_name: "Crossover: Ambient"  -- Charset: Latin alphabet no. 5
+                  Text_length: 0 (0x00)
+                  Text: ""
+
+                  DVB-DescriptorTag: 105 (0x69)  [= PDC_descriptor]
+                  Descriptor_length: 3 (0x03)
+                  reserved_1: 15 (0x0f)
+                  Programme_identification_label: 0x8a5c5 [= month=4  day=17   hour=23  min=5]
+
+
+            Event_ID: 15529 (0x3ca9)
+            Start_time: 0xcf78220500 (=2004-04-17 22:05:00 [UTC])
+            Duration: 0x0055800 (= 05:58:00 [UTC])
+            Running_status: 0 (0x00)  [= undefined]
+            Free_CA_mode: 0 (0x00)  [= unscrambled]
+            Descriptors_loop_length: 29 (0x1d)
+
+                  DVB-DescriptorTag: 77 (0x4d)  [= short_event_descriptor]
+                  Descriptor_length: 22 (0x16)
+                    ISO639_2_language_code:  deu
+                  Event_name_length: 17 (0x11)
+                  Event_name: "ARD-Nachtkonzert"  -- Charset: Latin alphabet no. 5
+                  Text_length: 0 (0x00)
+                  Text: ""
+
+                  DVB-DescriptorTag: 105 (0x69)  [= PDC_descriptor]
+                  Descriptor_length: 3 (0x03)
+                  reserved_1: 15 (0x0f)
+                  Programme_identification_label: 0x92005 [= month=4  day=18   hour=0  min=5]
+
+        CRC: 3321672340 (0xc5fcb294)
+
+
+
+----------------------------------------------------------
+TS-Packet: 00000003   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:26:55.457
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 1 (0x01)  [= Packet data starts]
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 1 (0x01)
+    Payload: (len: 184)
+        ==&gt; pointer_field: 0 (0x00)
+        ==&gt; Section table: 79 (0x4f)  [= Event Information Table (EIT) - other transport stream, present/following]
+    Data-Bytes:
+          0000:  00 4f f1 5f 6d ce f1 00  01 04 4d 00 01 01 4f fc   .O._m.....M...O.
+          0010:  bd cf 76 10 00 00 00 30  00 81 44 4d 1e 64 65 75   ..v....0..DM.deu
+          0020:  08 05 42 72 69 73 61 6e  74 11 05 42 6f 75 6c 65   ..Brisant..Boule
+          0030:  76 61 72 64 6d 61 67 61  7a 69 6e 80 1b 7f 02 10   vardmagazin.....
+          0040:  40 16 ff f0 8f cf e2 10  05 53 7a 65 6e 65 2f 50   @........Szene/P
+          0050:  72 6f 6d 69 6e 65 6e 7a  50 06 f1 01 01 64 65 75   rominenzP....deu
+          0060:  50 06 f2 03 02 64 65 75  54 08 20 00 80 00 bf 20   P....deuT. .... 
+          0070:  f0 8f 4e d1 00 64 65 75  00 cb 05 44 69 65 20 54   ..N..deu...Die T
+          0080:  68 65 6d 65 6e 20 75 2e  61 2e 3a 8a 2a 20 44 65   hemen u.a.:.* De
+          0090:  72 20 46 69 6c 6d 20 22  4d 6f 6e 73 74 65 72 22   r Film "Monster"
+          00a0:  20 6d 69 74 20 4f 73 63  61 72 2d 8a 50 72 65 69    mit Oscar-.Prei
+          00b0:  73 74 72 e4 67 65 72 69                            str.geri
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000004   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:26:55.495
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 2 (0x02)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  6e 20 43 68 61 72 6c 69  7a 65 20 54 68 65 72 6f   n Charlize Thero
+          0010:  6e 8a 73 74 61 72 74 65  74 20 69 6e 20 64 65 6e   n.startet in den
+          0020:  20 64 65 75 74 73 63 68  65 6e 20 4b 69 6e 6f 73    deutschen Kinos
+          0030:  8a 2a 20 43 6f 70 20 61  75 73 20 64 65 6d 20 47   .* Cop aus dem G
+          0040:  72 6f df 73 74 61 64 74  2d 52 65 76 69 65 72 20   ro.stadt-Revier 
+          0050:  73 69 6e 67 74 3a 8a 4a  61 6e 20 46 65 64 64 65   singt:.Jan Fedde
+          0060:  72 20 68 61 74 20 43 44  20 61 75 66 67 65 6e 6f   r hat CD aufgeno
+          0070:  6d 6d 65 6e 8a 8a 4d 6f  64 65 72 61 74 69 6f 6e   mmen..Moderation
+          0080:  3a 20 49 6e 65 73 20 4b  72 fc 67 65 72 69 03 f7   : Ines Kr.geri..
+          0090:  a3 00 5f 04 00 00 00 05  82 0d 31 32 3a 30 30 31   .._.......12:001
+          00a0:  35 2e 30 34 23 30 30 ef  00 fa 42 ff ff ff ff ff   5.04#00...B.....
+          00b0:  ff ff ff ff ff ff ff ff                            ........
+==========================================================
+
+
+    TS-Packet(s) sub-decoding:
+    ==========================
+    TS contains Section...
+        PID:  18 (0x0012)
+        EIT-decoding....
+        Table_ID: 79 (0x4f)  [= Event Information Table (EIT) - other transport stream, present/following]
+        section_syntax_indicator: 1 (0x01)
+        reserved_1: 1 (0x01)
+        reserved_2: 3 (0x03)
+        Section_length: 351 (0x015f)
+        Service_ID: 28110 (0x6dce)  [=  --&gt; refers to PMT program_number]
+        reserved_3: 3 (0x03)
+        Version_number: 24 (0x18)
+        current_next_indicator: 1 (0x01)  [= valid now]
+        Section_number: 0 (0x00)
+        Last_Section_number: 1 (0x01)
+        Transport_stream_ID: 1101 (0x044d)
+        Original_network_ID: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+        Segment_last_Section_number: 1 (0x01)
+        Last_table_id: 79 (0x4f)  [= Event Information Table (EIT) - other transport stream, present/following]
+
+            Event_ID: 64701 (0xfcbd)
+            Start_time: 0xcf76100000 (=2004-04-15 10:00:00 [UTC])
+            Duration: 0x0003000 (= 00:30:00 [UTC])
+            Running_status: 4 (0x04)  [= running]
+            Free_CA_mode: 0 (0x00)  [= unscrambled]
+            Descriptors_loop_length: 324 (0x144)
+
+                  DVB-DescriptorTag: 77 (0x4d)  [= short_event_descriptor]
+                  Descriptor_length: 30 (0x1e)
+                    ISO639_2_language_code:  deu
+                  Event_name_length: 8 (0x08)
+                  Event_name: "Brisant"  -- Charset: Latin alphabet no. 5
+                  Text_length: 17 (0x11)
+                  Text: "Boulevardmagazin"  -- Charset: Latin alphabet no. 5
+
+                  DVB-DescriptorTag: 128 (0x80)  [= User defined/ATSC reserved]
+                  Descriptor_length: 27 (0x1b)
+                  Descriptor-data:
+                       0000:  7f 02 10 40 16 ff f0 8f  cf e2 10 05 53 7a 65 6e   ...@........Szen
+                       0010:  65 2f 50 72 6f 6d 69 6e  65 6e 7a                  e/Prominenz
+
+                  DVB-DescriptorTag: 80 (0x50)  [= component_descriptor]
+                  Descriptor_length: 6 (0x06)
+                  reserved_1: 15 (0x0f)
+                  Stream_content: 1 (0x01)
+                  Component_type: 1 (0x01)
+                     == Content&amp;Component: (= video, 4:3  aspect ratio, 25 Hz)
+                  Component_tag: 1 (0x01)
+                  ISO639_2_language_code:  deu
+                  Component-Description: ""
+
+                  DVB-DescriptorTag: 80 (0x50)  [= component_descriptor]
+                  Descriptor_length: 6 (0x06)
+                  reserved_1: 15 (0x0f)
+                  Stream_content: 2 (0x02)
+                  Component_type: 3 (0x03)
+                     == Content&amp;Component: (= audio, stereo (2 channels))
+                  Component_tag: 2 (0x02)
+                  ISO639_2_language_code:  deu
+                  Component-Description: ""
+
+                  DVB-DescriptorTag: 84 (0x54)  [= content_descriptor]
+                  Descriptor_length: 8 (0x08)
+                     Content_nibble_level_1: 2 (0x02)
+                     Content_nibble_level_2: 0 (0x00)
+                        [= news/current affairs (general)]
+                     User_nibble_1: 0 (0x00)
+                     User_nibble_2: 0 (0x00)
+
+                     Content_nibble_level_1: 8 (0x08)
+                     Content_nibble_level_2: 0 (0x00)
+                        [= social/political issues/economics (general)]
+                     User_nibble_1: 0 (0x00)
+                     User_nibble_2: 0 (0x00)
+
+                     Content_nibble_level_1: 11 (0x0b)
+                     Content_nibble_level_2: 15 (0x0f)
+                        [= user defined]
+                     User_nibble_1: 2 (0x02)
+                     User_nibble_2: 0 (0x00)
+
+                     Content_nibble_level_1: 15 (0x0f)
+                     Content_nibble_level_2: 0 (0x00)
+                        [= user defined]
+                     User_nibble_1: 8 (0x08)
+                     User_nibble_2: 15 (0x0f)
+
+
+                  DVB-DescriptorTag: 78 (0x4e)  [= extended_event_descriptor]
+                  Descriptor_length: 209 (0xd1)
+                  Descriptor_number: 0 (0x00)
+                  Last_descriptor_number: 0 (0x00)
+                  ISO639_2_language_code:  deu
+                  Length_of_items: 0 (0x00)
+
+                  Text_length: 203 (0xcb)
+                  Text: "Die Themen u.a.:
+                         * Der Film "Monster" mit Oscar-
+                         Preistr&auml;gerin Charlize Theron
+                         startet in den deutschen Kinos
+                         * Cop aus dem Gro&szlig;stadt-Revier singt:
+                         Jan Fedder hat CD aufgenommen
+                         Moderation: Ines Kr&uuml;ger"  -- Charset: Latin alphabet no. 5
+
+                  DVB-DescriptorTag: 105 (0x69)  [= PDC_descriptor]
+                  Descriptor_length: 3 (0x03)
+                  reserved_1: 15 (0x0f)
+                  Programme_identification_label: 0x7a300 [= month=4  day=15   hour=12  min=0]
+
+                  DVB-DescriptorTag: 95 (0x5f)  [= private_data_specifier_descriptor]
+                  Descriptor_length: 4 (0x04)
+                  PrivateDataSpecifier: 5 (0x00000005)  [= ARD, ZDF, ORF]
+
+                  DVB-DescriptorTag: 130 (0x82)  [= User defined/ATSC reserved]
+                  Descriptor_length: 13 (0x0d)
+                  Descriptor-data:
+                       0000:  31 32 3a 30 30 31 35 2e  30 34 23 30 30            12:0015.04#00
+
+        CRC: 4009818690 (0xef00fa42)
+
+
+
+----------------------------------------------------------
+TS-Packet: 00000005   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:26:55.583
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 1 (0x01)  [= Packet data starts]
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 3 (0x03)
+    Payload: (len: 184)
+        ==&gt; pointer_field: 0 (0x00)
+        ==&gt; Section table: 79 (0x4f)  [= Event Information Table (EIT) - other transport stream, present/following]
+    Data-Bytes:
+          0000:  00 4f f1 a7 6d cc f5 00  01 04 4d 00 01 01 4f 33   .O..m.....M...O3
+          0010:  95 cf 76 10 15 00 00 30  00 81 8c 4d 34 64 65 75   ..v....0...M4deu
+          0020:  14 05 49 6e 20 48 65 73  73 65 6e 20 75 6e 74 65   ..In Hessen unte
+          0030:  72 77 65 67 73 1b 05 57  6f 20 64 65 72 20 77 65   rwegs..Wo der we
+          0040:  69 df 65 20 46 6c 69 65  64 65 72 20 62 6c fc 68   i.e Flieder bl.h
+          0050:  74 80 28 7f 04 10 40 10  40 21 ff f0 8a cf e2 0b   t.(...@.@!......
+          0060:  05 4c 61 6e 64 2f 4c 65  75 74 65 ff f0 20 cf e2   .Land/Leute.. ..
+          0070:  0a 05 54 68 65 6d 65 6e  20 48 52 50 06 f1 01 01   ..Themen HRP....
+          0080:  64 65 75 50 06 f2 01 02  64 65 75 54 0a 15 00 30   deuP....deuT...0
+          0090:  00 bf 25 f0 8a f0 20 4e  f4 00 64 65 75 00 ee 05   ..%... N..deu...
+          00a0:  46 72 fc 68 6d 6f 72 67  65 6e 73 20 75 6d 20 66   Fr.hmorgens um f
+          00b0:  fc 6e 66 2c 20 77 65 6e                            .nf, wen
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000006   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:26:55.620
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 4 (0x04)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  6e 20 64 69 65 20 48 e4  6e 64 6c 65 72 20 61 75   n die H.ndler au
+          0010:  73 20 64 65 6d 20 67 65  73 61 6d 74 65 6e 20 52   s dem gesamten R
+          0020:  68 65 69 6e 2d 4d 61 69  6e 2d 47 65 62 69 65 74   hein-Main-Gebiet
+          0030:  20 69 68 72 65 20 57 61  72 65 6e 20 62 72 69 6e    ihre Waren brin
+          0040:  67 65 6e 2c 20 62 65 67  69 6e 6e 74 20 61 75 66   gen, beginnt auf
+          0050:  20 64 65 6d 20 46 72 61  6e 6b 66 75 72 74 65 72    dem Frankfurter
+          0060:  20 42 6c 75 6d 65 6e 67  72 6f df 6d 61 72 6b 74    Blumengro.markt
+          0070:  20 64 61 73 20 68 65 6b  74 69 73 63 68 65 20 54    das hektische T
+          0080:  61 67 65 73 67 65 73 63  68 e4 66 74 2e 20 4b 61   agesgesch.ft. Ka
+          0090:  72 6c 2d 48 65 69 6e 7a  20 53 74 69 65 72 20 75   rl-Heinz Stier u
+          00a0:  6e 64 20 4d 69 63 68 61  65 6c 65 20 53 63 68 65   nd Michaele Sche
+          00b0:  72 65 6e 62 65 72 67 20                            renberg 
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000007   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:26:55.657
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 5 (0x05)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  68 61 62 65 6e 20 73 69  63 68 20 64 61 73 20 6d   haben sich das m
+          0010:  61 6c 20 61 6e 67 65 73  65 68 65 6e 2e 69 03 f7   al angesehen.i..
+          0020:  a3 0f 5f 04 00 00 00 05  82 0d 31 32 3a 31 35 31   .._.......12:151
+          0030:  35 2e 30 34 23 30 30 9e  ee a7 52 ff ff ff ff ff   5.04#00...R.....
+          0040:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0050:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0060:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0070:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0080:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0090:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          00a0:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          00b0:  ff ff ff ff ff ff ff ff                            ........
+==========================================================
+
+
+    TS-Packet(s) sub-decoding:
+    ==========================
+    TS contains Section...
+        PID:  18 (0x0012)
+        EIT-decoding....
+        Table_ID: 79 (0x4f)  [= Event Information Table (EIT) - other transport stream, present/following]
+        section_syntax_indicator: 1 (0x01)
+        reserved_1: 1 (0x01)
+        reserved_2: 3 (0x03)
+        Section_length: 423 (0x01a7)
+        Service_ID: 28108 (0x6dcc)  [=  --&gt; refers to PMT program_number]
+        reserved_3: 3 (0x03)
+        Version_number: 26 (0x1a)
+        current_next_indicator: 1 (0x01)  [= valid now]
+        Section_number: 0 (0x00)
+        Last_Section_number: 1 (0x01)
+        Transport_stream_ID: 1101 (0x044d)
+        Original_network_ID: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+        Segment_last_Section_number: 1 (0x01)
+        Last_table_id: 79 (0x4f)  [= Event Information Table (EIT) - other transport stream, present/following]
+
+            Event_ID: 13205 (0x3395)
+            Start_time: 0xcf76101500 (=2004-04-15 10:15:00 [UTC])
+            Duration: 0x0003000 (= 00:30:00 [UTC])
+            Running_status: 4 (0x04)  [= running]
+            Free_CA_mode: 0 (0x00)  [= unscrambled]
+            Descriptors_loop_length: 396 (0x18c)
+
+                  DVB-DescriptorTag: 77 (0x4d)  [= short_event_descriptor]
+                  Descriptor_length: 52 (0x34)
+                    ISO639_2_language_code:  deu
+                  Event_name_length: 20 (0x14)
+                  Event_name: "In Hessen unterwegs"  -- Charset: Latin alphabet no. 5
+                  Text_length: 27 (0x1b)
+                  Text: "Wo der wei&szlig;e Flieder bl&uuml;ht"  -- Charset: Latin alphabet no. 5
+
+                  DVB-DescriptorTag: 128 (0x80)  [= User defined/ATSC reserved]
+                  Descriptor_length: 40 (0x28)
+                  Descriptor-data:
+                       0000:  7f 04 10 40 10 40 21 ff  f0 8a cf e2 0b 05 4c 61   ...@.@!.......La
+                       0010:  6e 64 2f 4c 65 75 74 65  ff f0 20 cf e2 0a 05 54   nd/Leute.. ....T
+                       0020:  68 65 6d 65 6e 20 48 52                            hemen HR
+
+                  DVB-DescriptorTag: 80 (0x50)  [= component_descriptor]
+                  Descriptor_length: 6 (0x06)
+                  reserved_1: 15 (0x0f)
+                  Stream_content: 1 (0x01)
+                  Component_type: 1 (0x01)
+                     == Content&amp;Component: (= video, 4:3  aspect ratio, 25 Hz)
+                  Component_tag: 1 (0x01)
+                  ISO639_2_language_code:  deu
+                  Component-Description: ""
+
+                  DVB-DescriptorTag: 80 (0x50)  [= component_descriptor]
+                  Descriptor_length: 6 (0x06)
+                  reserved_1: 15 (0x0f)
+                  Stream_content: 2 (0x02)
+                  Component_type: 1 (0x01)
+                     == Content&amp;Component: (= audio, single mono channel)
+                  Component_tag: 2 (0x02)
+                  ISO639_2_language_code:  deu
+                  Component-Description: ""
+
+                  DVB-DescriptorTag: 84 (0x54)  [= content_descriptor]
+                  Descriptor_length: 10 (0x0a)
+                     Content_nibble_level_1: 1 (0x01)
+                     Content_nibble_level_2: 5 (0x05)
+                        [= soap/melodram/folkloric]
+                     User_nibble_1: 0 (0x00)
+                     User_nibble_2: 0 (0x00)
+
+                     Content_nibble_level_1: 3 (0x03)
+                     Content_nibble_level_2: 0 (0x00)
+                        [= show/game show (general)]
+                     User_nibble_1: 0 (0x00)
+                     User_nibble_2: 0 (0x00)
+
+                     Content_nibble_level_1: 11 (0x0b)
+                     Content_nibble_level_2: 15 (0x0f)
+                        [= user defined]
+                     User_nibble_1: 2 (0x02)
+                     User_nibble_2: 5 (0x05)
+
+                     Content_nibble_level_1: 15 (0x0f)
+                     Content_nibble_level_2: 0 (0x00)
+                        [= user defined]
+                     User_nibble_1: 8 (0x08)
+                     User_nibble_2: 10 (0x0a)
+
+                     Content_nibble_level_1: 15 (0x0f)
+                     Content_nibble_level_2: 0 (0x00)
+                        [= user defined]
+                     User_nibble_1: 2 (0x02)
+                     User_nibble_2: 0 (0x00)
+
+
+                  DVB-DescriptorTag: 78 (0x4e)  [= extended_event_descriptor]
+                  Descriptor_length: 244 (0xf4)
+                  Descriptor_number: 0 (0x00)
+                  Last_descriptor_number: 0 (0x00)
+                  ISO639_2_language_code:  deu
+                  Length_of_items: 0 (0x00)
+
+                  Text_length: 238 (0xee)
+                  Text: "Fr&uuml;hmorgens um f&uuml;nf, wenn die H&auml;ndler aus dem gesamten
+                        Rhein-Main-Gebiet ihre Waren bringen, beginnt auf dem
+                        Frankfurter Blumengro&szlig;markt das hektische Tagesgesch&auml;ft.
+                        Karl-Heinz Stier und Michaele Scherenberg haben sich das mal
+                        angesehen."  -- Charset: Latin alphabet no. 5
+
+                  DVB-DescriptorTag: 105 (0x69)  [= PDC_descriptor]
+                  Descriptor_length: 3 (0x03)
+                  reserved_1: 15 (0x0f)
+                  Programme_identification_label: 0x7a30f [= month=4  day=15   hour=12  min=15]
+
+                  DVB-DescriptorTag: 95 (0x5f)  [= private_data_specifier_descriptor]
+                  Descriptor_length: 4 (0x04)
+                  PrivateDataSpecifier: 5 (0x00000005)  [= ARD, ZDF, ORF]
+
+                  DVB-DescriptorTag: 130 (0x82)  [= User defined/ATSC reserved]
+                  Descriptor_length: 13 (0x0d)
+                  Descriptor-data:
+                       0000:  31 32 3a 31 35 31 35 2e  30 34 23 30 30            12:1515.04#00
+
+        CRC: 2666440530 (0x9eeea752)
+
+
+
+----------------------------------------------------------
+TS-Packet: 00000008   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:26:55.753
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 1 (0x01)  [= Packet data starts]
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 6 (0x06)
+    Payload: (len: 184)
+        ==&gt; pointer_field: 0 (0x00)
+        ==&gt; Section table: 79 (0x4f)  [= Event Information Table (EIT) - other transport stream, present/following]
+    Data-Bytes:
+          0000:  00 4f f1 01 6d e1 e7 00  01 04 4d 00 01 01 4f 60   .O..m.....M...O`
+          0010:  b5 cf 76 08 04 00 03 56  00 80 e6 4d 12 64 65 75   ..v....V...M.deu
+          0020:  0d 05 53 52 20 31 20 2d  20 31 30 2f 31 34 00 50   ..SR 1 - 10/14.P
+          0030:  06 f2 03 02 64 65 75 4e  ae 00 64 65 75 00 a8 05   ....deuN..deu...
+          0040:  31 30 3a 33 30 20 20 4b  75 72 7a 6e 61 63 68 72   10:30  Kurznachr
+          0050:  69 63 68 74 65 6e 8a 31  31 3a 30 30 20 20 4e 61   ichten.11:00  Na
+          0060:  63 68 72 69 63 68 74 65  6e 8a 31 31 3a 33 30 20   chrichten.11:30 
+          0070:  20 4b 75 72 7a 6e 61 63  68 72 69 63 68 74 65 6e    Kurznachrichten
+          0080:  8a 31 32 3a 30 30 20 20  4e 61 63 68 72 69 63 68   .12:00  Nachrich
+          0090:  74 65 6e 8a 31 32 3a 33  30 20 20 4b 75 72 7a 6e   ten.12:30  Kurzn
+          00a0:  61 63 68 72 69 63 68 74  65 6e 8a 31 33 3a 30 30   achrichten.13:00
+          00b0:  20 20 53 52 20 31 20 2d                              SR 1 -
+==========================================================
+
+
+----------------------------------------------------------
+TS-Packet: 00000009   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:26:55.791
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 0 (0x00)
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 7 (0x07)
+    Payload: (len: 184)
+    Data-Bytes:
+          0000:  20 48 69 6e 74 65 72 67  72 75 6e 64 2f 4e 61 63    Hintergrund/Nac
+          0010:  68 72 69 63 68 74 65 6e  8a 31 33 3a 33 30 20 20   hrichten.13:30  
+          0020:  4b 75 72 7a 6e 61 63 68  72 69 63 68 74 65 6e 69   Kurznachrichteni
+          0030:  03 f7 a2 84 5f 04 00 00  00 05 82 0d 31 30 3a 30   ...._.......10:0
+          0040:  34 31 35 2e 30 34 23 30  30 cc 39 d2 45 ff ff ff   415.04#00.9.E...
+          0050:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0060:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0070:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0080:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          0090:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          00a0:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+          00b0:  ff ff ff ff ff ff ff ff                            ........
+==========================================================
+
+
+    TS-Packet(s) sub-decoding:
+    ==========================
+    TS contains Section...
+        PID:  18 (0x0012)
+        EIT-decoding....
+        Table_ID: 79 (0x4f)  [= Event Information Table (EIT) - other transport stream, present/following]
+        section_syntax_indicator: 1 (0x01)
+        reserved_1: 1 (0x01)
+        reserved_2: 3 (0x03)
+        Section_length: 257 (0x0101)
+        Service_ID: 28129 (0x6de1)  [=  --&gt; refers to PMT program_number]
+        reserved_3: 3 (0x03)
+        Version_number: 19 (0x13)
+        current_next_indicator: 1 (0x01)  [= valid now]
+        Section_number: 0 (0x00)
+        Last_Section_number: 1 (0x01)
+        Transport_stream_ID: 1101 (0x044d)
+        Original_network_ID: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+        Segment_last_Section_number: 1 (0x01)
+        Last_table_id: 79 (0x4f)  [= Event Information Table (EIT) - other transport stream, present/following]
+
+            Event_ID: 24757 (0x60b5)
+            Start_time: 0xcf76080400 (=2004-04-15 08:04:00 [UTC])
+            Duration: 0x0035600 (= 03:56:00 [UTC])
+            Running_status: 4 (0x04)  [= running]
+            Free_CA_mode: 0 (0x00)  [= unscrambled]
+            Descriptors_loop_length: 230 (0xe6)
+
+                  DVB-DescriptorTag: 77 (0x4d)  [= short_event_descriptor]
+                  Descriptor_length: 18 (0x12)
+                    ISO639_2_language_code:  deu
+                  Event_name_length: 13 (0x0d)
+                  Event_name: "SR 1 - 10/14"  -- Charset: Latin alphabet no. 5
+                  Text_length: 0 (0x00)
+                  Text: ""
+
+                  DVB-DescriptorTag: 80 (0x50)  [= component_descriptor]
+                  Descriptor_length: 6 (0x06)
+                  reserved_1: 15 (0x0f)
+                  Stream_content: 2 (0x02)
+                  Component_type: 3 (0x03)
+                     == Content&amp;Component: (= audio, stereo (2 channels))
+                  Component_tag: 2 (0x02)
+                  ISO639_2_language_code:  deu
+                  Component-Description: ""
+
+                  DVB-DescriptorTag: 78 (0x4e)  [= extended_event_descriptor]
+                  Descriptor_length: 174 (0xae)
+                  Descriptor_number: 0 (0x00)
+                  Last_descriptor_number: 0 (0x00)
+                  ISO639_2_language_code:  deu
+                  Length_of_items: 0 (0x00)
+
+                  Text_length: 168 (0xa8)
+                  Text: "10:30  Kurznachrichten<BR>11:00  Nachrichten<BR>11:30  Kurznachrichten<BR>12:00  Nachrichten<BR>12:30  Kurznachrichten<BR>13:00  SR 1 - Hintergrund/Nachrichten<BR>13:30  Kurznachrichten"  -- Charset: Latin alphabet no. 5
+
+                  DVB-DescriptorTag: 105 (0x69)  [= PDC_descriptor]
+                  Descriptor_length: 3 (0x03)
+                  reserved_1: 15 (0x0f)
+                  Programme_identification_label: 0x7a284 [= month=4  day=15   hour=10  min=4]
+
+                  DVB-DescriptorTag: 95 (0x5f)  [= private_data_specifier_descriptor]
+                  Descriptor_length: 4 (0x04)
+                  PrivateDataSpecifier: 5 (0x00000005)  [= ARD, ZDF, ORF]
+
+                  DVB-DescriptorTag: 130 (0x82)  [= User defined/ATSC reserved]
+                  Descriptor_length: 13 (0x0d)
+                  Descriptor-data:
+                       0000:  31 30 3a 30 34 31 35 2e  30 34 23 30 30            10:0415.04#00
+
+        CRC: 3426341445 (0xcc39d245)
+
+
+
+----------------------------------------------------------
+TS-Packet: 00000010   PID: 18 (0x0012), Length: 188 (0x00bc)
+Time received: Thu 2004-04-15  12:26:55.872
+----------------------------------------------------------
+Sync-Byte: 71 (0x47)
+Transport_error_indicator: 0 (0x00)
+Payload_unit_start_indicator: 1 (0x01)  [= Packet data starts]
+transport_priority: 0 (0x00)
+PID: 18 (0x0012)  [= NIT, PMT or Elementary PID, etc.]
+transport_scrambling_control: 0 (0x00)  [= No scrambling of TS packet payload]
+adaptation_field_control: 1 (0x01)  [= no adaptation_field, payload only]
+continuity_counter: 8 (0x08)
+    Payload: (len: 184)
+        ==&gt; pointer_field: 0 (0x00)
+        ==&gt; Section table: 81 (0x51)  [= Event Information Table (EIT) - actual transport stream, schedule]
+    Data-Bytes:
+          0000:  00 51 f0 e9 6e 46 fb 98  b8 04 31 00 01 98 51 98   .Q..nF....1...Q.
+          0010:  e9 cf 7c 09 00 00 00 30  00 00 12 4d 0b 64 65 75   ..|....0...M.deu
+          0020:  06 05 45 78 61 6b 74 00  69 03 fa a2 c0 98 ea cf   ..Exakt.i.......
+          0030:  7c 09 30 00 00 30 00 00  11 4d 0a 64 65 75 05 05   |.0..0...M.deu..
+          0040:  6e 61 6e 6f 00 69 03 fa  a2 de 98 eb cf 7c 10 00   nano.i.......|..
+          0050:  00 01 00 00 00 2b 4d 24  64 65 75 0d 05 4d 44 52   .....+M$deu..MDR
+          0060:  20 75 6d 20 7a 77 f6 6c  66 12 05 64 61 73 20 4c    um zw.lf..das L
+          0070:  e4 6e 64 65 72 6d 61 67  61 7a 69 6e 69 03 fa a3   .ndermagazini...
+          0080:  00 98 ec cf 7c 11 00 00  00 45 00 00 2d 4d 26 64   ....|....E..-M&amp;d;          0090:  65 75 21 05 57 65 6e 6e  20 56 65 72 73 69 63 68   eu!.Wenn Versich
+          00a0:  65 72 75 6e 67 65 6e 20  6e 69 63 68 74 20 7a 61   erungen nicht za
+          00b0:  68 6c 65 6e 00 69 03 fa                            hlen.i..
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

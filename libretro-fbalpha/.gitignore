@@ -1,0 +1,9 @@
+*.so
+*.o
+*.dll
+*.lib
+*.pdb
+*.exp
+*.manifest
+/nul
+*.a

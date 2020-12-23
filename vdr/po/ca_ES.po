@@ -1,0 +1,1646 @@
+# VDR language source file.
+# Copyright (C) 2018 Klaus Schmidinger <vdr@tvdr.de>
+# This file is distributed under the same license as the VDR package.
+# Marc Rovira Vall <tm05462@salleURL.edu>, 2003
+# Ramon Roca <ramon.roca@xcombo.com>, 2003
+# Jordi Vilà <jvila@tinet.org>, 2003
+# Luca Olivetti <luca@ventoso.org>, 2008, 2013
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VDR 2.4.0\n"
+"Report-Msgid-Bugs-To: <vdr-bugs@tvdr.de>\n"
+"POT-Creation-Date: 2020-06-15 17:50+0200\n"
+"PO-Revision-Date: 2008-03-02 19:02+0100\n"
+"Last-Translator: Luca Olivetti <luca@ventoso.org>\n"
+"Language-Team: Catalan <vdr@linuxtv.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "*** Invalid Channel ***"
+msgstr "*** Canal incorrecte ***"
+
+msgid "CAM activated!"
+msgstr ""
+
+msgid "Channel not available!"
+msgstr "Canal no disponible!"
+
+msgid "Can't start Transfer Mode!"
+msgstr "No puc iniciar el mode de transferència!"
+
+msgid "off"
+msgstr "off"
+
+msgid "on"
+msgstr "on"
+
+msgid "auto"
+msgstr "auto"
+
+msgid "none"
+msgstr "cap"
+
+msgid "Polarization"
+msgstr "Polarització"
+
+msgid "System"
+msgstr "Sistema"
+
+msgid "Srate"
+msgstr "Srate"
+
+msgid "Inversion"
+msgstr "Inversió"
+
+msgid "CoderateH"
+msgstr "CoderateH"
+
+msgid "CoderateL"
+msgstr "CoderateL"
+
+msgid "Modulation"
+msgstr "Modulació"
+
+msgid "Bandwidth"
+msgstr "Amplada de banda"
+
+msgid "Transmission"
+msgstr "Transmissió"
+
+msgid "Guard"
+msgstr "Protegir"
+
+msgid "Hierarchy"
+msgstr "Jerarquia"
+
+msgid "Rolloff"
+msgstr "Rolloff"
+
+msgid "StreamId"
+msgstr "StreamId"
+
+msgid "Pilot"
+msgstr ""
+
+msgid "T2SystemId"
+msgstr ""
+
+msgid "SISO/MISO"
+msgstr ""
+
+msgid "Starting EPG scan"
+msgstr "Iniciant exploració EPG"
+
+msgid "Content$Movie/Drama"
+msgstr "Pel·lícula/Drama"
+
+msgid "Content$Detective/Thriller"
+msgstr "Detectiu/Thriller"
+
+msgid "Content$Adventure/Western/War"
+msgstr "Aventura/Oest/Guerra"
+
+msgid "Content$Science Fiction/Fantasy/Horror"
+msgstr "Ciència-ficció/Fantasia/Horror"
+
+msgid "Content$Comedy"
+msgstr "Comédia"
+
+msgid "Content$Soap/Melodrama/Folkloric"
+msgstr "Telenovel·la/Melodrama/Folklore"
+
+msgid "Content$Romance"
+msgstr "Romàntic"
+
+msgid "Content$Serious/Classical/Religious/Historical Movie/Drama"
+msgstr "Seriós/Clàssic/Relogiós/Pel·lícula històrica/Drama"
+
+msgid "Content$Adult Movie/Drama"
+msgstr "Pel·lícula per a adults/Drama"
+
+msgid "Content$News/Current Affairs"
+msgstr "Notícies/Actualitat"
+
+msgid "Content$News/Weather Report"
+msgstr "Notícies/El temps"
+
+msgid "Content$News Magazine"
+msgstr "Revista de notícies"
+
+msgid "Content$Documentary"
+msgstr "Documental"
+
+msgid "Content$Discussion/Inverview/Debate"
+msgstr "Discussió/Entrevista/Debat"
+
+msgid "Content$Show/Game Show"
+msgstr "Espectacle/Jocs"
+
+msgid "Content$Game Show/Quiz/Contest"
+msgstr "Jocs/Concurso"
+
+msgid "Content$Variety Show"
+msgstr "Espectacle de varietats"
+
+msgid "Content$Talk Show"
+msgstr "Talk show"
+
+msgid "Content$Sports"
+msgstr "Esports"
+
+msgid "Content$Special Event"
+msgstr "Esdeveniment especial"
+
+msgid "Content$Sport Magazine"
+msgstr "Revista d'esports"
+
+msgid "Content$Football/Soccer"
+msgstr "Futbol"
+
+msgid "Content$Tennis/Squash"
+msgstr "Tennis/Esquaix"
+
+msgid "Content$Team Sports"
+msgstr "Esports d'equip"
+
+msgid "Content$Athletics"
+msgstr "Atletisme"
+
+msgid "Content$Motor Sport"
+msgstr "Esports de motor"
+
+msgid "Content$Water Sport"
+msgstr "Esports aquàtics"
+
+msgid "Content$Winter Sports"
+msgstr "Esports d'hivern"
+
+msgid "Content$Equestrian"
+msgstr "Equitació"
+
+msgid "Content$Martial Sports"
+msgstr "Arts marcials"
+
+msgid "Content$Children's/Youth Programme"
+msgstr "Programa per a nens/joves"
+
+msgid "Content$Pre-school Children's Programme"
+msgstr "Programa per a nens de preescolar"
+
+msgid "Content$Entertainment Programme for 6 to 14"
+msgstr "Programa d'entreteniment de 6 a 14 anys"
+
+msgid "Content$Entertainment Programme for 10 to 16"
+msgstr "Programa d'entreteniment de 10 a 16 anys"
+
+msgid "Content$Informational/Educational/School Programme"
+msgstr "Informatiu/Educatiu/Programa escolar"
+
+msgid "Content$Cartoons/Puppets"
+msgstr "Dibuixos/Titelles"
+
+msgid "Content$Music/Ballet/Dance"
+msgstr "Música/Ballet/Dansa"
+
+msgid "Content$Rock/Pop"
+msgstr "Rock/Pop"
+
+msgid "Content$Serious/Classical Music"
+msgstr "Música clàssica/seriosa"
+
+msgid "Content$Folk/Tradional Music"
+msgstr "Música folklòrica/tradicional"
+
+msgid "Content$Jazz"
+msgstr "Jazz"
+
+msgid "Content$Musical/Opera"
+msgstr "Musical/Opera"
+
+msgid "Content$Ballet"
+msgstr "Ballet"
+
+msgid "Content$Arts/Culture"
+msgstr "Arts/Cultura"
+
+msgid "Content$Performing Arts"
+msgstr "Arts escèniques"
+
+msgid "Content$Fine Arts"
+msgstr "Belles arts"
+
+msgid "Content$Religion"
+msgstr "Religió"
+
+msgid "Content$Popular Culture/Traditional Arts"
+msgstr "Cultura popular/Arts tradicionals"
+
+msgid "Content$Literature"
+msgstr "Literatura"
+
+msgid "Content$Film/Cinema"
+msgstr "Pel·lícula/Cinema"
+
+msgid "Content$Experimental Film/Video"
+msgstr "Pel·lícula/Vídeo experimental"
+
+msgid "Content$Broadcasting/Press"
+msgstr "Radiodifusió/Premsa"
+
+msgid "Content$New Media"
+msgstr "Nous mitjans de comunicació"
+
+msgid "Content$Arts/Culture Magazine"
+msgstr "Revista d'art/cultura"
+
+msgid "Content$Fashion"
+msgstr "Moda"
+
+msgid "Content$Social/Political/Economics"
+msgstr "Societat/Política/Economia"
+
+msgid "Content$Magazine/Report/Documentary"
+msgstr "Revista/Informe/Documental"
+
+msgid "Content$Economics/Social Advisory"
+msgstr "Assessorament econòmic/social"
+
+msgid "Content$Remarkable People"
+msgstr "Persones notables"
+
+msgid "Content$Education/Science/Factual"
+msgstr "Educació/Ciència/Factual"
+
+msgid "Content$Nature/Animals/Environment"
+msgstr "Naturalesa/Animals/Medi ambient"
+
+msgid "Content$Technology/Natural Sciences"
+msgstr "Tecnologia/Ciències naturals"
+
+msgid "Content$Medicine/Physiology/Psychology"
+msgstr "Medicina/Fisiologia/Psicologia"
+
+msgid "Content$Foreign Countries/Expeditions"
+msgstr "Països estrangers/Expedicions"
+
+msgid "Content$Social/Spiritual Sciences"
+msgstr "Ciències socials/espirituals"
+
+msgid "Content$Further Education"
+msgstr "Educació superior"
+
+msgid "Content$Languages"
+msgstr "Llengües"
+
+msgid "Content$Leisure/Hobbies"
+msgstr "Oci/Aficións"
+
+msgid "Content$Tourism/Travel"
+msgstr "Turisme/Viatges"
+
+msgid "Content$Handicraft"
+msgstr "Manualitats"
+
+msgid "Content$Motoring"
+msgstr "Motor"
+
+msgid "Content$Fitness & Health"
+msgstr "Fitness i salut"
+
+msgid "Content$Cooking"
+msgstr "Cuina"
+
+msgid "Content$Advertisement/Shopping"
+msgstr "Publicitat/Compres"
+
+msgid "Content$Gardening"
+msgstr "Jardineria"
+
+msgid "Content$Original Language"
+msgstr "Idioma original"
+
+msgid "Content$Black & White"
+msgstr "Blanc i negre"
+
+msgid "Content$Unpublished"
+msgstr "No publicat"
+
+msgid "Content$Live Broadcast"
+msgstr "Emissió en directe"
+
+#, c-format
+msgid "ParentalRating$from %d"
+msgstr "de %d"
+
+msgid "No title"
+msgstr "Sense títol"
+
+#. TRANSLATORS: The name of the language, as written natively
+msgid "LanguageName$English"
+msgstr "Català"
+
+#. TRANSLATORS: The 3-letter code of the language
+msgid "LanguageCode$eng"
+msgstr "cat"
+
+msgid "LanguageName$original language (qaa)"
+msgstr ""
+
+msgid "LanguageName$uncoded languages (mis)"
+msgstr ""
+
+msgid "LanguageName$multiple languages (mul)"
+msgstr ""
+
+msgid "LanguageName$narrative (nar)"
+msgstr ""
+
+msgid "LanguageName$undetermined (und)"
+msgstr ""
+
+msgid "LanguageName$no linguistic content (zxx)"
+msgstr ""
+
+msgid "Phase 1: Detecting RC code type"
+msgstr "Fase 1: Detectant el tipus de receptor"
+
+msgid "Press any key on the RC unit"
+msgstr "Premeu qualsevol tecla del comandament"
+
+msgid "RC code detected!"
+msgstr "Codi detectat!"
+
+msgid "Do not press any key..."
+msgstr "No premeu cap tecla..."
+
+msgid "Phase 2: Learning specific key codes"
+msgstr "Fase 2: Aprenentantge de les funcions"
+
+#, c-format
+msgid "Press key for '%s'"
+msgstr "Premeu una tecla per '%s'"
+
+msgid "Press 'Up' to confirm"
+msgstr "Premeu 'Amunt' per confirmar"
+
+msgid "Press 'Down' to continue"
+msgstr "Premeu 'Avall' per continuar"
+
+msgid "(press 'Up' to go back)"
+msgstr "(Premeu 'Amunt' per retornar)"
+
+msgid "(press 'Down' to end key definition)"
+msgstr "(Premeu 'Avall' per finalitzar l'aprenentatge)"
+
+msgid "(press 'Menu' to skip this key)"
+msgstr "Premeu 'Menú' per obviar aquesta tecla"
+
+msgid "Learning Remote Control Keys"
+msgstr "Aprenent les tecles del comandament a distància"
+
+msgid "Phase 3: Saving key codes"
+msgstr "Fase 3: Guardant els codis de les tecles"
+
+msgid "Press 'Up' to save, 'Down' to cancel"
+msgstr "Premeu 'Amunt' per guardar, 'Avall' per anul·lar"
+
+msgid "Key$Up"
+msgstr "Amunt"
+
+msgid "Key$Down"
+msgstr "Avall"
+
+msgid "Key$Menu"
+msgstr "Menú"
+
+msgid "Key$Ok"
+msgstr "D'acord"
+
+msgid "Key$Back"
+msgstr "Retornar"
+
+msgid "Key$Left"
+msgstr "Esquerra"
+
+msgid "Key$Right"
+msgstr "Dreta"
+
+msgid "Key$Red"
+msgstr "Vermell"
+
+msgid "Key$Green"
+msgstr "Verd"
+
+msgid "Key$Yellow"
+msgstr "Groc"
+
+msgid "Key$Blue"
+msgstr "Blau"
+
+msgid "Key$Info"
+msgstr "Informació"
+
+msgid "Key$Play/Pause"
+msgstr "Repr./Pausa"
+
+msgid "Key$Play"
+msgstr "Reproduir"
+
+msgid "Key$Pause"
+msgstr "Pausa"
+
+msgid "Key$Stop"
+msgstr "Aturar"
+
+msgid "Key$Record"
+msgstr "Gravar"
+
+msgid "Key$FastFwd"
+msgstr "Endavant ràpidament"
+
+msgid "Key$FastRew"
+msgstr "Enrera ràpidament"
+
+msgid "Key$Next"
+msgstr "Següent"
+
+msgid "Key$Prev"
+msgstr "Anterior"
+
+msgid "Key$Power"
+msgstr "Aturar"
+
+msgid "Key$Channel+"
+msgstr "Canal +"
+
+msgid "Key$Channel-"
+msgstr "Canal -"
+
+msgid "Key$PrevChannel"
+msgstr "Canal anterior"
+
+msgid "Key$Volume+"
+msgstr "Volum +"
+
+msgid "Key$Volume-"
+msgstr "Volum -"
+
+msgid "Key$Mute"
+msgstr "En silenci"
+
+msgid "Key$Audio"
+msgstr "Àudio"
+
+msgid "Key$Subtitles"
+msgstr "Subtítols"
+
+msgid "Key$Schedule"
+msgstr "Guia de Programació"
+
+msgid "Key$Channels"
+msgstr "Canals"
+
+msgid "Key$Timers"
+msgstr "Temporitzadors"
+
+msgid "Key$Recordings"
+msgstr "Veure programes gravats"
+
+msgid "Key$Setup"
+msgstr "Configuració"
+
+msgid "Key$Commands"
+msgstr "Ordres"
+
+msgid "Key$User0"
+msgstr "Usuari 0"
+
+msgid "Key$User1"
+msgstr "Usuari 1"
+
+msgid "Key$User2"
+msgstr "Usuari 2"
+
+msgid "Key$User3"
+msgstr "Usuari 3"
+
+msgid "Key$User4"
+msgstr "Usuari 4"
+
+msgid "Key$User5"
+msgstr "Usuari 5"
+
+msgid "Key$User6"
+msgstr "Usuari 6"
+
+msgid "Key$User7"
+msgstr "Usuari 7"
+
+msgid "Key$User8"
+msgstr "Usuari 8"
+
+msgid "Key$User9"
+msgstr "Usuari 9"
+
+msgid "Free To Air"
+msgstr "No codificat"
+
+msgid "encrypted"
+msgstr "Codificat"
+
+msgid "Edit channel"
+msgstr "Editar canal"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Source"
+msgstr "Origen"
+
+msgid "Frequency"
+msgstr "Freqüència"
+
+msgid "Vpid"
+msgstr "PID Vídeo"
+
+msgid "Ppid"
+msgstr "Ppid"
+
+msgid "Apid1"
+msgstr "PID Àudio (1)"
+
+msgid "Apid2"
+msgstr "PID Àudio (2)"
+
+msgid "Dpid1"
+msgstr "PID AC3 (1)"
+
+msgid "Dpid2"
+msgstr "PID AC3 (2)"
+
+msgid "Spid1"
+msgstr "Spid1"
+
+msgid "Spid2"
+msgstr "Spid2"
+
+msgid "Tpid"
+msgstr "PID Teletext"
+
+msgid "CA"
+msgstr "Accés Condicional"
+
+msgid "Sid"
+msgstr "Sid"
+
+msgid "Nid"
+msgstr ""
+
+msgid "Tid"
+msgstr ""
+
+msgid "Channel settings are not unique!"
+msgstr "Propietats del canal duplicades!"
+
+msgid "Channels"
+msgstr "Canals"
+
+msgid "Button$Edit"
+msgstr "Editar"
+
+msgid "Button$New"
+msgstr "Nou"
+
+msgid "Button$Delete"
+msgstr "Esborrar"
+
+msgid "Button$Mark"
+msgstr "Marcar"
+
+msgid "Channel is being used by a timer!"
+msgstr "Canal en ús per un temporitzador!"
+
+msgid "Delete channel?"
+msgstr "Esborrar el canal?"
+
+msgid "Edit folder"
+msgstr "Modificar carpeta"
+
+msgid "New folder"
+msgstr "Nova carpeta"
+
+msgid "Folder name already exists!"
+msgstr "La carpeta ja existeix!"
+
+#, c-format
+msgid "Folder name must not contain '%c'!"
+msgstr "El nom de la carpeta no pot contenir '%c'"
+
+msgid "Button$Open"
+msgstr "Obrir"
+
+msgid "Delete folder and all sub folders?"
+msgstr "Esborrar carpetas i totes les sub carpetes?"
+
+msgid "Delete folder?"
+msgstr "Esborrar carpeta?"
+
+msgid "Edit timer"
+msgstr "Editar temporitzador"
+
+msgid "Active"
+msgstr "Actiu"
+
+msgid "Channel"
+msgstr "Canal"
+
+msgid "Day"
+msgstr "Dia"
+
+msgid "Start"
+msgstr "Inici"
+
+msgid "Stop"
+msgstr "Fi"
+
+msgid "VPS"
+msgstr "VPS"
+
+msgid "Priority"
+msgstr "Prioritat"
+
+msgid "Lifetime"
+msgstr "Durada"
+
+msgid "File"
+msgstr "Arxiu"
+
+msgid "Record on"
+msgstr ""
+
+msgid "Button$Folder"
+msgstr "Carpeta"
+
+msgid "Button$Single"
+msgstr "Individual"
+
+msgid "Button$Repeating"
+msgstr "Repetitiu"
+
+msgid "First day"
+msgstr "Primer dia"
+
+msgid "Error while accessing remote timer"
+msgstr ""
+
+msgid "Timer has been deleted!"
+msgstr ""
+
+msgid "Select folder"
+msgstr "Seleccioni carpeta"
+
+msgid "Timers"
+msgstr "Temporitzadors"
+
+msgid "Button$On/Off"
+msgstr "On/Off"
+
+msgid "Button$Info"
+msgstr "Informació"
+
+msgid "Delete timer?"
+msgstr "Esborrar el temporitzador?"
+
+msgid "Timer still recording - really delete?"
+msgstr "Temporitzador activat - Esborrar de totes maneres?"
+
+msgid "Event"
+msgstr "Esdeveniment"
+
+msgid "Button$Timer"
+msgstr "Temporitzador"
+
+msgid "Button$Record"
+msgstr "Gravar"
+
+msgid "Button$Switch"
+msgstr "Canviar"
+
+msgid "What's on now?"
+msgstr "Què fan ara?"
+
+msgid "What's on next?"
+msgstr "Què fan després?"
+
+msgid "Button$Next"
+msgstr "Següent"
+
+msgid "Button$Now"
+msgstr "Ara"
+
+msgid "Button$Schedule"
+msgstr "Programar"
+
+msgid "Can't switch channel!"
+msgstr "No puc canviar de canal!"
+
+msgid "Schedule"
+msgstr "Guia de Programació"
+
+#, c-format
+msgid "Schedule - %s"
+msgstr "Guia de Programació - %s"
+
+#, c-format
+msgid "This event - %s"
+msgstr "Aquest esdeveniment - %s"
+
+msgid "This event - all channels"
+msgstr "Aquest esdeveniment - tots els canals"
+
+msgid "All events - all channels"
+msgstr "Tots els esdeveniments - tots els canals"
+
+#, c-format
+msgid "Please enter %d digits!"
+msgstr "Si us plau introdueixi %d digitos"
+
+msgid "CAM not responding!"
+msgstr "CAM no respon"
+
+msgid "Edit path"
+msgstr ""
+
+msgid "Folder"
+msgstr ""
+
+msgid "This folder is currently in use - no changes are possible!"
+msgstr ""
+
+#, c-format
+msgid "Move entire folder containing %d recordings?"
+msgstr ""
+
+msgid "Error while moving folder!"
+msgstr ""
+
+msgid "Edit recording"
+msgstr ""
+
+msgid "This recording is currently in use - no changes are possible!"
+msgstr ""
+
+msgid "Button$Cancel cutting"
+msgstr ""
+
+msgid "Button$Stop cutting"
+msgstr ""
+
+msgid "Button$Cancel moving"
+msgstr ""
+
+msgid "Button$Stop moving"
+msgstr ""
+
+msgid "Button$Cancel copying"
+msgstr ""
+
+msgid "Button$Stop copying"
+msgstr ""
+
+msgid "Button$Cut"
+msgstr ""
+
+msgid "Button$Delete marks"
+msgstr ""
+
+msgid "Recording vanished!"
+msgstr ""
+
+msgid "Edited version already exists - overwrite?"
+msgstr ""
+
+msgid "Error while queueing recording for cutting!"
+msgstr ""
+
+msgid "Rename recording to folder name?"
+msgstr ""
+
+msgid "Delete editing marks for this recording?"
+msgstr ""
+
+msgid "Error while deleting editing marks!"
+msgstr ""
+
+msgid "Error while changing priority/lifetime!"
+msgstr ""
+
+msgid "Error while changing folder/name!"
+msgstr ""
+
+msgid "Recording info"
+msgstr "Informació de la gravació"
+
+msgid "Button$Play"
+msgstr "Reproduir"
+
+msgid "Button$Rewind"
+msgstr "Enrera"
+
+msgid "Recordings"
+msgstr "Veure programes gravats"
+
+msgid "Commands"
+msgstr "Ordres"
+
+msgid "Delete recording?"
+msgstr "Esborrar gravació?"
+
+msgid "Recording is being edited - really delete?"
+msgstr "S'està editant la gravació - esborrar igualment?"
+
+msgid "Error while deleting recording!"
+msgstr "Error a l'esborrar la gravació!"
+
+msgid "Recording commands"
+msgstr "Ordres de gravació"
+
+msgid "never"
+msgstr "mai"
+
+msgid "skin dependent"
+msgstr "depèn de l'aparença"
+
+msgid "always"
+msgstr "sempre"
+
+msgid "by name"
+msgstr ""
+
+msgid "by time"
+msgstr ""
+
+msgid "ascending"
+msgstr ""
+
+msgid "descending"
+msgstr ""
+
+msgid "OSD"
+msgstr "Informació en pantalla"
+
+msgid "Setup.OSD$Language"
+msgstr "Idioma"
+
+msgid "Setup.OSD$Skin"
+msgstr "Aparença"
+
+msgid "Setup.OSD$Theme"
+msgstr "Tema"
+
+msgid "Setup.OSD$Left (%)"
+msgstr "Esquerra (%)"
+
+msgid "Setup.OSD$Top (%)"
+msgstr "A dalt (%)"
+
+msgid "Setup.OSD$Width (%)"
+msgstr "Amplada (%)"
+
+msgid "Setup.OSD$Height (%)"
+msgstr "Alçada (%)"
+
+msgid "Setup.OSD$Message time (s)"
+msgstr "Durada dels missatges (s)"
+
+msgid "Setup.OSD$Use small font"
+msgstr "Usar font petita"
+
+msgid "Setup.OSD$Anti-alias"
+msgstr "Antidentat"
+
+msgid "Setup.OSD$Default font"
+msgstr "Font predeterminada"
+
+msgid "Setup.OSD$Small font"
+msgstr "Font petita"
+
+msgid "Setup.OSD$Fixed font"
+msgstr "Font fixa"
+
+msgid "Setup.OSD$Default font size (%)"
+msgstr "Mida font predeterminada (%)"
+
+msgid "Setup.OSD$Small font size (%)"
+msgstr "Mida font petita (%)"
+
+msgid "Setup.OSD$Fixed font size (%)"
+msgstr "Mida font fixa (%)"
+
+msgid "Setup.OSD$Channel info position"
+msgstr "Posició de la informació del canal"
+
+msgid "bottom"
+msgstr "a baix"
+
+msgid "top"
+msgstr "a dalt"
+
+msgid "Setup.OSD$Channel info time (s)"
+msgstr "Temps de l'informació de canal (s)"
+
+msgid "Setup.OSD$Info on channel switch"
+msgstr "Informació del canvi de canal"
+
+msgid "Setup.OSD$Timeout requested channel info"
+msgstr "Temps d'espera informació de canal sol·licitada"
+
+msgid "Setup.OSD$Scroll pages"
+msgstr "Desplaçar pàgina sencera"
+
+msgid "Setup.OSD$Scroll wraps"
+msgstr "Desplaçament circular"
+
+msgid "Setup.OSD$Menu key closes"
+msgstr "Tecla menu tanca"
+
+msgid "Setup.OSD$Recording directories"
+msgstr "Gravacions en subcarpetes"
+
+msgid "Setup.OSD$Folders in timer menu"
+msgstr "Carpetes en menú temporitzadors"
+
+msgid "Setup.OSD$Always sort folders first"
+msgstr "Sempre ordenar primer carpetes"
+
+msgid "Setup.OSD$Default sort mode for recordings"
+msgstr ""
+
+msgid "Setup.OSD$Sorting direction for recordings"
+msgstr ""
+
+msgid "Setup.OSD$Number keys for characters"
+msgstr "Tecles numèriques per a caràcters"
+
+msgid "Setup.OSD$Color key 0"
+msgstr "Tecla color 0"
+
+msgid "Setup.OSD$Color key 1"
+msgstr "Tecla color 1"
+
+msgid "Setup.OSD$Color key 2"
+msgstr "Tecla color 2"
+
+msgid "Setup.OSD$Color key 3"
+msgstr "Tecla color 3"
+
+msgid "EPG"
+msgstr "Guia de Programes"
+
+msgid "Button$Scan"
+msgstr "Escaneig"
+
+msgid "Setup.EPG$EPG scan timeout (h)"
+msgstr "Màxim d'Hores a cercar per la Guia"
+
+msgid "Setup.EPG$EPG bugfix level"
+msgstr "Nivell de correcció de la Guia"
+
+msgid "Setup.EPG$EPG linger time (min)"
+msgstr "Temps manteniment EPG (min)"
+
+msgid "Setup.EPG$Set system time"
+msgstr "Ajustar l'hora del sistema"
+
+msgid "Setup.EPG$Use time from transponder"
+msgstr "Usar el temps del múltiplex"
+
+#. TRANSLATORS: note the plural!
+msgid "Setup.EPG$Preferred languages"
+msgstr "Idiomes preferits"
+
+#. TRANSLATORS: note the singular!
+msgid "Setup.EPG$Preferred language"
+msgstr "Idioma preferit"
+
+msgid "pan&scan"
+msgstr "pan&scan"
+
+msgid "letterbox"
+msgstr "letterbox"
+
+msgid "center cut out"
+msgstr "només part central"
+
+msgid "no"
+msgstr "no"
+
+msgid "names only"
+msgstr "només noms"
+
+msgid "PIDs only"
+msgstr "només PIDs"
+
+msgid "names and PIDs"
+msgstr "noms i PIDs"
+
+msgid "add new channels"
+msgstr "afegir nous canals"
+
+msgid "add new transponders"
+msgstr "afegir nous transponders"
+
+msgid "DVB"
+msgstr "Tarja DVB"
+
+msgid "Button$Audio"
+msgstr "Àudio"
+
+msgid "Button$Subtitles"
+msgstr "Subtítols"
+
+msgid "Setup.DVB$Primary DVB interface"
+msgstr "Tarja DVB primària"
+
+msgid "Setup.DVB$Standard compliance"
+msgstr "Conformitat a estàndards"
+
+msgid "Setup.DVB$Video format"
+msgstr "Format del vídeo"
+
+msgid "Setup.DVB$Video display format"
+msgstr "Format de visualització de vídeo"
+
+msgid "Setup.DVB$Use Dolby Digital"
+msgstr "Fer servir Dolby Digital"
+
+msgid "Setup.DVB$Update channels"
+msgstr "Actualitza canals"
+
+msgid "Setup.DVB$Audio languages"
+msgstr "Idiomes d'àudio"
+
+msgid "Setup.DVB$Audio language"
+msgstr "Idioma d'àudio"
+
+msgid "Setup.DVB$Display subtitles"
+msgstr "Visualitza subtítols"
+
+msgid "Setup.DVB$Subtitle languages"
+msgstr "Idiomes subtítols"
+
+msgid "Setup.DVB$Subtitle language"
+msgstr "Idioma subtítols"
+
+msgid "Setup.DVB$Subtitle offset"
+msgstr "Desplaçament subtítols"
+
+msgid "Setup.DVB$Subtitle foreground transparency"
+msgstr "Transparència primer pla subtítols"
+
+msgid "Setup.DVB$Subtitle background transparency"
+msgstr "Transparència fons subtítols"
+
+msgid "LNB"
+msgstr "Configuració de l'LNB"
+
+msgid "Setup.LNB$Use DiSEqC"
+msgstr "Utilitzar DiSEqC"
+
+msgid "Setup.LNB$SLOF (MHz)"
+msgstr "SLOF (MHz)"
+
+msgid "Setup.LNB$Low LNB frequency (MHz)"
+msgstr "Freqüència LNB baixa (MHz)"
+
+msgid "Setup.LNB$High LNB frequency (MHz)"
+msgstr "Freqüència LNB alta (MHz)"
+
+#, c-format
+msgid "Setup.LNB$Device %d connected to sat cable"
+msgstr "Dispositiu %d connectat a cable satèl·lit"
+
+msgid "Setup.LNB$own"
+msgstr "propi"
+
+msgid "Setup.LNB$Use dish positioner"
+msgstr ""
+
+msgid "Setup.LNB$Site latitude (degrees)"
+msgstr ""
+
+msgid "South"
+msgstr ""
+
+msgid "North"
+msgstr ""
+
+msgid "Setup.LNB$Site longitude (degrees)"
+msgstr ""
+
+msgid "West"
+msgstr ""
+
+msgid "East"
+msgstr ""
+
+msgid "Setup.LNB$Max. positioner swing (degrees)"
+msgstr ""
+
+msgid "Setup.LNB$Positioner speed (degrees/s)"
+msgstr ""
+
+msgid "CAM reset"
+msgstr "Reiniciar CAM"
+
+msgid "CAM present"
+msgstr "CAM present"
+
+msgid "CAM ready"
+msgstr "CAM preparat"
+
+#. TRANSLATORS: note the leading blank!
+msgid " (activating)"
+msgstr ""
+
+msgid "@ device"
+msgstr ""
+
+msgid "CAM"
+msgstr "CAM"
+
+msgid "Button$Cancel activation"
+msgstr ""
+
+msgid "Button$Activate"
+msgstr ""
+
+msgid "Button$Menu"
+msgstr "Menú"
+
+msgid "Button$Reset"
+msgstr "Reiniciar"
+
+msgid "Opening CAM menu..."
+msgstr "Obrint menu CAM..."
+
+msgid "Can't open CAM menu!"
+msgstr "No puc obrir el menú de la CAM!"
+
+msgid "Can't activate CAM!"
+msgstr ""
+
+msgid "CAM is in use - really reset?"
+msgstr "CAM en ús - reiniciar?"
+
+msgid "Can't reset CAM!"
+msgstr "No puc reiniciar la CAM!"
+
+msgid "no instant recording"
+msgstr ""
+
+msgid "confirm instant recording"
+msgstr ""
+
+msgid "record instantly"
+msgstr ""
+
+msgid "do not pause live video"
+msgstr "no pausar emissió en directe"
+
+msgid "confirm pause live video"
+msgstr "confirmar pausar emissió en directe"
+
+msgid "pause live video"
+msgstr "pausar emissió en directe"
+
+msgid "confirm"
+msgstr "confirmar"
+
+msgid "yes"
+msgstr "sí"
+
+msgid "Recording"
+msgstr "Opcions de Gravació"
+
+msgid "Setup.Recording$Margin at start (min)"
+msgstr "Marge d'inici de gravació (min)"
+
+msgid "Setup.Recording$Margin at stop (min)"
+msgstr "Marge de fi de gravació (min)"
+
+msgid "Setup.Recording$Default priority"
+msgstr "Prioritat per defecte"
+
+msgid "Setup.Recording$Default lifetime (d)"
+msgstr "Durada predefinida"
+
+msgid "Setup.Recording$Record key handling"
+msgstr ""
+
+msgid "Setup.Recording$Pause key handling"
+msgstr "Gestió tecla pausa"
+
+msgid "Setup.Recording$Pause priority"
+msgstr "Prioritat de la pausa"
+
+msgid "Setup.Recording$Pause lifetime (d)"
+msgstr "Durada de la pausa (d)"
+
+msgid "Setup.Recording$Use episode name"
+msgstr "Utilitzar el nom de l'episodi"
+
+msgid "Setup.Recording$Use VPS"
+msgstr "Fer servir VPS"
+
+msgid "Setup.Recording$VPS margin (s)"
+msgstr "Marge VPS (s)"
+
+msgid "Setup.Recording$Mark instant recording"
+msgstr "Marcar gravació instantània"
+
+msgid "Setup.Recording$Name instant recording"
+msgstr "Anomenar gravacions instantànies"
+
+msgid "Setup.Recording$Instant rec. time (min)"
+msgstr "Temps de gravació instantània (min)"
+
+msgid "Setup.Recording$present event"
+msgstr "esdeveniment actual"
+
+msgid "Setup.Recording$Max. video file size (MB)"
+msgstr "Mida màxima de l'arxiu (MB)"
+
+msgid "Setup.Recording$Split edited files"
+msgstr "Separar arxius"
+
+msgid "Setup.Recording$Delete timeshift recording"
+msgstr "Esborrar gravacions timeshift"
+
+msgid "Replay"
+msgstr "Opcions de Reproducció"
+
+msgid "Setup.Replay$Multi speed mode"
+msgstr "Mode de multivelocitat"
+
+msgid "Setup.Replay$Show replay mode"
+msgstr "Mostrar mode de reproducció"
+
+msgid "Setup.Replay$Show remaining time"
+msgstr "Mostrar temps restant"
+
+msgid "Setup.Replay$Progress display time (s)"
+msgstr "Visualització temps avanç (s)"
+
+msgid "Setup.Replay$Pause replay when setting mark"
+msgstr "Pausar reproducció en establir marca"
+
+msgid "Setup.Replay$Pause replay when jumping to a mark"
+msgstr ""
+
+msgid "Setup.Replay$Skip edited parts"
+msgstr ""
+
+msgid "Setup.Replay$Pause replay at last mark"
+msgstr ""
+
+msgid "Setup.Replay$Initial duration for adaptive skipping (s)"
+msgstr ""
+
+msgid "Setup.Replay$Reset timeout for adaptive skipping (s)"
+msgstr ""
+
+msgid "Setup.Replay$Alternate behavior for adaptive skipping"
+msgstr ""
+
+msgid "Setup.Replay$Use Prev/Next keys for adaptive skipping"
+msgstr ""
+
+msgid "Setup.Replay$Skip distance with Green/Yellow keys (s)"
+msgstr ""
+
+msgid "Setup.Replay$Skip distance with Green/Yellow keys in repeat (s)"
+msgstr ""
+
+msgid "Setup.Replay$Resume ID"
+msgstr "ID de Continuar"
+
+msgid "any hosts"
+msgstr ""
+
+msgid "only default host"
+msgstr ""
+
+msgid "type"
+msgstr ""
+
+msgid "full"
+msgstr ""
+
+msgid "Miscellaneous"
+msgstr "Miscel·lània"
+
+msgid "Setup.Miscellaneous$Min. event timeout (min)"
+msgstr "Temps mínim en pausa (min)"
+
+msgid "Setup.Miscellaneous$Min. user inactivity (min)"
+msgstr "Temps mínim d'inactivitat (min)"
+
+msgid "Setup.Miscellaneous$SVDRP timeout (s)"
+msgstr "SVDRP Timeout (s)"
+
+msgid "Setup.Miscellaneous$SVDRP peering"
+msgstr ""
+
+msgid "Setup.Miscellaneous$SVDRP host name"
+msgstr ""
+
+msgid "Setup.Miscellaneous$SVDRP default host"
+msgstr ""
+
+msgid "Setup.Miscellaneous$Zap timeout (s)"
+msgstr "Temps d'espera Zap (s)"
+
+msgid "Setup.Miscellaneous$Channel entry timeout (ms)"
+msgstr "Temps d'introducció canal (ms)"
+
+msgid "Setup.Miscellaneous$Remote control repeat delay (ms)"
+msgstr "Retard repetició comandament a distáncia (ms)"
+
+msgid "Setup.Miscellaneous$Remote control repeat delta (ms)"
+msgstr "Delta repetició comandament a distáncia (ms)"
+
+msgid "Setup.Miscellaneous$Initial channel"
+msgstr "Canal inicial"
+
+msgid "Setup.Miscellaneous$as before"
+msgstr "anterior"
+
+msgid "Setup.Miscellaneous$Initial volume"
+msgstr "Volum inicial"
+
+msgid "Setup.Miscellaneous$Volume steps"
+msgstr ""
+
+msgid "Setup.Miscellaneous$Volume linearize"
+msgstr ""
+
+msgid "Setup.Miscellaneous$Channels wrap"
+msgstr "Primer canal després de l'ultim"
+
+msgid "Setup.Miscellaneous$Show channel names with source"
+msgstr "Mostrar noms canals amb fonts"
+
+msgid "Setup.Miscellaneous$Emergency exit"
+msgstr "Sortida d'emergència"
+
+msgid "Plugins"
+msgstr "Plugins"
+
+msgid "This plugin has no setup parameters!"
+msgstr "Aquest plugin no admet configuració!"
+
+msgid "Setup"
+msgstr "Configuració"
+
+msgid "Restart"
+msgstr "Reiniciar"
+
+msgid "Really restart?"
+msgstr "Segur que voleu reiniciar?"
+
+#. TRANSLATORS: note the leading and trailing blanks!
+msgid " Stop recording "
+msgstr " Aturar la gravació "
+
+#. TRANSLATORS: note the leading blank!
+msgid " Stop replaying"
+msgstr " Aturar la reproducció"
+
+msgid "Button$Pause"
+msgstr "Pausa"
+
+msgid "Button$Stop"
+msgstr "Aturar"
+
+msgid "Button$Resume"
+msgstr "Continuar"
+
+#. TRANSLATORS: note the leading blank!
+msgid " Cancel editing"
+msgstr " Cancel·lar l'edició"
+
+msgid "Stop recording?"
+msgstr "Aturar la gravació?"
+
+msgid "Cancel editing?"
+msgstr "Cancel·lar l'edició?"
+
+msgid "No audio available!"
+msgstr "No hi ha àudio disponible!"
+
+msgid "No subtitles"
+msgstr "Sense subtítols"
+
+msgid "No subtitles available!"
+msgstr "No hi ha subtítols disponibles!"
+
+msgid "Not enough disk space to start recording!"
+msgstr "No hi ha espai en disc per a iniciar la gravació!"
+
+msgid "No free DVB device to record!"
+msgstr "No hi ha cap dispositiu DVB lliure per gravar!"
+
+msgid "Pausing live video..."
+msgstr "Pausa d'emissió en directe..."
+
+msgid "Delete timeshift recording?"
+msgstr "Esborrar gravació timeshift?"
+
+#. TRANSLATORS: note the trailing blank!
+msgid "Jump: "
+msgstr "Salta a: "
+
+msgid "No editing marks defined!"
+msgstr "No hi ha marques d'edició definides"
+
+msgid "No editing sequences defined!"
+msgstr "No hi ha seqüències d'edició definides"
+
+msgid "Can't start editing process!"
+msgstr "No puc iniciar el procés d'edició!"
+
+msgid "Editing process started"
+msgstr "Procés d'edició iniciat"
+
+msgid "Editing process already active!"
+msgstr "Procés d'edició iniciat anteriorment!"
+
+msgid "FileNameChars$ abcdefghijklmnopqrstuvwxyz0123456789-.,#~\\^$[]|()*+?{}/:%@&"
+msgstr " aàbcçdeéèfghiíjklmnoòpqrstuúvwxyz0123456789-.,#~\\^$[]|()*+?{}/:%@&·"
+
+msgid "CharMap$ 0\t-.,1#~\\^$[]|()*+?{}/:%@&\tabc2\tdef3\tghi4\tjkl5\tmno6\tpqrs7\ttuv8\twxyz9"
+msgstr " 0\t-.,1#~\\^$[]|()*+?{}/:%@&\tabcáç2\tdefé3\tghií4\tjkl5\tmnoñó6\tpqrs7\ttuvú8\twxyz9"
+
+msgid "Button$ABC/abc"
+msgstr "ABC/abc"
+
+msgid "Button$Overwrite"
+msgstr "Sobrescriure"
+
+msgid "Button$Insert"
+msgstr "Inserir"
+
+msgid "Plugin"
+msgstr "Plugin"
+
+msgid "Up/Dn for new location - OK to move"
+msgstr "Amunt/Avall per una nova localització - OK per moure"
+
+msgid "Channel locked (recording)!"
+msgstr "Canal bloquejat (gravant)!"
+
+msgid "Low disk space!"
+msgstr "Disc gairebé ple!"
+
+msgid "Regenerating index file"
+msgstr "Regenerant fitxer índex"
+
+msgid "Index file regeneration complete"
+msgstr "Regeneració fitxer índex acabada"
+
+msgid "Index file regeneration failed!"
+msgstr "Ha fallat la regeneració del fitxer índex"
+
+msgid "Can't shutdown - option '-s' not given!"
+msgstr "No puc apagar, falta la opció -s !"
+
+msgid "Editing - shut down anyway?"
+msgstr "Editant - Apagar de totes maneres?"
+
+msgid "Recording - shut down anyway?"
+msgstr "Gravant - Apagar de totes maneres?"
+
+#, c-format
+msgid "Recording in %ld minutes, shut down anyway?"
+msgstr "Hi ha una gravació en %ld minuts - Apagar de totes maneres?"
+
+msgid "shut down anyway?"
+msgstr "Apagar de totes maneres?"
+
+#, c-format
+msgid "Plugin %s wakes up in %ld min, continue?"
+msgstr "El plugin %s s'activarà en %ld minuts, continuar?"
+
+msgid "Editing - restart anyway?"
+msgstr "Editant - Reiniciar de totes maneres?"
+
+msgid "Recording - restart anyway?"
+msgstr "Gravant - Reiniciar de totes maneres?"
+
+msgid "restart anyway?"
+msgstr "Reiniciar de totes maneres?"
+
+#. TRANSLATORS: note the trailing blank!
+msgid "Volume "
+msgstr "Volum "
+
+msgid "Classic VDR"
+msgstr "VDR clasico"
+
+msgid "DISK"
+msgstr "DISC"
+
+msgid "LOAD"
+msgstr "CÀRREGA"
+
+msgid "TIMERS"
+msgstr "TEMPORITZADORS"
+
+msgid "DEVICES"
+msgstr "DISPOSITIUS"
+
+msgid "LIVE"
+msgstr "EN DIRECTE"
+
+msgid "PLAY"
+msgstr "REPRODUIR"
+
+#, c-format
+msgid "Moving dish to %.1f..."
+msgstr ""
+
+msgid "ST:TNG Panels"
+msgstr "Quadres ST:TNG"
+
+#. TRANSLATORS: the first character of each weekday, beginning with monday
+msgid "MTWTFSS"
+msgstr "LMCJVSG"
+
+#. TRANSLATORS: abbreviated weekdays, beginning with monday (must all be 3 letters!)
+msgid "MonTueWedThuFriSatSun"
+msgstr "Dl Dm Dc Dj Dv Ds Dg "
+
+msgid "Monday"
+msgstr "Dilluns"
+
+msgid "Tuesday"
+msgstr "Dimarts"
+
+msgid "Wednesday"
+msgstr "Dimecres"
+
+msgid "Thursday"
+msgstr "Dijous"
+
+msgid "Friday"
+msgstr "Divendres"
+
+msgid "Saturday"
+msgstr "Dissabte"
+
+msgid "Sunday"
+msgstr "Diumenge"
+
+msgid "Upcoming recording!"
+msgstr "Gravació a punt d'iniciar!"
+
+msgid "Pause live video?"
+msgstr "Pausar emissió en directe?"
+
+msgid "Start recording?"
+msgstr ""
+
+msgid "Recording started"
+msgstr "Gravació començada"
+
+msgid "VDR will shut down later - press Power to force"
+msgstr "VDR s'apagarà més tard, prem Power per a forçar"
+
+msgid "Press any key to cancel shutdown"
+msgstr "Prem qualsevol tecla per cancel·lar l'aturada"
+
+msgid "Editing process failed!"
+msgstr "Procés d'edició fallit!"
+
+msgid "Editing process finished"
+msgstr "Procés d'edició finalitzat"
+
+msgid "Switching primary DVB..."
+msgstr "Canviant a la interfície DVB primària..."
+
+msgid "Press any key to cancel restart"
+msgstr "Prem qualsevol tecla per cancel·lar el reinici"
+
+#, c-format
+msgid "VDR will shut down in %s minutes"
+msgstr "VDR s'apagarà en %s minuts"
+
+msgid "Disk"
+msgstr "Disc"
+
+msgid "free"
+msgstr "lliure"

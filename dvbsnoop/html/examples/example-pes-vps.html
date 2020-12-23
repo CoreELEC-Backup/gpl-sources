@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: MPEG Packetized
+		Elementary Stream (PES) - VPS</TITLE><META NAME="Author"
+	 CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: MPEG Packetized Elementary Stream (PES) - VPS</H1> 
+	 <H2>VPS data (Video Programming System):</H2> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>[...]
+            data_unit_id: 195 (0xc3)  [= VPS (Video Programming System)]
+            data_unit_length: 44 (0x2c)
+            VPS (Video Programming System) data:
+               reserved: 3 (0x03)
+               field_parity: 1 (0x01)
+               line_offset: 16 (0x10)
+               VPS data:
+                  (not relevant to PDC): 41050 (0xa05a)
+                  PCS audio: 2 (0x02)  [= stereo]
+                  PCS reserved: 1 (0x01)
+                  CNI reserved: 0 (0x00)  [= Enhanced VPS]
+                  (not relevant to PDC): 0 (0x000000)
+                  (not relevant to PDC): 0 (0x0000)
+                  NPP_1: 3 (0x03)
+                  Program Identificaion Label (PIL): 892318 (0x0d9d9e)  [= month=3  day=27   hour=22  min=30]
+                  Country: 13 (0x0d)  [= DE]
+                  NPP_2: 2 (0x02)
+                    ==&gt; Network/Program Provider (NPP): 194 (0xc2)  [= see: ETSI TR 101 231]
+                  Program Type (PTY): 255 (0xff)  [= PTY not used]
+            stuffing bytes:
+                 0000:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff   ................
+                 0010:  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff         ..............
+
+[...]
+</PRE> </TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

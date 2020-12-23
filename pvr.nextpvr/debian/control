@@ -1,0 +1,23 @@
+Source: kodi-pvr-nextpvr
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake, libtinyxml2-dev,
+               kodi-addon-dev
+Standards-Version: 4.1.2
+Section: libs
+Homepage: http://www.nextpvr.com
+
+Package: kodi-pvr-nextpvr
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: inputstream-ffmpegdirect
+Description: NextPVR for Kodi
+ NextPVR for Kodi
+
+Package: kodi-pvr-nextpvr-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for NextPVR for Kodi
+ debug symbols for NextPVR for Kodi

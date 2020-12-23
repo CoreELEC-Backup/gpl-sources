@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: DSM-CC Download Data
+		Block (DDB)</TITLE><META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: DSM-CC DownloadDataBlock (DDB)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -nph -n 1 0x3bc
+dvbsnoop V1.2.48 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000001   PID: 956 (0x03bc), Length: 4096 (0x1000)
+Time received: Sun 2004-02-15  14:22:09.162
+----------------------------------------------------------
+PID:  956 (0x03bc)
+Guess table from table id...
+DSM-CC-decoding....
+Table_ID: 60 (0x3c)  [= DSM-CC - Download Data Messages (DDB)]
+Section_syntax_indicator: 1 (0x01)
+private_indicator: 0 (0x00)
+reserved_1: 3 (0x03)
+dsmcc_section_length: 4093 (0x0ffd)
+table_id_extension: 12 (0x000c)
+reserved_3: 3 (0x03)
+Version_number: 1 (0x01)
+Current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 12 (0x0c)
+Last_section_number: 15 (0x0f)
+DSM-CC Message Header:
+    protocolDiscriminator: 17 (0x11)
+    dsmccType: 3 (0x03)  [= Download message]
+    messageId: 4099 (0x1003)  [= DownloadDataBlock (DDB)]
+    downloadId: 1 (0x00000001)
+    reserved: 255 (0xff)
+    adaptionLength: 0 (0x00)
+    messageLength: 4072 (0x0fe8)
+moduleId: 12 (0x000c)
+moduleVersion: 1 (0x01)
+reserved: 255 (0xff)
+blockNumber: 12 (0x000c)
+Block Data: 
+      0000:  5a 2d 59 cc 6c 9e 29 8c 48 4a a3 1c e6 44 f3 36 
+      0000:   Z  -  Y  .  l  .  )  .  H  J  .  .  .  D  .  6 
+      0010:  d0 5f e4 98 be 1b 38 e1 62 40 32 c6 27 28 69 35 
+      0010:   .  _  .  .  .  .  8  .  b  @  2  .  '  (  i  5 
+      0020:  b8 d8 3c ad 83 5c 9b 02 da 7a ca 57 53 b6 5d 00 
+      0020:   .  .  &lt;  .  .  \  .  .  .  z  .  W  S  .  ]  . 
+      0030:  b4 fb 28 d9 93 9f 35 02 61 08 e9 3d 35 a6 0c 3d 
+      0030:   .  .  (  .  .  .  5  .  a  .  .  =  5  .  .  = 
+      0040:  f0 bc 13 9c 6b 61 86 3e c9 4c 61 ce d0 98 5c ac 
+      0040:   .  .  .  .  k  a  .  &gt;  .  L  a  .  .  .  \  . 
+      0050:  4f 41 99 86 03 97 e1 91 65 7f ce c2 a0 f9 eb 86 
+      0050:   O  A  .  .  .  .  .  .  e  .  .  .  .  .  .  . 
+      0060:  f3 ab b4 0d 78 ce 40 b1 0d 80 ba 29 0b 3d 82 48 
+      0060:   .  .  .  .  x  .  @  .  .  .  .  )  .  =  .  H 
+[...]
+      0f70:  80 4e db af 72 d1 14 3f ea 13 25 64 67 25 69 e2 
+      0f70:   .  N  .  .  r  .  .  ?  .  .  %  d  g  %  i  . 
+      0f80:  1c ad 2b c5 74 6c 86 ca ef a8 06 4f 8b ea b6 33 
+      0f80:   .  .  +  .  t  l  .  .  .  .  .  O  .  .  .  3 
+      0f90:  e5 6d 74 d4 85 aa bd d9 f6 46 8c 12 e9 65 7a 3e 
+      0f90:   .  m  t  .  .  .  .  .  .  F  .  .  .  e  z  &gt; 
+      0fa0:  dc 45 e3 49 79 4b 51 8b 27 d7 9e b1 72 2e 85 63 
+      0fa0:   .  E  .  I  y  K  Q  .  '  .  .  .  r  .  .  c 
+      0fb0:  67 72 39 76 59 83 66 41 45 c7 2e b6 28 3a e8 f5 
+      0fb0:   g  r  9  v  Y  .  f  A  E  .  .  .  (  :  .  . 
+      0fc0:  30 07 05 a0 99 75 fc 77 93 03 f3 e4 be 79 82 2e 
+      0fc0:   0  .  .  .  .  u  .  w  .  .  .  .  .  y  .  . 
+      0fd0:  d1 8f 7e b6 76 3a 3e 6c 0f 03 52 34 03 da 11 f3 
+      0fd0:   .  .  ~  .  v  :  &gt;  l  .  .  R  4  .  .  .  . 
+      0fe0:  db b3 
+      0fe0:   .  . 
+CRC: 3231133587 (0xc0972f93)
+==========================================================
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-scummvm
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-scummvm (>= 2.1.1) | scummvm (>= 2.1.1)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-scummvm
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: ScummVM core for kodi's retroplayer
+ ScummVM core for kodi's retroplayer

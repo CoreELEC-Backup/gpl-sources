@@ -1,0 +1,584 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.5)
+AC_INIT([serdisplib], [1.97], [mrwastl@users.sf.net])
+# set subminor-version here 
+# (formerly used sub-splitting caused too many problems with some configurations (solaris, bsd))
+PACKAGE_VERSION_SUBMINOR="9"
+
+#AC_CONFIG_SRCDIR([src/serdisp_control.c])
+AC_CONFIG_HEADER([config.h])
+AC_CANONICAL_SYSTEM
+
+# Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_CHECK_TOOLS(AR,[gar ar], [/usr/local/bin:/usr/bin:/usr/sfw/bin:${PATH}])
+AC_CHECK_TOOLS(MAKE,[gmake make], [/usr/local/bin:/usr/bin:/usr/sfw/bin:${PATH}])
+AC_PROG_MAKE_SET
+
+# split version information
+PACKAGE_VERSION_MAJOR=`echo "${PACKAGE_VERSION}" | sed 's/\..*//'`
+PACKAGE_VERSION_MINOR=`echo "${PACKAGE_VERSION}" | sed 's/^.*\.//'`
+
+# rebuild full PACKAGE_VERSION here
+if test -n "${PACKAGE_VERSION_SUBMINOR}" ; then
+  PACKAGE_VERSION="${PACKAGE_VERSION}.${PACKAGE_VERSION_SUBMINOR}"
+fi
+
+AC_SUBST([PACKAGE_VERSION])
+AC_SUBST([PACKAGE_VERSION_MAJOR])
+AC_SUBST([PACKAGE_VERSION_MINOR])
+AC_SUBST([PACKAGE_VERSION_SUBMINOR])
+
+
+# configure options
+AC_DEFUN(MY_ARG_ENABLE,
+[AC_ARG_ENABLE([$1],
+             AC_HELP_STRING([--enable-$1], [enable support for $1 (default is $2)]),
+             , [enable_$1=$2])])
+
+AC_DEFUN(MY_ARG_WITH,
+[AC_ARG_WITH([$1],
+             AC_HELP_STRING([--with-$1], [include support for $1 (default is $2)]),
+             , [ac_cv_use_$1=$withval], [ac_cv_use_$1=$2])])
+
+AC_DEFUN(MY_ARG_ENABLE_CUSTOMHELP,
+[AC_ARG_ENABLE([$1],
+             AC_HELP_STRING([--enable-$1], [$3 (default is $2)]),
+             , [enable_$1=$2])])
+
+AC_DEFUN(MY_ARG_WITH_LIST,
+[AC_ARG_WITH([$1],
+             AC_HELP_STRING([--with-$1=<list>], [$3 (default is '$2')]),
+             , [ac_cv_use_$1=$withval], [ac_cv_use_$1=$2])])
+
+MY_ARG_ENABLE_CUSTOMHELP([statictools], yes, [link tools (eg. testserdisp) to static version of serdisplib])
+MY_ARG_ENABLE_CUSTOMHELP([libusb], no, [enable support for libusb, required by driver 'acoolsdcm' and USB-based output devices])
+MY_ARG_ENABLE_CUSTOMHELP([libSDL], no, [enable support for libSDL, required by driver 'directgfx'])
+
+
+# link testserdisp, multidisplay using either the static or shared version of serdisplib
+#   static: in-place testing + being sure that not using wrong version; needs more space
+#   shared: for cross-compiling and space-considerations (embedded systems)
+if test "$enable_statictools" = "yes"; then
+  use_sharedlib="false"
+else
+  use_sharedlib="true"
+fi
+AC_SUBST(use_sharedlib)
+
+# Checks for libraries.
+AC_CHECK_HEADERS([gd/gd.h gd.h /opt/sfw/include/gd.h /usr/local/include/gd.h gd2/gd.h], [has_libgd_headers="true";break], [has_libgd_headers="false"])
+AC_SUBST(has_libgd_headers)
+# special case sun solaris
+AC_CHECK_HEADERS([/opt/sfw/include/gd.h], [has_libgd_opt_sfw_headers="true";break], [has_libgd_opt_sfw_headers="false"])
+AC_SUBST(has_libgd_opt_sfw_headers)
+
+# true colour supported since libgd v.2 => all versions of libgd < 2 are excluded here
+AC_CHECK_LIB([gd], [gdImageCreateTrueColor])
+AC_CHECK_FUNCS([gdImageCreateTrueColor], [has_libgd_lib="true";break], [has_libgd_lib="false"])
+AC_SUBST(has_libgd_lib)
+AC_CHECK_FUNCS([gdImageCreateFromGif])
+
+# store current content of LIBS
+TEMP_LIBS="${LIBS}"
+
+# check for libusb header and library
+# defines the following in config.h:
+#  HAVE_USB_H
+#  HAVE_LIBUSB
+AC_PATH_PROG(LIBUSB_CONFIG, libusb-config)
+
+has_libusb="false"   # pre-init
+if test ! -z "${LIBUSB_CONFIG}"; then
+  LIBUSB_CFLAGS=`${LIBUSB_CONFIG} --cflags`
+  CFLAGS="${CFLAGS} ${LIBUSB_CFLAGS}"
+
+  #defines HAVE_USB_H if available
+  AC_CHECK_HEADERS([usb.h], [has_libusb_headers="true";break], [has_libusb_headers="false"])
+
+  if test "$has_libusb_headers" = "true"; then
+
+    LIBUSB_LIBS=`${LIBUSB_CONFIG} --libs`
+
+    # save current LDFLAGS (to be restored after usb-detection)
+    TEMP_LDFLAGS="${LDFLAGS}"
+
+    LDFLAGS="${LDFLAGS} ${LIBUSB_LIBS}"
+
+      if test "$enable_libusb" != "no"; then
+
+        AC_CHECK_LIB([usb], [usb_get_string_simple])
+        # if usb_get_string_simple() unavailable -> libusb too old (<= 0.1.7)
+        AC_CHECK_FUNCS([usb_get_string_simple], [has_libusb="true";break], [has_libusb="false"])
+        AC_CHECK_FUNCS([usb_detach_kernel_driver_np], [has_libusb_detach_kdriver="true";break], [has_libusb_detach_kdriver="false"])
+
+        # restore  LDFLAGS
+        LDFLAGS="${TEMP_LDFLAGS}"
+
+        if test "$has_libusb" = "true"; then
+          AC_DEFINE(HAVE_LIBUSB, 1, [whether libusb is available and usable (header files and library files available)])
+          if test -z "$LIBUSB_LIBS"; then
+            has_libusb="false"
+            AC_DEFINE(HAVE_LIBSDL, 0, [whether libusb is available and usable (header files and library files available)])
+          else
+            LDFLAGS="${LDFLAGS} ${LIBUSB_LIBS}"
+          fi
+        fi
+      fi
+  fi
+fi
+AC_SUBST(has_libusb)
+AC_SUBST(has_libusb_detach_kdriver)
+AC_SUBST(HAVE_LIBUSB)
+
+
+# libsdl
+# check for libSDL header and library
+# defines the following in config.h:
+#  one of
+#    HAVE_SDL_H
+#    HAVE_SDL_SDL_H
+#  HAVE_LIBSDL
+
+has_libSDL="false"   # pre-init
+
+# SDL only if not cross compiling (until better solution has been found)
+if test "$ac_cv_build" == "$ac_cv_host" ; then
+AC_PATH_PROG(LIBSDL_CONFIG, sdl-config)
+
+if test ! -z "${LIBSDL_CONFIG}"; then
+  LIBSDL_CFLAGS=`${LIBSDL_CONFIG} --cflags`
+  CFLAGS="${CFLAGS} ${LIBSDL_CFLAGS}"
+
+  #defines either HAVE_SDL_SDL_H or HAVE_SDL_H
+  AC_CHECK_HEADERS([SDL/SDL.h SDL.h], [has_libSDL_headers="true";break], [has_libSDL_headers="false"])
+
+  if test "$has_libSDL_headers" = "true"; then
+      if ! test "$enable_libSDL" = "no"; then
+        LIBSDL_LIBS=`${LIBSDL_CONFIG} --libs`
+
+        # we don't want configure to auto-add libsdl because it will not be linked but included using libdl / dlopen() instead
+        # so LDFLAGS will be restored after libsdl-detection
+        TEMP_LDFLAGS="${LDFLAGS}"
+
+        LDFLAGS="${LDFLAGS} ${LIBSDL_LIBS}"
+
+        #
+        AC_CHECK_LIB([SDL], [SDL_SetVideoMode])
+        AC_CHECK_FUNCS([SDL_SetVideoMode], [has_libSDL="true";break], [has_libSDL="false"])
+
+        # restore  LDFLAGS
+        LDFLAGS="${TEMP_LDFLAGS}"
+
+        if test "$has_libSDL" = "true"; then
+          AC_DEFINE(HAVE_LIBSDL, 1, [whether libSDL is available and usable (header files and, if no dynamic linking, library files available)])
+          #CFLAGS="${CFLAGS} ${LIBSDL_CFLAGS}"
+          if test -z "$LIBSDL_LIBS"; then
+            has_libSDL="false"
+            AC_DEFINE(HAVE_LIBSDL, 0, [whether libSDL is available and usable (header files and, if no dynamic linking, library files available)])
+          else
+            LDFLAGS="${LDFLAGS} ${LIBSDL_LIBS}"
+          fi
+        fi
+      fi
+  fi
+fi
+fi
+AC_SUBST(has_libSDL)
+AC_SUBST(HAVE_LIBSDL)
+
+# restore LIBS
+LIBS="${TEMP_LIBS}"
+
+# ugly hack for determination whether to build w/ or w/o soname, will be enhanced later
+# for now: soname only together with linux
+case $build in
+  *-*-linux*)
+    use_soname="true"
+    ;;
+  *)
+    use_soname="false"
+    ;;
+esac
+AC_SUBST(use_soname)
+
+
+### enable/disable drivers
+enabled_drivers=""
+# which drivers to enable
+# not beautiful at the moment but it works
+AC_DEFUN(MY_WITH_DRIVER,
+[AC_DEFINE(WITH_DRIVER_$1, $2, driver support for $3)
+ if test "$2" = "1"; then
+   WITH_DRIVER_$1=true
+   enabled_drivers="${enabled_drivers}, $3"
+ else
+   WITH_DRIVER_$1=false
+ fi
+ AC_SUBST(WITH_DRIVER_$1)])
+
+
+# some ideas taken from lcd4linux
+AC_ARG_WITH(
+  drivers, 
+  [  --with-drivers=<list>   compile drivers given in <list>,]
+  [                        drivers may be separated with commas,]
+  [                        'all' (default) compiles all available drivers,]
+  [                        drivers may be excluded with 'all,-<driver>' or ]
+  [                        'all,!<driver>'  (eg.: 'all,-i2c,-sed133x').]
+  [                        (try 'all,\!<driver>' if your shell complains...)]
+  [                        ]
+  [                        possible drivers are:]
+  [                        sed153x, pcd8544, sed156x, i2c, t6963, sed133x, ]
+  [                        nokcol, ks0108, lh155, ssdoled, l4m, goldelox, stv8105, ]
+  [                        acoolsdcm, directgfx, lc7981 ],
+  drivers=${withval},
+  drivers=all
+)
+
+drivers=`echo ${drivers} | sed -e 's/,/ /g'`
+
+all_drivers="undef"
+
+for driver in ${drivers} ; do
+  case $driver in
+    !*|-*) 
+        val="no"
+        driver=`echo $driver|cut -c 2-`
+        ;;
+      *) 
+        val="yes"
+        ;;
+  esac
+
+  if test "${driver}" = "all" ; then
+    if test "${all_drivers}" = "undef" ; then
+      all_drivers="yes"
+    else
+      AC_MSG_ERROR(['all' must be first element in driver list])
+    fi
+  else
+    # 'all' may only occur as first element in the list
+    if test "${all_drivers}" = "undef" ; then
+      all_drivers="no"
+    fi
+
+    case "$driver" in
+      sed153x)
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(SED153X,   1, [sed153x])
+        else
+          MY_WITH_DRIVER(SED153X,   0, [sed153x])
+        fi
+        ;;
+      pcd8544) 
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(PCD8544,   1, [pcd8544])
+        else
+          MY_WITH_DRIVER(PCD8544,   0, [pcd8544])
+        fi
+        ;;
+      sed156x) 
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(SED156X,   1, [sed156x])
+        else
+          MY_WITH_DRIVER(SED156X,   0, [sed156x])
+        fi
+        ;;
+      i2c) 
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(I2C,   1, [i2c])
+        else
+          MY_WITH_DRIVER(I2C,   0, [i2c])
+        fi
+        ;;
+      t6963)
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(T6963,   1, [t6963])
+        else
+          MY_WITH_DRIVER(T6963,   0, [t6963])
+        fi
+        ;;
+      sed133x)
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(SED133X,   1, [sed133x])
+        else
+          MY_WITH_DRIVER(SED133X,   0, [sed133x])
+        fi
+        ;;
+      nokcol)
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(NOKCOL,   1, [nokcol])
+        else
+          MY_WITH_DRIVER(NOKCOL,   0, [nokcol])
+        fi
+        ;;
+      ks0108)
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(KS0108,   1, [ks0108])
+        else
+          MY_WITH_DRIVER(KS0108,   0, [ks0108])
+        fi
+        ;;
+      lh155)
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(LH155,   1, [lh155])
+        else
+          MY_WITH_DRIVER(LH155,   0, [lh155])
+        fi
+        ;;
+      ssdoled)
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(SSDOLED,   1, [ssdoled])
+        else
+          MY_WITH_DRIVER(SSDOLED,   0, [ssdoled])
+        fi
+        ;;
+      l4m)
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(L4M,   1, [l4m])
+        else
+          MY_WITH_DRIVER(L4M,   0, [l4m])
+        fi
+        ;;
+      goldelox)
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(GOLDELOX,   1, [goldelox])
+        else
+          MY_WITH_DRIVER(GOLDELOX,   0, [goldelox])
+        fi
+        ;;
+      stv8105)
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(STV8105,   1, [stv8105])
+        else
+          MY_WITH_DRIVER(STV8105,   0, [stv8105])
+        fi
+        ;;
+      acoolsdcm|alphacool)
+        if test "${val}" = "yes" ; then
+          if test "$has_libusb" = "true" ; then
+             MY_WITH_DRIVER(ACOOLSDCM,   1, [acoolsdcm])
+          else
+             MY_WITH_DRIVER(ACOOLSDCM,   0, [acoolsdcm])
+          fi
+        else
+          MY_WITH_DRIVER(ACOOLSDCM,   0, [acoolsdcm])
+        fi
+        ;;
+      directgfx)
+        if test "${val}" = "yes" ; then
+          if test "$has_libSDL" = "true" ; then
+             MY_WITH_DRIVER(DIRECTGFX,   1, [directgfx])
+          else
+             MY_WITH_DRIVER(DIRECTGFX,   0, [directgfx])
+          fi
+        else
+          MY_WITH_DRIVER(DIRECTGFX,   0, [directgfx])
+        fi
+        ;;
+      lc7981)
+        if test "${val}" = "yes" ; then
+          MY_WITH_DRIVER(LC7981,   1, [lc7981])
+        else
+          MY_WITH_DRIVER(LC7981,   0, [lc7981])
+        fi
+        ;;
+      *)
+        AC_MSG_ERROR([Unknown driver '$driver'])
+        ;;
+    esac
+  fi
+done
+
+# 'all driver'-step
+# if some driver has already been undefined before it will NOT be overruled here
+if test "${all_drivers}" = "yes" ; then
+  if test -z "${WITH_DRIVER_SED153X}" ; then
+    MY_WITH_DRIVER(SED153X,   1, [sed153x])
+  fi
+  if test -z "${WITH_DRIVER_PCD8544}" ; then
+    MY_WITH_DRIVER(PCD8544,   1, [pcd8544])
+  fi
+  if test -z "${WITH_DRIVER_SED156X}" ; then
+    MY_WITH_DRIVER(SED156X,   1, [sed156x])
+  fi
+  if test -z "${WITH_DRIVER_I2C}" ; then
+    MY_WITH_DRIVER(I2C,       1, [i2c])
+  fi
+  if test -z "${WITH_DRIVER_T6963}" ; then
+    MY_WITH_DRIVER(T6963,     1, [t6963])
+  fi
+  if test -z "${WITH_DRIVER_SED133X}" ; then
+    MY_WITH_DRIVER(SED133X,   1, [sed133x])
+  fi
+  if test -z "${WITH_DRIVER_NOKCOL}" ; then
+    MY_WITH_DRIVER(NOKCOL,    1, [nokcol])
+  fi
+  if test -z "${WITH_DRIVER_KS0108}" ; then
+    MY_WITH_DRIVER(KS0108,    1, [ks0108])
+  fi
+  if test -z "${WITH_DRIVER_LH155}" ; then
+    MY_WITH_DRIVER(LH155,     1, [lh155])
+  fi
+  if test -z "${WITH_DRIVER_SSDOLED}" ; then
+    MY_WITH_DRIVER(SSDOLED,   1, [ssdoled])
+  fi
+  if test -z "${WITH_DRIVER_L4M}" ; then
+    MY_WITH_DRIVER(L4M,       1, [l4m])
+  fi
+  if test -z "${WITH_DRIVER_GOLDELOX}" ; then
+    MY_WITH_DRIVER(GOLDELOX,  1, [goldelox])
+  fi
+  if test -z "${WITH_DRIVER_STV8105}" ; then
+    MY_WITH_DRIVER(STV8105,  1, [stv8105])
+  fi
+  if test -z "${WITH_DRIVER_ACOOLSDCM}" ; then
+    if test "$has_libusb" = "true" ; then
+    MY_WITH_DRIVER(ACOOLSDCM, 1, [acoolsdcm])
+    fi
+  fi
+  if test -z "${WITH_DRIVER_DIRECTGFX}" ; then
+    if test "$has_libSDL" = "true" ; then
+    MY_WITH_DRIVER(DIRECTGFX, 1, [directgfx])
+    fi
+  fi
+  if test -z "${WITH_DRIVER_LC7981}" ; then
+    MY_WITH_DRIVER(LC7981,  1, [lc7981])
+  fi
+fi
+
+
+# Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS([fcntl.h stdlib.h string.h strings.h sys/ioctl.h sys/time.h sys/resource.h syslog.h termios.h unistd.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_SIZE_T
+AC_HEADER_TIME
+AC_C_VOLATILE
+
+# Checks for library functions.
+AC_PROG_GCC_TRADITIONAL
+AC_FUNC_MALLOC
+AC_CHECK_FUNCS([gettimeofday memset strcasecmp strchr strerror strncasecmp strrchr strtol])
+
+# generate serdisplib.spec using serdisplib.spec.in (does not work with older autoconf)
+AC_CONFIG_FILES([serdisplib.spec])
+
+# version number in serdisp_control.h is generated automatically
+AC_CONFIG_FILES([include/serdisplib/serdisp_control.h])
+
+# generate makefiles
+AC_CONFIG_FILES([src/Makefile tools/Makefile Makefile])
+
+# generate timestamp to test if configure.in was changed
+AC_OUTPUT(,echo timestamp > stamp-h)
+
+# copy bitbake file (template-filename to version-based filename)
+rm -f buildfiles/serdisplib_*.bb
+cp buildfiles/templates/serdisplib_TEMPLATE.bb buildfiles/serdisplib_$PACKAGE_VERSION.bb
+
+echo ""
+if test "$PACKAGE_VERSION_SUBMINOR" = ""; then
+  echo "serdisplib version: $PACKAGE_VERSION_MAJOR.$PACKAGE_VERSION_MINOR"
+else
+  echo "serdisplib version: $PACKAGE_VERSION_MAJOR.$PACKAGE_VERSION_MINOR.$PACKAGE_VERSION_SUBMINOR"
+fi
+echo ""
+
+
+echo       ""
+echo       ""
+echo       "supported extra libraries"
+echo       "========================="
+if test "$has_libusb" = "true"; then
+  if test "$has_libusb_detach_kdriver" = "true"; then
+    echo   " * libusb support            ... yes"
+  else
+    echo   " * libusb support            ... yes, but without usb_detach_kernel_driver_np()"
+  fi
+else
+  if test "$enable_libusb" = "no"; then
+    echo   " * libusb support            ... disabled"
+  elif test "$has_libusb_headers" = "false"; then
+    echo   " * libusb support            ... header file (usb.h) not found"
+  else
+    echo   " * libusb support            ... no, or too old (at least headers for libusb 0.1.7 are needed)"
+  fi
+fi
+
+if test "$has_libSDL" = "true"; then
+  echo     " * libSDL support            ... yes"
+else
+  if test "$enable_libSDL" = "no"; then
+    echo   " * libSDL support            ... disabled"
+  else
+    echo   " * libSDL support            ... no (header files and/or library not found)"
+  fi
+fi
+
+if test "$has_libgd_lib" = "true"; then
+  if test "$has_libgd_headers" = "true"; then
+    echo   " * libgd >= 2 support        ... yes"
+  else
+    echo   " * libgd >= 2 support        ... yes, but header files are missing"
+  fi
+else
+  echo     " * libgd >= 2 support        ... no "
+fi
+
+
+disabled_drivers=""
+for possible_driver in `echo $ac_subst_vars ` ; do
+  if test "`echo ${possible_driver} | grep 'WITH_DRIVER_' 2> /dev/null`" != ""  ; then
+    if test "$(eval echo \${$possible_driver})" != "true" ; then
+     driver_lc=`echo "${possible_driver}" | sed -e 's/WITH_DRIVER_//' | tr 'A-Z' 'a-z'`
+     disabled_drivers="${disabled_drivers}, ${driver_lc}"
+    fi
+  fi
+done
+
+enabled_drivers=`echo ${enabled_drivers} | cut -c 3-`
+disabled_drivers=`echo ${disabled_drivers} | cut -c 3-`
+
+echo       ""
+echo       ""
+echo       "enabled(+) / disabled(-) drivers"
+echo       "================================"
+echo       " + ${enabled_drivers}"
+echo       " - ${disabled_drivers}"
+
+
+echo       ""
+echo       ""
+echo       "tools"
+echo       "====="
+if test "$has_libgd_headers" = "true" -a "$has_libgd_lib" = "true"; then
+  echo     " * multidisplay              ... yes"
+  if test "$ac_cv_func_gdImageCreateFromGif" = "yes" ; then
+    echo   "   - with GIF support        ... yes"
+  else
+    echo   "   - with GIF support        ... no    (recent libgd needed for GIF support)"
+  fi
+else
+  if test "$has_libgd_lib" = "false"; then
+    echo   " * multidisplay              ... no    (because of missing libgd)"
+  else
+    echo   " * multidisplay              ... no    (because of missing header files for libgd)"
+  fi
+fi
+
+
+echo       ""
+echo       "--- Now type \"$MAKE\" to build $PACKAGE_NAME"
+echo       "--- (on linux systems, 'make' and 'gmake' usually are the same)"
+echo       "---"
+echo       "--- For testing $PACKAGE_NAME use \"src/testserdisp\""
+echo       ""
+

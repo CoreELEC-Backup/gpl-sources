@@ -1,0 +1,68 @@
+=head1 NAME
+
+F<timersdone.conf> - list of current timers created by search timers
+
+
+=head1 DESCRIPTION
+
+This file contains the current timers that were created by search timers. If
+the setup option 'Recreate timers after deletion' is set to 'no', epgsearch
+uses this list to determine if a timer was already created and cancels
+further timer creations. If a corresponding recording was made for any timer
+in this list, the timer is automatically removed from it.
+
+=head1 FORMAT
+
+Timers are stored one per line, where the fields are separated with ':'.
+
+The following fields exists:
+
+  1 - channel-ID
+  2 - start time
+  3 - stop time
+  4 - search timer ID
+  5 - event title
+  6 - event episode
+
+=head1 SEE ALSO
+
+C<epgsearch(1)>
+
+=head1 AUTHOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 REPORT BUGS
+
+Bug reports (german):
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailing list:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT and LICENSE
+
+Copyright (c) 2005-2006 Christian Wieninger
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+Or, point your browser to http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+The author can be reached at cwieninger@gmx.de
+
+The project's page is at http://winni.vdr-developer.org/epgsearch
+
+The MD5 code is derived from the RSA Data Security, Inc. MD5 Message-Digest Algorithm.

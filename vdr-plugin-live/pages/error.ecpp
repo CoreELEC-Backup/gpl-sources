@@ -1,0 +1,42 @@
+<%pre>
+
+#include <setup.h>
+
+using namespace vdrlive;
+
+</%pre>
+<%args>
+	pageTitle;
+	errorTitle = tr("Page error");
+	errorMessage;
+</%args>
+<%session scope="global">
+bool logged_in(false);
+</%session>
+<{
+if (!logged_in && LiveSetup().UseAuth()) return reply.redirect("login.html");
+}>
+<& pageelems.doc_type &>
+<html>
+	<head>
+		<title>VDR-Live - <$ pageTitle $></title>
+		<& pageelems.stylesheets &>
+	</head>
+	<body>
+		<& pageelems.logo &>
+		<& menu &>
+		<div class="inhalt">
+			<& error.error_widget errorTitle=(errorTitle) errorMessage=(errorMessage) &>
+		</div>
+	</body>
+</html>
+<%def error_widget>
+	<%args>
+		errorTitle;
+		errorMessage;
+	</%args>
+	<table class="error" cellpadding="0" cellspacing="0">
+		<tr><td class="title"><$ errorTitle $></td></tr>
+		<tr><td class="message"><$ errorMessage $></td></tr>
+	</table>
+</%def>

@@ -1,0 +1,307 @@
+<%pre>
+
+#include <livefeatures.h>
+#include <setup.h>
+#include <tools.h>
+#include <epg_events.h>
+#include <epgsearch.h>
+
+using namespace std;
+using namespace vdrlive;
+
+static const size_t maximumDescriptionLength = 300;
+static const size_t maximumTooltipHintLength = 150;
+
+</%pre>
+<%args>
+type = "now";
+string mode;
+string attime;
+string fixtime;
+</%args>
+<%session scope="global">
+bool logged_in(false);
+</%session>
+<%request scope="page">
+string current_type;
+string current_mode;
+string current_attime;
+string current_fixtime;
+string current_displaytime;
+</%request>
+<%include>page_init.eh</%include>
+<%cpp>
+if (!logged_in && LiveSetup().UseAuth()) return reply.redirect("login.html");
+
+
+string head;
+time_t seektime = 0;
+string displaytime;
+string headTime;
+string headDate;
+
+if (mode.empty())
+	mode = LiveSetup().GetLastWhatsOnListMode();
+else
+	LiveSetup().SetLastWhatsOnListMode(mode);
+
+current_type = type;
+current_mode = mode;
+current_attime = attime;
+current_fixtime = fixtime;
+
+char const * timeFormat = tr("%I:%M %p");
+char const * dateFormat = tr("%A, %x");
+if (mode == "detail") {
+	dateFormat = tr("%a, %x");
+}
+
+if (type == "now") {
+	headTime = FormatDateTime(timeFormat, time(0));
+	headDate = FormatDateTime(dateFormat, time(0));
+	head = string(tr("What's running on")) + " " + headDate + " " + tr("at") + " " + headTime;
+} else if (type == "next") {
+	headTime = FormatDateTime(timeFormat, time(0) + 3600);
+	headDate = FormatDateTime(dateFormat, time(0) + 3600);
+	head = tr("What's on next?");
+} else if (type == "at") {
+	if (attime != "")
+		displaytime = ExpandTimeString(attime);
+	else if (fixtime != "")
+		displaytime = ExpandTimeString(fixtime);
+	current_displaytime = displaytime;
+
+	seektime = GetTimeT(displaytime);
+	if (seektime - time(0) + 3600 < 0) // if wanted time is past more then 1h, then use tomorrow
+		seektime += SECSINDAY;
+	headTime = FormatDateTime(timeFormat, seektime);
+	headDate = FormatDateTime(dateFormat, seektime);
+	head = string(tr("What's running on")) + " " + headDate + " " + tr("at") + string(" ") + headTime;
+} else if (type == "favs") {
+	head = tr("Favorites");
+}
+
+</%cpp>
+<& pageelems.doc_type &>
+<html>
+	<head>
+		<title>VDR-Live - <$ head $></title>
+		<& pageelems.stylesheets &>
+		<& pageelems.ajax_js &>
+		<script type="text/javascript"><!--
+		function showtime(selection)
+		{
+			if (selection.options[selection.selectedIndex].value != "")
+				window.location.href = "whats_on.html?type=at&mode=<$ current_mode $>&fixtime=" + selection.options[selection.selectedIndex].value;
+		}
+		function showspectime(selection)
+		{
+			if (selection.value != "")
+				window.location.href = "whats_on.html?type=at&mode=<$ current_mode $>&attime=" + selection.value;
+		}
+		//--></script>
+	</head>
+	<body>
+		<& pageelems.logo &>
+		<& menu active=("whats_on") component=("whats_on.whats_on_actions")>
+		<div class="inhalt">
+%			if (mode == "list") {
+			<table class="listing" cellspacing="0" cellpadding="0">
+				<tr class="head">
+					<td colspan="8"><div class="boxheader"><div><div><$ head $></div></div></div></td>
+				</tr>
+%	    }
+<%cpp>
+	std::list<EpgInfoPtr> eventList;
+
+	// collect the broadcasts
+	if (type != "favs")
+	{
+#if VDRVERSNUM >= 20301
+		LOCK_CHANNELS_READ;
+		{
+#else
+		ReadLock channelsLock( Channels );
+		if (channelsLock) {
+#endif
+#if VDRVERSNUM >= 20301
+			for (cChannel *Channel = (cChannel *)Channels->First(); Channel && Channel->Number() <= LiveSetup().GetLastChannel(); Channel = (cChannel *)Channels->Next(Channel)) {
+#else
+			for (cChannel *Channel = Channels.First(); Channel && Channel->Number() <= LiveSetup().GetLastChannel(); Channel = Channels.Next(Channel)) {
+#endif
+				if (Channel->GroupSep()) {
+					continue;
+				}
+				const cSchedule *Schedule;
+				{
+#if VDRVERSNUM >= 20301
+
+					LOCK_SCHEDULES_READ;
+#else
+					cSchedulesLock schedulesLock;
+					const cSchedules* Schedules = cSchedules::Schedules(schedulesLock);
+#endif
+
+					Schedule = Schedules->GetSchedule(Channel);
+				}
+				if (!Schedule) {
+					continue;
+				}
+				const cEvent *Event = NULL;
+				if (type == "now")
+					Event = Schedule->GetPresentEvent();
+				else if (type == "next")
+					Event = Schedule->GetFollowingEvent();
+				else if (type == "at")
+					Event = Schedule->GetEventAround(seektime);
+
+				if (!Event && !LiveSetup().GetShowChannelsWithoutEPG()) continue;
+
+				EpgInfoPtr epgEvent = EpgEvents::CreateEpgInfo(Channel, Event);
+				eventList.push_back(epgEvent);
+			}
+		}
+	}
+	else // get favorite broadcasts from epgsearch
+	{
+		SearchResults results;
+		SearchTimers timers;
+		for (SearchTimers::iterator timer = timers.begin(); timer != timers.end(); ++timer) {
+			if (!timer->UseInFavorites()) continue;
+			SearchResults curresults;
+			curresults.GetByID(timer->Id());
+			results.merge(curresults);
+		}
+		time_t now = time(NULL);
+		for (SearchResults::iterator result = results.begin(); result != results.end(); ++result) {
+			long diff = result->StartTime() - now;
+			if (labs(diff) >= 24*60*60) continue; // skip broadcasts more than a day away
+			const cChannel* Channel = result->GetChannel();
+			if (!Channel) continue;
+			EpgInfoPtr epgEvent = EpgEvents::CreateEpgInfo(Channel, result->GetEvent(Channel));
+			eventList.push_back(epgEvent);
+		}
+	}
+
+	// display broadcasts
+	for(std::list<EpgInfoPtr>::iterator i = eventList.begin(); i != eventList.end(); ++i ) {
+		EpgInfoPtr epgEvent = *i;
+
+		bool truncated = false;
+		string truncDescription = StringWordTruncate(epgEvent->LongDescr(), maximumTooltipHintLength, truncated);
+		string longDescription = StringEscapeAndBreak(StringWordTruncate(epgEvent->LongDescr(), maximumDescriptionLength))
+			+ "<br/><br/>" + tr("Click to view details.");
+		const cChannel* Channel = epgEvent->Channel();
+		if (!Channel) continue;
+		int chNumber = Channel->Number();
+
+		string startTime(epgEvent->StartTime(tr("%I:%M %p")));
+		string endTime(epgEvent->EndTime(tr("%I:%M %p")));
+		string startDate(epgEvent->StartTime(tr("%a, %x")));
+
+		string timeSpan(startTime + " - " + endTime);
+
+		if (startTime.empty() && endTime.empty()) {
+			timeSpan = mode=="detail" ? headTime : string();
+			startDate = headDate;
+		}
+		if (mode == "detail") {
+</%cpp>
+			<div class="event">
+				<div class="station">
+					<div><div><div><a href="schedule.html?channel=<$ chNumber $>" <& tooltip.hint text=(tr("View the schedule of this channel")) &>><$ chNumber $><$ tr(" - ") $><$ (epgEvent->Caption()) $></a></div></div></div>
+				</div>
+				<div class="content">
+					<div class="tools">
+						<& pageelems.epg_tool_box detail=(1) epgid=(epgEvent->Id()) title=(epgEvent->Title()) startTime=(epgEvent->GetStartTime()) endTime=(epgEvent->GetEndTime()) &>
+					</div>
+					<div>
+						<div class="info nowrap"><div class="date"><$ (startDate) $></div><div class="time"><$ (timeSpan) $></div></div>
+						<div class="progress"><div><& pageelems.progressbar progress=(epgEvent->Elapsed()) duration=(epgEvent->Duration()) &></div></div>
+						<div class="title withmargin"><$ (epgEvent->Title()) $></div>
+						<div class="short withmargin"><$ (epgEvent->ShortDescr()) $></div>
+						<div class="description withmargin"><$ truncDescription $></div>
+%						if (truncated) {
+							<div class="more withmargin"><a <& tooltip.hint text=(longDescription) &><& tooltip.display domId=(epgEvent->Id()) &>><$ 	tr("more") $> ...</a></div>
+%						}
+					</div>
+				</div>
+			</div>
+<%cpp>
+		} else { // mode == "list"
+			std::list<EpgInfoPtr>::iterator last = i;
+			bool lastCurrentChanel = (++last == eventList.end());
+			tChannelID chanId;
+			tEventID eventId;
+			EpgEvents::DecodeDomId(epgEvent->Id(), chanId, eventId);
+</%cpp>
+			<tr>
+				<& pageelems.epg_tool_box detail=(0) epgid=(epgEvent->Id()) title=(epgEvent->Title()) startTime=(epgEvent->GetStartTime()) endTime=(epgEvent->GetEndTime()) lastCurrentChanel=(lastCurrentChanel ? 1 : 0) &>
+				<td class="topaligned <? lastCurrentChanel ? "bottomrow"?>">
+					<div class="withmargin">
+						<div class="nomargin nowrap"><$ (timeSpan) $></div>
+						<div class="progress"><div><& pageelems.progressbar progress=(epgEvent->Elapsed()) duration=(epgEvent->Duration()) &></div></div>
+					</div>
+				</td>
+				<td class="topaligned <? lastCurrentChanel ? "bottomrow"?>">
+					<div class="more withmargin">
+%					if (eventId != 0) {
+					    <a
+%						if (!longDescription.empty()) {
+						<& tooltip.hint text=(longDescription) &><& tooltip.display domId=(epgEvent->Id()) &>
+%						}
+						><span class="title"><$ (epgEvent->Title()) $></span><br /><span class="short"><$ (epgEvent->ShortDescr()) $></span></a>
+%						} else {
+						<span class="title"><$ (epgEvent->Title()) $></span>
+%						}
+					</div>
+				</td>
+				<td class="topaligned rightcol <? lastCurrentChanel ? "bottomrow"?>"><div class="station withmargin"><a	href="schedule.html?channel=<$ chNumber $>" <& tooltip.hint text=(tr("View the schedule of this channel")) &>><$ chNumber $><$ tr(" - ") $><$ (epgEvent->Caption()) $></a></div>
+				</td>
+			</tr>
+%	}
+<%cpp>
+	}
+</%cpp>
+%	if (mode == "list") {
+			</table>
+%   }
+		</div>
+	</body>
+</html>
+<%include>page_exit.eh</%include>
+
+<# ------------------------------------------------------------------------- #>
+
+<%def whats_on_actions>
+<a class="<? current_type == "now" ? "active" ?>" href="whats_on.html?type=now&amp;mode=<$ current_mode $>" id="nowhref"><$ tr("Now") $></a>
+<span class="sep">|</span>
+<a class="<? current_type == "next" ? "active" ?>" href="whats_on.html?type=next&amp;mode=<$ current_mode $>" id="nexthref"><$ tr("Next") $></a>
+<span class="sep">|</span>
+<span class="<? current_type == "at" && current_fixtime != "" ? "active" ?>"><$ tr("What's on") $></span>
+<select name="userdeftimes" size="1" id="userdeftimes" onchange="showtime(this)">
+	<option value="0"/>
+<%cpp>
+	vector< string > parts = StringSplit( LiveSetup().GetTimes(), ';' );
+	vector< string >::const_iterator part = parts.begin();
+	for ( int i = 0; part != parts.end(); ++i, ++part ) {
+</%cpp>
+	<option <%cpp> reply.out() << ( (current_fixtime != "" && *part == current_displaytime) ? "selected=\"selected\"" : "" ); </%cpp>value="<$ *part $>"> <$ tr("at") + string(" ") + *part $></option>
+<%cpp>
+	}
+</%cpp>
+</select>
+<span class="sep">|</span>
+<span class="<? current_type == "at" && current_fixtime == "" ? "active" ?>"><$ tr("at") $></span>
+<input type="text" size="6" name="spectime" id="spectime" value = "<? current_attime != "" ? current_displaytime ?>" onchange="showspectime(this)"/>
+<span class="sep">|</span>
+% if ( LiveFeatures< features::epgsearch >().Recent() ) {
+<a class="<? current_type == "favs" ? "active" ?>" href="whats_on.html?type=favs&amp;mode=<$ current_mode $>"><$ tr("Favorites") $></a>
+<span class="sep">|</span>
+% }
+% if ( current_mode == "list" ) {
+<a href="whats_on.html?mode=detail&amp;type=<$ current_type $>&amp;attime=<$ current_attime $>&amp;fixtime=<$ current_fixtime $>"><$ tr("Details view") $></a>
+% } else {
+<a href="whats_on.html?mode=list&amp;type=<$ current_type $>&amp;attime=<$ current_attime $>&amp;fixtime=<$ current_fixtime $>"><$ tr("List view") $></a>
+% }
+</%def>

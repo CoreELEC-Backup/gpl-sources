@@ -1,0 +1,62 @@
+# VDR streamdev plugin language source file.
+# Copyright (C) 2008 streamdev development team. See http://streamdev.vdr-developer.org
+# This file is distributed under the same license as the VDR streamdev package.
+# Frank Schmirler <vdrdev@schmirler.de>, 2008
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: streamdev 0.5.0\n"
+"Report-Msgid-Bugs-To: <vdrdev@schmirler.de>\n"
+"POT-Creation-Date: 2014-10-20 22:57+0200\n"
+"PO-Revision-Date: 2008-03-30 02:11+0200\n"
+"Last-Translator: Frank Schmirler <vdrdev@schmirler.de>\n"
+"Language-Team: German <vdr@linuxtv.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Hide Mainmenu Entry"
+msgstr "Hauptmenüeintrag verstecken"
+
+msgid "Simultaneously used Devices"
+msgstr "Gleichzeitig genutzte DVB-Karten"
+
+msgid "Remote IP"
+msgstr "IP der Gegenseite"
+
+msgid "Remote Port"
+msgstr "Port der Gegenseite"
+
+msgid "Timeout (s)"
+msgstr "Timeout (s)"
+
+msgid "Filter Streaming"
+msgstr "Filter-Daten streamen"
+
+msgid "Filter SockBufSize"
+msgstr "Filter Socket Puffergröße"
+
+msgid "Live TV Priority"
+msgstr "Live TV Priorität"
+
+msgid "Minimum Priority"
+msgstr "Minimale Priorität"
+
+msgid "Maximum Priority"
+msgstr "Maximale Priorität"
+
+msgid "Broadcast Systems / Cost"
+msgstr "Empfangssysteme / Kosten"
+
+msgid "VTP Streaming Client"
+msgstr "VTP Streaming Client"
+
+msgid "Suspend Server"
+msgstr "Server pausieren"
+
+msgid "Server is suspended"
+msgstr "Server ist pausiert"
+
+msgid "Couldn't suspend Server!"
+msgstr "Konnte Server nicht pausieren!"

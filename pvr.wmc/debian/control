@@ -1,0 +1,21 @@
+Source: kodi-pvr-wmc
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake, kodi-addon-dev
+Standards-Version: 4.1.2
+Section: libs
+
+Package: kodi-pvr-wmc
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: WMC PVR for Kodi
+ WMC PVR for Kodi
+
+Package: kodi-pvr-wmc-dbg
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debugging symbols for WMC PVR for Kodi
+ debugging symbols for WMC PVR for Kodi
+

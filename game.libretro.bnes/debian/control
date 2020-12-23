@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-bnes
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-bnes (>= 0.83.0) | bnes (>= 0.83.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-bnes
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Nintendo - NES / Famicom (bnes) core for kodi's retroplayer
+ Nintendo - NES / Famicom (bnes) core for kodi's retroplayer

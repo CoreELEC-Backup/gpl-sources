@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.uae4arm"
+		name="Amiga (UAE4ARM)"
+		version="0.0.0"
+		provider-name="Libretro">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.default" version="1.0.0"/>
+		<import addon="game.controller.keyboard" version="1.0.0"/>
+		<import addon="game.controller.mouse" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms></platforms>
+		<extensions></extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+		<supports_keyboard>false</supports_keyboard>
+		<supports_mouse>false</supports_mouse>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Amiga (UAE4ARM)</summary>
+		<description>UAE stands for the Ubiquitous Amiga Emulator. UAE4ARM is optimized for Android and the Raspberry Pi.</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+	</extension>
+</addon>

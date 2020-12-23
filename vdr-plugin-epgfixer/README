@@ -1,0 +1,108 @@
+This is a "plugin" for the Video Disk Recorder (VDR).
+
+Written by:           Matti Lehtimäki <matti.lehtimaki@gmail.com>
+
+Project's homepage:   http://projects.vdr-developer.org/projects/plg-epgfixer
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+See the file COPYING for more information.
+
+Requirements:
+ - VDR 1.7.26 or later
+ - PCRE library
+
+Description:
+
+Epgfixer is a VDR plugin for doing extra fixing of EPG data.
+
+Features:
+
+- Modifying EPG data using regular expressions. Correctly named back references
+  are placed to the named EPG field.
+- Character set conversions for channel using incorrect encoding.
+- Blacklists for ignoring EPG data from stream.
+- Regular expressions, character set conversions and blacklists can be applied to 
+  either all channels or only to selected channels.
+- Cloning EPG data from one channel to another.
+- Removing HTML tags and replacing HTML characters with matching regular
+  characters in EPG data.
+- Editing all settings through setup menu.
+- EPG bug fixes included in VDR individually selectable from
+  setup menu.
+
+Installation:
+
+cd /put/your/path/here/VDR/PLUGINS/src
+tar -xzf /put/your/path/here/vdr-epgfixer-X.Y.Z.tgz
+ln -s epgfixer-X.Y.Z epgfixer
+cd /put/your/path/here/VDR
+make
+make install
+./vdr -P epgfixer
+
+Configuration:
+
+Regular expressions, character set conversions, blacklists and EPG clonings
+are defined in regexp.conf, charset.conf, blacklist.conf and epgclone.conf,
+respectively, located in "epgfixer" subdirectory of VDR's configuration 
+directory for plugins. Check the example configuration files under "epgfixer"
+subdirectory for further information.
+
+General syntax of configuration files:
+- Lines beginning with # are regarded as comments.
+- Lines beginning with ! are regarded as disabled lines.
+- Channel_list is optional comma separated list of channels for which the line
+  is used. If no list of channels is given the line is used for all channels.
+- Channel_list can contain either channel IDs (e.g. S19.2E-1-1089-12003-0) or
+  numbers but not both.
+- Channel intervals (e.g. 1-10) can be used for channel numbers.
+
+Syntax of regexp.conf line is 
+"Channel_list:Parsed_field?Conditional_field~Conditional_Regexp=Regexp" with:
+- Parsed_field is the EPG field for which the regular expression is applied
+  with available field names title, shorttext and description.
+- Conditional_field and Conditional_Regexp are optional parameters to control 
+  when Regexp is applied.
+- Conditional_field is identical to Parsed_field.
+- Conditional_Regexp has to be a Perl-style 'm/PATTERN/' as described below
+  except it is only used for matching (i.e. backreferences are ignored).
+- Regular expressions can be used in different ways: Perl-style 
+  's/PATTERN/REPLACEMENT/' and 'm/PATTERN/' operators or simply using 'PATTERN'
+  of which the latter two use named backreferences.
+- Regular expressions use named backreferences with either title, shorttext,
+  description or rating (parental rating).
+- By prepending "a" or "p" to backreference name (except rating field) the
+  back referenced string is either appended or prepended to the original
+  content of the target EPG field, respectively.
+- Perl-style operator 's/PATTERN/REPLACEMENT/' replaces match of PATTERN with
+  REPLACEMENT in the EPG field and cannot be used to transfer content to other
+  EPG fields.
+- Perl-style operator 'm//' operates using backreferences similarly to when not
+  using Perl-style operator but adds possibility of using modifiers.
+- One or more modifiers can be appended Perl-style operators:
+  - g = Global matching (only with 's///')
+  - i = Case-insensitive pattern matching.
+  - m = Treat string as multiple lines.
+  - s = Dot matches newlines.
+  - u = Handles UTF8 characters.
+  - x = Ignore white spaces. Comments in regular expression using (?#comment). 
+  - X = Strict escape parsing.
+- Several regular expressions may be applied to same field.
+
+Syntax of charset.conf line is "Channel_list:BroadcastCharset=OriginalCharSet"
+with:
+- OriginalCharSet and BroadcastCharset are names of a character set
+  (e.g. iso8859-1).
+- OriginalCharSet is the real character set of EPG data.
+- BroadcastCharset is the optional incorrect character set received in data
+  stream.
+- If no BroadcastCharset is defined ISO6937 is assumed.
+
+Syntax of blacklist.conf line is "Channel_list" with:
+- Only comma separated list of channel to be ignored.
+
+Syntax of epgclone.conf line is "FromChannel=ToChannel" with:
+- Copy EPG data of FromChannel into ToChannel.

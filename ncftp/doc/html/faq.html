@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE> NcFTP Client: Frequently Asked Questions</TITLE>
+</HEAD>
+<BODY BGCOLOR="white">
+
+<h3>Documentation Links</h3>
+<UL>
+<LI><A HREF="ncftp.html">NcFTP</A> - FTP browser program</LI>
+<LI><A HREF="ncftpget.html">NcFTPGet</A> - command-line utility program</LI>
+<LI><A HREF="ncftpput.html">NcFTPPut</A> - command-line utility program</LI>
+<LI><A HREF="ncftpls.html">NcFTPLs</A> - command-line utility program</LI>
+<LI><A HREF="ncftpbatch.html">NcFTPBatch</A> - batch FTP program</LI>
+<LI><A HREF="ncftpspooler.html">NcFTPSpooler</A> - background batch FTP service for systems</LI>
+</UL>
+<P>
+You can also <A HREF="../../download/">download</A> the source code or compiled executables which contain the documentation.
+
+<h3>Frequently Asked Questions about NcFTP</h3>
+<ol>
+
+<li>
+<P><B>Q.</B>
+Is there a registration or licensing fee to use
+<I>NcFTP Client</I>?
+<P><B>A.</B>
+No, it is free!
+We would appreciate a donation if you find it useful. Your support allows us to keep maintaining the project!
+<center>
+<p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="4132394">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+</center>
+</li>
+
+<p>
+<br>
+<li>
+<P><B>Q.</B>
+How do I connect to a non-standard port number?
+<P><B>A.</B>
+Use the <B>-P</B> option (i.e.
+<nobr><tt>ncftp -P 2121 ftp.example.com</tt></nobr>).
+This works with all the programs
+as well as the <B>open</B> command in the NcFTP shell.
+</li>
+
+<p>
+<br>
+<li>
+<P><B>Q.</B>
+Does NcFTP support any secure FTP modes a la SFTP/SSL/SSH Tunnels?
+<P><B>A.</B>
+NcFTP does not have any built-in support for encryption or secure
+FTP of any type.
+We do not support any type of interaction with hacks such as FTP
+over SSH tunnels.
+We may implement a secure FTP mode at a future date, but please
+do not ask for an ETA.
+</li>
+
+<p>
+<br>
+<li>
+<P><B>Q.</B>
+How do I login to a server using a regular username instead of anonymous?
+<P><B>A.</B>
+Use the <B>-u</B> option (i.e.
+<nobr><tt>ncftp -u joeuser ftp.example.com</tt></nobr>).
+This works with all the programs
+as well as the <B>open</B> command in the NcFTP shell.
+</li>
+
+<p>
+<br>
+<li>
+<P><B>Q.</B>
+Do the utility programs
+(<TT>ncftpget</TT>,
+<TT>ncftpput</TT>,
+<TT>ncftpls</TT>,
+<TT>ncftpbatch</TT>)
+use my preferences or bookmarks files in <TT>$HOME/.ncftp</TT>?
+<P><B>A.</B>
+No.  The utility programs have a complete set of command-line
+switches and the current behavior is to require the user to
+explicity choose each option needed.
+</li>
+
+<p>
+<br>
+<li>
+<P><B>Q.</B>
+How do I change NcFTP's redial delay from 20 seconds?
+<P><B>A.</B>
+From within the NcFTP shell, you can simply do
+<TT>set redial-delay 60</TT> to set it to 60 seconds.
+When using the utility programs, you need to use the
+<B>-r</B> flag to specify <B>both</B> the number of redials
+and the redial delay, such as
+<TT>ncftpget -r 3,60 ...</TT> which would try 3 dials with
+a delay of 60 seconds between each.
+<P>Note that you cannot change what <TT>ncftpbatch</TT> uses,
+since it is uses an internal algorithm to wait progressively
+longer between redials.
+</li>
+
+<p>
+<br>
+<li>
+<P><B>Q.</B>
+How do I make the default behavior to always ask for a username/password
+rather than using anonymous logins?
+<P><B>A.</B>
+Sorry, you can't do that unless you want to hack on the source code.
+</li>
+
+<p>
+<br>
+<li>
+<P><B>Q.</B>
+My macros from NcFTP 2 or NcFTP 1 do not work with NcFTP version 3!
+<P><B>A.</B>
+We removed that feature as it was unnecessary bloat which 99% of the
+users were not using.
+Besides, you should use the command-line utility programs if you need
+to do any kind of automation.
+</li>
+
+<p>
+<br>
+<li>
+<P><B>Q.</B>
+NcFTP doesn't always preserve the timestamps of downloaded files.
+When using other client programs to download the identical file from
+the same server, they are preserving the timestamp.
+<P><B>A.</B>
+Those client programs are probably parsing the date and time from the
+directory listing.
+That should <B>not</B> be done because most servers use local time
+for their directory listings rather than GMT.
+NcFTP would rather preserve the timestamps only when the server implements
+MDTM, which requires that the time be in GMT.  This guarantees that
+if the time is preserved, it is the correct time, and not some
+half-assed guess which could be hours off.
+</li>
+
+<p>
+<br>
+<li>
+<P><B>Q.</B>
+What happened to Visual Mode like NcFTP 2.4.3 used?
+<P><B>A.</B>
+That was removed because of too many problems with the Curses library.
+Specifically, there were too many bugs, ambiguities, and missing
+features with various implementations of curses.
+<P>However, NcFTP 3 still tries to use curses for the
+bookmark editor, <TT>ncftpbookmarks</TT>.
+When you do an <B>open</B> without a hostname from the
+NcFTP shell, you will get the
+visual bookmark editor if it could be compiled and installed.
+This way, if curses is too broken, you can build and run
+the NcFTP shell without it.
+</li>
+
+<p>
+<br>
+<li>
+<P><B>Q.</B>
+NcFTP's command-line editor seems to work differently than
+the one with Bash.
+<P><B>A.</B>
+That's because NcFTP doesn't use GNU Readline by default.
+</li>
+
+</ol>
+</BODY></HTML>

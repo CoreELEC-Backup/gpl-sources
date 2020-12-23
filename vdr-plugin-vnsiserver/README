@@ -1,0 +1,47 @@
+
+-----------------------------------------------------------------------------
+1. Introduction
+-----------------------------------------------------------------------------
+
+This is a "plugin" for the Video Disk Recorder (VDR).
+
+VDR plugin to handle KODI clients.
+The vdr-plugin-vnsiserver is able to handle serveral KODI clients connecting
+via the VNSI addon.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+See the file COPYING for more information.
+
+Latest version available at: 
+https://github.com/FernetMenta/vdr-plugin-vnsiserver
+
+-----------------------------------------------------------------------------
+2. Compile in VDR's source tree
+-----------------------------------------------------------------------------
+
+Get VDR sources.
+
+   $ cd <path to vdr>/PLUGINS/src
+   $ git clone https://github.com/FernetMenta/vdr-plugin-vnsiserver
+   $ ln -s vdr-plugin-vnsiserver vnsiserver
+
+On newer VDR Versions (2.2.0) plugin can be build and installed alone, use:
+
+   $ git clone https://github.com/FernetMenta/vdr-plugin-vnsiserver
+   $ cd vdr-plugin-vnsiserver
+   $ make
+   $ sudo make install
+
+If you want to fix install dir you can use this, where the end define the VDR
+library folder:
+
+   $ sudo make install LIBDIR=/usr/lib/vdr
+
+-----------------------------------------------------------------------------
+3. Help and Suppport
+-----------------------------------------------------------------------------
+
+http://forum.kodi.tv/forumdisplay.php?fid=169

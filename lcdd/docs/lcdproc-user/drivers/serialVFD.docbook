@@ -1,0 +1,614 @@
+<sect1 id="serialVFD-howto">
+<title>The serialVFD Driver</title>
+
+<para>
+This section talks about using LCDproc with VFD character-displays build by NEC, FUTABA and NORITAKE.
+</para>
+
+
+<para>
+The serialVFD-driver is working with NEC FIPC8367 based VFDs
+and the "KD Rev 2.1" (an ATMEL AT90S.... based FM20X2KB-AB replacement).
+It is also known to work on FUTABA VFDs.
+</para>
+
+<para>
+The driver should operate most of NEC, Futaba and Noritake 7x5 dot VFDs with
+serial(RS-232) and/or parallel interface. See the following table for testing-status.
+Feedback is welcome.
+
+
+<table id="serialVFD-howto.status">
+<title>serialVFD: Display Status</title>
+<tgroup cols="6">
+  <thead>
+    <row>
+      <entry>Display</entry>
+      <entry>Controller</entry>
+      <entry>Serial</entry>
+      <entry>Parallel</entry>
+      <entry>Display tested</entry>
+      <entry><command>Type</command></entry>
+      <entry>Remark</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>NEC FM20X2KB-AB</entry>
+      <entry>NEC FIPC8367</entry>
+      <entry>Ok</entry>
+      <entry>Ok</entry>
+      <entry>Yes</entry>
+      <entry>0</entry>
+      <entry> </entry>
+    </row>
+    <row>
+      <entry>NEC FC20X2JA</entry>
+      <entry>NEC FIPC8367</entry>
+      <entry>(Ok)<footnote id="not_tested" label="1" > <para>Should work, but feature not tested yet.</para> </footnote> </entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>No</entry>
+      <entry>0</entry>
+      <entry>Same Controller as on FM20X2KB-AB</entry>
+    </row>
+    <row>
+      <entry>NEC FC20X1SA-AB/AA</entry>
+      <entry>NEC FIPC8367</entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>No</entry>
+      <entry>0</entry>
+      <entry>Same Controller as on FM20X2KB-AB</entry>
+    </row>
+    <row>
+      <entry>KD Rev 2.1</entry>
+      <entry>AT90S.... microcontroller</entry>
+      <entry>Ok</entry>
+      <entry>-</entry>
+      <entry>Yes</entry>
+      <entry>1, 0<footnote id="no_char" label="2" >
+               <para>
+    Custom-Characters are not supported with this <command>Type</command>, set <command>Custom-Characters=0</command>
+ in <filename>LCDd.conf</filename>.
+               </para>
+               </footnote></entry>
+      <entry> </entry>
+    </row>
+
+    <row>
+      <entry>FUTABA M402SD06GJ</entry>
+      <entry>?</entry>
+      <entry>(?)<footnoteref linkend="not_tested" /></entry>
+      <entry>Ok</entry>
+      <entry>Yes</entry>
+      <entry>3</entry>
+      <entry>The display has no user-characters.
+ Serial interface with PC compatible baudrate is optional only, feature not tested.</entry>
+    </row>
+    <row>
+      <entry>FUTABA M204SD01AA</entry>
+      <entry>FUTABA 5P00A016</entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>No</entry>
+      <entry>3</entry>
+      <entry> </entry>
+    </row>
+    <row>
+      <entry>Futaba NA202SD08FA</entry>
+      <entry>?</entry>
+      <entry>Ok</entry>
+      <entry>Ok</entry>
+      <entry>Yes</entry>
+      <entry>6</entry>
+      <entry>almost IEE compatible, no Custom-Characters</entry>
+    </row>
+    <row>
+      <entry>Samsung 20S204DA2 and 20S207DA1</entry>
+      <entry>?</entry>
+      <entry>Ok</entry>
+      <entry>Ok</entry>
+      <entry>Yes</entry>
+      <entry>3<footnoteref linkend="no_char" />, 7<footnoteref linkend="no_char" /><footnoteref linkend="not_tested" /> </entry>
+      <entry>The display is FUTABA compatible (hard- and software). Custom-Characters not supported(?). </entry>
+    </row>
+    <row>
+      <entry>Samsung 20S207DA4 and 20S207DA6</entry>
+      <entry>?</entry>
+      <entry>Ok</entry>
+      <entry>Ok</entry>
+      <entry>Yes</entry>
+      <entry>7, 3<footnoteref linkend="no_char" /></entry>
+      <entry>almost Futaba compatible</entry>
+    </row>
+    <row>
+      <entry>Noritake CU20026SCPB-T</entry>
+      <entry>microcontroller</entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>No</entry>
+      <entry>2</entry>
+      <entry> </entry>
+    </row>
+    <row>
+      <entry>Noritake CU20045SCPB-T28A</entry>
+      <entry>?</entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>No</entry>
+      <entry>2</entry>
+      <entry> </entry>
+    </row>
+    <row>
+      <entry>IEE 36657-01 (= 02S-93290-VFD 36657-01)</entry>
+      <entry>?</entry>
+      <entry>Ok</entry>
+      <entry>Ok</entry>
+      <entry>Yes</entry>
+      <entry>4</entry>
+      <entry> </entry>
+    </row>
+    <row>
+      <entry>IEE S03601-95B</entry>
+      <entry>?</entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>No</entry>
+      <entry>4</entry>
+      <entry> </entry>
+    </row>
+    <row>
+      <entry>IEE S03601-96-080</entry>
+      <entry>?</entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>(Ok)<footnoteref linkend="not_tested" /></entry>
+      <entry>No</entry>
+      <entry>5</entry>
+      <entry> </entry>
+    </row>
+    <row>
+      <entry>Siemens/Wincor Nixdorf BA63/66</entry>
+      <entry>?</entry>
+      <entry>Ok</entry>
+      <entry>-</entry>
+      <entry>Yes</entry>
+      <entry>8</entry>
+      <entry>Display needs different connection, see below!
+      no Custom-Characters, no brightness-control</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+</para>
+
+<para>
+If your display isn't working 100% satisfactorily you can add a new device with modified hardware
+commands to the driver if you want. To do that you have to add a new section to the display
+<command>Type</command>-switch-case in <filename>./server/drivers/serialVFD-displays.c</filename>
+and to write a new "load" function with the correct commands for the display.
+(Try which display <command>Type</command> works best with your display,
+then copy, rename and modify this function to your needs - that is the easiest way I guess.)
+</para>
+
+<para>
+On Malte Poeggel's page you may find pictures and datasheets of the VFDs:
+<ulink url="http://www.maltepoeggel.de/index.php?site=vfd"></ulink>
+</para>
+
+<para>
+It is possible to switch the display off and back on while the server is
+running. It may take a few minutes until the next full refresh makes
+the display show everything correctly.
+</para>
+
+
+<sect2 id="serialVFD-connections">
+<title>Connecting The Display</title>
+
+<para>The Connections shown have been tested successfully.</para>
+
+<warning>
+<para>
+Always cross-check with your datasheet, before connecting your display!
+Different displays of even the same manufacturer may have different pin assignments!
+</para></warning>
+
+<para>
+With this example connections it will be easy to connect displays with
+different connector pin-layouts, the pins are commonly named equal in
+the datasheet.
+</para>
+
+<sect3 id="serialVFD-serial-connections">
+<title>Serial Connections</title>
+
+<para>
+It is <emphasis>not</emphasis> possible to connect most of the displays directly to the
+serial port. The signal has to be inverted. I use the following
+circuit to do that job.
+</para>
+
+<figure id="serialVFD-serial-connections.circuit">
+<title>serialVFD: Serial Inverter</title>
+<screen>
+<![CDATA[
+Computer                                          Display
+						  (signal)
+HDD Powerconnector
+color(Voltage)
+
+red(+5V)    ----------------------------------o----- +5V
+                                              |
+black(GND)  ----------------------o          .-.
+                                  |          | | 10k
+Serial(SUB-D  9Pin female)        |          | |
+pin(signal)                       V*         '-'
+           ___                                |
+3(TxD)  --|___|--o---o      o-----------------o----- RxD
+           10k   |   |      |
+                 |   |     C|
+                .-.  |   -----  BC547c (or similar NPN)
+                | |  | B|  /  |
+            10k | |  o--|-|   |
+                '-'     |  \  |
+                 |       --->-    A*
+                 |          E|    |
+                 |           |    |
+5(GND)  ---------o-----------o----o--------------o-- GND
+                                                 |*
+Shield  -----------------------------------------o
+optional
+
+*connect near display
+]]>
+</screen>
+</figure>
+
+<para>The pins on the different displays vary.</para>
+
+<sect4 id="serialVFD-serial-connections-NEC">
+<title>NEC Displays (FM20X2KB-AB):</title>
+
+<para>CN1:</para>
+<screen><![CDATA[
+Pin 33 ------- RxD
+(Testmode: connect pins 25 and 26, then power up)
+]]></screen>
+
+<para>CN2:</para>
+<screen><![CDATA[
+Pin 1  ------- +5V
+Pin 2  ------- GND
+]]></screen>
+</sect4>
+
+<sect4 id="serialVFD-serial-connections-KD">
+<title>KD Rev 2.1:</title>
+<para>
+The blue connector (6pin in a row) (the important one!):
+</para>
+<screen>
+<![CDATA[
+--------------------------------
+| +5V  +5V  RxD  GND  GND  GND |
+--------------------------------
+]]>
+</screen>
+
+<tip>
+  <para>
+  Hold the display in that position where you can read
+  the <literal>KD Rev 2.1</literal> marking normally!
+  </para>
+</tip>
+
+<para>The gray connector (10pin 2 rows):</para>
+<screen>
+<![CDATA[Do not use. (the ATMEL ISP connector I guess)
+]]>
+</screen>
+<para>The two jumpers next to the gray connector:</para>
+<screen>
+<![CDATA[Normally not used.
+You can activate two different testmodes with them.
+]]>
+</screen>
+</sect4>
+
+<sect4 id="serialVFD-serial-connections-FUTABA">
+<title>FUTABA Displays (M402SD06GJ):</title>
+<screen><![CDATA[Pin 2   ------ +5V
+Pin 4   ------ +5V
+Pin 6   ------ +5V
+
+Pin 10  ------ GND
+Pin 12  ------ GND
+Pin 14  ------ GND
+
+Pin 19  ------ RxD
+]]></screen>
+</sect4>
+
+<sect4 id="serialVFD-serial-connections-BA63_66">
+<title>Siemens/Wincor Nixdorf BA63/66:</title>
+<para>This display doesn't need the inverter!
+It must be connected directly with the serial port.</para>
+
+<para>Check the serial port setup of the display, it has to be "9600 8N1". In most cases JP3 needs to be modified (closed) by the user!</para>
+
+<screen><![CDATA[Suggested Jumper Setting:
+JP1 open, JP2 open, JP3 closed, JP4 open, JP5 open]]></screen>
+
+<para>More detailed information can be found in the users manual of
+the display.</para>
+</sect4>
+
+</sect3>
+
+<sect3 id="serialVFD-parallel-connections">
+<title>Parallel Connections</title>
+
+
+<sect4 id="serialVFD-parallel-connections-NEC">
+<title>NEC Displays (FM20X2KB-AB):</title>
+
+<para>CN1:</para>
+<screen><![CDATA[
+parallel Port:			Display (NEC):
+Pin: 	Name:			Name:   Pin:
+
+1	/STROBE --------------	/WR	17
+2	D0      --------------	D0	15
+3	D1      --------------	D1	13
+4	D2      --------------	D2	11
+5	D3      --------------	D3	9
+6	D4      --------------	D4	7
+7	D5      --------------	D5	5
+8	D6      --------------	D6	3
+9	D7      --------------	D7	1
+10	/ACK	--o
+		  |
+11	BUSY    --o-----------	BUSY	27
+
+			   o--  /CS	23
+			   |
+18 - 25	GND    ------------o--	GND	2,4,6,8,10,12,14,16,18,20,22,24,26,28,20,32,34
+			   |*
+Shield  -------------------o
+optional
+
+*connect near display
+]]></screen>
+<para>CN2:</para>
+<screen><![CDATA[
+Pin 1  ------ +5V
+Pin 2  ------ GND
+]]></screen>
+</sect4>
+
+<sect4 id="serialVFD-parallel-connections-FUTABA">
+<title>FUTABA Displays (M402SD06GJ):</title>
+<screen><![CDATA[
+parallel Port:			Display (FUTABA):
+Pin: 	Name:			Name:   Pin:
+
+1	/STROBE --------------	/WR	17
+2	D0      --------------	D0	15
+3	D1      --------------	D1	13
+4	D2      --------------	D2	11
+5	D3      --------------	D3	9
+6	D4      --------------	D4	7
+7	D5      --------------	D5	5
+8	D6      --------------	D6	3
+9	D7      --------------	D7	1
+10	/ACK	--o
+		  |
+11	BUSY    --o-----------	BUSY	20
+
+			   o--  /SEL	18
+			   |
+18 - 25	GND    ------------o--	GND	10,12,14
+			   |*
+Shield  -------------------o
+optional
+			   0--	TEST	16
+			   |
+		+5V -------o--	+5V	2,4,6
+
+*connect near display
+]]></screen>
+</sect4>
+
+</sect3>
+</sect2>
+<!-- ## Serial VFD driver ## -->
+<sect2 id="serialVFD-config">
+<title>Configuration in LCDd.conf</title>
+
+
+<sect3 id="serialVFD-config-section">
+<title>[serialVFD]</title>
+
+<variablelist>
+
+<varlistentry>
+  <term>
+    <property>use_parallel</property> = &parameters.yesdefno;
+  </term>
+  <listitem><para>
+    "<literal>no</literal>" if display connected serial, "<literal>yes</literal>" if connected parallel [default: <literal>no</literal>(serial)].
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Port</property> =
+    <parameter><replaceable>PORT</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Portaddress where the LPT is. Used in parallel mode only. Usual values are 0x278, 0x378 and 0x3BC [default: <literal>0x278</literal>].
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>PortWait</property> =
+    <parameter><replaceable>DELAY</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set parallel port timing delay (us). Used in parallel mode only. [default: <literal>2</literal>; legal: 0 - 255].
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Device to use in serial mode. Usual values are <filename>/dev/ttyS0</filename> and <filename>/dev/ttyS1</filename>
+    [default: <filename>/dev/lcd</filename>].
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Custom-Characters</property> =
+    <parameter><replaceable>CUSTOM-CHARACTERS</replaceable></parameter>
+  </term>
+  <listitem><para>
+Number of Custom-Characters [default: Display-<property>Type</property> dependent].
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Specifies the size of the VFD.
+    [default: <literal>20x2</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Type</property> =
+    <parameter><replaceable>CODE</replaceable></parameter>
+  </term>
+  <listitem>
+    <para>
+    Specifies the display type.[default: 0]
+    The following type codes are available:
+    </para>
+    <informaltable>
+    <tgroup cols="2">
+      <thead>
+        <row>
+	  <entry><replaceable>CODE</replaceable></entry>
+	  <entry>VFD model</entry>
+	</row>
+      </thead>
+      <tbody>
+        <row>
+	  <entry><emphasis><literal>0</literal></emphasis></entry>
+	  <entry>NEC (FIPC8367 based) VFDs</entry>
+	</row>
+        <row>
+	  <entry><literal>1</literal></entry>
+	  <entry>KD Rev 2.1</entry>
+	</row>
+        <row>
+	  <entry><literal>2</literal></entry>
+	  <entry>Noritake VFDs</entry>
+	</row>
+        <row>
+	  <entry><literal>3</literal></entry>
+	  <entry>Futaba VFDs</entry>
+	</row>
+	<row>
+	  <entry><literal>4</literal></entry>
+	  <entry>IEE S03601-95B</entry>
+	</row>
+	<row>
+	  <entry><literal>5</literal></entry>
+	  <entry>IEE S03601-96-080</entry>
+	</row>
+	<row>
+	  <entry><literal>6</literal></entry>
+	  <entry>Futaba NA202SD08FA (allmost IEE compatible)</entry>
+	</row>
+	<row>
+	  <entry><literal>7</literal></entry>
+	  <entry>Samsung 20S207DA?</entry>
+	</row>
+	<row>
+	  <entry><literal>8</literal></entry>
+	  <entry>Siemens/Wincor Nixdorf BA63/66</entry>
+	</row>
+      </tbody>
+    </tgroup>
+    </informaltable>
+    <note><para>
+      Noritake VFDs have not been tested yet. Feedback is welcome.
+    </para></note>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Brightness</property> =
+    <parameter><replaceable>BRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+Set the initial brightness [default: 1000; legal: 0 - 1000]
+ (4 steps 0-250, 251-500, 501-750, 751-1000)
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>OffBrightness</property> =
+    <parameter><replaceable>OFFBRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+Set the initial off-brightness [default: 0; legal: 0 - 1000].
+ This value is used when the display is normally
+ switched off in case LCDd is inactive.
+ (4 steps 0-250, 251-500, 501-750, 751-1000)
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Speed</property> =
+    {
+      <parameter><literal>1200</literal></parameter> |
+      <parameter><literal>2400</literal></parameter> |
+      <emphasis><parameter><literal>9600</literal></parameter></emphasis> |
+      <parameter><literal>19200</literal></parameter> |
+      <parameter><literal>115200</literal></parameter>
+    }
+  </term>
+  <listitem><para>
+    Set the the baud rate communication with the VFD.
+    If not given [default <literal>9600</literal>].
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>ISO_8859_1</property> = &parameters.yesdefno;
+  </term>
+  <listitem><para>
+    Enable ISO-8859-1 compatibility [default is <literal>yes</literal>].
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>
+

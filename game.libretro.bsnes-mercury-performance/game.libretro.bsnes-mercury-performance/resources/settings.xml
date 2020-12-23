@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="bsnes_aspect_ratio" values="auto|ntsc|pal" default="auto"/>
+		<setting label="30002" type="select" id="bsnes_chip_hle" values="LLE|HLE" default="LLE"/>
+		<setting label="30003" type="select" id="bsnes_crop_overscan" values="disabled|enabled" default="disabled"/>
+		<setting label="30004" type="select" id="bsnes_gamma_ramp" values="disabled|enabled" default="disabled"/>
+		<setting label="30005" type="select" id="bsnes_region" values="auto|ntsc|pal" default="auto"/>
+		<setting label="30006" type="select" id="bsnes_superfx_overclock" values="100%|150%|200%|300%|400%|500%|1000%" default="100%"/>
+		<setting label="30007" type="select" id="bsnes_violate_accuracy" values="disabled|enabled" default="disabled"/>
+	</category>
+</settings>

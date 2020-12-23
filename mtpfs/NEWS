@@ -1,0 +1,48 @@
+What's new in 1.1
+-----------------
+* Support Multiple storage aread
+* Many, many bugfixes
+
+What's new in 0.9
+-----------------
+* Support libmtp 0.3.0
+
+What's new in 0.8
+-----------------
+* Many memory leaks fixed
+
+What's new in 0.7
+-----------------
+* Minor bugfixes
+
+What's new in 0.6
+-----------------
+* Return device size/free
+
+What's new in 0.5
+-----------------
+* Fix configure scripts
+
+What's new in 0.4
+-----------------
+* Fix file permissions so they show uid/gid correctly
+* Update for newer versions of libmtp
+
+What's new in 0.3
+-----------------
+* Mp3 song lengths set correctly when uploading
+* Locking on device access so copying multiple files work
+* Playlist reading and writing
+
+
+What's new in 0.2
+-----------------
+
+* Working configure
+* Writing mp3 files to device
+
+What's new in 0.1
+-----------------
+
+* Initial release
+* Can browse the MTP device and read files from it

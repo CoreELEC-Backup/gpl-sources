@@ -1,0 +1,600 @@
+.TH LCDd 8 "February 10, 2014" LCDproc "LCDproc suite"
+
+.SH NAME
+LCDd - LCDproc server daemon
+
+.SH SYNOPSIS
+.B LCDd
+[\fB\-hf\fP]
+[\fB\-c\fP \fIconfig\fP]
+[\fB\-d\fP \fIdriver\fP]
+[\fB\-i\fP \fIbool\fP]
+[\fB\-a\fP \fIaddr\fP]
+[\fB\-p\fP \fIport\fP]
+[\fB\-u\fP \fIuser\fP]
+[\fB\-w\fP \fItime\fP]
+[\fB\-r\fP \fIlevel\fP]
+[\fB\-s\fP \fIbool\fP]
+
+.SH DESCRIPTION
+\fBLCDd\fP is the server part of LCDproc, a daemon which listens to a certain port (normally 13666)
+and displays information on an LCD display.  It works with several types
+and sizes of displays.
+.PP
+Most settings of \fBLCDd\fP are configured through its configuration file
+\fI@SYSCONFDIR@/LCDd.conf\fP, some of them can be overridden using command line options.
+Before running \fBLCDd\fP you should carefully
+read through that file and modify everything necessary according to your needs.
+Otherwise you might encounter \fBLCDd\fP not running properly on your system.
+.PP
+To make full use of \fBLCDd\fP, a client such as lcdproc(1), lcdexec(1), or lcdvc
+is required.
+
+.SH OPTIONS
+Available options are:
+.TP
+.B \-h
+Display help screen
+.TP
+.B \-c \fIconfig\fP
+Use a configuration file other than \fI@SYSCONFDIR@/LCDd.conf\fP
+.TP
+.B \-d \fIdriver\fP
+Specify a driver to use (output only to first), overriding
+the \fBDriver\fP parameter in the config file's \fB[Server]\fP section.
+.TP
+.B \-f
+Run in the foreground, overriding the \fBForeground\fP parameter
+in the config file's \fB[Server]\fP section.
+The default, if not specified in the config file, is to
+daemonize \fBLCDd\fP as it is intended to operate in the background.
+.TP
+.B \-i \fIbool\fP
+Tell whether the to enable (\fI1\fP) or disable (\fI0\fP) showing the LCDproc
+server screen in n the screen rotation, overriding \fBServerScreen\fP
+in the config file's \fB[Server]\fP section.
+.TP
+.B \-w \fIwaittime\fP
+Time to pause at each screen (in seconds), overriding the
+\fBWaitTime\fP parameter in the config file's \fB[Server]\fP section.
+.TP
+.B \-a \fIaddr\fP
+Bind to network address \fIaddr\fP, overriding the
+\fBBind\fP parameter in the config file's \fB[Server]\fP section.
+.TP
+.B \-p \fIport\fP
+Listen on port \fIport\fP for incoming connections, overriding the
+\fBPort\fP parameter in the config file's \fB[Server]\fP section.
+.TP
+.B \-u \fIuser\fP
+Run as user \fIuser\fP, overriding the
+\fBUser\fP parameter in the config file's \fB[Server]\fP section.
+.TP
+.B \-s \fIbool\fP
+Output messages to syslog (\fI1\fP) or to stdout (\fI0\fP), overriding the
+\fBReportToSyslog\fP parameter in the config file's \fB[Server]\fP section.
+.TP
+.B \-r \fIlevel\fP
+Set reporting level to \fIlevel\fP, overriding th
+\fBReportLevel\fP parameter in the config file's \fB[Server]\fP section.
+
+.SS SUPPORTED DRIVERS
+Currently supported display drivers include:
+.TP
+.B bayrad
+BayRAD LCD modules by EMAC Inc.
+.TP
+.B CFontz
+CrystalFontz CFA-632 and CFA-634 serial LCD displays
+.TP
+.B CFontzPacket
+CrystalFontz CFA-533, CFA-631, CFA-633 and CFA-635 serial/USB LCD displays
+.TP
+.B curses
+Standard video display using the (n)curses library
+.TP
+.B CwLnx
+serial/USB displays by Cwlinux (http://www.cwlinux.com)
+.TP
+.B ea65
+VFD front panel display on Aopen XC Cube EA65 media barebone
+.TP
+.B EyeboxOne
+LCD display on the EyeboxOne
+.TP
+.B futaba
+The Futaba TOSD-5711BB VFDisplay on Elonex Artisan/Scaleo Media Centre PCs
+.TP
+.B g15
+LCD display on the Logitech G15 keyboard
+.TP
+.B glcd
+generic driver for graphical LCDs with FreeType rendering support. This driver
+supports the following sub-drivers (a.k.a. \fIconnection types\fP):
+.RS
+.TP
+.B glcd2usb
+Till Harbaum's open source/open hardware GLCD2USB (http://www.harbaum.org/till/glcd2usb/)
+.TP
+.B picolcdgfx
+picoLCD 256x64 Sideshow graphic LCD (Mini-Box.com)
+.TP
+.B png
+Write out screens as PNG images
+.TP
+.B serdisplib
+Uses serdisplib (http://serdisplib.sourceforge.net/) for output
+.TP
+.B t6963
+Toshiba T6963 based LCD displays (graphic mode)
+.RE
+.TP
+.B glcdlib
+graphical LCDs supported by graphlcd-base
+.TP
+.B glk
+Matrix Orbital GLK Graphic Displays
+.TP
+.B hd44780
+Hitachi HD44780 LCD displays.
+This driver supports the following sub-drivers (a.k.a. \fIconnection types\fP):
+.RS
+.TP
+.B 4bit
+LCD 4bit-mode, connected to a PC parallel port
+.TP
+.B 8bit
+LCD 8bit-mode, connected to a PC parallel port
+.TP
+.B serialLpt
+LCD in 4bit-mode through a 4094 shift register
+.TP
+.B winamp
+LCD in 8bit-mode using \fIWinAmp\fP-wiring, connected to a PC parallel port
+.TP
+.B picanlcd
+LCD driven by a PIC-an-LCD chip/board by Dale Wheat, connected to a serial port
+.TP
+.B lcdserializer
+LCD driven by a PIC16C54-based piggy-back board, connected to a serial port
+.TP
+.B los-panel
+LCD driven by an Atmel AVR based board, connected to a serial port
+.TP
+.B ezio
+Portwell EZIO-100 and EZIO-300 LCD connected to a serial port (http://drivers.portwell.com/CA_Manual/EZIO/)
+.TP
+.B vdr-lcd
+???, connected to a serial port
+.TP
+.B vdr-wakeup
+VDR-Wake module by Frank Jepsen (http://www.jepsennet.de/vdr/)
+.TP
+.B pertelian
+Pertelian X2040 module (http://pertelian.com/)
+.TP
+.B lis2
+LIS2 from VLSystem (http://www.vlsys.co.kr), connected to USB
+.TP
+.B mplay
+MPlay Blast from VLSystem (http://www.vlsys.co.kr), connected to USB
+.TP
+.B usblcd
+LCD device from Adams IT Services (http://www.usblcd.de/)
+.TP
+.B bwctusb
+USB-to-HD44780 converter by BWCT (http://www.bwct.de)
+.TP
+.B lcd2usb
+Till Harbaum's open source/open hardware LCD2USB (http://www.harbaum.org/till/lcd2usb/)
+.TP
+.B usbtiny
+Devices based on Dick Streefland's USBtiny firmware
+.TP
+.B uss720
+USS-720 USB-to-IEEE 1284 Bridge (Belkin F5U002 USB Parallel Printer Adapters)
+.TP
+.B usb4all
+Sprut's open source / open hardware USB-4-all (http://www.sprut.de/)
+.TP
+.B ftdi
+USB connection via a FTDI FT2232D chip in bitbang mode
+.TP
+.B i2c
+LCD in 4-bit mode driven by PCF8574(A) / PCA9554(A), connected via I2C bus
+.TP
+.B piplate
+Adafruit RGB Positive 16x2 LCD+Keypad for Raspberry Pi
+.TP
+.B spi
+LCD with KS0073 or equivalent in serial mode, connected via SPI bus
+.TP
+.B pifacecad
+PiFace Control and Display for the Raspberry Pi (http://www.piface.org.uk/)
+.TP
+.B ethlcd
+TCP connection using open source/open hardware ethlcd (http://manio.skyboo.net/ethlcd/)
+.TP
+.B raspberrypi
+LCD driven by the GPIO pins of a Raspberry Pi
+.TP
+.B gpio
+LCD connection via GPIO pins controlled by the linux sysfs interface
+.RE
+.TP
+.B i2500vfd
+140x32 pixel VFD Display of the Intra2net Intranator 2500 appliance
+.TP
+.B icp_a106
+ICP Peripheral Communication Protocol alarm/LCD board used in QNAP devices and 19" rack cases made by ICP
+.TP
+.B imon
+iMON IR/VFD modules in cases by Soundgraph/Ahanix/Silverstone/Uneed/Accent
+.TP
+.B imonlcd
+iMON IR/LCD modules in cases by Soundgraph/Ahanix/Silverstone/Uneed/Accent/Antec
+.TP
+.B irtrans
+IRTrans IR/VFD modules in cases by Ahanix (e.g. MCE303) and possibly others
+May require irserver (http://www.irtrans.de/en/download/linux.php) to be running for connectivity.
+.TP
+.B IOWarrior
+Code Mercenaries IOWarrior
+.TP
+.B irman
+IrMan infrared (input)
+.TP
+.B joy
+Joystick driver (input)
+.TP
+.B lb216
+LB216 LCD displays
+.TP
+.B lcdm001
+kernelconcepts.de 20x4 serial LCD displays
+.TP
+.B lcterm
+serial LCD terminal from Helmut Neumark Elektronik (http://www.neumark.de)
+.TP
+.B linux_input
+Linux event devices (input)
+.TP
+.B lirc
+Infrared (input)
+.TP
+.B lis
+L.I.S MCE 2005 20x2 VFD (http://vlsys.co.kr)
+.TP
+.B MD8800
+VFD displays in Medion MD8800 PCs
+.TP
+.B mdm166a
+Futuba MDM166A displays
+.TP
+.B ms6931
+MSI-6931 displays in 1U rack servers by MSI
+.TP
+.B mtc_s16209x
+MTC_S16209x LCD displays by Microtips Technology Inc
+.TP
+.B MtxOrb
+Matrix Orbital displays (except Matrix Orbital GLK displays)
+.TP
+.B mx5000
+LCD display on the Logitech MX5000 keyboard
+.TP
+.B NoritakeVFD
+Noritake VFD Device CU20045SCPB-T28A
+.TP
+.B Olimex_MOD_LCD1x9
+Olimex MOD-LCD1x9 14 segment display
+.TP
+.B rawserial
+Dumps the entire framebuffer to the serial port at a configurable rate.
+.TP
+.B picolcd
+Mini-box.com USB LCD (PicoLCD 20x4 & picoLCD 20x2)
+.TP
+.B pyramid
+LCD displays from Pyramid (http://www.pyramid.de)
+.TP
+.B sdeclcd
+Watchguard Firebox LCD display based on SDEC LMC-S2D20 (http://www.sdec.com.tw)
+.TP
+.B sed1330
+SED1330/SED1335 (aka S1D13300/S1D13305) based graphical displays
+.TP
+.B sed1520
+122x32 pixel graphic displays based on SED1520 controllers
+.TP
+.B serialPOS
+Driver for Point Of Sale ("POS") devices using various protocols (currently AEDEX only)
+.TP
+.B serialVFD
+Text VFDs of various manufacturers, see LCDproc user-documentation for further details.
+.TP
+.B shuttleVFD
+Shuttle VFD (USB-based)
+.TP
+.B sli
+Wirz SLI driver (unknown)
+.TP
+.B stv5730
+STV5730A on-screen display chip
+.TP
+.B SureElec
+LCD devices from SURE electronics  (http://www.sureelectronics.net)
+.TP
+.B svga
+VGA monitors using svgalib
+.TP
+.B t6963
+Toshiba T6963 based LCD displays (text mode)
+.TP
+.B text
+Standard "hard-copy" text display
+.TP
+.B tyan
+LCD module in Tyan Barebone GS series
+.TP
+.B ula200
+ULA-200 device from ELV (http://www.elv.de)
+.TP
+.B vlsys_m428
+VFD/IR combination in case MonCaso 320 from Moneual
+.TP
+.B yard2
+yard2 LCD module
+.TP
+.B xosd
+On Screen Display on X11
+.PP
+Multiple drivers can be used simultaneously; thus, for example, a Matrix Orbital display (MtxOrb driver)
+can be combined with an infrared driver (irmanin driver).
+
+.SH INVOCATION
+.RS
+.I LCDd -d MtxOrb -d joy
+.RE
+The invocation example above will start \fBLCDd\fP reading its configuration from the
+default configuration file \fI@SYSCONFDIR@/LCDd.conf\fP but overriding the drivers
+specified therein with the Matrix Orbital driver and the Joystick input driver.
+
+.SH LCDPROC CLIENT-SERVER PROTOCOL
+There is a basic sequence:
+.TP
+1. Open a TCP connection to the LCDd server port (usually 13666).
+.TP
+2. Say "hello"
+.TP
+3. The server will return some information on the type
+of display available.
+.TP
+4. Define (and use) a new screen and its widgets.
+.TP
+5. Close the socket when done displaying data.
+.PP
+
+.SS CLIENT COMMANDS
+There are many commands for the client to send to the LCDd server:
+.TP
+.B hello
+This starts a client-server session with the LCDd server; the
+server will return a data string detailing the type of display
+and its size.
+.TP
+.B client_set -name \fIname\fP
+Set the client's name.
+.TP
+.B screen_add \fI#id\fP
+Add a new screen to the display.
+.TP
+.B screen_del \fI#id\fP
+Remove a screen from the display.
+.TP
+.B screen_set \fI#id\fP [\fB-name\fI "name"\fP] [\fB-wid\fI width\fP] [\fB-hgt\fI height\fP] [\fB-priority\fI prio\fP] [\fB-duration\fI int\fP] [\fB-timeout\fI int\fP] [\fB-heartbeat\fI mode\fP] [\fB-backlight\fI mode\fP] [\fB-cursor\fI mode\fP] [\fB-cursor_x\fI xpos\fP] [\fB-cursor_y\fI ypos\fP]
+Initialize a screen, or reset its data.
+.TP
+.B widget_add \fI#screen #id type\fR [\fB-in \fI#frame\fR]
+Add a widget of type \fItype\fP to screen \fI#screen\fR.
+.TP
+.B widget_del \fI#screen #id\fR
+Delete widget \fI#id\fR from screen \fI#screen\fR.
+.TP
+.B widget_set \fI#screen #id data\fR
+Set the data used to define a particular widget \fI#id\fR on screen
+\fI#screen\fR.
+
+.SS HEARTBEAT MODES
+Valid heartbeat mode values (for the \fBscreen_set\fR command) are:
+.TP
+.B on
+Display pulsing heart symbol.
+.TP
+.B off
+No heartbeat display.
+.TP
+.B open
+Use client's heartbeat setting. This is the default.
+
+.SS BACKLIGHT MODES
+Valid backlight mode values (for the \fBscreen_set\fR command) are:
+.TP
+.B on
+Turn backlight on.
+.TP
+.B off
+Turn backlight off
+.TP
+.B toggle
+Turn backlight off when it is on and vice versa.
+.TP
+.B open
+Use client's backlight setting. This is the default.
+.TP
+.B blink
+Blinking backlight
+.TP
+.B flash
+Flashing blacklight
+
+.SS Priorities
+Valid priority settings (used in the \fBscreen_set\fR command) are as follows:
+.TP
+.B input
+The client is doing interactive input.
+.TP
+.B alert
+The screen has an important message for the user.
+.TP
+.B foreground
+an active client
+.TP
+.B info
+Normal info screen, default priority.
+.TP
+.B background
+The screen is only visible when no normal info screens exists.
+.TP
+.B hidden
+The screen will never be visible.
+.PP
+For compatibility with older versions of clients a mapping of numeric
+priority values is also supported:
+.TP
+.B 1 - 64
+foreground
+.TP
+.B 65 - 192
+normal
+.TP
+.B 193 - (infinity)
+background
+.PP
+An example of how to properly use priorities is as follows:
+.PP
+Imagine you're making an mp3 player for lcdproc.  When the
+song changes, it's nice to display the new name immediately.
+So, you could set your screen's priority to \fBforeground\fP, wait for
+the server to display (or ignore) your screen, then set the
+screen back to \fBnormal\fP.  This would cause the mp3 screen to
+show up as soon as the one on screen was finished, then
+return to normal priority afterward.
+.PP
+Or, let's say your client monitors the health of hospital
+patients.  If one of the patients has a heart attack, you
+could set the screen priority to \fBalert\fP, and it
+would be displayed immediately.  It wouldn't even wait for
+the previous screen to finish.  Also, the display would stay
+on screen most of the time until the user did something about it.
+
+.SS WIDGET TYPES
+Widgets can be any of the following:
+.TP
+.B string
+A text string to display (as is).
+.TP
+.B hbar
+A horizontal bar graph.
+.TP
+.B vbar
+A vertical bar graph.
+.TP
+.B title
+A title displayed across the top of the display, within a banner.
+.TP
+.B icon
+A graphic icon.
+.TP
+.B scroller
+A scrolling text display, scrolling either horizontally or vertically.
+.TP
+.B frame
+A \fIcontainer\fR to contain other widgets, permitting them to be referred to
+as a single unit.  A widget is put inside a frame by using the \-in \fI#id\fR
+parameter, where \fI#id\fR refers to the id of the frame.
+.TP
+.B num
+Displays a large decimal digit
+.PP
+Widgets are drawn on the screen in the order they are created.
+
+.SS SETTING WIDGET DATA
+In the \fBwidget_set\fR command, the \fIdata\fR argument depends on which widget is being
+set.  Each widget takes a particular set of arguments which defines its form and behavior:
+.TP
+.B string \fIx y text\fP
+Displays \fItext\fP at position (\fIx\fP,\fIy\fP).
+.TP
+.B title \fItext
+Uses \fItext\fP as title to display.
+.TP
+.B hbar \fIx y length\fP
+Displays a horizontal bar starting at position (\fIx\fP,\fIy\fP) that is \fIlength\fP pixels wide.
+.TP
+.B vbar \fIx y length\fP
+Displays a vertical bar starting at position (\fIx\fP,\fIy\fP) that is \fIlength\fP pixels high.
+.TP
+.B icon \fIx y name\fP
+Displays the icon \fIname\fP at position (\fIx\fP,\fIy\fP).
+.TP
+.B scroller \fIleft top right bottom direction speed text\fP
+The \fItext\fR defined will scroll in the direction defined.  Valid directions
+are \fBh\fR (horizontal), \fBm\fR (marquee) and \fBv\fR (vertical).  The speed defines how many
+"movements" (or changes) will occur per frame.  A positive number indicates
+frames per movement; a negative number indicates movements per frame.
+.TP
+.B frame \fIleft top right bottom wid hgt dir speed\fP
+Frames define a visible "box" on screen,
+from the (\fIleft\fR, \fItop\fR) corner to the
+(\fIright\fR, \fIbottom\fR) corner.  The actual data may be bigger,
+and is defined as \fIwid\fR (width) by \fIhgt\fR (height); if it is
+bigger, then the frame will scroll in the direction (\fIdir\fR)
+and \fIspeed\fR defined.
+.TP
+.B num \fIx int\fP
+Displays large decimal digit \fIint\fP at the horizontal position \fIx\fP,
+which is a normal character x coordinate on the display.
+The special value 10 for \fIint\fP displays a colon.
+
+.SH BUGS
+If \fBLCDd\fP seems not to work as expected, try to run it in the foreground
+with reporting level set to maximum and reporting to stderr.
+This can be achieved without changes to the config file by using the
+command line:
+.RS
+.I LCDd -f -r 5 -s 0
+.RE
+
+.SH FILES
+\fB@SYSCONFDIR@/LCDd.conf\fR, LCDd's default configuration file
+
+.SH SEE ALSO
+lcdproc-config(5),
+lcdproc(1),
+lcdexec(1)
+
+.SH AUTHOR
+Many people have contributed to LCDd.  See the \fICREDITS\fP file for
+more details.
+.PP
+All questions should be sent to the lcdproc mailing list.  The mailing list,
+and the newest version of LCDproc, should be available from here:
+.PP
+		http://www.lcdproc.org/
+
+
+.SH LEGAL STUFF
+The lcdproc package is released as "WorksForMe-Ware".
+In other words, it is free, kinda neat, and we don't guarantee that it will do
+anything in particular on any machine except the ones it was developed on.
+.PP
+It is technically released under the GNU GPL license (you should have received the file,
+"COPYING", with LCDproc) (also, look on http://www.fsf.org/ for more information),
+so you can distribute and use it for free -- but you must make the source code freely
+available to anyone who wants it.
+.PP
+For any sort of real legal information, read the GNU GPL (GNU General Public License).
+It's worth reading.
+
+

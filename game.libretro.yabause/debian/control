@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-yabause
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-yabause (>= 0.9.15) | yabause (>= 0.9.15)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-yabause
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Sega - Saturn (Yabause) core for kodi's retroplayer
+ Sega - Saturn (Yabause) core for kodi's retroplayer

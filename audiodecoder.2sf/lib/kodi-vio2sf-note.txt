@@ -1,0 +1,4 @@
+vio2sf source from https://g.losno.co/chris/vio2sf
+Sync to 1d68801f5f (2 May 2019)
+
+Old source https://bitbucket.org/kode54/vio2sf (e0501e3 (12 Dec 2017))

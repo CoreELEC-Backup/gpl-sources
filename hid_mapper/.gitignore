@@ -1,0 +1,4 @@
+*.o
+hid_mapper
+package/
+*.deb

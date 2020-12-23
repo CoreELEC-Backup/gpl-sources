@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: Time Offset/Date
+		Tables</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: Time Offset/Date Tables (TOT, TDT)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>~/bin &gt; ./dvbsnoop -n 3 -nph 0x14
+dvbsnoop  Vers. 1.1.10   -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+SECT-Packet: 00000001   PID: 20 (0x0014), Length: 8 (0x0008)
+Time received: Tue 2003-11-25  02:20:25.938
+---------------------------------------------------------
+PID:  20 (0x0014)
+TDT-decoding....
+Table_ID: 112 (0x70)  [= time_date_section]
+section_syntax_indicator: 0 (0x00)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+Section_length: 5 (0x0005)
+UTC_time: 0xcee8012025 (=2003-11-25 01:20:25 [UTC])
+==========================================================
+
+
+---------------------------------------------------------
+SECT-Packet: 00000002   PID: 20 (0x0014), Length: 29 (0x001d)
+Time received: Tue 2003-11-25  02:20:26.009
+---------------------------------------------------------
+PID:  20 (0x0014)
+TOT-decoding....
+Table_ID: 115 (0x73)  [= time_offset_section]
+section_syntax_indicator: 0 (0x00)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+Section_length: 26 (0x001a)
+UTC_time: 0xcee8012025 (=2003-11-25 01:20:25 [UTC])
+reserved_3: 15 (0x0f)
+Descriptors_loop_length: 15 (0x000f)
+    
+    DVB-DescriptorTag: 88 (0x58)  [= local_time_offset_descriptor]
+    Descriptor_length: 13 (0x0d)
+        Country_code:  DEU
+        Country_region_ID: 0 (0x00)
+        reserved_1: 1 (0x01)
+        local_time_offset_polarity: 0  (= plus to UTC)
+        Local_time_offset: 01:00
+        Time_of_change: 0xcf64010000 (=2004-03-28 01:00:00 [UTC])
+        Next_time_offset: 02:00 
+        
+CRC: 1094456881 (0x413c1631)
+==========================================================
+
+
+---------------------------------------------------------
+SECT-Packet: 00000003   PID: 20 (0x0014), Length: 8 (0x0008)
+Time received: Tue 2003-11-25  02:20:35.987
+---------------------------------------------------------
+PID:  20 (0x0014)
+TDT-decoding....
+Table_ID: 112 (0x70)  [= time_date_section]
+section_syntax_indicator: 0 (0x00)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+Section_length: 5 (0x0005)
+UTC_time: 0xcee8012035 (=2003-11-25 01:20:35 [UTC])
+==========================================================
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

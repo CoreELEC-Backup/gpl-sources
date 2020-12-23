@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-fbalpha
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-fbalpha (>= 0.2.97) | fbalpha (>= 0.2.97)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-fbalpha
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Arcade (FB Alpha) core for kodi's retroplayer
+ Arcade (FB Alpha) core for kodi's retroplayer

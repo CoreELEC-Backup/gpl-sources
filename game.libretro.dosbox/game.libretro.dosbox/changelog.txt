@@ -1,0 +1,5 @@
+[B]2013-08-09[/B] Version [B]0.74.1[/B]
+. Updated to 9c195a7 @ 2013-05-22
+
+[B]2013-04-23[/B] Version [B]0.74.0[/B]
+. Initial release: DOSBox v0.74, https://github.com/libretro/dosbox-libretro @ 73611b8 (2013-04-17)

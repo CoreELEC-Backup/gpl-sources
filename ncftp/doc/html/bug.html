@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML>
+<HEAD>
+<TITLE>NcFTP Client</TITLE>
+<STYLE TYPE="text/css">
+	h1			{ color: black }
+	h2			{ color: #660000 }
+	h3			{ color: black }
+	h4			{ color: black }
+	a:link			{ color: #660000 }
+	a.only_for_bots:link	{ color: white }
+	a.only_for_bots:active	{ color: red }
+	a.only_for_bots:visited	{ color: white }
+	p			{ color: black }
+	p.only_for_bots		{ color: white }
+</STYLE>
+</HEAD>
+<BODY BGCOLOR="white">
+
+<H2>How to Report Bugs in <I>NcFTP Client</I></H2>
+
+<P>Because each FTP server program has its own quirks and unique
+interpretation of the FTP protocol, most bugs in 
+<I>NcFTP Client</I>
+are caused by an unexpected interaction with a particular type of
+server software.
+What helps us fix our own bugs or work-around server bugs is the actual FTP
+protocol dialogue that was exchanged, and we call this a FTP protocol <i>trace</i>.
+
+<P><I>NcFTP Client</i> (the interactive <tt>ncftp</tt> program)
+automatically stores the trace in the file <TT>$HOME/.ncftp/trace</TT>.
+Simply run <tt>ncftp</tt>, recreate the problem, quit the program, and
+inspect the <TT>$HOME/.ncftp/trace</TT> file.
+
+<p>
+The other programs
+(<tt>ncftpget</tt>,
+<tt>ncftpput</tt>,
+etc.) have a special command-line option (<tt>-d</tt>) which saves
+the trace to a log file.  For example, if your original command was:
+<p>
+<ul>
+	<tt>ncftpget ftp.freebsd.org . /pub/FreeBSD/README.TXT</tt>
+</ul>
+Then here is the same thing, with the trace information saved to
+<tt>/tmp/ncftpget.log</tt>:
+<p>
+<ul>
+	<tt>ncftpget -d /tmp/ncftpget.log ftp.freebsd.org . /pub/FreeBSD/README.TXT</tt>
+</ul>
+
+<P>A sample <TT>$HOME/.ncftp/trace</TT> file follows.
+When
+<a href="../../contact/" target=_parent>sending us your bug report</a>,
+please include a trace with your e-mail.
+This will help us diagnose the problem, and recreate the problem as closely
+as possible.
+
+<p>
+<ul>
+<pre>SESSION STARTED at:  Wed Aug 27 14:18:41 2003
+   Program Version:  NcFTP 3.1.6/102 Aug 25 2003, 08:04 PM
+   Library Version:  LibNcFTP 3.1.6 (August 24, 2003)
+        Process ID:  1174
+          Platform:  linux-x86
+          Hostname:  pc.example.com  (rc=3)
+          Terminal:  vt100
+14:18:41  Fw: firewall.example.com  Type: 0  User: joseph  Pass: ********  Port: 21
+14:18:41  FwExceptions: .example.com,localhost,localdomain
+14:18:51  > o ftp.example.com
+
+14:18:51  Resolving ftp.example.com...
+14:18:51  Connecting to 172.16.75.25...
+14:18:51  LibNcFTP 3.1.6 (August 24, 2003) compiled for linux-x86
+14:18:51  Uname: Linux|pc|2.4.20|#2 SMP Mon Feb 17 15:36:45 CST 2003|i686
+14:18:51  Glibc: 2.2.4 (stable)
+14:18:51  Remote server is running wu-ftpd.
+14:18:51  Logging in...
+14:18:51  220: ftp.example.com FTP server (Version wu-2.6.1-18) ready.
+14:18:51  Connected to 172.16.75.25.
+14:18:51  Cmd: USER anonymous
+14:18:51  331: Guest login ok, send your complete e-mail address as password.
+14:18:51  Cmd: PASS joseph@example.com
+14:18:51  Logging in...
+14:18:51  230: Guest login ok, access restrictions apply.
+14:18:51  Cmd: PWD
+14:18:51  257: "/" is current directory.
+14:18:51  Logged in to 172.16.75.25 as anonymous.
+14:19:31  > get secretfile.txt
+
+14:19:31  Cmd: SIZE secretfile.txt
+14:19:31  550: secretfile.txt: No such file or directory.
+14:19:31  Cmd: PASV
+14:19:31  227: Entering Passive Mode (172,16,75,25,49,39)
+14:19:31  Cmd: RETR secretfile.txt
+14:19:31  550: secretfile.txt: No such file or directory.
+14:19:44  > quit
+
+14:19:46  Cmd: QUIT
+14:19:46  221: You have transferred 0 bytes in 0 files.
+14:19:46       Total traffic for this session was 1011 bytes in 0 transfers.
+14:19:46       Thank you for using the FTP service on ftp.example.com.
+SESSION ENDED at:    Wed Aug 27 14:19:46 2003</pre>
+</ul>
+</BODY>
+</HTML>

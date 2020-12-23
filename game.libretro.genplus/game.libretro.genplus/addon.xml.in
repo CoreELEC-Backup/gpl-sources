@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.genplus"
+		name="Sega - MS/GG/MD/CD (Genesis Plus GX)"
+		version="1.7.4.12"
+		provider-name="Charles McDonald, Eke-Eke">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.genesis.6button" version="1.0.0"/>
+		<import addon="game.controller.genesis.mouse" version="1.0.0"/>
+		<import addon="resource.games.libretro.restricted" version="1.0.0" optional="true"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>Genesis|Game Gear|SEGA Master System</platforms>
+		<extensions>mdx|md|smd|gen|bin|cue|iso|chd|sms|gg|sg</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Sega - MS/GG/MD/CD (Genesis Plus GX) v1.7.4</summary>
+		<description lang="en_GB">An enhanced port of Genesis Plus to the libretro API. Support for SG-1000, Mark-III, Master System, Game Gear, Mega Drive &amp; Mega CD hardware.
+
+Special thanks to: twinaphex for backporting enhancements from the GX version (Gamecube/Wii port).
+
+Supported files: .mdx, .md, .smd, .gen, .bin, .cue, .iso, .chd, .sms, .gg, .sg</description>
+		<license>Non-commercial</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.genplus</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

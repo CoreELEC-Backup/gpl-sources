@@ -1,0 +1,5 @@
+stsound source from http://leonard.oxg.free.fr/
+Sync to http://leonard.oxg.free.fr/download/StSound_1_43.zip
+
+Added const_cast<char*> on Ymload.cpp to prevent warnings
+Removed "#ifdef _MSC_VER" from YmTypes.h

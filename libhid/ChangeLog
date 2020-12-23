@@ -1,0 +1,171 @@
+libhid ChangeLog
+================
+
+2007-04-25 Charles Lepple (clepple+libhid@ghz.cc)
+  - Preparation for the 0.2.16 release:
+  - Added a number of files to the tarball [334], [336]
+  - Updated documentation [331], [335], [337]
+  - Fixed some autoconf macros [332], [333]
+
+2007-04-01 Charles Lepple (clepple+libhid@ghz.cc)
+  - Reworked a lot of the autoconf/automake code with regards to SWIG. This
+    allows 'make distcheck' to build the Python bindings, and it improves
+    detection of the paths for SWIG and Python.  SWIG is no longer necessary
+    unless you want the Python bindings. [328]
+  - A little bit of cleanup in swig/Makefile.am, and now 'make distcheck'
+    finishes without any errors. [329]
+
+2007-03-31 Charles Lepple (clepple+libhid@ghz.cc)
+  - Moved CFLAGS into AM_CFLAGS in each directory's Makefile.am so that 'make
+    distcheck' will work.
+  - Temporarily removed ccache/distcc because they don't recognize when they
+    are called via links. [320]
+  - Updated copyright on some Makefile.am files.
+  - Updated some properties on configure.ac
+
+2007-03-30 Albert Lee (trisk+alioth@acm.jhu.edu)
+  - Remove internal copy of usb_dev_handle so that libhid builds with Solaris'
+    libusb. [319]
+
+2007-02-28  Martin F. Krafft (libhid@pobox.madduck.net)
+  - Remove limitation for non-zero product IDs. Thanks Shahrouz Zolfaghari.
+  - Add additional docbook location.  [318]
+
+2007-02-27  Andreas Klöckner (lists@informa.tiker.net)
+  - Various SWIG patches, including a more Pythonic libhid wrapper, and
+    support for hid_strerror(). [304-314]
+  - Other build system fixes. [312], [315]
+
+2006-09-28  Charles Lepple (clepple+libhid@ghz.cc)
+  - Added hid_strerror() for decoding return codes. [301]
+
+2006-03-25  Charles Lepple (clepple+libhid@ghz.cc)
+  - Added SWIG bindings for get/set feature report functions [298]
+
+2006-03-13  Frédéric Leroy (fredo@starox.org)
+  - added 2 functions in order to use feature item :
+    hid_get_feature_report() and hid_set_feature_report() [296]
+
+2006-01-26  Charles Lepple (clepple+libhid@ghz.cc)
+  - More SWIG fixes; namely, hid_interrupt_read() and hid_get_input_report().
+    [288],[291]
+  - Uncommented hid_get_item_value() in hid.h [291]
+
+2006-01-22  Charles Lepple (clepple+libhid@ghz.cc)
+  - Merged in SWIG changes to make the Python bindings more useful.  This
+    commit also had a few extra changes to some support programs and scripts,
+    but those changes were not of great consequence. [284]
+
+2005-12-31  Charles Lepple (clepple+libhid@ghz.cc)
+  - Added check for return values in hid_open() and hid_force_open() to catch
+    the case where the interface is claimed, but the report descriptor cannot
+    be retrieved. [276]
+
+2005-09-02  Charles Lepple (clepple+libhid@ghz.cc)
+  - Added hid_interrupt_write() and hid_set_idle() functions. [256]
+  - Added usb_strerror() calls to most of the hid_exchange functions to aid in
+    debugging. [256]
+  - Fixed dependencies on SWIG bindings [255]
+  - Patched hidparser with fix applied to NUT (affects APC UPSes) [254]
+  - Misc changes to extract_report_descriptor [251],[253]
+
+2005-07-07  Charles Lepple (clepple+libhid@ghz.cc)
+  - Removed hardcoded reference to Python 2.3 and /usr/include. Pointed out by
+    Martin Dengler, and patch suggested by Martin Krafft. SVN changeset: [244]
+  - Fixed "sed lstat" error when compiling with distcc on OS X. [245]
+  - Mark last parameter in hid_os_force_claim() as unused. [246], [247]
+
+2005-04-26  Martin F. Krafft (libhid@pobox.madduck.net)
+  - Fixed a bug in hid_exchange.c, which would prevent input record reading.
+    Thanks to Benson Wang <chungyehwang@gmail.com> for pointing this out.
+  - Added a new docbook.xsl path thanks to Martin Dengler
+    <phidgets@xades.com>.
+
+2005-04-19  Martin F. Krafft (libhid@pobox.madduck.net)
+  - Fixed a bug in hid_preparation.c, which hardcoded the HID USB interface to
+    0. Thanks to Benson Wang <chungyehwang@gmail.com> for pointing this out.
+
+2005-04-11  Eoin Verling <everling@snet.wit.ie>
+  - Implemented hid_interrupt_read, a wrapper of usb_interrupt_read.
+
+2005-02-25  Martin F. Krafft (libhid@pobox.madduck.net)
+  - Added $PATH-style docbook stylesheet autodetection, inspired by Kevin
+    Godby. Thanks, Kevin!
+
+2005-02-20  Martin F. Krafft (libhid@pobox.madduck.net)
+  - Removed dependency on libswigpy, which is deprecated.
+  - integrated more patches by Andreas Jochens <aj@andaco.de> to fix
+    compilation issues with gcc 4. Thanks, Andreas!
+
+2004-11-10  Martin F. Krafft (libhid@pobox.madduck.net)
+
+  - integrated patch by Andreas Jochens <aj@andaco.de> to fix compilation
+    issues on 64bit machines (amd64 specifically). Thanks, Andreas!
+
+2004-11-09  Martin F. Krafft (libhid@pobox.madduck.net)
+
+  - fixed autotools setup to honour CFLAGS on the ./configure and ./autogen.sh
+    line appropriately.
+  - added *.s and *.i to clean target
+  - now outputs variables used for build to stdout
+  - added Arnaud Quette as Debian co-maintainer
+  - added explanatory comments to test code on how to match, open, read, and
+    write.
+  - commented custom matcher, but left it in.
+  - made all of the code (well, except) swig warning-free
+  - disabled -pedantic (per default), but added -Werror (per default)
+    (use --enable-pedantic and --disable-werror to change)
+  - added special handling for -Werror to swig code, which can't have it set
+  - added GCC handling for unused parameters
+  - updated TODO list
+  - added prelimiary python test code (does not read/write yet).
+  - added src/libhid_detach_device.c, a simple programme (installed to
+    $prefix/bin) which can detach devices to make lsusb -vvv work.
+
+2004-09-15  Martin F. Krafft (libhid@pobox.madduck.net)
+
+  - Fixed several non-POSIX uses of regular expressions in autotools files
+  - Replaced expr by $((...)) shell semantics
+  - Added override for autoconf Swig version check
+
+2004-09-10  Martin F. Krafft (libhid@pobox.madduck.net)
+
+  - Changed list addresses and contact information.
+  - Added a preliminary webpage for libhid: doc/www/index.html
+  - Debian: Added suggestion for pkg-config for libhid-dev.
+  - Debian: Removed suggestion for pkg-config from libhid0.
+
+2004-09-09  Martin F. Krafft (libhid@pobox.madduck.net)
+
+  - Added autoconf enable argument for swig.
+
+2004-09-07  Martin F. Krafft (libhid@pobox.madduck.net)
+
+  - Fixed Debian build dependencies.
+
+2004-08-30  Martin F. Krafft (libhid@pobox.madduck.net)
+
+  - Added autoconf check for gcc3, which is now required.
+  - Improved autoconf handling for swig.
+  - Updated Makefiles to use -fPIC.
+
+2004-06-19  Martin F. Krafft (libhid@pobox.madduck.net)
+
+  - Fixed id member of HIDInterface struct to be 16 instead of 32 bytes.
+  - Fixed Debian-related Makefile magic.
+
+2004-05-26  Martin F. Krafft (libhid@pobox.madduck.net)
+
+  - Renamed Python .so modules to proper _foo.so style.
+  - Added typehandling for FILE* to make set_debug_stream work.
+
+2004-05-25  Martin F. Krafft (libhid@pobox.madduck.net)
+
+  - Added this ChangeLog
+  - Added a swig-generated Python wrapper.
+  - Replaced libhid-config with a pkg-config file
+  - Reworked the autotools files
+
+Revision: $Id: ChangeLog 337 2007-04-26 00:23:02Z clepple-guest $
+
+# vim:et:ts=2:tw=78

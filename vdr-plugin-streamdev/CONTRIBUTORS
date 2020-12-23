@@ -1,0 +1,261 @@
+Special thanks go to the following persons (if you think your name is missing
+here, please send an email to vdrdev@schmirler.de):
+
+Klaus Schmidinger
+  for VDR as a whole
+  for permission to use VDR 1.6.0 cRemux code for PES remuxing
+
+Sascha Volkenandt, the original author,
+  for this great plugin
+
+The Metzler Brothers
+  as a lot of code has been taken from their libdvbmpeg package
+
+Angelus (DOm)
+  for providing Italian language texts
+  for reporting problems with the Elchi-Patch
+
+Michal
+  for sending a patch to select the HTTP streamtype via remote
+
+Rolf Ahrenberg
+  for providing Finnish language texts
+  for adding externremux.sh commandline parameter
+  for silencing compiler warnings
+  for adding PAT, PMT, PCR and EIT to HTTP TS streams
+  for fixing a memory leak in buffer overflow situations
+  for adding a return code check to vasprintf()
+  for suggesting a fix of the Makefile's default target
+  for a TS PAT repacker based on Petri Laine's VDR TS recording patch
+  for making it possible to pass parameters to externremux.sh
+  for removing pre VDR 1.4 legacy code
+  for adding gettext support
+  for fixing output format of some debug messages
+  for replacing private members by cThread::Running()/Active()
+  for improving externremux script termination
+  for fixing PAT repacker version field
+  for improving LIMIKUUTIO and PARENTALRATING patch detection
+  for suggesting to include the charset in HTTP replies
+  for requesting replacement of asprintf calls
+  for suggesting to change the URL path from EXTERN to EXT
+  for suggesting increased thread priorities for cStreamdevWriter/Streamer
+  for adding "Hide mainmenu entry" option
+  for polishing po file headers
+  for adding the special meaning "show current channel" to channel 0
+
+Rantanen Teemu
+  for providing vdr-incompletesections.diff
+
+Thomas Keil
+  for providing vdr-localchannelprovide.diff
+  for maintaining the plugin for a while
+
+Artur Skawina
+  for fixing an fd leak 
+
+Norad
+  for reporting a problem terminated externremux.sh children
+
+Udo Richter
+  for fixing streamdev-server shutdown
+  for speeding up cPluginStreamdevServer::Active()
+  for adapting to VDR 1.5.0 API
+  for adapting to VDR 1.7.1
+  for proper tsplay-0.2 patch detection
+
+greenman
+  for reporting that the log could get flooded on connection failures.
+
+Petri Hintukainen
+  for making section filtering work
+  for fixing a segfault with VDR 1.5
+  for fixing high CPU load when data stream is disconnected
+  for adding PAT, PMT and PCR to HTTP TS streams
+  for fixing a segfault / deadlock when shutting down
+  for fixing compiler warnings
+  for adding M3U playlists
+
+ollo
+  for suggesting support for WMM capable WLAN accesspoints
+ 
+vdr-freak
+  for reporting connection aborts when externremux ringbuffer is full
+
+alexw
+  for reporting client reconnect problems after a server restart
+  for a workaround for tuning problems with 1.5.x clients
+
+Olli Lammi
+  for fixing a busy wait when client isn't accepting data fast enough
+  for suggesting signaling instead of sleeping when writing to buffers
+
+Joerg Pulz
+  for his FreeBSD compatibility patch
+
+tobi
+  for pointing to unused files in the libdvbmpeg directory
+ 
+Diego Pierotto
+  for providing Italian language texts
+ 
+micky979
+  for providing French language texts
+
+Tiroler
+  for reporting a problem when switching between encrypted channels
+
+Pixelpeter
+  for an initial fix to the "switching between ecncrypted channels" problem
+
+Anssi Hannula
+  for the vdr-1.6.0-intcamdevices patch
+  for fixing insecure format strings in LSTX handlers 
+
+wirbel
+  for pointing out that section filtering is optional for VDR devices
+  for reporting a problem with Makefile defines in VDR 1.7.4+
+
+Jori Hamalainen
+  for extensive testing while making stream compatible to Network Media Tank
+  for adding Network Media Tank browser support to HTML pages
+
+Oliver Wagner
+  for pointing out a problem with the encrypted channel switching fix
+  for suggesting use of SO_KEEPALIVE socket option to detect dead sockets
+  for making cStatus::ChannelChange re-tune only if CA IDs changed
+
+Joachim König-Baltes
+  for fixing Min/MaxPriority parsing
+
+Artem Makhutov
+  for suggesting and heavy testing IGMP based multicast streaming
+
+Alwin Esch
+  for adding XBMC support by extending VTP capabilities
+  for adding VDR 1.7.11 parental rating support for VTP LSTE command
+  for adding the DELT FORCE option to delete running timers
+
+BBlack
+  for reporting that updating recordings list on CmdPLAY is a bad idea
+
+Milan Hrala
+  for providing Slovak language texts
+
+Valdemaras Pipiras
+  for providing Lithuanian language texts
+
+sk8ter
+  for fixing failures when switching between two encrypted channels
+
+lhanisch
+  for fixing a memory leak in cStreamdevPatFilter::GetPid
+ 
+Eric Valette
+  for adding support for EnhancedAC3
+
+carel
+  for reporting "plugin doesn't honor APIVERSION" error in new Makefile
+  for helping to find a way to cleanly shutdown externremux with mencoder
+  for reporting that GetClippedNumProvidedSystems is no longer up-to-date
+
+wolfi.m
+  for reporting a typo in externremux quality parameter value
+
+Norman Thiel
+  for reporting a wrong URL path in m3u playlists
+
+vel_tins
+  for reporting that externremux x264 uses value of ABR for VBR
+  for various suggestions to improve externremux.sh
+
+Matthias Prill
+  for reporting a compiler error with older libstdc++ versions
+
+Timothy D. Lenz
+  for reporting missing support for invisible channel groups in HTTP menu
+
+Rainer Blickle
+  for reporting that channel switches may interrupt live TV on the server
+
+Gavin Hamill
+  for reporting that ES/PS/PES no longer works
+
+Michal Novotny
+  for reporting that switching away live TV fails when "always suspended"
+
+wtor
+  for reporting that a client may interrupt replaying on FF cards
+  for helping to debug channel switch issues on FF cards
+
+Javier Bradineras
+  for providing Spanish language texts
+
+Pekko Tiitto
+  for providing a git mirror of streamdev's lost CVS repository
+  for suggesting to use mencoder params -alang and -msglevel in externremux
+
+Lubo¨ Dole¸el
+  for suggesting higher buffer sizes to fix some ringbuffer overflows
+
+Ville Skyttä
+  for updating the outdated COPYING file and FSF address
+  for restricting VTP command RENR to liemikuutio patch < 1.32
+  for fixing memory and filedescriptor leaks in libdvbmpeg
+  for code cleanup and optimization
+  for correcting typos
+
+Methodus
+  for suggesting to use HTTP code 503 for unavailable channels
+
+Uwe
+  for reporting a compiler error in client/device.c with VDR < 1.7.22
+
+Chris Tallon
+  for his kind permission to use VOMP's recplayer for replaying recordings
+
+macmenot
+  for adapting Makefiles to VDR 1.7.36+
+
+thomasjfox
+  for fixing cSuspendCtl preventing idle shutdown
+
+hivdr
+  for adding the pos= parameter for replaying recordings from a certain position
+  for suggesting to add the HTTP "Server" header
+
+hummel99
+  for reporting and helping to debug channel switch issues with priority > 0
+  for reporting a race condition when switching the server's LiveTV device
+
+Henrik Niehaus
+  for fixing replay of large TS files on 32-bit systems
+
+Guy Martin
+  for adding SVDRP commands to list and disconnect clients
+
+Martin1234
+  for suggesting a service call, returning the number of clients
+  for implementing GetCurrentlyTunedTransponder() on client
+
+Toerless Eckert
+  for converting suspend.dat into proper PES format
+  for investigating and fixing problems caused by filter streaming
+  for fixing TimedWrite() so it doesn't fail after a slow but successful write
+  for suggesting to double the size of client's filter buffer
+
+Tomasz Maciej Nowak
+  for providing Polish language texts
+
+Christopher Reimer
+  for providing an initial compatibility patch for VDR 2.3.1
+
+Matthias Senzel
+  for refining the compatibility patch for VDR 2.3.1
+
+David Binderman
+  for fixing an lseek error check in libdvbmpeg
+
+Jasmin J
+  for fixing some warnings in libdvbmpeg
+  for adding .gitignore
+  for fixing compilation for VDR 2.3.7

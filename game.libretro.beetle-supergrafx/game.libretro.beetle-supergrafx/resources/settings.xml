@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="sgx_adpcmvolume" values="100|0|10|20|30|40|50|60|70|80|90|110|120|130|140|150|160|170|180|190|200" default="100"/>
+		<setting label="30002" type="select" id="sgx_aspect_ratio" values="auto|6:5|4:3" default="auto"/>
+		<setting label="30003" type="select" id="sgx_cdbios" values="System Card 3|Games Express|System Card 1|System Card 2" default="System Card 3"/>
+		<setting label="30004" type="select" id="sgx_cddavolume" values="100|0|10|20|30|40|50|60|70|80|90|110|120|130|140|150|160|170|180|190|200" default="100"/>
+		<setting label="30005" type="select" id="sgx_cdimagecache" values="disabled|enabled" default="disabled"/>
+		<setting label="30006" type="select" id="sgx_cdpsgvolume" values="100|0|10|20|30|40|50|60|70|80|90|110|120|130|140|150|160|170|180|190|200" default="100"/>
+		<setting label="30007" type="select" id="sgx_cdspeed" values="1|2|4|8" default="1"/>
+		<setting label="30008" type="select" id="sgx_detect_gexpress" values="enabled|disabled" default="enabled"/>
+		<setting label="30009" type="select" id="sgx_disable_softreset" values="disabled|enabled" default="disabled"/>
+		<setting label="30010" type="select" id="sgx_forcesgx" values="disabled|enabled" default="disabled"/>
+		<setting label="30011" type="select" id="sgx_hoverscan" values="352|300|302|304|306|308|310|312|314|316|318|320|322|324|326|328|330|332|334|336|338|340|342|344|346|348|350" default="352"/>
+		<setting label="30012" type="select" id="sgx_initial_scanline" values="3|0|1|2|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40" default="3"/>
+		<setting label="30013" type="select" id="sgx_last_scanline" values="242|208|209|210|211|212|213|214|215|216|217|218|219|220|221|222|223|224|225|226|227|228|229|230|231|232|233|234|235|236|237|238|239|240|241" default="242"/>
+		<setting label="30014" type="select" id="sgx_mouse_sensitivity" values="1.25|0.25|0.50|0.75|1.00|1.50|1.75|2.00|2.25|2.50|2.75|3.00|3.25|3.50|3.75|4.00|4.25|4.50|4.75|5.00" default="1.25"/>
+		<setting label="30015" type="select" id="sgx_multitap" values="enabled|disabled" default="enabled"/>
+		<setting label="30016" type="select" id="sgx_nospritelimit" values="disabled|enabled" default="disabled"/>
+		<setting label="30017" type="select" id="sgx_ocmultiplier" values="1|2|3|4|5|6|7|8|9|10|20|30|40|50" default="1"/>
+		<setting label="30018" type="select" id="sgx_palette" values="RGB|Composite" default="RGB"/>
+		<setting label="30019" type="select" id="sgx_turbo_delay" values="3|4|5|6|7|8|9|10|11|12|13|14|15|30|60" default="3"/>
+		<setting label="30020" type="select" id="sgx_turbo_toggle" values="disabled|switch|dedicated" default="disabled"/>
+		<setting label="30021" type="select" id="sgx_turbo_toggle_hotkey" values="disabled|enabled" default="disabled"/>
+		<setting label="30022" type="select" id="sgx_up_down_allowed" values="disabled|enabled" default="disabled"/>
+	</category>
+</settings>

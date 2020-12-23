@@ -1,0 +1,588 @@
+VDR Plugin 'streamdev' Revision History
+---------------------------------------
+ 
+- fixed compilation for VDR 2.3.7 (thanks to Jasmin J)
+- added .gitignore (thanks to Jasmin J)
+- fixed some warnings in libdvbmpeg (thanks to Jasmin J)
+- fixed lseek error check in libdvbmpeg (thanks to David Binderman)
+- server compatibility with VDR 2.3.1 (thanks to Christopher Reimer and
+  Matthias Senzel)
+- client compatibility with VDR 2.3.1
+- use cReceiver::SetPriority(...) in VDR 2.1.4+
+- doubled size of client's filter buffer (suggested by Toerless Eckert)
+- make sure TimedWrite(...) doesn't return failure after a slow but successful
+  write operation (thanks to Toerless Eckert)
+- fixed problems related to VTP filter streaming like ringbuffer overflows,
+  stuttering or aborting video stream (thanks to Toerless Eckert)
+- added Polish translation (thanks to Tomasz Maciej Nowak)
+- converted suspend.dat into proper PES format (thanks to Toerless Eckert)
+- implemented GetCurrentlyTunedTransponder() on client (thanks to Martin1234)
+- added service call returning the number of clients (suggested by Martin1234)
+- added SVDRP commands to list and disconnect clients (thanks to Guy Martin)
+- fixed recplayer issues with large TS files (>4GB)
+- Don't abort externremux when internal read buffer is empty
+- Implemented remuxing of recordings
+- Make ChannelChange retune only if CA IDs changed (thanks to Oliver Wagner)
+- Implemented VDR 2.1.4 cStatus::ChannelChange(...)
+- Call detach only if receiver is attached
+- Try changing to other device when receiver got detached
+- In TSPIDS mode, create and attach receiver with empty pid list to occupy dev
+- Restructured server classes
+- New option for server side live TV buffer to prevent buffer underruns
+
+2013-11-28: Version 0.6.1
+
+- Updated Slovak translation (thanks to Milan Hrala)
+- Updated Finnish translation (thanks to Rolf Ahrenberg)
+- Disabled PS remuxer which is said to produce anything but PS
+- The patches intcamdevices and ignore_missing_cam are no longer required
+  on VDR >= 1.7.30. The localchannelprovide patch became obsolete with VDR
+  1.7.21.
+- Added option to suspend live TV when the server starts
+- Set device occupied when streamdev switches away LiveTV on the server, to
+  reduce the risk that the VDR main loop immediately switches back, resulting
+  in a black screen on the client (reported by hummel99)
+- Fixed channel switch issues with priority > 0 (reported by hummel99)
+- Removed noisy debug messages
+- Fixed HTTP menu destruction
+- API change of VDR 2.1.2
+- Fixed priority handling, messed up when adding multi-device support
+- Added HTTP "Server" header (suggested by hivdr)
+- Ignore dummy file extensions (.ts, .vob, .vdr) when parsing HTTP URIs
+- Select start position for replaying a recording by parameter pos=. Supported
+  values are resume, mark.#, time.#, frame.# or a plain # representing a
+  percentage if < 100 or a byte position otherwise (thanks to hivdr)
+- Start cSuspendCtl hidden or it will prevent idle shutdown (thanks to
+  thomasjfox)
+- Fixed recordings menu inode numbers: ino_t is a long long on some systems
+- Updated Slovak translation (thanks to Milan Hrala)
+- Adapted Makefiles to VDR 1.7.36+ (thanks to macmenot). Old makefiles have
+  been renamed to Makefile-1.7.33.
+- API changes of VDR 1.7.38 (thanks to mal@vdr-developer)
+- Added simple recordings menu in HTTP server
+- Restructured menuHTTP classes
+- Added RSS format for HTTP menus
+- Recordings can now also be selected by struct stat "st_dev:st_ino.rec"
+- Implemented multi-device support for streamdev client (suggested by johns)
+- Basic support for HTTP streaming of recordings
+- Close writer when streamer is finished
+- Don't abort VTP connection if filter stream is broken
+- Restructured cStreamdevStreamer: Moved inbound buffer into actual subclass.
+- In cStreamdevStreamer dropped Activate(bool) and moved its code into Start().
+- Moved cStreamdevFilterStreamer to livefilter.[hc]
+- Return HTTP/1.1 compliant response headers plus some always useful headers
+- Return HTTP URL parameters ending with ".dlna.org" as response headers
+- Store HTTP URL parameters in a map
+- Support HTTP HEAD requests with external remuxer
+- Fixed always using priority 0 for HTTP HEAD requests
+- Start writer right after creating it
+- Corrected typos (thanks to Ville Skyttä)
+- Fixed compiler error in client/device.c with VDR < 1.7.22 (reported by
+  Uwe@vdrportal)
+- Updated Italian translation (thanks to Diego Pierotto)
+- Added DeviceName() and DeviceType() to client device. The server IP and the
+  number of the device used on the server are returned respectively.
+
+2012-05-29: Version 0.6.0
+
+- Reimplemented some client device methods
+- Proper fix for "client sends ABRT after TUNE". Obsoletes many hacks in client
+- Added CLOCK_MONOTONIC timestamp and thread id to Dprintf
+- Silenced warning (thanks to Rolf Ahrenberg)
+- Updated Finnish translation (thanks to Rolf Ahrenberg)
+- Replaced server-side suspend modes with priority based precedence handling
+- Client-side priority handling for VDR >= 1.7.25 and servers running VTP > 1.0
+- Introduced VTP protocol version numbering for easier compatibility handling
+  between different client and server versions. The server includes the protocol
+  version in its greeting string, the client reports its version with the new
+  command "VERS".
+- Dropped compatibility of streamdev-server with VDR < 1.7.25
+
+2012-05-12: Version 0.5.2
+
+- Use fileno() to retrieve the fd from a FILE structure (submitted by an
+  anonymous user)
+- New special meaning "show current channel" when channel 0 is requested.
+  Applies to HTTP streaming only (thanks to Rolf Ahrenberg)
+- Fixed ProvidesChannel() on client always returning true since the new timeout
+  option has been added.
+- Updated Finnish translation (thanks to Rolf Ahrenberg)
+- With VDR 1.7.25 priorities down to -99 will be used. Please update
+  "Minimum Priority" in streamdev-client setup.
+- Use the new streamdev-client setup option "Live TV Priority" to control
+  precedence among multiple clients. The VDR option "Primary Limit" which
+  has previouly been used for this purpose has been dropped in VDR 1.7.25.
+- Timout for network operations now configurable in streamdev-client setup
+- Added timeout to Connect()
+- Report the server-side HTTP status "503 Service unavailable" instead of
+  the client-side error "409 Conflict" when a channel is unavailable
+  (suggested by Methodus)
+- Update of po headers and Finnish translation (thanks to Rolf Ahrenberg)
+- support for non-cycle-free setups (e.g. where two VDRs mutually share
+  their DVB cards through streamdev-client/-server). Must be enabled in
+  streamdev-server setup. Obsoletes recursion patches.
+- API change of VDR 1.7.22
+- VDR 1.7.22 obsoletes cap_net_raw patch. Added cap_net_raw patch for VDR
+  1.7.5 - 1.7.21.
+- Update and UTF-8 conversion of Finnish po files (thanks to Rolf Ahrenberg)
+- Added "Hide mainmenu entry" option on server (thanks to Rolf Ahrenberg)
+- Added server menu with list of clients. Connections can be terminated
+  with the "red" key. The former main menu action of suspending live TV
+  moved to the "blue" key.
+- code cleanup and optimization (thanks to Ville Skyttä)
+- properly shutdown IGMP timeout handler thread when the plugin is stopped.
+  Fixes occasional segfaults on VDR exit.
+- fixed memory leak in libdvbmpeg read_pes (thanks to Ville Skyttä)
+- dropped several unused functions in libdvbmpeg
+- restricted VTP command RENR to liemikuutio patch < 1.32. Build fails with
+  newer versions of this patch (thanks to Ville Skyttä)
+- updated outdated COPYING file and FSF address (thanks to Ville Skyttä)
+- include SDT and TDT in TS streams
+- the icy-name HTTP header sent with radio streams makes VLC pick the wrong
+  demuxer. Send icy-name only for ES audio streams.
+- fixed regression of "live TV must be switched in VDR main thread" change:
+  deadlock in IGMP streaming server when switching live TV.
+- streamdev-client returns true in its AvoidRecording() method introduced
+  with VDR 1.7.19. Note however that the impact of NumProvidedSystems is
+  higher.
+- updated device selection to code of VDR 1.7.19
+- adaption to VDR 1.7.12 cReceiver API change
+- increased WRITERBUFSIZE. Has been reported to fix some ringbuffer
+  overflows (thanks to Lubo¨ Dole¸el)
+- check availability of channel if VTP command TUNE is called without
+  prior PROV call (e.g. client side EPG scan)
+- added support for VDR 1.7.19 SignalStrength/SignalQuality
+- analog video channels use the same transponder and pid for different
+  channels, so streamdev-client must always issue TUNE command
+- server must close the VTP connection also if filter stream is broken
+- fixed missing #ifdefs for new NumProvidedSystems setup option
+- new externremux.sh mencoder config options: audio pid by language code
+  (-alang) and verbosity (-msglevel) (thanks to Pekko Tiitto)
+- writer must not spend too much time waiting in select() without checking
+  if the thread has been cancelled
+- added Spanish translation (thanks to Javier Bradineras)
+- live TV must be switched in VDR main thread
+- dropped compatibility with VDR < 1.5.16
+- return value of streamdev-clients cDevice::NumProvidedSystems() now
+  configurable in plugin setup
+
+2011-02-11: Version 0.5.1
+
+- updated copy of GetClippedNumProvidedSystems to the version used since
+  VDR 1.7.15 (reported by carel@vdrportal)
+- fixed the code deciding if a device is in use for live TV or not. It did
+  not work as expected for FF cards (reported by wtor@vdrportal)
+- increased client side timeout for TUNE command
+- more dsyslog messages to help troubleshouting channel switch issues
+- improved the channel switch code trying to move live TV to different card
+- make sure that a client doesn't interrupt replaying on server's FF card
+  (reported by wtor@vdrportal)
+- switching away live TV failed even when "always suspended" (reported by
+  Michal Novotny)
+- fixed regression: no receiver created for ES/PS/PES (reported by Gavin
+  Hamill)
+- VTP no longer uses a static priority value for its server-side receivers.
+  The server stores channel and priority requested with the PROV command and
+  re-uses these values in a subsequent TUNE for the same channel. The new
+  PRIO command is used to update the receiver's priority if necessary.
+- added parameter HEIGHT to externremux.sh
+- fixed syslog messages reporting local instead of remote IP and port
+- fixed regression of the GetDevice(...) change. Filter streaming to clients
+  with a recent VDR version no longer worked.
+- log an error if externremux.sh is missing or not executable
+- since VDR 1.5.0 cDevice::GetDevice(...) is no longer a query only method.
+  It detaches all receivers of the device it returns. So it is no longer
+  suitable for testing the availability of a device. Added a copy of VDR's
+  cDevice::GetDevice(...) without the detach receivers part as a workaround
+  until a better solution is available
+- added dsyslog messages to help troubleshouting channel switch issues
+- VTP command SUSP didn't attach the player to the primary device
+- fixed incompatibilities with older make versions
+- replacing a connections receiver is now an atomic operation. Solves
+  stuttering audio/video due to lost TS packets when adding/removing PIDs
+- disabled attribute warn_unused_result in libdvbmpeg
+- slightly increased thread priorities of cStreamdevWriter/Streamer
+  (suggested by Rolf Ahrenberg)
+- fixed missing support for invisible channel groups (groups without name)
+  in HTTP menu (reported by Timothy D. Lenz)
+- don't quote actual program call in externremux.sh, so you can run the
+  program through e.g. nice or taskset just by extending the variable
+  which holds the program name
+- in externremux.sh each mencoder audio and video codec has a dedicated
+  variable for a default option string now. Still you can override each
+  default option with an URL parameter
+- externremux.sh mencoder now uses scale parameter with negative height
+  instead of -xy for scaling (suggested by vel_tins@vdrportal)
+- added FPS (frames per second) parameter to externremux.sh (suggested by
+  vel_tins@vdrportal)
+- don't use std::map.at(). It's not available in older libstdc++ version
+  (reported by Matthias Prill)
+- fixed extremux x264 using value of ABR for VBR (thanks to vel_tins@vdrportal)
+
+2010-07-20: Version 0.5.0b
+
+- fixed wrong URL path in m3u playlists (reported by Norman Thiel)
+
+2010-07-20: Version 0.5.0a
+
+- set externremux.sh executable in distribution archive
+- externremux quality value should be wlan54, not wlan45 (reported by
+  wolfi.m@vdrportal)
+
+2010-07-19: Version 0.5.0
+
+- using SIGINT in externremux to kill mencoder works better than SIGTERM;
+  especially x264 still needs a SIGKILL sometimes
+- added --remove-destination to cp commands installing plugins
+- fixed "plugin doesn't honor APIVERSION" (reported by carel@vdrportal)
+- updated Italian translation (thanks to Diego Pierotto)
+- config option "client may suspend" hidden if not applicable
+- updated and enhanced README
+- separated language resources of client and server
+- restructured build process
+- added support for HTTP method HEAD
+- rewrite of externremux.sh, including support for various URL parameters,
+  logging and improved shutdown
+- start externremux script in a separate process group
+- changed HTTP URL path for externremux from EXTERN to EXT (suggested by
+  Rolf Ahrenberg)
+- HTTP headers now have to be emitted by externremux script
+- pass channel related information and URL parameters to externremux script
+  through environment
+- implement CGI like interface for externremux script
+- dropped "Synchronize EPG" feature. Please use epgsync-plugin instead
+  (available from http://vdr.schmirler.de)
+- proper tsplay-0.2 patch detection. tsplay-0.1 is no longer recognized
+  (thanks to Udo Richter)
+- added compatibility with VDR 1.6 tsplay-0.1 patch
+- added support for EnhancedAC3 (thanks to Eric Valette)
+- fixed a memory leak in cStreamdevPatFilter::GetPid (thanks to lhanisch)
+- length -1 is the correct value for streams in M3U playlists
+- switching between two encrypted channels on the same transponder didn't
+  always work (thanks to sk8ter@vdrportal)
+- added DELT FORCE option to delete running timers (thanks to Alwin Esch)
+- added VDR 1.7.11 parental rating support for VTP LSTE command (thanks to
+  Alwin Esch)
+- added Lithuanian translation (thanks to Valdemaras Pipiras)
+- fixed missing virtual destructor for cTSRemux
+- added defines for large file support to Makefile as required by VDR 1.7.4+
+  (reported by wirbel@vdrportal)
+- added Slovak translation (thanks to Milan Hrala)
+- fixed regression from fix for switching between encrypted channels. It was
+  no longer possible to receive multiple (FTA) streams from the same
+  transponder
+- silenced warnings concerning asprintf (requested by Rolf Ahrenberg)
+- don't update recordings list on CmdPLAY (reported by BBlack)
+- cleaned up common.h / common.c
+- dropped cStreamdevMenuSetupPage
+- report charset in HTTP replies (suggested by Rolf Ahrenberg)
+- use SO_KEEPALIVE option on all sockets do detect dead sockets (thanks to
+  owagner)
+- enable PatFilter for externremux, so VLC can be used as remuxer or client
+- fixed insecure format strings in LSTX handlers (thanks to Anssi Hannula)
+- updated Finish translation (thanks to Rolf Ahrenberg)
+- removed redefinitions in includes - caused problems in older compilers
+- fixed ts2ps.h defines
+- fixed missing virtual for cTS2PESRemux destructor
+- silenced format mismatch warning on 64bit OS
+- added XBMC support by extending VTP capabilities (thanks to Alwin Esch)
+- now there's a common baseclass for all remuxers, make use of it
+- added cDevice::NumProvidedSystems() which was introduced in VDR 1.7.0
+- added namespace to remuxers
+- increased WRITERBUFSIZE - buffer was too small for high bandwidth content
+- removed cStreamdevStreamer::m_Running
+- eliminated potential busy waits in remuxers
+- updated cTSRemux static helpers to code of their VDR 1.6.0 counterparts
+- re-enabled PES vor VDR 1.7.3+. Streamdev now uses a copy of VDR 1.6.0's
+  cRemux for TS to PES remuxing.
+- make sure that only complete TS packets are written to ringbuffers
+- use signaling instead of sleeps when writing to ringbuffers
+- optimized cStreamdevPatFilter PAT packet initialization
+- fixed cStreamdevPatFilter not processing PATs with length > TS_SIZE - 5
+- use a small ringbuffer for cStreamdevPatFilter instead of writing to
+  cStreamdevStreamers SendBuffer as two threads mustn't write to the same
+  ringbuffer
+- added missing call to StopSectionHandler which could cause crashes when
+  shutting down VDR
+- added IGMP based multicast streaming
+- ignore trailing blank lines in HTTP requests
+- fixed parsing Min/MaxPriority from config (thanks to Joachim König-Baltes)
+- updated Finnish translation (thanks to Rolf Ahrenberg)
+- added Min/MaxPriority parameters. Can be used to keep client VDR from
+  using streamdev e.g. when recording
+- disabled PES for VDR 1.7.3+
+- added Network Media Tank browser support to HTML pages (thanks to Jori
+  Hamalainen)
+- minor fixes of PAT repacker
+- repack and send every PAT packet we receive
+- fixed null pointer in server.c when cConnection::Accept() failes
+- consider Pids from channels.conf when HTTP TS streaming. Section filtering
+  is an optional feature for VDR devices, so we must not rely on the PMT
+  alone (pointed out by wirbel@vdrportal)
+- improved externremux script termination (thanks to Rolf Ahrenberg)
+- use cThread::Running()/Active() instead of private members (thanks to
+  Rolf Ahrenberg)
+- fixed output format of some debug messages (thanks to Rolf Ahrenberg)
+- added HTTP authentication
+- compatibility for VDR 1.7.1 (thanks to Udo Richter)
+- added vdr-1.6.0-intcamdevices.patch (thanks to Anssi Hannula)
+- fixed problem when switching from one encrypted channel to an other
+  (reported by Tiroler@vdrportal, initial bugfix by pixelpeter@vdrportal,
+  another fix by owagner@vdrportal)
+- added preprocessor directive for ancient gcc
+- added Russian translation (thanks to Oleg Roitburd)
+- fixed assignment of externremux.sh's default location (reported by plautze)
+- added French translation (thanks to micky979)
+- added Italian translation (thanks to Diego Pierotto)
+- added gettext support (thanks to Rolf Ahrenberg)
+- added vdr-1.6.0-ignore_missing_cam patch
+- dropped obsolete respect_ca patch
+- removed legacy code for < VDR 1.5.9 (thanks to Rolf Ahrenberg)
+
+2008-04-07: Branched v0_4
+
+- changed location of streamdevhosts.conf to VDRCONFDIR/plugins/streamdev
+- changed externremux.sh's default location to VDRCONFDIR/plugins/streamdev
+- added sample externremux.sh from http://www.vdr-wiki.de/
+- stop providing channels after client has been disabled at runtime
+- added logging of the client device's card index
+- changed default suspend mode to "Always suspended"
+- added "Hide Mainmenu Entry" setup option on client
+- resurrected clients "Suspend Server" menu item as its mainmenu entry
+- dropped unused code for remote timers/recordings on client side
+- dropped unused files client/{assembler,menu,remote}.[hc]
+- dropped unused files in libdvbmpeg (reported by tobi)
+- dropped patches for pre VDR 1.4
+- removed legacy code for pre VDR 1.4 (thanks to Rolf Ahrenberg)
+
+2008-03-31: Version 0.3.4
+
+- added possibility to pass parameter to externremux.sh (thanks to Rolf
+  Ahrenberg)
+- use HTTP host header in absolute URLs for DNAT / reverse proxy support
+- rewrite of the HTTP menu part
+- added M3U playlists (thanks to Petri Hinutkainen)
+- enable section filtering only with compatible clients (thanks to Petri
+  Hintukainen)
+- fixed compiler warning
+- added EIT to HTTP TS streams (thanks to Rolf Ahrenberg)
+- compatibility for FreeBSD (thanks to Joerg Pulz)
+- added TS PAT repacker (thanks to Rolf Ahrenberg)
+- fixed Makefile's default target (suggested by Rolf Ahrenberg)
+- workaround for tuning problems on 1.5.x clients (thanks to alexw)
+- added VTP support for PS, PES and EXTERN (PS requested by mpanczyk)
+- fixed gcc-4.3.0 warnings (thanks to Petri Hintukainen)
+- fixed busy wait when client isn't accepting data fast enough (thanks to
+  Olli Lammi)
+- fixed client reconnect after server restart (reported by alexw)
+- added lock in ~cStreamdevDevice (thanks to Petri Hintukainen)
+- externremux: check for ringbuffer full condition (reported by
+  vdr-freak@vdrportal)
+- diffserv support for traffic shaping and WMM capable WLAN accesspoint
+  (suggested by ollo@vdrportal)
+- check vasprintf() return code (thanks to Rolf Ahrenberg)
+- fixed memory leak in buffer overflow situations (thanks to Rolf Ahrenberg)
+- added PAT, PMT and PCR to HTTP TS streams (thanks to Petri Hintukainen and
+  Rolf Ahrenberg)
+- detect data stream disconnections. Fixes high CPU load (thanks to Petri
+  Hintukainen)
+- fixed segfault with VDR 1.5 (thanks to Petri Hintukainen)
+- made section filtering work (thanks to Petri Hintukainen)
+- added compiler flag -Wall and fixed corresponding warnings (thanks to
+  Rolf Ahrenberg)
+- close pipe when externremux is gone. Fixes high CPU load problem
+- close connection when client is gone. Fixes high CPU load problem
+- silenced compiler warnings (thanks to Rolf Ahrenberg)
+- added commandline parameter for externremux script (thanks to Rolf
+  Ahrenberg)
+- detach receivers before switching transponders
+- API changes for VDR 1.5.0 (thanks to Udo Richter)
+- log connections failures only every 10s (reported by greenman@vdrportal)
+- replaced uint64 by uint64_t
+- added Recursion patch for vdr 1.4
+- added LocalChannelProvide for vdr 1.4.x
+- added respect_ca patch
+- speedup cPluginStreamdevServer::Active() by caching translation (thanks
+  to Udo Richter)
+- periodically check if streamdev-server needs to shutdown (thanks to Udo
+  Richter)
+- collect terminated externremux.sh processes (reported by Norad@vdrportal)
+- avoid fd leaks when we fail to spawn externremux.sh
+- detach all receivers before tuning to a different transponder
+- Re-enabled logging for the Detach()/Attach() issue
+- Added -fPIC compiler flag required on AMD64 architectures
+
+2006-08-17: End of maintenance by Thomas Keil
+
+- updated Finish translation (thanks to Rolf Ahrenberg)
+- fixed fd leak (thanks to Artur Skawina)
+- re-enabled Detach/Attach to temporarily release the device used by
+  streamdev while checking if we can switch transponders (thanks to
+  PanamaJack@vdrportal)
+- adopted to VDR 1.4.x
+
+2006-01-26: End of maintenance by Sascha Volkenandt
+
+- fixed http error response
+- added class forward declaration for gcc >= 4.0
+- adopted to VDR >= 1.3.36
+- added LocalChannelProvide for vdr 1.3.24
+- fixed missing include
+- added TS compatibility mode
+- deleting whole block instead of fractions now
+- fixed wrong remux usage
+- added finish translations (thanks to Rolf Ahrenberg)
+- protected cStreamer::Stop() from being called concurrently
+- some compilers complained about missing declarations, added <ctype.h>
+- removed assembler and thus saving one ringbuffer
+- fixed destruction order on channel switch (fixes one crash that happens
+  occasionally when switching)
+- removed client menu code temporarily
+- streamer now gets stopped when connection terminates unexpectedly
+- fixed recursive delete in streamer
+- fixed pure virtual crash in server
+- audio track selection for http
+
+2004-??-??: Version 0.3.3
+
+- dropped support for non-ts streaming in vdr-to-vdr clients
+- implemented packet buffer that seems to improve distortions
+- greatly re-worked device selection on server and client
+  (vdr-to-vdr clients should behave exactly like clients with one card,
+  can't test conditional access, though)
+- now printing an error and exiting if streamdevhosts.conf is not existing
+- increased client stream priority to 1
+- implemented remote schedule to program remote timers directly from schedule
+- the servers are turned on by default now
+- new setup parameters "Bind to IP" for both servers for binding to a specific
+  interface
+- re-implemented section streaming (turned off by default, see setup menu)
+- implemented a possibility to prevent a shutdown when clients are connected
+  (patch VDR with patches/vdr-pluginactivity.diff if you want this feature)
+- implemented channel listing through channels.htm(l) URI
+
+????-??-??: Version 0.3.2
+
+... has myteriously disappeared :-)
+
+2004-02-16: Version 0.3.1 (unstable)
+
+- Added finnish language texts (thanks to Rolf Ahrenberg)
+- Increased all ringbuffer sizes to 3 MB
+- Autodetecting VDR 1.2.x, 1.2.x with AutoPID and 1.3.x on compilation
+- Server is only restarted if necessary after confirming setup
+- Implemented PID-based streaming (only needed PIDs are transferred instead of
+  all PIDs of the requested channel) (configurable)
+- Implemented an editor for remote timers
+- Implemented manual EPG synchronization from client
+- Implemented Server Suspend remotely from client (configurable)
+- Implemented an IP-Editor for the setup menu
+- Separated Client and Server into two PlugIns
+- Increased initial number of clients to five
+- Implemented host-based authorization (syntax is equal to svdrphosts.conf)
+- Removed two irritating messages that appeared sometimes while exiting VDR
+- Implemented "Choose, Always, Never" for Suspend Mode, so it can be configured
+  to behave like 0.2.0 (Always), 0.3.0 (Choose) or completely different (Never)
+- Added missing translation entries
+- Added PlugIn description to translation table
+- Fully upgraded to VDR 1.3.X regarding threading (but still works with 1.2.6)
+- Reworked manual (almost everything)
+
+2003-10-10: Version 0.3.0 (unstable)
+
+- Implemented "Suspend Live TV" in the VDR server (configurable)
+- Reimplemented choice of device for live streaming (better for switching on
+  client, and server doesn't loose live-tv)
+- Added missing translation entries
+- Increased client's streaming buffer size from 1 to 3 MB
+- Updated installation instructions (including a patch to VDR that is 
+  recommended currently)
+- Updated manual
+
+2003-10-04: Version 0.2.0 
+
+- Removed those silly warnings in the toolbox-headers
+- Implemented intelligent buffer overflow logging (doesn't flood syslog)
+- Implemented EPG synchronization in the VDR client (configurable)
+- Station name is transmitted in radio streaming now (Shoutcast-format).
+
+2003-09-24: Version 0.1.1beta1
+
+- Restructured remuxer code
+- Added an ES-remuxer for radio channels (currently only manually)
+
+2003-09-20: Version 0.1.0
+
+- Fixed thread-abortion timeout in server thread
+
+2003-08-31: Version 0.1.0beta4
+
+- Added italian language texts (thanks to Angelus (DOm))
+- Added a missing i18n translation (thanks to DOm)
+- Added an #ifdef so the setup menu is displayed correctly with ElchiAIO 
+	(thanks to DOm for reporting this one)
+- It's possible to select the HTTP streamtype remotely, specified in the
+  URL in addition to the old behaviour (thanks to Michal Novotny)
+- Fixed creation ob remuxer objects in the server
+- Fixed handling of timeout in cTBSelect
+
+2003-06-08: Version 0.1.0beta3
+
+- Fixed setup menu - now the cursor starts at the first visible entry
+- Added PS streaming for HTTP (should work with most players now)
+- Debugging symbols are only compiled with DEBUG=1 set
+
+2003-06-06: Version 0.1.0beta2
+
+- Added an #ifdef so this PlugIn will compile cleanly with the next 
+  AUTOPID-patches
+- Added categories to the menu
+- Fixed segfault when closing the menu with OK
+- Added an AnalogTV section to the README
+- Added some missing i18n entries
+- Corrected client reinitialization code (when changing client settings)
+- Added PS streaming for HTTP (should work with most players now)
+- Added -D_GNU_SOURCE to the Makefile (.......)
+
+2003-06-03: Version 0.1.0beta1
+
+- Replaced the toolbox with a current version
+- Rewrote the server core from scratch
+- Rewrote the client core from scratch
+- Reduced the size of blocks processed in a transceiver turn to 10 TS packets
+- Added TS transmission for HTTP (configurable via setup)
+- Most client settings can be done on-the-fly now
+- MIME type for radio channels now "audio/mpeg" instead of "video/mpeg"
+  (still doesn't work really)
+
+2003-05-08: Version 0.0.3beta1
+
+- Server stops correctly on VDR exit
+- Fixed a race condition when several threads access the client device
+- Made server code more modular
+- Structured the directories
+- Fixed a bug in informational log-message
+- Added Apid2, Dpid1 and Ppid in TS mode (silly me;) )
+
+2003-05-03: Version 0.0.2
+
+- Device is not deactivated anymore, since VDR does that itself
+- Server is correctly deactivated, so it can be faultlessly reactivated
+- Did some major code cleanup
+- Added new command to the PROTOCOL (to negotiate stream types)
+- Added the possibility to stream TS between two VDR's (which adds the 
+  possibility of having AC3, Teletext etc. on the client) - this is 
+  autonegotiated
+- Streamtype can be changed in the setup menu, if TS works too unreliable
+- Fixed a bug in multi-threaded device operation
+- Sharing an epg.data with a server will be possible even if there is no 
+  DVB-Device present
+- Added a basic HTTP daemon to the server code
+
+2003-03-17: Version 0.0.1a
+
+- Corrected some bugs in the README and on the homepage *g*
+
+2003-03-17: Version 0.0.1
+
+- Initial revision.

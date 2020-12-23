@@ -1,0 +1,93 @@
+This is a "plugin" for the Video Disk Recorder (VDR).
+Copyright (C) 2007-2016  Winfried Koehler
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+------------------------------------------------------------------------
+
+
+Written by:             Winfried Koehler <w_scan AT gmx MINUS topmail DOT de>
+Project's homepage:     wirbel.htpc-forum.de/wirbelscan/index2.html
+Latest version:         see Projects homepage
+
+See the file COPYING for further license information.
+
+Description:
+------------------------------------------------------------------------
+This plugin performs channel scans for digital tv cards.
+
+Requirements:
+------------------------------------------------------------------------
+ - VDR Version >= 1.7.x or
+ - developer versions of plugin: vdr >= 2.3.1
+
+Installation:
+------------------------------------------------------------------------
+Install this plugin: unpack it into VDRs Plugin source folder
+and compile it as usual.
+Replace $VERSION with the actual plugins version like '0.0.1' and
+$SOURCEDIR with your path to the sources, usually /usr/src or similar:
+
+
+cp vdr-wirbelscan-$VERSION.tgz $SOURCEDIR/vdr-1.7.16/PLUGINS
+cd $SOURCEDIR/VDR/PLUGINS
+tar xfz vdr-wirbelscan-$VERSION.tgz
+ln -s wirbelscan-$VERSION wirbelscan
+cd $SOURCEDIR/VDR
+make plugins
+
+
+How To Use
+------------------------------------------------------------------------
+#0 open plugins setup menu page
+#1 adjust your country 
+#2 define the search in the field 'Source Type'
+#3 MAKE SHURE, THAT YOU DONT HAVE TIMERS ON SCHEDULE. Otherwise you may loose them.
+#4 Start the scan with the GREEN key and wait. This will take some time, up to 30 min.
+
+
+Specific Problems:
+------------------------------------------------------------------------
+- On some dvb cards, the I/Q inversion needs to be explicitly switched on or off.
+  If you find cards *only* working with INVERSION = ON, please report those as *bug* to
+  the linux-media dvb driver mailing list.
+
+- Hint:
+  For experts: setting symbolrate and modulation to well known values will speed up the scan.
+  Nevertheless - with wrong settings some or even all transponders will be lost. 
+
+
+Some words of warning and information:
+------------------------------------------------------------------------
+* Reporting Bugs:
+  - please send me a full log from the plugin with Verbosity = 5 setting
+    from beginning of scan up to the point where your problem occurs
+  - please include hardware details of your system and VDR's setup.conf
+
+* Version Numbering:
+  - versions with 'X.Y.Z-pre-XX' are to be understood as Version before the version X.Y.Z;
+    so 0.0.5-pre1 is *older* as 0.0.5
+  - there is no stable version up to now.
+
+* do NOT scan if you have some recording on your schedule.
+  This plugin will steel you the dvb card, regardless wether your recording
+  will break.
+
+* the plugin will add new channels - as vdr everytime does - at the end
+  of the channels list, so if you have a timer on schedule it may cause
+  problems.
+
+
+-wirbel

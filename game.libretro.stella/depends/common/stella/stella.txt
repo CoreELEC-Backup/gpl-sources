@@ -1,0 +1,1 @@
+stella https://github.com/libretro/stella-libretro/archive/b4b4cf3266ce6dc8ed891978761209272000009c.zip

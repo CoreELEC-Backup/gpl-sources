@@ -1,0 +1,54 @@
+=encoding utf8
+=head1 NAME
+
+F<noannounce.conf> - Liste von Sendungen, die nicht mehr per OSD angekündigt
+werden sollen.
+
+=head1 BESCHREIBUNG
+
+Diese Datei enthält eine Liste von Sendungen die markiert wurden, sodass diese
+nicht mehr durch den Suchtimer-Hintergrund-Thread per OSD angekündigt werden.
+
+Wenn während der Ankündigung einer Sendung eine der Tasten '0', ... '9' oder
+'Ok' gedrückt wird, wird nachgefragt, ob zukünftige Ankündigungen vollständig
+(bei den Tasten '0'  oder 'Ok') oder nur für die nächsten  x  Tage (bei den
+Tasten '1' bis '9') unterdrückt werden sollen. Bestätigt man diese Abfrage
+durch ein erneutes 'Ok', wird die Einstellung entsprechend übernommen.
+
+=head1 FORMAT
+
+Pro Zeile eine Sendung, die Felder werden durch ':' getrennt.
+
+Folgende Felder existieren:
+
+  1 - Titel
+  2 - Episode
+  3 - Kanal-Kennung
+  4 - Startzeit
+  5 - Zeitpunkt für nächste Ankündigung
+
+=head1 SIEHE AUCH
+
+C<epgsearch(1)>
+
+=head1 AUTOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 FEHLER MELDEN
+
+Fehlerberichte bitte im Bugtracker.
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailinglist:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT und LIZENZ
+
+Copyright © 2005 - 2007 Christian Wieninger
+
+Dieses Dokument wird unter den Bedingungen der Gnu Public License
+(GPL) veröffentlicht. Alle Angaben sind nach bestem Wissen, aber
+natürlich ohne Gewähr (no warranty in any kind).

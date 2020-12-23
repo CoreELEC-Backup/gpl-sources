@@ -1,0 +1,47 @@
+.\"     Title: libhid\-detach\-device
+.\"    Author: Martin F. Krafft
+.\" Generator: DocBook XSL Stylesheets v1.71.1 <http://docbook.sf.net/>
+.\"      Date: Nov 09, 2004
+.\"    Manual: 
+.\"    Source: 
+.\"
+.TH "LIBHID\-DETACH\-DEVICE" "1" "Nov 09, 2004" "" ""
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+libhid\-detach\-device \- simple tool to take away control over a HID from the kernel HID driver's
+.SH "SYNOPSIS"
+.HP 21
+\fBlibhid\-detach\-device\fR\fI dead:beef\fR
+.SH "DESCRIPTION"
+.PP
+
+\fBlibhid\-detach\-device\fR
+removes the device identified by the ID string (as output by
+\fBlsusb\fR) from under the kernel HID driver's control. Subsequently, programmes using
+libhid(TM)
+can access the HID's descriptors from user\-space (and
+\fBlsusb \-vvv\fR
+can give information about the HID usages).
+.SH "AUTHOR"
+.PP
+This manual page was written by martin f. krafft
+<libhid@pobox.madduck.net>
+.PP
+Permission is granted to copy, distribute and/or modify this document under the terms of the Artistic License:
+\fIhttp://www.opensource.org/licenses/artistic\-license.php\fR\&[1]. On Debian systems, the complete text of the Artistic License can be found in
+\fI/usr/share/common\-licenses/Artistic\fR.
+.SH "AUTHOR"
+.PP
+\fBMartin F. Krafft\fR
+.sp -1n
+.IP "" 4
+Author.
+.SH "COPYRIGHT"
+Copyright \(co 2004 martin f. krafft
+.br
+.SH "REFERENCES"
+.IP " 1." 4
+http://www.opensource.org/licenses/artistic\-license.php

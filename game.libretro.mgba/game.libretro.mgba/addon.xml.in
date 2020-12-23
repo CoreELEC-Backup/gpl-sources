@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.mgba"
+		name="Nintendo - Game Boy Advance (mGBA)"
+		version="0.8.3.16"
+		provider-name="endrift">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.gba" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>GBA</platforms>
+		<extensions>gba|gb|gbc</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Nintendo - Game Boy Advance (mGBA) 0.8.3</summary>
+		<description lang="en_GB">mGBA aims to be faster and more accurate than many existing Game Boy Advance emulators, as well as adding features that other emulators lack.
+
+Supported files: .gba, .gb, .gbc</description>
+		<license>MPLv2.0</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.mgba</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

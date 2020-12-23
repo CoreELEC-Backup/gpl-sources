@@ -1,0 +1,134 @@
+# VDR plugin language source file.
+# Copyright (C) 2007-2018 Rolf Ahrenberg & Antti Seppala
+# This file is distributed under the same license as the iptv package.
+# Diego Pierotto <vdr-italian@tiscali.it>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: vdr-iptv 2.4.0\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2018-04-15 04:15+0300\n"
+"PO-Revision-Date: 2018-04-15 04:15+0300\n"
+"Last-Translator: Diego Pierotto <vdr-italian@tiscali.it>\n"
+"Language-Team: Italian <vdr@linuxtv.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "PAT (0x00)"
+msgstr "PAT (0x00)"
+
+msgid "NIT (0x40)"
+msgstr "NIT (0x40)"
+
+msgid "SDT (0x42)"
+msgstr "SDT (0x42)"
+
+msgid "EIT (0x4E/0x4F/0x5X/0x6X)"
+msgstr "EIT (0x4E/0x4F/0x5X/0x6X)"
+
+msgid "TDT (0x70)"
+msgstr "TDT (0x70)"
+
+msgid "Experience the IPTV"
+msgstr "Scopri la IPTV"
+
+msgid "IPTV Information"
+msgstr "Informazione IPTV"
+
+msgid "General"
+msgstr "Generale"
+
+msgid "Pids"
+msgstr "Pids"
+
+msgid "Filters"
+msgstr "Filtri"
+
+msgid "Bits/bytes"
+msgstr "Bits/bytes"
+
+msgid "IPTV information not available!"
+msgstr "Informazione IPTV non disponibile!"
+
+msgid "Protocol base port"
+msgstr "Porta base protocollo"
+
+msgid ""
+"Define a base port used by CURL/EXT protocol.\n"
+"\n"
+"The port range is defined by the number of IPTV devices. This setting sets the port which is listened for connections from external applications when using the CURL/EXT protocol."
+msgstr ""
+"Definisci una porta base usata dal protocollo CURL/EXT.\n"
+"\n"
+"Il range della porta è definito dal numero di periferiche IPTV. Questo parametro imposta la porta che è in ascolto per connessioni da applicazioni esterne quando si usa il protocollo CURL/EXT."
+
+msgid "Use section filtering"
+msgstr "Utilizza sezione filtri"
+
+msgid ""
+"Define whether the section filtering shall be used.\n"
+"\n"
+"Section filtering means that IPTV plugin tries to parse and provide VDR with secondary data about the currently active stream. VDR can then use this data for providing various functionalities such as automatic pid change detection and EPG etc.\n"
+"Enabling this feature does not affect streams that do not contain section data."
+msgstr ""
+"Definisci se la sezione filtri sarà utilizzata.\n"
+"\n"
+"La sezioni filtri significa che il plugin IPTV prova a elaborare e fornire a VDR dati secondari sul flusso attualmente attivo. VDR può successivamente usare questi dati per fornire varie funzionalità come il rilevamento del cambio Pid automatico, EPG, etc.\n"
+"Abilitare questa funzione non influisce sui flussi che non contengono dati di sezione."
+
+msgid "Disabled filters"
+msgstr "Disabilita filtri"
+
+msgid ""
+"Define number of section filters to be disabled.\n"
+"\n"
+"Certain section filters might cause some unwanted behaviour to VDR such as time being falsely synchronized. By black-listing the filters here useful section data can be left intact for VDR to process."
+msgstr ""
+"Definisci il numero di sezione filtri che sarà disabilitato.\n"
+"\n"
+"Certe sezioni filtri potrebbero generare alcuni comportamenti indesiderati per VDR come la non sincronizzazione dell'ora. Inserendo qui i filtri nella lista nera i dati di sezione utili possono essere lasciati intatti per l'elaborazione da parte di VDR."
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Define an ill-behaving filter to be blacklisted."
+msgstr "Definisci un filtro corrotto che sarà messo nella lista nera."
+
+msgid "Help"
+msgstr "Aiuto"
+
+msgid "UDP"
+msgstr "UDP"
+
+msgid "CURL"
+msgstr "CURL"
+
+msgid "HTTP"
+msgstr "HTTP"
+
+msgid "FILE"
+msgstr "FILE"
+
+msgid "EXT"
+msgstr "EXT"
+
+msgid "Rid"
+msgstr "Rid"
+
+msgid "Scan section ids"
+msgstr "Scansione Section Ids"
+
+msgid "Scan pids"
+msgstr "Scansione Pids"
+
+msgid "Protocol"
+msgstr "Protocollo"
+
+msgid "Address"
+msgstr "Indirizzo"
+
+msgid "Parameter"
+msgstr "Parametro"

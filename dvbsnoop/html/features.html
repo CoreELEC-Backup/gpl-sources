@@ -1,0 +1,1252 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>Feature List: dvbsnoop - A DVB Stream Analyzer Tool</TITLE>
+	 <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>dvbsnoop - Feature List</H1> 
+	 <P>The following features are currently implemented in dvbsnoop:</P> 
+	 <TABLE BORDER="1" BORDERCOLORLIGHT="#c0c0c0" BORDERCOLORDARK="#c0c0c0"> 
+		<TR> 
+		  <TD></TD> 
+		  <TD ALIGN="CENTER"><B>Yes</B></TD> 
+		  <TD ALIGN="CENTER"><B>No</B></TD> 
+		  <TD><B>Remark</B></TD> 
+		  <TD><B>dvbsnoop-options</B></TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>ISO/DVB Basic Sections (PSI/SI/etc.)</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ISO/IEC 13818-1, ETSI EN 301 468</TD> 
+		  <TD>-s sec</TD> 
+		</TR> 
+		<TR> 
+		  <TD>BAT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Bouquet Allocation Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>CAT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Conditional Access Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DIT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Discontinuity Information Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>EIT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Event Information Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>EMM/ECM</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>DVB CA message section, hexdump only</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>NIT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Network Information Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>PAT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Program Association Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>PMT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Program Map Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>RST</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Running Status Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>SDT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Service Description Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>SIT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Selection Information Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>ST</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Stuffing Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD ALIGN="LEFT">TDT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Time Date Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>TOT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Time Offset Table</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>TSDT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Transport Stream Description Table, ISO/IEC 13818-1 / ITU H.222.0
+			 </TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>ISO_IEC_14496_section</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>ISO/IEC 13818-1 / ITU H.222.0, 2.11.3.8</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>MT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Metadata Table (H.222.0 AMD 1)</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>IPMP_Control_Information_section</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>ISO/IEC 13818-11</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD VALIGN="TOP">User defined tables</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD VALIGN="TOP">To decode user defined tables of a provider , known to
+			 dvbsnoop, use cmd option -privateprovider &lt;name&gt;</TD> 
+		  <TD>-privateprovider &lt;provider-name&gt;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>CRC check</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>if supported by hardware, firmware or driver (demux level)</TD> 
+		  <TD>-crc, -nocrc</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Section filter/-mask<BR> (section table id's)</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD><BR>if supported by hardware, firmware or driver (demux level)</TD>
+		  
+		  <TD>-f &lt;filter&gt;<BR> -m &lt;mask&gt;<BR>&lt;pid&gt;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>recursive PID snoop</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>PID spider mode, follows referenced PIDs (currently sections
+			 only)</TD> 
+		  <TD>-spiderpid</TD> 
+		</TR> 
+		<TR> 
+		  <TD VALIGN="TOP">input device</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>-demux &lt;device&gt;<BR>-if &lt;file&gt;<BR></TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>DSM-CC</B> (sections)</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ISO/IEC 13818-6, ETSI EN 301 192, ETSI TS 102 006</TD> 
+		  <TD>-s sec</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Basic</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>INT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>IP/Notification Table, EN 301 192</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>UNT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Update Notification Table, TS 102 006</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Datagram</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>e.g. TCP/IP packets, multicasts,...</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>MPE_FEC</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Multi-Protocol-Encapsulation, EN 301 192 v 1.4.1</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DDB</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>DownloadDataBlock</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DSI</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="LEFT">DownloadServerInitiate</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DII</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="LEFT">DownloadInfoIndication</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DownloadCancel</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="LEFT">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Descriptor List</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="LEFT">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>BIOPs</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD><I>... started</I><I>TODO</I></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>IOR</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD><I>TODO</I></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>MHP</B> (sections)</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>-s sec</TD> 
+		</TR> 
+		<TR> 
+		  <TD>AIT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Application Information Table, ETSI TS 102 812</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD VALIGN="TOP"><B>ATSC</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER" VALIGN="TOP">&nbsp;</TD> 
+		  <TD>Advanced Television Systems Committee</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Basic</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>(currently no plans --&gt; I cannot test these streams)</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>TV Anytime</B> (sections)</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ETSI TS 102 323</TD> 
+		  <TD>-s sec</TD> 
+		</TR> 
+		<TR> 
+		  <TD>CT</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>Container Table<BR><I>TODO</I></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>RCT</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>Related Content Table<BR><I>TODO</I></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>CIT</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>Content Identifier Table<BR><I>TODO</I></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>RNT</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Resolution provider Notification Table <BR></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Testdata</B> (sections)</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>-s sec</TD> 
+		</TR> 
+		<TR> 
+		  <TD>measurement signalling channel</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD><I>TODO, basic started</I></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Transport Stream (TS)</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>-s ts</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Basic</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ISO/IEC 13818-1 / ITU H.222.0 </TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>TS packet sync</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>optional software sync</TD> 
+		  <TD>-sync, -nosync</TD> 
+		</TR> 
+		<TR> 
+		  <TD>PES/SECTION start identify</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>tries to identify stream id or table id</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>decode TS content</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>collect TS packets and do PES/Section subdecoding</TD> 
+		  <TD>-tssubdecode</TD> 
+		</TR> 
+		<TR> 
+		  <TD>input device</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD> -demux &lt;device&gt;<BR> -dvr &lt;device&gt; <BR>-if
+			 &lt;file&gt;<BR></TD> 
+		</TR> 
+		<TR> 
+		  <TD>pid filter</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD></TD> 
+		  <TD>&lt;pid&gt;</TD> 
+		</TR>
+		<TR>
+		  <TD>full transport stream</TD>
+		  <TD ALIGN="CENTER">x</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD>if supported by hard-/firmware!</TD>
+		  <TD>-tsraw</TD>
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Packetized Elementary Stream (PES)</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>-s pes</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Basic</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ISO/IEC 13818-1 / ITU H.222.0 </TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>PES packet sync</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>optional software sync</TD> 
+		  <TD>-sync, -nosync</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DSM-CC Control</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ITU H.222.0 Annex B</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DSM-CC ACK</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ITU H.222.0 Annex B</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>EMM/ECM</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Hexdump only</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>PES Data (synchron, synchronized)</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>PES EBU data (teletext, VPS, WSS, etc.)</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD> EN 300 472, EN 300 706, EN 301 775 (basic decoding), EN 300
+			 231</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>PES DVB subtitling</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD><I>TODO</I></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Program_stream_descriptorlist</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Program_stream_map</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD><I>H.222.0, 2.5.4</I></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Program Stream directory</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ISO/IEC 13818-1 / ITU H.222.0 , 2.5.5.1</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>input device</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>-demux &lt;device&gt;<BR>-if &lt;file&gt;<BR></TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Program Stream (PS)</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>(MPEG)</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Basic </TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>ISO/IEC 13818-1 / ITU H.222.0 </TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Descriptors</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DVB descriptors</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ETSI EN 301 468, EN 301 192, TR 102 006, ..</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>MPEG descriptors</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ISO/IEC 13818-1 / ITU H.222.0 </TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DSM-CC INT/UNT descriptors</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DSM-CC (Module) descriptors</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD ALIGN="LEFT">DSM-CC Stream descriptors</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ISO/IEC 13818-6</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD ALIGN="LEFT">MHP AIT descriptors</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ETSI TS 102 812 v 1.2.1</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>TV Anytime RNT descriptors</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>ETSI TS 102 323 </TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD VALIGN="TOP">User defined descriptors</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD VALIGN="TOP">To decode user defined descriptors of a provider,
+			 known to dvbsnoop, use cmd option -privateprovider &lt;name&gt;</TD> 
+		  <TD VALIGN="TOP">-privateprovider &lt;provider-name&gt;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Bandwidth-Statistics</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>-s bandwidth</TD> 
+		</TR> 
+		<TR> 
+		  <TD>PID-based</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>TS - scan</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>all PIDs on Transponder</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD VALIGN="TOP">input device</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>-demux &lt;device&gt;<BR> -dvr &lt;device&gt; <BR></TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR>
+		<TR>
+		  <TD><B>MPEG</B></TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD>&nbsp;</TD>
+		  <TD>&nbsp;</TD>
+		</TR>
+		<TR>
+		  <TD>Frame rates</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">x</TD>
+		  <TD ROWSPAN="7">Not planned for dvbsnoop.<BR><BR>Please use mpeg video
+			 or audio analyzers, which offer in-depth analyzing of video or audio bit
+			 streams. (e.g. vk_tools)</TD>
+		  <TD>&nbsp;</TD>
+		</TR>
+		<TR>
+		  <TD>Motion vector analyze</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">x</TD>
+		  <TD>&nbsp;</TD>
+		</TR>
+		<TR>
+		  <TD>PCR analyze</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">x</TD>
+		  <TD>&nbsp;</TD>
+		</TR>
+		<TR>
+		  <TD>Macro blocks</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">x</TD>
+		  <TD>&nbsp;</TD>
+		</TR>
+		<TR>
+		  <TD>Audio stream rates</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">x</TD>
+		  <TD>&nbsp;</TD>
+		</TR>
+		<TR>
+		  <TD>Bitrate statistics video</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">x</TD>
+		  <TD>&nbsp;</TD>
+		</TR>
+		<TR>
+		  <TD>Bitrate statistics audio</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">x</TD>
+		  <TD>&nbsp;</TD>
+		</TR>
+		<TR>
+		  <TD>&nbsp;</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD>&nbsp;</TD>
+		  <TD>&nbsp;</TD>
+		</TR>
+		<TR>
+		  <TD>&nbsp;</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD>&nbsp;</TD>
+		  <TD>&nbsp;</TD>
+		</TR> 
+		<TR> 
+		  <TD><B>PID-SCAN</B></TD> 
+		  <TD ALIGN="CENTER"></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>-s pidscan</TD> 
+		</TR> 
+		<TR> 
+		  <TD VALIGN="TOP">all PIDs on Transponder</TD> 
+		  <TD VALIGN="TOP" ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>result may depend on demux firmware</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD VALIGN="TOP">try to identify PID content</TD> 
+		  <TD VALIGN="TOP" ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>result may depend on demux firmware</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD VALIGN="TOP">input device</TD> 
+		  <TD VALIGN="TOP" ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>-demux &lt;device&gt;<BR> -dvr &lt;device&gt; <BR>-maxdmx
+			 &lt;n&gt;<BR></TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Frontend Status</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD></TD> 
+		  <TD>-s signal</TD> 
+		</TR> 
+		<TR> 
+		  <TD>SIG</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>signal strength</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>BER</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>bit error rate</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>SNR</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>signal-noise-ratio</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Status</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>frontend status</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>UBLCK</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>uncorrected blocks</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>capability check</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>input device</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>-frontend &lt;device&gt;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Frontend Info</B></TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Show information about the frontend of your STB or DVB card (only
+			 &gt; DVB-API 3)</TD> 
+		  <TD>-s feinfo</TD> 
+		</TR> 
+		<TR> 
+		  <TD>show capabilities</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="LEFT">Basic capabilities of your frontend</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>current parameters</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Output Modes</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Hexdump Modes</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>several dump modes </TD> 
+		  <TD>-ph &lt;n&gt;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>ASCII-Dump Modes</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>several dump modes</TD> 
+		  <TD> -ph &lt;n&gt;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Hexdump buffer data</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>print read data as hex/ascii-dump prior to decoding</TD> 
+		  <TD>-nph<BR>-hexdumpbuffer<BR>-nohexdumpbuffer</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Binary</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD></TD> 
+		  <TD>-b</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Binary to file</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>using output redirection to file... </TD> 
+		  <TD>-b <B>&gt;</B> &lt;file&gt;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Human readable output</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>serveral verbosity levels to select decoding info. </TD> 
+		  <TD>-pd &lt;n&gt;, -npd</TD> 
+		</TR> 
+		<TR> 
+		  <TD>Translating values to strings</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>time stamp output</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>different display modes [no, delta, full] (only in life stream
+			 mode)</TD> 
+		  <TD> -tn , -td, -tf</TD> 
+		</TR> 
+		<TR> 
+		  <TD>output text filter</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>... use Unix tools like grep, perl, nawk, etc. to filter or tweak
+			 output </TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Input Modes</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>live stream input</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>from device (demux, dvr)</TD> 
+		  <TD>-demux &lt;device&gt;<BR> -dvr &lt;device&gt; <BR>-frontend
+			 &lt;device&gt;<BR></TD> 
+		</TR> 
+		<TR> 
+		  <TD>set demux buffer size</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>set own demux buffersize in KBytes.<BR>overwrites internal buffer
+			 settings. (PES, TS and SECTION mode)</TD> 
+		  <TD>-buffersize &lt;KBytes&gt;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>binary file input (offline mode)</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>saved stream file</TD> 
+		  <TD>-if &lt;file&gt;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>limited packet read</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>packet counter</TD> 
+		  <TD>-n &lt;count&gt;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>input filter</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>when reading from live stream</TD> 
+		  <TD>....</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Tuning</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DVB-T </TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ROWSPAN="3">please use dvbtune, szap, neutrino, enigma, VDR or any
+			 other tool for tuning into a frequency </TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>DVB-C</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD ALIGN="LEFT">DVB-S</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>DVB-API</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>API 1</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Does anyone still needs this API??</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>API 2</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>never released (?)</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>API 3</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>current API, linux kernel 2.6.0</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>API 4</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>runtime API selection</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD>API will be determined at compile time...</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD><B>Documentation</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="LEFT">documentation is not sufficient, good documenation
+			 still to be done... - especially the website sucks...</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR>
+		<TR>
+		  <TD>man page</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">x</TD>
+		  <TD ALIGN="LEFT">TODO</TD>
+		  <TD>&nbsp;</TD>
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR>
+		<TR>
+		  <TD>&nbsp;</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD ALIGN="CENTER">&nbsp;</TD>
+		  <TD>&nbsp;</TD>
+		  <TD>&nbsp;</TD>
+		</TR> 
+		<TR> 
+		  <TD><B>Bugs</B></TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+		<TR> 
+		  <TD>&nbsp;</TD> 
+		  <TD ALIGN="CENTER">x</TD> 
+		  <TD ALIGN="CENTER">&nbsp;</TD> 
+		  <TD>Interaction between standards organizations (ETSI, ITU, ISO, ...)
+			 and also between standards itself sometimes is very complex, especially when
+			 standards are enhanced or collide with other drafts. So bugs are very likely
+			 (also programming bugs...). Due to missing or proper test streams, some
+			 features are implemented without possible real life testing... <B>So please
+			 report any bug or odd behavior and also check latest source from cvs.</B></TD> 
+		  <TD>&nbsp;</TD> 
+		</TR> 
+	 </TABLE> 
+	 <P>The feature list reflects the status of the
+		<A HREF="http://cvs.tuxbox.org">CVS</A>. This list may not be
+		complete...<BR>Some features do not work using <A
+		HREF="http://www.linuxtv.org">DVB-API 1</A>.<BR></P> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><A
+		HREF="keywords.html"><FONT
+		COLOR="#000000">&nbsp;&nbsp;&nbsp;</FONT></A><BR></P> </BODY>
+</HTML>

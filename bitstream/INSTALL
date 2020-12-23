@@ -1,0 +1,15 @@
+
+Installing biTStream
+====================
+
+Make install copies all top-level directories (except dvb-examples) in 
+/usr/local/include/bitstream directory.
+
+Install bitstream in its default location /usr/local/include/bitstream:
+
+$> make install
+
+Install bitstream in another location, eg: /usr/include/bitstream
+
+$> make PREFIX=/usr install
+

@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-snes9x2010
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-snes9x2010 (>= 1.52.4) | snes9x2010 (>= 1.52.4)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-snes9x2010
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Nintendo - SNES / SFC (Snes9x 2010) core for kodi's retroplayer
+ Nintendo - SNES / SFC (Snes9x 2010) core for kodi's retroplayer

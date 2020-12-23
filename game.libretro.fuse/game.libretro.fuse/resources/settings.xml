@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="fuse_ay_stereo_separation" values="none|acb|abc" default="none"/>
+		<setting label="30002" type="select" id="fuse_fast_load" values="enabled|disabled" default="enabled"/>
+		<setting label="30003" type="select" id="fuse_hide_border" values="disabled|enabled" default="disabled"/>
+		<setting label="30004" type="select" id="fuse_joypad_a" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30005" type="select" id="fuse_joypad_b" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30006" type="select" id="fuse_joypad_down" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30007" type="select" id="fuse_joypad_l" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30008" type="select" id="fuse_joypad_l2" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30009" type="select" id="fuse_joypad_l3" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30010" type="select" id="fuse_joypad_left" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30011" type="select" id="fuse_joypad_r" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30012" type="select" id="fuse_joypad_r2" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30013" type="select" id="fuse_joypad_r3" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30014" type="select" id="fuse_joypad_right" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30015" type="select" id="fuse_joypad_start" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30016" type="select" id="fuse_joypad_up" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30017" type="select" id="fuse_joypad_x" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30018" type="select" id="fuse_joypad_y" values="&lt;none&gt;|0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Enter|Caps|Symbol|Space" default="&lt;none&gt;"/>
+		<setting label="30019" type="select" id="fuse_key_hold_time" values="500|1000|100|300" default="500"/>
+		<setting label="30020" type="select" id="fuse_key_ovrlay_transp" values="enabled|disabled" default="enabled"/>
+		<setting label="30021" type="select" id="fuse_load_sound" values="enabled|disabled" default="enabled"/>
+		<setting label="30022" type="select" id="fuse_machine" values="Spectrum 48K|Spectrum 48K (NTSC)|Spectrum 128K|Spectrum +2|Spectrum +2A|Spectrum +3|Spectrum +3e|Spectrum SE|Timex TC2048|Timex TC2068|Timex TS2068|Spectrum 16K|Pentagon 128K|Pentagon 512K|Pentagon 1024|Scorpion 256K" default="Spectrum 48K"/>
+		<setting label="30023" type="select" id="fuse_speaker_type" values="tv speaker|beeper|unfiltered" default="tv speaker"/>
+	</category>
+</settings>

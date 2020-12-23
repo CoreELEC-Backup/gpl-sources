@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="atari800_artifacting" values="disabled|enabled" default="disabled"/>
+		<setting label="30002" type="select" id="atari800_cassboot" values="disabled|enabled" default="disabled"/>
+		<setting label="30003" type="select" id="atari800_internalbasic" values="disabled|enabled" default="disabled"/>
+		<setting label="30004" type="select" id="atari800_keyboard" values="poll|callback" default="poll"/>
+		<setting label="30005" type="select" id="atari800_ntscpal" values="NTSC|PAL" default="NTSC"/>
+		<setting label="30006" type="select" id="atari800_opt1" values="disabled|enabled" default="disabled"/>
+		<setting label="30007" type="select" id="atari800_opt2" values="disabled|enabled" default="disabled"/>
+		<setting label="30008" type="select" id="atari800_resolution" values="336x240|320x240|384x240|384x272|384x288|400x300" default="336x240"/>
+		<setting label="30009" type="select" id="atari800_sioaccel" values="disabled|enabled" default="disabled"/>
+		<setting label="30010" type="select" id="atari800_system" values="400/800 (OS B)|800XL (64K)|130XE (128K)|5200" default="400/800 (OS B)"/>
+	</category>
+</settings>

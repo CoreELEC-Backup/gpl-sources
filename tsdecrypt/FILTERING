@@ -1,0 +1,159 @@
+tsdecrypt EMM filtering support
+===============================
+tsdecrypt have no specific knowledge about EMMs of each of the
+supported CA systems. This allows tsdecrypt to work even when
+the CA system is unknown. It just sends the EMM/ECM streams to the
+CAMD server for processing and filtering. The lack of specific
+knowledge about each of the supported CA systems is a feature.
+
+However there are cases where limiting the number of EMMs that
+reach CAMD is a must have feature. Since there is no code in
+tsdecrypt to detect whether the EMM type is GLOBAL, SHARED,
+UNIQUE, there is no detection of provider IDs, channel IDs or
+card numbers a simpler approach to filtering was implemented.
+
+The basic idea was implemented by Julian Gardner in his emm-buffer-mask
+patches. These patches were never merged in tsdecrypt but they
+inspired the current filtering implementation.
+
+tsdecrypt's EMM filters describe whether EMM should be processed
+or not based on an offset and data bytes that are compared with the
+incoming EMM.
+
+The option responsible for defining EMM filters is --emm-filter (-a)
+followed by the filter definition. Up to 16 filters can be defined.
+
+Filter definitions
+==================
+Filter definition contain command and command settings. The command
+and the settings are separated by / (forward slash) symbol, the
+settings are separated by comma (,) character and use setting=value
+notation.
+
+  Command  Settings
+  -------  --------
+  command[/setting1=abc,setting2=xyz...]
+
+Since filter definitions are passed as command line parameters, you must
+ensure that they are enclosed in quotes if they contain spaces.
+
+Filter commands
+===============
+Currently defined commands are:
+
+   accept_all    - Set the default to allow all EMMs to reach CAMD except
+                   EMMs that match "reject" command.
+
+                   When no "accept_all" or "reject_all" commands were used it
+                   is assumed that "accept_all" was the first command.
+
+   reject_all    - Set the default to skip all EMMs except those that
+                   are accepted by "accept" command.
+
+   * Both "accept_all" and "reject_all" can be used without command settings.
+
+   accept        - This command instructs tsdecrypt to allow EMM that matches
+                   the definition to be processed.
+
+   reject        - This command instructs tsdecrypt to skip EMM that matches
+                   the definition to be processed.
+
+   * Both commands must have at least two settings (offset and data).
+
+Filter settings
+===============
+Currently defined command settings are:
+
+ * name=X        - Sets the filter name (used when displaying filters).
+                   The name can not be longer than 32 symbols.
+
+ * match=X1 X4 X5
+ * mask=M1 M4 M5
+                 - Match bytes are series of hex numbers separated by
+                   space " " or dot ".". When the bytes are processed 0x
+                   prefix is removed from them. The maximum match bytes
+                   is 16.
+
+                   The match bytes are compared to the incoming packet
+                   by first applying the mask (binary AND operation) set
+                   in mask= setting. The default mask is 0xFF.
+
+                   The match bytes are compared to first, forth and so
+                   on bytes in the incoming EMM packet. Second and third
+                   incoming bytes in the EMM are not checked (they specify
+                   the section length).
+
+                   Here is an example EMM and match+mask that would match:
+
+                      Pos:  1  2  3  4  5  6  7  8  9 10 11 12 13
+                           -- -- -- -- -- -- -- -- -- -- -- -- --
+                      EMM: 82 70 b4 aa bb cc d0 00 01 xx xx xx xx
+                    Match: 82       aa bb cc dd
+                     Mask: ff       ff ff ff f0
+
+                   Such filter is configured like that:
+                     --emm-filter "accept/name=Test_Filter,match=82 aa bb cc dd,mask=ff ff ff ff f0"
+
+ * length=Num1 Num2 NumX
+                 - Match EMM packets that have section length "X".
+
+ * offset=X      - Sets the offset at which data bytes would be checked
+                   against EMM. The default offset is 0.
+
+                   This setting is ignored when match+mask are set.
+
+ * data=XX YY ZZ - Data bytes are series of hex numbers separated by
+                   space " " or dot ".". When data bytes are processed 0x
+                   prefix is removed from them. The maximum data bytes is 16.
+
+                   This setting is ignored when match+mask is set.
+
+                   Using offset+data you can check any bytes in the
+                   incoming EMM packet.
+
+Filter processing
+=================
+Filters are processed one by one until "accept" or "reject" filter matches.
+If no "accept" or "reject" filters match, then the default match determined
+by "accept_all" or "reject_all" is returned.
+
+Example filters
+===============
+
+    Accept Bulcrypt EMMs that are for particular card (or card group). The card
+    hex serial number is "aa bb cc dd".
+
+       tsdecrypt ... \
+         --emm \
+         --emm-filter reject_all \
+         --emm-filter "accept/name=Bulcrypt_EMMs,match=82 aa bb cc dd,mask=ff ff ff ff f0" \
+         --emm-filter "accept/name=Bulcrypt_EMMs,match=84 aa bb cc dd,mask=ff ff ff ff f0" \
+         --emm-filter "accept/name=Bulcrypt_EMMs,match=85 aa bb cc dd,mask=ff ff ff ff f0"
+
+    Accept Bulcrypt EMMs that have sizes 190, 240 and 0xb4
+
+       tsdecrypt ... \
+         --emm \
+         --emm-filter reject_all \
+         --emm-filter "accept/name=Bulcrypt_EMMs,length=190 240 0xb4"
+
+  Bulcrypt white list example:
+    Accept all EMMs except those starting with 8a 70 b4, 8b 70 b4, 8c or 8d.
+
+       tsdecrypt ... \
+         --emm \
+         --emm-filter accept_all \
+         --emm-filter "reject/name=Bulcrypt_unknown_EMMs,offset=0,data=8a 70 b4" \
+         --emm-filter "reject/name=Bulcrypt_unknown_EMMs,offset=0,data=8b 70 b4" \
+         --emm-filter "reject/name=Some EMM,data=0x8c" \
+         --emm-filter "reject/data=0x8d"
+
+  Bulcrypt black list example:
+    Reject all EMMs that don't start with 82, 84 or 85.
+
+       tsdecrypt ... \
+         --emm \
+         --emm-filter reject_all \
+         --emm-filter accept/name=Bulcrypt_EMMs,offset=0,data=82 \
+         --emm-filter accept/name=Bulcrypt_EMMs,data=84 \
+         --emm-filter accept/name=Bulcrypt_EMMs,data=85 \

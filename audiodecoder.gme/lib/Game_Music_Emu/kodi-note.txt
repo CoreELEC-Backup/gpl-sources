@@ -1,0 +1,4 @@
+Game_Music_Emu source from https://github.com/kode54/Game_Music_Emu
+Sync to fd803c8
+
+Note: Not included part "VGM info now reads UTF-8 tags" (f811076), in conflict with File_Extractor.

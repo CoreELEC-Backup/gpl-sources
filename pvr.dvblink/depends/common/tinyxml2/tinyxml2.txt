@@ -1,0 +1,1 @@
+tinyxml2 http://mirrors.kodi.tv/build-deps/sources/tinyxml2-6.2.0.tar.gz

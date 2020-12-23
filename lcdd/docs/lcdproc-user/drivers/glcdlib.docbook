@@ -1,0 +1,228 @@
+<sect1 id="glcdlib-howto">
+<sect1info>
+  <author>
+    <firstname>Lucian</firstname>
+    <surname>Muresan</surname>
+  </author>
+</sect1info>
+<title>The glcdlib Driver</title>
+
+<para>
+This section talks about using LCDproc with LCD displays supported by
+graphlcd-base.
+</para>
+
+<sect2 id="glcdlib-connections">
+<title>Connections</title>
+
+<para>
+The so-called "meta-driver" glcdlib extends LCDproc's supported drivers by
+all the drivers supported by graphlcd-base, which you can get from
+<ulink url="http://projects.vdr-developer.org/projects/graphlcd/"></ulink>.
+</para>
+<para>
+In order to be able to use it, you have to get and install the glcdprocdriver
+from <ulink url="http://lucianm.github.com/GLCDprocDriver/"></ulink>
+before configuring the LCDproc build process --enable-drivers=glcdlib.
+</para>
+
+</sect2>
+
+<!-- ## glcdlib meta driver for graphical LCDs ## -->
+<sect2 id="glcdlib-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="glcdlib-config-section">
+<title>[glcdlib]</title>
+
+<variablelist>
+<title>Mandatory settings</title>
+<varlistentry>
+  <term>
+    <property>Driver</property> =
+    <parameter><replaceable>GRAPHLCD-DRIVER</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Specify which graphical display supported by graphlcd-base to use.
+    Legal values for <replaceable>GRAPHLCD-DRIVER</replaceable> are
+    specified in graphlcd's configuration file <filename>/etc/graphlcd.conf</filename>.
+    For graphlcd 0.13 they comprise <literal>avrctl</literal>, <literal>framebuffer</literal>,
+    <literal>gu140x32f</literal>, <literal>gu256x64-372</literal>, <literal>gu256x64C-3xx0</literal>,
+    <literal>hd61830</literal>, <literal>image</literal>, <literal>ks0108</literal>,
+    <literal>noritake800</literal>, <literal>sed1330</literal>, <literal>sed1520</literal>,
+    <literal>serdisp</literal>, <literal>simlcd</literal>, and <literal>t6963c</literal>.
+    If not specified it defaults to <literal>image</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>UseFT2</property> = &parameters.yesdefno;
+  </term>
+  <listitem><para>
+    Tell whether to use FreeType2 or not.
+    If set to <literal>no</literal> use graphlcd's bitmap fonts, which is only one size/font file.
+    If set to to the default value <literal>yes</literal> use the fonts that FreeType2 provides.
+    </para>
+    <note><para>
+      Setting it to <literal>yes</literal> requires Freetype2 support in libglcdprocdriver and its dependants.
+    </para></note>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>TextResolution</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Give text resolution in fixed width characters. If it won't fit according
+    to the available physical pixel resolution and the minimum available font
+    face size in pixels, 'DebugBorder' will automatically be turned on.
+    If not specified, it defaults to <literal>16x4</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>FontFile</property> =
+    <parameter><replaceable>FILENAME</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set path to font file to use, e.g. <filename>/usr/share/fonts/corefonts/courbd.ttf</filename>.
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<title>Availalble parameters if <property>UseFT2</property> = <literal>yes</literal></title>
+<varlistentry>
+  <term>
+    <property>CharEncoding</property> =
+    <parameter><replaceable>CHARSET</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Specify character encoding to use, e.g. <literal>iso8859-2</literal>.
+    If not given, use the default <literal>ISO8859-1</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>MinFontFaceSize</property> =
+    <parameter>
+      <replaceable>COLUMNS</replaceable>
+      <literal>x</literal>
+      <replaceable>ROWS</replaceable>
+    </parameter>
+  </term>
+  <listitem><para>
+    minimum size in pixels in which fonts should be rendered
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<title>Optional settings</title>
+<varlistentry>
+  <term>
+    <property>Brightness</property> =
+    <parameter><replaceable>BRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Brightness (in %) if applicable
+    Legal values are <literal>0</literal> - <literal>100</literal>.
+    If not specified, the default is <literal>50</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Contrast</property> =
+    <parameter><replaceable>CONTRAST</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the contrast (in %) if applicable.
+    Legal values are <literal>0</literal> - <literal>100</literal>,
+    with <literal>50</literal> being the default when not specified.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Backlight</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    Backlight if applicable
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>UpsideDown</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    flip image upside down
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Invert</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    invert light/dark pixels
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>ShowDebugFrame</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    turns on/off 1 pixel thick debugging
+    border within the usable text area,
+    for setting up TextResolution and
+    MinFontFaceSize (if using FT2);
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>ShowBigBorder</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    border around the unused area
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>ShowThinBorder</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    border around the unused area
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>PixelShiftX</property> =
+    <parameter><replaceable>SHIFTX</replaceable></parameter>
+  </term>
+  <term>
+    <property>PixelShiftY</property> =
+    <parameter><replaceable>SHIFTY</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Shifts the content of the display by <replaceable>SHIFTX</replaceable>
+    (default: <literal>0</literal>) and <replaceable>SHIFTY</replaceable>
+    (default: <literal>0</literal>) pixels.
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

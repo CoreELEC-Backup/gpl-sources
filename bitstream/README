@@ -1,0 +1,161 @@
+
+Welcome to biTStream!
+=====================
+
+biTStream is a set of C headers allowing a simpler access to binary
+structures such as specified by MPEG, DVB, IETF, etc.
+
+
+biTStream vs. libdvbpsi
+=======================
+
+libdvbpsi converts binary structures to C structures. Lists are implemented
+with chained lists of C structures.
+
+biTStream is lower level, and more efficient: fewer memory allocations,
+fewer memory copies. It also features a better separation between layers
+and specifications.
+
+
+Extending biTStream
+===================
+
+A lot of MPEG and DVB tables and descriptors are not implemented yet, or
+are incomplete. Patches are very welcome.
+
+Though biTStream is originally targeted at video applications in general
+and MPEG-2 transport stream in particular, the same principle can be
+followed with other binary data types, and patches are welcome here too.
+Just try to follow a coherent directory naming.
+
+My coding style is Linux kernel + Hungarian conventions. Really, I do not
+care about the coding style of new files; do (WTF) you want. However, for
+existing files, please try to follow the original conventions.
+
+biTStream is released under the MIT license because since it is a
+direct application of standards, there is no added value. The MIT license
+doesn't require you to contribute back your changes, and you can use
+biTStream in proprietary applications. However, if you add new structures,
+or fix bugs in current structures, you'd be very nice to contribute them
+(again, there is no point in concealing this). Thanks.
+
+
+Supported SI tables
+===================
+
+ * Program Allocation Table (PAT)
+ * Conditional Access Table (CAT)
+ * Transport Stream Descriptor Table (TSDT)
+ * Program Map Table (PMT)
+ * Network Information Table (NIT)
+ * Bouquet Association Table (BAT)
+ * Service Definition Table (SDT)
+ * Event Information Table (EIT)
+ * Time and Date Table (TDT)
+ * Time Offset Table (TOT)
+ * Running Status Table (RST)
+ * Stuffing Table (ST)
+ * Discontinuity Information Table (DIT)
+ * Selection Information Table (SIT)
+
+
+Supported MPEG descriptors
+==========================
+
+ * Descriptor 0x02: Video stream descriptor
+ * Descriptor 0x03: Audio stream descriptor
+ * Descriptor 0x04: Hierarchy descriptor
+ * Descriptor 0x05: Registration descriptor
+ * Descriptor 0x06: Data stream alignment descriptor
+ * Descriptor 0x07: Target Background Grid descriptor
+ * Descriptor 0x08: Video Window descriptor
+ * Descriptor 0x09: Conditional access descriptor
+ * Descriptor 0x0A: ISO-639 language descriptor
+ * Descriptor 0x0B: System clock descriptor
+ * Descriptor 0x0C: Multiplex buffer utilization descriptor
+ * Descriptor 0x0D: Copyright descriptor
+ * Descriptor 0x0E: Maximum bitrate descriptor
+ * Descriptor 0x0F: Private data indicator descriptor
+ * Descriptor 0x10: Smoothing buffer descriptor
+ * Descriptor 0x11: STD descriptor
+ * Descriptor 0x12: IBP descriptor
+ * Descriptor 0x1b: MPEG-4 video descriptor
+ * Descriptor 0x1c: MPEG-4 audio descriptor
+ * Descriptor 0x1d: IOD_descriptor
+ * Descriptor 0x1e: SL_descriptor
+ * Descriptor 0x1f: FMC_descriptor
+ * Descriptor 0x20: External ES_ID descriptor
+ * Descriptor 0x21: MuxCode descriptor
+ * Descriptor 0x22: FmxBufferSize descriptor
+ * Descriptor 0x23: MultiplexBuffer descriptor
+ * Descriptor 0x24: Content labeling descriptor
+ * Descriptor 0x25: Metadata pointer descriptor
+ * Descriptor 0x26: Metadata descriptor
+ * Descriptor 0x27: Metadata STD descriptor
+ * Descriptor 0x28: AVC video descriptor
+ * Descriptor 0x2a: AVC timing and HRD descriptor
+ * Descriptor 0x2b: MPEG-2 AAC audio descriptor
+ * Descriptor 0x2c: FlexMuxTiming_descriptor
+
+
+Supported DVB descriptors
+=========================
+
+ * Descriptor 0x40: Network name descriptor
+ * Descriptor 0x41: Service list descriptor
+ * Descriptor 0x42: Stuffing descriptor
+ * Descriptor 0x43: Satellite delivery system descriptor
+ * Descriptor 0x44: Cable delivery system descriptor
+ * Descriptor 0x45: VBI data descriptor
+ * Descriptor 0x46: VBI teletext descriptor
+ * Descriptor 0x47: Bouquet name descriptor
+ * Descriptor 0x48: Service descriptor
+ * Descriptor 0x49: Country availability descriptor
+ * Descriptor 0x4a: Linkage descriptor
+ * Descriptor 0x4b: NVOD reference descriptor
+ * Descriptor 0x4c: Time shifted service descriptor
+ * Descriptor 0x4d: Short event descriptor
+ * Descriptor 0x4e: Extended event descriptor
+ * Descriptor 0x4f: Time shifted event descriptor
+ * Descriptor 0x50: Component descriptor
+ * Descriptor 0x51: Mosaic descriptor
+ * Descriptor 0x52: Stream identifier descriptor
+ * Descriptor 0x53: CA identifier descriptor
+ * Descriptor 0x54: Content descriptor
+ * Descriptor 0x55: Parental rating descriptor
+ * Descriptor 0x56: Teletext descriptor
+ * Descriptor 0x57: Telephone descriptor
+ * Descriptor 0x58: Local time offset descriptor
+ * Descriptor 0x59: Subtitling descriptor
+ * Descriptor 0x5a: Terrestrial delivery system descriptor
+ * Descriptor 0x5b: Multilingual network name descriptor
+ * Descriptor 0x5c: Multilingual bouquet name descriptor
+ * Descriptor 0x5d: Multilingual service name descriptor
+ * Descriptor 0x5e: Multilingual component descriptor
+ * Descriptor 0x5f: Private data specifier descriptor
+ * Descriptor 0x60: Service move descriptor
+ * Descriptor 0x61: Short smoothing buffer descriptor
+ * Descriptor 0x62: Frequency list descriptor
+ * Descriptor 0x63: Partial transport stream descriptor
+ * Descriptor 0x64: Data broadcast descriptor
+ * Descriptor 0x65: Scrambling descriptor
+ * Descriptor 0x66: Data broadcast id descriptor
+ * Descriptor 0x67: Transport stream descriptor
+ * Descriptor 0x68: DSNG descriptor
+ * Descriptor 0x69: PDC descriptor
+ * Descriptor 0x6a: AC-3 descriptor
+ * Descriptor 0x6b: Ancillary data descriptor
+ * Descriptor 0x6c: Cell list descriptor
+ * Descriptor 0x6d: Cell frequency link descriptor
+ * Descriptor 0x6e: Announcement support descriptor
+ * Descriptor 0x7a: Enhanced AC-3 descriptor
+ * Descriptor 0x7b: DTS descriptor
+ * Descriptor 0x7c: AAC descriptor
+
+To see what is unsupported look in the TODO file.
+
+
+Example usage
+=============
+
+To see biTSream in action look in examples directory.

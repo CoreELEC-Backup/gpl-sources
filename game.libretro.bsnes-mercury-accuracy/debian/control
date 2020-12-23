@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-bsnes-mercury-accuracy
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-bsnes-mercury-accuracy (>= 0.94.0) | bsnes-mercury-accuracy (>= 0.94.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-bsnes-mercury-accuracy
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Nintendo - SNES / SFC (bsnes-mercury Accuracy) core for kodi's retroplayer
+ Nintendo - SNES / SFC (bsnes-mercury Accuracy) core for kodi's retroplayer

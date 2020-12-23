@@ -1,0 +1,7 @@
+kodi-pvr-dvbviewer (#PACKAGEVERSION#-#TAGREV#~#DIST#) #DIST#; urgency=low
+
+  * For changelog information, please consult
+    https://github.com/kodi-pvr/pvr.dvbviewer/blob/master/pvr.dvbviewer/changelog.txt
+
+ -- Manuel Mausz <manuel-kodi@mausz.at>  Wed, 04 Mar 2015 00:43:55 +0100
+

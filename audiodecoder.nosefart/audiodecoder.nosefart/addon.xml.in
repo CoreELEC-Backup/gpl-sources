@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="audiodecoder.nosefart"
+  version="3.0.0"
+  name="Nosefart Audio Decoder"
+  provider-name="spiff">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="kodi.audiodecoder"
+    name="nsf"
+    tags="true"
+    tracks="true"
+    extension=".nsf|.nsfstream"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="de_DE">Nosefart (NSF) Audio Decoder</summary>
+    <summary lang="en_GB">Nosefart (NSF) Audio Decoder</summary>
+    <description lang="de_DE">Das Nintendo Sound Format (NSF) ist ein Containerformat, das Audiocode enthält, der aus den ROMs von Spielen für das Nintendo Entertainment System gerippt wurde. Das NES hatte für seine Zeit eine ziemlich gute Sound-Engine, die 2 Pulswellen, 1 Dreieckwelle, einen Rauschkanal und einen DPCM-Kanal unterstützte, bei dem es sich um eine rohe 7-Bit-Zähler-Raw-Sample-Wiedergabe handelt.</description>
+    <description lang="en_GB">The Nintendo Sound Format (NSF) is a container format, that holds audio code ripped from the ROMs of games for the Nintendo Entertainment System. The NES had a pretty good sound engine for its time supporting 2 pulse-waves, 1 triangle wave, a noise channel, and DPCM channel which is a raw 7-bit counter raw sample playback.</description>
+    <platform>@PLATFORM@</platform>
+    <license>GPL-2.0-or-later</license>
+    <source>https://github.com/xbmc/audiodecoder.nosefart</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

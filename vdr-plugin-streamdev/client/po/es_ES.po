@@ -1,0 +1,62 @@
+# VDR streamdev plugin language source file.
+# Copyright (C) 2008 streamdev development team. See http://streamdev.vdr-developer.org
+# This file is distributed under the same license as the VDR streamdev package.
+# Javier Bradineras <jbradi@hotmail.com>, 2011
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: streamdev 0.5.0\n"
+"Report-Msgid-Bugs-To: <vdrdev@schmirler.de>\n"
+"POT-Creation-Date: 2015-01-16 22:32+0100\n"
+"PO-Revision-Date: 2010-06-19 03:58+0100\n"
+"Last-Translator: Javier Bradineras <jbradi@hotmail.com>\n"
+"Language-Team: Spanish <vdr@linuxtv.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Hide Mainmenu Entry"
+msgstr "Ocultar entrada en menú principal"
+
+msgid "Simultaneously used Devices"
+msgstr ""
+
+msgid "Remote IP"
+msgstr "Indicar IP del Servidor"
+
+msgid "Remote Port"
+msgstr "Indicar puerto remoto del Servidor"
+
+msgid "Timeout (s)"
+msgstr ""
+
+msgid "Filter Streaming"
+msgstr "Filtrar transmisión"
+
+msgid "Filter SockBufSize"
+msgstr ""
+
+msgid "Live TV Priority"
+msgstr ""
+
+msgid "Minimum Priority"
+msgstr "Prioridad mínima"
+
+msgid "Maximum Priority"
+msgstr "Prioridad máxima"
+
+msgid "Broadcast Systems / Cost"
+msgstr ""
+
+msgid "VTP Streaming Client"
+msgstr "Cliente trasmisión VTP"
+
+msgid "Suspend Server"
+msgstr "Suspender servidor"
+
+msgid "Server is suspended"
+msgstr "Servidor en suspensión"
+
+msgid "Couldn't suspend Server!"
+msgstr "Imposible suspender el servidor!"

@@ -1,0 +1,162 @@
+----------------------------------------------------------------------------
+v1.0.6 2017-03-06
+- fix small memory leaks in libstdlog
+  each open/close leaked a couple of bytes; this was no problem, except if
+  they were called very often. However, it was a problem when using memory
+  debuggers, which rightfully complained.
+- fix BSD build
+- enhancement:  sigsafe_printf now recognizes the "j" length modifier
+  Thanks to David A. Bright for implementing this
+- fix: build_file_line and build_syslog_frame call the __stdlog_print_*
+  functions incorrectly
+  Change these functions so that they call the __stdlog_print_* functions
+  with the correct buffer size.
+  see also: https://github.com/rsyslog/liblogging/issues/33
+  Thanks to David A. Bright for the patch.
+- Implement a STDLOG_PID option
+  ... to specify that each log message should be tagged with the process
+  identifier as well as the ident.
+  Thanks to David A. Bright for implementing this
+- bugfix: potentialSEGV in the stdlog_sigsafe_string formatter
+  if NULL pointer was passed in
+  Thanks to David A. Bright for the patch
+- bugfix: stdlog_sigsafe_printf mis-handles an int or unsigned int
+  Thanks to David A. Bright for the patch
+- build system: auto-detect presence of journal libraries
+  simplifies build for most users. Many complained on mailing list
+  about missing journal dependency. Now by default we disable it if
+  the libs are not found, what usually is the right thing to do.
+----------------------------------------------------------------------------
+v1.0.5 2014-12-09
+- cleanup for systemd-journal >= 209
+  closes https://github.com/rsyslog/liblogging/issues/17
+- bugfix: date stamp was incorrectly formatted
+  The day part was totally off. This affected the "uxsock:" and "file:"
+  drivers.
+  closes https://github.com/rsyslog/liblogging/issues/21
+----------------------------------------------------------------------------
+v1.0.4 2014-04-03
+- fix build problems on some platforms (namely RHEL/CENTOS 5)
+- add --disable-man pages ./configure option
+  This permits to totally turn off man page handling. This is useful for
+  platforms like RHEL/CENTOS 5 where rst2man is hard to get when building
+  from git is desired.
+- lower build system requirements to autoconf 2.59
+  This permits building on RHEL/CENTOs 5 with stock autotools.
+----------------------------------------------------------------------------
+v1.0.3 2014-03-18
+- fix build problem in Ubuntu 10.04
+  Thanks to Assaf Gordon for reporting
+  See: https://github.com/rsyslog/liblogging/issues/11
+- do not override user varibale CFLAGS
+  Thanks to Thomas D. for reporting this problem and suggesting a solution.
+  closes: https://github.com/rsyslog/liblogging/issues/15
+- make liblogging-rfc3195 not export private symbols
+  Thanks to Michael Biebl for his help in getting this right.
+- explain that stdlog_log() return code usually most not be checked
+  (if same level of reliability like syslog(3) is desired)
+----------------------------------------------------------------------------
+v1.0.2 2014-03-03
+- first version of the "real" API of liblogging-stdlog
+  It is now feature-complete with multiple channels, signal-safeness, and
+  logging drivers for syslog, the systemd journal, unix sockets and files.
+  Note: if the journal driver is to be build (enabled by default), a new
+  dependency libsystemd-journal exists. This is the required to use the
+  journal API. You can turn off building the journal driver via the
+  --disable-journal configure option.
+----------------------------------------------------------------------------
+v1.0.1 2014-02-10
+- rfc3195 component now 2-clause BSD licensed
+  This means the complete liblogging is now under 2-clause BSD
+- new component names:
+  * liblogging-stdlog
+  * liblogging-rfc3195
+  made some necessary name adjustments
+  See also: https://github.com/rsyslog/liblogging/issues/2
+----------------------------------------------------------------------------
+v1.0.0 2014-01-21
+- made rfc3195 library (the original liblogging) an optional component
+- add libstdlog component; used for standard logging (syslog replacement)
+  purposes via multiple channels (driver support is planned)
+  This is the initial bare revision of this library component.
+----------------------------------------------------------------------------
+0.7.2
+   2008-05-07 RGerhards
+   - cleaned up some warnings; fixed some potentially bad errors
+     thanks to darix for pointing this out
+0.7.1
+   2008-05-06 RGerhards
+   - changed include files (now in liblogging subdirectory)
+   - pc file contained wrong package name
+0.7.0
+   2008-04-15 RGerhards
+   - added pkg-config support
+   2008-03    Michael Biebl
+   - converted to autotools
+   2005-10-14 RGerhards
+   - There was a bug in the BEEP listeners which made them ignore the
+     listen port set by srAPISetOption(). The BEEP listeners always
+     listen to 601, no matter what was set.
+     
+0.6.0
+   2005-09-06
+   Unfortunately, when I stopped working on liblogging due to some higher
+   priority work (in 2003 ;)), I didn't update this file here. While I
+   initially thought I'd push it away for a few weeks at most, it actually
+   become suspended for some month. The lack of real interest in it didn't
+   justify any more work. Thankfully, interest in RFC 3195 is now improving
+   and I've also done my own syslogd for unix (www.rsyslog.com), so I am
+   now able to look at least partly at the lib. In the mean time, some
+   users have successfully used the 0.5.0 release and their feedback was
+   generally pleasant. So I think this is a good release.
+   I will now go through the code and extract what has been upgraded since
+   0.5.0. So we have a rough record of that. Here are the changes:
+              - support for UDP and unix domain socket listening - these
+                features were initially introduced to support a to-be-written
+                syslogd. They are not very well tested and will probably not
+                be for quite some time.
+              - code enhanced to guard against oversize BEEP frames, which
+                could be introduced by a malicous person (security related)
+              - some support for Solaris has been added (not sure what it
+                was exactly...)
+              - added the COOKED listener
+              - some checks against invalid SEQs
+   0.6.0 is not as thouroughly tested as 0.5.0, which by now I consider to
+   be stable. I advise people to use 0.5.0 if they are looking for stable
+   code and do not urgently need the new features introduced in 0.6.0.
+
+0.5.0         - fixed a bug in the server code where an <ok/> response
+                for a channel close request was sent over the to-be-closed
+                channel instead of channel 0. This can be an interoperability
+                issue with 
+              - implemented 3195/COOKED in the client. Server is still RAW
+                only.
+              - fixed some smaller bugs I don't remeber ;)
+              - enhanced the client API to directly support sending
+                syslog message objects. This is now the preferred way
+                of sending messages.
+              
+              THE SERVER API MAY STILL CHANGE AND IS NOT FINALIZED IN 0.5.0!
+              
+0.4.0	      - fixed a hang condition on server shutdown (the listening
+                sockets was accidently not in nonblocking state)
+              - added support for parsing the syslog message
+              - modified the directory structure, each OS will now have its
+                own subdirectory (including Windows)
+	          - included a syslog message API, which can also be used
+                to create syslog messages
+              - added support for syslog-sign-12 in the message object
+0.3.1
+   2003-08-29 - a good number of fixes
+              - server (listener) API included
+                WARNING: THE API IS NOT NECESSARILY STABLE YET. If you use it,
+                         you may need to change your code with later releases
+0.2.0
+   2003-08-12 - socket layer restructured to facilitate porting
+              - XML parser added
+              - API stable, API changes will NOT break any programs written to 0.2.0 API
+              - much better error checking
+              - compiles & runs under Linux, FreeBSD, AIX, Solaris
+     
+0.1.0
+   2003-08-04 Initial Release

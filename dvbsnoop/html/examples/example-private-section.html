@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: Decoding User
+		Defined/Private Data</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: Decoding User Defined/Private Data</H1> 
+	 <H2>Default-Decoding:</H2>
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -n 1 0x0997
+dvbsnoop V1.3.76 -- http://dvbsnoop.sourceforge.net/ 
+
+------------------------------------------------------------
+SECT-Packet: 00000001   PID: (Unknown PID), Length: 65 (0x0041)
+from file: cc
+------------------------------------------------------------
+  0000:  a1 80 3e 00 12 09 03 04  00 04 00 85 00 00 00 08   ..&gt;.............
+  0010:  0d 44 61 73 20 4d 65 64  61 69 6c 6c 6f 6e 00 1d   .Das Medaillon..
+  0020:  d0 2b 04 00 00 24 00 00  0d 44 61 73 20 4d 65 64   .+...$...Das Med
+  0030:  61 69 6c 6c 6f 6e 00 00  04 00 23 81 34 fb ec 95   aillon....#.4...
+  0040:  d6                                                 .
+
+Guess table from table id...
+User_Defined-decoding....
+Table_ID: 161 (0xa1)  [= User private]
+Section_syntax_indicator: 1 (0x01)
+private_indicator: 0 (0x00)
+reserved: 0 (0x00)
+private_section_length: 62 (0x003e)
+table_id_extension: 18 (0x0012)
+reserved: 0 (0x00)
+Version_number: 4 (0x04)
+Current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 3 (0x03)
+Last_section_number: 4 (0x04)
+Private Data:
+      0000:  00 04 00 85 00 00 00 08  0d 44 61 73 20 4d 65 64   .........Das Med
+      0010:  61 69 6c 6c 6f 6e 00 1d  d0 2b 04 00 00 24 00 00   aillon...+...$..
+      0020:  0d 44 61 73 20 4d 65 64  61 69 6c 6c 6f 6e 00 00   .Das Medaillon..
+      0030:  04 00 23 81 34                                     ..#.4
+CRC: 4226586070 (0xfbec95d6)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE>
+	 <P><BR><BR></P>
+	 <H2>Known Provider:</H2>
+	 <P>Decoding the same section table packet, passing the providers name
+		"premiere.de" to dvbsnoop...</P>
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE># dvbsnoop -n 1 <B>-privateprovider premiere.de</B>  0x0997
+dvbsnoop V1.3.76 -- http://dvbsnoop.sourceforge.net/ 
+
+------------------------------------------------------------
+SECT-Packet: 00000001   PID: (Unknown PID), Length: 65 (0x0041)
+from file: cc
+------------------------------------------------------------
+  0000:  a1 80 3e 00 12 09 03 04  00 04 00 85 00 00 00 08   ..&gt;.............
+  0010:  0d 44 61 73 20 4d 65 64  61 69 6c 6c 6f 6e 00 1d   .Das Medaillon..
+  0020:  d0 2b 04 00 00 24 00 00  0d 44 61 73 20 4d 65 64   .+...$...Das Med
+  0030:  61 69 6c 6c 6f 6e 00 00  04 00 23 81 34 fb ec 95   aillon....#.4...
+  0040:  d6                                                 .
+
+Guess table from table id...
+using private provider space: premiere.de
+User_Defined-decoding....
+Table_ID: 161 (0xa1)  [= Premiere Content Presentation Table]
+Section_syntax_indicator: 1 (0x01)
+private_indicator: 0 (0x00)
+reserved: 0 (0x00)
+private_section_length: 62 (0x003e)
+table_id_extension: 18 (0x0012)
+reserved: 0 (0x00)
+Version_number: 4 (0x04)
+Current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 3 (0x03)
+Last_section_number: 4 (0x04)
+Transport_stream_ID: 4 (0x0004)
+Original_network_ID: 133 (0x0085)
+virtual_channel_id: 8 (0x00000008)
+virtual_channel_name_length: 13 (0x0d)
+virtual_channel_name: "Das Medaillon"  -- Charset: Latin alphabet
+reserved: 0 (0x00)
+virtual_channel_info_length: 29 (0x001d)
+start_time: 0xd02b040000 [=2004-10-13 04:00:00 (UTC)]
+duration: 24:00:00
+virtual_event_name_length: 13 (0x0d)
+virtual_event_name: "Das Medaillon"  -- Charset: Latin alphabet
+virtual_event_info_length: 0 (0x00)
+virtual_event_info: ""
+reserved: 0 (0x00)
+content_list_length: 4 (0x0004)
+content_id: 2326836 (0x00238134)
+CRC: 4226586070 (0xfbec95d6)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

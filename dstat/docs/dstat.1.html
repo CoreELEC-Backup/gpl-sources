@@ -1,0 +1,2079 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.9" />
+<title>dstat(1)</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="manpage">
+<div id="header">
+<h1>
+dstat(1) Manual Page
+</h1>
+<h2>NAME</h2>
+<div class="sectionbody">
+<p>dstat -
+   versatile tool for generating system resource statistics
+</p>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_synopsis">SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>dstat [-afv] [options..] [delay [count]]</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">DESCRIPTION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Dstat is a versatile replacement for vmstat, iostat and ifstat. Dstat
+overcomes some of the limitations and adds some extra features.</p></div>
+<div class="paragraph"><p>Dstat allows you to view all of your system resources instantly, you
+can eg. compare disk usage in combination with interrupts from your
+IDE controller, or compare the network bandwidth numbers directly with
+the disk throughput (in the same interval).</p></div>
+<div class="paragraph"><p>Dstat also cleverly gives you the most detailed information in columns
+and clearly indicates in what magnitude and unit the output is displayed.
+Less confusion, less mistakes, more efficient.</p></div>
+<div class="paragraph"><p>Dstat is unique in letting you aggregate block device throughput for a
+certain diskset or network bandwidth for a group of interfaces, ie.
+you can see the throughput for all the block devices that make up a
+single filesystem or storage system.</p></div>
+<div class="paragraph"><p>Dstat allows its data to be directly written to a CSV file to be
+imported and used by OpenOffice, Gnumeric or Excel to create graphs.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Users of Sleuthkit might find Sleuthkit&#8217;s dstat being renamed to
+datastat to avoid a name conflict. See Debian bug #283709 for more
+information.</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">OPTIONS</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+-c, --cpu
+</dt>
+<dd>
+<p>
+    enable cpu stats (system, user, idle, wait), for more CPU related
+    stats also see <strong>--cpu-adv</strong> and <strong>--cpu-use</strong>
+</p>
+</dd>
+<dt class="hdlist1">
+-C 0,3,total
+</dt>
+<dd>
+<p>
+    include cpu0, cpu3 and total (when using -c/--cpu); use <em>all</em> to show all
+    CPUs
+</p>
+</dd>
+<dt class="hdlist1">
+-d, --disk
+</dt>
+<dd>
+<p>
+    enable disk stats (read, write), for more disk related stats look
+    into the other <strong>--disk</strong> plugins
+</p>
+</dd>
+<dt class="hdlist1">
+-D total,hda
+</dt>
+<dd>
+<p>
+    include total and hda (when using -d/--disk)
+</p>
+</dd>
+<dt class="hdlist1">
+-g, --page
+</dt>
+<dd>
+<p>
+    enable page stats (page in, page out)
+</p>
+</dd>
+<dt class="hdlist1">
+-i, --int
+</dt>
+<dd>
+<p>
+    enable interrupt stats
+</p>
+</dd>
+<dt class="hdlist1">
+-I 5,10
+</dt>
+<dd>
+<p>
+    include interrupt 5 and 10 (when using -i/--int)
+</p>
+</dd>
+<dt class="hdlist1">
+-l, --load
+</dt>
+<dd>
+<p>
+    enable load average stats (1 min, 5 mins, 15mins)
+</p>
+</dd>
+<dt class="hdlist1">
+-m, --mem
+</dt>
+<dd>
+<p>
+    enable memory stats (used, buffers, cache, free); for more memory
+    related stats also try <strong>--mem-adv</strong> and <strong>--swap</strong>
+</p>
+</dd>
+<dt class="hdlist1">
+-n, --net
+</dt>
+<dd>
+<p>
+    enable network stats (receive, send)
+</p>
+</dd>
+<dt class="hdlist1">
+-N eth1,total
+</dt>
+<dd>
+<p>
+    include eth1 and total (when using -n/--net)
+</p>
+</dd>
+<dt class="hdlist1">
+-p, --proc
+</dt>
+<dd>
+<p>
+    enable process stats (runnable, uninterruptible, new)
+</p>
+</dd>
+<dt class="hdlist1">
+-r, --io
+</dt>
+<dd>
+<p>
+    enable I/O request stats (read, write requests)
+</p>
+</dd>
+<dt class="hdlist1">
+-s, --swap
+</dt>
+<dd>
+<p>
+    enable swap stats (used, free)
+</p>
+</dd>
+<dt class="hdlist1">
+-S swap1,total
+</dt>
+<dd>
+<p>
+    include swap1 and total (when using -s/--swap)
+</p>
+</dd>
+<dt class="hdlist1">
+-t, --time
+</dt>
+<dd>
+<p>
+    enable time/date output
+</p>
+</dd>
+<dt class="hdlist1">
+-T, --epoch
+</dt>
+<dd>
+<p>
+    enable time counter (seconds since epoch)
+</p>
+</dd>
+<dt class="hdlist1">
+-y, --sys
+</dt>
+<dd>
+<p>
+    enable system stats (interrupts, context switches)
+</p>
+</dd>
+<dt class="hdlist1">
+--aio
+</dt>
+<dd>
+<p>
+    enable aio stats (asynchronous I/O)
+</p>
+</dd>
+<dt class="hdlist1">
+--cpu-adv
+</dt>
+<dd>
+<p>
+    enable advanced cpu stats
+</p>
+</dd>
+<dt class="hdlist1">
+--cpu-use
+</dt>
+<dd>
+<p>
+    enable only cpu usage stats
+</p>
+</dd>
+<dt class="hdlist1">
+--fs, --filesystem
+</dt>
+<dd>
+<p>
+    enable filesystem stats (open files, inodes)
+</p>
+</dd>
+<dt class="hdlist1">
+--ipc
+</dt>
+<dd>
+<p>
+    enable ipc stats (message queue, semaphores, shared memory)
+</p>
+</dd>
+<dt class="hdlist1">
+--lock
+</dt>
+<dd>
+<p>
+    enable file lock stats (posix, flock, read, write)
+</p>
+</dd>
+<dt class="hdlist1">
+--mem-adv
+</dt>
+<dd>
+<p>
+    enable advanced memory stats
+</p>
+</dd>
+<dt class="hdlist1">
+--raw
+</dt>
+<dd>
+<p>
+    enable raw stats (raw sockets)
+</p>
+</dd>
+<dt class="hdlist1">
+--socket
+</dt>
+<dd>
+<p>
+    enable socket stats (total, tcp, udp, raw, ip-fragments)
+</p>
+</dd>
+<dt class="hdlist1">
+--tcp
+</dt>
+<dd>
+<p>
+    enable tcp stats (listen, established, syn, time_wait, close)
+</p>
+</dd>
+<dt class="hdlist1">
+--udp
+</dt>
+<dd>
+<p>
+    enable udp stats (listen, active)
+</p>
+</dd>
+<dt class="hdlist1">
+--unix
+</dt>
+<dd>
+<p>
+    enable unix stats (datagram, stream, listen, active)
+</p>
+</dd>
+<dt class="hdlist1">
+--vm
+</dt>
+<dd>
+<p>
+    enable vm stats (hard pagefaults, soft pagefaults, allocated, free)
+</p>
+</dd>
+<dt class="hdlist1">
+--vm-adv
+</dt>
+<dd>
+<p>
+    enable advance vm stats (steal, scanK, scanD, pgoru, astll)
+</p>
+</dd>
+<dt class="hdlist1">
+--zones
+</dt>
+<dd>
+<p>
+    enable zoneinfo stats (d32F, d32H, normF, normH)
+</p>
+</dd>
+<dt class="hdlist1">
+--&lt;plugin-name&gt;
+</dt>
+<dd>
+<p>
+    enable (external) plugins by plugin name, see <strong>PLUGINS</strong> for options
+</p>
+</dd>
+<dt class="hdlist1">
+Possible internal stats are
+</dt>
+<dd>
+<p>
+    aio, cpu, cpu24, cpu-adv, cpu-use, disk, disk24, disk24-old, epoch, fs,
+    int, int24, io, ipc, load, lock, mem, mem-adv, net, page, page24, proc,
+    raw, socket, swap, swap-old, sys, tcp, time, udp, unix, vm, vm-adv, zones
+</p>
+</dd>
+<dt class="hdlist1">
+--list
+</dt>
+<dd>
+<p>
+    list the internal and external plugin names
+</p>
+</dd>
+<dt class="hdlist1">
+-a, --all
+</dt>
+<dd>
+<p>
+    equals -cdngy (default)
+</p>
+</dd>
+<dt class="hdlist1">
+-f, --full
+</dt>
+<dd>
+<p>
+    expand -C, -D, -I, -N and -S discovery lists
+</p>
+</dd>
+<dt class="hdlist1">
+-v, --vmstat
+</dt>
+<dd>
+<p>
+    equals -pmgdsc -D total
+</p>
+</dd>
+<dt class="hdlist1">
+--bits
+</dt>
+<dd>
+<p>
+    force bits for values expressed in bytes
+</p>
+</dd>
+<dt class="hdlist1">
+--float
+</dt>
+<dd>
+<p>
+    force float values on screen (mutual exclusive with <strong>--integer</strong>)
+</p>
+</dd>
+<dt class="hdlist1">
+--integer
+</dt>
+<dd>
+<p>
+    force integer values on screen (mutual exclusive with <strong>--float</strong>)
+</p>
+</dd>
+<dt class="hdlist1">
+--bw, --blackonwhite
+</dt>
+<dd>
+<p>
+    change colors for white background terminal
+</p>
+</dd>
+<dt class="hdlist1">
+--nocolor
+</dt>
+<dd>
+<p>
+    disable colors
+</p>
+</dd>
+<dt class="hdlist1">
+--noheaders
+</dt>
+<dd>
+<p>
+    disable repetitive headers
+</p>
+</dd>
+<dt class="hdlist1">
+--noupdate
+</dt>
+<dd>
+<p>
+    disable intermediate updates when delay &gt; 1
+</p>
+</dd>
+<dt class="hdlist1">
+--output file
+</dt>
+<dd>
+<p>
+    write CSV output to file
+</p>
+</dd>
+<dt class="hdlist1">
+--profile
+</dt>
+<dd>
+<p>
+    show profiling statistics when exiting dstat
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_plugins">PLUGINS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>While anyone can create their own dstat plugins (and contribute them) dstat
+ships with a number of plugins already that extend its capabilities greatly.
+Here is an overview of the plugins dstat ships with:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+--battery
+</dt>
+<dd>
+<p>
+    battery in percentage (needs ACPI)
+</p>
+</dd>
+<dt class="hdlist1">
+--battery-remain
+</dt>
+<dd>
+<p>
+    battery remaining in hours, minutes (needs ACPI)
+</p>
+</dd>
+<dt class="hdlist1">
+--cpufreq
+</dt>
+<dd>
+<p>
+    CPU frequency in percentage (needs ACPI)
+</p>
+</dd>
+<dt class="hdlist1">
+--dbus
+</dt>
+<dd>
+<p>
+    number of dbus connections (needs python-dbus)
+</p>
+</dd>
+<dt class="hdlist1">
+--disk-avgqu
+</dt>
+<dd>
+<p>
+    average queue length of the requests that were issued to the device
+</p>
+</dd>
+<dt class="hdlist1">
+--disk-avgrq
+</dt>
+<dd>
+<p>
+    average size (in sectors) of the requests that were issued to the device
+</p>
+</dd>
+<dt class="hdlist1">
+--disk-svctm
+</dt>
+<dd>
+<p>
+    average service time (in milliseconds) for I/O requests that were issued to the device
+</p>
+</dd>
+<dt class="hdlist1">
+--disk-tps
+</dt>
+<dd>
+<p>
+    number of transfers per second that were issued to the device
+</p>
+</dd>
+<dt class="hdlist1">
+--disk-util
+</dt>
+<dd>
+<p>
+    percentage of CPU time during which I/O requests were issued to the device (bandwidth utilization for the device)
+</p>
+</dd>
+<dt class="hdlist1">
+--disk-wait
+</dt>
+<dd>
+<p>
+    average time (in milliseconds) for I/O requests issued to the device to be served
+</p>
+</dd>
+<dt class="hdlist1">
+--dstat
+</dt>
+<dd>
+<p>
+    show dstat cputime consumption and latency
+</p>
+</dd>
+<dt class="hdlist1">
+--dstat-cpu
+</dt>
+<dd>
+<p>
+    show dstat advanced cpu usage
+</p>
+</dd>
+<dt class="hdlist1">
+--dstat-ctxt
+</dt>
+<dd>
+<p>
+    show dstat context switches
+</p>
+</dd>
+<dt class="hdlist1">
+--dstat-mem
+</dt>
+<dd>
+<p>
+    show dstat advanced memory usage
+</p>
+</dd>
+<dt class="hdlist1">
+--fan
+</dt>
+<dd>
+<p>
+    fan speed (needs ACPI)
+</p>
+</dd>
+<dt class="hdlist1">
+--freespace
+</dt>
+<dd>
+<p>
+    per filesystem disk usage
+</p>
+</dd>
+<dt class="hdlist1">
+--gpfs
+</dt>
+<dd>
+<p>
+    GPFS read/write I/O (needs mmpmon)
+</p>
+</dd>
+<dt class="hdlist1">
+--gpfs-ops
+</dt>
+<dd>
+<p>
+    GPFS filesystem operations (needs mmpmon)
+</p>
+</dd>
+<dt class="hdlist1">
+--helloworld
+</dt>
+<dd>
+<p>
+    Hello world example dstat plugin
+</p>
+</dd>
+<dt class="hdlist1">
+--innodb-buffer
+</dt>
+<dd>
+<p>
+    show innodb buffer stats
+</p>
+</dd>
+<dt class="hdlist1">
+--innodb-io
+</dt>
+<dd>
+<p>
+    show innodb I/O stats
+</p>
+</dd>
+<dt class="hdlist1">
+--innodb-ops
+</dt>
+<dd>
+<p>
+    show innodb operations counters
+</p>
+</dd>
+<dt class="hdlist1">
+--lustre
+</dt>
+<dd>
+<p>
+    show lustre I/O throughput
+</p>
+</dd>
+<dt class="hdlist1">
+--md-status
+</dt>
+<dd>
+<p>
+    show software raid (md) progress and speed
+</p>
+</dd>
+<dt class="hdlist1">
+--memcache-hits
+</dt>
+<dd>
+<p>
+    show the number of hits and misses from memcache
+</p>
+</dd>
+<dt class="hdlist1">
+--mysql5-cmds
+</dt>
+<dd>
+<p>
+    show the MySQL5 command stats
+</p>
+</dd>
+<dt class="hdlist1">
+--mysql5-conn
+</dt>
+<dd>
+<p>
+    show the MySQL5 connection stats
+</p>
+</dd>
+<dt class="hdlist1">
+--mysql5-innodb
+</dt>
+<dd>
+<p>
+    show the MySQL5 innodb stats
+</p>
+</dd>
+<dt class="hdlist1">
+--mysql5-io
+</dt>
+<dd>
+<p>
+    show the MySQL5 I/O stats
+</p>
+</dd>
+<dt class="hdlist1">
+--mysql5-keys
+</dt>
+<dd>
+<p>
+    show the MySQL5 keys stats
+</p>
+</dd>
+<dt class="hdlist1">
+--mysql-io
+</dt>
+<dd>
+<p>
+    show the MySQL I/O stats
+</p>
+</dd>
+<dt class="hdlist1">
+--mysql-keys
+</dt>
+<dd>
+<p>
+    show the MySQL keys stats
+</p>
+</dd>
+<dt class="hdlist1">
+--net-packets
+</dt>
+<dd>
+<p>
+    show the number of packets received and transmitted
+</p>
+</dd>
+<dt class="hdlist1">
+--nfs3
+</dt>
+<dd>
+<p>
+    show NFS v3 client operations
+</p>
+</dd>
+<dt class="hdlist1">
+--nfs3-ops
+</dt>
+<dd>
+<p>
+    show extended NFS v3 client operations
+</p>
+</dd>
+<dt class="hdlist1">
+--nfsd3
+</dt>
+<dd>
+<p>
+    show NFS v3 server operations
+</p>
+</dd>
+<dt class="hdlist1">
+--nfsd3-ops
+</dt>
+<dd>
+<p>
+    show extended NFS v3 server operations
+</p>
+</dd>
+<dt class="hdlist1">
+--nfsd4-ops
+</dt>
+<dd>
+<p>
+    show extended NFS v4 server operations
+</p>
+</dd>
+<dt class="hdlist1">
+--nfsstat4
+</dt>
+<dd>
+<p>
+    show NFS v4 stats
+</p>
+</dd>
+<dt class="hdlist1">
+--ntp
+</dt>
+<dd>
+<p>
+    show NTP time from an NTP server
+</p>
+</dd>
+<dt class="hdlist1">
+--postfix
+</dt>
+<dd>
+<p>
+    show postfix queue sizes (needs postfix)
+</p>
+</dd>
+<dt class="hdlist1">
+--power
+</dt>
+<dd>
+<p>
+    show power usage
+</p>
+</dd>
+<dt class="hdlist1">
+--proc-count
+</dt>
+<dd>
+<p>
+    show total number of processes
+</p>
+</dd>
+<dt class="hdlist1">
+--qmail
+</dt>
+<dd>
+<p>
+    show qmail queue sizes (needs qmail)
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>--redis:
+    show redis stats</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+--rpc
+</dt>
+<dd>
+<p>
+    show RPC client calls stats
+</p>
+</dd>
+<dt class="hdlist1">
+--rpcd
+</dt>
+<dd>
+<p>
+    show RPC server calls stats
+</p>
+</dd>
+<dt class="hdlist1">
+--sendmail
+</dt>
+<dd>
+<p>
+    show sendmail queue size (needs sendmail)
+</p>
+</dd>
+<dt class="hdlist1">
+--snmp-cpu
+</dt>
+<dd>
+<p>
+    show CPU stats using SNMP from DSTAT_SNMPSERVER
+</p>
+</dd>
+<dt class="hdlist1">
+--snmp-load
+</dt>
+<dd>
+<p>
+    show load stats using SNMP from DSTAT_SNMPSERVER
+</p>
+</dd>
+<dt class="hdlist1">
+--snmp-mem
+</dt>
+<dd>
+<p>
+    show memory stats using SNMP from DSTAT_SNMPSERVER
+</p>
+</dd>
+<dt class="hdlist1">
+--snmp-net
+</dt>
+<dd>
+<p>
+    show network stats using SNMP from DSTAT_SNMPSERVER
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>--snmp-net-err:
+    show network errors using SNMP from DSTAT_SNMPSERVER</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+--snmp-sys
+</dt>
+<dd>
+<p>
+    show system stats (interrupts and context switches) using SNMP from DSTAT_SNMPSERVER
+</p>
+</dd>
+<dt class="hdlist1">
+--snooze
+</dt>
+<dd>
+<p>
+    show number of ticks per second
+</p>
+</dd>
+<dt class="hdlist1">
+--squid
+</dt>
+<dd>
+<p>
+    show squid usage statistics
+</p>
+</dd>
+<dt class="hdlist1">
+--test
+</dt>
+<dd>
+<p>
+    show test plugin output
+</p>
+</dd>
+<dt class="hdlist1">
+--thermal
+</dt>
+<dd>
+<p>
+    system temperature sensors
+</p>
+</dd>
+<dt class="hdlist1">
+--top-bio
+</dt>
+<dd>
+<p>
+    show most expensive block I/O process
+</p>
+</dd>
+<dt class="hdlist1">
+--top-bio-adv
+</dt>
+<dd>
+<p>
+    show most expensive block I/O process (incl. pid and other stats)
+</p>
+</dd>
+<dt class="hdlist1">
+--top-childwait
+</dt>
+<dd>
+<p>
+    show process waiting for child the most
+</p>
+</dd>
+<dt class="hdlist1">
+--top-cpu
+</dt>
+<dd>
+<p>
+    show most expensive CPU process
+</p>
+</dd>
+<dt class="hdlist1">
+--top-cpu-adv
+</dt>
+<dd>
+<p>
+    show most expensive CPU process (incl. pid and other stats)
+</p>
+</dd>
+<dt class="hdlist1">
+--top-cputime
+</dt>
+<dd>
+<p>
+    show process using the most CPU time (in ms)
+</p>
+</dd>
+<dt class="hdlist1">
+--top-cputime-avg
+</dt>
+<dd>
+<p>
+    show process with the highest average timeslice (in ms)
+</p>
+</dd>
+<dt class="hdlist1">
+--top-int
+</dt>
+<dd>
+<p>
+    show most frequent interrupt
+</p>
+</dd>
+<dt class="hdlist1">
+--top-io
+</dt>
+<dd>
+<p>
+    show most expensive I/O process
+</p>
+</dd>
+<dt class="hdlist1">
+--top-io-adv
+</dt>
+<dd>
+<p>
+    show most expensive I/O process (incl. pid and other stats)
+</p>
+</dd>
+<dt class="hdlist1">
+--top-latency
+</dt>
+<dd>
+<p>
+    show process with highest total latency (in ms)
+</p>
+</dd>
+<dt class="hdlist1">
+--top-latency-avg
+</dt>
+<dd>
+<p>
+    show process with the highest average latency (in ms)
+</p>
+</dd>
+<dt class="hdlist1">
+--top-mem
+</dt>
+<dd>
+<p>
+    show process using the most memory
+</p>
+</dd>
+<dt class="hdlist1">
+--top-oom
+</dt>
+<dd>
+<p>
+    show process that will be killed by OOM the first
+</p>
+</dd>
+<dt class="hdlist1">
+--utmp
+</dt>
+<dd>
+<p>
+    show number of utmp connections (needs python-utmp)
+</p>
+</dd>
+<dt class="hdlist1">
+--vm-cpu
+</dt>
+<dd>
+<p>
+    show VMware CPU stats from hypervisor
+</p>
+</dd>
+<dt class="hdlist1">
+--vm-mem
+</dt>
+<dd>
+<p>
+    show VMware memory stats from hypervisor
+</p>
+</dd>
+<dt class="hdlist1">
+--vm-mem-adv
+</dt>
+<dd>
+<p>
+    show advanced VMware memory stats from hypervisor
+</p>
+</dd>
+<dt class="hdlist1">
+--vmk-hba
+</dt>
+<dd>
+<p>
+    show VMware ESX kernel vmhba stats
+</p>
+</dd>
+<dt class="hdlist1">
+--vmk-int
+</dt>
+<dd>
+<p>
+    show VMware ESX kernel interrupt stats
+</p>
+</dd>
+<dt class="hdlist1">
+--vmk-nic
+</dt>
+<dd>
+<p>
+    show VMware ESX kernel port stats
+</p>
+</dd>
+<dt class="hdlist1">
+--vz-cpu
+</dt>
+<dd>
+<p>
+    show CPU usage per OpenVZ guest
+</p>
+</dd>
+<dt class="hdlist1">
+--vz-io
+</dt>
+<dd>
+<p>
+    show I/O usage per OpenVZ guest
+</p>
+</dd>
+<dt class="hdlist1">
+--vz-ubc
+</dt>
+<dd>
+<p>
+    show OpenVZ user beancounters
+</p>
+</dd>
+<dt class="hdlist1">
+--wifi
+</dt>
+<dd>
+<p>
+    wireless link quality and signal to noise ratio
+</p>
+</dd>
+<dt class="hdlist1">
+--zfs-arc
+</dt>
+<dd>
+<p>
+    show ZFS arc stats
+</p>
+</dd>
+<dt class="hdlist1">
+--zfs-l2arc
+</dt>
+<dd>
+<p>
+    show ZFS l2arc stats
+</p>
+</dd>
+<dt class="hdlist1">
+--zfs-zil
+</dt>
+<dd>
+<p>
+    show ZFS zil stats
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_arguments">ARGUMENTS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>delay</strong> is the delay in seconds between each update</p></div>
+<div class="paragraph"><p><strong>count</strong> is the number of updates to display before exiting</p></div>
+<div class="paragraph"><p>The default delay is 1 and count is unspecified (unlimited)</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_intermediate_updates">INTERMEDIATE UPDATES</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>When invoking dstat with a <strong>delay</strong> greater than 1 and without the
+<strong>--noupdate</strong> option, it will show intermediate updates, ie. the first
+time a 1 sec average, the second update a 2 second average, etc. until
+the delay has been reached.</p></div>
+<div class="paragraph"><p>So in case you specified a delay of 10, <strong>the 9 intermediate updates
+are NOT snapshots</strong>, they are averages over the time that passed since
+the last final update. The end result is that you get a 10 second
+average on a new line, just like with vmstat.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">EXAMPLES</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Using dstat to relate disk-throughput with network-usage (eth0), total CPU-usage and system counters:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>dstat -dnyc -N eth0 -C total -f 5</code></pre>
+</div></div>
+<div class="paragraph"><p>Checking dstat&#8217;s behaviour and the system impact of dstat:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>dstat -taf --debug</code></pre>
+</div></div>
+<div class="paragraph"><p>Using the time plugin together with cpu, net, disk, system, load, proc and
+top_cpu plugins:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>dstat -tcndylp --top-cpu</code></pre>
+</div></div>
+<div class="paragraph"><p>this is identical to</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>dstat --time --cpu --net --disk --sys --load --proc --top-cpu</code></pre>
+</div></div>
+<div class="paragraph"><p>Using dstat to relate advanced cpu stats with interrupts per device:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>dstat -t --cpu-adv -yif</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bugs">BUGS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Since it is practically impossible to test dstat on every possible
+permutation of kernel, python or distribution version, I need your
+help and your feedback to fix the remaining problems. If you have
+improvements or bugreports, please send them to:
+<a href="mailto:dag@wieers.com">dag@wieers.com</a></p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Please see the TODO file for known bugs and future plans.</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_files">FILES</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Paths that may contain external dstat_*.py plugins:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>~/.dstat/
+(path of binary)/plugins/
+/usr/share/dstat/
+/usr/local/share/dstat/</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_environment_variables">ENVIRONMENT VARIABLES</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Dstat will read additional command line arguments from the environment
+variable <strong>DSTAT_OPTS</strong>. You can use this to configure Dstat&#8217;s default
+behavior, e.g. if you have a black-on-white terminal:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>export DSTAT_OPTS="--bw --noupdate"</code></pre>
+</div></div>
+<div class="paragraph"><p>Other internal or external plugins have their own environment variables
+to influence their behavior, e.g.</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>DSTAT_NTPSERVER</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>DSTAT_MYSQL
+DSTAT_MYSQL_HOST
+DSTAT_MYSQL_PORT
+DSTAT_MYSQL_SOCKET
+DSTAT_MYSQL_USER
+DSTAT_MYSQL_PWD</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>DSTAT_SNMPSERVER
+DSTAT_SNMPCOMMUNITY</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>DSTAT_SQUID_OPTS</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>DSTAT_TIMEFMT</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">SEE ALSO</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_performance_tools">Performance tools</h3>
+<div class="literalblock">
+<div class="content">
+<pre><code>htop(1), ifstat(1), iftop(8), iostat(1), mpstat(1), netstat(8), nfsstat(8), perf(1), powertop(1), rtacct(8), top(1), vmstat(8), xosview(1)</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_process_tracing">Process tracing</h3>
+<div class="literalblock">
+<div class="content">
+<pre><code>lslk(8), lsof(8), ltrace(1), pidstat(1), pmap(1), ps(1), pstack(1), strace(1)</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_binary_debugging">Binary debugging</h3>
+<div class="literalblock">
+<div class="content">
+<pre><code>ldd(1), file(1), nm(1), objdump(1), readelf(1)</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_memory_usage_tools">Memory usage tools</h3>
+<div class="literalblock">
+<div class="content">
+<pre><code>free(1), memusage, memusagestat, ps_mem(1), slabtop(1), smem(8)</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_accounting_tools">Accounting tools</h3>
+<div class="literalblock">
+<div class="content">
+<pre><code>acct(2), dump-acct(8), dump-utmp(8), lastcomm(1), sa(8)</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_hardware_debugging_tools">Hardware debugging tools</h3>
+<div class="literalblock">
+<div class="content">
+<pre><code>dmidecode(8), ifinfo(1), lsdev(1), lshal(1), lshw(1), lsmod(8), lspci(8), lsusb(8), numactl(8), smartctl(8), turbostat(8), x86info(1)</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_application_debugging">Application debugging</h3>
+<div class="literalblock">
+<div class="content">
+<pre><code>mailstats(8), qshape(1)</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_xorg_related_tools">Xorg related tools</h3>
+<div class="literalblock">
+<div class="content">
+<pre><code>xdpyinfo(1), xrestop(1)</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_other_useful_info">Other useful info</h3>
+<div class="literalblock">
+<div class="content">
+<pre><code>collectl(1), proc(5), procinfo(8)</code></pre>
+</div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_author">AUTHOR</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Written by Dag Wieers <a href="mailto:dag@wieers.com">dag@wieers.com</a></p></div>
+<div class="paragraph"><p>Homepage at <a href="http://dag.wieers.com/home-made/dstat/">http://dag.wieers.com/home-made/dstat/</a></p></div>
+<div class="paragraph"><p>This manpage was initially written by Andrew Pollock
+<a href="mailto:apollock@debian.org">apollock@debian.org</a> for the Debian GNU/Linux system.</p></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Version 0.7.3<br />
+Last updated 2015-07-04 14:07:27 CEST
+</div>
+</div>
+</body>
+</html>

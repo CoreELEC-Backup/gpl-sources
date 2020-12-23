@@ -1,0 +1,47 @@
+<#
+  This is a simple hello-world-application with cookie-support
+
+  It stores the name in a cookie
+#>
+<%args>
+name;            // define query-parameter
+                 // this defines a variable of type std::string with
+                 // the name "name"
+clearcookie;
+</%args>
+<%cpp>
+
+  if (name.empty())
+    name = request.getCookie("name");
+
+  if (!clearcookie.empty())
+  {
+    reply.clearCookie("name");   // delete cookie from client
+  }
+  else if (!name.empty() && request.getCookie("name").getValue() != name)
+  {
+    reply.setCookie("name", name, 3600);  // set cookie when new or modified
+  }
+
+</%cpp>
+<html>
+ <head>
+  <title>Hello World-application for tntnet</title>
+ </head>
+
+ <body bgcolor="#FFFFFF">
+
+  <h1>Hello <$ name.empty() ? "World" : name $></h1>
+
+  <form>
+   What's your name?
+   <input type="text" name="name" value="<$name$>"> <br>
+   <input type="submit">
+   <input type="submit" name="clearcookie" value="delete cookie">
+  </form>
+
+  <a href='.'>reload</a>
+
+ </body>
+</html>
+

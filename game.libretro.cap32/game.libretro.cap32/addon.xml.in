@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.cap32"
+		name="Amstrad - CPC (Caprice32)"
+		version="4.5.0.9"
+		provider-name="Ulrich Doewich, dantoine">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.amstrad.joystick" version="1.0.0"/>
+		<import addon="game.controller.amstrad.keyboard" version="1.0.0"/>
+		<import addon="game.controller.mouse" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>Amstrad</platforms>
+		<extensions>dsk|sna|zip|tap|cdt|voc|cpr|m3u</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>true</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Amstrad - CPC (Caprice32) 4.5 HI</summary>
+		<description lang="en_GB">Caprice32 is an emulator for the Amstrad CPC 8-bit home computer series. It faithfully imitates the CPC464, CPC664, and CPC6128 models.
+
+Written by Ulrich Doewich.
+
+Supported files: .dsk, .sna, .zip, .tap, .cdt, .voc, .cpr, .m3u</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.cap32</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
+</addon>

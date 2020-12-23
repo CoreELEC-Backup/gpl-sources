@@ -1,0 +1,1614 @@
+2014-01-17 tommi@tntnet.org
+
+ - release version 2.2.1
+
+2013-12-14 tommi@tntnet.org
+
+ - fix parsing double % in query parameters
+
+2013-04-21 tommi@tntnet.org
+
+ - release version 2.2
+
+2013-04-17 tommi@tntnet.org
+
+ - fix exception handling in xmlrpc and json over http - exceptions were lost when executed just via the event loop
+
+2013-04-06 tommi@tntnet.org
+
+ - fix build on FreeBSD
+
+2013-04-05 tommi@tntnet.org
+
+ - replace use of strerror with thread safe strerror_r
+
+2013-04-03 tommi@tntnet.org
+
+ - make string type a template parameter in ltrim, rtrim and trim so that it works with cxxtools::String (unicode string) also
+
+2013-03-31 tommi@tntnet.org
+
+ - make passing listen ip address optional for http and rpc servers, which means to listen on all interfaces
+ - fix compiler warnings
+
+2013-03-30 tommi@tntnet.org
+
+ - implement a new much simpler api for asynchronous rpc calls (see demo/rpcasyncaddclient.cpp for a example)
+
+2013-03-29 tommi@tntnet.org
+
+ - set pthread flags and select threaded compiler globally in configure script
+ - forgot to pass event loop to json rpc client demo
+
+2013-03-26 tommi@tntnet.org
+
+ - make selecting remote client a little more readable in demo
+
+2013-03-22 tommi@tntnet.org
+
+ - release candidate 2.2rc3
+
+2013-03-20 tommi@tntnet.org
+
+ - implement lru cache
+ - fix collecting cache stats
+ - return reference to new value in put method of cache
+
+2013-03-17 tommi@tntnet.org
+
+ - set preprocessor flags in CPPFLAGS instead of CXXFLAGS
+ - fix some compiler warnings
+ - use INHERIT flag on non-linux systems in cxxtools::net::TcpServer::accept also
+
+2013-03-16 tommi@tntnet.org
+
+ - release candidate 2.2rc2
+
+2013-03-13 tommi@tntnet.org
+
+ - remove some unused members
+
+2013-03-09 tommi@tntnet.org
+
+ - remove implicit conversion from cxxtools::SmartPtr to raw pointer and make different SmartPtr types compatible as long as the pointees are compatible
+ - fix handling of escape character in format method of cxxtools::RegexSMatch
+
+2013-03-05 tommi@tntnet.org
+
+ - fix jsonrpc client connect method: last optimization was silly wrong
+ - release candidate 2.2rc1
+
+2013-03-04 tommi@tntnet.org
+
+ - handle empty regular expression explicitly since at least OSX complains about it
+ - fix crash in binary rpc client when reusing client
+ - close existing connection in json rpc client when connection parameters are changed in connect
+ - close existing connection in binary rpc client only if connection parameters are changed in connect
+
+2013-03-01 tommi@tntnet.org
+
+ - binary rpc client crashed when connect method was called on a default constructed instance
+
+2013-02-27 tommi@tntnet.org
+
+ - simplify cxxtools::QueryParams and remove the unused parent feature
+ - update ChangeLog
+
+2013-02-14 tommi@tntnet.org
+
+ - add domain parameter to connect method and constructor of binary rpc client to make it more similar to xmlrpc
+ - do not convert string values to double and back in json formatter when doubles are serialized as strings
+
+2013-01-30 tommi@tntnet.org
+
+ - make conversion explicit in cxxtools::String (clang was pinky about it and he was right)
+
+2013-01-18 tommi@tntnet.org
+
+ - improve compatibility to previous cxxtools release in log_init
+ - fix properties unit test: a wide char string cannot be printed to a std::ostream
+
+2013-01-16 tommi@tntnet.org
+
+ - allow full 32 bit unicode escapes in properties files
+
+2013-01-14 tommi@tntnet.org
+
+ - use deserializer API to extract data from properties in unit test
+
+2013-01-13 tommi@tntnet.org
+
+ - improve error handling in properties parser
+
+2013-01-12 tommi@tntnet.org
+
+ - allow unicode escape sequences in properties and comments starting with !
+ - implement PropertiesDeserializer
+ - read logging settings optionally from log.properties like before
+ - bugfix: SerializationInfo::getMember(unsigned) was just wrong
+ - use unicode strings in Properties class
+
+2013-01-09 tommi@tntnet.org
+
+ - add missing library dependency
+
+2013-01-03 tommi@tntnet.org
+
+ - fix stopping tcp server if only one listen socket is active
+ - make value of cxxtools::Char signed like other char types
+ - fixes for IBM/xlC-compiler
+
+2013-01-02 tommi@tntnet.org
+
+ - do not block SIGPIPE if MSG_NOSIGNAL is used
+ - extend cxxtools::split by passing split as set of chars
+
+2012-12-30 tommi@tntnet.org
+
+ - fix preprocessor warning about redefinition of HAVE_REVERSE_ITERATOR
+ - fix handling SIGPIPE in tcp server for BSD
+ - do not set signal handler for SIGPIPE any more in servers since it is now handled by the socket code
+ - fix setting SO_NOSIGPIPE
+
+2012-12-29 tommi@tntnet.org
+
+ - use SO_NOSIGPIPE or MSG_NOSIGNAL to suppress SIGPIPE
+ - fix compile problem on FreeBSD
+
+2012-12-01 tommi@tntnet.org
+
+ - allocate dynamically the buffer for cxxtools::Directory::cwd to be safe for all times
+
+2012-11-25 tommi@tntnet.org
+
+ - replace function praefix in binary rpc with domain and implement explicit protocol support for it
+ - allow assigning value to cxxtools::Arg
+
+2012-11-18 tommi@tntnet.org
+
+ - new file device for asynchronous file i/o (ported from Pt)
+
+2012-11-17 tommi@tntnet.org
+
+ - add force flag to cxxtools::Queue::put to override capacity limitation of queue
+ - make Base64Codec::encode/decode public as they are inteded to be and make codec methods in Utf8Codec protected instead of public
+ - add missing file - iconvwrap should have been checked in long ago
+ - compile with -Wall and -pedantic by default if compiler supports it
+
+2012-10-26 tommi@tntnet.org
+
+ - do not loose assertion message when unit tests are nested
+
+2012-10-08 tommi@tntnet.org
+
+ - format null value correctly in xmlrpc
+ - make type conversion explicit in SerializationInfo
+ - add unit tests for cxxtools::split and cxxtools::join
+
+2012-09-21 tommi@tntnet.org
+
+ - add static helper functions to codecs for encoding and decoding utf-8 and base84 data
+ - fix new cxxtools::encode and decode functions and add unit tests for them
+
+2012-09-20 tommi@tntnet.org
+
+ - implement encode and decode helper template functions
+
+2012-09-12 tommi@tntnet.org
+
+ - add host and port into error message in tcp client when connect fails
+
+2012-09-02 tommi@tntnet.org
+
+ - make json rpc conformant to JSON-RPC specification 2.0
+ - use monotonic clock function clock_gettime if available to measure times cxxtools::Clock
+
+2012-08-20 tommi@tntnet.org
+
+ - make cxxtools::Thread::sleep(ms) signal safe
+
+2012-08-04 tommi@tntnet.org
+
+ - allow absolute uris in http request header as the standard demands
+
+2012-07-31 tommi@tntnet.org
+
+ - fix problems detected by clang 3.1 (yofuh)
+
+2012-07-29 tommi@tntnet.org
+
+ - make cxxtools::Char more restrictive (like removing automatic conversion to int or removing shift operators)
+ - make of logging deinitialization more robust
+
+2012-07-16 tommi@tntnet.org
+
+ - comparing Char against wchar_t
+
+2012-06-25 tommi@tntnet.org
+
+ - better formatting of failed message in unittest macro CXXTOOLS_UNIT_ASSERT_EQUALS
+
+2012-06-11 tommi@tntnet.org
+
+ - fix race condition when creating deteached threads
+
+2012-06-10 tommi@tntnet.org
+
+ - fix 2 small memory leaks
+ - add test for smart pointer with atomic counter
+
+2012-06-07 tommi@tntnet.org
+
+ - make smart pointer implicit convertable to const ObjectType* again
+ - move responsibility in destroying object from refcounted to smartptr class, so that smartptr can use its destroy poliy
+
+2012-06-02 tommi@tntnet.org
+
+ - simplify writing log to stderr or stdout since this complicated optimization do not help at all
+ - fix optimized writing to console in logger (log messages were not completed with a line feed when delayed)
+ - do not create log.properties but new log.xml when building demos
+ - add new cxxtools/iconvwrap.h to dist package
+
+2012-05-30 tommi@tntnet.org
+
+ - add pkg-config support (Leandro Santiago)
+ - improve iconv support (Jiří Pinkava)
+
+2012-05-29 tommi@tntnet.org
+
+ - update cxxtools-config to generate new configuration file log.xml file instead of log.properties for logging
+ - limit size of buffered log messages to stderr or stdout to about 8k
+ - do not use std::cerr to write log message since it is a global resource may be used by another thread
+ - add setting "stdout" to print log output to stdout instead of stderr
+
+2012-05-28 tommi@tntnet.org
+
+ - optimize printing cxxtools::String to std::ostream by using codec directly instead of instantiation of TextStream
+ - fix buffer overflow in Utf8Codec::decode
+   - rewrite logging
+   - configure logging using xml (or serializationinfo) instead of properties
+   - remove cxxtools/loginit.h - it was obsolete for long time already
+   - move xml support from libcxxtools-xml into core library libcxxtools and remove libcxxtools-xml
+ - do not use all html entities in xml but only the few, which are defined in xml
+
+2012-05-26 tommi@tntnet.org
+
+ - fix reading authentication data from http request
+
+2012-05-19 tommi@tntnet.org
+
+ - remove remaining parts of support of log4cxx and log4cplus
+
+2012-05-13 tommi@tntnet.org
+
+ - limit number of pooled message impl in logger to 8 and release pooled messages on end
+
+2012-05-12 tommi@tntnet.org
+
+ - optimize logging: pool of message impls
+
+2012-05-07 tommi@tntnet.org
+
+ - add clear method to deserializer and fix unit tests - they were broken with
+   the new feature, that deserializers can deserialize multiple objects without
+   rerun
+
+2012-05-06 tommi@tntnet.org
+
+ - optimize logging by delaying flush when other threads are already waiting to write next log message
+
+2012-05-06 tommi@tntnet.org
+
+ - small fix in properties parser
+ - use unicode string in properties parser
+ - allow multiple calls to deserializer without reparsing
+
+2012-05-05 tommi@tntnet.org
+
+ - fix reading custom types in binary parser
+
+2012-05-04 tommi@tntnet.org
+
+ - make some extensions to Directory and FileInfo
+
+2012-04-29 tommi@tntnet.org
+
+ - semicolon is a comment in ini files - fix in iniparser
+
+2012-04-27 tommi@tntnet.org
+
+ - fix base64 encoder
+
+2012-04-25 tommi@tntnet.org
+
+ - add method getMember(unsigned) to read nth member from SerializationInfo
+ - allow comments (single line with // and multiline with /* */) in json
+
+2012-04-24 tommi@tntnet.org
+
+ - new method terminateAccept in TcpServer to terminate a blocking accept from another thread
+
+2012-04-10 tommi@tntnet.org
+
+ - fix xmlrpc url and add json over http to the rpc add client (Leandro Santiago)
+ - fix formatting and parsing floating point value 0 in binary format
+
+2012-04-07 tommi@tntnet.org
+
+ - fix resizing cxxtools::Cache
+
+2012-04-02 tommi@tntnet.org
+
+ - release 2.1
+
+2012-03-30 tommi@tntnet.org
+
+ - optimize cache template - no linear search necessary any more when searching for elements
+
+2012-03-27 tommi@tntnet.org
+
+ - arg/argv can be passed to log_init, so that the logging properties file is derived from the current binary name or optionally a option char or string is passed to log_init
+
+2012-03-18 tommi@tntnet.org
+
+ - remove support for log4cpp and log4cxx
+
+2012-03-15 tommi@tntnet.org
+
+ - fix reading csv data without title
+
+2012-03-05 tommi@tntnet.org
+
+ - use unicode escape sequence for control characters (<0x20) in json as done already for characters > 0x80
+
+2012-03-04 tommi@tntnet.org
+
+ - add log macros log_xxx_if(cond, expr)
+ - add feature to json serializer to serialize empty objects
+
+2012-02-29 tommi@tntnet.org
+
+ - fix encoding in base64codec
+
+2012-02-25 tommi@tntnet.org
+
+ - use AX_CHECK_COMPILE_FLAG instead of AX_CXXFLAGS_*_OPTION to check compile flags - this is a standard macro of autoconf and works better than the old ones
+ - set compile flags for ibm xlc correctly
+
+2012-02-24 tommi@tntnet.org
+
+ - report right type in serializationinfo when convert fails
+ - inherit exception mask from source stream in csv deserializer
+ - improve error reporting in serializer
+ - inherit exception flag from base stream in text streams
+ - fix member function in string to match exactly the declaration in the header
+ - add compiler flags -Wno-long-long for gcc and -qrtti for aix/xlc
+
+2012-02-19 tommi@tntnet.org
+
+ - do not check doubles for equality but for almost equal in unit test to work around rounding problems
+ - add configure check if int64_t can be serialized using standard types
+
+2012-02-18 tommi@tntnet.org
+
+ - fix some compiler warnings
+
+2012-02-17 tommi@tntnet.org
+
+ - add missing explicit specifier
+ - process last line of log.properties even if there is no line feed at end
+ - fix documentation of cxxtools::IODevice::eof()
+
+2012-02-15 tommi@tntnet.org
+
+ - serializer bool as "true" and "false" as before instead of 1 and 0
+ - give addValue methods of formatter unique names for easier resolution and to remove some compiler warnings
+
+2012-02-13 tommi@tntnet.org
+
+ - fix typo in textstream, which caused a crash
+ - remove cxxtools/types.h header and replace with stdint.h
+ - and clean up code again to reduce compiler warnings
+ - use the result of the long long type check where needed
+
+2012-02-09 tommi@tntnet.org
+
+ - add some missing includes
+ - change tabs to spaces
+ - increase abi number from 7 to 8
+ - add some missing headers and other minor code cleanup (yofuh)
+ - fix initalization of application class
+ - fix compiler warning in json parser
+
+2012-02-08 tommi@tntnet.org
+
+ - avoid long long constants since they are difficult to make fully portable
+
+2012-02-08 tommi@tntnet.org
+
+ - add check for cygwin platform to disable min/max macros from win32 headers
+
+2012-02-03 tommi@tntnet.org
+
+ - csvserializer is not copyable
+
+2012-02-02 tommi@tntnet.org
+
+ - allow quoted titles in csv parser
+
+2012-01-30 tommi@tntnet.org
+
+ - print header line in csv serializer when titles are set explicitly even if no data lines are written
+
+2012-01-29 tommi@tntnet.org
+
+ - change serializer-bench to use fraction numbers also in double test
+
+2012-01-28 tommi@tntnet.org
+
+ - handle eof correctly in json and binary rpc client
+ - make name parameter optional when serializing objects into binary format
+ - remove unnecessary end of value marker in binary format
+
+2012-01-27 tommi@tntnet.org
+
+ - autodetect tab in csv files
+
+2012-01-26 tommi@tntnet.org
+
+ - fix setting of delimiter in csv parser and impl csv formatter in csv
+ serializer to help binary compatibility in the future
+
+2012-01-25 tommi@tntnet.org
+
+ - fix bug in binary rpc and json rpc server: large requests (>8192 bytes) let server to wait forever
+ - change in unittest main: take argument list as list of tests to execute
+ instead of option -t and add option -l as an alias to -h (i.e. list available tests)
+
+2012-01-25 tommi@tntnet.org
+
+ - implement cxxtools::poxix::CommandInput::wait and cxxtools::posix::CommandOutput::wait
+
+2012-01-18 tommi@tntnet.org
+
+ - make titles changable in csv serializer
+ - serialize floating point values using mantissa and exponent in binary format instead of bcd
+
+2012-01-15 tommi@tntnet.org
+
+ - optimize binary format
+
+2012-01-14 tommi@tntnet.org
+
+ - sort unit tests alphabetically
+
+2012-01-12 tommi@tntnet.org
+
+ - fix rounding error in convert
+
+2012-01-09 tommi@tntnet.org
+
+ - fix parsing floating point values in scientific notation with decimal point in cxxtools::convert (Adi)
+
+2012-01-08 tommi@tntnet.org
+
+ - remove id from SerialzationInfo
+ - add json to serializer benchmark
+
+2012-01-05 tommi@tntnet.org
+
+ - define output operators for wchar_t and const wchar_t* to text streams
+ - send right id to client in jsonrpc
+
+2012-01-05 tommi@tntnet.org
+
+ - add version string to json message to comply with json rpc 2.0
+
+2012-01-04 tommi@tntnet.org
+
+ - add support for null values in serialization and use it in json and binary serialization
+ - improve json rpc conformance (works now the perl json rpc client and server)
+
+2012-01-02 tommi@tntnet.org
+
+ - implement jsonrpc over http client and server
+
+2011-12-30 tommi@tntnet.org
+
+ - fix build on ubuntu 11.10 due to new DSO linking behaviour
+
+2011-12-28 tommi@tntnet.org
+
+ - make xml attributes in xml serialization optional
+ - improve beautification mode of json
+
+2011-12-27 tommi@tntnet.org
+
+ - add jsonrpc to demo applications
+ - enable CallbackException test for jsonrpc
+
+2011-12-26 tommi@tntnet.org
+
+ - bugfix: jsondeserializer can deserialize now empty arrays
+ - add operator== to SerializationInfo
+ - execute tests in a testsuite of unit test in the same order as registered
+ - override all formatter methods in json formatter for simplification
+ - implement json rpc over raw socket
+ - xmlrpc actually do not throw an RemoteException but returns http 404 if method is not found
+
+2011-12-26 tommi@tntnet.org
+
+ - serialize boolean value in json as "true" or "false"
+
+2011-12-23 tommi@tntnet.org
+
+ - reduce default size of arguments from 64k to 32k in cxxtools::posix::Exec to save stack
+ - implement method addService in binary rpc server to register all procedures of a service
+
+2011-12-21 tommi@tntnet.org
+
+ - fix unnecessary memory use in string class
+
+2011-12-19 tommi@tntnet.org
+
+ - move parse event methods from Composer to Deserializer
+
+2011-12-16 tommi@tntnet.org
+
+ - improve error message in cxxtools::convert and implement conversions from const char* to all number types
+ - fix parsing csv files with a single column
+
+2011-12-14 tommi@tntnet.org
+
+ - use longer variable names to prevent naming conflict (happened with _N in cxxtools::String on solaris/gcc)
+
+2011-12-11 tommi@tntnet.org
+
+ - new class ServiceRegistry for registering rpc functions
+
+2011-12-11 tommi@tntnet.org
+
+ - add range checks into serializationinfo
+
+2011-12-10 tommi@tntnet.org
+
+ - finish method of json parser does not return anything
+ - move csv parser code from CsvDeserializer into a separaten class CsvParser
+
+2011-12-09 tommi@tntnet.org
+
+ - add char type to SerializationInfo and make some fixes in type conversion in SerializationInfo
+
+2011-12-09 tommi@tntnet.org
+
+ - remove some remaining source info outputs from exceptions
+ - fix deserialization of bool from std::string
+
+2011-12-08 tommi@tntnet.org
+
+ - make composer and decomposer non copyable and fix 2 compile problems with IBM xlc
+
+2011-12-06 tommi@tntnet.org
+
+ - add procedure name into error message of xmlrpc server when procedure is not found
+ - new exception type SerializationMemberNotFound which is thrown, when a deserialization
+ operator do not find a member with the specified name
+ - check right config variable to enable IPv6
+
+2011-12-05 tommi@tntnet.org
+
+ - Remove SourceInfo since I don't want to know where a error was detected but what happened.
+ - add optional praefix for method calls in binary rpc client
+ - allow multiple objects to be serialized into a single json object in json serializer
+
+2011-12-04 tommi@tntnet.org
+
+
+2011-12-04 tommi@tntnet.org
+
+ - increase default listen backlog from 5 to 64 in http server and binary rpc server
+ - remove obsolete class SerializationContext
+
+2011-12-04 tommi@tntnet.org
+
+ - add method "JsonSerializer::serializer(const T&)" to serializer a C++ value without wrapping it into a json object
+ - use new shorter variant of json serializer in json demo
+ - do not throw exception on EINTR in accept system call but just repeat it
+
+2011-12-04 tommi@tntnet.org
+
+ - rename Serializer to Composer and Deserializer to Decomposer to distinguish them from real Serializer classes (and consistency with Pt)
+
+ - add optional name parameter to deserialize method of Deserializer to make
+ it symetric with Serializer
+
+2011-12-02 tommi@tntnet.org
+
+ - zero byte in std::string works know in binary format
+
+2011-11-30 tommi@tntnet.org
+
+ - accept character set specification in content type reply header in xmlrpc client
+
+2011-11-29 tommi@tntnet.org
+
+ - major optimzations:
+    - SerializationInfo has now a union with different types instead of just converting everyting into unicode string
+    - remove reference feature from serialization framework since there is currently no format, which actually uses it
+
+2011-11-27 tommi@tntnet.org
+
+ - add error code to binary exception response
+ - add rpc binary client
+
+2011-11-23 tommi@tntnet.org
+
+ - add checks for empty tags in xml writer and xml serializer
+ - implement json deserializer
+ - generalize rpc client in preparation for binary rpc client
+
+2011-11-21 tommi@tntnet.org
+
+ - new method cxxtools::SerializationInfo::swap
+
+2011-11-20 tommi@tntnet.org
+
+ - implementation of binary rpc server
+
+2011-11-19 tommi@tntnet.org
+
+ - add hmac (rfc 2104) implementation and unit tests for md5 and hmac (yofuh)
+
+2011-11-18 tommi@tntnet.org
+
+ - implement csv serializer
+
+2011-11-17 tommi@tntnet.org
+
+ - allow colon in attribute names of xml files
+
+2011-11-16 tommi@tntnet.org
+
+ - implement deserializer for csv
+
+2011-11-13 tommi@tntnet.org
+
+ - move binary serializer and deserializer into separate library and rewrite binary deserializer to fit better into a binary rpc server
+ - remove obsolete class ProcessImpl
+ - move ServiceProcedure from namespace cxxtools::xmlrpc to cxxtools
+
+2011-11-12 tommi@tntnet.org
+
+ - change binary serialization format for easier parsing
+
+2011-11-09 tommi@tntnet.org
+
+ - simplify use of cxxtools::net::TcpStream
+
+2011-11-08 tommi@tntnet.org
+
+ - encode bool as single byte in binary serialization
+
+2011-11-04 tommi@tntnet.org
+
+ - optimize cxxtools::String::replace methods and do some code cleanup in cxxtools::String class
+
+2011-11-01 tommi@tntnet.org
+
+ - improve rpc benchmark client and server
+ - improve serializer benchmark program
+
+2011-10-28 tommi@tntnet.org
+
+ - move private md5 interface to private header and md5 helper functions to cxxtools/md5.h header
+ - fix handling of buffer in cxxtools::Fdiostream
+
+2011-10-27 tommi@tntnet.org
+
+ - string improvements: extend string capacity by factor of 1.5 instead of 2 and define output operator to std::ostream
+ - add help page to xmlrpc benchmark programs
+
+2011-10-26 tommi@tntnet.org
+
+allow assignment of narrow string to cxxtools::String
+
+2011-10-24 tommi@tntnet.org
+
+ - optimize cxxtools::String (short string optimization, no refcounting)
+ - use atomic operation in rpcbenchclient to increment request counter
+
+2011-10-22 tommi@tntnet.org
+
+ - add unittest for cxxtools::String (copied from pt-framework)
+ - make distinction between sparc32 and sparc64 (yofuh)
+ - fix detection of 64 bit sparc in generic part
+
+2011-10-20 tommi@tntnet.org
+
+ - abstract http server implementation even more
+
+2011-10-20 tommi@tntnet.org
+
+ - do not inline everything from cxxtools::String
+
+2011-10-17 tommi@tntnet.org
+
+ - add benchmark client and server for xmlrpc
+ - make SerializationContext non copyable as it should be
+
+2011-10-16 tommi@tntnet.org
+
+ - fix reading chunked encoding in http client
+
+2011-10-07 tommi@tntnet.org
+
+ - fix cxxtools::ArgIn and cxxtools::ArgOut classes
+
+2011-10-05 tommi@tntnet.org
+
+ - make cxxtools::SerializationInfo serializable and deserializable
+
+2011-09-30 tommi@tntnet.org
+
+ - improve serializer benchmark program (passing flag -f program writes output to files)
+
+2011-09-28 tommi@tntnet.org
+
+ - add template methods registerFunction and registerCallable to xmlrpc service to even more simplify definition of xmlrpc service functions
+ - make xmlrpc::Service::createResponder protected
+
+2011-09-22 tommi@tntnet.org
+
+ - binary integers in binary serialization format
+ - unit test assertion macros are now only one statement
+ - implement bcd encoding for double values in binary serialization
+
+2011-09-21 tommi@tntnet.org
+
+ - optimized cxxtools::convert (ported from Pt-framework)
+ - another fix autoconf check since autoconf version 2.68 do not accept the current any more
+
+2011-09-20 tommi@tntnet.org
+
+ - fix problems with AIX/xlC
+ - fix autoconf check since autoconf version 2.68 do not accept the current any more
+
+2011-09-04 tommi@tntnet.org
+
+ - rename DefaultDestroyPolicy to DeletePolicy in SmartPtr since it expresses better, what is really done
+ - add memory barrier (yofuh)
+
+2011-08-30 tommi@tntnet.org
+
+ - fix crash in http server when last service is removed manually
+
+2011-08-28 tommi@tntnet.org
+
+ - fix potential memory leak
+ - remove unused template parameter
+
+2011-08-26 tommi@tntnet.org
+
+ - implement binary serializer/deserializer
+
+2011-08-26 tommi@tntnet.org
+
+ - helper classes for controling input or output using command line argument
+
+2011-08-12 tommi@tntnet.org
+
+ - fix error checking in iconvstream
+
+2011-06-24 tommi@tntnet.org
+
+ - fix for clang++: looks like it is pinkier about missing this when accessing members of base classes in template classes
+
+2011-06-05 tommi@tntnet.org
+
+ - ignore SIGPIPE in http server
+
+2011-06-05 tommi@tntnet.org
+
+ - read body into request body in http server by default
+
+2011-06-04 tommi@tntnet.org
+
+ - regular expressions can now be used for mapping to responder in http server
+
+2011-05-31 tommi@tntnet.org
+
+ - do not throw after fork but just exit with -1 in command input and output
+
+2011-05-26 tommi@tntnet.org
+
+ - remove now obsolet class process.cpp
+
+2011-05-23 tommi@tntnet.org
+
+ - remove obsolete cxxtools::SysError class (replaced with cxxtools::SystemError long time ago)
+
+2011-05-22 tommi@tntnet.org
+
+ - add classes cxxtools::posix::CommandInput and cxxtools::posix::CommandOutput for easily reading from and writing to processes
+
+2011-05-21 tommi@tntnet.org
+
+ - move Fork-class from cxxtools to cxxtools::posix namespace
+ - add a wrapper cxxtools::posix::Exec around exec??-functions of posix
+
+2011-05-21 tommi@tntnet.org
+
+ - inherit pipe filedescriptor by default in cxxtools::posix::Pipe
+
+2011-05-19 tommi@tntnet.org
+
+ - set default char ? to cxxtools::Char::narrow
+ - use ? instead of _ as default in cxxtools::String::narrow
+ - fix error message in xml reader when unexpected character is found
+
+2011-05-08 tommi@tntnet.org
+
+ - add conversion function from std::string to std::string (just assignment)
+
+2011-05-06 tommi@tntnet.org
+
+ - print log messages to stderr instead of stdout
+
+2011-04-29 tommi@tntnet.org
+
+ - add beautify flag to static toString methods of xml and json serializers
+
+2011-04-29 tommi@tntnet.org
+
+ - add link and symlink methods to file class
+
+2011-03-29 tommi@tntnet.org
+
+ - fix stopping http server without listener
+
+2011-03-27 tommi@tntnet.org
+
+ - remove cxxtools::sodo - it was non functional anyway
+
+2011-03-26 tommi@tntnet.org
+
+ - split rpcecho demo into separate client and server for simplification
+ - add documentation and unit test to smartptr and do some minor fixes
+ - make destroy policy method public in smartptr (it is called in tntnet directly)
+
+2011-03-24 tommi@tntnet.org
+
+ - make null from nan, inf and -inf in json serializer
+
+2011-02-27 tommi@tntnet.org
+
+ - reimplement cxxtools::pool using smart pointer instead of proxy object
+
+2011-02-04 tommi@tntnet.org
+
+ - do not pass output_iterator as reference to QueryParams::get to get unnamed params; iterators should be always by value
+
+2011-02-03 tommi@tntnet.org
+
+ - do not put boolean values into quotation marks in json
+
+2011-01-31 tommi@tntnet.org
+
+ - add demo for json serializer in a http server
+ - accept "inifity" for float and double values in convert
+ - add put_top method to cache to use it as a simple lru cache
+
+2011-01-29 tommi@tntnet.org
+
+ - improved support nan and inf in conversion functions for float and double
+
+2011-01-26 tommi@tntnet.org
+
+ - fix include guard in atomicity.h
+
+2011-01-24 tommi@tntnet.org
+
+ - fix data type in conversion function
+ - fix license header
+ - do not inline larger functions in cxxtools::convert
+
+2011-01-23 tommi@tntnet.org
+
+ - add compare operators to cxxtools::DateTime
+ - move some larger methods from DateTime to cpp file and other small code cleanup
+
+2011-01-16 tommi@tntnet.org
+
+ - do not use explicit IPv4 addresses in xmlrpc unittest
+
+2011-01-15 tommi@tntnet.org
+ - add static toString and toObject methods to serializers and deserializer to simplify api
+
+2010-12-31 tommi@tntnet.org
+ - fix some problems due to apache stl (were issues in cxxtools - not apache stl)
+
+2010-12-28 tommi@tntnet.org
+ - bugfix: accidentally removed allocation for string when copied
+ - 2 fixes for xmldeserialation:
+   - move type from tag name back to typeName in serializationinfo
+   - do not change category from Array to Object when elements are added to an array
+
+2010-12-27 tommi@tntnet.org
+ - add category to xmlserializer
+ - set type of serializationinfo in xmlrpc scanner
+ - reduce some more allocations
+
+2010-12-21 tommi@tntnet.org
+ - reduced library size by inlining trivial methods and other small optimizations
+
+2010-12-19 tommi@tntnet.org
+ - reduced allocations
+
+2010-12-18 tommi@tntnet.org
+ - reverse xml entity resolver
+ - better error reporting in failed unittests
+ - cxxtools::OStringStream and cxxtools::IStringStream as typedefs
+ - use reverse xml entity resolver in xml writer
+ - fix reading xml entities in xml attribute values
+ - pass strings by const reference instead of const copies in xml reader
+
+2010-12-17 tommi@tntnet.org
+ - remove need for static initialization and locking in xml entityresolver
+ - add xmlreader test frame
+
+2010-12-16 tommi@tntnet.org
+ - set xml attribute "type" in xmlserializer and read it in deserializer
+ - clean up some code (breaking abi)
+
+2010-12-16 tommi@tntnet.org
+ - fix parsing options like --option=value
+
+2010-12-13 tommi@tntnet.org
+ - small optimization in tcpserver: don't use poll in accept, if we have only one listener
+ - use static entity map with delayed initialization in xmlreader
+
+2010-12-10 tommi@tntnet.org
+ - add query and fragment parts to uri class
+
+2010-12-07 tommi@tntnet.org
+ - accept dates, times and datetimes with discrete components in deserialization
+
+2010-11-21 tommi@tntnet.org
+ - set user agent header in http client if not set by user
+
+2010-11-20 tommi@tntnet.org
+ - fix handling of detached threads
+ - support for special characters in xml attributes as well as html entities
+   add all html4 entities into default list of entities in entityresolver
+   delay instantiation of entityresolver until really needed
+
+2010-11-17 tommi@tntnet.org
+ - fix for serialization of std::pair (type name was not set)
+
+2010-11-13 tommi@tntnet.org
+ - reduce compiler warnings by cleaning up code
+
+2010-11-08 tommi@tntnet.org
+ - add constructor and connect with cxxtools::net::Uri method to xmlrpc client
+ - take username and password from uri in xmlrpc client
+ - add default constructor to uri class
+
+2010-11-07 tommi@tntnet.org
+ - add class cxxtools::net::Uri for parsing uris
+
+2010-11-05 tommi@tntnet.org
+ - close socket in http client when new address is set
+ - make selector settable in cxxtools::xmlrpc::HttpClient
+
+2010-11-01 tommi@tntnet.org
+ - add serialization operators to Date, Time and DateTime
+
+2010-10-29 tommi@tntnet.org
+ - new method clear in cxxtools::Cache to clear the cache
+
+2010-10-17 tommi@tntnet.org
+ - add cxxtools prefix to md5 code to prevent name clash with other md5 libraries
+
+2010-10-14 tommi@tntnet.org
+ - new member template function SerialzationInfo::getMember(name, value), which
+   deserializes a member only if the value is found and do not throw, if the
+   member is not found; a success flag is returned as bool
+
+2010-10-08 tommi@tntnet.org
+ - add serialization operator for string constant
+
+2010-10-04 tommi@tntnet.org
+ - add helper templates cxxtools::md5
+
+2010-09-12 tommi@tntnet.org
+ - fix handling of IPv6 in server socket
+ - add configure check for IPv6
+ - new utility functions split, join and trim
+
+2010-08-19 tommi@tntnet.org
+ - fixes for atomicity on sun
+ - fix compile problem for atomicity for arm
+
+2010-08-17 tommi@tntnet.org
+ - fix reading of chunked encoded data in http client
+
+2010-08-01 tommi@tntnet.org
+ - release 2.0
+
+2010-06-16 tommi@tntnet.org
+ - flush textstream in finish method of xml- and jsonserializer
+
+2010-06-07 tommi@tntnet.org
+  - fix race condition in http server when handling idle sockets
+
+2010-04-05 tommi@tntnet.org
+ - add template class Argp for reading arguments with parameter and add unit tests for Arg* template classes
+
+2010-03-24 tommi@tntnet.org
+ - add support for TCP_DEFER_ACCEPT
+
+2010-03-22 tommi@tntnet.org
+ - support for out of tree builds
+
+2010-03-19 tommi@tntnet.org
+ - replace errorOccured signal with throwing errors in endXXX-methods
+
+2010-03-07 tommi@tntnet.org
+ - make url settable in http xmlrpc client
+
+2010-03-02 tommi@tntnet.org
+ - add new BasicEvent template for easier event definition and use it in http server
+
+2010-02-27 tommi@tntnet.org
+ - add template class for (thread-)queue
+ - add support for listen on any socket and connect to any local by passing an empty ip address
+ - run http server in event loop
+ - add exited signal to event loop
+
+2010-02-07 tommi@tntnet.org
+ - accept gets a inherit flag instead of closeOnExec
+
+2010-02-06 tommi@tntnet.org
+ - add new class cxxtools::Cache
+
+2010-02-05 tommi@tntnet.org
+ - add mutex to service list in httpserver, so that other threads may add or
+   remove services while the server is running
+
+2010-02-04 tommi@tntnet.org
+ - extend number of parameters in xmlrpc client from 5 to 10
+
+2010-02-03 tommi@tntnet.org
+ - add cancel method to http client, xmlrpc client and iodevice
+
+2009-12-27 tommi@tntnet.org
+ - remove cxxtools::Dynbuffer (use std::vector instead)
+
+2009-12-22 tommi@tntnet.org
+ - split pipe class into generic and posix specific functionality
+
+2009-12-21 tommi@tntnet.org
+ - remove old compatibility typedefs cxxtools::net::Server and cxxtools::net::Stream
+
+2009-12-17 tommi@tntnet.org
+ - new static methods Utf8Codec::encode and Utf8Codec::decode
+
+2009-12-06 tommi@tntnet.org
+ - make building of demos and unittests optional by configure flags --disable-demos and --disable-unittest
+
+2009-11-16 tommi@tntnet.org
+ - support for FD_CLOEXEC flag on sockets and support for accept4 (conditional by configure check)
+
+2009-11-15 tommi@tntnet.org
+ - improve Process class
+
+2009-11-03 tommi@tntnet.org
+ - merge cxxtools::ext::Pipe and cxxtools::Pipe into cxxtools::Pipe
+
+2009-10-30 tommi@tntnet.org
+ - make SimpleRefCounted the default in RefCounted again
+
+2009-10-16 tommi@tntnet.org
+ - new class cxxtools::net::AddrInfo, which encapsulates ip and port
+ - let cxxtools::RefCounted use atomic_t
+ - support for multiple listeners to httpserver
+
+2009-09-06 tommi@tntnet.org
+ - extract http code from xmlrpc client into a separate class
+
+2009-08-28 tommi@tntnet.org
+ - do not indent json by default but make it optional
+
+2009-08-25 tommi@tntnet.org
+ - support for chunked encoding transfer in http-client
+
+2009-08-18 tommi@tntnet.org
+ - add support for authentication to http server
+
+2009-08-02 tommi@tntnet.org
+ - add http authorization to http client
+
+2009-07-05 tommi@tntnet.org
+ - compile iconvstream only if explicitely configured
+
+2009-07-03 tommi@tntnet.org
+ - implement json serializer
+
+2009-07-03 d-marc
+ - added settings and xml serialization
+
+2009-06-21 tommi@tntnet.org
+ - add serialization for all std container templates
+
+2009-06-12 tommi@tntnet.org
+ - add new rpcclient and server demo rpcecho
+
+2009-06-02 tommi@tntnet.org
+ - propagte connect error in http client through errorOccured signal
+
+2009-05-31 tommi@tntnet.org
+ - serialization for std::deque
+
+2009-05-28 tommi@tntnet.org
+ - improved exception handling in xmlrpc
+
+2009-05-27 tommi@tntnet.org
+ - serializer for std::list and std::set
+
+2009-04-04 tommi@tntnet.org
+ - move http to a separate library
+ - move net-headers to own subdirectory
+
+2009-04-03 d-marc
+ - throw on endConnect if connect failed
+
+2009-04-03 d-marc
+ - added xmlrpc library
+
+2009-04-02 d-marc
+ - added xml reader and writer
+
+2009-04-02 d-marc
+ - added serializer, deserializer and serializationinfo class
+
+2009-04-01 d-marc
+ - added stringstream
+
+2009-04-01 d-marc
+ - added codecs
+
+2009-03-31 d-marc
+ - added textstreams
+
+2009-03-26 d-marc
+ - added unicode capable string class
+
+2009-03-26 tommi@tntnet.org
+ - make httpserver multithreaded
+
+2009-03-23 d-marc
+ - added unicode char class
+
+2009-03-23 d-marc
+ - added getSystemTime method
+
+2009-03-22 tommi@tntnet.org
+ - http client rewritten and new http server
+
+2009-02-27 tommi@tntnet.org
+ - new FreeDestroyPolicy for smart pointers
+
+2009-02-23 d-marc
+ - added TCP iostream
+
+2009-02-19 d-marc
+ - added unit test for tcp
+
+2009-02-18 d-marc
+ - added unit testing library
+
+2009-02-17 d-marc
+ - sockets are always async
+
+2009-02-16 tommi@tntnet.org
+ - return std::string for ip adresses instead of system specific structure
+
+2009-02-13 tommi@tntnet.org
+ - make destroy policy methods of smart pointer public
+
+2009-02-13 d-marc
+ - added blocking connect
+
+2009-02-11 d-marc
+ - renamed to TcpServer
+
+2009-02-10 d-marc
+ - added signal for pending connections
+
+2009-02-10 d-marc
+ - TcpServersocket is a Selectable
+
+2009-02-09 d-marc
+ - moved tcp server socket to separate header
+
+2009-02-09 d-marc
+ - moved addrinfo to separate files
+
+2008-12-19 d-marc
+ - added streambuf for iodevices
+
+2008-12-18 d-marc
+ - added semaphore class
+
+2008-12-17 d-marc
+ - new classes EventLoop, Process, IODevice, Selectable, Selector, Application, Timer
+
+2008-12-16 tommi@tntnet.org
+ - new methods in pipe to easily redirect stdin, stdout and stderr
+
+2008-12-16 tommi@tntnet.org
+ - new method cxxtools::net::iostream::canRead()
+
+2008-12-12 d-marc
+ - added event soure and sink class
+
+2008-12-02 d-marc
+ - added singleton template and typetraits
+
+2008-12-02 d-marc
+ - added high precision system clock
+
+2008-12-02 d-marc
+ - added date and time classes
+
+2008-12-01 tommi@tntnet.org
+ - default to maxbackupindex of 2 instead of 10 in cxxtools-config-script
+
+2008-12-01 tommi@tntnet.org
+ - use spinlock instead of mutex in logger
+
+2008-12-01 d-marc
+ - added conversion algos
+
+2008-11-26 d-marc
+ - mutex class consolidation; Added more IOError types
+
+2008-11-25 d-marc
+ - added tryReadLock and tryWriteLock for ReadWriteMutex
+
+2008-11-24 d-marc
+ - added IOError and AccessFailed
+
+2008-11-19 d-marc
+ - renamed timedwait in condition
+
+2008-11-05 tommi@tntnet.org
+ - rename RWLock to RWMutex and add typedef for old name for compatibility
+
+2008-11-04 d-marc
+ - unified attached and detached thread classes
+
+2008-10-30 d-marc
+ - use callables as thread functors
+
+2008-09-12 tommi@tntnet.org
+ - add LGPL exception for large templates and macros
+
+2008-08-14 d-marc
+ - added tryLock method to SpinMutex
+
+2008-08-08 tommi@tntnet.org
+ - move mutex classes into separate files and add spinlock mutex
+
+2008-07-03 tommi@tntnet.org
+  - don't throw exceptions when logging fails
+
+2008-06-18 tommi@tntnet.org
+  - use non-atomic reference counting by default and add atomic refcounted class and smart pointer policy
+
+2008-06-10 d-marc
+  - added new file/dir API
+
+2008-06-18 tommi@tntnet.org
+  - split referencecounting into a thread safe and a non thread safe variant
+
+2008-06-03 tommi@tntnet.org
+  - release version 1.4.8
+
+2008-05-02 tommi@tntnet.org
+  - change the way of announcing configure results to headers
+
+2008-05-01 tommi@tntnet.org
+  - use pipl-idiom in cxxtools::Dir to remove needed includes in public header
+  - allow ':' in httprequests and other small improvements and add
+    documentation to http client classes
+  - add wrapper for regex(3)
+
+2008-03-31 marc
+  - added conversion functions
+
+2008-03-27 tommi@tntnet.org
+  - increase default tcp buffer size from 256 to 8192 bytes
+
+2008-03-09 tommi@tntnet.org
+  - remove the queing of log messages since it was not reliable
+  - translate api-documentation of network classes to english
+  - add a flush parameter to cxxtools::net::Stream::write to allow partial
+    writes and use this in cxxtools::net::iostream::overflow, so that overflow
+    always tries to write the full buffer.
+
+2008-02-21 tommi@tntnet.org
+  - new command line utility cxxlog to use the logger in shell scripts
+
+2008-12-27 tommi@tntnet.org
+  - add classes for creation of mime mails
+
+2007-11-13 tommi@tntnet.org
+  - optimization of logging
+
+2007-11-03 tommi@tntnet.org
+  - functions for handling endianess (cxxtools/byteorder.h)
+  - atomic increment and decrement wrappers (Marc)
+
+2007-11-01 tommi@tntnet.org
+  - cxxtools::Any and compile-time typeinfo (Marc)
+
+2007-10-17 tommi@tntnet.org
+  - remove libltdl code completely
+  - implement destroy-policy for cxxtools::SmartPtr
+
+2007-10-12 tommi@tntnet.org
+  - signal-slot (Marc)
+
+2007-09-16 tommi@tntnet.org
+  - don't use libltdl by default since it brings more problems than it solves.
+    On linux we need RTLD_GLOBAL in dlopen to make exceptions and rtti
+    working. libltdl does not pass that flag. On Aix shared libraries has a
+    extension .a by default, which is not recognized by libltdl.
+
+2007-07-07 tommi@tntnet.org
+  - rewritten ini-file-parser
+  - make iconv unconditional and make iconv-buffer bigger for better
+    performance
+  - properties-file-parser
+
+2007-07-06 tommi@tntnet.org
+  - add policy based smart pointer implementation
+  - add NonCopyable-class, which can be used as a base-class for objects,
+    which must not be copied
+  - fix bug in subtraction-method of cxxtools::HiresTime
+
+2007-05-12 tommi@tntnet.org
+  - logging can be disabled completely now in the logging-properties by
+    setting disabled to 1 (or 'y' or 'Y' or 't' or 'T')
+
+2007-05-11 tommi@tntnet.org
+  - make cxxtools::Pool working again
+  - build-improvements (port to solaris/SunStudio)
+
+2007-05-04 tommi@tntnet.org
+  - replace std::string with char* as a buffer in udpstream-class
+  - remove RWLOCK_MUTEX_INITIALIZER because this is unknown on Mac OS X and
+    the rwlock_t-structure is anyway initalized with pthread_rwlock_init
+
+2007-05-03 tommi@tntnet.org
+  - bugfix: clear buffer of udpstream after sending message
+  - make cxxtools::socket::doPoll-method public and rename to poll
+
+2007-04-26 tommi@tntnet.org
+  - try next addrinfo, when socket-creation fails. Previously cxxtools fails
+    to create a socket, if first addrinfo-entry does not work.
+
+2007-04-20 tommi@tntnet.org
+  - fix stream-classes to conform ANSI
+
+2007-04-18 tommi@tntnet.org
+  - remove double-lock in pool-class, which resulted in a deadlock on solaris
+
+2007-04-17 tommi@tntnet.org
+  - another change in initialization in std::ios-derived classes after reading
+    the c++-standard (now std::ios::init is used for initialization)
+
+2007-04-11 tommi@tntnet.org
+  - don't pass uninitialized std::streabuf to base-class in classes
+    derived from std::[io]stream. This should be ok, but at least
+    Sun Studio 11 fails here.
+
+2007-03-25 tommi@tntnet.org
+  - replace semaphore with condition in cxxtools::Pool and make max-size
+    of pool settable
+
+2007-03-23 tommi@tntnet.org
+  - add error-checking for glob in cxxtools::multifstreambuf
+
+2007-02-20 tommi@tntnet.org
+
+  - fix stupid bug in tcp-class. Stream reported eof when only part of
+    data was written.
+
+2007-01-24 tommi@tntnet.org
+
+  - wrappers for fork(2) and pipe(2) and a std::iostream on top of pipe(2)
+  - cxxtools::Fdstream: std::iostream for filedescriptors
+
+2007-01-21 tommi@tntnet.org
+  - support for udp-broadcast
+  - don't throw exception in tcpstream, when connection is closed
+    report eof instead
+
+2007-01-15 tommi@tntnet.org
+
+  - make offset in hexdumper settable
+  - logging-improvement (don't try to output current logstatement when
+    exception occurs during creation of log-message)
+  - Condition::timedwait
+
+2006-12-31 tommi@tntnet.org
+
+  - improve eof-handling in socket-class
+
+2006-12-28 tommi@tntnet.org
+
+  - log process-id
+  - bugfix in cxxtools::UdpReceiver: adress-length-field was not initialized
+
+2006-12-20 tommi@tntnet.org
+
+  - make constuctor for QueryParams::const_iterator explicit to prevent
+    accidentally converting QueryParams-objects into const_iterator
+
+2006-11-22 tommi@tntnet.org
+
+  - make loggers more private and instantiate existing loggers later
+  - "putchar" is a macro somewhere - rename member-method to workaround
+    this name-conflict
+
+2006-11-20 tommi@tntnet.org
+
+  - fix tcpstream to correctly report end-of-file in all circumstances
+
+2006-09-11 tommi@tntnet.org
+
+  - fixed buffer-overflow in logger when formatting dates
+
+2006-08-10 tommi@tntnet.org
+
+  - new helper-class IConverter for easier usage of iconv(3) and iconvstream
+
+2006-07-27 tommi@tntnet.org
+
+  - fix iconvstream
+
+2006-06-21 tommi@tntnet.org
+
+  - license changed to LGPL
+
+2006-05-24 tommi@tntnet.org
+
+  - fix tcp-client: create socket when known, which to create
+    this fixes also problems in running any applications on systems without
+    IPv6
+
+2006-04-27 tommi@tntnet.org
+
+  - support for IPv6
+
+2006-04-16 tommi@tntnet.org
+
+  - fixes for AIX-compatibility
+
+2006-04-06 tommi@tntnet.org
+
+  - faster formatting of logmessages
+
+2006-04-04 tommi@tntnet.org
+
+  - flushdelay works now with rolling-files
+  - ANSI-C++-fixes
+
+2006-03-02 tommi@tntnet.org
+
+  - new logging-parameter flushdelay, which speeds up logging
+    by starting a backgroundthread, which flushes asynchronous
+
+2005-01-20 tommi@tntnet.org
+
+  - thread-classes simplified and demo improved
+  - output of log-messages speed-optimized
+
+2005-12-12 tommi@tntnet.org
+
+  - improved error-checking in network-classes
+  - logging integrated into base-lib (no libcxxtools-log.so any more)
+
+2005-11-08 tommi@tntnet.org
+
+  - cxxtools::Thread split into cxxtools::AttachedThread and cxxtools::DetachedThread
+
+2005-11-04 tommi@tntnet.org
+
+  - bugfix in cxxtools::HttpRequest
+
+2005-09-18 tommi@tntnet.org
+
+  - udp-reply
+
+2005-07-19 tommi@tntnet.org
+
+  - new namingconventions: classfiles start with capitals, methods with lower
+    case
+  - support for udp-messages (cxxtools::UdpSender, cxxtools::UdpReceiver)
+  - logging through udp
+
+2005-07-15 tommi@tntnet.org
+
+  - fixed some method-names to conform common naming convetions
+
+2005-06-18 tommi@tntnet.org
+
+  - version 1.3.1 released
+  - fixed copy-constructor for query_params
+
+2005-01-29 tommi@tntnet.org
+
+  - version 1.3.0 released
+  - modified timeout-handling in tcpstream
+  - simple http-client added
+  - cxxtools::Condition is not derived from cxxtools::Thread any more
+
+2005-01-05 tommi@tntnet.org
+
+  - version 1.2.3 released
+  - missing errno.h in iconvstream.cpp added
+  - support in cxxtools::arg for multiple alternative switches
+    in a single arg-variable (set-method)
+  - use gethostbyname to determine address to listen, so you can
+    specify a hostname as a listener-parameter
+
+2004-12-14 tommi@tntnet.org
+
+  - version 1.2.2 released
+  - bug fixed: cxxtools::arg does not find user-specific inputstreamoperators
+  - support for log4cxx
+  - logging-library selectable at build-time
+
+2004-12-03 tommi@tntnet.org
+
+  - version 1.2.1 released
+  - removed obsolete timeclass.cpp
+  - switched dl-classes to libtool for better portability
+  - skip iconvstream if libiconv is not installed
+  - new library: logging-wrapper for log4cplus (log4cxx-support will follow)
+  - simple lightweight logging-library as a alternative for log4cplus
+
+2004-11-25 tommi@tntnet.org
+
+  - version 1.2 released
+  - all classes moved to namespace cxxtools
+  - documentation-updates (most classes documented with doxygen-style comments
+
+2004-11-11 tommi@tntnet.org
+
+  - version 1.1.3 released
+  - error in eof-handling in base64 fixed
+
+ -- Tommi Maekitalo <tommi@epgmbh.de>  Thu, 11 Nov 2004 12:33:47 +0100
+
+2004-11-03 tommi@tntnet.org
+
+  - version 1.1.2 released
+  - new class base64stream
+
+2004-10-04 tommi@tntnet.org
+
+  - use libtool/autoconf/automake
+
+2004-09-16 tommi@tntnet.org
+
+  - version 1.1 released
+  - unused variable in tcpstream.h removed
+    this breaks binary-compatibility
+
+2004-03-23 tommi@tntnet.org
+
+  - Initial Release 1.0.

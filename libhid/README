@@ -1,0 +1,151 @@
+libhid README
+=============
+
+libhid is (c) 2003-2007 by
+  Martin F. Krafft <libhid@pobox.madduck.net>
+  Charles Lepple <clepple+libhid@ghz.cc>
+  Arnaud Quette <arnaud.quette@free.fr> && <arnaud.quette@mgeups.com>
+and distributed under the terms of the GNU General Public License v2.
+See the file ./COPYING in the source distribution for more information.
+
+Revision: $Id: README 331 2007-04-25 12:52:22Z clepple-guest $
+
+Please send bugreports to <libhid-discuss@lists.alioth.debian.org>
+
+Introduction
+------------
+
+libhid is a rewrite of libHID[0] and aims to provide the same functionality
+from a more organised framework. It aims to provide a layer of abstraction for
+accessing HID-class devices over USB or serial lines (similar to what libusb
+provides for the base USB protocol).
+
+0. http://www.ghz.cc/~clepple/libHID/doc/html/
+
+libhid has been designed because it is needed in two other projects
+(libphdigets and nut). As such, it does not have a complete featureset yet but
+is rather a work in progress (alpha state). We invite everyone to contribute
+or get in touch with us for additional features.
+
+Please find more information on the project website:
+
+  http://libhid.alioth.debian.org
+
+You are welcome to sign up with the libhid mailing list at
+  
+  http://lists.alioth.debian.org/mailman/listinfo/libhid-discuss
+
+for support.
+
+Configuration
+-------------
+
+To configure the package, you will need the following software. In parentheses
+are the versions used by the developers. Previous versions may work, but are
+not supported.
+
+libhid needs libusb version 0.1.8beta or newer. It does not work with libusb
+1.0 at this moment. The following two Debian packages provide the needed
+software:
+
+  - libusb-0.1-4 (1:0.1.8-17)
+  - libusb-dev (1:0.1.8-17)
+
+The libusb home page is here: http://libusb.sourceforge.net/
+
+If you want to build the swig python existension, you will need swig 1.3 
+installed. The following two Debian packages provide it:
+
+  - libswig1.3.22 (1.3.22-3)
+  - swig (1.3.22-3)
+
+The SWIG homepage is here: http://www.swig.org/
+
+To create man pages for the included utility programs, you need xsltproc and
+the DocBook stylesheets.
+
+  - xsltproc (1.1.12-5)
+  - docbook-xsl (1.66.1-1)
+
+Lastly, to compile the API documentation, you need doxygen, which is in the
+following Debian package:
+
+  - doxygen (1.2.15-2)
+
+Once these are installed, the package can be configured and compiled.
+Configuration happens as follows:
+
+  $ ./configure [args]
+
+where [args] is a space-separated list of the following:
+
+  --prefix=/usr/local       installs the software under /usr/local
+  --enable-debug            enables debugging symbols in the library
+  --enable-maintainer-mode  enables automatic regeneration of configure and
+                            Makefile scripts
+  --disable-shared          only creates a library object for static
+                            linking, which shortens compile time. generally,
+                            this is not necessary.
+More options are available. Consult the `./configure --help` output.
+
+For most purposes, it suffices to issue the following command:
+  
+  $ ./configure --enable-debug
+
+The recommended way to install the software requires you to issue the following
+command:
+  
+  $ ./configure --enable-debug --prefix=/usr/local/stow/libhid
+
+Following the configuration, the package can be build and installed as usual:
+
+  $ make
+  $ su           # if needed
+  # make install
+
+Help wanted
+-----------
+
+Note that the library is not (yet) complete and it's not thoroughly tested.
+However, given the effort and grief we went through in writing it, we would
+like to make it available to folks, get people to test it, and hopefully have
+some peeps submit improvements. If you have any suggestions, please write to
+us at the mailing list mentioned above.
+
+It's not yet documented, although the usage should be fairly straight
+forward. We are hoping that someone steps forward and offers to document the
+work. It generally results in better documentation, when it's not written by
+the authors.
+
+Furthermore, we are always looking for people willing to help out. In
+particular, we would love to find someone willing to maintain the website.
+We are also looking to rewrite the MGE HIDParser and implement new
+functionality. If you are interested, please contact us at the libhid-discuss
+mailing list address above.
+
+Credits
+-------
+
+The original library was written by Charles Lepple and Arnaud Quette. Martin
+Krafft later joined and led the rewrite.
+
+The library uses the HIDParser framework made available by MGE[1].
+
+1. http://www.mgeups.com/opensource/projects/hidparser.htm
+
+Usage
+-----
+
+The library supports pkg-config. Thus, to compile with the library,
+
+  #include <hid.h>
+
+and in your Makefile:
+
+  CPPFLAGS += `pkg-config libhid --cflags`
+  LDFLAGS += `pkg-config libhid --libs`
+
+If using automake, use the AM_* versions of the two variables. See
+test/test_libhid.c and its Makefile.am for more details.
+
+Have fun.

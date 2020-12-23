@@ -1,0 +1,12 @@
+Here you will find example epgsearch conf files.
+All timers with outputdirectory %Serien% will be
+formatted in this way:
+
+If you want to record "Mamis Liebling" from the
+series "The Bang Theory" and your EPG-Source
+provides season- and episode-info then you will
+get: 
+
+Serien~The_Big_Bang_Theory~S05E06_-_093._Mamis_Liebling
+
+You need at least epgsearch version 1.0.1beta!  

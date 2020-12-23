@@ -1,0 +1,629 @@
+# GLib allocates a lot of memory which is never freed, and this makes
+# it too hard to read valgrind memcheck results.  You can pass this
+# file with "--suppressions=valgrind.suppressions" to disable lots of
+# bogus messages.
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_random_int
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   fun:g_mutex_impl_new
+   fun:g_mutex_get_impl
+   fun:g_mutex_lock
+   fun:g_main_context_new
+}
+
+{
+   g_main_context_dispatch
+   Memcheck:Leak
+   fun:malloc
+   fun:g_malloc
+   fun:g_slice_alloc
+   fun:g_slice_alloc0
+   fun:get_dispatch
+   fun:g_main_context_dispatch
+}
+
+{
+   g_main_context_default
+   Memcheck:Leak
+   fun:?alloc
+   ...
+   fun:g_main_context_default
+}
+
+{
+   g_main_loop_run
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_main_context_iterate*
+   fun:g_main_loop_run
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_once_init_leave
+}
+
+{
+   g_log
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_mutex_lock
+   fun:g_log_set_default_handler
+}
+
+{
+   g_mutex
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:thread_memory_from_self*
+   fun:g_slice_*
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_static_mutex_get_mutex_impl
+}
+
+{
+   g_private
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_private_?et
+}
+
+{
+   g_static_private_set
+   Memcheck:Leak
+   fun:memalign
+   ...
+   fun:g_static_private_set
+}
+
+{
+   g_static_private_set
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_static_private_set
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_intern_static_string
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_intern_string
+}
+
+{
+   g_get_language_names
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_get_language_names
+}
+
+{
+   g_get_language_names
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_get_home_dir
+}
+
+{
+   g_get_language_names
+   Memcheck:Leak
+   fun:memalign
+   ...
+   fun:g_get_language_names
+}
+
+{
+   g_set_prgname
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_set_prgname
+}
+
+{
+   g_set_application_name
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_set_application_name
+}
+
+{
+   g_thread_init_glib
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_thread_init_glib
+}
+
+{
+   g_thread_self
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_slice_*
+   fun:g_thread_self
+}
+
+{
+   g_thread_create
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_mutex_lock
+   ...
+   fun:g_thread_create
+}
+
+{
+   g_slice_init_nomessage
+   Memcheck:Leak
+   fun:calloc
+   fun:g_malloc0
+   fun:g_slice_init_nomessage
+}
+
+{
+   g_get_filename_charsets
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_get_filename_charsets
+}
+
+{
+   g_get_charset
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_get_charset
+}
+
+{
+   openssl
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:ENGINE_load_dynamic
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_data_initialize
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_resolver_get_default
+}
+
+{
+   openssl
+   Memcheck:Leak
+   fun:malloc
+   fun:CRYPTO_malloc
+   ...
+   fun:SSL_COMP_get_compression_methods
+   fun:SSL_library_init
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   fun:CRYPTO_malloc
+   ...
+   fun:ERR_get_state
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   fun:CRYPTO_malloc
+   ...
+   fun:RSA_new_method
+}
+
+{
+   GnuTLS
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:gnutls_global_init
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:?alloc
+   ...
+   fun:do_dlopen
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:?alloc
+   ...
+   fun:dlopen*
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   ...
+   fun:dlclose
+}
+
+{
+   inet_ntoa
+   Memcheck:Leak
+   fun:malloc
+   fun:inet_ntoa
+}
+
+{
+   wildmidi
+   Memcheck:Leak
+   fun:malloc
+   fun:realloc
+   fun:init_gauss
+   fun:WildMidi_Init
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:strdup
+   ...
+   fun:ao_initialize
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:calloc
+   fun:ao_initialize
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Addr4
+   ...
+   fun:WildMidi_Init
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:g_quark_init
+}
+
+{
+   g_quark_from_string
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_quark_from_*
+}
+
+{
+   g_get_any_init_do
+   Memcheck:Leak
+   fun:malloc
+   fun:g_malloc
+   fun:g_strdup
+   fun:g_get_any_init_do
+}
+
+{
+   g_get_any_init_do
+   Memcheck:Leak
+   fun:malloc
+   fun:g_malloc
+   fun:g_strjoinv
+   fun:g_get_any_init_do
+}
+
+{
+   nss
+   Memcheck:Leak
+   fun:malloc
+   fun:__nss_lookup_function
+}
+
+{
+   nss
+   Memcheck:Leak
+   fun:malloc
+   fun:tsearch
+   fun:__nss_lookup_function
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_*_class_intern_init
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:type_iface_vtable_base_init_Wm
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_object_do_class_init
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_object_base_class_init
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:g_object_class_install_property
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:g_type_register_static
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:gobject_init_ctor
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:intern_header_name
+}
+
+{
+   nss
+   Memcheck:Leak
+   fun:malloc
+   fun:nss_parse_service_list
+   fun:__nss_database_lookup
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:?alloc
+   ...
+   fun:xmlInitParser
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:?alloc
+   fun:snd1_dlobj_cache_get
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:_Znwm
+   ...
+   obj:*/libjack.so*
+   fun:call_init
+   fun:_dl_init
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:index
+   fun:expand_dynamic_string_token
+   fun:fillin_rpath
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:index
+   fun:expand_dynamic_string_token
+   ...
+   fun:do_preload
+}
+
+#
+# libgcrypt
+#
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:_gcry_mpi_init
+}
+
+#
+# libopenal
+#
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:*/libopenal.so*
+   ...
+   fun:_dl_init
+}
+
+#
+# libadplug
+#
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   obj:*/libadplug*.so*
+   ...
+   fun:_dl_init
+}
+
+#
+# libjack
+#
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   obj:*/libjack.so*
+   ...
+   fun:_dl_init
+}
+
+#
+# libsmbclient
+#
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:smbc_*_context
+   fun:smbc_init
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:smbc_setDebug
+   fun:smbc_init
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   fun:SMBC_module_init
+}
+
+#
+# libgomp
+#
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   fun:gomp_init_num_threads
+   ...
+   fun:_dl_init
+}
+
+#
+# libpixman
+#
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:pixman_constructor
+}
+
+#
+# libssh (via libcurl)
+#
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:libssh2_init
+}

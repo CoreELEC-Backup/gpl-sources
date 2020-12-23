@@ -1,0 +1,5 @@
+libupse source from https://github.com/kode54/libupse
+Sync to 4a1ef31 (23 Nov 2014)
+
+Include changes to fix windows build, see:
+https://github.com/xbmc/audiodecoder.upse/commit/6f4210dff46c013048975b3e386b252f2fa0244f

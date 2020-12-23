@@ -1,0 +1,200 @@
+<sect1 id="lirc">
+<title>The lirc Driver</title>
+
+<para>
+The <code>lirc</code> driver enables you to use any IR remote control
+that works with <package>LIRC</package> to control the LCDproc server
+<application>LCDd</application> and/or clients that can handle input.
+</para>
+
+<para>
+Of course you need a working LIRC setup. Refer to the
+<ulink url="http://www.lirc.org">LIRC project</ulink> for more
+information on LIRC itself.
+</para>
+
+<sect2 id="lirc-install">
+<title>Checking Your LIRC Setup</title>
+
+<para>
+Basically all you need is a running <application>lircd</application>.
+And of course you have to start <application>lircd</application>
+as root.
+</para>
+
+<para>
+Also, make sure that the permission of <filename>/dev/lircd</filename>
+are correct.
+</para>
+
+</sect2>
+
+<sect2 id="lirc-configure">
+<title>Build LCDd with the lirc Driver</title>
+
+<para>
+You need to add lirc to the --enable-drivers=... list.
+</para>
+
+<para>
+Then simply run make.
+</para>
+
+</sect2>
+
+<sect2 id="lirc-configuration">
+<title>Configure LCDd to Use the lirc Driver</title>
+
+<para>
+First of all you need to activate the driver by adding a <code>Driver=lirc</code> line
+to your <filename>LCDd.conf</filename>
+</para>
+
+<example id="lirc-configuration.example">
+<title><filename>LCDd.conf</filename>: Activate the lirc driver</title>
+
+<programlisting>
+ Driver=mtxorb
+ Driver=lirc
+</programlisting>
+</example>
+
+<para>
+This activates the <code>mtxorb</code> driver as the output driver
+and the <code>lirc</code> driver as the input driver.
+</para>
+
+<para>
+Then you have to modify the <code>[lirc]</code> section of your
+<filename>LCDd.conf</filename>.
+</para>
+
+</sect2>
+
+<!-- ## LIRC input driver ## -->
+<sect2 id="lirc-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="lirc-config-section">
+<title>[lirc]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>lircrc</property> =
+    <parameter><replaceable>FILENAME</replaceable></parameter>
+  </term>
+  <listitem>
+    <para>
+    <anchor id="which-lircrc" />
+    Normally all LIRC clients scan the file <filename>~/.lircrc</filename>.
+    However, you might want to have a separate file to configure the LCDproc lirc driver only.
+    </para>
+    <para>
+    This option enables you to specify the file you want the lirc driver to scan.
+    If not given it defaults to <filename>~/.lircrc</filename>.
+    </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Prog</property> =
+    <parameter><replaceable>PROGRAM</replaceable></parameter>
+  </term>
+  <listitem>
+    <para>
+    All LIRC keys are assigned to a program using the <literal>prog=...</literal>
+    directive in the lirc configuration file.
+    </para>
+    <para>
+    <replaceable>PROGRAM</replaceable> must be the same as in your lirc
+    configuration file.
+    </para>
+  </listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="lircrc">
+<title>Modify Your <filename>~/.lircrc</filename></title>
+
+<para>
+As mentioned above you can either modify the <filename>~/.lircrc</filename>
+or use a separate file for the lirc LCDproc driver (See
+<link linkend="which-lircrc">above</link> for details).
+</para>
+
+<para>
+No matter which file you use, you have to add at least the following
+lines to the file:
+</para>
+
+<example id="lircrc.example">
+<title><filename>~/.lircrc</filename>: Specify the associations from buttons to keys
+for the lirc driver</title>
+
+<programlisting>
+begin
+        prog = lcdd
+        button = 2
+        config = Up
+end
+
+begin
+        prog = lcdd
+        button = 4
+        config = Left
+end
+
+begin
+        prog = lcdd
+        button = 6
+        config = Right
+end
+
+begin
+        prog = lcdd
+        button = 8
+        config = Down
+end
+
+begin
+        prog = lcdd
+        button = 1
+        config = Escape
+end
+
+begin
+        prog = lcdd
+        button = 0
+        config = Enter
+end
+</programlisting>
+</example>
+
+<para>
+Which buttons you specify here depends on your remote control and your LIRC configuration.
+</para>
+
+<para>
+The <literal>config</literal> values need to be one of <literal>Up</literal>,
+<literal>Down</literal>, <literal>Left</literal>, <literal>Right</literal>,
+<literal>Escape</literal> or <literal>Enter</literal>.
+For LCDd's server menu at least the keys <literal>Up</literal>, <literal>Escape</literal>
+and <literal>Enter</literal> are necessary.
+</para>
+
+<para>
+<!-- TODO: is this still true with 0.5 ? -->
+Of course you can define other keys. Those keys will not be handled by the
+server but sent to a client. Refer to the documentation of the client you want
+to use, to find out which keys are necessary for that client.
+</para>
+
+</sect2>
+
+</sect1>

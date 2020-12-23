@@ -1,0 +1,23 @@
+Source: kodi-visualization-matrix
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake, kodi-addon-dev, libglm-dev,
+               libgles2-mesa-dev [arm64 armhf], libgl1-mesa-dev [i386 amd64]
+Standards-Version: 4.1.2
+Section: libs
+Homepage: http://kodi.tv
+
+Package: kodi-visualization-matrix
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Matrix visualization for Kodi
+ Matrix visualization for Kodi
+
+Package: kodi-visualization-matrix-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for Matrix visualization for Kodi
+ debug symbols for Matrix visualization for Kodi
+

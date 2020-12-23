@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="audiodecoder.gsf"
+  version="3.0.0"
+  name="GSF Audio Decoder"
+  provider-name="spiff">
+  <requires>@ADDON_DEPENDS@</requires>
+  <extension
+    point="kodi.audiodecoder"
+    name="gsf"
+    extension=".minigsf"
+    tags="true"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="de_DE">VIOGSF Audio Decoder</summary>
+    <summary lang="en_GB">VIOGSF Audio Decoder</summary>
+    <description lang="de_DE">GSF ist ein Addon für Kodi, mit dem Game Boy Advance-Musikdateien im GSF-Format (MINIGSF- und GSFLIB-Dateien) abgespielt werden können. Dieser Player basiert auf dem Visual Boy Advanced-Emulator, obwohl die Klangqualität mit Highly Advanced identisch zu sein scheint.</description>
+    <description lang="en_GB">GSF is a addon for Kodi which adds the ability to play Game Boy Advance music files, the GSF format (MINIGSF and GSFLIB files). This player is based on the Visual Boy Advanced emulator, although the sound quality appears to be identical to Highly Advanced.</description>
+    <platform>@PLATFORM@</platform>
+    <license>GPL-2.0-or-later</license>
+    <source>https://github.com/xbmc/audiodecoder.gsf</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

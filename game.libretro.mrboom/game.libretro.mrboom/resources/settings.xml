@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30000">
+		<setting label="30001" type="select" id="mrboom-aspect" values="Native|4:3|16:9" default="Native"/>
+		<setting label="30002" type="select" id="mrboom-autofire" values="OFF|ON" default="OFF"/>
+		<setting label="30003" type="select" id="mrboom-nomonster" values="ON|OFF" default="ON"/>
+		<setting label="30004" type="select" id="mrboom-teammode" values="Selfie|Color|Sex|Skynet" default="Selfie"/>
+	</category>
+</settings>

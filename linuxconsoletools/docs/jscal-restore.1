@@ -1,0 +1,26 @@
+.TH jscal-restore 1 "May 25, 2011" jscal-restore
+.SH NAME
+jscal-restore \- restores joystick calibration
+.SH SYNOPSIS
+.BR jscal-restore
+.RI "<" device-name ">"
+.SH DESCRIPTION
+.B jscal-restore
+restores the calibration and mapping information for the given
+joystick device, previously stored by the
+.B jscal-store
+command.
+.PP
+An appropriate rule can be set up with udev so that any stored
+calibration settings are restored when the relevant device is
+connected. Some distributions (at least Debian, Ubuntu and Slackware)
+provide joystick packages which install such rules automatically.
+.SH FILES
+.TP
+/var/lib/joystick/joystick.state
+File used to store the calibration settings.
+.SH SEE ALSO
+\fBjscal\fP(1), \fBjscal-store\fP(1).
+.SH AUTHOR
+.B jscal-restore
+was written by Stephen Kitt.

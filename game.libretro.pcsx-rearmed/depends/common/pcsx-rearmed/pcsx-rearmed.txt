@@ -1,0 +1,1 @@
+pcsx-rearmed https://github.com/libretro/pcsx_rearmed/archive/574e2fafbf6dbee9a5cacacd97c6a18c98fbc10e.zip

@@ -1,0 +1,150 @@
+<%pre>
+
+class MyClass
+{
+  public:
+    MyClass()
+    {
+      log_debug("MyClass ctor");
+    }
+    ~MyClass()
+    {
+      log_debug("MyClass dtor");
+    }
+};
+
+</%pre>
+<%session>
+
+  unsigned s(0);
+
+</%session>
+<%session scope="global">
+
+  unsigned sa(0);
+
+</%session>
+<%session scope="page">
+
+  unsigned sp(0);
+  MyClass myObject;
+
+</%session>
+<%securesession>
+
+  unsigned ss(0);
+
+</%securesession>
+<%securesession scope="global">
+
+  unsigned ssa(0);
+
+</%securesession>
+<%securesession scope="page">
+
+  unsigned ssp(0);
+
+</%securesession>
+<%application>
+
+  unsigned a(0);
+
+</%application>
+<%application scope="page">
+
+  unsigned ap(0);
+
+</%application>
+<%request>
+
+  unsigned r(0);
+
+</%request>
+<%request scope="page">
+
+  unsigned rp(0);
+
+</%request>
+<%thread>
+
+  unsigned t(0);
+
+</%thread>
+<%thread scope="page">
+
+  unsigned tp(0);
+
+</%thread>
+<%cpp>
+
+MyClass* p = request.getSessionScope().get<MyClass>("foo");
+if (p)
+{
+  log_debug("instance of MyClass found");
+}
+else
+{
+  log_debug("create instance of MyClass");
+  p = new MyClass();
+
+  log_debug("put instance of MyClass into session scope");
+  request.getSessionScope().put("foo", p); // ownership is transfered to the scope here
+}
+
+</%cpp>
+
+Sessioncounter (component): <$ ++s $><br>
+Sessioncounter (application): <$ ++sa $><br>
+Sessioncounter (page): <$ ++sp $><br>
+Secure sessioncounter (component): <$ ++ss $><br>
+Secure sessioncounter (application): <$ ++ssa $><br>
+Secure sessioncounter (page): <$ ++ssp $><br>
+Applicationcounter (component): <$ ++a $><br>
+Applicationcounter (page): <$ ++ap $><br>
+Requestcounter (component): <$ ++r $><br>
+Requestcounter (page): <$ ++rp $><br>
+Threadcounter (component): <$ ++t $><br>
+Threadcounter (page): <$ ++tp $><br>
+
+<div style="background-color:#ffa">
+<& subcomp &>
+</div>
+
+<a href="session">reload this</a> -
+<a href="appsession">applicationsession only</a>
+
+<%def subcomp>
+
+  <%session>
+
+    unsigned s(0);
+
+  </%session>
+  <%application>
+
+    unsigned a(0);
+
+  </%application>
+  <%request>
+
+    unsigned r(0);
+
+  </%request>
+  <%thread>
+
+    unsigned t(0);
+
+  </%thread>
+
+  <h1>Subcomponent</h1>
+
+  Sessioncounter (component): <$ ++s $><br>
+  Sessioncounter (page): <$ ++sp $><br>
+  Applicationcounter (component): <$ ++a $><br>
+  Applicationcounter (page): <$ ++ap $><br>
+  Requestcounter (component): <$ ++r $><br>
+  Requestcounter (page): <$ ++rp $><br>
+  Threadcounter (component): <$ ++t $><br>
+  Threadcounter (page): <$ ++tp $><br>
+
+</%def>

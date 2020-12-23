@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: liblogging-stdlog
+Description: an enhanced replacement for the syslog() API with admin-configurable destinations
+Version: @VERSION@
+Libs: -L${libdir} -llogging-stdlog
+Cflags: -I${includedir}

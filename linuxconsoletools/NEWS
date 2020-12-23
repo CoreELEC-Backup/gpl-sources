@@ -1,0 +1,151 @@
+Version 1.5.1
+-------------
+
+* Correctly install 80-stelladaptor-joystick.rules.
+
+Version 1.5.0
+-------------
+
+* Add Stephen Anthony's evdev-joystick tool, with his agreement.
+
+Version 1.4.9
+-------------
+
+* inputattach supports a new mouseman4 mode for 4-button Logitech mice
+  (thanks to Jamie Lentin <jm@lentin.co.uk>).
+
+* inputattach supports EETI eGalaxTouch touchscreens (thanks to
+  Böszörményi Zoltán <zboszor@pr.hu>).
+
+* inputattach can provide a "ready" notification to systemd (thanks to
+  Böszörményi Zoltán <zboszor@pr.hu>).
+
+* js-set-enum-leds no longer uses hotplug.functions.
+
+Version 1.4.8
+-------------
+
+* Set up PS3 controller LEDs correctly (thanks to bri
+  <bri@abrij.org>).
+
+* inputattach supports Wacom IV tablets on kernels 3.17 and greater
+  (thanks to Julian Squires <julian@cipht.net>).
+
+Version 1.4.7
+-------------
+
+* Correctly handle newer versions of the Spaceball firwmare (thanks to
+  Andrew Basterfield <abasterfield@gmail.com>). This fixes Debian
+  #298494.
+
+Version 1.4.6
+-------------
+
+* The force-feedback test tools (ffmvforce, ffset, fftest) now handle
+  device names longer than 64 characters (thanks to Ralf Jung
+  <post@ralfj.de>). This fixes Debian #706744.
+
+Version 1.4.5
+-------------
+
+* inputattach no longer loops forever in certain situations (thanks to
+  Josh Bowman for the pointer).
+
+* Improvements to the force-feedback tools, available elsewhere, have
+  been merged (thanks to Jaromir Capik <jcapik@redhat.com>).
+
+* ELO touchscreens apparently don't work with CRTSCTS, so it's no
+  longer set (thanks to Thierry Bultel <thierry.bultel@wanadoo.fr>).
+  This fixes Debian #699030.
+
+
+Version 1.4.4
+-------------
+
+* jstest --select correctly resets the timeout, and no longer ends up
+  using all the CPU.
+
+* inputattach builds on kernels without TSC-40 support (thanks to Kyle
+  Manna <kyle.manna@fuel7.com>).
+
+* inputattach now supports Genius EasyPen 3x4 tablets on kernels with
+  the appropriate module (thanks to Denis Gonsiorovsky
+  <denis_g@outlook.com>).
+
+
+Version 1.4.3
+-------------
+
+* inputattach supports PenMount 3000, 6000 and 6250 devices (thanks to
+  John Sung <penmount.touch@gmail.com>) and TSC-40 devices (thanks to
+  Christian Gmeiner <christian.gmainer@gmail.com>).
+
+
+Version 1.4.2
+-------------
+
+* The udev rule matching w8001 devices has been split to handle
+  devices using different baud rates, and the different baud rates are
+  documented.
+
+* inputattach no longer resets the line discipline before exiting when
+  it discovers the device is already managed by another inputattach
+  instance.
+
+* jscal-store creates its target directory if necessary.
+
+
+Version 1.4.1
+-------------
+
+* inputattach correctly handles non-retry errors other than EINTR
+  (thanks to Alexander Clouter <alex@digriz.org.uk> for the patch).
+
+
+Version 1.4
+-----------
+
+* inputattach no longer aborts when it receives a recoverable signal
+  (thanks to Kees Cook <kees@ubuntu.com> for the patch).
+
+
+Version 1.4rc1
+--------------
+
+The following user-visible changes have been made since the last
+commonly used snapshot (20051019):
+
+* inputattach has been cleaned up, and now supports the following new
+  devices:
+  - Sahara Touch-iT213
+  - PS/2 multiplexers on TQM85xx boards
+  - Zhen Hua PCM-4CH RC transmitters
+  - TAOS evaluation modules
+  - Wacom W8001
+  - Microtouch, Touchright, Touchwindow, Penmount and Fujitsu
+    touchscreens
+
+* jscal tolerates greater jitter (so joysticks which don't send stable
+  values can still be calibrated).
+
+* jscal supports axis and button remapping.
+
+* Various USB devices which caused jscal and/or jstest to segfault are
+  now handled correctly.
+
+* jscal-store and jscal-restore allow joystick calibration and
+  remapping settings to be stored and restored.
+
+* Documentation is provided, with manpages for all the provided
+  utilities and sample udev rules.
+
+In addition, the 20051019 snapshot included the following user-visible
+changes since version 1.2.15:
+
+* jstest includes axis and button names.
+
+* New utilities:
+  - inputattach connects devices to the input layer, allowing them to
+    be used even if they are not directly supported;
+  - force-feedback utilities;
+  - evtest event-layer monitoring utility.

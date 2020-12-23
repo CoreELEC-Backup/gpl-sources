@@ -1,0 +1,10 @@
+----------------------
+Description of patches
+----------------------
+
+- MainMenuHooks-v1_0_1.diff.gz:
+  patches vdr to allow plugins to replace main menu items like 'Schedule', 'Recordings',...
+  Use this one, if epgsearch shall replace the schedules menu. This patch is also used
+  by other plugins like the extrec-plugin.
+- vdr.epgsearch-exttimeredit-2.3.6.diff
+  this patch against VDR integrates epgsearch's timer edit menu to VDR's timer menu.

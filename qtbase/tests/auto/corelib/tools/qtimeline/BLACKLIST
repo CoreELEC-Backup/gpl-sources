@@ -1,0 +1,7 @@
+[interpolation]
+windows-10 msvc-2015
+osx
+[frameRate]
+osx-10.12
+osx-10.13
+

@@ -1,0 +1,60 @@
+#
+# Default configuration for Tvheadend.
+
+# systemd
+# See tvheadend --help for more - default "-u hts -g video"
+OPTIONS="-u hts -g video"
+
+# sysvinit
+# 
+# Editing the following variables has no effect when using systemd
+# modify the OPTIONS variable (above) instead.
+#
+# TVH_ENABLED
+#   set to 0 to disable upstart job
+TVH_ENABLED=1
+
+# TVH_USER
+#   if set to "" will run as root
+TVH_USER="hts"
+
+# TVH_GROUP
+#   if set to "" will run as root
+TVH_GROUP="video"
+
+# TVH_CONF_DIR
+#   if set to "" will use ~TVH_USER/.hts/tvheadend
+TVH_CONF_DIR=""
+
+# TVH_ADAPTERS
+#   if set to "" will use all available adapters
+#   for select adapters use comma seperated list of adapter
+#   numbers, i.e. to use /dev/dvb/adapter0 and /dev/dvb/adapter1 only
+#   set as "0,1"
+TVH_ADAPTERS=""
+
+# TVH_IPV6
+#   if set to 1 will enable IPv6 support
+TVH_IPV6=0
+
+# TVH_HTTP_PORT
+#   if set to "" will use binary default
+TVH_HTTP_PORT=""
+
+# TVH_HTTP_ROOT
+#   if set to "" will use binary default
+#   else will change the webui root context, useful for proxied
+#   servers
+TVH_HTTP_ROOT=""
+
+# TVH_HTSP_PORT
+#   if set to "" will use binary default
+TVH_HTSP_PORT=""
+
+# TVH_DEBUG
+#   if set to 1 will output debug to syslog
+TVH_DEBUG=0
+
+# TVH_ARGS
+#   add any other arguments
+TVH_ARGS=""

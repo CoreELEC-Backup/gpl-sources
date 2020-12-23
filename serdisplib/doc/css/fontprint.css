@@ -1,0 +1,105 @@
+  body {
+    font-size: 12px;
+  }
+
+  h1 {
+    font-size: 20px; 
+  }
+
+  h2 {
+    font-size: 14px; 
+  }    
+
+  h3 {
+    font-size: 12px;
+  }    
+
+  h4 {
+    font-size: 12px; 
+  }    
+
+  .pane {
+    font-size: 12px;
+  }
+
+  table.stdsheet {
+    font-size: 10px; 
+  }
+   
+  table.stdsheet th {
+    font-size: 10px; 
+  }
+
+  
+  table.stdsheet tr {
+    font-size: 10px; 
+  }
+  
+  table.stdsheet td {
+    font-size: 10px; 
+  }
+
+  table.stdsheet td.name {
+  }
+
+  table.stdsheet td.desc {
+  }
+
+  table.stdsheet td.lang {
+  }
+
+  table.stdsheet td.url {
+  }
+
+  table.stdsheet td.date {
+  }
+
+  table.stdsheet td.thxkey {
+  }
+
+  table.stdsheet td.thxval {
+  }
+
+  table.sheetoddeven {
+    font-size: small;
+  }
+
+  #footline {
+    font-size: 0.9em;
+  }
+
+  table.imagebox {
+    font-size: small;
+  }
+
+
+  #documentation {
+   font-size: 10px;
+  }
+
+  #documentation ul.overview li li{
+    font-size: 10px;
+  }
+
+  #documentation td.prot {
+    font-size: 12px;
+  }
+
+  #documentation td.desc {
+    font-size: 10px;
+  }
+
+  #documentation td.parm {
+    font-size: 10px;
+  }
+
+  #documentation td.retv {
+    font-size: 10px;
+  }
+
+  #documentation td.exam {
+    font-size: 10px;
+  }
+
+  #documentation td.exam b {
+  }

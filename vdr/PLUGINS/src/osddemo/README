@@ -1,0 +1,34 @@
+This is a "plugin" for the Video Disk Recorder (VDR).
+
+Written by:                  Klaus Schmidinger <vdr@tvdr.de>
+
+Project's homepage:          http://www.tvdr.de
+
+Latest version available at: http://www.tvdr.de
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+See the file COPYING for more information.
+
+Description:
+
+Demonstration of how a plugin can have its very own OSD setup.
+
+It's a very primitive game that opens a small window in which the
+user can draw lines with the Up, Down, Left and Right buttons.
+The color buttons are used to switch color.
+
+On a VDR system with TrueColor support it displays some of the
+possibilities available with the TrueColor OSD. Once the "Animation"
+pixmap is displayed, it can be moved around with the Up, Down, Left
+and Right buttons. The Red button turns off the "Tiled Pixmaps"
+display, and the Green button toggles the color display.
+
+In both variants of the demo, pressing the '1' key displays all
+possible ellipses that can be drawn with the DrawEllipse() function,
+while pressing the '2' key shows all possible slopes the DrawSlope()
+function can draw.
+
+Press Ok to close the window.

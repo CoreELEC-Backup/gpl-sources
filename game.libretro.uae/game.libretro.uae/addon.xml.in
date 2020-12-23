@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.uae"
+		name="Commodore - Amiga (PUAE)"
+		version="2.6.1.16"
+		provider-name="UAE Team">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.default" version="1.0.0"/>
+		<import addon="game.controller.keyboard" version="1.0.0"/>
+		<import addon="game.controller.mouse" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms></platforms>
+		<extensions>adf|adz|dms|fdi|ipf|hdf|hdz|lha|slave|info|cue|ccd|nrg|mds|iso|uae|m3u|zip</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>true</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Commodore - Amiga (PUAE) 2.6.1</summary>
+		<description lang="en_GB">UAE stands for the Ubiquitous Amiga Emulator.
+
+Most games require a version of the Amiga Kickstart ROM. However, some old games will work with the built-in ROM emulation.
+
+Supported files: .adf, .adz, .dms, .fdi, .ipf, .hdf, .hdz, .lha, .slave, .info, .cue, .ccd, .nrg, .mds, .iso, .uae, .m3u, .zip</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.uae</source>
+	</extension>
+</addon>

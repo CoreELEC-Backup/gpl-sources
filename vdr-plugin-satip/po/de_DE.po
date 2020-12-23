@@ -1,0 +1,212 @@
+# VDR plugin language source file.
+# Copyright (C) 2007-2019 Rolf Ahrenberg
+# This file is distributed under the same license as the satip package.
+# Frank Neumann, 2014-2017
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: vdr-satip 2.4.0\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2019-10-27 19:12+0200\n"
+"PO-Revision-Date:  2019-10-27 10:27+0200\n"
+"Last-Translator: Frank Neumann <fnu@yavdr.org>\n"
+"Language-Team: German <vdr@linuxtv.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "PAT (0x00)"
+msgstr "PAT (0x00)"
+
+msgid "NIT (0x40)"
+msgstr "NIT (0x40)"
+
+msgid "SDT (0x42)"
+msgstr "SDT (0x42)"
+
+msgid "EIT (0x4E/0x4F/0x5X/0x6X)"
+msgstr "EIT (0x4E/0x4F/0x5X/0x6X)"
+
+msgid "TDT (0x70)"
+msgstr "TDT (0x70)"
+
+msgid "SAT>IP information not available!"
+msgstr "Keine SAT>IP Informationen verfügbar!"
+
+msgid "SAT>IP Devices"
+msgstr "SAT>IP Geräte"
+
+msgid "SAT>IP Server"
+msgstr "SAT>IP Server"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Model"
+msgstr "Modell"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "CI extension"
+msgstr "CI Erweiterung"
+
+msgid "Creation date"
+msgstr "Zeitpunkt der Erstellung"
+
+msgid "SAT>IP Device Status"
+msgstr "SAT>IP Geräte Status"
+
+msgid "SAT>IP Information"
+msgstr "SAT>IP Informationen"
+
+msgid "General"
+msgstr "Allgemein"
+
+msgid "Pids"
+msgstr "Pids"
+
+msgid "Filters"
+msgstr "Filter"
+
+msgid "Bits/bytes"
+msgstr "Bits/Bytes"
+
+msgid "off"
+msgstr "aus"
+
+msgid "low"
+msgstr "niedrig"
+
+msgid "normal"
+msgstr "normal"
+
+msgid "high"
+msgstr "hoch"
+
+msgid "Unicast"
+msgstr "Unicast"
+
+msgid "Multicast"
+msgstr "Multicast"
+
+msgid "RTP-over-TCP"
+msgstr "RTP-over-TCP"
+
+msgid "Button$Devices"
+msgstr "Geräte"
+
+msgid "Operating mode"
+msgstr "Betriebsart"
+
+msgid ""
+"Define the used operating mode for all SAT>IP devices:\n"
+"\n"
+"off - devices are disabled\n"
+"low - devices are working at the lowest priority\n"
+"normal - devices are working within normal parameters\n"
+"high - devices are working at the highest priority"
+msgstr ""
+"Bestimme die Betriebsart für alle SAT>IP Geräte:\n"
+"\n"
+"aus - Geräte sind abgeschaltet\n"
+"niedrig - Geräte arbeiten mit geringster Priorität\n"
+"normal - Geräte arbeiten innerhalb der gewöhnlichen Parameter\n"
+"hoch - Geräte arbeiten mit höchste Priorität"
+
+msgid "Enable CI extension"
+msgstr "Aktiviere CI Erweiterung"
+
+msgid ""
+"Define whether a CI extension shall be used.\n"
+"\n"
+"This setting enables integrated CI/CAM handling found in some SAT>IP hardware (e.g. Digital Devices OctopusNet)."
+msgstr ""
+"Legt fest ob eine CI Erweiterung genutzt werden soll.\n"
+"\n"
+"Diese Einstellung aktiviert die Nutzung des integrierten CI/CAM einiger SAT>IP Geräte (z.B. Digital Devices OctopusNet)."
+
+msgid "CI/CAM"
+msgstr "CI/CAM"
+
+msgid ""
+"Define a desired CAM type for the CI slot.\n"
+"\n"
+"The '---' option lets SAT>IP hardware do the auto-selection."
+msgstr ""
+"Bestimmt welcher CI Einschub für ein CAM genutzt werden soll.\n"
+"\n"
+"Die Option '---' überlässt der SAT>IP Hardware die automatische Auswahl."
+
+msgid "Enable EPG scanning"
+msgstr "Aktiviere EPG Aktualisierung"
+
+msgid ""
+"Define whether the EPG background scanning shall be used.\n"
+"\n"
+"This setting disables the automatic EIT scanning functionality for all SAT>IP devices."
+msgstr ""
+"Legt fest ob EPG im Hintergrund aktualisiert werden soll oder nicht.\n"
+"\n"
+"Diese Einstellung schaltet die automatische EIT Aktualisierung für alle SAT>IP Geräte."
+
+msgid "Disabled sources"
+msgstr "Deaktivierte Quellen"
+
+msgid "none"
+msgstr "keine"
+
+msgid ""
+"Define number of sources to be disabled.\n"
+"\n"
+"SAT>IP servers might not have all satellite positions available and such sources can be blacklisted here."
+msgstr ""
+"Legt die Anzahl der deaktivierten Quellen fest.\n"
+"\n"
+"Für einige SAT>IP server sind nicht alle Satellitenpositionen verfügbar, nicht verfügbare Quellen können hier ausgeblendet werden"
+
+msgid "Define a source to be blacklisted."
+msgstr "Bestimme eine Quelle, die ausgeblendet wird"
+
+msgid "Disabled filters"
+msgstr "Deaktivierte Filter"
+
+msgid ""
+"Define number of section filters to be disabled.\n"
+"\n"
+"Certain section filters might cause some unwanted behaviour to VDR such as time being falsely synchronized. By blacklisting the filters here, useful section data can be left intact for VDR to process."
+msgstr ""
+"Bestimme die Anzahl der Abschnittsfilter die deaktiviert werden sollen.\n"
+"\n"
+"Bestimmte Abschnittsfilter können unerwünschtes Verhalten mit VDR, z.B. falsche Zeit-Synchronisation, verursachen. Durch das Ausblenden einzelner Filter können nützliche Daten dieser Abschnitte für den VDR erhalten bleiben."
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Define an ill-behaving filter to be blacklisted."
+msgstr "Bestimme fehlerhafte Filter die ausgeblendet werden sollen."
+
+msgid "Transport mode"
+msgstr "Übertragungsart"
+
+msgid ""
+"Define which transport mode shall be used.\n"
+"\n"
+"Unicast, Multicast, RTP-over-TCP"
+msgstr ""
+"Lege die gewünschte Übertragungsart fest.\n"
+"\n"
+"Unicast, Multicast, RTP-over-TCP"
+
+msgid "Enable frontend reuse"
+msgstr ""
+
+msgid "Define whether reusing a frontend for multiple channels in a transponder should be enabled."
+msgstr ""
+
+msgid "Active SAT>IP servers:"
+msgstr "Aktive SAT>IP Server:"
+
+msgid "Help"
+msgstr "Hilfe"

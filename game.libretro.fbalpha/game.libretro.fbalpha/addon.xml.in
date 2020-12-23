@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.fbalpha"
+		name="Arcade (FB Alpha)"
+		version="0.2.97.13"
+		provider-name="Libretro">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms></platforms>
+		<extensions>zip|7z</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Arcade (FB Alpha) v0.2.97.44</summary>
+		<description lang="en_GB">Final Burn Alpha is an emulator of arcade games, including Capcom CPS-1 and CPS-2, SNK Neo-Geo, Toaplan, Cave and Sega System 16. FB Alpha is based on the original FinalBurn.
+
+Icon credit: TRIPLEKILLZ (triplekillz.deviantart.com)
+
+Supported files: .zip, .7z</description>
+		<disclaimer>The authors of FB Alpha don&#39;t guarantee its fitness for any purpose, implied or otherwise, and do not accept responsibility for any damages whatsoever that might occur when using FB Alpha. All games emulated by FB Alpha, including any images and sounds therein, are copyrighted by their respective copyright holders.</disclaimer>
+		<license>Non-commercial</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.fbalpha</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
+</addon>

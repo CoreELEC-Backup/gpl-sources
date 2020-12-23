@@ -1,0 +1,62 @@
+# VDR streamdev plugin language source file.
+# Copyright (C) 2008 streamdev development team. See http://streamdev.vdr-developer.org
+# This file is distributed under the same license as the VDR streamdev package.
+# Frank Schmirler <vdrdev@schmirler.de>, 2008
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: streamdev 0.5.0\n"
+"Report-Msgid-Bugs-To: <vdrdev@schmirler.de>\n"
+"POT-Creation-Date: 2015-01-16 22:32+0100\n"
+"PO-Revision-Date: 2009-11-26 21:57+0200\n"
+"Last-Translator: Valdemaras Pipiras <varas@ambernet.lt>\n"
+"Language-Team: Lithuanian <vdr@linuxtv.org>\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Hide Mainmenu Entry"
+msgstr "Paslėpti pagrindinio meniu įrašą"
+
+msgid "Simultaneously used Devices"
+msgstr ""
+
+msgid "Remote IP"
+msgstr "Nuotolinis IP adresas"
+
+msgid "Remote Port"
+msgstr "Nuotolinis portas"
+
+msgid "Timeout (s)"
+msgstr ""
+
+msgid "Filter Streaming"
+msgstr "Filtruoti transliavimą"
+
+msgid "Filter SockBufSize"
+msgstr ""
+
+msgid "Live TV Priority"
+msgstr ""
+
+msgid "Minimum Priority"
+msgstr "Minimalus prioritetas"
+
+msgid "Maximum Priority"
+msgstr "Maksimalus prioritetas"
+
+msgid "Broadcast Systems / Cost"
+msgstr ""
+
+msgid "VTP Streaming Client"
+msgstr "VTP transliavimo standartas"
+
+msgid "Suspend Server"
+msgstr "Sustabdyti serverį"
+
+msgid "Server is suspended"
+msgstr "Serveris sustabdytas"
+
+msgid "Couldn't suspend Server!"
+msgstr "Negali sustabdyti serverio!"

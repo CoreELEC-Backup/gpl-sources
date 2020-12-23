@@ -1,0 +1,293 @@
+# This file is distributed under the same license as the xmltv2vdr package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: vdr\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2012-09-01 13:18+0200\n"
+"PO-Revision-Date: 2011-03-05 15:45+0100\n"
+"Last-Translator: Diego Pierotto <vdr-italian@tiscali.it>\n"
+"Language-Team:  <vdr@linuxtv.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "options"
+msgstr "Opzioni"
+
+msgid "add season/episode on all timers"
+msgstr ""
+
+msgid " add shorttext/title from list"
+msgstr ""
+
+msgid "automatic wakeup"
+msgstr "Risveglio automatico"
+
+msgid "delete pics after (days)"
+msgstr ""
+
+msgid "never"
+msgstr ""
+
+msgid "text mapping"
+msgstr "Mappatura testo"
+
+msgid "order of epg data"
+msgstr ""
+
+msgid "epg sources"
+msgstr "Fonti EPG"
+
+msgid "no epgsources installed"
+msgstr "Nessuna sorgente EPG installata"
+
+msgid "disabled"
+msgstr ""
+
+msgid "epg source channels"
+msgstr "Canali sorgente EPG"
+
+msgid "mapped"
+msgstr "Mappato"
+
+msgid "Button$Up"
+msgstr "Su"
+
+msgid "Button$Down"
+msgstr "Giu"
+
+msgid "Button$Log"
+msgstr ""
+
+msgid "Button$Edit"
+msgstr "Modifica"
+
+msgid "texts"
+msgstr "Testi"
+
+msgid "country and date"
+msgstr "Paese e data"
+
+msgid "original title"
+msgstr "Titolo originale"
+
+msgid "category"
+msgstr "Categoria"
+
+msgid "credits"
+msgstr "Crediti"
+
+msgid "video informations"
+msgstr ""
+
+msgid "audio informations"
+msgstr ""
+
+msgid "review"
+msgstr "Anteprima"
+
+msgid "starrating"
+msgstr ""
+
+msgid "season and episode"
+msgstr ""
+
+msgid "order"
+msgstr ""
+
+msgid "long text"
+msgstr "Testo completo"
+
+msgid "video"
+msgstr "Video"
+
+msgid "audio"
+msgstr "Audio"
+
+msgid "rating"
+msgstr "Valutazione"
+
+msgid "overview"
+msgstr ""
+
+msgid "next execution"
+msgstr ""
+
+msgid "active"
+msgstr ""
+
+msgid "log"
+msgstr ""
+
+msgid "Button$Errors"
+msgstr ""
+
+msgid "Button$Info"
+msgstr ""
+
+msgid "Button$Debug"
+msgstr ""
+
+msgid "update options"
+msgstr ""
+
+msgid "update on"
+msgstr ""
+
+msgid "update at"
+msgstr "Ora esecuzione"
+
+msgid "days in advance"
+msgstr "Giorni in anticipo"
+
+msgid "pin"
+msgstr "Pin"
+
+msgid "download pics"
+msgstr ""
+
+msgid "channels provided"
+msgstr "Canali forniti"
+
+msgid "selected"
+msgstr "Selezionato"
+
+msgid "Button$Reset"
+msgstr ""
+
+msgid "Button$Copy"
+msgstr ""
+
+msgid "epg source channel options"
+msgstr "Opzioni canali sorgente EPG"
+
+msgid "type of processing"
+msgstr "Tipo elaborazione"
+
+msgid "merge"
+msgstr "Unisci"
+
+msgid "create"
+msgstr "Creare"
+
+msgid "title"
+msgstr ""
+
+msgid "short text"
+msgstr "Testo breve"
+
+msgid "dvb content id"
+msgstr ""
+
+msgid " actors"
+msgstr " Attore"
+
+msgid " director"
+msgstr " Regia"
+
+msgid " other crew"
+msgstr " altro gruppo"
+
+msgid " output"
+msgstr ""
+
+msgid "multiline"
+msgstr ""
+
+msgid "singleline"
+msgstr ""
+
+msgid " rating in description"
+msgstr ""
+
+msgid "epg source channel mappings"
+msgstr "Mappature canali sorgente EPG"
+
+msgid "none"
+msgstr "Nessuno"
+
+msgid "Button$Unmap"
+msgstr "Non mappare"
+
+msgid "Button$Map"
+msgstr "Mappare"
+
+msgid "Copy to all mapped channels?"
+msgstr ""
+
+msgid "Reset all channel settings?"
+msgstr ""
+
+msgid "Button$Choose"
+msgstr "Scegli"
+
+msgid "country"
+msgstr "Paese"
+
+msgid "year"
+msgstr "Anno"
+
+msgid "originaltitle"
+msgstr "Titolo originale"
+
+msgid "actor"
+msgstr "Attore"
+
+msgid "adapter"
+msgstr "Adattatore"
+
+msgid "commentator"
+msgstr "Commentatore"
+
+msgid "composer"
+msgstr "Compositore"
+
+msgid "director"
+msgstr "Regista"
+
+msgid "editor"
+msgstr "Editore"
+
+msgid "guest"
+msgstr "Ospite"
+
+msgid "presenter"
+msgstr "Presentatore"
+
+msgid "producer"
+msgstr "Produttore"
+
+msgid "writer"
+msgstr "Scrittore"
+
+msgid "blacknwhite"
+msgstr ""
+
+msgid "dolby"
+msgstr ""
+
+msgid "dolbydigital"
+msgstr ""
+
+msgid "bilingual"
+msgstr ""
+
+msgid "season"
+msgstr ""
+
+msgid "episode"
+msgstr ""
+
+msgid "episodeoverall"
+msgstr ""
+
+msgid "xmltv2vdr plugin still working"
+msgstr "Plugin XMLTV2VDR ancora in esecuzione"
+
+msgid "Imports xmltv epg into vdr"
+msgstr "Importa EPG di XMLTV in VDR"

@@ -1,0 +1,143 @@
+=encoding utf8
+=head1 NAME
+
+F<epgsearch.conf> - Die gespeicherten Suchtimer
+
+=head1 BESCHREIBUNG
+
+Die in epgsearch angelegten Suchtimer werden in dieser Datei gespeichert.
+
+Sie sollte nicht manuell editiert werden. Verwende stattdessen lieber SVDRP.
+
+=head1 FORMAT
+
+Aufgrund von möglichen Formatänderungen enthält die Datei eine Versionsangabe.
+Die Format-Version befindet sich in der ersten Zeile der Datei.
+
+Der allgemeine Feldtrenner ist C<':'>.
+
+Folgende Felder sind möglich:
+
+  1 - Einmalige Suchtimer ID
+  2 - Suchstring
+  3 - Verwende Zeit? 0/1
+  4 - Startzeit in HHMM
+  5 - Stopzeit in HHMM
+  6 - Verwende Kanal? 0 = nein,  1 = Intervall, 2 = Kanalgruppe, 3 = nur FTA
+  7 - Wenn 'verwende Kanal' = 1 dann ist Kanal ID[|Kanal ID] im VDR Format,
+      Einträge oder min/max Einträge getrennt durch |, wenn 'Verwende Kanal' = 2
+      dann der Kanalgruppenname
+  8 - Beachte Gross-/Kleinschreibung? 0/1
+  9 - Suchmodus:
+      0 - Der gesamte Suchbegriff muss genau so enthalten sein
+      1 - Alle Suchbegriffe (Trenner sind Leerzeichen,',', ';', '|' oder '~')
+          müssen enthalten sein.
+      2 - Mindestens ein Suchbegriff muss enthalten sein (Trenner sind
+          Leerzeichen, ',', ';', '|' oder '~').
+      3 - Der Suchbegriff muss genau zutreffen
+      4 - Regulärer Ausdruck
+ 10 - Suche in Titel? 0/1
+ 11 - Suche in Untertitel? 0/1
+ 12 - Suche in Beschreibung? 0/1
+ 13 - Verwende Länge? 0/1
+ 14 - Minimale Länge der Sendung in HHMM
+ 15 - Maximale Länge der Sendung in HHMM
+ 16 - Verwende als Suchtimer? 0/1
+ 17 - Verwende Tag der Woche? 0/1
+ 18 - Tag der Woche (0 = Sonntag, 1 = Montag...;
+      -1 Sonntag, -2 Montag, -4 Dienstag, ...; -7 So, Mo, Di)
+ 19 - Verwende als Serienaufnahme? 0/1
+ 20 - Verzeichnis für Aufnahme
+ 21 - Priorität der Aufnahme
+ 22 - Lebensdauer der Aufnahme
+ 23 - Zeitpuffer am Anfang in Minuten
+ 24 - Zeitpuffer am Ende in Minuten
+ 25 - Verwende VPS? 0/1
+ 26 - Aktion:
+      0 = Lege Timer an
+      1 = Benachrichtige nur per OSD (kein Timer)
+      2 = Schalte nur um (kein Timer)
+ 27 - Verwende erweitertes EPG? 0/1
+ 28 - Felder des erweiterten EPGs. Dieser Eintrag hat folgendes Format
+      (Trenner ist '|' für jede Kategorie, '#' trennt ID vom Wert):
+      1 - Die ID der Kategorie des erweiterten EPGs, festgelegt in
+          F<epgsearchcats.conf>, s. C<epgsearchcats.conf(5)>
+      2 - Wert des erweiterten EPGs für diese Kategorie
+          (Ein ':' wird übersetzt in "!^colon^!", z.B. "16:9" -> "16!^colon^!9")
+ 29 - vermeide Wiederholungen? 0/1
+ 30 - erlaubte Anzahl Wiederholungen
+ 31 - Vergleiche Titel bei Prüfung auf Wiederholung? 0/1
+ 32 - Vergleiche Untertitel bei Prüfung auf Wiederholung? 0/1
+ 33 - Vergleiche Beschreibung bei Prüfung auf Wiederholung? 0/1
+ 34 - Vergleiche erweitertes EPG bei Prüfung auf Wiederholung?
+      Dieser Eintrag ist ein Bitfeld von Kategorie IDs.
+ 35 - Erlaube Wiederholungen nur innerhalb x Tagen
+ 36 - Lösche eine Aufnahme automatisch nach x Tagen
+ 37 - Aber behalte mindestens x Aufnahmen
+ 38 - Schalte x Minuten vor der Sendung um, wenn Aktion = 2
+ 39 - Pausiere das Anlegene von Timern wenn x Aufnahmen vorhanden sind
+ 40 - Modus der Ausschlussliste: 0 = Aus, 1 = Wähle aus, 2 = Alle
+ 41 - Verwende diese Ausschluss-Suchtimer, IDs getrennt durch '|'
+ 42 - Fuzzy Toleranz für Suche
+ 43 - Verwende diese Suche im Favoriten Menü, 0 = Nein, 1 = Ja
+ 44 - ID einer Menüvorlage für das Suchergebnis
+
+Folgende Zeichen werden bei der Speicherung übersetzt:
+
+ : => |
+ | => !^pipe^!
+
+Es müssen nicht alle Felder belegt sein. Gefordert sind lediglich die ersten
+11.
+
+=head1 BEISPIELE
+
+ #version 2 - DONT TOUCH THIS!
+ 1:Kommissar Beck:0:::2:ÖffRecht:0:0:1:0:0:0:::1:0:0:1:%Category%~%Genre%:50:99:10:60:0:0:0::1:0:1:1:0:0:0:0:0
+ 2:* Sägebrecht:0:::2:Hauptsender:0:0:0:0:0:0:::0:0:0:0:%Category%~%Genre%:50:99:10:10:0:0:1:1#|2#|3#|4#|5#|6#Marianne Sägebrecht|7#|8#|9#|10#|11#|12#|13#:1:0:1:0:0:0:0:0:0
+
+=head1 SIEHE AUCH
+
+C<epgsearch(1)>
+
+=head1 AUTOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 FEHLER MELDEN
+
+Fehlerberichte bitte im Bugtracker.
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailinglist:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT and LIZENZ
+
+Copyright © 2004-2010 Christian Wieninger
+
+Dieses Programm ist freie Software. Sie können es unter den Bedingungen
+der GNU General Public License, wie von der Free Software Foundation
+veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 2
+der Lizenz oder (nach Ihrer Option) jeder späteren Version.
+
+Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es
+Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die
+implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN
+ZWECK. Details finden Sie in der GNU General Public License.
+
+Sie sollten ein Exemplar der GNU General Public License zusammen mit
+diesem Programm erhalten haben. Falls nicht, schreiben Sie an die
+Free Software Foundation, Inc. 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+Oder rufen Sie in Ihrem Browser http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+auf.
+
+Der Author kann über cwieninger@gmx.de erreicht werden.
+
+Die Projektseite ist http://winni.vdr-developer.org/epgsearch
+
+Der MD5-Code ist abgeleitet aus dem Message-Digest Algorithm
+von RSA Data Security, Inc..
+

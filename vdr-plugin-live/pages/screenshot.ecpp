@@ -1,0 +1,24 @@
+<%pre>
+
+#include <setup.h>
+#include <grab.h>
+
+using namespace vdrlive;
+
+</%pre>
+<%args>
+int quality = 80;
+int width = 569;
+int height = 320;
+</%args>
+<%session scope="global">
+bool logged_in(false);
+</%session>
+<%cpp>
+if (!logged_in && LiveSetup().UseAuth()) return reply.redirect("login.html");
+	reply.setContentType("image/jpg");
+
+	GrabImageInfo image = LiveGrabImageManager().GetImage();
+	if ( image.second > 0 )
+		reply.out().write( image.first.get(), image.second );
+</%cpp>

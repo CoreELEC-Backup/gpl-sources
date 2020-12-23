@@ -1,0 +1,20 @@
+Source: kodi-audiodecoder-timidity
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake, kodi-addon-dev
+Standards-Version: 4.1.2
+Section: libs
+
+Package: kodi-audiodecoder-timidity
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Timidity audio decoder for Kodi
+  Timidity audio decoder for Kodi
+
+Package: kodi-audiodecoder-timidity-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for Timidity audio decoder for Kodi
+  debug symbols for Timidity audio decoder for Kodi

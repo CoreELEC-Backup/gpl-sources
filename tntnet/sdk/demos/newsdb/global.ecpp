@@ -1,0 +1,18 @@
+<%pre>
+
+#include <tntdb/connection.h>
+#include <tntdb/connect.h>
+
+</%pre>
+<%config>
+
+// read variable from tntnet.xml with default value
+dburl = "sqlite:newsdb.db";
+
+</%config>
+<%request scope="global">
+
+// fetch a connection from the tntdb connection cache
+tntdb::Connection conn(tntdb::connectCached(dburl));
+
+</%request>

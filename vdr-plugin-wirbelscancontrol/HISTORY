@@ -1,0 +1,11 @@
+VDR Plugin 'wirbelscancontrol' Revision History
+-------------------------------------------
+
+2010-06-26: Version 0.0.1
+
+- Initial revision.
+
+2011-03-25: Version 0.0.2
+
+- upd. Makefile to keep in sync w. wirbelscan
+- fix translations

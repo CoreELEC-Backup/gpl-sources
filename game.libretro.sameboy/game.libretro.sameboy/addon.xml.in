@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.sameboy"
+		name="Nintendo - Game Boy / Color (SameBoy)"
+		version="0.13.6.13"
+		provider-name="LIJI32">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.gameboy" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms></platforms>
+		<extensions>gb|gbc</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Nintendo - Game Boy / Color (SameBoy) 0.13.6</summary>
+		<description lang="en_GB">SameBoy is an open source Gameboy (DMG) and Gameboy Color (CGB) emulator, written in portable C.
+
+Supported files: .gb, .gbc</description>
+		<license>MIT</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.sameboy</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
+</addon>

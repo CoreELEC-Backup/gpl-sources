@@ -1,0 +1,20 @@
+--- a/common/BuildSettings.h
++++ b/common/BuildSettings.h
+@@ -45,7 +45,6 @@
+ #else // !MPT_BUILD_MSVC
+ 
+ #ifndef _WIN32_WINNT
+-#define _WIN32_WINNT 0x0501 // _WIN32_WINNT_WINXP
+ #endif
+ 
+ #endif // MPT_BUILD_MSVC
+@@ -598,7 +597,9 @@
+ 
+ // windows.h excludes
+ #define NOMEMMGR          // GMEM_*, LMEM_*, GHND, LHND, associated routines
++#if !defined(NOMINMAX)
+ #define NOMINMAX          // Macros min(a,b) and max(a,b)
++#endif
+ #define NOSERVICE         // All Service Controller routines, SERVICE_ equates, etc.
+ #define NOCOMM            // COMM driver routines
+ #define NOKANJI           // Kanji support stuff.

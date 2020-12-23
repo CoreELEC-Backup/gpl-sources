@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-vice
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-vice (>= 3.3.0) | vice (>= 3.3.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-vice
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Commodore - C64 (VICE x64, fast) core for kodi's retroplayer
+ Commodore - C64 (VICE x64, fast) core for kodi's retroplayer

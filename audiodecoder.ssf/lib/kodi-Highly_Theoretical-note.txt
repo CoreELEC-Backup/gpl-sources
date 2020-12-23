@@ -1,0 +1,6 @@
+Highly_Theoretical source from https://g.losno.co/chris/Highly_Theoretical
+Sync to eb3f3e0682 (2 May 2019)
+
+Other source URL https://github.com/kode54/Highly_Theoretical
+
+Include fix build for ios/osx/android, see https://github.com/xbmc/audiodecoder.ssf/commit/41ef56f7

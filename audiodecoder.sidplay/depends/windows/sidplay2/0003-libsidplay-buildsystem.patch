@@ -1,0 +1,55 @@
+--- /dev/null	2015-03-03 09:10:35.165379981 +0100
++++ sidplay-libs-2.1.1/libsidplay/CMakeLists.txt	2015-03-04 09:56:43.071217172 +0100
+@@ -0,0 +1,52 @@
++project(sidplay2)
++
++cmake_minimum_required(VERSION 3.5)
++
++add_definitions(-D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS -DHAVE_MSWINDOWS)
++
++include_directories(${PROJECT_SOURCE_DIR}/include
++                    ${PROJECT_SOURCE_DIR}/include/sidplay)
++
++set(SOURCES src/mos6510/mos6510.cpp
++            src/mos6526/mos6526.cpp
++            src/mos656x/mos656x.cpp
++            src/sid6526/sid6526.cpp
++            src/sidtune/IconInfo.cpp
++            src/sidtune/InfoFile.cpp
++            src/sidtune/MUS.cpp
++            src/sidtune/p00.cpp
++            src/sidtune/PP20.cpp
++            src/sidtune/prg.cpp
++            src/sidtune/PSID.cpp
++            src/sidtune/SidTune.cpp
++            src/sidtune/SidTuneTools.cpp
++            src/xsid/xsid.cpp
++            src/config.cpp
++            src/event.cpp
++            src/mixer.cpp
++            src/player.cpp
++            src/psiddrv.cpp
++            src/reloc65.c
++            src/sidplay2.cpp)
++
++add_library(sidplay2 STATIC ${SOURCES})
++
++set(HEADERS ${PROJECT_SOURCE_DIR}/include/sidenv.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/Buffer.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/c64env.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/component.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/event.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/sid2types.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/sidbuilder.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/sidendian.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/sidplay2.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/SidTune.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/sidtypes.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/sidusage.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/SmartPtr.h
++            ${PROJECT_SOURCE_DIR}/win/VC/config.h
++            ${PROJECT_SOURCE_DIR}/win/VC/sidconfig.h
++            ${PROJECT_SOURCE_DIR}/win/VC/sidint.h)
++
++install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/sidplay)
++install(TARGETS sidplay2 DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)

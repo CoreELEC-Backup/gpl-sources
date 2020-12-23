@@ -1,0 +1,17 @@
+Source: kodi-game-libretro-prosystem
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0),
+               cmake,
+               kodi-addon-dev,
+               libretro-prosystem (>= 1.3.0) | prosystem (>= 1.3.0)
+Standards-Version: 3.9.8
+Section: libs
+
+Package: kodi-game-libretro-prosystem
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, kodi, kodi-game-libretro
+Enhances: kodi
+Description: Atari - 7800 (ProSystem) core for kodi's retroplayer
+ Atari - 7800 (ProSystem) core for kodi's retroplayer

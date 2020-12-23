@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>FAQ: dvbsnoop - A DVB Stream Analyzer Tool, MPEG Analyzer, MHP
+		Analyzer</TITLE>
+	 <META NAME="description"
+	  CONTENT="dvbsnoop - dvbsnoop is a simple stream analyzer and monitoring tool
+	           for DVB data transmission streams and related data streams. ">
+	 <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>dvbsnoop - FAQ</H1> 
+	 <P>Some questions and answers...</P> 
+	 <OL> 
+		<LI><B>Q: What is dvbsnoop?</B><BR>dvbsnoop is a mpeg analyzer for
+		  viewing/debugging mpeg or dvb based stream information, send via digital TV.
+		  You may also use dvbsnoop to analyze mpeg compliant streams stored on DVD or
+		  other media... dvbsnoop analayzes and displays mpeg, dvb dsm-cc, mhp, etc. data
+		  and structures in human readable form. dvbsnoop is not designed to be fault
+		  tolerant - damaged or braindead stream information could lead to odd
+		  results.<BR><BR></LI> 
+		<LI><B>Q: Under what license is dvbsnoop?</B><BR>dvbsnoop is published
+		  under "GPL". <BR><BR></LI>
+		<LI><B>Q: May I re-use dvbsnoop code or ideas for my own
+		  project?</B><BR>dvbsnoop is published under "GPL". So yes, you may recycle
+		  dvbsnoop code, if you are publishing your project under GPL, too. If you are
+		  using dvbsnoop (basics, ideas, code), please place a link/note to the dvbsnoop
+		  homepage in your project.<BR><BR></LI> 
+		<LI><B>Q: What is DVB and digital TV?</B><BR>Have a look at
+		  <A HREF="http://www.dvb.org" TARGET="_blank">http://www.dvb.org</A>. Also
+		  <A HREF="http://www.google.com" TARGET="_blank">Google</A> is very helpfull for
+		  explanations.<BR><BR></LI> 
+		<LI><B>Q: What features does dvbsnoop provide?</B><BR>Have a look at the
+		  <A HREF="features.html">feature list</A>...<BR><BR></LI> 
+		<LI><B>Q: Is there a BBS or newsgroup/maillist to ask
+		  questions?</B><BR>Well, you might use the
+		  <A HREF="http://www.linuxtv.org/mailinglists.xml">linuxtv maillinglist</A> (or
+		  post a question to the <A HREF="http://tuxbox.org/forum/">tuxbox forum</A>
+		  (German BBS, but you may also post questions in English).)..<BR><BR></LI> 
+		<LI><B>Q: I found a bug, what to do?</B><BR>Interaction between standards
+		  organizations (ETSI, ITU, ISO, ...) and also between standards itself sometimes
+		  is very complex, especially when standards are enhanced or collide with other
+		  drafts. So bugs are very likely (also programming bugs...). Due to missing or
+		  proper test streams, some features are implemented without possible real life
+		  testing... <B>Please report any bug or odd behavior.</B><BR><BR></LI> 
+		<LI><B>Q: How do I know the PIDs to sniff on?</B><BR>The PAT section
+		  ("dvbsnoop -nph 0x01") provides the necessary information. Use program PIDs in
+		  the PAT to decode the PMT section.<BR>To see if there are any "hidden" PIDs,
+		  use "dvbsnoop -s pidscan".<BR><BR></LI>
+		<LI><B>Q: How do I tune into a frequency with dvbsnoop?</B><BR>dvbsnoop
+		  doesn't do tuning. It's only designed to sniff...<BR>Use dvbtune, or a GUI like
+		  dbox2 "Neutrino" to tune into a transponder or frequency...<BR><BR></LI> 
+		<LI><B>Q: Why can't I snoop the PID 0x1FFF?</B><BR>PID 0x1FFF is a NULL
+		  packet, used for stuffing. The availablity of this PID depends on the firmware
+		  (ucodes) of your dvb hardware.<BR><BR></LI> 
+		<LI><B>Q: Why can't I snoop some PIDs?</B><BR>Depending on your DVB card
+		  firmware or driver, a PID which is already occupied by another process may not
+		  be available to dvbsnoop. In this case close all dvb applications (TV-,
+		  streaming-, EPG-applications).<BR><BR></LI> 
+		<LI><B>Q: Can I snoop multiple PIDs?</B><BR>Currently not (DVB-API 1 and
+		  DVB-API 3). But there is a workaround: depending on your DVB hardware you may
+		  save a complete transport stream (raw binary data) or a multiple pid transport
+		  stream as file. You can analyze this transport stream using "dvbsnoop -s ts
+		  -tssubdecode -if filename ..."<BR><BR></LI> 
+		<LI><B>Q: Can dvbsnoop "follow" PIDs?</B><BR>Yes. Use the option
+		  "-spiderpid". This will enable dvbsnoop to recursivly follow PIDs. Use also
+		  option "-n &lt;count&gt;" to limit PID read cycles...<BR><BR><BR></LI> 
+		<LI><B>Q: Why can't I see any data analyzed by dvbsnoop?</B><BR>Did you
+		  tune into a valid transponder/frequency containing a DVB stream? Use dvbtune,
+		  szap, VDR, Neutrino, Enigma or any other tool to tune to a DVB service
+		  (program)... Use "dvbsnoop -signal" to check if you are tuned and locked into a
+		  transponder and are in-sync.<BR><BR></LI> 
+		<LI><B>Q: What to do on "read error , buffer overflow"?</B><BR>The dvb
+		  data stream on the selected PID is too fast for dvbsnoop to decode. Packets are
+		  lost. The reason for this might be high PID bandwidth, slow cpu (e.g. a set top
+		  box - PCs should have sufficient cpu power), or output is sent to a "slow"
+		  terminal (e.g. via network connection). To avoid this, save the binary stream
+		  to file (option -b) and analyze the stream file. If the buffer overlow still
+		  consists while saving the stream to a file, try to save the stream to a fast
+		  media (e.g. virtual disk/ram disk, - on many systems /tmp might be such a ram
+		  file system). <BR><BR>As of version 1.3.69 you might use the command line
+		  option "-buffersize xxxx" to set a larger demux buffersize. Size will be given
+		  in KBytes (see usage description or feature list). dvbsnoop's default
+		  buffersize is 256 KBytes.<BR><BR></LI> 
+		<LI><B>Q: I get strange output on PES, TS or SECTIONs...</B><BR>Use the
+		  options -sync or -crc to enforce valid data. If a packet is delivered in sync
+		  to dvbsnoop, depends on your DVB hardware/firmware. Also I observed that some
+		  firmware is clearing the "scrambled" flag in TS packets, even if the transport
+		  stream or PES is scrambled or wrongly descrambled (e.g. because you didn't
+		  subscribe to this channel). dvbsnoop tries to analyze the stream as unscrambled
+		  stream (which will lead to odd analyzing reports, of course).<BR><BR></LI> 
+		<LI><B>Q: Why is the command option "-sync" default and otherwise on
+		  SECTIONs mode "-nocrc" default?</B><BR>Unsynced TS or PES is useless, because
+		  decoding will be completly gaga. On sections -nocrc is default, because there
+		  might be private sections (e.g. ECM) or DSM-CC sections with no or different
+		  CRC calculations (e.g. dsm-cc datagram).<BR><BR></LI> 
+		<LI><B>Q: Can I filter or customize the dvbsnoop output?</B><BR>On Unix
+		  you may find many tools to tweak or filter the output of dvbsnoop, using
+		  "grep", "nawk", "perl" or other stuff.. (e.g.: dvbsnoop -nph 0x00 | grep -i
+		  "pid").<BR><BR></LI> 
+		<LI><B>Q: Can I filter dvb input?</B><BR>Currently you only can filter
+		  dvb stream input, using PID filters on sections and when reading from a
+		  transport stream file. But plans are to enhance input filter capabilities.
+		  There are requests by different persons: positive/negative filter mask,
+		  filtering "bytes" on specified packet positions, and also requests for really
+		  enhanced content (output) filters. <BR><BR></LI>
+		<LI><B>Q: Can dvbsnoop decode private/user defined
+		  data?</B><BR>Basically: Yes. You have to tell dvbsnoop which provider's private
+		  scope to use. (e.g. commandline option: "-privateprovider premiere.de"). If
+		  dvbsnoop is aware of this provider, it will decode the private data
+		  structures.<BR><BR></LI>
+		<LI><B>Q: Can dvbsnoop decode the private data of provider/service
+		  XYZ?</B><BR>Try "dvbsnoop -help", to see if the provider name is listed. If
+		  not, someone has to send information about the private descriptors and tables
+		  to the author.<BR><BR></LI> 
+		<LI><B>Q: Does dvbsnoop analyze MPEG video/audio stream
+		  content?</B><BR>dvbsnoop decodes meta information about dvb and mpeg streams,
+		  but does not analyze video or audio stream content, which is described outside
+		  ISO/IEC 13818-1 / ITU H.222.0. There are other good tools available to analyze
+		  e.g. mpeg video I-frame rates, compression rates, mpeg vectors, etc.. You may
+		  use dvbsnoop in combination with these tools.<BR><BR></LI> 
+		<LI><B>Q: Will there be a XML output option for dvbsnoop?</B><BR>
+		  Planned... But it needs major rewriting of some dvbsnoop routines and behavior.
+		  ... and time...<BR><BR></LI> 
+		<LI><B>Q: Will there be a graphical interface for dvbsnoop?</B><BR>Well,
+		  who knows what future will bring. But currently there are no plans. (Maybe
+		  someone wish to start a project ;-))<BR>But you can use some easy
+		  perl-/shellscripts and tools like GNU-PLOT or MRTG to create fancy graphics
+		  from dvbsnoop output (e.g. bitrate figures, pid usage, etc.). <BR><BR></LI> 
+		<LI><B>Q: Will there be a Windows port?</B><BR>Currently no plans,
+		  because you would need the DVB-API on Windows.<BR><BR></LI> 
+		<LI><B>Q: Future development of dvbsnoop?</B><BR>I'm also involved in
+		  other projects and too bad for my software projects: there is also a "real"
+		  life... ;-)<BR>So, future development of dvbsnoop depends on my sparetime for
+		  dvbsnoop...<BR>But if you are interrested in enhancing dvbsnoop, any help is
+		  welcome...<BR><BR><BR></LI> 
+	 </OL> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

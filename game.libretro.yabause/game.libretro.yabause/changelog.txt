@@ -1,0 +1,2 @@
+[B]2013-04-24[/B] Version [B]0.9.12[/B]
+. Initial release: Yabause v0.9.12 @ https://github.com/libretro/yabause/commit/214fa4d (2013-04-19)

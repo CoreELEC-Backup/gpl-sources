@@ -1,0 +1,167 @@
+<sect1 id="IOWarrior-howto">
+<title>The IOWarrior Driver</title>
+
+<sect2 id="IOWarrior-general">
+<title>General</title>
+
+<para>
+IOWarrior is the name of a series of multi-purpose USB controller chips
+produced and sold by <ulink url="http://www.codemercs.com/">Code Mercenaries</ulink>.
+This series currently consists of three main types, that - among other features -
+support controlling LCD displays:
+
+<variablelist>
+<varlistentry>
+  <term>IOWarrior24</term>
+  <listitem>
+    <itemizedlist>
+      <listitem><para>USB 1.1 Low Speed</para></listitem>
+      <listitem><para>16 generic I/O Pins, typ. 125Hz read rate</para></listitem>
+      <listitem><para>I<superscript>2</superscript>C master function, 100kHz, throughput typ. 750 bytes/sec</para></listitem>
+      <listitem><para>SPI master interface, up to 2MHz, throughput typ. 750 bytes/sec</para></listitem>
+      <listitem><para>control an HD44780 compatible LCD</para></listitem>
+      <listitem><para>drive a matrix of up to 8x32 LEDs</para></listitem>
+      <listitem><para>decode RC5 compatible infrared remote controls</para></listitem>
+    </itemizedlist>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>IOWarrior40</term>
+  <listitem>
+    <itemizedlist>
+      <listitem><para>USB 1.1 Low Speed</para></listitem>
+      <listitem><para>32 generic I/O Pins, typ. 125Hz read rate</para></listitem>
+      <listitem><para>I<superscript>2</superscript>C master function, 100kHz, throughput typ. 750 bytes/sec</para></listitem>
+      <listitem><para>control an HD44780 compatible LCD</para></listitem>
+      <listitem><para>drive a matrix of up to 8x32 LEDs</para></listitem>
+      <listitem><para>drive a 8x8 switch or button matrix</para></listitem>
+    </itemizedlist>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>IOWarrior56</term>
+  <listitem>
+    <itemizedlist>
+      <listitem><para>USB 1.1 Full Speed</para></listitem>
+      <listitem><para>50 generic I/O Pins, typ. 1000Hz read rate</para></listitem>
+      <listitem><para>I<superscript>2</superscript>C master function, 50, 100, or 400kHz</para></listitem>
+      <listitem><para>SPI master interface, up to 12MHz, throughput up to 62Kbytes/sec</para></listitem>
+      <listitem><para>control various display modules, including most graphic modules</para></listitem>
+      <listitem><para>drive a matrix of up to 8x64 LEDs</para></listitem>
+      <listitem><para>drive a 8x8 switch or button matrix</para></listitem>
+    </itemizedlist>
+  </listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+<para>
+The <code>IOWarrior</code> driver currently only supports writing
+to a single-controller HD44780-type display.
+LED output using the <command>output()</command> function is also implemented,
+although not tested very well.
+The hardware's support for input using keys or IR and dual-controller displays
+is not implemented yet.
+Please note that the latter requires extra circuitry with IOWarrior24 and IOWarrior40.
+</para>
+
+<para>
+The driver was developed and tested with IOWarrior24 and the IOWarrior40.
+Although there are good chances for it to work with an IOWarrior56,
+the current state regarding support of this chip is unknown due to the
+lack of the required hardware.
+</para>
+
+</sect2>
+
+
+<sect2 id="IOWarrior-requirements">
+<title>Requirements</title>
+
+<para>
+The driver is based on the <ulink url="http://libusb.info/"><filename>libusb</filename></ulink>
+USB library, which should make it work with Linux, the different BSD variants
+as well as Darwin/MacOS X.
+
+<note>
+  <para>
+    When using a <filename>libusb</filename> based driver like <code>IOWarrior</code>,
+    <application>LCDd</application> needs to be started as root.
+  </para>
+</note>
+
+<note>
+  <para>
+    Newer Linux kernels (2.6.20 and higher) provide a kernel module
+    <filename>iowarrior.ko</filename> that allows controlling IOWarrior
+    chips using device files.
+    <application>LCDd</application> tries to unload this kernel module
+    for <filename>libusb</filename> to be able to control IOWarrior devices.
+    If this fails, this may hinder <application>LCDd</application>
+    from starting using the <code>IOWarrior</code> driver.
+    In this case, simply unload the kernel module by hand.
+  </para>
+</note>
+</para>
+
+</sect2>
+
+
+<!-- ## Code Mercenaries IO-Warrior driver ## -->
+<sect2 id="IOWarrior-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="IOWarrior-config-section">
+<title>[IOWarrior]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Set the display dimensions. If not given, it defaults to <literal>20x4</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>SerialNumber</property> =
+    <parameter><replaceable>SERIALNO</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Use the IOWarrior module with the serial number <replaceable>SERIALNO</replaceable>.
+    If this parameter is missing, the default is to use the first IOWarrior module found.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>ExtendedMode</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    If you have a KS0073 or an other 'almost HD44780-compatible' display
+    connected to the IOWarrior, set this flag to get into extended,
+    4-line linear addressing mode
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Lastline</property> = &parameters.yesdefno;
+  </term>
+  <listitem><para>
+    Specifies if the last line is pixel addressable or it controls an
+    underline effect.
+    The default <literal>yes</literal> means, it is pixel addressable.
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

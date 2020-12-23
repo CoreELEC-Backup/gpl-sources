@@ -1,0 +1,182 @@
+TOC
+1. Introduction
+2. Getting the source code
+3. Basic Installation
+4. VDR and OScam compatibility
+5. Plugin and OSCam setup
+6. Commandline options
+7. Note for a plugin developers
+
+-----------------------------------------------------------------------------
+1. Introduction
+-----------------------------------------------------------------------------
+
+DVBAPI plugin for VDR
+
+  The plugin allows connect VDR to OScam. It creates a software CAM in VDR,
+and communicates with OSCam over camd.socket (using 'dvbapi' module).
+This way it pass decryption requests to OSCam and obtains back keys which
+are needed for CSA stream decryption. Decryption of the stream is done using
+DeCSA libraries (FFdecsa or libdvbcsa).
+
+Refer to INSTALL/README for installation and usage procedure
+Refer to FAQ for frequently asked questions
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+See the file COPYING for more information.
+
+Latest version available at: https://github.com/manio/vdr-plugin-dvbapi
+
+-----------------------------------------------------------------------------
+2. Getting the source code
+-----------------------------------------------------------------------------
+
+You will have to grab the source code of course. First install the git
+package provided by your distribution. Then from a terminal, type:
+
+   $ cd /usr/local/src/vdr/PLUGINS/src
+   $ git clone git://github.com/manio/vdr-plugin-dvbapi.git
+   $ ln -s vdr-plugin-dvbapi dvbapi
+
+-----------------------------------------------------------------------------
+3. Basic Installation
+-----------------------------------------------------------------------------
+
+For sample installation instructions refer to INSTALL file.
+
+-----------------------------------------------------------------------------
+4. VDR and OScam compatibility
+-----------------------------------------------------------------------------
+
+Recommended VDR version for recent plugin versions is the stable VDR 2.2.0 or
+further Developer versions.
+You also need OScam svn rev >= 11534.
+
+*** NOTE FOR OLDER VDR VERSIONS:
+    If you are using older VDR stable versions or developer version older
+    then 2.1.4 then you also need an older plugin version:
+    - version 1.0.6 is the last plugin revision that will work for you;
+    you also need OScam svn rev >= 7314 and <= 9854 in this case.
+
+*** NOTE FOR OLDER OSCAM VERSIONS:
+    If you are using older OScam svn versions older then 11534 then you
+    also need an older plugin version:
+    - version 2.2.5 is the last plugin revision that will work for you.
+
+-----------------------------------------------------------------------------
+5. Plugin and OSCam setup
+-----------------------------------------------------------------------------
+
+Current version of the plugin has a feature which allows connect to OSCam
+via TCP socket. This way OSCam instead of doing filering on demux device,
+is doing the requests over the network and the plugin is doing filering on
+data provided by VDR. All communication with OSCam is done over one single
+TCP socket. This allows directly connect to remote OSCam host with card
+readers if it is on different host then VDR is running at.
+This is currently the default (and recommended) plugin mode.
+It will also help to using the plugin in cases where there is no physical
+hardware the OSCam could use, eg the SAT>IP devices running on VDR.
+
+To enable this mode it is needed to set listening port on OSCam server and
+also host and port in this plugin options. Required minimal OSCam version
+for this mode to work is svn rev 9580.
+Let's assume that you want to use the port 2000 for communication on host
+192.168.0.1 in your LAN.
+
+On the VDR plugin side you need set the host and the same port of the machine
+where the OSCam is listening for input connections.
+You can set it in the plugin menu or manually adding the following lines
+in the VDR's setup.conf file:
+dvbapi.OSCamHost = 192.168.0.1
+dvbapi.OSCamPort = 2000
+
+NOTE: If you want to use VDR and OSCam on the same host, then just use
+127.0.0.1 as the OSCamHost setting.
+
+The OSCam has to be configured accordingly (oscam.conf file):
+[dvbapi]
+enabled                       = 1
+au                            = 1
+pmt_mode                      = 4
+listen_port                   = 2000
+user                          = vdr
+boxtype                       = pc
+
+You also need to properly add the above "vdr" user in OSCam, please refer
+the OSCam documentation for details.
+
+
+The log level parameter of the plugin can be configured either from VDR
+menu or manually editing the VDR's setup.conf file (remember to change
+the file when VDR is not running).
+
+The parameter line for the plugin is:
+dvbapi.LogLevel = 2
+
+The values for the log level are:
+  0 - totally disable debug
+  1 - only error messages
+  2 - information and error messages (default)
+  3 - all information including debug
+
+-----------------------------------------------------------------------------
+6. Commandline options
+-----------------------------------------------------------------------------
+
+Adapter index offset:
+---------------------
+When you are using the plugin in network mode, single OSCam server is able to
+handle more then one VDR dvbapi clients. The problem is the adapter indexes.
+
+Let's assume the following scenario:
+  VDR client 1: two DVB adapters (0, 1)
+  VDR client 2: two DVB adapters (0, 1)
+
+As every VDR host will number devices from zero, then both requests will come
+to OSCam with conflicting adapter indexes, resulting in broken decrypting.
+
+To be able to prevent this conflict (and if you want to connect more then one
+dvbapi client to the same OSCam server) you need to add a constant value to
+all adapter indexes on one of the above host.
+
+There is a command line option "-o" to set this offset by the plugin when
+communicating with the OSCam.
+
+If you want to add eg. value 2 as the adapter index offset, then you need to
+run vdr like this:
+  vdr -P"dvbapi -o2"
+
+If you do this on "VDR client 2" from the above scenario it will add value 2
+to adapter indexes resulting in:
+  VDR client 1: two DVB adapters (0, 1)
+  VDR client 2: two DVB adapters (2, 3) - added offset 2 to indexes
+
+This way all adapters/clients will be handled correctly by single OSCam.
+
+NOTE: you can set this option permanently in setup.conf, like eg:
+dvbapi.AdapterIndexOffset = 2
+It is not exposed to the plugin setup as it is an advanced option.
+
+Disable CW expiration check:
+----------------------------
+The plugin is automatically checking if the key obtained from OSCam is still
+valid and doesn't expired before using it for decrypting. This way if OSCam
+cannot provide a key for a channel, VDR have a chance to switch to other CAM
+which is able to do so. In some circumstances (eg. when you're using Constant
+CW in OSCam) you may need to disable this check, starting VDR like this:
+  vdr -P"dvbapi -d"
+
+-----------------------------------------------------------------------------
+7. Note for a plugin developers
+-----------------------------------------------------------------------------
+
+If you want your device to use a full performance of this dvbapi plugin,
+then I strongly recommend that your plugin's device ring buffer to be set
+to 5MB of size or more.
+
+You can find the explanation in the following pull requests:
+https://github.com/manio/vdr-plugin-dvbapi/pull/104
+https://github.com/manio/vdr-plugin-dvbapi/pull/105

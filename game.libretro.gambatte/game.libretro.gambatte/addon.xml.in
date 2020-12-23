@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.gambatte"
+		name="Nintendo - Game Boy / Color (Gambatte)"
+		version="0.5.0.13"
+		provider-name="Sinamas">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.gameboy" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>Game Boy|Game Boy Color</platforms>
+		<extensions>gb|gbc|dmg</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Nintendo - Game Boy / Color (Gambatte) v0.5.0-netlink</summary>
+		<description lang="en_GB">Gambatte is an accuracy-focused, open-source, cross-platform Game Boy Color emulator written in C++.
+
+Supported files: .gb, .gbc, .dmg</description>
+		<disclaimer>Game Boy and Game Boy Color are registered trademarks of Nintendo of America, Inc. Gambatte is not affiliated with or endorsed by any of the companies mentioned.</disclaimer>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.gambatte</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

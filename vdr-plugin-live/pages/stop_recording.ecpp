@@ -1,0 +1,23 @@
+<%pre>
+
+#include <setup.h>
+#include <tasks.h>
+
+using namespace std;
+using namespace vdrlive;
+
+</%pre>
+<%args>
+	string param;
+</%args>
+<%session scope="global">
+	bool logged_in(false);
+</%session>
+<%cpp>
+	if (!logged_in && LiveSetup().UseAuth()) return reply.redirect("login.html");
+	reply.setContentType( "application/xml" );
+
+	StopRecordingTask task( param );
+	LiveTaskManager().Execute( task );
+</%cpp>
+<& xmlresponse.ajax name=("stop_recording") pname=("recording") value=(param) result=(task.Result()) error=(task.Error()) &>

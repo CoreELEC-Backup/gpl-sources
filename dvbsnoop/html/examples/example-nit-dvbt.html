@@ -1,0 +1,259 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: Network Information
+		Table DVB-T (Terrestrial)</TITLE><META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: Network Information Table DVB-T (NIT)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>dvbsnoop -nph -n 1 -if dvb-t-nit.streamfile
+
+[...]
+----------------------------------------------------------
+SECT-Packet: 00000112   PID: (Unknown PID), Length: 262 (0x0106)
+from file: c44-log.html
+----------------------------------------------------------
+PID:  65535 (0xffff)
+Guess table from table id...
+NIT-decoding....
+Table_ID: 64 (0x40)  [= network_information_section - actual network]
+section_syntax_indicator: 1 (0x01)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+Section_length: 259 (0x0103)
+Network_ID: 12291 (0x3003)  [= --&gt; please lookup at http://www.dvb.org]
+reserved_3: 3 (0x03)
+Version_number: 14 (0x0e)
+Current_next_indicator: 1 (0x01)
+Section_number: 0 (0x00)
+Last_Section_number: 0 (0x00)
+reserved_4: 15 (0x0f)
+Network_descriptor_length: 72 (0x0048)
+    
+    DVB-DescriptorTag: 64 (0x40)  [= network_name_descriptor]
+    Descriptor_length: 34 (0x22)
+    Network_name:  "T-Systems DVB-T Berlin/Brandenburg"  -- Charset: Latin alphabet
+    
+    DVB-DescriptorTag: 74 (0x4a)  [= linkage_descriptor]
+    Descriptor_length: 8 (0x08)
+    Transport_stream_ID: 771 (0x0303)
+    Original_network_ID: 8468 (0x2114)  [= German Digital Terrestrial Television | IRT on behalf of the German DVB-T broadcasts]
+    Service_ID: 0 (0x0000)  [=  --&gt; refers to PMS program_number]
+    Linkage_type: 10 (0x0a)  [= TS containing SSU BAT or NIT]
+        Table_type: 1 (0x01)  [= NIT]
+    
+    DVB-DescriptorTag: 74 (0x4a)  [= linkage_descriptor]
+    Descriptor_length: 24 (0x18)
+    Transport_stream_ID: 771 (0x0303)
+    Original_network_ID: 8468 (0x2114)  [= German Digital Terrestrial Television | IRT on behalf of the German DVB-T broadcasts]
+    Service_ID: 16642 (0x4102)  [=  --&gt; refers to PMS program_number]
+    Linkage_type: 9 (0x09)  [= system software update service]
+        OUI_data_length: 16 (0x10)
+        OUI: 4275 (0x0010b3)  [= http://standards.ieee.org/regauth/oui/]
+        selector_length: 0 (0x00)
+        Selector Bytes:
+        OUI: 2249 (0x0008c9)  [= http://standards.ieee.org/regauth/oui/]
+        selector_length: 0 (0x00)
+        Selector Bytes:
+        OUI: 2524 (0x0009dc)  [= http://standards.ieee.org/regauth/oui/]
+        selector_length: 0 (0x00)
+        Selector Bytes:
+        OUI: 53303 (0x00d037)  [= http://standards.ieee.org/regauth/oui/]
+        selector_length: 0 (0x00)
+        Selector Bytes:
+
+reserved_5: 15 (0x0f)
+Transport_stream_loop_length: 174 (0x00ae)
+    
+    Transport_stream_ID: 769 (0x0301)
+    Original_network_ID: 8468 (0x2114)  [= German Digital Terrestrial Television | IRT on behalf of the German DVB-T broadcasts]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 27 (0x001b)
+        
+        DVB-DescriptorTag: 90 (0x5a)  [= terrestrial_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Center frequency: 0x03ec0740 (= 658000.000 kHz)
+        Bandwidth: 0 (0x00)  [= 8 MHz]
+        reserved_1: 31 (0x1f)
+        Constellation: 1 (0x01)  [= 16-QAM]
+        Hierarchy information: 0 (0x00)  [= non-hierarchical]
+        Code_rate_HP_stream: 1 (0x01)  [= 2/3]
+        Code_rate_LP_stream: 0 (0x00)  [= 1/2]
+        Guard_interval: 2 (0x02)  [= 1/8]
+        Transmission_mode: 1 (0x01)  [= 8k mode]
+        Other_frequency_flag: 0 (0x00)
+        reserved_2: 4294967295 (0xffffffff)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 12 (0x0c)
+            Service_ID: 16394 (0x400a)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16398 (0x400e)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16403 (0x4013)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16408 (0x4018)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+    
+    Transport_stream_ID: 771 (0x0303)
+    Original_network_ID: 8468 (0x2114)  [= German Digital Terrestrial Television | IRT on behalf of the German DVB-T broadcasts]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 36 (0x0024)
+        
+        DVB-DescriptorTag: 90 (0x5a)  [= terrestrial_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Center frequency: 0x04a32240 (= 778000.000 kHz)
+        Bandwidth: 0 (0x00)  [= 8 MHz]
+        reserved_1: 31 (0x1f)
+        Constellation: 1 (0x01)  [= 16-QAM]
+        Hierarchy information: 0 (0x00)  [= non-hierarchical]
+        Code_rate_HP_stream: 1 (0x01)  [= 2/3]
+        Code_rate_LP_stream: 0 (0x00)  [= 1/2]
+        Guard_interval: 2 (0x02)  [= 1/8]
+        Transmission_mode: 1 (0x01)  [= 8k mode]
+        Other_frequency_flag: 0 (0x00)
+        reserved_2: 4294967295 (0xffffffff)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 21 (0x15)
+            Service_ID: 16403 (0x4013)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16640 (0x4100)  [=  --&gt; refers to PMS program_number]
+            Service_type: 12 (0x0c)  [= data broadcast service]
+            
+            Service_ID: 16641 (0x4101)  [=  --&gt; refers to PMS program_number]
+            Service_type: 12 (0x0c)  [= data broadcast service]
+            
+            Service_ID: 16642 (0x4102)  [=  --&gt; refers to PMS program_number]
+            Service_type: 12 (0x0c)  [= data broadcast service]
+            
+            Service_ID: 16643 (0x4103)  [=  --&gt; refers to PMS program_number]
+            Service_type: 12 (0x0c)  [= data broadcast service]
+            
+            Service_ID: 16644 (0x4104)  [=  --&gt; refers to PMS program_number]
+            Service_type: 12 (0x0c)  [= data broadcast service]
+            
+            Service_ID: 16645 (0x4105)  [=  --&gt; refers to PMS program_number]
+            Service_type: 12 (0x0c)  [= data broadcast service]
+            
+    
+    Transport_stream_ID: 772 (0x0304)
+    Original_network_ID: 8468 (0x2114)  [= German Digital Terrestrial Television | IRT on behalf of the German DVB-T broadcasts]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 27 (0x001b)
+        
+        DVB-DescriptorTag: 90 (0x5a)  [= terrestrial_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Center frequency: 0x010ed7f0 (= 177500.000 kHz)
+        Bandwidth: 1 (0x01)  [= 7 MHz]
+        reserved_1: 31 (0x1f)
+        Constellation: 1 (0x01)  [= 16-QAM]
+        Hierarchy information: 0 (0x00)  [= non-hierarchical]
+        Code_rate_HP_stream: 2 (0x02)  [= 3/4]
+        Code_rate_LP_stream: 0 (0x00)  [= 1/2]
+        Guard_interval: 2 (0x02)  [= 1/8]
+        Transmission_mode: 1 (0x01)  [= 8k mode]
+        Other_frequency_flag: 0 (0x00)
+        reserved_2: 4294967295 (0xffffffff)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 12 (0x0c)
+            Service_ID: 15 (0x000f)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16 (0x0010)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16387 (0x4003)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16576 (0x40c0)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+    
+    Transport_stream_ID: 773 (0x0305)
+    Original_network_ID: 8468 (0x2114)  [= German Digital Terrestrial Television | IRT on behalf of the German DVB-T broadcasts]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 27 (0x001b)
+        
+        DVB-DescriptorTag: 90 (0x5a)  [= terrestrial_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Center frequency: 0x03041840 (= 506000.000 kHz)
+        Bandwidth: 0 (0x00)  [= 8 MHz]
+        reserved_1: 31 (0x1f)
+        Constellation: 1 (0x01)  [= 16-QAM]
+        Hierarchy information: 0 (0x00)  [= non-hierarchical]
+        Code_rate_HP_stream: 1 (0x01)  [= 2/3]
+        Code_rate_LP_stream: 0 (0x00)  [= 1/2]
+        Guard_interval: 2 (0x02)  [= 1/8]
+        Transmission_mode: 1 (0x01)  [= 8k mode]
+        Other_frequency_flag: 0 (0x00)
+        reserved_2: 4294967295 (0xffffffff)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 12 (0x0c)
+            Service_ID: 16405 (0x4015)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16406 (0x4016)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16411 (0x401b)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16418 (0x4022)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+    
+    Transport_stream_ID: 774 (0x0306)
+    Original_network_ID: 8468 (0x2114)  [= German Digital Terrestrial Television | IRT on behalf of the German DVB-T broadcasts]
+    reserved_1: 15 (0x0f)
+    Transport_descriptor_length: 27 (0x001b)
+        
+        DVB-DescriptorTag: 90 (0x5a)  [= terrestrial_delivery_system_descriptor]
+        Descriptor_length: 11 (0x0b)
+        Center frequency: 0x047e8340 (= 754000.000 kHz)
+        Bandwidth: 0 (0x00)  [= 8 MHz]
+        reserved_1: 31 (0x1f)
+        Constellation: 1 (0x01)  [= 16-QAM]
+        Hierarchy information: 0 (0x00)  [= non-hierarchical]
+        Code_rate_HP_stream: 1 (0x01)  [= 2/3]
+        Code_rate_LP_stream: 0 (0x00)  [= 1/2]
+        Guard_interval: 2 (0x02)  [= 1/8]
+        Transmission_mode: 1 (0x01)  [= 8k mode]
+        Other_frequency_flag: 0 (0x00)
+        reserved_2: 4294967295 (0xffffffff)
+        
+        DVB-DescriptorTag: 65 (0x41)  [= service_list_descriptor]
+        Descriptor_length: 12 (0x0c)
+            Service_ID: 16392 (0x4008)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16401 (0x4011)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16417 (0x4021)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+            Service_ID: 16420 (0x4024)  [=  --&gt; refers to PMS program_number]
+            Service_type: 1 (0x01)  [= digital television service]
+            
+CRC: 288774626 (0x113659e2)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P>Thanks to Holger for providing the dvb-t stream data...</P> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

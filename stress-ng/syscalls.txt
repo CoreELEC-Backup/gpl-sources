@@ -1,0 +1,398 @@
+#
+# Copyright (C) 2013-2020 Canonical, Ltd.
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+
+Syscall				Stressor
+
+accept				sock
+accept4				sock
+access				sysfs
+acct				[ need privilege, ignore for now ]
+add_key				key
+adjtimex			get (modes = 0 only)
+alarm				generic run duration timers
+bind				sock
+bpf
+brk				bigheap, brk
+cacheflush			cache
+capget				cap
+capset				cap
+chdir				chdir
+chmod				chmod
+chown				chown
+chroot				chroot
+clock_adjtime			clock
+clock_getres			clock
+clock_gettime			clock
+clock_nanosleep			clock
+clock_settime			clock
+clone				clone
+clone3				clone
+close				dentry
+connect				sock
+copy_file_range			copy_file
+creat				chmod
+dup				dup
+dup2				dup
+dup3				dup
+endmntent			sysinfo
+epoll_create			epoll
+epoll_create1			epoll
+epoll_ctl			epoll
+epoll_ctl_add			epoll
+epoll_pwait			epoll
+epoll_wait			epoll
+eventfd				eventfd
+eventfd2
+execve				exec
+execveat			exec
+exit				fork
+exit_group			daemon
+faccessat			access, close
+fadvise				readahead
+fallocate			fallocate
+fanotify_init			fanotify
+fanotify_mark			fanotify
+fchdir				chdir
+fchmod				chmod
+fchmodat			chmod
+fchown				chown
+fchownat			close
+fcntl				open, lockf, fcntl
+fdatasync			hdd
+fgetxattr			xattr
+finit_module
+flistxattr			xattr
+flock				flock
+fork				fork
+fremovexattr			xattr
+fsconfig
+fsetxattr			xattr
+fsmount
+fsopen
+fspick
+fstat				fallocate
+fstatfs				sysinfo
+fsync				fallocate, hdd
+ftruncate			fallocate
+futex				futex
+futex_time64
+futimens			wait
+get_mempolicy			numa
+get_robust_list			pthread
+get_thread_area			pthread
+getcpu				numa
+getcwd				get
+getdents			getdent
+getegid				get
+geteuid				get
+getgid				get
+getgroups			get
+getitimer			itimer
+getmntent			sysinfo
+getpeername			sock
+getpagesize			get
+getpgid				get
+getpgrp				get
+getpid				get
+getppid				get
+getpriority			get
+getpwd				get
+getrandom			getrandom
+getresgid			get
+getresuid			get
+getrlimit			get, nice
+getrusage			get
+getsid				get
+getsockname			sock
+getsockopt			sock
+gettid				get, pthread
+gettimeofday			get
+getuid				get
+getxattr			xattr
+init_module
+inotify_add_watch		inotify
+inotify_init			inotify
+inotify_rm_watch		inotify
+io_cancel			aiol
+io_destroy			aiol
+io_getevents			aiol
+io_setup			aiol
+io_submit			aiol
+io_uring_enter
+io_uring_register
+io_uring_setup
+ioctl				pty, fiemap, rtc, urandom, userfaultfd
+ioperm				ditto
+iopl				ditto
+ioprio_get			ioprio
+ioprio_set			ioprio
+ipc				used by msg* glibc wrappers
+kcmp				kcmp
+kern_features			[ Sparc64 only ]
+kexec_file_load			[ need privilege, ignore for now ]
+kexec_load			[ need privilege, ignore for now ]
+keyctl				key
+kill				kill
+lchown				chown
+lgetxattr			xattr
+link				link
+linkat
+listen				sock
+listxattr			xattr
+llistxattr			xattr
+lookup_dcookie
+lremovexattr			xattr
+lseek				hdd, lockf, mmap, seek
+lsetxattr			xattr
+lstat				fstat
+madvise				mmap, vm, madvise
+mbind				numa
+membarrier			membarrier
+memfd_create			memfd
+migrate_pages			numa
+mincore				bigheap, mincore, mmap, vm
+mkdir				dir
+mkdirat
+mknod				mknod
+mknodat
+mkstemp				hdd
+mlock				mlock
+mlock2				mlock
+mlockall			mlock
+mmap				bigheap, mmap
+mmap2				mmap
+modify_ldt			clone
+mount				bind-mount
+move_mount
+move_pages			numa
+mprotect			mmap
+mq_getsetattr			mq
+mq_notify			mq
+mq_open				mq
+mq_send				mq
+mq_timedreceive			mq
+mq_timedsend			mq
+mq_unlink			mq
+mq_receive			mq
+mq_close			mq
+mremap				mremap
+msgctl				msg
+msgget				msg
+msgrcv				msg
+msgsnd				msg
+msync				mmap, msync
+munlock				mlock
+munlockall			mlock
+munmap				mmap, mremap
+name_to_handle_at		handle
+nanosleep			timer
+nfsservctl
+nice				nice
+open				dentry, open, etc
+open_by_handle_at		handle
+openat				io
+openat2
+open_tree
+pause				kcmp, wait
+perf_event_open			--perf option
+personality			personality
+pidfd_getfd			pidfd
+pidfd_open			pidfd
+pidfd_send_signal		pidfd
+pipe				pipe, switch, etc
+pipe2				pipe
+pivot_root			[ need privilege, ignore for now ]
+pkey_alloc			pkey
+pkey_free			pkey
+pkey_get			pkey
+pkey_mprotect			pkey
+pkey_set			pkey
+poll				poll
+posix_fallocate			fallocate
+ppoll				poll
+prctl				process name setting
+pread				readahead
+preadv				hdd
+preadv2				hdd
+prlimit				get
+/proc				proc
+process_madvise				
+process_vm_readv		vm_rw
+process_vm_writev		vm_rw
+pselect6			poll
+ptrace				ptrace
+pwrite				readahead, aio
+pwritev				hdd, ioprio
+pwritev2			hdd
+quotactl			quota
+read				pipe, zero, ..
+readahead			readahead
+readdir				fstat, inotitfy, proc
+readlink			symlink
+readlinkat
+readv				hdd
+reboot				reboot
+recv				sock
+recvfrom			udp
+recvmsg				socket-fd
+recvmmsg			sock
+remap_file_pages		remap
+removexattr			xattr
+rename				rename
+renameat			rename
+renameat2			rename
+request_key			key
+restart_syscall			[ ignore this ]
+riscv_flush_icache		icache
+rmdir				dir
+rseq
+rt_sigaction
+rt_sigpending
+rt_sigprocmask
+rt_sigqueueinfo
+rt_sigreturn
+rt_sigsuspend
+rt_sigtimedwait
+rt_tgsigqueueinfo
+sched_get_priority_max		sched, schedpolicy
+sched_get_priority_min		sched, schedpolicy
+sched_getaffinity		affinity
+sched_getattr			schedpolicy
+sched_getparam			schedpolicy
+sched_getscheduler		schedpolicy
+sched_get_rr_interval		schedpolicy
+sched_setaffinity		affinity
+sched_setattr			schedpolicy
+sched_setparam			schedpolicy
+sched_setscheduler		sched, schedpolicy
+sched_yield			yield
+seccomp				seccomp (prctl)
+select				poll
+semctl				sem-sysv
+semget				sem-sysv
+semop				sem-sysv
+semtimedop			sem
+sem_destroy			sem
+sem_init			sem
+sem_post			sem
+sem_wait			sem
+send				sock
+sendfile			sendfile
+sendmmsg			sock
+sendmsg				sock
+sendto				udp
+set_mempolicy			numa
+set_robust_list			pthread
+set_thread_area			pthread
+set_tid_address
+setdomainname			set
+setfsgid
+setfsuid
+setgid				set
+setgroups			set
+sethostname			set
+setitimer			itimer
+setmntent			sysinfo
+setns				clone, pthread
+setpgid				set
+setpriority			nice
+setregid			set
+setresgid			set
+setresuid			set
+setreuid			set
+setrlimit			limit, rlimit, set
+setsid				set
+setsockopt			sock
+settimeofday			[ need privilege, ignore for now ]
+setuid				set
+setxattr			xattr
+sgetmask			[obsolete]
+shmat				shm-sysv
+shmctl				shm-sysv
+shmdt				shm-sysv
+shmget				shm-sysv
+shutdown			sock, sockpair
+sigaction			sigfpe
+sigaltstack			pthread, stack
+signal				[ Avoid  its  use: use sigaction(2) instead ]
+signalfd			sigfd
+siglongjmp			sigfpe
+sigpending			sigpending
+sigprocmask			pthread, sigfd
+sigqueue			sigq
+sigreturn			[ ignore ]
+sigsetjmp			sigfpe
+sigsuspend			sigsuspend
+sigwaitinfo			sigfpe
+socket				sock
+socketcall			[ implicit ]
+socketpair			sockpair
+splice				splice
+ssetmask			[ obsolete ]
+stat				fstat
+statfs				sysinfo
+statx				fstat
+stime				[ need privilege, ignore for now ]
+swapoff				swap
+swapon				swap
+symlink				symlink
+symlinkat
+sync				io
+sync_file_range			sync-file
+sync_file_range2		[ potentially dangerous to data ]
+syncfs				hdd, io
+sysfs				get
+sysinfo				sysinfo
+syslog				klog
+tee				tee
+tgkill				pthread
+time				get
+timer_create			clock, timer
+timer_delete			clock, timer
+timer_getoverrun		timer
+timer_gettime			clock
+timer_settime			timer
+timerfd_create			timerfd
+timerfd_gettime			timerfd
+timerfd_settime			timerfd
+times				sysinfo
+tkill				[ obsolete ]
+truncate			hdd
+ugetrlimit			[ ignore ]
+umask				aio, mmap, sendfile, etc
+umount				bind-mount
+uname				get
+unlink				dentry, hdd, unlink
+unlinkat
+unshare				clone, unshare
+uselib				[ deprecated ]
+userfaultfd			userfaultfd
+ustat				sysinfo
+utime				utime
+utimensat			utimes
+utimes				utime
+vfork				vfork
+vhangup				[ ignore ]
+vmsplice			vm-splice
+wait				various
+wait3				wait
+wait4				wait
+waitid				wait
+waitpid				fork, wait, etc
+write				hdd, null, pull
+writev				hdd

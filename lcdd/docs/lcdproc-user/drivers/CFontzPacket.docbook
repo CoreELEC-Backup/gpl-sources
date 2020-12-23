@@ -1,0 +1,222 @@
+<sect1 id="CFontzPacket-howto">
+<title>The CFontzPacket Driver</title>
+
+<para>
+<ulink url="http://www.crystalfontz.com/">CrystalFontz</ulink> offers a wide
+range of character and graphical LCD modules.
+The <code>CFontzPacket</code> driver supports the modules that communicate
+with the host computer using a packet-based communications protocol
+with 16-bit CRC (hence the driver name).
+</para>
+
+<para>
+Currently this line of modules comprises the models:
+
+<variablelist>
+<varlistentry>
+  <term>CFA-631</term>
+  <listitem>
+    <itemizedlist>
+      <listitem><para>20x2 character LCD with backlight</para></listitem>
+      <listitem><para>keypad with 4 keys: Up, Down, enter &amp; Escape</para></listitem>
+      <listitem><para>USB connection for data and power</para></listitem>
+      <listitem><para>mounting bracket to fit into 3,5" drive bays</para></listitem>
+      <listitem><para>Optional (via add-on board) temperature sensor, fan and
+      ATX power control connectors (all unsupported by LCDproc)</para></listitem>
+    </itemizedlist>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>CFA-633</term>
+  <listitem>
+    <itemizedlist>
+      <listitem><para>16x2 character LCD with backlight</para></listitem>
+      <listitem><para>keypad with 6 keys: 4 directions, Enter &amp; Escape</para></listitem>
+      <listitem><para>serial or USB connection</para></listitem>
+      <listitem><para>mounting bracket to fit into 5,25" drive bays</para></listitem>
+      <listitem><para>Temperature sensor and fan control connectors (both
+      unsupported by LCDproc)</para></listitem>
+    </itemizedlist>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>CFA-533</term>
+  <listitem>
+    <itemizedlist>
+      <listitem>
+        <para>This is the same as CFA-633 except it misses the fan control
+        capabilities. The temperature monitoring is not supported in LCDproc
+        though.</para>
+      </listitem>
+    </itemizedlist>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>CFA-635</term>
+  <listitem>
+    <itemizedlist>
+      <listitem><para>20x4 characters LCD with backlight</para></listitem>
+      <listitem><para>keypad with 6 keys: 4 directions, Enter &amp; Escape</para></listitem>
+      <listitem><para>USB connection for data and power</para></listitem>
+      <listitem><para>four bi-color LEDs to show status information</para></listitem>
+      <listitem><para>optional mounting bracket to fit into 5,25" drive bays</para></listitem>
+    </itemizedlist>
+  </listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+<!-- ## CrystalFontz packet driver ## -->
+<sect2 id="CFontzPacket-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="CFontzPacket-config-section">
+<title>[CFontzPacket]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Model</property> =
+    {
+      <parameter><literal>533</literal></parameter> |
+      <parameter><literal>631</literal></parameter> |
+      <emphasis><parameter><literal>633</literal></parameter></emphasis> |
+      <parameter><literal>635</literal></parameter>
+    }
+  </term>
+  <listitem><para>
+    Select the LCD model that is connected.
+    Legal values for this option are <literal>631</literal>,
+    <literal>533</literal>,
+    <literal>633</literal>, or <literal>635</literal>,
+    with the default being <literal>633</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Device</property> =
+    <parameter><replaceable>DEVICE</replaceable></parameter>
+  </term>
+  <listitem>
+    <para>
+      Select the output device to use.
+      It may be a serial device or a USB device in serial emulation mode.
+      If not given, it defaults to <filename>/dev/lcd</filename>.
+    </para>
+    <note>
+      <para>
+        Mac OS X users may need to use one of the <filename>/dev/cu</filename>
+        devices instead of the <filename>/dev/tty</filename> ones.
+      </para>
+    </note>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>USB</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    Enable this flag if the device is connected to an USB port. For serial ports
+    leave it disabled. [default: <literal>no</literal>; legal: <literal>yes</literal>,
+    <literal>no</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Select the LCD size. This overrides the size the driver uses for the
+    selected model (631: <literal>20x2</literal>, 533/633: <literal>16x2</literal>,
+    635: <literal>20x4</literal>).</para>
+    <note><para>You should usually not need to set this value!</para></note>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Contrast</property> =
+    <parameter><replaceable>CONTRAST</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial contrast.
+    Legal values for <replaceable>CONTRAST</replaceable> are <literal>0</literal> - <literal>1000</literal>.
+    If not specified, it defaults to <literal>560</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Brightness</property> =
+    <parameter><replaceable>BRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial brightness [default: <literal>1000</literal>; legal: <literal>0</literal> - <literal>1000</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>OffBrightness</property> =
+    <parameter><replaceable>BRIGHTNESS</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Set the initial off-brightness [default: <literal>0</literal>; legal: <literal>0</literal> - <literal>1000</literal>]
+    This value is used when the display is normally
+    switched off in case LCDd is inactive
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Speed</property> =
+    {
+      <parameter><literal>19200</literal></parameter> |
+      <parameter><literal>115200</literal></parameter>
+    }
+  </term>
+  <listitem>
+    <para>
+    Override the default baud rate the driver uses for communication with the
+    selected LCD model. Allowed values are <literal>19200</literal> (default for
+    CFA-533 and CFA-633) and <literal>115200</literal> (default for the CFA631
+    and CFA635).
+    </para>
+    <note><para>You should usually not need to set this value!</para></note>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>OldFirmware</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    Very old 633 firmware versions do not support partial screen updates using
+    'Send Data to LCD' command (31). For those devices it may be necessary to
+    enable this flag. [default: <literal>no</literal>; legal: <literal>yes</literal>,
+    <literal>no</literal>]
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Reboot</property> = &parameters.yesnodef;
+  </term>
+  <listitem><para>
+    Reinitialize the LCD's BIOS [default: <literal>no</literal>; legal:
+    <literal>yes</literal>, <literal>no</literal>].
+  </para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

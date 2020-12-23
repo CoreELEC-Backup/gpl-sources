@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//EN" "hmpro6.dtd">
+<HTML> 
+  <HEAD> 
+	 <TITLE>dvbsnoop - A DVB Stream Analyzer Tool, Example: Event Information
+		Table</TITLE> <META NAME="Author" CONTENT="Rainer Scherg"> 
+  </HEAD> 
+  <BODY> 
+	 <H1>Example: Event Information Table (EIT)</H1> 
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>~/bin &gt; ./dvbsnoop -n 1 -nph 0x12
+dvbsnoop  Vers. 1.1.10   -- http://dvbsnoop.sourceforge.net/ 
+
+---------------------------------------------------------
+SECT-Packet: 00000001   PID: 18 (0x0012), Length: 466 (0x01d2)
+Time received: Tue 2003-11-25  02:19:00.015
+---------------------------------------------------------
+PID:  18 (0x0012)
+EIT-decoding....
+Table_ID: 78 (0x4e)  [= event_information_section - actual transport stream, present/following]
+section_syntax_indicator: 1 (0x01)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+Section_length: 463 (0x01cf)
+Service_ID: 47 (0x002f)  [=  --&gt; refers to PMS program_number]
+reserved_3: 3 (0x03)
+Version_number: 10 (0x0a)
+Current_next_indicator: 1 (0x01)
+Section_number: 1 (0x01)
+Last_Section_number: 1 (0x01)
+Transport_stream_ID: 33 (0x0021)
+Original_network_ID: 133 (0x0085)  [= BetaTechnik | BetaTechnik]
+Segment_last_Section_number: 1 (0x01)
+Last_table_id: 78 (0x4e)  [= event_information_section - actual transport stream, present/following]
+    
+    Event_ID: 34259 (0x85d3)
+    Start_time: 0xcee8013400 (=2003-11-25 01:34:00 [UTC])
+    Duration: 0x0002600 (= 00:26:00 [UTC])
+    Running_status: 0 (0x00)  [= undefined]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 436 (0x1b4)
+        
+        DVB-DescriptorTag: 77 (0x4d)  [= short_event_descriptor]
+        Descriptor_length: 48 (0x30)
+          ISO639_2_language_code:  DEU
+        Event_name_length: 9 (0x09)
+        Event_name: "N24 Ethik"  -- Charset: Latin alphabet
+        Text_length: 34 (0x22)
+        Text: "Gast: Michael Lesch / Schauspieler"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 78 (0x4e)  [= extended_event_descriptor]
+        Descriptor_length: 252 (0xfc)
+        Descriptor_number: 0 (0x00)
+        Last_descriptor_number: 1 (0x01)
+        ISO639_2_language_code:  DEU
+        Length_of_items: 0 (0x00)
+            
+        Text_length: 246 (0xf6)
+        Text: "N24 zeigt das erste Ethik-Format im deutschen Fernsehen. Religi&ouml;se und philosophische Fragen haben seit den Terroranschl&auml;gen gegen die USA im September 2001 eine noch tiefere Bedeutung f&uuml;r die Gesellschafts- und Wirtschaftssysteme bekommen. Im Ge"  -- Charset: Latin alphabet
+        
+        DVB-DescriptorTag: 78 (0x4e)  [= extended_event_descriptor]
+        Descriptor_length: 130 (0x82)
+        Descriptor_number: 1 (0x01)
+        Last_descriptor_number: 1 (0x01)
+        ISO639_2_language_code:  DEU
+        Length_of_items: 0 (0x00)
+            
+        Text_length: 124 (0x7c)
+        Text: "spr&auml;ch mit dem Moderator werden aktuelle ethische Fragestellungen diskutiert. Heute zu Gast: der Schauspieler Michael Lesch."  -- Charset: Latin alphabet
+CRC: 1363327305 (0x5142b949)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE>
+	 <P><BR></P>
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>dvbsnoop V1.2.85 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000001   PID: 18 (0x0012), Length: 161 (0x00a1)
+Time received: Wed 2004-03-31  23:48:03.906
+----------------------------------------------------------
+PID:  18 (0x0012)
+EIT-decoding....
+Table_ID: 78 (0x4e)  [= Event Information Table (EIT) - actual transport stream, present/following]
+section_syntax_indicator: 1 (0x01)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+Section_length: 158 (0x009e)
+Service_ID: 28707 (0x7023)  [=  --&gt; refers to PMS program_number]
+reserved_3: 3 (0x03)
+Version_number: 4 (0x04)
+current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 0 (0x00)
+Last_Section_number: 1 (0x01)
+Transport_stream_ID: 1026 (0x0402)
+Original_network_ID: 1 (0x0001)  [= Astra Satellite Network 19,2&deg;E | Soci&eacute;t&eacute; Europ&eacute;enne des Satellites]
+Segment_last_Section_number: 1 (0x01)
+Last_table_id: 78 (0x4e)  [= Event Information Table (EIT) - actual transport stream, present/following]
+
+    Event_ID: 8 (0x0008)
+    Start_time: 0xcf67210000 (=2004-03-31 21:00:00 [UTC])
+    Duration: 0x0003000 (= 00:30:00 [UTC])
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 0 (0x00)  [= unscrambled]
+    Descriptors_loop_length: 131 (0x83)
+
+            DVB-DescriptorTag: 77 (0x4d)  [= short_event_descriptor]
+            Descriptor_length: 109 (0x6d)
+              ISO639_2_language_code:  eng
+            Event_name_length: 15 (0x0f)
+            Event_name: "SKY News at Ten"  -- Charset: Latin alphabet
+            Text_length: 89 (0x59)
+            Text: "Sky News' bulletin delivers a comprehensive round-up of all the major stories of the day."  -- Charset: Latin alphabet
+
+            DVB-DescriptorTag: 84 (0x54)  [= content_descriptor]
+            Descriptor_length: 2 (0x02)
+               Content_nibble_level_1: 2 (0x02)
+               Content_nibble_level_2: 2 (0x02)
+                  [= news magazine]
+               User_nibble_1: 2 (0x02)
+               User_nibble_2: 2 (0x02)
+
+
+            DVB-DescriptorTag: 80 (0x50)  [= component_descriptor]
+            Descriptor_length: 6 (0x06)
+            reserved_1: 15 (0x0f)
+            Stream_content: 2 (0x02)
+            Component_type: 3 (0x03)
+               == Content&amp;Component: (= audio, stereo (2 channels))
+            Component_tag: 2 (0x02)
+            ISO639_2_language_code:  eng
+            Component-Description: ""
+
+            DVB-DescriptorTag: 80 (0x50)  [= component_descriptor]
+            Descriptor_length: 6 (0x06)
+            reserved_1: 15 (0x0f)
+            Stream_content: 1 (0x01)
+            Component_type: 1 (0x01)
+               == Content&amp;Component: (= video, 4:3  aspect ratio, 25 Hz)
+            Component_tag: 1 (0x01)
+            ISO639_2_language_code:  eng
+            Component-Description: ""
+
+CRC: 3113539490 (0xb994d7a2)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE>
+	 <P><BR></P>
+	 <TABLE CELLSPACING="3" CELLPADDING="5" BGCOLOR="#c0c0c0"> 
+		<TR> 
+		  <TD> 
+			 <PRE>dvbsnoop V1.2.85 -- http://dvbsnoop.sourceforge.net/ 
+
+----------------------------------------------------------
+SECT-Packet: 00000002   PID: 18 (0x0012), Length: 493 (0x01ed)
+Time received: Wed 2004-03-31  23:53:20.404
+----------------------------------------------------------
+PID:  18 (0x0012)
+EIT-decoding....
+Table_ID: 79 (0x4f)  [= Event Information Table (EIT) - other transport stream, present/following]
+section_syntax_indicator: 1 (0x01)
+reserved_1: 1 (0x01)
+reserved_2: 3 (0x03)
+Section_length: 490 (0x01ea)
+Service_ID: 11216 (0x2bd0)  [=  --&gt; refers to PMS program_number]
+reserved_3: 3 (0x03)
+Version_number: 2 (0x02)
+current_next_indicator: 1 (0x01)  [= valid now]
+Section_number: 0 (0x00)
+Last_Section_number: 1 (0x01)
+Transport_stream_ID: 6800 (0x1a90)
+Original_network_ID: 64511 (0xfbff)  [= Sky Italia | Sky Italia Spa.]
+Segment_last_Section_number: 1 (0x01)
+Last_table_id: 79 (0x4f)  [= Event Information Table (EIT) - other transport stream, present/following]
+
+    Event_ID: 92 (0x005c)
+    Start_time: 0xcf67200000 (=2004-03-31 20:00:00 [UTC])
+    Duration: 0x0040000 (= 04:00:00 [UTC])
+    Running_status: 4 (0x04)  [= running]
+    Free_CA_mode: 1 (0x01)  [= streams [partially] CA controlled]
+    Descriptors_loop_length: 463 (0x1cf)
+
+            DVB-DescriptorTag: 77 (0x4d)  [= short_event_descriptor]
+            Descriptor_length: 222 (0xde)
+              ISO639_2_language_code:  eng
+            Event_name_length: 12 (0x0c)
+            Event_name: "Lecce - Roma"  -- Charset: Latin alphabet
+            Text_length: 205 (0xcd)
+            Text: "Cod 405292 - Collegamento ore 13:30 Domenica 04/04/2004 I salentini non vincono da 4 gare (3 pareggi, 1 sconfitta). I giallorossi, battuti dal Bologna, hanno perso 2 punti preziosi nei confronti del Milan."  -- Charset: Latin alphabet
+
+            DVB-DescriptorTag: 78 (0x4e)  [= extended_event_descriptor]
+            Descriptor_length: 211 (0xd3)
+            Descriptor_number: 0 (0x00)
+            Last_descriptor_number: 0 (0x00)
+            ISO639_2_language_code:  eng
+            Length_of_items: 0 (0x00)
+
+            Text_length: 205 (0xcd)
+            Text: "Cod 405292 - Collegamento ore 13:30 Domenica 04/04/2004 I salentini non vincono da 4 gare (3 pareggi, 1 sconfitta). I giallorossi, battuti dal Bologna, hanno perso 2 punti preziosi nei confronti del Milan."  -- Charset: Latin alphabet
+
+            DVB-DescriptorTag: 80 (0x50)  [= component_descriptor]
+            Descriptor_length: 6 (0x06)
+            reserved_1: 15 (0x0f)
+            Stream_content: 2 (0x02)
+            Component_type: 3 (0x03)
+               == Content&amp;Component: (= audio, stereo (2 channels))
+            Component_tag: 255 (0xff)
+            ISO639_2_language_code:  ita
+            Component-Description: ""
+
+            DVB-DescriptorTag: 80 (0x50)  [= component_descriptor]
+            Descriptor_length: 6 (0x06)
+            reserved_1: 15 (0x0f)
+            Stream_content: 1 (0x01)
+            Component_type: 1 (0x01)
+               == Content&amp;Component: (= video, 4:3  aspect ratio, 25 Hz)
+            Component_tag: 255 (0xff)
+            ISO639_2_language_code:     
+            Component-Description: ""
+
+            DVB-DescriptorTag: 95 (0x5f)  [= private_data_specifier_descriptor]
+            Descriptor_length: 4 (0x04)
+            PrivateDataSpecifier: 2 (0x00000002)  [= BskyB 1]
+         
+            DVB-DescriptorTag: 84 (0x54)  [= content_descriptor]
+            Descriptor_length: 2 (0x02)
+               Content_nibble_level_1: 4 (0x04)
+               Content_nibble_level_2: 3 (0x03)
+                  [= football/soccer]
+               User_nibble_1: 0 (0x00)
+               User_nibble_2: 0 (0x00)
+
+
+CRC: 3978482234 (0xed22d23a)
+==========================================================
+
+</PRE></TD> 
+		</TR> 
+	 </TABLE> 
+	 <P><BR><B><A
+		HREF="http://dvbsnoop.sourceforge.net/">http://dvbsnoop.sourceforge.net/</A></B><BR></P>
+	 </BODY>
+</HTML>

@@ -1,0 +1,32 @@
+--- /dev/null
++++ b/libsidutils/CMakeLists.txt
+@@ -0,0 +1,28 @@
++project(sidutils)
++
++cmake_minimum_required(VERSION 3.5)
++
++add_definitions(-D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS -DHAVE_MSWINDOWS)
++
++include_directories(${PROJECT_SOURCE_DIR}/../libsidplay/include
++                    ${PROJECT_SOURCE_DIR}/include
++                    ${PROJECT_SOURCE_DIR}/include/sidplay/utils)
++
++set(SOURCES src/SidDatabase.cpp
++            src/SidFilter.cpp
++            src/SidTuneMod.cpp
++            src/SidUsage.cpp
++            src/smm.cpp
++            src/MD5/MD5.cpp
++            src/ini/ini.cpp)
++
++add_library(sidutils STATIC ${SOURCES})
++
++set(HEADERS ${PROJECT_SOURCE_DIR}/include/sidplay/utils/libini.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/utils/SidDatabase.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/utils/SidFilter.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/utils/SidTuneMod.h
++            ${PROJECT_SOURCE_DIR}/include/sidplay/utils/SidUsage.h)
++
++install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/sidplay/utils)
++install(TARGETS sidutils DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+

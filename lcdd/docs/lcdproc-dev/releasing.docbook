@@ -1,0 +1,96 @@
+<chapter id="releasing">
+<title>Making a release</title>
+
+<para>
+This chapter describes the steps necessary to create a software release of
+LCDproc. It is intended to guide the release manager when creating a new
+release. (This is somewhat outdated now, that lcdproc development happens
+on github. We should revise this once things are fully in place.)
+</para>
+
+<para>
+There is a checklist how to create a release on github in
+<filename>docs/release-checklist.md</filename>
+</para>
+
+<sect1 id="releasing-documentation">
+<title>Creating a documentation release</title>
+
+<para>
+Any release of LCDproc is accompanied the the user guide and developer guide.
+Here is how to create these documentation packages.
+</para>
+
+<procedure><title>Steps to create the documentation package</title>
+<step>
+  <para>
+  Get the release tarball and extract it
+  and change to <filename>docs/lcdproc-user</filename>.
+  </para>
+</step>
+<step>
+  <para>
+  Create the documentation package by running:
+  <userinput>xmlto -o lcdproc-0-5-<replaceable>A</replaceable>-user-html xhtml lcdproc-user.docbook</userinput>
+  </para>
+</step>
+<step>
+  <para>
+  Create a tarfile of the documentation package:
+  <userinput>tar -czf lcdproc-0-5-<replaceable>A</replaceable>-user-html.tar.gz
+  lcdproc-0-5-<replaceable>A</replaceable>-user-html</userinput>
+  </para>
+</step>
+<step>
+  <para>
+  Repeat the above steps for the developers guide, replacing <quote>-user</quote>
+  with <quote>-dev</quote> where appropriate.
+  </para>
+</step>
+<step>
+  <para>
+  Upload the files to the Sourceforge file release system.
+  </para>
+</step>
+</procedure>
+
+<para>
+The online documentation consists of the user and developer guide, each
+converted to a single file for viewing online.
+</para>
+
+<procedure><title>Steps to create the online documentation</title>
+<step>
+  <para>
+  Get the release tarball and extract it and change to
+  <filename>docs/lcdproc-user</filename>.
+  </para>
+</step>
+<step>
+  <para>
+  Create the documentation file by running:
+  <userinput>xmlto xhtml-nochunks lcdproc-user.docbook</userinput>
+  </para>
+</step>
+<step>
+  <para>
+  Rename the file: <userinput>mv lcdproc-user.html lcdproc-0-5-<replaceable>A</replaceable>-user.html</userinput>
+  </para>
+</step>
+<step>
+  <para>
+  Repeat the above steps for the developers guide, replacing <quote>-user</quote>
+  with <quote>-dev</quote> where appropriate.
+  </para>
+</step><step>
+  <para>
+  Upload the files to our Sourceforge web site (not the file release system!)
+  and change <filename>htdocs/docs/index.html</filename> to point to the new
+  files.
+  </para>
+</step>
+</procedure>
+
+</sect1>
+
+</chapter>

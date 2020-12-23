@@ -1,0 +1,12 @@
+.dependencies
+*.o
+*.so
+*~
+po/*.pot
+po/*.mo
+.kdev4/
+
+# Don't add patch files
+*.diff
+*.patch
+*.orig

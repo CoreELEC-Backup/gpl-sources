@@ -1,0 +1,5 @@
+vdr-1.6.0-3.epghandler.patch.gz    
+
+ Backport of EpgHandler for vdr-1.6.0-3
+ copy the file into the vdr source directory and apply with 
+ gzip -cd vdr-1.6.0-3.epghandler.patch.gz | patch -p1 

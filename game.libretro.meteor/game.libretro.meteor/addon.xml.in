@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.meteor"
+		name="Nintendo - Game Boy Advance (Meteor)"
+		version="1.4.0.7"
+		provider-name="Philippe Daouadi">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.gba" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms>Game Boy Advance</platforms>
+		<extensions>gba</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Nintendo - Game Boy Advance (Meteor) v1.4</summary>
+		<description lang="en_GB">Meteor is a Nintendo Gameboy Advance emulator.
+
+Authors: Philippe Daouadi &lt;p.daouadi@free.fr&gt;, Hans-Kristian Arntzen (libretro port and fixes) &lt;maister@archlinux.us&gt;
+
+Supported files: .gba</description>
+		<license>GPLv3</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.meteor</source>
+		<assets>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>

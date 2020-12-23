@@ -1,0 +1,79 @@
+=encoding utf8
+=head1 NAME
+
+F<epgsearchcmds.conf> - EPG-Befehle
+
+=head1 BESCHREIBUNG
+
+Diese Datei enthält ähnlich der commands.conf oder der reccmds.conf Befehle, die
+auf die in der Programmübersicht ausgewählte Sendung angewandt werden können.
+
+Intern besitzt epgsearch 8 nicht veränderbare EPG-Befehle.
+
+Wenn eine F<epgsearchcmds.conf> existiert, werden die darin aufgeführten Befehle
+beginnend mit Nummer 9 gelistet.
+
+=head2 Sprachen
+
+Man kann für verschiedene Sprachen unterschiedliche Dateien anlegen. Sie
+müssen dann z.B. F<epgsearchcmds-deu.conf> für deutsch oder
+F<epgsearchcmds-eng.conf> für englisch heissen.
+
+Wenn eine Datei entsprechend der im VDR eingestellten Sprache existiert wird
+diese geladen. Existiert eine solche nicht wird versucht F<epgsearchcmds.conf>
+zu laden.
+
+=head1 FORMAT
+
+Befehlsname   : Befehl
+
+=head1 BEISPIELE
+
+epg2taste (de): /usr/local/vdr/epg2taste.sh
+
+=head1 SIEHE AUCH
+
+C<epgsearch(1)>
+
+=head1 AUTOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 FEHLER MELDEN
+
+Fehlerberichte bitte im Bugtracker.
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailinglist:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT and LIZENZ
+
+Copyright © 2004-2010 Christian Wieninger
+
+Dieses Programm ist freie Software. Sie können es unter den Bedingungen
+der GNU General Public License, wie von der Free Software Foundation
+veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 2
+der Lizenz oder (nach Ihrer Option) jeder späteren Version.
+
+Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es
+Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die
+implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN
+ZWECK. Details finden Sie in der GNU General Public License.
+
+Sie sollten ein Exemplar der GNU General Public License zusammen mit
+diesem Programm erhalten haben. Falls nicht, schreiben Sie an die
+Free Software Foundation, Inc. 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+Oder rufen Sie in Ihrem Browser http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+auf.
+
+Der Author kann über cwieninger@gmx.de erreicht werden.
+
+Die Projektseite ist http://winni.vdr-developer.org/epgsearch
+
+Der MD5-Code ist abgeleitet aus dem Message-Digest Algorithm
+von RSA Data Security, Inc..
+
+

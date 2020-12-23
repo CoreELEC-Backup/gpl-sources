@@ -1,0 +1,7 @@
+*.mpo
+*.jpg
+*.pdf
+*.exe
+build/*
+.idea/*
+bin/*

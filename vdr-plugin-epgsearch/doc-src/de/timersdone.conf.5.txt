@@ -1,0 +1,72 @@
+=encoding utf8
+=head1 NAME
+
+F<timersdone.conf> - Liste von anstehenden Timern, die von Suchtimern erzeugt
+wurden.
+
+=head1 BESCHREIBUNG
+
+Diese Datei enthält eine Liste von anstendenden Timern, die von Suchtimern
+erzeugt wurden. Wenn die Setup-Option 'Timer nach Löschen neuprogrammieren'
+auf nein steht, benutzt epgsearch diese Liste, um zu prüfen, ob ein Timer
+bereits angelegt wurde und erstellt den Timer in diesem Fall nicht nochmals.
+Sobald die zugehörige Aufnahme stattgefunden hat, wird der Timer automatisch
+aus dieser Liste entfernt.
+
+=head1 FORMAT
+
+Pro Zeile ein Timer, die Felder werden durch ':' getrennt.
+
+Folgende Felder existieren:
+
+  1 - Kanal-Kennung
+  2 - Startzeit
+  3 - Stopzeit
+  4 - Suchtimer-ID
+  5 - Titel der Sendung
+  6 - Untertitel der Sendung
+
+=head1 SIEHE AUCH
+
+C<epgsearch(1)>
+
+=head1 AUTOR (man pages)
+
+Mike Constabel <epgsearch (at) constabel (dot) net>
+
+=head1 FEHLER MELDEN
+
+Fehlerberichte bitte im Bugtracker.
+
+L<http://projects.vdr-developer.org/projects/plg-epgsearch>
+
+Mailinglist:
+
+L<http://www.vdr-developer.org/mailman/listinfo/epgsearch>
+
+=head1 COPYRIGHT und LIZENZ
+
+Copyright (c) 2005-2006 Christian Wieninger
+
+Dieses Programm ist freie Software. Sie können es unter den Bedingungen
+der GNU General Public License, wie von der Free Software Foundation
+veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 2
+der Lizenz oder (nach Ihrer Option) jeder späteren Version.
+
+Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es
+Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die
+implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN
+ZWECK. Details finden Sie in der GNU General Public License.
+
+Sie sollten ein Exemplar der GNU General Public License zusammen mit
+diesem Programm erhalten haben. Falls nicht, schreiben Sie an die
+Free Software Foundation, Inc. 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+Oder rufen Sie in Ihrem Browser http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+auf.
+
+Der Author kann über cwieninger@gmx.de erreicht werden.
+
+Die Projektseite ist http://winni.vdr-developer.org/epgsearch
+
+Der MD5-Code ist abgeleitet aus dem Message-Digest Algorithm
+von RSA Data Security, Inc..

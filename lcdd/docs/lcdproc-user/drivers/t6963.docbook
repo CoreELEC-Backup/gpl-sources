@@ -1,0 +1,206 @@
+<sect1 id="t6963-howto">
+<title>The Toshiba T6963 Driver</title>
+
+<para>
+This section talks about using LCDproc with LCD displays that use the
+T6963 chipset from Toshiba. Usually, this chipset is used on big graphical LCD
+displays that can often act as a screen.
+</para>
+
+<para>
+The driver uses the text mode of the chipset with a custom font loaded which
+resembles the characters from HD44780 ROM 002 character set (European
+character set). If your display has a 'Font Select' pin it must be wired to
+use the 6x8 font.
+</para>
+
+<para>
+Only displays in 'Single Scan' configurations are supported. Displays configured
+as 'Dual Scan' are currently not supported. Those use on-board memory differently.
+Check the datasheet of your display!
+</para>
+
+<sect2 id="t6963-connections">
+<title>Connections</title>
+
+<warning>
+  <para>
+  Displays using T6963 chipset come in a variety of pin-outs and power configurations.
+  They usually require negative voltage for contrast and some displays have
+  a negative voltage generator on-board. Therefore the wiring table below does
+  only list signal names, not LCD pins. Be sure to get the correct datasheet
+  for your display and identify the pins to use!
+  </para>
+  <para>
+  We do not give wiring examples for power, contrast, and other control lines.
+  You have to figure out this from your display's datasheet!
+  </para>
+</warning>
+
+<table id="t6963-connections.mapping">
+<title>T6963 wiring schematic</title>
+<tgroup cols="5" align="left">
+<colspec colname="lpt1"/>
+<colspec colname="lpt2" align="right"/>
+<colspec colname="base" align="center"/>
+<colspec colname="lcd1"/>
+<colspec colname="lcd2"/>
+  <thead>
+    <row>
+      <entry namest="lpt1" nameend="lpt2" align="center">Parallel port</entry>
+      <entry morerows="1">&lt;-&gt;</entry>
+      <entry namest="lcd1" nameend="lcd2" align="center">LCD</entry>
+    </row>
+    <row>
+      <entry>name</entry>
+      <entry>pin</entry>
+      <entry>name</entry>
+      <entry>pin</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>nSTRB</entry>
+      <entry>1</entry>
+      <entry></entry>
+      <entry>/WR</entry>
+      <entry>*</entry>
+    </row>
+    <row>
+      <entry>D0-D7</entry>
+      <entry>2-9</entry>
+      <entry></entry>
+      <entry>DB0-DB7</entry>
+      <entry>*</entry>
+    </row>
+    <row>
+      <entry>nLF</entry>
+      <entry>14</entry>
+      <entry></entry>
+      <entry>/CE</entry>
+      <entry>*</entry>
+    </row>
+    <row>
+      <entry>INIT</entry>
+      <entry>16</entry>
+      <entry></entry>
+      <entry>C/D</entry>
+      <entry>*</entry>
+    </row>
+    <row>
+      <entry>nSEL</entry>
+      <entry>17</entry>
+      <entry></entry>
+      <entry>/RD</entry>
+      <entry>*</entry>
+    </row>
+    <row>
+      <entry></entry>
+      <entry></entry>
+      <entry>VDD</entry>
+      <entry>FS</entry>
+      <entry>*</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+</sect2>
+
+<sect2 id="t6963-compiling">
+<title>Compiling</title>
+
+<para>
+Make sure that the T6963 files are built when you run configure. This
+can be done by specifying "--enable-drivers=all" or by
+"--enable-drivers=t6963".
+</para>
+
+</sect2>
+
+<!-- ## Toshiba T6963 driver ## -->
+<sect2 id="t6963-config">
+<title>Configuration in LCDd.conf</title>
+
+<sect3 id="t6963-config-section">
+<title>[t6963]</title>
+
+<variablelist>
+<varlistentry>
+  <term>
+    <property>Size</property> = &parameters.size;
+  </term>
+  <listitem><para>
+    Set display size in pixels [default: <literal>128x64</literal>]. The size
+    in characters is automatically calculated assuming the font size is set to
+    <literal>6x8</literal> for the display.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>Port</property> =
+    <parameter><replaceable>PORT</replaceable></parameter>
+  </term>
+  <listitem><para>
+    Specify the address of the parallel port the LCD is connected to.
+    Common values for <replaceable>PORT</replaceable> are <literal>0x278</literal>,
+    <literal>0x378</literal> and <literal>0x3BC</literal>.
+    Legal values are <literal>0x200</literal> - <literal>0x400</literal>.
+    If not given the default value is <literal>0x378</literal>.
+  </para></listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>bidirectional</property> = &parameters.yesdefno;
+  </term>
+  <listitem>
+  <para>
+    Use LPT port in bi-directional mode. [default: <literal>yes</literal>;
+    legal: <literal>yes</literal>, <literal>no</literal>]
+  </para>
+  <para>
+    Most LPT ports can be used in bi-directional mode. It is required for
+    proper timing of the display. Leave this on unless you experience problems.
+  </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>ClearGraphic</property> = &parameters.yesnodef;
+  </term>
+  <listitem>
+  <para>
+     Clear graphic memory on start-up [default: <literal>no</literal>;
+     legal: <literal>yes</literal>, <literal>no</literal>]. The T6963 has a
+     graphic and a text area which can be combined using several modes. This
+     driver uses default OR-mode. Usually the graphic area is empty after
+     power-on but if you see random garbage overlaying the text this option
+     may be enabled.
+  </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+    <property>delayBus</property> = &parameters.yesnodef;
+  </term>
+  <listitem>
+  <para>
+     Use additional delay in read / write operations. [default: <literal>no</literal>;
+     legal: <literal>yes</literal>, <literal>no</literal>]. The display can
+     execute operations very fast. As the driver implements busy checking no
+     additional delays are required. But if you experience problems you may
+     try to slow down communication by enabling this setting.
+  </para>
+  </listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>

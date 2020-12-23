@@ -1,0 +1,111 @@
+EMU        := $(CORE_DIR)/vice/src
+GUI        := $(CORE_DIR)/libretro/nukleargui
+DEPS_DIR   := $(CORE_DIR)/deps
+LIBRETRO_COMM_DIR := $(CORE_DIR)/libretro-common
+
+INCFLAGS += \
+				-I$(CORE_DIR)/include \
+				-I$(CORE_DIR)/libretro/include \
+				-I$(LIBRETRO_COMM_DIR)/include \
+				-I$(CORE_DIR)/libretro \
+				-I$(GUI) \
+				-I$(GUI)/nuklear \
+				-I$(GUI)/retro \
+				-I$(CORE_DIR)/include/embedded \
+				-I$(CORE_DIR)/include/compat \
+				-I$(CORE_DIR) -DHAVE_CONFIG_H
+
+VERSION   = 3
+REVISION  = 0
+
+CXXFLAGS += $(CPPFLAGS)
+
+SOURCES_CC :=
+SOURCES_C  := \
+				 $(CORE_DIR)/libretro/libretro-core.c \
+				 $(CORE_DIR)/libretro/retro_strings.c \
+				 $(CORE_DIR)/libretro/retro_files.c \
+				 $(CORE_DIR)/libretro/retro_disk_control.c \
+				 $(GUI)/retro/SDL_gfxPrimitives.c \
+				 $(GUI)/retro/retro_surface.c  \
+				 $(GUI)/app.c
+
+ifeq ($(EMUTYPE), x128)
+include $(CORE_DIR)/Makefile.x128
+else ifeq ($(EMUTYPE), x64sc)
+include $(CORE_DIR)/Makefile.x64sc
+else ifeq ($(EMUTYPE), x64dtv)
+include $(CORE_DIR)/Makefile.x64dtv
+else ifeq ($(EMUTYPE), x64scpu)
+include $(CORE_DIR)/Makefile.x64scpu
+else ifeq ($(EMUTYPE), xplus4)
+include $(CORE_DIR)/Makefile.xplus4
+else ifeq ($(EMUTYPE), xvic)
+include $(CORE_DIR)/Makefile.xvic
+else ifeq ($(EMUTYPE), xcbm5x0)
+include $(CORE_DIR)/Makefile.xcbm5x0
+else ifeq ($(EMUTYPE), xcbm2)
+include $(CORE_DIR)/Makefile.xcbm2
+else ifeq ($(EMUTYPE), xpet)
+include $(CORE_DIR)/Makefile.xpet
+else
+include $(CORE_DIR)/Makefile.x64
+endif
+
+SOURCES_CC += $(LOCAL_SRC_CC_FILES)
+
+SOURCES_C += \
+				 $(LOCAL_SRC_FILES) \
+				 $(EMU)/arch/libretro/joy.c \
+				 $(EMU)/arch/libretro/video.c \
+				 $(EMU)/arch/libretro/ui.c \
+				 $(EMU)/arch/libretro/kbd.c \
+				 $(EMU)/arch/libretro/main.c \
+				 $(EMU)/arch/libretro/archdep.c \
+				 $(EMU)/arch/libretro/vsidui.c \
+				 $(EMU)/arch/libretro/blockdev.c \
+				 $(EMU)/arch/libretro/c64ui.c \
+				 $(EMU)/arch/libretro/console.c \
+				 $(EMU)/arch/libretro/uicmdline.c \
+				 $(EMU)/arch/libretro/uimon.c \
+				 $(EMU)/arch/libretro/vsyncarch.c \
+				 $(EMU)/arch/libretro/mousedrv.c \
+				 $(EMU)/arch/libretro/signals.c \
+				 $(EMU)/arch/libretro/retrostubs.c \
+				 $(EMU)/arch/libretro/uistatusbar.c
+
+ifeq ($(STATIC_LINKING),1)
+else
+SOURCES_C += \
+	$(DEPS_DIR)/libz/adler32.c \
+	$(DEPS_DIR)/libz/crc32.c \
+	$(DEPS_DIR)/libz/deflate.c \
+	$(DEPS_DIR)/libz/inflate.c \
+	$(DEPS_DIR)/libz/inftrees.c \
+	$(DEPS_DIR)/libz/inffast.c \
+	$(DEPS_DIR)/libz/trees.c \
+	$(DEPS_DIR)/libz/gzread.c \
+	$(DEPS_DIR)/libz/gzwrite.c \
+	$(DEPS_DIR)/libz/gzlib.c \
+	$(DEPS_DIR)/libz/gzclose.c \
+	$(DEPS_DIR)/libz/zutil.c
+endif
+
+ifneq ($(STATIC_LINKING), 1)
+SOURCES_C += \
+	$(LIBRETRO_COMM_DIR)/streams/file_stream.c \
+	$(LIBRETRO_COMM_DIR)/streams/file_stream_transforms.c \
+	$(LIBRETRO_COMM_DIR)/file/file_path.c \
+	$(LIBRETRO_COMM_DIR)/file/retro_dirent.c \
+	$(LIBRETRO_COMM_DIR)/vfs/vfs_implementation.c \
+	$(LIBRETRO_COMM_DIR)/lists/dir_list.c \
+	$(LIBRETRO_COMM_DIR)/lists/string_list.c \
+	$(LIBRETRO_COMM_DIR)/string/stdstring.c \
+	$(LIBRETRO_COMM_DIR)/compat/compat_strl.c \
+	$(LIBRETRO_COMM_DIR)/compat/fopen_utf8.c \
+	$(LIBRETRO_COMM_DIR)/compat/compat_strcasestr.c \
+	$(LIBRETRO_COMM_DIR)/compat/compat_posix_string.c \
+	$(LIBRETRO_COMM_DIR)/encodings/encoding_utf.c \
+	$(LIBRETRO_COMM_DIR)/memmap/memalign.c \
+	$(LIBRETRO_COMM_DIR)/hash/rhash.c
+endif

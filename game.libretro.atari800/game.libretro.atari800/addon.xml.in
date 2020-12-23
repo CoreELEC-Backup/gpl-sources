@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.atari800"
+		name="Atari - 5200 (Atari800)"
+		version="3.1.0.6"
+		provider-name="Petr Stehlik">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms></platforms>
+		<extensions>xfd|atr|cdm|cas|bin|a52|zip|atx</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Atari - 5200 (Atari800) 3.1.0</summary>
+		<description lang="en_GB">Supported files: .xfd, .atr, .cdm, .cas, .bin, .a52, .zip, .atx</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.atari800</source>
+	</extension>
+</addon>

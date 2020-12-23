@@ -1,0 +1,1334 @@
+# VDR plugin language source file.
+# Copyright (C) 2007 Klaus Schmidinger <kls@cadsoft.de>
+# This file is distributed under the same license as the VDR package.
+# Vladimír Bárta <vladimir.barta@k2atmitec.cz>, 2006
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: epgsearch\n"
+"Report-Msgid-Bugs-To: <see README>\n"
+"POT-Creation-Date: 2017-06-15 11:15+0200\n"
+"PO-Revision-Date: 2009-11-02 09:40+0100\n"
+"Last-Translator: Milan Hrala <hrala.milan@gmail.com>\n"
+"Language-Team: Slovak <hrala.milan@gmail.com>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Channel groups"
+msgstr "Skupiny kanálov"
+
+msgid "Button$Select"
+msgstr "Vybrať"
+
+msgid "Channel group used by:"
+msgstr "Použitá skupina kanálov:"
+
+msgid "Edit$Delete group?"
+msgstr "Vymazať skupinu"
+
+msgid "Edit channel group"
+msgstr "Upraviť skupinu kanálu"
+
+msgid "Group name"
+msgstr "Názov skupiny"
+
+msgid "Button$Invert selection"
+msgstr "Prevrátiť výber"
+
+msgid "Button$All yes"
+msgstr "Áno všetko"
+
+msgid "Button$All no"
+msgstr "Všetko nie"
+
+msgid "Group name is empty!"
+msgstr "Meno skupiny je prázdne!"
+
+msgid "Group name already exists!"
+msgstr "Meno skupiny existuje!"
+
+msgid "Direct access to epgsearch's conflict check menu"
+msgstr "Priamy prístup EPGsearch k menu konfliktov"
+
+msgid "Timer conflicts"
+msgstr "Konflikty plánovača"
+
+msgid "Conflict info in main menu"
+msgstr "Informácie o konfliktoch v hlav menu"
+
+msgid "next"
+msgstr "ďalší"
+
+#, c-format
+msgid "timer conflict at %s! Show it?"
+msgstr "Konflikt plánu o %s! Zobraziť?"
+
+#, c-format
+msgid "%d timer conflicts! First at %s. Show them?"
+msgstr "%d  konflikty plánovania! Prvý o %s. Ukázať"
+
+msgid "search the EPG for repeats and more"
+msgstr "Prehľadať televízny program, či nebude repríza"
+
+msgid "Program guide"
+msgstr "Programový sprievodca"
+
+#, fuzzy
+msgid "search timer update running"
+msgstr "Aktualizácia vyhľadávania plánov skončená!"
+
+msgid "Direct access to epgsearch's search menu"
+msgstr "Priamy prístup k epgsearch cez vyhľadávacie menu"
+
+msgid "Search"
+msgstr "Hĺadať"
+
+msgid "EpgSearch-Search in main menu"
+msgstr "EpgSearch-Vyhľadávanie v hlavnom menu"
+
+msgid "Button$Help"
+msgstr "Pomoc"
+
+msgid "Standard"
+msgstr "bežne"
+
+msgid "Button$Commands"
+msgstr "Príkazy"
+
+msgid "Button$Search"
+msgstr "Hľadať"
+
+msgid "never"
+msgstr "nikdy"
+
+msgid "always"
+msgstr "vždy"
+
+msgid "smart"
+msgstr "chytrý"
+
+msgid "before user-def. times"
+msgstr "pred užívateľ-def. plánu"
+
+msgid "after user-def. times"
+msgstr "po užívateľ-def. plánu"
+
+msgid "before 'next'"
+msgstr "pred 'ďalším'"
+
+msgid "General"
+msgstr "Hlavné"
+
+msgid "EPG menus"
+msgstr "EPG menu"
+
+msgid "User-defined EPG times"
+msgstr "Užívateľom-určený EPG plán"
+
+msgid "Timer programming"
+msgstr "Plán programovania"
+
+msgid "Search and search timers"
+msgstr "Hľadať a prehľadať plány"
+
+msgid "Timer conflict checking"
+msgstr "Kontrola konfliktov plánu"
+
+msgid "Email notification"
+msgstr "Oznámenie na Email"
+
+msgid "Hide main menu entry"
+msgstr "Skryť v hlavnom menu"
+
+msgid "Help$Hides the main menu entry and may be useful if this plugin is used to replace the original 'Schedule' entry."
+msgstr "Skryje v hlavnom menu položku. Môže to byť užitočné, ak tento modul má nahradiť pôvodný 'Program' ."
+
+msgid "Main menu entry"
+msgstr "Hlavné menu"
+
+msgid "Help$The name of the main menu entry which defaults to 'Programm guide'."
+msgstr "meno položky v hlavnom menu , ktorá je nastavená na 'Programový sprievodca'."
+
+msgid "Replace original schedule"
+msgstr "Nahradiť pôvodný harmonogram"
+
+msgid "Help$When VDR is patched to allow this plugin to replace the original 'Schedule' entry, you can de/activate this replacement here."
+msgstr "Keď je VDR opravený, môžete aktivovať výmenu televízneho programu tu, aby tento modul nahradil pôvodný televízny program."
+
+msgid "Start menu"
+msgstr "Štart menu"
+
+msgid "Help$Choose between 'Overview - Now' and 'Schedule' as start menu when this plugin is called."
+msgstr "Keď sa spustí tento modul, tak si vyberte medzi 'Prehľad - teraz' a 'Televíznym programom' v Štart menu."
+
+msgid "Ok key"
+msgstr "Ok klávesa"
+
+msgid ""
+"Help$Choose here the behaviour of key 'Ok'. You can use it to display the summary or to switch to the corresponding channel.\n"
+"Note: the functionality of key 'blue' (Switch/Info/Search) depends on this setting."
+msgstr ""
+"Tu si vyberte správanie klávesy 'Ok'. Môžete ju použiť na zobrazenie súhrnu alebo prepnúť na zodpovedajúci kanál.\n"
+"Poznámka: funkcia  'modrej' klávesy (Prepnúť / Informácie / Hľadať) závisí na nastavení."
+
+msgid "Red key"
+msgstr "Červená klávesa"
+
+msgid ""
+"Help$Choose which standard function ('Record' or 'Commands') you like to have on the red key.\n"
+"(Can be toggled with key '0')"
+msgstr ""
+"Vyberte si, ktoré štandardné funkcie ( 'Nahrávky' alebo 'príkazy'), chcete mať pod červeným tlačítkom.\n"
+"(Možno zapínať s klávesou '0')"
+
+msgid "Blue key"
+msgstr "Modrá klávesa"
+
+msgid ""
+"Help$Choose which standard function ('Switch'/'Info' or 'Search') you like to have on the blue key.\n"
+"(Can be toggled with key '0')"
+msgstr ""
+"Vyberte si, ktoré štandardné funkcie ( 'Nahrávky' alebo 'príkazy'), chcete mať pod modrým tlačítkom.\n"
+"(Možno zapínať s klávesou '0')"
+
+msgid "Show progress in 'Now'"
+msgstr "Zobraziť proces v 'Now'"
+
+msgid "Help$Shows a progressbar in 'Overview - Now' that informs about the remaining time of the current event."
+msgstr "Ukazuje priebeh v 'Prehľad - teraz', ktorý informuje o zostávajúcom čase aktuálnej udalosti."
+
+msgid "Show channel numbers"
+msgstr "Zobraziť číslo kanálu"
+
+msgid ""
+"Help$Display channel numbers in 'Overview - Now'.\n"
+"\n"
+"(To completely define your own menu look please inspect the MANUAL)"
+msgstr ""
+"Zobrazenie čísla kanálov v 'Prehľad - Teraz'. \n"
+"\n"
+"(Ak chcete kompletne definovať vlastné menu ,prosím skontrolujte MANUÁL)"
+
+msgid "Show channel separators"
+msgstr "Oddeliť zobrazené kanály"
+
+msgid "Help$Display VDR channel groups as separators between your channels in 'Overview - Now'."
+msgstr "Zobraziť skupiny VDR kanálov s oddeľovačmi v 'Prehľad - Teraz'."
+
+msgid "Show day separators"
+msgstr "Zobraziť oddeľovače dní"
+
+msgid "Help$Display a separator line at day break in 'Schedule'."
+msgstr "Zobraziť deliace čiary cez dennú prestávku v 'Plánovači."
+
+msgid "Show radio channels"
+msgstr "Zobraziť rádio kanály"
+
+msgid "Help$Show also radio channels."
+msgstr "Zobraziť tiež rozhlasové kanály"
+
+msgid "Limit channels from 1 to"
+msgstr "Limit kanálov od 1 do"
+
+msgid "Help$If you have a large channel set you can speed up things when you limit the displayed channels with this setting. Use '0' to disable the limit."
+msgstr "Ak máte veľa nastavených kanálov, môžete urýchliť vec tak, že obmedzíte zobrazené kanály s týmto nastavením. Použite '0 'pre vypnutie limitu."
+
+msgid "'One press' timer creation"
+msgstr "Raz stlačiť vytvorenie plánu"
+
+msgid "Help$When a timer is created with 'Record' you can choose between an immediate creation of the timer or the display of the timer edit menu."
+msgstr "Keď je časovač vytvorený s 'Nahrať', tak si môžete vybrať medzi okamžitým vytvorením časovača alebo zobrazenie menu s úpravami časovača."
+
+msgid "Show channels without EPG"
+msgstr "Zobraziť kanály bez EPG"
+
+msgid "Help$Choose 'yes' here if you want to display channels without EPG in 'Overview - Now'. 'Ok' on these entries switches the channel."
+msgstr "Vyberte 'áno', ak chcete zobraziť kanály bez EPG v 'Prehľad - Teraz'. 'Ok' na tejto položieke prepína kanál."
+
+msgid "Time interval for FRew/FFwd [min]"
+msgstr "Časový úsek pre FRew/FFwd [min]"
+
+msgid ""
+"Help$Choose here the time interval which should be used for jumping through the EPG by pressing FRew/FFwd.\n"
+"\n"
+"(If you don't have those keys, you can toggle to this functionality pressing '0' and get '<<' and '>>' on the keys green and yellow)"
+msgstr ""
+"Tu si vyberte časový interval, ktorý by mal byť použitý pre skákanie cez EPG stlačením FRew / FFwd.\n"
+"\n"
+"(Ak nemáte tie klávesy, môžete prepínať na túto funkciu stlačením '0' a  '<<' alebo '>>'  ' klávesy zelenej a žltej)search"
+
+msgid "Toggle Green/Yellow"
+msgstr "Prepínač zelenej/žltej"
+
+msgid "Help$Specify if green and yellow shall also be switched when pressing '0'."
+msgstr "Uveďte, či zelenou a žltou, sa má tiež prepínať pri stlačení '0 '."
+
+msgid "Show favorites menu"
+msgstr "Zobraziť obľúbené menu"
+
+msgid ""
+"Help$A favorites menu can display a list of your favorite broadcasts. Enable this if you want an additional menu besides 'Now' and 'Next'\n"
+"Any search can be used as a favorite. You only have to set the option 'Use in favorites menu' when editing a search."
+msgstr ""
+"Obľúbené položky menu je možné zobraziť zoznam obľúbených staníc. Povoliť, ak chcete ďalšie ponuky vedľa 'teraz' a 'Nasleduje' \n"
+"Akékoľvek vyhľadávania možno použiť ako obľúbené. Musíte len nastaviť voľbu 'Použiť do obľúbených položiek menu' pri úpravách vyhľadávania."
+
+msgid "for the next ... hours"
+msgstr "Za ďalšie ... hodiny"
+
+msgid "Help$This value controls the timespan used to display your favorites."
+msgstr "Táto hodnota určuje časové rozpätie pre zobrazenie obľúbených."
+
+msgid "Use user-defined time"
+msgstr "Použiť užívateľom definované plánovanie"
+
+msgid "Help$Besides 'Now' and 'Next' you can specify up to 4 other times in the EPG which can be used by repeatedly pressing the green key, e.g. 'prime time', 'late night',..."
+msgstr "Okrem 'teraz' a 'Nasleduje' môžete zadať až 4 iné časy v EPG, ktoré môžu byť použité po opakovanom stlačení zeleného tlačitka, napr 'hlavnom vysielacom čase', 'neskoro v noci',..."
+
+msgid "Description"
+msgstr "Popis"
+
+msgid "Help$This is the description for your user-defined time as it will appear as label on the green button."
+msgstr "To to je znázornené pre užívateľom-stanovenej lehote(času), ako bude vyzerať označenie  na zelenom tlačítku."
+
+msgid "Time"
+msgstr "Čas"
+
+msgid "Help$Specify the user-defined time here in 'HH:MM'."
+msgstr "Presne napíšte čas vo formáte 'HH:MM'."
+
+msgid "Use VDR's timer edit menu"
+msgstr "Použiť menu úpravy VDR časovača"
+
+msgid ""
+"Help$This plugin has its own timer edit menu extending the original one with some extra functionality like\n"
+"- an additional directory entry\n"
+"- user-defined days of week for repeating timers\n"
+"- adding an episode name\n"
+"- support for EPG variables (see MANUAL)"
+msgstr ""
+"Tento modul je rozšírením pôvodného menu s úpravami vysielacieho času  a pridáva niektoré nové funkcie, ako je \n"
+"- Pridávanie položkou v adresári \n"
+"- Určenie dňa v týždni, ak sa opakujú vysielacie časy \n"
+"- Pridanie mena epizódy \n"
+"- Podporu pre menlivé EPG (pozri manuál)"
+
+msgid "Default recording dir"
+msgstr "Predvolený adresár záznamov"
+
+msgid "Help$When creating a timer you can specify here a default recording directory."
+msgstr "Tu môžete zadať predvolený adresár záznamov ,ktorý sa použije ak vytvárate nový plán nahrávania,"
+
+msgid "Add episode to manual timers"
+msgstr "Pridať epizódy do ručného časovača"
+
+msgid ""
+"Help$If you create a timer for a series, you can automatically add the episode name.\n"
+"\n"
+"- never: no addition\n"
+"- always: always add episode name if present\n"
+"- smart: add only if event lasts less than 80 mins."
+msgstr ""
+"Ak vytvoríte plán nahrávania  pre sériu, môžete automaticky pridať názov epizódy. \n"
+"\n"
+"- Nikdy: nie okrem \n"
+"- Vždy: vždy pridať meno epizódy ak je prítomné \n"
+"- Inteligentne :pridať iba ak udalosť trvá menej ako 80 minút."
+
+msgid "Default timer check method"
+msgstr "Predvolený postup kontroly plánov"
+
+msgid ""
+"Help$Manual timers can be checked for EPG changes. Here you can setup the default check method for each channel. Choose between\n"
+"\n"
+"- no checking\n"
+"- by event ID: checks by an event ID supplied by the channel provider.\n"
+"- by channel and time: check by the duration match."
+msgstr ""
+"Manuálne plány môžu byť kontrolované na zmeny EPG. Tu si môžete nastaviť predvolený spôsob kontroly pre každý kanál. Vyberte si medzi \n"
+"\n"
+"- nekontrolovať \n"
+" - Podľa ID udalosti: kontroly ID udalosti poskytované poskytovateľom kanála. \n"
+"- Podľa  kanálu a času: kontrola dĺžky vysielaného programu."
+
+msgid "Button$Setup"
+msgstr "Nastavenie"
+
+msgid "Use search timers"
+msgstr "Použiť vyhľadávanie časovačov"
+
+msgid "Help$'Search timers' can be used to automatically create timers for events that match your search criterions."
+msgstr "Vyhľadávanie vysielacieho času 'možno použiť na automatické vytváranie plánov nahrávania, ktoré zodpovedajú vášmu hľadanému kritériu."
+
+msgid "  Update interval [min]"
+msgstr "  obnovovací interval [min]"
+
+msgid "Help$Specify here the time intervall to be used when searching for events in the background."
+msgstr "Zvolte ako často sa majú na pozadí hľadať udalosti."
+
+msgid "  SVDRP port"
+msgstr "  SVDRP port"
+
+msgid "Help$Programming of new timers or timer changes is done with SVDRP. The default value should be correct, so change it only if you know what you are doing."
+msgstr "Programovanie nových plánov alebo úpravy plánov sa vykonávajú so SVDRP. Predvolená hodnota by mala byť v poriadku, takže ho zmente len vtedy, ak viete, čo robíte."
+
+msgid "Help$Specify here the default priority of timers created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Uveďte predvolenú prioritu plánov nahrávania vytvorených s týmto modulom. Túto hodnotu možno upraviť aj pre každé samostatné hľadanie."
+
+msgid "Help$Specify here the default lifetime of timers/recordings created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Uveďte predvolenú životnosť plánov / nahrávky vytvorených s týmto modulom. Túto hodnotu možno upraviť aj pre každé samostatné hľadanie."
+
+msgid "Help$Specify here the default start recording margin of timers/recordings created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Uveďte predvolený nadbytok úvodného záznamu plánu / nahrávky vytvoreným s týmto modulom. Túto hodnotu možno  upraviť aj pre každé samostatné hľadanie."
+
+msgid "Help$Specify here the default stop recording margin of timers/recordings created with this plugin. This value can also be adjusted for each search itself."
+msgstr "Uveďte predvolený nadbytok pri ukončení nahrávania plánu / nahrávky vytvoreným s týmto modulom. Túto hodnotu možno upraviť aj pre každé samostatné hľadanie."
+
+msgid "No announcements when replaying"
+msgstr "Neoznamovať pri prehrávaní"
+
+msgid "Help$Set this to 'yes' if you don't like to get any announcements of broadcasts if you currently replay anything."
+msgstr "Ak niečo prehrávate a nepáči sa vám oznamovanie o vysielaní, tak nastavte 'áno'"
+
+msgid "Recreate timers after deletion"
+msgstr "Znova vytvoriť plán po vymazaní"
+
+msgid "Help$Set this to 'yes' if you want timers to be recreated with the next search timer update after deleting them."
+msgstr "Ak zmažete plán nahrávania a nechcete aby bol znova vytvorený po automatickom obnovení vyhľadávača plánov, tak nastavte 'áno'"
+
+msgid "Check if EPG exists for ... [h]"
+msgstr ""
+
+#, fuzzy
+msgid "Help$Specify how many hours of future EPG there should be and get warned else after a search timer update."
+msgstr "Ak kontrola konfliktov by mala byť vykonávaná pri každom obnovení vyhľadávača plánov, tak nastavte 'áno'"
+
+#, fuzzy
+msgid "Warn by OSD"
+msgstr "Iba oznámiť"
+
+#, fuzzy
+msgid "Help$Set this to 'yes' if you want get warnings from the EPG check via OSD."
+msgstr "Nastavte áno ak potrebujete oznamovať konflikty plánu na mail"
+
+#, fuzzy
+msgid "Warn by mail"
+msgstr "Iba oznámiť"
+
+#, fuzzy
+msgid "Help$Set this to 'yes' if you want get warnings from the EPG check by mail."
+msgstr "Nastavte Áno, ak váš účet potrebuje overenie na poslanie mailov"
+
+#, fuzzy
+msgid "Channel group to check"
+msgstr "Skupina kanálov"
+
+#, fuzzy
+msgid "Help$Specify the channel group to check."
+msgstr "Uveďte meno šablony"
+
+msgid "Ignore PayTV channels"
+msgstr "Nevšímať si PayTV kanály"
+
+msgid "Help$Set this to 'yes' if don't want to see events on PayTV channels when searching for repeats."
+msgstr "Ak nepotrebujete zobraziť udalosti na kanáloch PayTV pri opakovanom vyhľadávaní, nastavte 'áno'"
+
+msgid "Search templates"
+msgstr "Vyhľadávanie šablóny"
+
+msgid "Help$Here you can setup templates for your searches."
+msgstr "Tu si môžete nastaviť šablóny pre vyhľadávanie."
+
+msgid "Blacklists"
+msgstr "Čierny zoznam"
+
+msgid "Help$Here you can setup blacklists which can be used within a search to exclude events you don't like."
+msgstr "Tu sa nastavuje čierny zoznam, ktorý môže byť použitý v rámci hľadania a tak vylúčiť udalosti, ktoré sa vám nepáčia."
+
+msgid "Help$Here you can setup channel groups which can be used within a search. These are different to VDR channel groups and represent a set of arbitrary channels, e.g. 'FreeTV'."
+msgstr "Tu si môžete nastaviť skupinu kanálov, ktoré majú byť použité v rámci hľadania. Tie sú odlišné od kanálov VDR skupín a predstavujú súbor ľubovoľných kanálov, napr 'volne šíriteľné '."
+
+msgid "Ignore below priority"
+msgstr "nevšímať si prioritu"
+
+msgid "Help$If a timer with priority below the given value will fail it will not be classified as important. Only important conflicts will produce an OSD message about the conflict after an automatic conflict check."
+msgstr "Ak je plán nahrávania s prioritou pod danú hodnotu dôjde k zlyhaniu, pretože nebude klasifikovaný ako dôležitý. Iba dôležité konflikty vyvolávajú OSD správy."
+
+msgid "Ignore conflict duration less ... min."
+msgstr "Nevšímať si konflikty menšie ako ... min"
+
+msgid "Help$If a conflicts duration is less then the given number of minutes it will not be classified as important. Only important conflicts will produce an OSD message about the conflict after an automatic conflict check."
+msgstr "Ak doba konfliktu pretrváva menej ako daný počet minút, nebude konflikt brať ako dôležitý. Iba dôležité konflikty sa automaticky zobrazia ako OSD správa."
+
+msgid "Only check within next ... days"
+msgstr "Skontrolovať iba do budúcich ... dní"
+
+msgid "Help$This value reduces the conflict check to the given range of days. All other conflicts are classified as 'not yet important'."
+msgstr "Táto hodnota znižuje konflikty podľa daného rozsahu dní. Všetky ostatné konflikty sú klasifikované ako 'ešte dôležité'."
+
+msgid "Check also remote conflicts"
+msgstr ""
+
+msgid "Help$Set this to 'yes' if the conflict check should be done for timers set on remote hosts. This needs SVDRPPeering to be set in vdr and Plugin epgsearch running on the remote host."
+msgstr ""
+
+msgid "--- Automatic checking ---"
+msgstr "--- Automatická kontrola ---"
+
+msgid "After each timer programming"
+msgstr "Po každom programovaní časovača"
+
+msgid "Help$Set this to 'yes' if the conflict check should be performed after each manual timer programming. In the case of a conflict you get immediately a message that informs you about it. The message is only displayed if this timer is involved in any conflict."
+msgstr "Ak pri ručnom programovaní plánu nastane konflikt, tak vám vypíše okamžitú správu o konflikte. Správa sa zobrazí v prípade ak plán je zapojený do akéhokoľvek konfliktu. Ak danú funkciu chcete použiť zvolte 'áno'"
+
+msgid "When a recording starts"
+msgstr "Pri nahrávaní sa spustí"
+
+msgid "Help$Set this to 'yes' if the conflict check should be performed when a recording starts. In the case of a conflict you get immediately a message that informs you about it. The message is only displayed if the conflict is within the next 2 hours."
+msgstr "Nastavte 'áno' ak by mala byť kontrola konfliktov vykonaná pri spustiní nahrávania. V prípade konfliktu vám pošle okamžite správu. Správa sa zobrazí v prípade konfliktu iba počas 2 hodín."
+
+msgid "After each search timer update"
+msgstr "Po každom hľadaní plánu zmenené"
+
+msgid "Help$Set this to 'yes' if the conflict check should be performed after each search timer update."
+msgstr "Ak kontrola konfliktov by mala byť vykonávaná pri každom obnovení vyhľadávača plánov, tak nastavte 'áno'"
+
+msgid "every ... minutes"
+msgstr "každých ... minút"
+
+msgid ""
+"Help$Specify here the time intervall to be used for an automatic conflict check in the background.\n"
+"('0' disables an automatic check)"
+msgstr ""
+"Zvolte ako často majú byť použité automatické kontroly konfliktov na pozadí. \n"
+"('0 'Zakáže automatické kontroly)"
+
+msgid "if conflicts within next ... minutes"
+msgstr "ak je v rozpore s ďalšou ... minútou"
+
+msgid "Help$If the next conflict will appear in the given number of minutes you can specify here a shorter check intervall to get more OSD notifications about it."
+msgstr "Ak  sa objaví ďalší konflikt v danom počte minút, môžete zvoliť kratší interval kontroly a tak získať viac OSD oznámení. "
+
+msgid "Avoid notification when replaying"
+msgstr "Vyhnúť sa oznámeniam pri prehrávaní"
+
+msgid "Help$Set this to 'yes' if the don't want to get OSD messages about conflicts if you currently replay something. Nevertheless messages will be displayed if the first upcoming conflict is within the next 2 hours."
+msgstr "Nastavte 'áno', ak nechcete dostávať OSD správu o konfliktoch, v prípade,že niečo prehrávate. Avšak, správy sa zobrazia v prípade prvého nadchádzajúceho konfliktu v nasledujúcich 2 hodinách."
+
+msgid "Search timer notification"
+msgstr "Hlásenie vyhľadávania časovača"
+
+msgid "Help$Set this to 'yes' if you want to get an email notification about the search timers that where programmed automatically in the background."
+msgstr "Nastavte áno ak potrebujete oznamovať automaticky vyhľadané plány na mail"
+
+msgid "Time between mails [h]"
+msgstr ""
+
+msgid ""
+"Help$Specifiy how much time in [h] you would\n"
+"like to have atleast between two mails.\n"
+"With '0' you get a new mail after each\n"
+"search timer update with new results."
+msgstr ""
+
+msgid "Timer conflict notification"
+msgstr "Oznámiť konflikt plánov"
+
+msgid "Help$Set this to 'yes' if you want to get an email notification about the timer conflicts."
+msgstr "Nastavte áno ak potrebujete oznamovať konflikty plánu na mail"
+
+msgid "Send to"
+msgstr "Poslať no"
+
+msgid "Help$Specify the email address where notifications should be sent to."
+msgstr "Rozpíšte email adresu, na ktorú by sa mali posielať oznámenia."
+
+msgid "Mail method"
+msgstr "Mailová metóda"
+
+msgid ""
+"Help$Specify here the method to use when sending mails.\n"
+"You can choose between\n"
+" - 'sendmail': requires a properly configured email system\n"
+" - 'SendEmail.pl': simple script for mail delivery"
+msgstr ""
+"Zvolte použitý spôsob  posielania mailov.\n"
+"Vyberte medzi\n"
+" - 'sendmail':  vyžaduje, aby bol správne nakonfigurovaný systém e-mailu - 'SendEmail.pl': jednoduchý skript pre doručovanie pošty"
+
+msgid "--- Email account ---"
+msgstr "--- Email účet ---"
+
+msgid "Email address"
+msgstr "Email adresa"
+
+msgid "Help$Specify the email address where notifications should be sent from."
+msgstr "Zadajte mailovú adresu na ktorá sa budú posielať upozornenia."
+
+msgid "SMTP server"
+msgstr "SMTP server"
+
+msgid "Help$Specify the SMTP server that should deliver the notifications. If it's using a port different from the default(25) append the port with \":port\"."
+msgstr "Zadajte SMTP server, ktorý by mal posielať oznámenia. Ak sa port líši od predvoleného (25), tak pripíšte port s \": port \"."
+
+msgid "Use SMTP authentication"
+msgstr "Použiť SMTP overenie"
+
+msgid "Help$Set this to 'yes' if your account needs authentication to send mails."
+msgstr "Nastavte Áno, ak váš účet potrebuje overenie na poslanie mailov"
+
+msgid "Auth user"
+msgstr "Dôveryhodný užívateľ"
+
+msgid "Help$Specify the auth user, if this account needs authentication for SMTP."
+msgstr "Zvolte overovacie meno, ak účet potrebuje overenie pre SMTP"
+
+msgid "Auth password"
+msgstr "Dôveryhodné heslo"
+
+msgid "Help$Specify the auth password, if this account needs authentication for SMTP."
+msgstr "Zvolte overovacie heslo, ak je nutné overenie  pre SMTP."
+
+msgid "Mail account check failed!"
+msgstr "Chyba kontroly mailového účtu!"
+
+msgid "Button$Test"
+msgstr "Testovať"
+
+msgid "$ abcdefghijklmnopqrstuvwxyz0123456789-.,#~\\^$[]|()*+?{}/:%@&_"
+msgstr " aáäbcčdďeéfghiíjklĺľmnňoóôpqrŕsštťuúvwxyýzž0123456789-.,#~\\^$[]|()*+?{}/:%@&_"
+
+msgid "Start/Stop time has changed"
+msgstr "Spustiť/Zastaviť dobu zmien"
+
+msgid "Title/episode has changed"
+msgstr "Názov / epizóda sa zmenila"
+
+msgid "No new timers were added."
+msgstr "Žiadne nové plány neboli pridané."
+
+msgid "No timers were modified."
+msgstr "Žiadne plány neboli upravované."
+
+msgid "No timers were deleted."
+msgstr "Žiadne plány neboli vymazané."
+
+msgid "No new events to announce."
+msgstr ""
+
+msgid "This version of EPGSearch does not support this service!"
+msgstr "Táto verzia epgsearch nepodporuje túto službu!"
+
+msgid "EPGSearch does not exist!"
+msgstr "Epgsearch neexistuje!"
+
+#, c-format
+msgid "%d new broadcast"
+msgstr "%d nové vysielanie"
+
+msgid "Button$by channel"
+msgstr "podľa kanálu"
+
+msgid "Button$by time"
+msgstr "podľa času"
+
+msgid "Button$Episode"
+msgstr "Epizóda"
+
+msgid "Button$Title"
+msgstr "Názov"
+
+msgid "announce details"
+msgstr "oznámiť podrobnosti"
+
+msgid "announce again"
+msgstr "oznámiť znova"
+
+msgid "with next update"
+msgstr "s ďalšou aktualizáciou"
+
+msgid "again from"
+msgstr "znova od"
+
+msgid "Search timer"
+msgstr "Hľadať časy"
+
+msgid "Edit blacklist"
+msgstr "Upraviť čiernu listinu"
+
+msgid "phrase"
+msgstr "slovné spojenie"
+
+msgid "all words"
+msgstr "všetky slová"
+
+msgid "at least one word"
+msgstr "aspoň jedno slovo"
+
+msgid "match exactly"
+msgstr "prispôsobiť presne"
+
+msgid "regular expression"
+msgstr "bežný výraz"
+
+msgid "fuzzy"
+msgstr "nejasný"
+
+msgid "user-defined"
+msgstr "určené užívateľom"
+
+msgid "interval"
+msgstr "časové rozpätie"
+
+msgid "channel group"
+msgstr "skupin kanálov"
+
+msgid "only FTA"
+msgstr "iba voľne šíritelné"
+
+msgid "Search term"
+msgstr "Hľadať termín"
+
+msgid "Search mode"
+msgstr "Spôsob vyhľadávania"
+
+msgid "Tolerance"
+msgstr "odchylka "
+
+msgid "Match case"
+msgstr "Argumenty zhody"
+
+msgid "Use title"
+msgstr "Použiť názov"
+
+msgid "Use subtitle"
+msgstr "Použiť titulky"
+
+msgid "Use description"
+msgstr "Použiť popis"
+
+msgid "Use extended EPG info"
+msgstr "Použiť rozšírené EPG informácie"
+
+msgid "Ignore missing categories"
+msgstr "Ignorovať chýbajúce kategórie"
+
+msgid "Use channel"
+msgstr "Použi kanál"
+
+msgid "  from channel"
+msgstr " od kanálu"
+
+msgid "  to channel"
+msgstr " po kanál"
+
+msgid "Channel group"
+msgstr "Skupina kanálov"
+
+msgid "Use time"
+msgstr " Použi čas"
+
+msgid "  Start after"
+msgstr " od kedy"
+
+msgid "  Start before"
+msgstr " Po kedy"
+
+msgid "Use duration"
+msgstr " Poži trvanie"
+
+msgid "  Min. duration"
+msgstr " Min. doba"
+
+msgid "  Max. duration"
+msgstr " Max doba"
+
+msgid "Use day of week"
+msgstr " Použi deň v týždni"
+
+msgid "Day of week"
+msgstr " Deň v týždni"
+
+msgid "Use global"
+msgstr ""
+
+msgid "Button$Templates"
+msgstr "Šablony"
+
+msgid "*** Invalid Channel ***"
+msgstr "*** Neplatný kanál ***"
+
+msgid "Please check channel criteria!"
+msgstr "Prosím, skontrolujte kritéria kanálu!"
+
+msgid "Edit$Delete blacklist?"
+msgstr "Vymazať čierny zoznam?"
+
+msgid "Repeats"
+msgstr "Repríza"
+
+msgid "Create search"
+msgstr "Vytvoriť vyhľadávanie"
+
+msgid "Search in recordings"
+msgstr "Hľadať v nahrávkach"
+
+msgid "Mark as 'already recorded'?"
+msgstr "Vymazať určené nahrá "
+
+msgid "Add/Remove to/from switch list?"
+msgstr "Pridať/Vymazať do/zo zoznamu?"
+
+msgid "Create blacklist"
+msgstr "Vytvoriť čiernu listinu"
+
+msgid "EPG Commands"
+msgstr "EPG príkazy"
+
+msgid "Epgsearch: RemoteTimerModifications failed"
+msgstr ""
+
+msgid "Already running!"
+msgstr "Práve spustené!"
+
+msgid "Add to switch list?"
+msgstr "Pridať do zoznamu?"
+
+msgid "Delete from switch list?"
+msgstr "Vymazať zo zoznamu?"
+
+msgid "Button$Details"
+msgstr "Podrobnosti"
+
+msgid "Button$Filter"
+msgstr "filter"
+
+msgid "Button$Show all"
+msgstr "Zobraziť všetko"
+
+msgid "conflicts"
+msgstr "konflikty"
+
+msgid "no conflicts!"
+msgstr "Bez konfliktu!"
+
+msgid "no important conflicts!"
+msgstr "žiadne dôležité konflikty!"
+
+msgid "C"
+msgstr "C"
+
+msgid "Button$Repeats"
+msgstr "Reprízy"
+
+msgid "no check"
+msgstr "neskontrolované"
+
+msgid "by channel and time"
+msgstr "podľa kanálu a času"
+
+msgid "by event ID"
+msgstr "podľa ID"
+
+msgid "Select directory"
+msgstr "Vybrať adresár"
+
+msgid "Button$Level"
+msgstr "Úroveň"
+
+msgid "Event"
+msgstr "Udalosti"
+
+msgid "Favorites"
+msgstr "Obľúbené"
+
+msgid "Search results"
+msgstr "Výsledok hľadania"
+
+msgid "Timer conflict! Show?"
+msgstr "Konflikt plánu! Zobraziť?"
+
+msgid "Directory"
+msgstr "Adresár"
+
+msgid "Channel"
+msgstr "Kanál"
+
+msgid "Childlock"
+msgstr "Detský zámok"
+
+msgid "Record on"
+msgstr ""
+
+msgid "Timer check"
+msgstr "Kontrola plánu"
+
+msgid "recording with device"
+msgstr "nahrávanie so zariadením"
+
+msgid "Button$With subtitle"
+msgstr "S titulkami"
+
+msgid "Button$Without subtitle"
+msgstr "Bez titulkov"
+
+msgid "Timer has been deleted"
+msgstr ""
+
+msgid "Button$Extended"
+msgstr "Rozšírené"
+
+msgid "Button$Simple"
+msgstr "Jednoduché"
+
+msgid "Use blacklists"
+msgstr "Použiť čiernu listinu"
+
+msgid "Edit$Search text too short - use anyway?"
+msgstr "Hľadaný text je krátky - použiť aj tak?"
+
+#, fuzzy
+msgid "Button$Orphaned"
+msgstr "podľa kanálu"
+
+msgid "Button$by name"
+msgstr "podľa mena"
+
+msgid "Button$by date"
+msgstr "podľa dátumu"
+
+msgid "Button$Delete all"
+msgstr "Vymazať všetko"
+
+msgid "Recordings"
+msgstr "Nahrávky"
+
+msgid "Edit$Delete entry?"
+msgstr "Vymazať údaje?"
+
+msgid "Edit$Delete all entries?"
+msgstr "Vymazať všetky údaje?"
+
+msgid "Summary"
+msgstr "Celkovo"
+
+msgid "Auxiliary info"
+msgstr "Doplňujúce informácie"
+
+msgid "Button$Aux info"
+msgstr "Pomocné informácie"
+
+msgid "Search actions"
+msgstr "Hľadať akcie"
+
+msgid "Execute search"
+msgstr "Spustiť vyhladávanie"
+
+msgid "Use as search timer on/off"
+msgstr "Použiť ako vyhľadávač plánu zapnuté/vypnuté"
+
+msgid "Trigger search timer update"
+msgstr "Spustená aktualizácia vyhľadávania plánu"
+
+msgid "Show recordings done"
+msgstr "Zobraziť spravené nahrávky"
+
+msgid "Show timers created"
+msgstr "Zobraziť vytvorené plány"
+
+msgid "Create a copy"
+msgstr "Vytvoriť a kopírovať"
+
+msgid "Use as template"
+msgstr "Použiť ako šablonu"
+
+msgid "Show switch list"
+msgstr "Zobraziť zoznam"
+
+msgid "Show blacklists"
+msgstr "Zobraziť čiernu listinu"
+
+msgid "Delete created timers?"
+msgstr "Vymazať vytvorené plány?"
+
+msgid "Timer conflict check"
+msgstr "Kontrola konfliktu plánov"
+
+msgid "Disable associated timers too?"
+msgstr "Zakázať súvisiace plány?"
+
+msgid "Activate associated timers too?"
+msgstr "Povoliť aj súvisiace plány?"
+
+msgid "Search timers activated in setup."
+msgstr "Vyhľadávač plánov aktivovaný v nastavení."
+
+msgid "Run search timer update?"
+msgstr "Spustiť aktualizáciu vyhladávania plánov?"
+
+msgid "Copy this entry?"
+msgstr "Kopírovať tieto údaje?"
+
+msgid "Copy"
+msgstr "Kopírovať"
+
+msgid "Copy this entry to templates?"
+msgstr "Kopírovať tieto údaje z šablon?"
+
+msgid "Delete all timers created from this search?"
+msgstr "Vymazať všetky plány vytvorené cez vyhľadávač?"
+
+msgid "Button$Actions"
+msgstr "Akcia"
+
+msgid "Search entries"
+msgstr "Vyhľadať údaje"
+
+msgid "active"
+msgstr "aktívne"
+
+msgid "Edit$Delete search?"
+msgstr "Vymazať vyhľadané?"
+
+msgid "Edit search"
+msgstr "Upraviť vyhladávanie"
+
+msgid "Record"
+msgstr "Nahrať"
+
+#, fuzzy
+msgid "Announce by OSD"
+msgstr "Iba oznámiť"
+
+msgid "Switch only"
+msgstr "Prepnúť iba"
+
+#, fuzzy
+msgid "Announce and switch"
+msgstr "Iba oznámiť"
+
+#, fuzzy
+msgid "Announce by mail"
+msgstr "Iba oznámiť"
+
+msgid "Inactive record"
+msgstr ""
+
+msgid "only globals"
+msgstr ""
+
+msgid "Selection"
+msgstr "Vybrané"
+
+msgid "all"
+msgstr "všetko"
+
+msgid "count recordings"
+msgstr "Počet nahrávok"
+
+msgid "count days"
+msgstr "Počet dní"
+
+msgid "if present"
+msgstr ""
+
+#, fuzzy
+msgid "same day"
+msgstr "Posledný deň"
+
+#, fuzzy
+msgid "same week"
+msgstr " Deň v týždni"
+
+msgid "same month"
+msgstr ""
+
+msgid "Template name"
+msgstr "Meno šablony"
+
+msgid "Help$Specify the name of the template."
+msgstr "Uveďte meno šablony"
+
+msgid "Help$Specify here the term to search for."
+msgstr "Sem zadajte termín pre vyhĺadávanie"
+
+msgid ""
+"Help$The following search modes exist:\n"
+"\n"
+"- phrase: searches for sub terms\n"
+"- all words: all single words must appear\n"
+"- at least one word: at least one single word must appear\n"
+"- match exactly: must match exactly\n"
+"- regular expression: match a regular expression\n"
+"- fuzzy searching: searches approximately"
+msgstr ""
+"Podľa spôsobu vyhĺadávania je: \n"
+"\n"
+"- Veta: vyhľadávanie čiastkového termínu \n"
+"- Všetky slová: všetky jednotlivé slová musia byť \n"
+"- Aspoň jedno slovo: aspoň jedno jediné slovo, musí byť \n"
+"- Presne sa zhodujú: musia presne zodpovedať \n"
+"- Zvyčajný výraz: presný výraz \n"
+"- Nepresné vyhľadávanie: vyhľadávanie približne"
+
+msgid "Help$This sets the tolerance of fuzzy searching. The value represents the allowed errors."
+msgstr "Toto nastaví toleranciu nepresnosti vyhľadávania. Hodnota predstavuje povolené chyby."
+
+msgid "Help$Set this to 'Yes' if your search should match the case."
+msgstr "Nastavte 'Áno', ak vaše vyhľadávanie by malo zodpovedať prípadu."
+
+msgid "Help$Set this to 'Yes' if you like to search in the title of an event."
+msgstr "Nastavte 'Áno', ak chcete hľadať v názvoch ."
+
+msgid "Help$Set this to 'Yes' if you like to search in the episode of an event."
+msgstr "Nastavte 'Áno', ak chcete hľadať v epizóde ."
+
+msgid "Help$Set this to 'Yes' if you like to search in the summary of an event."
+msgstr "Nastavte 'Áno', ak chcete hľadať vo všetkých údajoch."
+
+#, fuzzy
+msgid "Use content descriptor"
+msgstr "Použiť popis"
+
+#, fuzzy
+msgid "Help$Set this to 'Yes' if you want to search the contents by a descriptor."
+msgstr "Nastavte 'Áno', ak chcete hľadať v názvoch ."
+
+msgid "Help$The summary of an event, can contain additional information like 'Genre', 'Category', 'Year',... called 'EPG categories' within EPGSearch. External EPG providers often deliver this information. This allows refining a search and other nice things, like searching for the 'tip of the day'. To use it set this to 'Yes'."
+msgstr "Súhrn udalostí, môže obsahovať ďalšie informácie, ako 'Žáner', 'Kategória', 'Rok',... tzv 'EPG kategórie' v epgsearch. Vonkajšie EPG služby často takéto informácie poskytujú. To umožňuje kvalitnejšie vyhľadávanie a iné veci, ako je hľadanie 'typ dňa' alebo 'kino na' . Pre použitie nastavte na 'Áno'."
+
+msgid "Help$The file epgsearchcats.conf specifies the search mode for this entry. One can search by text or by value. You can also edit a list of predefined values in this file that can be selected here."
+msgstr "Súbor epgsearchcats.conf špecifikuje režim hľadania pre túto položku. Môže vyhľadávať podľa textu alebo hodnoty. Môžete tiež upravovať zoznam preddefinovaných hodnôt, v tomto súbore, ktorý možno vybrať tu."
+
+msgid "Help$If a selected category is not part of the summary of an event this normally excludes this event from the search results. To avoid this, set this option to 'Yes', but please handle this with care to avoid a huge amount of results."
+msgstr "Ak vybraná kategória nie je súčasťou súhrnu údajov, tak je zvyčajne vylúčená z výsledkov vyhľadávania. Ak chcete tomu predísť, nastavte túto voľbu na 'Áno', ale s mierou prosím , aby sa zabránilo veľkému množstvu výsledkov."
+
+msgid "Use in favorites menu"
+msgstr "Použiť v obľúbenom menu"
+
+msgid "Result menu layout"
+msgstr "Usporiadať výsledné menu"
+
+msgid "Use as search timer"
+msgstr "Použiť ako vyhľadávač plánu"
+
+msgid "Action"
+msgstr "Akcia"
+
+msgid "Switch ... minutes before start"
+msgstr "Prepnúť ... minút pred štartom"
+
+msgid "Unmute sound"
+msgstr "Pustiť zvuk"
+
+#, fuzzy
+msgid "Ask ... minutes before start"
+msgstr "Prepnúť ... minút pred štartom"
+
+msgid "  Series recording"
+msgstr " Sériové nahrávky"
+
+msgid "Delete recordings after ... days"
+msgstr "Vymazať nahrávky po ... dňoch"
+
+msgid "Keep ... recordings"
+msgstr "Uchovať ... nahrávok"
+
+msgid "Pause when ... recordings exist"
+msgstr "Zastaviť ak ... nahrávka existuje"
+
+msgid "Avoid repeats"
+msgstr "Vyhýbať sa reprízam"
+
+msgid "Allowed repeats"
+msgstr "povoliť reprízy"
+
+msgid "Only repeats within ... days"
+msgstr "Iba reprízy behom ... dní"
+
+msgid "Compare title"
+msgstr "porovnať tituly"
+
+msgid "Compare subtitle"
+msgstr "porovnať titulky"
+
+msgid "Compare summary"
+msgstr "porovnať celkovo"
+
+#, fuzzy
+msgid "Min. match in %"
+msgstr " Min. doba"
+
+#, fuzzy
+msgid "Compare date"
+msgstr "porovnať tituly"
+
+msgid "Compare categories"
+msgstr "porovnať kategórie"
+
+msgid "VPS"
+msgstr "VPS"
+
+msgid "Auto delete"
+msgstr "automaticky vymazať"
+
+msgid "after ... recordings"
+msgstr "po ... nahrávkach"
+
+msgid "after ... days after first rec."
+msgstr "po ... dňoch od prvého nahratia."
+
+msgid "Edit user-defined days of week"
+msgstr "Upraviť užívateľom určený deň v týždni"
+
+msgid "Compare"
+msgstr "porovnať"
+
+msgid "Select blacklists"
+msgstr "Vybrať čiernu listinu"
+
+msgid "Values for EPG category"
+msgstr "Hodnota pre EPG kategóriu"
+
+msgid "Button$Apply"
+msgstr "Použiť"
+
+msgid "less"
+msgstr "menej"
+
+msgid "less or equal"
+msgstr "menej alebo rovnako"
+
+msgid "greater"
+msgstr "viacej"
+
+msgid "greater or equal"
+msgstr "Väčší alebo rovný"
+
+msgid "equal"
+msgstr "rovnaký"
+
+msgid "not equal"
+msgstr "nerovná sa"
+
+msgid "Activation of search timer"
+msgstr "Aktivácia vyhľadávania plánu"
+
+msgid "First day"
+msgstr "Prvý deň"
+
+msgid "Last day"
+msgstr "Posledný deň"
+
+msgid "Button$all channels"
+msgstr "všetky kanály"
+
+msgid "Button$only FTA"
+msgstr "iba voľne šíriteľné"
+
+msgid "Button$Timer preview"
+msgstr "Náhľad plánu"
+
+msgid "Blacklist results"
+msgstr "výsledky čierneho zoznamu"
+
+msgid "found recordings"
+msgstr "nájdené nahrávky"
+
+msgid "Error while accessing recording!"
+msgstr "Chyba prístupu k záznamom!"
+
+msgid "Button$Default"
+msgstr "Predvolené"
+
+msgid "Edit$Delete template?"
+msgstr "Vymazať šablónu?"
+
+msgid "Overwrite existing entries?"
+msgstr "Prepísať existujúce údaje?"
+
+msgid "Edit entry"
+msgstr "Upraviť údaje"
+
+#, fuzzy
+msgid "Switch"
+msgstr "Prepnúť iba"
+
+msgid "Announce only"
+msgstr "Iba oznámiť"
+
+#, fuzzy
+msgid "Announce ... minutes before start"
+msgstr "Prepnúť ... minút pred štartom"
+
+msgid "action at"
+msgstr "za akciou"
+
+msgid "Switch list"
+msgstr "Prepnúť zoznam"
+
+msgid "Edit template"
+msgstr "Upraviť šablóny"
+
+msgid "Timers"
+msgstr "Plány"
+
+msgid ">>> no info! <<<"
+msgstr ">>> žiadne informácie! <<<"
+
+msgid "Overview"
+msgstr "Prehľad"
+
+msgid "Button$Favorites"
+msgstr "Obľúbené"
+
+msgid "Quick search for broadcasts"
+msgstr "Rýchle vyhľadávanie vo vysielaní"
+
+msgid "Quick search"
+msgstr "Rýchle hľadanie"
+
+msgid "Show in main menu"
+msgstr "Zobraziť v hlavnom menu"
+
+#, c-format
+msgid "%d new broadcast(s) found! Show them?"
+msgstr "%d nové vysielanie(a) nájdené! Zobraziť ich?"
+
+msgid "Search timer update done!"
+msgstr "Aktualizácia vyhľadávania plánov skončená!"
+
+#, c-format
+msgid "small EPG content on:%s"
+msgstr ""
+
+msgid "VDR EPG check warning"
+msgstr ""
+
+#, c-format
+msgid "Switch to (%d) '%s'?"
+msgstr ""
+
+msgid "Programming timer failed!"
+msgstr "Chyba programovania plánovača"
+
+#~ msgid "in %02ldd"
+#~ msgstr "v %02ldd"
+
+#~ msgid "in %02ldh"
+#~ msgstr "v %02ldh"
+
+#~ msgid "in %02ldm"
+#~ msgstr "v %02ldm"
+
+#, fuzzy
+#~ msgid "Compare expression"
+#~ msgstr "bežný výraz"
+
+#~ msgid "File"
+#~ msgstr "Súbor"
+
+#~ msgid "Day"
+#~ msgstr "Deň"

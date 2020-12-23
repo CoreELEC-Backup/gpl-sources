@@ -1,0 +1,1 @@
+-DBSNES_PROFILE=performance

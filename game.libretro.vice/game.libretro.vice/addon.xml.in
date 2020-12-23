@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.vice"
+		name="Commodore - C64 (VICE x64, fast)"
+		version="3.3.0.7"
+		provider-name="Libretro">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.default" version="1.0.0"/>
+		<import addon="game.controller.keyboard" version="1.0.0"/>
+		<import addon="game.controller.mouse" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_@PLATFORM@="@LIBRARY_FILENAME@">
+		<platforms></platforms>
+		<extensions>d64|d71|d80|d81|d82|g64|g41|x64|t64|tap|prg|p00|crt|bin|zip|gz|d6z|d7z|d8z|g6z|g4z|x6z|cmd|m3u|vfl</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_standalone>true</supports_standalone>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Commodore - C64 (VICE x64, fast) 3.3</summary>
+		<description lang="en_GB">VICE stands for the Versatile Commodore Emulator. The current version emulates the C64, the C64DTV, the C128, the VIC20, practically all PET models, the PLUS4 and the CBM-II (aka C610/C510).
+
+Supported files: .d64, .d71, .d80, .d81, .d82, .g64, .g41, .x64, .t64, .tap, .prg, .p00, .crt, .bin, .zip, .gz, .d6z, .d7z, .d8z, .g6z, .g4z, .x6z, .cmd, .m3u, .vfl</description>
+		<license>GPLv2</license>
+		<platform>@PLATFORM@</platform>
+		<source>https://github.com/kodi-game/game.libretro.vice</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
+</addon>

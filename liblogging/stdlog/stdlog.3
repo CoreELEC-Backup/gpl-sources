@@ -1,0 +1,464 @@
+.\" Man page generated from reStructuredText.
+.
+.TH LIBLOGGING-STDLOG 3 "2014-02-22" "" "standard logging library"
+.SH NAME
+liblogging-stdlog \- standard logging library
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.SH SYNOPSIS
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+#include <liblogging/stdlog.h>
+
+const char* stdlog_version(void);
+
+int stdlog_init(int options);
+void stdlog_deinit();
+
+stdlog_channel_t stdlog_open(const char *ident,
+          const int options, const int facility,
+          const char *channelspec);
+int stdlog_log(stdlog_channel_t channel, const int severity,
+               const char *fmt, ...);
+int stdlog_log_b(stdlog_channel_t channel, const int severity,
+               char *buf, const size_t lenbuf,
+               const char *fmt, ...);
+int stdlog_vlog(stdlog_channel_t channel, const int severity,
+               const char *fmt, va_list ap);
+int stdlog_vlog_b(stdlog_channel_t channel, const int severity,
+               char *buf, const size_t lenbuf,
+               const char *fmt, va_list ap);
+void stdlog_close(stdlog_channel_t channel);
+
+size_t stdlog_get_msgbuf_size(void);
+const char *stdlog_get_dflt_chanspec(void);
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH DESCRIPTION
+.sp
+\fBstdlog_version()\fP returns the version string for the library
+currently being used (e.g. "1.0.2"). It may be called at any time.
+If a specific (minimal) version of the library is required, it is
+suggested to do runtime checks via \fBstdlog_version()\fP before
+\fBstdlog_init()\fP is called.
+.sp
+\fBstdlog_init()\fP is used to initialize the logging system.
+It must only be called once during the lifetime of a process. If no
+special options are desired, stdlog_init() is optional. If it is not
+called, the first call to any of the other calls will initiate it.
+This feature is primarily for backward compatibility with how the
+legacy \fBsyslog(3)\fP API worked. It does not play well with multi\-threaded
+applications. With them, call stdlog_init() explicitly from the
+startup thread. The parameter \fIoptions\fP contains one or more of
+the library options specified in their own section below.
+.sp
+\fBstdlog_deinit(void)\fP is used to clean up resources including closing
+file handles at library exit. No library calls are permitted after it
+has been called. It\(aqs usage is optional if no cleanup is required (this
+will leave resource leaks which will be reported by tools like
+valgrind).
+.sp
+\fBstdlog_open()\fP is used to open a log channel which can be used in
+consecutive calls to \fIstdlog_log()\fP\&. The string given to \fIident\fP is
+used to identify the message source. It\(aqs handling is depending on the
+output driver. For example, the file: and syslog: drivers prepend it
+to the message, while the journal: driver ignores it (as the journal
+automatically identifies messages based on the application who submits
+them. In general, you can think of it as being equivalent to the
+\fIident\fP specified in the traditional \fBopenlog(3)\fP call. The value
+given in \fIoptions\fP controls handling of the channel. It can be used to
+override options set during \fBstdlog_init()\fP\&. Note that for signal\-safeness
+you need to specify \fBSTDLOG_SIGSAFE\fP\&. The \fIfacility\fP field contains a
+facility similar to the traditional syslog facility. Again, it is
+driver\-dependent on how this field is actually used. The \fIchannelspec\fP
+filed is a \fBchannel specification\fP string, which allows to control
+the destination of this channel. To use the default output channel
+specification, provide NULL to \fIchannelspec\fP\&. Doing so is highly suggested
+if there is no pressing need to do otherwise.
+.sp
+\fBstdlog_close()\fP is used to close the associated channel. The channel
+specifier must not be used after \fIstdlog_close()\fP has been called. If done
+so, unpredictable behavior will happen, as the memory it points to has
+been free\(aqed.
+.sp
+\fBstdlog_log()\fP is the equivalent to the \fBsyslog(3)\fP call. It offers a
+similar interface, but there are notable differences. The \fIchannel\fP
+parameter is used to specify the log channel to use to. Use \fINULL\fP to select
+the default channel. This is sufficient for most applications. The \fIseverity\fP
+field contains a syslog\-like severity.  The remaining arguments are a format,
+as in \fBprintf(3)\fP and any arguments required by the format. Note that some
+restrictions apply to the format in signal\-safe mode (described below).
+The \fBstdlog_log()\fP supports log message sizes
+of slightly less than 4KiB. The exact size depends on the log driver
+and parameters specified in \fBstdlog_open()\fP\&. The reason is that the
+log drivers may need to add headers and trailers to the message
+text, and this is done inside the same 4KiB buffer that is also used for
+the actual message text. For example, the "syslog:" driver adds a traditional
+syslog header, which among others contains the \fIident\fP string provided
+by \fBstdlog_open()\fP\&. If the complete log message does not fit into
+the buffer, it is silently truncated. The formatting buffer is allocated
+on the stack.
+.sp
+Note that the 4Kib buffer size is a build time default. As such,
+distributions may change it. To obtain the size limit that the
+linked in instance of libloggin\-stdlog was build with, use
+\fBstdlog_get_msgbuf_size()\fP\&.
+You may also use the \fBstdlogctl(1)\fP utility to find out the build
+time settings for the installed version of liblogging\-stdlog.
+.sp
+\fBstdlog_log_b()\fP is almost equivalent to \fBstdlog_log()\fP, except that
+the caller can provide a formatting work buffer. This is done via the \fIbuf\fP
+and \fIbuflen\fP parameters. This permits to use both smaller and larger buffer
+sizes. For embedded systems (or signal handlers), this may be convenient to
+reduce the amount of stack space required. Also, it is useful if very large
+messages are to be logged. Note that while there is no upper limit on the
+buffer size per se, the log drivers may have some limits. In general, up
+to 64KiB of buffer should work with all drivers.
+.sp
+The \fBstdlog_vlog()\fP and \fBstdlog_vlog_b()\fP calls are equivalent to
+\fBstdlog_log()\fP and \fBstdlog_log_b()\fP except that they take a \fIva_list\fP
+argument.
+.sp
+Use \fBstdlog_get_dflt_chanspec()\fP to obtain the default channel specification.
+This must be called only after \fBstdlog_init()\fP has been called.
+.SH OPTIONS
+.sp
+Options modify library behavior. They can be specified in \fBstdlog_init()\fP
+and \fBstdlog_open()\fP calls. The \fBstdlog_init()\fP call is used to set
+default options. These are applied if channels are automatically created or
+the \fISTDLOG_USE_DFLT_OPTS\fP option is used in \fBstdlog_open()\fP\&. Otherwise,
+options provided to \fBstdlog_open()\fP are not affected by the global option
+set.
+.sp
+The following options can be given:
+.INDENT 0.0
+.TP
+.B STDLOG_USE_DFLT_OPTS
+is used to indicate that the \fBstdlog_open()\fP call
+shall use the default global options. If this option is given, on other
+options can be set. Trying to do so results in an error. Note that this
+option is \fInot\fP valid to for the \fBstdlog_init()\fP call.
+.TP
+.B STDLOG_SIGSAFE
+request signal\-safe mode. If and only if this is
+specified library calls are signal\-safe. Some restrictions apply
+in signal\-safe mode. See description below for details.
+.TP
+.B STDLOG_PID
+log the process identifier (PID) of the originator with each
+message.
+.UNINDENT
+.SH FACILITIES
+.sp
+The following facilities are supported. Please note that they are mimicked
+after the traditional syslog facilities, but liblogging\-stdlog uses
+different numerical values. This is necessary to provide future enhancements.
+Do \fBnot\fP use the LOG_xxx #defines from syslog.h but the following
+STDLOG_xxx defines:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+STDLOG_KERN     \- kernel messages
+STDLOG_USER     \- random user\-level messages
+STDLOG_MAIL     \- mail system
+STDLOG_DAEMON   \- system daemons
+STDLOG_AUTH     \- security/authorization messages
+STDLOG_SYSLOG   \- messages generated internally by syslogd
+STDLOG_LPR      \- line printer subsystem
+STDLOG_NEWS     \- network news subsystem
+STDLOG_UUCP     \- UUCP subsystem
+STDLOG_CRON     \- clock daemon
+STDLOG_AUTHPRIV \- security/authorization messages (private)
+STDLOG_FTP      \- ftp daemon
+
+STDLOG_LOCAL0   \- reserved for application use
+STDLOG_LOCAL1   \- reserved for application use
+STDLOG_LOCAL2   \- reserved for application use
+STDLOG_LOCAL3   \- reserved for application use
+STDLOG_LOCAL4   \- reserved for application use
+STDLOG_LOCAL5   \- reserved for application use
+STDLOG_LOCAL6   \- reserved for application use
+STDLOG_LOCAL7   \- reserved for application use
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Regular applications should use facilities in the \fBSTDLOG_LOCALx\fP
+range. Non\-privileged applications may not be able to use
+all of the system\-defined facilities. Note that it is also safe to
+refer to application specific facilities via
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+STDLOG_LOCAL0 + offset
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+if offset is in the range of 0 to 7.
+.SH SEVERITY
+.sp
+The following severities are supported:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+STDLOG_EMERG   \- system is unusable
+STDLOG_ALERT   \- action must be taken immediately
+STDLOG_CRIT    \- critical conditions
+STDLOG_ERR     \- error conditions
+STDLOG_WARNING \- warning conditions
+STDLOG_NOTICE  \- normal but significant condition
+STDLOG_INFO    \- informational
+STDLOG_DEBUG   \- debug\-level messages
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+These reflect the traditional syslog severity mappings. Note that
+different output drivers may have different needs and may map
+severities into a smaller set.
+.SH THREAD- AND SIGNAL-SAFENESS
+.sp
+These calls are thread\- and signal\-safe:
+.INDENT 0.0
+.IP \(bu 2
+\fBstdlog_version()\fP
+.IP \(bu 2
+\fBstdlog_get_msgbuf_size()\fP
+.IP \(bu 2
+\fBstdlog_get_dflt_chanspec()\fP
+.UNINDENT
+.sp
+These calls are \fBnot\fP thread\- or signal\-safe:
+.INDENT 0.0
+.IP \(bu 2
+\fBstdlog_init()\fP
+.IP \(bu 2
+\fBstdlog_deinit()\fP
+.IP \(bu 2
+\fBstdlog_open()\fP
+.IP \(bu 2
+\fBstdlog_close()\fP
+.UNINDENT
+.sp
+For \fBstdlog_log()\fP, \fBstdlog_vlog()\fP, \fBstdlog_log_b()\fP, and
+\fBstdlog_vlog_b()\fP, it depends:
+.INDENT 0.0
+.IP \(bu 2
+if the channel has been opened with the \fISTDLOG_SIGSAFE\fP option,
+the call is both thread\-safe and signal\-safe.
+.IP \(bu 2
+if the library has been initialized by \fBstdlog_init()\fP or the channel has
+been opened by \fBstdlog_open()\fP, the call is thread\-safe but \fBnot\fP
+signal\-safe.
+.IP \(bu 2
+if the library has not been initialized and the default (NULL) channel is
+used, the call is neither thread\- nor signal\-safe.
+.UNINDENT
+.sp
+For \fBstdlog_log_b()\fP and \fBstdlog_vlog_b()\fP the caller must also ensure
+that the provided formatting
+buffer supports the desired thread\- and signal\-safeness. For example, if a
+static buffer is used, thread\-safeness is not given. For signal\-safeness,
+typically a buffer allocated on the signal handler\(aqs stack is needed.
+.sp
+For multi\-threaded applications, it is \fBhighly recommended\fP to initialize
+the library via \fBstdlog_init()\fP on the main thread \fBbefore\fP any other
+threads are started.
+.sp
+Thread\- and signal\-safeness, if given, does not require different
+channels. It is perfectly fine to use the same channel in multiple threads.
+Note however that interrupted system calls will not
+be retried. An error will be returned instead. This may happen if a thread
+is inside a \fBstdlog_log()\fP call while an async signal handler using that
+same call is activated. Depending on timing, the first call may or may not
+complete successfully. It is the caller\(aqs chore to check return status and
+do retries if necessary.
+.sp
+Finally, thread\- and signal\-safeness depend on the log driver. At the time
+of this writing,
+the "syslog:" and "file:" drivers are thread\- and signal\-safe while the
+current "journal:" driver is thread\- but not signal\-safe. To the best of
+our knowledge, the systemd team is working on making the API we depend on
+signal\-safe. If this is done, the driver itself is also signal\-safe (the
+restriction results from the journal API).
+.SS RESRICTIONS IN SIGNAL\-SAFE MODE
+.sp
+When signal\-safeness is requested, the set of supported printf formats
+is restricted. This is due to the fact that the standard printf routines
+cannot be called and so a smaller signal\-safe printf implementation that is
+part of \fIliblogging\-stdlog\fP is used instead.
+.sp
+It has the following restrictions:
+.INDENT 0.0
+.IP \(bu 2
+flag characters are not supported
+.IP \(bu 2
+field width and precision fields are accepted but silently ignored
+.IP \(bu 2
+the following length modifiers are supported: \fBl, ll, h, hh, z\fP
+.IP \(bu 2
+the following conversion specifiers are supported: \fBs, i, d, u, x, X,
+p, c, f\fP (where \fBf\fP is always formatted as "%.2f")
+.IP \(bu 2
+only the following control character escapes are supported:
+\fB\en, \er, \et, \e\e\fP\&.
+Please note that it is \fBnot\fP advisable to include control characters
+in log records. Log drivers and log back\-end systems may remove them.
+.UNINDENT
+.SH CHANNEL SPECIFICATIONS
+.sp
+The channel is described via a single\-line string. Currently, the following
+channels can be selected:
+.INDENT 0.0
+.IP \(bu 2
+"syslog:", which is the traditional syslog output to /dev/log
+.IP \(bu 2
+"uxsock:<name>", which writes messages to the local unix socket
+\fIname\fP\&. The message is formatted in traditional syslog\-format.
+.IP \(bu 2
+"journal:", which emits messages via the native systemd journal API
+.IP \(bu 2
+"file:<name>", which writes messages in a syslog\-like format to
+the file specified as \fIname\fP
+.UNINDENT
+.sp
+If no channel specification is given, the default is "syslog:". The
+default channel can be set via the \fBLIBLOGGING_STDLOG_DFLT_LOG_CHANNEL\fP
+environment variable.
+.sp
+Not all output channel drivers are available on all platforms. For example,
+the "journal:" driver is not available on BSD. It is highly suggested that
+application developers \fBnever\fP hard\-code any channel specifiers inside
+their code but rather permit the administrator to configure these. If there
+is no pressing need to select different channel drivers, it is suggested
+to rely on the default channel spec, which always can be set by the
+system administrator.
+.SH RETURN VALUE
+.sp
+When successful \fBstdlog_init()\fP and \fBstdlog_log()\fP return zero and
+something else otherwise. \fBstdlog_open()\fP returns a channel descriptor
+on success and \fINULL\fP otherwise. In case of failure \fIerrno\fP is set
+appropriately.
+.sp
+Note that the traditional \fBsyslog(3)\fP API does not return any success
+state, so any failures are silently ignored. In most cases, this works
+sufficiently reliably. If this level of reliability is sufficient, the
+return code of \fBstdlog_log()\fP does not need to be checked. This is
+probably the case for most applications.
+.sp
+If finding out about the success
+of the logging operation is vital to the application, the return code
+can be checked. Note that you must not try to find out the exact failure
+cause. If the return is non\-zero, something in the log system did not work
+correctly. It is suggested that the logging operation is re\-tried in this
+case, and if it fails again it is suggested that the channel is closed and
+re\-opened and then the operation re\-tried. During failures, partial records
+may be logged. This is the same what could happen with \fBsyslog(3)\fP\&. Again,
+in general it should not be necessary to check the return code of
+\fBstdlog_log()\fP\&.
+.sp
+The \fBstdlog_deinit()\fP and \fBstdlog_close()\fP calls do not return
+any status.
+.SH EXAMPLES
+.sp
+A typical single\-threaded application just needs to know about
+the \fBstdlog_log()\fP call:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+stdlog_log(NULL, STDLOG_NOTICE, "New session %d of user %s",
+           sessid, username);
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Being thread\- and signal\-safe requires a little bit more of setup:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+/* on main thread */
+status = stdlog_init(STDLOG_SIGSAFE);
+
+/* here comes the rest of the code, including worker
+ * thread startup.
+ */
+
+
+/* And do this in threads, signal handlers, etc: */
+stdlog_log(NULL, STDLOG_NOTICE, "New session %d of user %s",
+           sessid, username);
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+If you need just a small formatting buffer (or a large one), you can
+provide the memory yourself:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+char buf[512];
+stdlog_log_b(NULL, STDLOG_NOTICE, buf, sizeof(buf),
+             "New session %d of user %s", sessid, username);
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH SEE ALSO
+.sp
+\fBstdlogctl(1)\fP, \fBsyslog(3)\fP
+.SH COPYRIGHT
+.sp
+This page is part of the \fIliblogging\fP project, and is available under
+the same BSD 2\-clause license as the rest of the project.
+.SH AUTHOR
+Rainer Gerhards <rgerhards@adiscon.com>
+.\" Generated by docutils manpage writer.
+.

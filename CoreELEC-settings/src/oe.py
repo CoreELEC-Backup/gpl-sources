@@ -453,7 +453,7 @@ def set_service(service, options, state):
 def load_file(filename):
     try:
         if os.path.isfile(filename):
-            objFile = open(filename, 'r')
+            objFile = open(filename, 'r', encoding='utf-8')
             content = objFile.read()
             objFile.close()
         else:

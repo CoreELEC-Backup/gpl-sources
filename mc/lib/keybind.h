@@ -13,10 +13,13 @@
 #define KEYMAP_SECTION_MAIN_EXT "main:xmap"
 #define KEYMAP_SECTION_PANEL "panel"
 #define KEYMAP_SECTION_DIALOG "dialog"
+#define KEYMAP_SECTION_MENU "menu"
 #define KEYMAP_SECTION_INPUT "input"
 #define KEYMAP_SECTION_LISTBOX "listbox"
+#define KEYMAP_SECTION_RADIO "radio"
 #define KEYMAP_SECTION_TREE "tree"
 #define KEYMAP_SECTION_HELP "help"
+#define KEYMAP_SECTION_CHATTR "chattr"
 #define KEYMAP_SECTION_EDITOR "editor"
 #define KEYMAP_SECTION_EDITOR_EXT "editor:xmap"
 #define KEYMAP_SECTION_VIEWER "viewer"
@@ -66,6 +69,7 @@ enum
     CK_ChangeMode,
     CK_ChangeOwn,
     CK_ChangeOwnAdvanced,
+    CK_ChangeAttributes,
     CK_Remove,
     CK_BackSpace,
     CK_Redo,
@@ -84,6 +88,7 @@ enum
     CK_EditNew,
     CK_Shell,
     CK_SelectCodepage,
+    CK_EditorViewerHistory,
     CK_History,
     CK_HistoryNext,
     CK_HistoryPrev,
@@ -227,6 +232,9 @@ enum
     /* tree */
     CK_Forget = 450L,
 
+    /* chattr dialog */
+    CK_MarkAndDown = 480L,
+
     /* editor */
     /* cursor movements */
     CK_Tab = 500L,
@@ -322,6 +330,7 @@ enum
     CK_SearchBackward,
     CK_SearchForwardContinue,
     CK_SearchBackwardContinue,
+    CK_SearchOppositeContinue,
 
     /* diff viewer */
     CK_ShowSymbols = 700L,

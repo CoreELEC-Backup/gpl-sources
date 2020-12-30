@@ -12,6 +12,7 @@ lib/tty/color-ncurses.c
 lib/tty/color-slang.c
 lib/tty/key.c
 lib/tty/tty.c
+lib/tty/tty-internal.c
 lib/tty/tty-slang.c
 lib/util.c
 lib/utilunix.c
@@ -44,11 +45,11 @@ src/editor/syntax.c
 src/execute.c
 src/filemanager/achown.c
 src/filemanager/boxes.c
+src/filemanager/chattr.c
 src/filemanager/chmod.c
 src/filemanager/chown.c
 src/filemanager/cmd.c
 src/filemanager/command.c
-src/filemanager/dir.c
 src/filemanager/ext.c
 src/filemanager/file.c
 src/filemanager/filegui.c

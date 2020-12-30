@@ -58,10 +58,6 @@
 #endif /* !O_NDELAY */
 #endif /* !O_NONBLOCK */
 
-#ifdef HAVE_SYS_SELECT_H
-#include <sys/select.h>
-#endif
-
 #if defined(__QNX__) && !defined(__QNXNTO__)
 /* exec*() from <process.h> */
 #include <unix.h>
@@ -137,6 +133,13 @@
 #define OS_SORT_CASE_SENSITIVE_DEFAULT TRUE
 #define UTF8_CHAR_LEN 6
 
+/* struct stat members */
+#ifdef __APPLE__
+#define st_atim st_atimespec
+#define st_ctim st_ctimespec
+#define st_mtim st_mtimespec
+#endif
+
 /* Used to distinguish between a normal MC termination and */
 /* one caused by typing 'exit' or 'logout' in the subshell */
 #define SUBSHELL_EXIT 128
@@ -163,6 +166,7 @@ typedef enum
 typedef struct
 {
     mc_run_mode_t mc_run_mode;
+    gboolean run_from_parent_mc;
     /* global timer */
     mc_timer_t *timer;
     /* Used so that widgets know if they are being destroyed or shut down */
@@ -197,9 +201,9 @@ typedef struct
     gboolean utf8_display;
 
     /* Set if the nice message (hint) bar is visible */
-    int message_visible;
+    gboolean message_visible;
     /* Set if the nice and useful keybar is visible */
-    int keybar_visible;
+    gboolean keybar_visible;
 
 #ifdef ENABLE_BACKGROUND
     /* If true, this is a background process */
@@ -246,7 +250,7 @@ typedef struct
 #endif                          /* !ENABLE_SUBSHELL */
 
         /* This flag is set by xterm detection routine in function main() */
-        /* It is used by function view_other_cmd() */
+        /* It is used by function toggle_subshell() */
         gboolean xterm_flag;
 
         /* disable x11 support */
@@ -268,9 +272,6 @@ typedef struct
         /* If true, use + and \ keys normally and select/unselect do if M-+ / M-\.
            and M-- and keypad + / - */
         gboolean alternate_plus_minus;
-
-        /* Set if the window has changed it's size */
-        SIG_ATOMIC_VOLATILE_T winch_flag;
     } tty;
 
     struct

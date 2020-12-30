@@ -1,7 +1,7 @@
 /*
    Interface to the terminal controlling library.
 
-   Copyright (C) 2005-2018
+   Copyright (C) 2005-2020
    Free Software Foundation, Inc.
 
    Written by:
@@ -30,15 +30,26 @@
 
 #include <config.h>
 
+#include <errno.h>
 #include <signal.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>             /* memset() */
+
+#ifdef HAVE_SYS_SELECT_H
+#include <sys/select.h>
+#else
+#include <sys/time.h>
+#include <sys/types.h>
+#endif
 #include <unistd.h>             /* exit() */
 
 #ifdef HAVE_SYS_IOCTL_H
 #include <sys/ioctl.h>
 #endif
+
+/* In some systems (like Solaris 11.4 SPARC), TIOCSWINSZ is defined in termios.h */
+#include <termios.h>
 
 #include "lib/global.h"
 #include "lib/strutil.h"
@@ -160,6 +171,49 @@ tty_got_interrupt (void)
     rv = (got_interrupt != 0);
     got_interrupt = 0;
     return rv;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+gboolean
+tty_got_winch (void)
+{
+    fd_set fdset;
+    /* *INDENT-OFF* */
+    /* instant timeout */
+    struct timeval timeout = { .tv_sec = 0, .tv_usec = 0 };
+    /* *INDENT-ON* */
+    int ok;
+
+    FD_ZERO (&fdset);
+    FD_SET (sigwinch_pipe[0], &fdset);
+
+    while ((ok = select (sigwinch_pipe[0] + 1, &fdset, NULL, NULL, &timeout)) < 0)
+        if (errno != EINTR)
+        {
+            perror (_("Cannot check SIGWINCH pipe"));
+            exit (EXIT_FAILURE);
+        }
+
+    return (ok != 0 && FD_ISSET (sigwinch_pipe[0], &fdset));
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+void
+tty_flush_winch (void)
+{
+    ssize_t n;
+
+    /* merge all SIGWINCH events raised to this moment */
+    do
+    {
+        char x[16];
+
+        /* read multiple events at a time  */
+        n = read (sigwinch_pipe[0], &x, sizeof (x));
+    }
+    while (n > 0 || (n == -1 && errno == EINTR));
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -310,9 +364,16 @@ tty_init_xterm_support (gboolean is_xterm)
         }
     }
 
-    /* No termcap for SGR extended mouse (yet), hardcode it for now */
+    /* There's only one termcap entry "kmous", typically containing "\E[M" or "\E[<".
+     * We need the former in xmouse_seq, the latter in xmouse_extended_seq.
+     * See tickets 2956, 3954, and 4063 for details. */
     if (xmouse_seq != NULL)
+    {
+        if (strcmp (xmouse_seq, ESC_STR "[<") == 0)
+            xmouse_seq = ESC_STR "[M";
+
         xmouse_extended_seq = ESC_STR "[<";
+    }
 }
 
 /* --------------------------------------------------------------------------------------------- */

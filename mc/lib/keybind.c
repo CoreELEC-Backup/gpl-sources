@@ -1,7 +1,7 @@
 /*
    Definitions of key bindings.
 
-   Copyright (C) 2005-2018
+   Copyright (C) 2005-2020
    Free Software Foundation, Inc.
 
    Written by:
@@ -75,6 +75,9 @@ static name_keymap_t command_names[] = {
     {"ChangeMode", CK_ChangeMode},
     {"ChangeOwn", CK_ChangeOwn},
     {"ChangeOwnAdvanced", CK_ChangeOwnAdvanced},
+#ifdef ENABLE_EXT2FS_ATTR
+    {"ChangeAttributes", CK_ChangeAttributes},
+#endif
     {"Remove", CK_Remove},
     {"BackSpace", CK_BackSpace},
     {"Redo", CK_Redo},
@@ -94,6 +97,7 @@ static name_keymap_t command_names[] = {
 #ifdef HAVE_CHARSET
     {"SelectCodepage", CK_SelectCodepage},
 #endif
+    {"EditorViewerHistory", CK_EditorViewerHistory},
     {"History", CK_History},
     {"HistoryNext", CK_HistoryNext},
     {"HistoryPrev", CK_HistoryPrev},
@@ -257,6 +261,9 @@ static name_keymap_t command_names[] = {
     {"ShowNumbers", CK_ShowNumbers},
 #endif
 
+    /* chattr dialog */
+    {"MarkAndDown", CK_MarkAndDown},
+
 #ifdef USE_INTERNAL_EDIT
     {"Close", CK_Close},
     {"Tab", CK_Tab},
@@ -345,6 +352,7 @@ static name_keymap_t command_names[] = {
     {"SearchBackward", CK_SearchBackward},
     {"SearchForwardContinue", CK_SearchForwardContinue},
     {"SearchBackwardContinue", CK_SearchBackwardContinue},
+    {"SearchOppositeContinue", CK_SearchOppositeContinue},
 
 #ifdef USE_DIFF_VIEW
     /* diff viewer */
